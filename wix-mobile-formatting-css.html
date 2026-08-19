@@ -1,0 +1,108 @@
+<!-- 
+  COMFORT JOURNEY - MOBILE UX & PERFORMANCE CSS OVERRIDE
+  Paste this snippet into: Wix Dashboard -> Settings -> Custom Code -> Head
+  Select: Apply to All Pages -> Load code on each new page
+-->
+
+<!-- Non-blocking Google Fonts Preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  /* Global Performance & Layout Stability Fixes */
+  body {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Global Touch & Responsive Fixes for Mobile (< 640px) */
+  @media (max-width: 640px) {
+    html, body {
+      overflow-x: hidden !important;
+    }
+
+    /* Container Padding on Mobile */
+    .container {
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+
+    /* Hero Search Form & Mobile Tags */
+    .hero-search-card {
+      flex-direction: column !important;
+      padding: 1rem !important;
+      border-radius: 16px !important;
+    }
+    .hero-quick-tags {
+      justify-content: flex-start !important;
+      flex-wrap: nowrap !important;
+      overflow-x: auto !important;
+      width: 100% !important;
+      padding-bottom: 0.4rem !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+    .hero-quick-tags::-webkit-scrollbar {
+      display: none !important;
+    }
+
+    /* Horizontal Category Tabs Bar */
+    .category-tabs {
+      justify-content: flex-start !important;
+      flex-wrap: nowrap !important;
+      overflow-x: auto !important;
+      padding-bottom: 0.5rem !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+    .category-tabs::-webkit-scrollbar {
+      display: none !important;
+    }
+    .tab-btn {
+      flex-shrink: 0 !important;
+      white-space: nowrap !important;
+    }
+
+    /* Single Column Mobile Card Grid */
+    .tours-grid, .features-grid, .testimonials-grid, .services-grid {
+      grid-template-columns: 1fr !important;
+      gap: 1.25rem !important;
+    }
+
+    /* Compact Mobile Card Padding */
+    .tour-card, .feature-card, .testimonial-card, .service-card {
+      padding: 1.25rem !important;
+    }
+
+    /* 2x2 Stats Grid on Mobile */
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 0.75rem !important;
+    }
+    .stat-card {
+      flex-direction: column !important;
+      text-align: center !important;
+      padding: 1rem 0.5rem !important;
+    }
+
+    /* FAQ Mobile Indenting */
+    .faq-question {
+      padding: 1rem 1.1rem !important;
+      font-size: 0.95rem !important;
+    }
+    .faq-answer {
+      padding: 0 1.1rem 1rem 1.1rem !important;
+      font-size: 0.88rem !important;
+    }
+
+    /* Footer Mobile Alignment */
+    .footer-grid {
+      grid-template-columns: 1fr !important;
+      gap: 2rem !important;
+    }
+    .footer-bottom {
+      flex-direction: column !important;
+      text-align: center !important;
+      gap: 0.5rem !important;
+    }
+  }
+</style>
