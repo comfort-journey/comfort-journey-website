@@ -20,7 +20,8 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
     { id: 'Family Expedition', label: '👨‍👩‍👧‍👦 Family Expedition' },
     { id: 'Adrenaline & Adventure', label: '🧗 Adrenaline & Adventure' },
     { id: 'International Signature', label: '✈️ International Signature' },
-    { id: 'Sacred Pilgrimage', label: '🕉️ Sacred Char Dham' }
+    { id: 'Sacred Pilgrimage', label: '🕉️ Sacred Char Dham' },
+    { id: 'Responsible Travel', label: '🌿 Responsible Eco-Luxury' }
   ];
 
   const vibes = [
@@ -34,30 +35,45 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
     { id: 'Sacred Char Dham', label: '🕉️ Sacred Char Dham' }
   ];
 
-  const regions = ['All', 'India', 'Asia', 'Europe', 'Africa', 'Americas', 'Oceania'];
+  const regions = ['All', 'India', 'Asia', 'Europe', 'Africa', 'Americas', 'Oceania', 'Polar & Middle East'];
 
   // Filter and sort tours
   const filteredTours = TOURS_DATA.filter((tour) => {
-    const categoryMatch = activeCategory === 'All' || tour.category === activeCategory;
+    const categoryMatch = activeCategory === 'All' || 
+      tour.category === activeCategory || 
+      (activeCategory === 'Responsible Travel' && (tour.vibeTags?.includes('Serene Backwaters') || tour.vibeTags?.includes('Wildlife Safari') || tour.region === 'Polar & Middle East'));
+
     const vibeMatch = activeVibe === 'All' || (tour.vibeTags && tour.vibeTags.includes(activeVibe));
-    const regionMatch = activeRegion === 'All' || tour.region === activeRegion;
+    const regionMatch = activeRegion === 'All' || 
+      tour.region === activeRegion || 
+      (activeRegion === 'Multi-Country Combos' && (tour.id.includes('combo') || tour.durationDays >= 13));
 
     let durationMatch = true;
     if (activeDuration === '3-5') durationMatch = tour.durationDays >= 3 && tour.durationDays <= 5;
     if (activeDuration === '6-9') durationMatch = tour.durationDays >= 6 && tour.durationDays <= 9;
     if (activeDuration === '10-14') durationMatch = tour.durationDays >= 10 && tour.durationDays <= 14;
+    if (activeDuration === '15+') durationMatch = tour.durationDays >= 15;
 
     const searchDest = searchFilters?.destination?.toLowerCase() || '';
     const searchCat = searchFilters?.category || 'All';
+    const searchDur = searchFilters?.duration || 'All';
 
     const destMatch = !searchDest || 
       tour.name.toLowerCase().includes(searchDest) || 
       tour.country.toLowerCase().includes(searchDest) ||
-      (tour.tagline && tour.tagline.toLowerCase().includes(searchDest));
+      tour.region.toLowerCase().includes(searchDest) ||
+      (tour.tagline && tour.tagline.toLowerCase().includes(searchDest)) ||
+      (tour.vibeTags && tour.vibeTags.some(v => v.toLowerCase().includes(searchDest)));
     
     const searchCatMatch = searchCat === 'All' || tour.category === searchCat;
+    
+    let searchDurMatch = true;
+    if (searchDur === '3-5') searchDurMatch = tour.durationDays >= 3 && tour.durationDays <= 5;
+    if (searchDur === '6-9') searchDurMatch = tour.durationDays >= 6 && tour.durationDays <= 9;
+    if (searchDur === '10-14') searchDurMatch = tour.durationDays >= 10 && tour.durationDays <= 14;
+    if (searchDur === '15+') searchDurMatch = tour.durationDays >= 15;
 
-    return categoryMatch && vibeMatch && regionMatch && durationMatch && destMatch && searchCatMatch;
+    return categoryMatch && vibeMatch && regionMatch && durationMatch && destMatch && searchCatMatch && searchDurMatch;
   }).sort((a, b) => {
     if (sortBy === 'price-low') return a.price - b.price;
     if (sortBy === 'price-high') return b.price - a.price;

@@ -45,7 +45,7 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
       </div>
 
       <div className="container hero-content-container">
-        {/* Top Badges: Trust Pill + Live Weather Ticker */}
+        {/* Top Badges: Trust Pill + Live Interactive Weather Ticker */}
         <div className="hero-top-badges">
           <div className="trust-pill">
             <ShieldCheck size={16} className="text-emerald" />
@@ -57,9 +57,23 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
             <span className="ticker-label">Live Weather:</span>
             <div className="ticker-scroll">
               {DESTINATION_WEATHER.map((w, idx) => (
-                <span key={idx} className="weather-item">
-                  {w.icon} <strong>{w.city}:</strong> {w.temp} ({w.condition})
-                </span>
+                <button
+                  key={idx}
+                  type="button"
+                  className="weather-item-btn"
+                  onClick={() => {
+                    setDestination(w.city);
+                    onSearch({ destination: w.city, category: 'All' });
+                    const target = document.getElementById('tours');
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  title={`Explore ${w.city} packages`}
+                >
+                  <span className="w-icon">{w.icon}</span>
+                  <strong>{w.city}:</strong>
+                  <span>{w.temp}</span>
+                  <small>({w.condition})</small>
+                </button>
               ))}
             </div>
           </div>
@@ -69,7 +83,7 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
         <div className="hero-headline-block">
           <span className="eyebrow-tag">MOUNTAIN ROYALTY & GLOBAL ADVENTURES</span>
           
-          <h1 className="hero-title">
+          <h1 className="hero-title font-editorial">
             YOUR JOURNEY <br />
             <span className="gradient-text-gold">YOUR COMFORT</span>
           </h1>
@@ -78,13 +92,13 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
             "We cover Distance with Comfort"
           </p>
 
-          <p className="hero-campaign-tag">
+          <div className="hero-campaign-tag">
             <Flame size={16} className="text-amber inline-icon" />
             <span>Adrenaline, Wrapped in Comfort.</span>
-          </p>
+          </div>
 
           <p className="hero-description">
-            Bespoke Luxury Vacations for 2,000+ Worldwide Destinations. 
+            Tailor-made Luxury Vacations for 2,000+ Worldwide Destinations. 
             Handpicked 5-Star Stays, Private Chauffeurs, Helicopters, Visas & 24/7 Personal Concierge Included.
           </p>
         </div>
@@ -181,6 +195,51 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           </div>
         </form>
 
+        {/* Conversational Smart Search Prompt Helper */}
+        <div className="conversational-hint-strip">
+          <span className="hint-pill-title">✨ Conversational Search:</span>
+          <button 
+            type="button" 
+            className="conv-chip"
+            onClick={() => {
+              setDestination('Bali');
+              setCategory('Honeymoon & Couple');
+              setDurationFilter('6-9');
+              onSearch({ destination: 'Bali', category: 'Honeymoon & Couple', duration: '6-9' });
+              const target = document.getElementById('tours');
+              if (target) target.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            "7 days in Bali with pool villa"
+          </button>
+          <button 
+            type="button" 
+            className="conv-chip"
+            onClick={() => {
+              setDestination('Kashmir');
+              setCategory('Honeymoon & Couple');
+              onSearch({ destination: 'Kashmir', category: 'Honeymoon & Couple' });
+              const target = document.getElementById('tours');
+              if (target) target.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            "Kashmir Honeymoon with Houseboat & Snow"
+          </button>
+          <button 
+            type="button" 
+            className="conv-chip"
+            onClick={() => {
+              setDestination('Swiss');
+              setCategory('International Signature');
+              onSearch({ destination: 'Swiss', category: 'International Signature' });
+              const target = document.getElementById('tours');
+              if (target) target.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            "Swiss Alps & Titlis Glacier Pass"
+          </button>
+        </div>
+
         {/* Slide Indicators & Quick Search Tags */}
         <div className="hero-footer-bar">
           {/* Quick Trending Tags */}
@@ -194,6 +253,8 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
                 onClick={() => {
                   setDestination(tag);
                   onSearch({ destination: tag, category: 'All' });
+                  const target = document.getElementById('tours');
+                  if (target) target.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
                 {tag}
@@ -532,6 +593,74 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           padding: 0.3rem 0.8rem;
           border-radius: var(--radius-full);
           transition: all 0.2s ease;
+        }
+
+        .weather-item-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          background: none;
+          border: none;
+          color: #E2E8F0;
+          font-family: var(--font-ui);
+          font-size: 0.78rem;
+          white-space: nowrap;
+          padding: 0.2rem 0.45rem;
+          border-radius: var(--radius-xs);
+          transition: all 0.2s ease;
+          cursor: pointer;
+        }
+
+        .weather-item-btn:hover {
+          background: rgba(255, 255, 255, 0.15);
+          color: #FFFFFF;
+        }
+
+        .weather-item-btn strong {
+          color: #FFFFFF;
+        }
+
+        .weather-item-btn small {
+          color: #94A3B8;
+        }
+
+        .conversational-hint-strip {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.6rem;
+          flex-wrap: wrap;
+          margin-top: -0.75rem;
+          margin-bottom: 2rem;
+          max-width: 1000px;
+        }
+
+        .hint-pill-title {
+          font-family: var(--font-ui);
+          font-size: 0.78rem;
+          font-weight: 800;
+          color: #C084FC;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .conv-chip {
+          background: rgba(139, 92, 246, 0.12);
+          border: 1px solid rgba(139, 92, 246, 0.35);
+          color: #E2E8F0;
+          font-family: var(--font-ui);
+          font-size: 0.78rem;
+          font-weight: 600;
+          padding: 0.3rem 0.8rem;
+          border-radius: var(--radius-full);
+          transition: all 0.2s ease;
+        }
+
+        .conv-chip:hover {
+          background: rgba(139, 92, 246, 0.3);
+          border-color: #C084FC;
+          color: #FFFFFF;
+          transform: translateY(-1px);
         }
 
         .hero-tag-btn:hover {

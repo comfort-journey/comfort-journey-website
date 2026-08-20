@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { TRAVELER_REELS, TESTIMONIALS } from '../data/toursData';
-import { Star, Play, MessageCircle, Heart, Eye, CheckCircle2, ShieldCheck, Quote } from 'lucide-react';
+import { Star, Play, MessageCircle, Heart, Eye, CheckCircle2, ShieldCheck, Quote, X, Volume2, Sparkles } from 'lucide-react';
 
 export default function TravelStoriesSection({ onOpenQuote }) {
   const [activeTab, setActiveTab] = useState('reels'); // 'reels' or 'reviews'
   const [likedReels, setLikedReels] = useState({});
+  const [activeReelModal, setActiveReelModal] = useState(null);
 
   const toggleLike = (id) => {
     setLikedReels(prev => ({
@@ -20,13 +21,13 @@ export default function TravelStoriesSection({ onOpenQuote }) {
         <div className="section-header">
           <div className="google-rating-pill">
             <Star size={14} className="star-fill" />
-            <span>4.95 ★★★★★ Google Verified Traveler Rating</span>
+            <span>4.95 ★★★★★ Google Verified Traveler Rating (50,000+ Delighted Guests)</span>
           </div>
-          <h2 className="section-title">
+          <h2 className="section-title font-editorial">
             Real Moments, <span className="gradient-text-gold">Unforgettable Journeys</span>
           </h2>
           <p className="section-subtitle">
-            See how over 50,000+ travelers experienced their dream vacations with Comfort Journey's 24/7 personal care.
+            See how real travelers experienced their bespoke luxury vacations with Comfort Journey's 24/7 personal care since 1992.
           </p>
         </div>
 
@@ -44,7 +45,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
             className={`story-tab ${activeTab === 'reviews' ? 'active' : ''}`}
             onClick={() => setActiveTab('reviews')}
           >
-            💬 Verified Traveler Reviews
+            💬 Verified Google 5-Star Reviews
           </button>
         </div>
 
@@ -54,7 +55,11 @@ export default function TravelStoriesSection({ onOpenQuote }) {
             {TRAVELER_REELS.map((reel) => {
               const isLiked = likedReels[reel.id];
               return (
-                <div key={reel.id} className="reel-card">
+                <div 
+                  key={reel.id} 
+                  className="reel-card"
+                  onClick={() => setActiveReelModal(reel)}
+                >
                   <div className="reel-media">
                     <img 
                       src={reel.videoThumb} 
@@ -69,6 +74,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                     <div className="reel-views-badge">
                       <Eye size={13} />
                       <span>{reel.views} views</span>
+                      <span className="reel-flag">{reel.flag}</span>
                     </div>
 
                     {/* Center Play Button Overlay */}
@@ -84,7 +90,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                         </div>
                         <div className="user-text">
                           <span className="user-name">{reel.author}</span>
-                          <span className="dest-tag">{reel.destination}</span>
+                          <span className="dest-tag">{reel.destination} ({reel.duration})</span>
                         </div>
                         <button 
                           type="button" 
@@ -116,7 +122,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           /* REVIEWS VIEW */
           <div className="reviews-grid">
             {TESTIMONIALS.map((rev, idx) => (
-              <div key={idx} className="review-card">
+              <div key={idx} className="review-card glass-card">
                 <Quote size={32} className="quote-watermark" />
                 <div className="rev-rating">
                   {[...Array(rev.rating)].map((_, i) => (
@@ -131,18 +137,63 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                     <h4 className="author-name">{rev.name}</h4>
                     <span className="author-loc">{rev.location} • <em>{rev.tour}</em></span>
                   </div>
-                  <CheckCircle2 size={18} className="text-accent verified-icon" />
+                  <CheckCircle2 size={18} className="text-emerald verified-icon" />
                 </div>
               </div>
             ))}
           </div>
         )}
 
+        {/* REEL MODAL POPUP */}
+        {activeReelModal && (
+          <div className="modal-overlay" onClick={() => setActiveReelModal(null)}>
+            <div className="reel-modal-card" onClick={(e) => e.stopPropagation()}>
+              <button className="reel-close-btn" onClick={() => setActiveReelModal(null)}>
+                <X size={20} />
+              </button>
+
+              <div className="reel-modal-media">
+                <img src={activeReelModal.videoThumb} alt={activeReelModal.destination} />
+                <div className="reel-modal-overlay"></div>
+                
+                <div className="reel-modal-content">
+                  <span className="badge badge-amber">{activeReelModal.flag} {activeReelModal.destination}</span>
+                  <h3>"{activeReelModal.tagline}"</h3>
+                  <p className="reel-modal-meta">Shared by <strong>{activeReelModal.author}</strong> • {activeReelModal.duration} Luxury Vacation</p>
+
+                  <div className="reel-modal-actions">
+                    <button 
+                      className="btn-whatsapp w-full"
+                      onClick={() => {
+                        const msg = `Hi Comfort Journey! I saw the traveler story of ${activeReelModal.author} for ${activeReelModal.destination}. Please share package options and pricing!`;
+                        window.open(`https://wa.me/918770403315?text=${encodeURIComponent(msg)}`, '_blank');
+                      }}
+                    >
+                      <MessageCircle size={18} />
+                      Plan Similar Trip on WhatsApp
+                    </button>
+                    <button 
+                      className="btn-primary w-full"
+                      onClick={() => {
+                        setActiveReelModal(null);
+                        onOpenQuote();
+                      }}
+                    >
+                      <Sparkles size={18} />
+                      Get Instant Custom Quote
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* CTA Strip */}
-        <div className="stories-cta-banner">
+        <div className="stories-cta-banner glass-card">
           <div className="cta-left">
-            <h3>Ready to create your own lifelong travel memories?</h3>
-            <p>Speak directly with our travel designers. No booking charges to customize your itinerary.</p>
+            <h3 className="font-editorial">Ready to create your own lifelong travel memories?</h3>
+            <p>Speak directly with our senior trip curators in Bhopal. Zero consultation fees to craft your bespoke plan.</p>
           </div>
           <div className="cta-right">
             <button className="btn-primary" onClick={onOpenQuote}>
@@ -476,6 +527,97 @@ export default function TravelStoriesSection({ onOpenQuote }) {
         .cta-left p {
           color: #C7D2FE;
           font-size: 0.95rem;
+        }
+
+        .reel-flag {
+          margin-left: 0.35rem;
+        }
+
+        /* Reel Modal Card */
+        .reel-modal-card {
+          position: relative;
+          width: 100%;
+          max-width: 440px;
+          border-radius: var(--radius-xl);
+          overflow: hidden;
+          background: #0F172A;
+          border: 1px solid rgba(255, 107, 0, 0.4);
+          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(255, 107, 0, 0.25);
+          animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes scaleUp {
+          from { transform: scale(0.92); opacity: 0; }
+          to { transform: scale(1); opacity: 1; }
+        }
+
+        .reel-close-btn {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: rgba(0, 0, 0, 0.7);
+          backdrop-filter: blur(8px);
+          color: #FFFFFF;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 10;
+          transition: transform 0.2s ease;
+        }
+
+        .reel-close-btn:hover {
+          transform: scale(1.1);
+        }
+
+        .reel-modal-media {
+          position: relative;
+          height: 580px;
+        }
+
+        .reel-modal-media img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .reel-modal-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(7, 11, 20, 0.95) 100%);
+        }
+
+        .reel-modal-content {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          padding: 2rem 1.5rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          z-index: 5;
+        }
+
+        .reel-modal-content h3 {
+          font-family: var(--font-serif);
+          font-size: 1.25rem;
+          color: #FFFFFF;
+          line-height: 1.35;
+        }
+
+        .reel-modal-meta {
+          font-size: 0.85rem;
+          color: #CBD5E1;
+        }
+
+        .reel-modal-actions {
+          display: flex;
+          flex-direction: column;
+          gap: 0.65rem;
+          margin-top: 0.5rem;
         }
 
         @media (max-width: 768px) {
