@@ -1,136 +1,205 @@
 import React from 'react';
-import { ShieldCheck, Plane, FileCheck, Headphones, Heart, Award } from 'lucide-react';
+import { Car, Hotel, Compass, Clock, Sparkles, ShieldCheck, Globe, CheckCircle2 } from 'lucide-react';
+import { WHY_US_PILLARS } from '../data/toursData';
 
-export default function WhyChooseUs() {
-  const features = [
-    {
-      icon: <Award size={28} />,
-      title: "30+ Years Travel Expertise",
-      desc: "Serving happy travelers from Bhopal & nationwide since 1992 with unmatched local & global knowledge."
-    },
-    {
-      icon: <Plane size={28} />,
-      title: "Complete Flight & Train Booking",
-      desc: "Seamless group or individual flight tickets and train reservation assistance included in every package."
-    },
-    {
-      icon: <FileCheck size={28} />,
-      title: "Hassle-Free Visa Assistance",
-      desc: "Expert guidance for international tourist visas for Bali, Dubai, Thailand, Europe, and Asia."
-    },
-    {
-      icon: <Headphones size={28} />,
-      title: "24/7 On-Trip Support",
-      desc: "Our dedicated tour coordinators are available around the clock to assist you at every step of your journey."
-    },
-    {
-      icon: <Heart size={28} />,
-      title: "Tailor-Made Itineraries",
-      desc: "Every trip is customized to match your budget, dates, and hotel preferences with zero hidden costs."
-    },
-    {
-      icon: <ShieldCheck size={28} />,
-      title: "100% Satisfaction Guarantee",
-      desc: "Verified 3/4/5-star luxury hotels, private sanitized cabs, and experienced local tour guides."
-    }
+export default function WhyChooseUs({ onOpenAIPlanner }) {
+  const icons = [
+    <Car size={26} className="text-amber" />,
+    <Hotel size={26} className="text-amber" />,
+    <Compass size={26} className="text-amber" />,
+    <Clock size={26} className="text-amber" />,
+    <Sparkles size={26} className="text-amber" />,
+    <ShieldCheck size={26} className="text-amber" />,
+    <Globe size={26} className="text-amber" />
   ];
 
   return (
-    <section id="why-us" className="why-root">
+    <section id="why-us" className="why-us-root">
       <div className="container">
+        {/* Section Header */}
         <div className="section-header">
-          <span className="badge badge-accent">Why Choose Us</span>
-          <h2 className="section-title">The Comfort Journey Difference</h2>
+          <div className="badge badge-amber">
+            <ShieldCheck size={14} />
+            <span>The Comfort Journey Standard</span>
+          </div>
+          <h2 className="section-title">
+            Why Discerning Travelers Choose <br />
+            <span className="gradient-text-gold">Comfort Journey</span>
+          </h2>
           <p className="section-subtitle">
-            We don't just book trips — we create seamless, unforgettable travel experiences crafted around your comfort.
+            Since 1992, we have redefined luxury travel across India and the globe. 
+            Here is our 7-pillar VIP promise to every guest.
           </p>
         </div>
 
-        <div className="features-grid">
-          {features.map((feat, idx) => (
-            <div key={idx} className="feature-card">
-              <div className="feature-icon">{feat.icon}</div>
-              <h3 className="feature-title">{feat.title}</h3>
-              <p className="feature-desc">{feat.desc}</p>
+        {/* 7 Pillars Grid */}
+        <div className="pillars-grid">
+          {WHY_US_PILLARS.map((pillar, idx) => (
+            <div key={idx} className="pillar-card glass-card">
+              <div className="pillar-top-row">
+                <div className="pillar-icon-box">
+                  {icons[idx % icons.length]}
+                </div>
+                <span className="pillar-num">0{idx + 1}</span>
+              </div>
+
+              <h3 className="pillar-title">{pillar.title}</h3>
+              <p className="pillar-desc">{pillar.desc}</p>
+
+              <div className="pillar-check">
+                <CheckCircle2 size={15} className="text-emerald" />
+                <span>Guaranteed Standard</span>
+              </div>
             </div>
           ))}
+        </div>
+
+        {/* Bottom Callout */}
+        <div className="why-us-banner glass-panel">
+          <div className="banner-text">
+            <h3>Ready to Experience Travel with Absolute Comfort?</h3>
+            <p>Speak directly with our senior trip designers or design a custom itinerary in 2 minutes.</p>
+          </div>
+          <div className="banner-actions">
+            <button className="btn-ai-glow" onClick={onOpenAIPlanner}>
+              <Sparkles size={18} />
+              Plan with AI Designer
+            </button>
+            <a href="tel:+918770403315" className="btn-secondary">
+              Call VIP Line: +91 8770403315
+            </a>
+          </div>
         </div>
       </div>
 
       <style>{`
-        .why-root {
-          padding: 6rem 0;
-          background: #FFFFFF;
+        .why-us-root {
+          padding: 6.5rem 0;
+          background: var(--cj-bg-obsidian);
+          color: #FFFFFF;
         }
 
-        .features-grid {
+        .section-header {
+          text-align: center;
+          margin-bottom: 3.5rem;
+        }
+
+        .section-title {
+          font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+          margin: 0.85rem 0;
+          line-height: 1.2;
+        }
+
+        .section-subtitle {
+          max-width: 680px;
+          margin: 0 auto;
+          color: #94A3B8;
+          font-size: 1.05rem;
+        }
+
+        .pillars-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
           gap: 2rem;
-          margin-top: 3rem;
+          margin-bottom: 4rem;
         }
 
-        .feature-card {
+        .pillar-card {
           padding: 2rem;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          background: rgba(19, 29, 51, 0.65);
+        }
+
+        .pillar-top-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .pillar-icon-box {
+          width: 52px;
+          height: 52px;
           border-radius: var(--radius-md);
-          background: #F8FAFC;
-          border: 1px solid var(--color-border);
-          transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-          transform: translateY(-5px);
-          border-color: var(--color-primary);
-          box-shadow: var(--shadow-md);
-        }
-
-        .feature-icon {
-          width: 56px;
-          height: 56px;
-          border-radius: 16px;
-          background: var(--color-primary-light);
-          color: var(--color-primary);
+          background: rgba(255, 107, 0, 0.15);
+          border: 1px solid rgba(255, 107, 0, 0.3);
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-bottom: 1.25rem;
         }
 
-        .feature-title {
+        .pillar-num {
+          font-family: var(--font-ui);
+          font-size: 1.35rem;
+          font-weight: 900;
+          color: rgba(255, 255, 255, 0.2);
+        }
+
+        .pillar-title {
+          font-family: var(--font-ui);
           font-size: 1.2rem;
-          color: var(--color-secondary);
-          margin-bottom: 0.5rem;
+          color: #FFFFFF;
+          line-height: 1.35;
         }
 
-        .feature-desc {
+        .pillar-desc {
           font-size: 0.92rem;
-          color: var(--color-text-muted);
+          color: #94A3B8;
           line-height: 1.6;
         }
 
-        @media (max-width: 640px) {
-          .why-root {
-            padding: 3.5rem 0;
+        .pillar-check {
+          margin-top: auto;
+          padding-top: 0.85rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+          font-size: 0.78rem;
+          font-weight: 700;
+          color: var(--cj-emerald-500);
+          text-transform: uppercase;
+        }
+
+        .why-us-banner {
+          padding: 2.5rem 3rem;
+          border-radius: var(--radius-xl);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 2rem;
+          flex-wrap: wrap;
+        }
+
+        .banner-text h3 {
+          font-family: var(--font-ui);
+          font-size: 1.45rem;
+          color: #FFFFFF;
+          margin-bottom: 0.35rem;
+        }
+
+        .banner-text p {
+          color: #CBD5E1;
+          font-size: 0.95rem;
+        }
+
+        .banner-actions {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          flex-wrap: wrap;
+        }
+
+        @media (max-width: 860px) {
+          .why-us-banner {
+            padding: 1.75rem;
+            flex-direction: column;
+            text-align: center;
           }
-          .features-grid {
-            grid-template-columns: 1fr;
-            gap: 1.25rem;
-            margin-top: 2rem;
-          }
-          .feature-card {
-            padding: 1.25rem;
-          }
-          .feature-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            margin-bottom: 0.85rem;
-          }
-          .feature-title {
-            font-size: 1.1rem;
-          }
-          .feature-desc {
-            font-size: 0.88rem;
+          .banner-actions {
+            width: 100%;
+            justify-content: center;
           }
         }
       `}</style>

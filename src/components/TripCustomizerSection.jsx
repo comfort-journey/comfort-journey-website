@@ -1,590 +1,603 @@
 import React, { useState } from 'react';
-import { Sliders, Sparkles, Check, MessageCircle, ShieldCheck, Phone, Compass, Car, Hotel, Calendar, Award } from 'lucide-react';
+import { Sliders, Calendar, Hotel, Car, Check, Sparkles, MessageCircle, ShieldCheck, ArrowRight, DollarSign } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 
 export default function TripCustomizerSection() {
   const { formatPrice } = useCurrency();
 
-  const [destination, setDestination] = useState('Kashmir');
-  const [days, setDays] = useState(6);
-  const [hotelTier, setHotelTier] = useState('4star');
-  const [vehicle, setVehicle] = useState('suv');
-  const [selectedAddons, setSelectedAddons] = useState(['dinner', 'vip']);
+  const [destination, setDestination] = useState('Kashmir Paradise');
+  const [durationDays, setDurationDays] = useState(6);
+  const [hotelTier, setHotelTier] = useState('4-star'); // '3-star', '4-star', '5-star'
+  const [vehicleType, setVehicleType] = useState('suv'); // 'sedan', 'suv', 'tempo'
+  const [travelersCount, setTravelersCount] = useState(2);
+  const [selectedAddons, setSelectedAddons] = useState(['candlelight', 'vip-pass']);
 
-  const destinations = [
-    { id: 'Kashmir', name: '🏔️ Kashmir & Gulmarg', basePerDay: 3200 },
-    { id: 'Bali', name: '🏝️ Bali & Nusa Penida', basePerDay: 5400 },
-    { id: 'Swiss Alps', name: '🇨🇭 Swiss Alps & Glaciers', basePerDay: 19500 },
-    { id: 'Dubai', name: '🏙️ Dubai & Abu Dhabi', basePerDay: 7200 },
-    { id: 'Andaman', name: '🏖️ Andaman Coral Island', basePerDay: 3900 },
-    { id: 'Kerala', name: '🌿 Kerala & Houseboat', basePerDay: 3000 }
+  const destinationsList = [
+    { name: 'Kashmir Paradise', basePricePerDay: 3200, country: 'India' },
+    { name: 'Exotic Bali & Nusa Penida', basePricePerDay: 5100, country: 'Indonesia' },
+    { name: 'Swiss Alps & Titlis', basePricePerDay: 19500, country: 'Switzerland' },
+    { name: 'Dubai & Red Dunes', basePricePerDay: 7200, country: 'UAE' },
+    { name: 'Iceland Aurora & Glaciers', basePricePerDay: 26000, country: 'Iceland' },
+    { name: 'Kenya Maasai Mara Safari', basePricePerDay: 24000, country: 'Kenya' },
+    { name: 'Andaman Coral Islands', basePricePerDay: 3800, country: 'India' },
+    { name: 'Amalfi Coast & Rome', basePricePerDay: 23500, country: 'Italy' },
+    { name: 'Sacred Char Dham Yatra', basePricePerDay: 3500, country: 'India' }
   ];
 
   const hotelTiers = [
-    { id: '3star', label: '⭐ 3-Star Deluxe', multiplier: 1.0, desc: 'Clean boutique stays + breakfast' },
-    { id: '4star', label: '⭐⭐⭐⭐ 4-Star Premium', multiplier: 1.25, desc: 'Top-tier resorts, prime views & buffet' },
-    { id: '5star', label: '⭐⭐⭐⭐⭐ 5-Star Palace / Villa', multiplier: 1.7, desc: 'Royal luxury, private pool & VIP treatment' }
+    { id: '3-star', label: '3-Star Comfort', mult: 1.0, desc: 'Clean, verified boutique hotels & cozy stays' },
+    { id: '4-star', label: '4-Star Premium Deluxe', mult: 1.35, desc: 'Luxury properties, valley views & gourmet buffet' },
+    { id: '5-star', label: '5-Star Palace / Villa', mult: 1.85, desc: 'Royal palaces, overwater villas & private butlers' }
   ];
 
   const vehicles = [
-    { id: 'sedan', label: '🚗 Private AC Sedan', extra: 0, desc: 'Swift Dzire / Etios for couples' },
-    { id: 'suv', label: '🚙 Luxury SUV / Crysta', extra: 1200, desc: 'Innova Crysta comfort for family' },
-    { id: 'tempo', label: '🚐 VIP Luxury Mini Coach', extra: 2800, desc: 'Ultra-plush seats for groups' }
+    { id: 'sedan', label: 'Private AC Sedan', price: 1500, desc: 'Swift Dzire / Etios for couple' },
+    { id: 'suv', label: 'Luxury SUV Crysta', price: 2800, desc: 'Toyota Innova Crysta for comfort' },
+    { id: 'tempo', label: 'VIP Sprinter / Tempo', price: 4800, desc: '12-Seater sanitized coach for family' }
   ];
 
   const addonsList = [
-    { id: 'dinner', label: '🕯️ Private Candlelight Dinner', cost: 3500 },
-    { id: 'vip', label: '🎟️ VIP Fast-Track Pass / Gondola', cost: 4500 },
-    { id: 'heli', label: '🚁 Helicopter Shuttle / Joyride', cost: 12000 },
-    { id: 'spa', label: '💆 2-Hour Luxury Couple Spa', cost: 4000 }
+    { id: 'candlelight', label: 'Private Candlelight Beach/Lake Dinner', price: 4500 },
+    { id: 'heli', label: 'Helicopter Joyride / Mountain Shuttle', price: 9500 },
+    { id: 'scuba', label: 'Scuba Diving & Underwater Photoshoot', price: 3800 },
+    { id: 'vip-pass', label: 'VIP Fast-Track Monument & Cable Car Passes', price: 3200 },
+    { id: 'spa', label: 'Couple 2-Hour Aromatherapy Rejuvenation Spa', price: 5000 }
   ];
 
   const toggleAddon = (id) => {
-    if (selectedAddons.includes(id)) {
-      setSelectedAddons(selectedAddons.filter((item) => item !== id));
-    } else {
-      setSelectedAddons([...selectedAddons, id]);
-    }
+    setSelectedAddons((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
   };
 
-  // Calculate dynamic price
-  const activeDest = destinations.find((d) => d.id === destination) || destinations[0];
-  const activeHotel = hotelTiers.find((h) => h.id === hotelTier) || hotelTiers[1];
-  const activeVehicle = vehicles.find((v) => v.id === vehicle) || vehicles[1];
-
-  const baseCost = activeDest.basePerDay * days * activeHotel.multiplier;
-  const vehicleCost = activeVehicle.extra * (days / 2);
-  const addonsCost = selectedAddons.reduce((sum, addId) => {
-    const found = addonsList.find((a) => a.id === addId);
-    return sum + (found ? found.cost : 0);
+  // Calculate live dynamic price per person
+  const currentDest = destinationsList.find((d) => d.name === destination) || destinationsList[0];
+  const hotelMultiplier = hotelTiers.find((h) => h.id === hotelTier)?.mult || 1.0;
+  const vehicleCost = vehicles.find((v) => v.id === vehicleType)?.price || 0;
+  
+  const addonsTotal = selectedAddons.reduce((acc, id) => {
+    const item = addonsList.find((a) => a.id === id);
+    return acc + (item ? item.price : 0);
   }, 0);
 
-  const totalEstimatedCost = Math.round(baseCost + vehicleCost + addonsCost);
+  const baseCalculated = Math.round((currentDest.basePricePerDay * durationDays * hotelMultiplier) + (vehicleCost * durationDays * 0.4) + addonsTotal);
 
-  const handleWhatsAppCustomQuote = () => {
-    const addonsNames = selectedAddons
-      .map((id) => addonsList.find((a) => a.id === id)?.label)
-      .filter(Boolean)
-      .join(', ');
+  const handleLockInquiry = () => {
+    const hotelLabel = hotelTiers.find((h) => h.id === hotelTier)?.label;
+    const vehicleLabel = vehicles.find((v) => v.id === vehicleType)?.label;
+    const activeAddonNames = selectedAddons.map((id) => addonsList.find((a) => a.id === id)?.label).join(', ');
 
-    const msg = encodeURIComponent(
-      `Hi Comfort Journey! 🌟 I customized a dream trip on your website:\n` +
-      `• *Destination:* ${activeDest.name}\n` +
-      `• *Duration:* ${days} Days / ${days - 1} Nights\n` +
-      `• *Hotel Style:* ${activeHotel.label}\n` +
-      `• *Vehicle:* ${activeVehicle.label}\n` +
-      `• *Add-ons:* ${addonsNames || 'None'}\n` +
-      `• *Calculated Estimate:* ${formatPrice(totalEstimatedCost)} / person\n\n` +
-      `Please connect with me to finalize hotels and date availability!`
-    );
-    window.open(`https://wa.me/918770403315?text=${msg}`, '_blank');
+    const message = `Hi Comfort Journey! I customized an itinerary in your Trip Studio:
+📍 Destination: ${destination}
+⏱️ Duration: ${durationDays} Days / ${durationDays - 1} Nights
+🏨 Hotel Tier: ${hotelLabel}
+🚗 Private Transport: ${vehicleLabel}
+👥 Travelers: ${travelersCount} Person(s)
+✨ Luxury Add-ons: ${activeAddonNames || 'None'}
+💰 Estimated Cost: ${formatPrice(baseCalculated)} / person
+
+Please share the day-by-day customized itinerary proposal!`;
+
+    window.open(`https://wa.me/918770403315?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   return (
-    <section id="custom-builder" className="customizer-root">
+    <section id="custom-builder" className="studio-root">
       <div className="container">
         {/* Section Header */}
         <div className="section-header">
-          <span className="badge badge-gold">Interactive Trip Studio</span>
+          <div className="badge badge-amber">
+            <Sliders size={14} />
+            <span>Interactive Trip Studio</span>
+          </div>
           <h2 className="section-title">
-            Design Your Trip & <span className="gradient-text-gold">Calculate Live Budget</span>
+            Design Your Trip & <span className="gradient-text-gold">Estimate Live Budget</span>
           </h2>
           <p className="section-subtitle">
-            Fine-tune your destinations, hotel stars, private vehicle, and VIP experiences to see instant real-time pricing.
+            Adjust duration, hotel standards, transport, and luxury perks. Watch your budget recalculate in real time.
           </p>
         </div>
 
-        {/* Builder Studio Grid */}
-        <div className="customizer-grid">
-          {/* Controls Column */}
-          <div className="controls-panel">
-            {/* 1. Destination Selection */}
-            <div className="control-group">
-              <label className="control-label">1. Choose Your Destination</label>
-              <div className="dest-chips-grid">
-                {destinations.map((d) => (
+        {/* Studio Workspace Grid */}
+        <div className="studio-grid">
+          {/* Controls Left Column */}
+          <div className="studio-controls glass-card">
+            {/* Step 1: Destination Selection */}
+            <div className="studio-block">
+              <label className="block-label">1. Choose Dream Destination</label>
+              <div className="dest-pills-wrap">
+                {destinationsList.map((d) => (
                   <button
-                    key={d.id}
+                    key={d.name}
                     type="button"
-                    className={`dest-chip ${destination === d.id ? 'active' : ''}`}
-                    onClick={() => setDestination(d.id)}
+                    className={`dest-pill ${destination === d.name ? 'active' : ''}`}
+                    onClick={() => setDestination(d.name)}
                   >
-                    {d.name}
+                    <span>{d.name}</span>
+                    <small>{d.country}</small>
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* 2. Duration Slider */}
-            <div className="control-group">
-              <div className="label-with-value">
-                <label className="control-label">2. Trip Duration (Days)</label>
-                <span className="slider-value-pill">{days} Days / {days - 1} Nights</span>
+            {/* Step 2: 3-14 Days Range Slider */}
+            <div className="studio-block">
+              <div className="slider-label-row">
+                <label className="block-label">2. Trip Duration (Days)</label>
+                <span className="duration-bubble">{durationDays} Days ({durationDays - 1} Nights)</span>
               </div>
-              <input 
-                type="range" 
-                min="3" 
-                max="12" 
-                step="1" 
-                value={days} 
-                onChange={(e) => setDays(Number(e.target.value))}
+              <input
+                type="range"
+                min="3"
+                max="14"
+                value={durationDays}
+                onChange={(e) => setDurationDays(Number(e.target.value))}
                 className="custom-range-slider"
               />
-              <div className="slider-range-labels">
-                <span>3 Days</span>
-                <span>6 Days (Popular)</span>
-                <span>9 Days</span>
-                <span>12 Days</span>
+              <div className="slider-marks">
+                <span>3 Days (Short)</span>
+                <span>7 Days (Popular)</span>
+                <span>14 Days (Grand)</span>
               </div>
             </div>
 
-            {/* 3. Hotel Category */}
-            <div className="control-group">
-              <label className="control-label">3. Hotel & Resort Standard</label>
-              <div className="options-grid">
-                {hotelTiers.map((h) => (
+            {/* Step 3: Hotel Standards */}
+            <div className="studio-block">
+              <label className="block-label">3. Select Accommodation Standard</label>
+              <div className="cards-selection-row">
+                {hotelTiers.map((tier) => (
                   <button
-                    key={h.id}
+                    key={tier.id}
                     type="button"
-                    className={`option-card ${hotelTier === h.id ? 'selected' : ''}`}
-                    onClick={() => setHotelTier(h.id)}
+                    className={`tier-card ${hotelTier === tier.id ? 'active' : ''}`}
+                    onClick={() => setHotelTier(tier.id)}
                   >
-                    <span className="opt-title">{h.label}</span>
-                    <span className="opt-desc">{h.desc}</span>
+                    <Hotel size={18} className="text-amber" />
+                    <strong>{tier.label}</strong>
+                    <span>{tier.desc}</span>
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* 4. Transport Style */}
-            <div className="control-group">
-              <label className="control-label">4. Private Chauffeur Vehicle</label>
-              <div className="options-grid">
+            {/* Step 4: Private Transport */}
+            <div className="studio-block">
+              <label className="block-label">4. Dedicated Private Transport</label>
+              <div className="cards-selection-row">
                 {vehicles.map((v) => (
                   <button
                     key={v.id}
                     type="button"
-                    className={`option-card ${vehicle === v.id ? 'selected' : ''}`}
-                    onClick={() => setVehicle(v.id)}
+                    className={`tier-card ${vehicleType === v.id ? 'active' : ''}`}
+                    onClick={() => setVehicleType(v.id)}
                   >
-                    <span className="opt-title">{v.label}</span>
-                    <span className="opt-desc">{v.desc}</span>
+                    <Car size={18} className="text-amber" />
+                    <strong>{v.label}</strong>
+                    <span>{v.desc}</span>
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* 5. Luxury Add-ons */}
-            <div className="control-group">
-              <label className="control-label">5. Optional Luxury Experiences</label>
-              <div className="addons-grid">
+            {/* Step 5: Luxury Add-ons */}
+            <div className="studio-block">
+              <label className="block-label">5. Curated VIP Add-ons</label>
+              <div className="addons-checkboxes-list">
                 {addonsList.map((addon) => {
                   const isChecked = selectedAddons.includes(addon.id);
                   return (
-                    <button
+                    <label
                       key={addon.id}
-                      type="button"
-                      className={`addon-chip ${isChecked ? 'active' : ''}`}
+                      className={`addon-item ${isChecked ? 'active' : ''}`}
                       onClick={() => toggleAddon(addon.id)}
                     >
-                      <div className={`checkbox-box ${isChecked ? 'checked' : ''}`}>
-                        {isChecked && <Check size={12} />}
+                      <div className="addon-check-box">
+                        {isChecked && <Check size={14} className="text-white" />}
                       </div>
                       <span className="addon-text">{addon.label}</span>
-                      <span className="addon-cost">+{formatPrice(addon.cost)}</span>
-                    </button>
+                      <strong className="addon-price">+{formatPrice(addon.price)}</strong>
+                    </label>
                   );
                 })}
               </div>
             </div>
           </div>
 
-          {/* Live Summary & Checkout Card */}
-          <div className="summary-panel">
-            <div className="glass-card-dark summary-card">
-              <div className="summary-badge">
-                <Sparkles size={14} className="text-primary" />
-                <span>Live Itinerary Estimate</span>
+          {/* Real-time Summary Sidebar */}
+          <div className="studio-summary-pane glass-panel">
+            <div className="summary-badge">
+              <Sparkles size={14} />
+              <span>Real-Time Estimation</span>
+            </div>
+
+            <h3 className="summary-title">{destination}</h3>
+            <p className="summary-dest-country">{currentDest.country} • {durationDays} Days / {durationDays - 1} Nights</p>
+
+            <div className="summary-breakdown">
+              <div className="breakdown-row">
+                <span>Accommodation:</span>
+                <strong>{hotelTiers.find((h) => h.id === hotelTier)?.label}</strong>
               </div>
 
-              <h3 className="summary-dest">{activeDest.name}</h3>
-              <p className="summary-sub">{days} Days / {days - 1} Nights • Private Tour</p>
-
-              <div className="summary-breakdown">
-                <div className="breakdown-row">
-                  <span>Hotel Tier</span>
-                  <strong>{activeHotel.label.split(' ')[0]} {activeHotel.label.split(' ')[1]}</strong>
-                </div>
-                <div className="breakdown-row">
-                  <span>Chauffeur Vehicle</span>
-                  <strong>{activeVehicle.label.split(' ')[1]} {activeVehicle.label.split(' ')[2] || ''}</strong>
-                </div>
-                <div className="breakdown-row">
-                  <span>Selected Add-ons</span>
-                  <strong>{selectedAddons.length} Experiences</strong>
-                </div>
-                <div className="breakdown-row">
-                  <span>24/7 Concierge Support</span>
-                  <strong className="text-accent">FREE Included</strong>
-                </div>
+              <div className="breakdown-row">
+                <span>Chauffeur & Cab:</span>
+                <strong>{vehicles.find((v) => v.id === vehicleType)?.label}</strong>
               </div>
 
-              {/* Total Estimated Price Display */}
-              <div className="total-price-box">
-                <span className="t-label">Estimated Package Price</span>
-                <div className="t-val-wrap">
-                  <span className="t-price">{formatPrice(totalEstimatedCost)}</span>
-                  <span className="t-unit">/ person</span>
-                </div>
-                <span className="t-guarantee">🛡️ Best Price & 100% Verified Stays Guaranteed</span>
+              <div className="breakdown-row">
+                <span>Selected Add-ons:</span>
+                <strong>{selectedAddons.length} Perks Selected</strong>
               </div>
 
-              {/* Action Buttons */}
-              <button 
-                type="button" 
-                className="btn-whatsapp w-full lock-price-btn"
-                onClick={handleWhatsAppCustomQuote}
-              >
-                <MessageCircle size={20} />
-                Lock This Itinerary on WhatsApp
-              </button>
+              <div className="breakdown-row">
+                <span>24/7 VIP Concierge:</span>
+                <strong className="text-emerald">Complimentary</strong>
+              </div>
+            </div>
 
-              <a href="tel:+918770403315" className="btn-secondary w-full call-expert-btn">
-                <Phone size={18} />
-                Speak to Travel Expert
-              </a>
+            {/* Big Price Box */}
+            <div className="live-price-box">
+              <span className="price-tagline">Estimated Price Per Person</span>
+              <span className="big-calc-price">{formatPrice(baseCalculated)}</span>
+              <small className="tax-subtext">*Includes stays, private transfers, daily breakfast & all road taxes</small>
+            </div>
+
+            {/* Lock WhatsApp Button */}
+            <button
+              type="button"
+              className="btn-whatsapp w-full lock-btn"
+              onClick={handleLockInquiry}
+            >
+              <MessageCircle size={20} />
+              <span>Lock This Itinerary on WhatsApp</span>
+            </button>
+
+            <div className="summary-trust-bullets">
+              <div className="trust-bullet">
+                <ShieldCheck size={16} className="text-emerald" />
+                <span>Zero Hidden Costs Guarantee</span>
+              </div>
+              <div className="trust-bullet">
+                <ShieldCheck size={16} className="text-emerald" />
+                <span>100% Bespoke Changes Supported</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <style>{`
-        .customizer-root {
+        .studio-root {
           padding: 6.5rem 0;
-          background: #070B14;
+          background: var(--cj-bg-obsidian);
           color: #FFFFFF;
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .customizer-grid {
+        .section-header {
+          text-align: center;
+          margin-bottom: 3.5rem;
+        }
+
+        .section-title {
+          font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+          margin: 0.85rem 0;
+          line-height: 1.2;
+        }
+
+        .section-subtitle {
+          max-width: 680px;
+          margin: 0 auto;
+          color: #94A3B8;
+          font-size: 1.05rem;
+        }
+
+        .studio-grid {
           display: grid;
-          grid-template-columns: 1.4fr 1fr;
-          gap: 3rem;
-          margin-top: 3.5rem;
+          grid-template-columns: 1.55fr 1fr;
+          gap: 2rem;
           align-items: flex-start;
         }
 
-        .controls-panel {
+        .studio-controls {
+          padding: 2.25rem;
           display: flex;
           flex-direction: column;
-          gap: 2.25rem;
+          gap: 2rem;
+          background: rgba(19, 29, 51, 0.75);
         }
 
-        .control-group {
+        .studio-block {
           display: flex;
           flex-direction: column;
           gap: 0.85rem;
         }
 
-        .control-label {
-          font-family: var(--font-heading);
+        .block-label {
+          font-family: var(--font-ui);
+          font-size: 0.92rem;
           font-weight: 800;
-          font-size: 1.05rem;
           color: #FFFFFF;
-          letter-spacing: 0.02em;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
         }
 
-        .label-with-value {
+        .dest-pills-wrap {
           display: flex;
-          justify-content: space-between;
-          align-items: center;
+          flex-wrap: wrap;
+          gap: 0.5rem;
         }
 
-        .slider-value-pill {
-          background: rgba(255, 107, 0, 0.15);
-          color: var(--color-primary);
-          border: 1px solid rgba(255, 107, 0, 0.3);
+        .dest-pill {
+          display: flex;
+          flex-direction: column;
+          text-align: left;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid var(--cj-glass-border);
+          padding: 0.5rem 0.85rem;
+          border-radius: var(--radius-sm);
+          color: #E2E8F0;
+          transition: all 0.2s ease;
+        }
+
+        .dest-pill small {
+          font-size: 0.68rem;
+          color: #94A3B8;
+        }
+
+        .dest-pill:hover {
+          background: rgba(255, 255, 255, 0.12);
+          border-color: var(--cj-amber-500);
+        }
+
+        .dest-pill.active {
+          background: rgba(255, 107, 0, 0.2);
+          border-color: var(--cj-amber-500);
+          color: #FFFFFF;
+        }
+
+        .dest-pill.active small {
+          color: var(--cj-amber-500);
+        }
+
+        .slider-label-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .duration-bubble {
+          font-family: var(--font-ui);
           font-weight: 800;
-          font-size: 0.85rem;
-          padding: 0.3rem 0.85rem;
+          font-size: 0.95rem;
+          color: var(--cj-amber-500);
+          background: rgba(255, 107, 0, 0.15);
+          padding: 0.25rem 0.75rem;
           border-radius: var(--radius-full);
         }
 
         .custom-range-slider {
-          -webkit-appearance: none;
           width: 100%;
+          accent-color: var(--cj-amber-500);
           height: 8px;
-          border-radius: 5px;
-          background: #1E293B;
-          outline: none;
+          border-radius: 4px;
           cursor: pointer;
         }
 
-        .custom-range-slider::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          appearance: none;
-          width: 22px;
-          height: 22px;
-          border-radius: 50%;
-          background: var(--color-primary);
-          box-shadow: 0 0 12px var(--color-primary);
-          cursor: pointer;
-          transition: transform 0.15s ease;
-        }
-
-        .custom-range-slider::-webkit-slider-thumb:hover {
-          transform: scale(1.2);
-        }
-
-        .slider-range-labels {
+        .slider-marks {
           display: flex;
           justify-content: space-between;
-          color: #64748B;
-          font-size: 0.75rem;
-          font-weight: 600;
-        }
-
-        .dest-chips-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-          gap: 0.75rem;
-        }
-
-        .dest-chip {
-          background: #131D33;
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          color: #CBD5E1;
-          font-weight: 700;
-          font-size: 0.9rem;
-          padding: 0.75rem 1rem;
-          border-radius: var(--radius-sm);
-          text-align: left;
-          transition: all 0.2s ease;
-        }
-
-        .dest-chip:hover {
-          border-color: var(--color-primary);
-          color: #FFFFFF;
-        }
-
-        .dest-chip.active {
-          background: rgba(255, 107, 0, 0.18);
-          border-color: var(--color-primary);
-          color: #FFFFFF;
-          box-shadow: 0 0 15px rgba(255, 107, 0, 0.25);
-        }
-
-        .options-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-          gap: 0.75rem;
-        }
-
-        .option-card {
-          background: #131D33;
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          padding: 0.85rem 1rem;
-          border-radius: var(--radius-sm);
-          display: flex;
-          flex-direction: column;
-          gap: 0.25rem;
-          text-align: left;
-          transition: all 0.2s ease;
-        }
-
-        .option-card:hover {
-          border-color: rgba(255, 107, 0, 0.5);
-        }
-
-        .option-card.selected {
-          border-color: var(--color-primary);
-          background: rgba(255, 107, 0, 0.15);
-        }
-
-        .opt-title {
-          font-family: var(--font-heading);
-          font-weight: 700;
-          font-size: 0.92rem;
-          color: #FFFFFF;
-        }
-
-        .opt-desc {
           font-size: 0.75rem;
           color: #94A3B8;
         }
 
-        .addons-grid {
+        .cards-selection-row {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
           gap: 0.75rem;
         }
 
-        .addon-chip {
-          background: #131D33;
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          padding: 0.75rem 1rem;
-          border-radius: var(--radius-sm);
+        .tier-card {
+          padding: 1rem;
+          border-radius: var(--radius-md);
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid var(--cj-glass-border);
           display: flex;
-          align-items: center;
-          gap: 0.75rem;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.35rem;
           text-align: left;
+          color: #FFFFFF;
           transition: all 0.2s ease;
         }
 
-        .addon-chip.active {
-          border-color: var(--color-accent);
-          background: rgba(16, 185, 129, 0.12);
+        .tier-card span {
+          font-size: 0.75rem;
+          color: #94A3B8;
         }
 
-        .checkbox-box {
-          width: 18px;
-          height: 18px;
+        .tier-card:hover {
+          background: rgba(255, 255, 255, 0.1);
+        }
+
+        .tier-card.active {
+          background: rgba(255, 184, 0, 0.18);
+          border-color: var(--cj-gold-500);
+          box-shadow: 0 0 20px rgba(255, 184, 0, 0.25);
+        }
+
+        .addons-checkboxes-list {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .addon-item {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.75rem 1rem;
+          border-radius: var(--radius-sm);
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid var(--cj-glass-border);
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .addon-item:hover {
+          background: rgba(255, 255, 255, 0.08);
+        }
+
+        .addon-item.active {
+          background: rgba(255, 107, 0, 0.15);
+          border-color: var(--cj-amber-500);
+        }
+
+        .addon-check-box {
+          width: 20px;
+          height: 20px;
           border-radius: 4px;
-          border: 1.5px solid #64748B;
+          border: 1px solid rgba(255, 255, 255, 0.3);
           display: flex;
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
+          background: rgba(0, 0, 0, 0.3);
         }
 
-        .checkbox-box.checked {
-          background: var(--color-accent);
-          border-color: var(--color-accent);
-          color: #FFFFFF;
+        .addon-item.active .addon-check-box {
+          background: var(--cj-amber-500);
+          border-color: var(--cj-amber-500);
         }
 
         .addon-text {
-          font-size: 0.85rem;
-          font-weight: 600;
-          color: #FFFFFF;
+          font-size: 0.88rem;
+          color: #E2E8F0;
           flex: 1;
         }
 
-        .addon-cost {
-          font-size: 0.78rem;
-          font-weight: 800;
-          color: #FFB800;
+        .addon-price {
+          font-family: var(--font-ui);
+          font-size: 0.85rem;
+          color: var(--cj-gold-500);
         }
 
-        /* Summary Panel */
-        .summary-panel {
+        /* Summary Pane */
+        .studio-summary-pane {
+          padding: 2.5rem;
+          border-radius: var(--radius-xl);
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
           position: sticky;
-          top: 100px;
-        }
-
-        .summary-card {
-          padding: 2.25rem;
-          border-radius: var(--radius-lg);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 35px rgba(255, 107, 0, 0.15);
+          top: 90px;
         }
 
         .summary-badge {
           display: inline-flex;
           align-items: center;
-          gap: 0.4rem;
-          background: rgba(255, 107, 0, 0.15);
-          color: var(--color-primary);
-          padding: 0.35rem 0.85rem;
-          border-radius: var(--radius-full);
-          font-size: 0.78rem;
+          gap: 0.35rem;
+          font-family: var(--font-ui);
+          font-size: 0.75rem;
           font-weight: 800;
+          color: #C084FC;
           text-transform: uppercase;
-          margin-bottom: 0.85rem;
         }
 
-        .summary-dest {
+        .summary-title {
+          font-family: var(--font-serif);
           font-size: 1.75rem;
           color: #FFFFFF;
-          margin-bottom: 0.25rem;
+          line-height: 1.2;
         }
 
-        .summary-sub {
+        .summary-dest-country {
+          font-size: 0.88rem;
           color: #94A3B8;
-          font-size: 0.92rem;
-          margin-bottom: 1.75rem;
+          margin-top: -0.85rem;
         }
 
         .summary-breakdown {
           display: flex;
           flex-direction: column;
-          gap: 0.85rem;
+          gap: 0.65rem;
           padding: 1.25rem 0;
           border-top: 1px solid rgba(255, 255, 255, 0.08);
           border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-          margin-bottom: 1.75rem;
         }
 
         .breakdown-row {
           display: flex;
           justify-content: space-between;
-          font-size: 0.88rem;
-          color: #CBD5E1;
+          font-size: 0.85rem;
+        }
+
+        .breakdown-row span {
+          color: #94A3B8;
         }
 
         .breakdown-row strong {
           color: #FFFFFF;
+          font-family: var(--font-ui);
         }
 
-        .total-price-box {
+        .live-price-box {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
           text-align: center;
-          margin-bottom: 1.75rem;
+          padding: 1.25rem;
+          background: rgba(0, 0, 0, 0.35);
+          border-radius: var(--radius-md);
+          border: 1px solid rgba(255, 184, 0, 0.25);
         }
 
-        .t-label {
-          font-size: 0.78rem;
-          font-weight: 700;
+        .price-tagline {
+          font-family: var(--font-ui);
+          font-size: 0.75rem;
+          font-weight: 800;
           color: #94A3B8;
           text-transform: uppercase;
-          display: block;
-          margin-bottom: 0.25rem;
         }
 
-        .t-val-wrap {
-          display: flex;
-          align-items: baseline;
+        .big-calc-price {
+          font-family: var(--font-ui);
+          font-size: 2.45rem;
+          font-weight: 900;
+          color: var(--cj-gold-500);
+          line-height: 1.2;
+          margin: 0.25rem 0;
+        }
+
+        .tax-subtext {
+          font-size: 0.7rem;
+          color: #64748B;
+        }
+
+        .lock-btn {
+          padding: 1rem;
+          font-size: 1rem;
           justify-content: center;
+        }
+
+        .summary-trust-bullets {
+          display: flex;
+          flex-direction: column;
           gap: 0.4rem;
         }
 
-        .t-price {
-          font-family: var(--font-heading);
-          font-weight: 900;
-          font-size: 2.3rem;
-          color: #FFB800;
-          line-height: 1;
-        }
-
-        .t-unit {
-          font-size: 0.95rem;
+        .trust-bullet {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+          font-size: 0.78rem;
           color: #CBD5E1;
         }
 
-        .t-guarantee {
-          display: block;
-          font-size: 0.75rem;
-          color: var(--color-accent);
-          font-weight: 600;
-          margin-top: 0.5rem;
-        }
-
-        .lock-price-btn {
-          margin-bottom: 0.75rem;
-          justify-content: center;
-          padding: 1rem;
-          font-size: 1rem;
-        }
-
-        .call-expert-btn {
-          justify-content: center;
-          padding: 0.85rem;
-        }
-
-        @media (max-width: 960px) {
-          .customizer-grid {
+        @media (max-width: 990px) {
+          .studio-grid {
             grid-template-columns: 1fr;
           }
-          .summary-panel {
+          .studio-summary-pane {
             position: static;
           }
         }

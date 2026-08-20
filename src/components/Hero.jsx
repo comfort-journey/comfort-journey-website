@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Search, MapPin, Users, ShieldCheck, Sparkles, ChevronRight, Compass } from 'lucide-react';
-import { HERO_SLIDES, DESTINATION_WEATHER } from '../data/toursData';
+import { Search, MapPin, Users, ShieldCheck, Sparkles, Compass, Calendar, ChevronRight, Award, Flame } from 'lucide-react';
+import { HERO_SLIDES, DESTINATION_WEATHER, STATS_DATA } from '../data/toursData';
 import { useCurrency } from '../context/CurrencyContext';
 
 export default function Hero({ onSearch, onOpenAIPlanner }) {
@@ -8,20 +8,20 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [destination, setDestination] = useState('');
   const [category, setCategory] = useState('All');
+  const [durationFilter, setDurationFilter] = useState('All');
   const [guestsCount, setGuestsCount] = useState('2 Guests (Couple)');
-  const [guestDropdownOpen, setGuestDropdownOpen] = useState(false);
 
   // Auto-advance hero slides
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 6000);
+    }, 6500);
     return () => clearInterval(timer);
   }, []);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    onSearch({ destination, category });
+    onSearch({ destination, category, duration: durationFilter });
     const target = document.getElementById('tours');
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
@@ -32,12 +32,12 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
 
   return (
     <section id="hero" className="hero-root">
-      {/* Background Images with smooth Crossfade */}
+      {/* Ambient Background with Ken Burns Slow Motion */}
       <div className="hero-bg-wrapper">
         {HERO_SLIDES.map((s, idx) => (
           <div
             key={s.id}
-            className={`hero-bg-slide ${idx === currentSlide ? 'active' : ''}`}
+            className={`hero-bg-slide ${idx === currentSlide ? 'active ken-burns' : ''}`}
             style={{ backgroundImage: `url(${s.image})` }}
           />
         ))}
@@ -45,11 +45,11 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
       </div>
 
       <div className="container hero-content-container">
-        {/* Live Weather Ticker & Trust Pill */}
+        {/* Top Badges: Trust Pill + Live Weather Ticker */}
         <div className="hero-top-badges">
           <div className="trust-pill">
-            <ShieldCheck size={16} className="text-accent" />
-            <span>Bhopal's #1 Luxury Travel Agency • Est. 1992</span>
+            <ShieldCheck size={16} className="text-emerald" />
+            <span>Est. 1992 • Bhopal & Worldwide Luxury Specialist</span>
           </div>
 
           <div className="weather-ticker">
@@ -65,34 +65,42 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           </div>
         </div>
 
-        {/* Main Preserved Hero Headlines */}
+        {/* Master Spec Part A Headlines */}
         <div className="hero-headline-block">
-          <span className="slide-tag-pill">{slide.tag}</span>
+          <span className="eyebrow-tag">MOUNTAIN ROYALTY & GLOBAL ADVENTURES</span>
+          
           <h1 className="hero-title">
             YOUR JOURNEY <br />
             <span className="gradient-text-gold">YOUR COMFORT</span>
           </h1>
-          <p className="hero-subtitle">
+
+          <p className="hero-subline">
             "We cover Distance with Comfort"
           </p>
+
+          <p className="hero-campaign-tag">
+            <Flame size={16} className="text-amber inline-icon" />
+            <span>Adrenaline, Wrapped in Comfort.</span>
+          </p>
+
           <p className="hero-description">
-            Tailor-made Luxury Vacations for 2,000+ Worldwide Destinations. 
-            Flights, 4/5-Star Resorts, Private Chauffeurs & 24/7 Personal Concierge Included.
+            Bespoke Luxury Vacations for 2,000+ Worldwide Destinations. 
+            Handpicked 5-Star Stays, Private Chauffeurs, Helicopters, Visas & 24/7 Personal Concierge Included.
           </p>
         </div>
 
         {/* Next-Gen Glass Luxury Search Dock */}
-        <form className="glass-card-dark hero-search-dock" onSubmit={handleSearchSubmit}>
+        <form className="glass-panel hero-search-dock" onSubmit={handleSearchSubmit}>
           {/* Destination Field */}
           <div className="dock-field">
             <div className="field-icon-box">
-              <MapPin size={20} className="text-primary" />
+              <MapPin size={20} className="text-amber" />
             </div>
             <div className="field-inputs">
-              <label>Where To?</label>
+              <label>Where to?</label>
               <input
                 type="text"
-                placeholder="e.g. Kashmir, Bali, Swiss Alps, Dubai"
+                placeholder="e.g. Kashmir, Bali, Swiss Alps, Iceland"
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
               />
@@ -101,19 +109,38 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
 
           <div className="dock-divider"></div>
 
-          {/* Trip Category / Vibe */}
+          {/* Experience Style */}
           <div className="dock-field">
             <div className="field-icon-box">
-              <Compass size={20} className="text-primary" />
+              <Compass size={20} className="text-amber" />
             </div>
             <div className="field-inputs">
               <label>Experience Style</label>
               <select value={category} onChange={(e) => setCategory(e.target.value)}>
-                <option value="All">All Categories</option>
-                <option value="Couple">Honeymoon & Couple</option>
-                <option value="Family">Family Holiday</option>
-                <option value="International">International Signature</option>
-                <option value="Pilgrimage">Sacred Char Dham Yatra</option>
+                <option value="All">All Experiences</option>
+                <option value="Honeymoon & Couple">💑 Honeymoon & Couple</option>
+                <option value="Family Expedition">👨‍👩‍👧‍👦 Family Expedition</option>
+                <option value="Adrenaline & Adventure">🧗 Adrenaline & Adventure</option>
+                <option value="International Signature">✈️ International Signature</option>
+                <option value="Sacred Pilgrimage">🕉️ Sacred Char Dham</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="dock-divider"></div>
+
+          {/* Duration Selector */}
+          <div className="dock-field">
+            <div className="field-icon-box">
+              <Calendar size={20} className="text-amber" />
+            </div>
+            <div className="field-inputs">
+              <label>Duration</label>
+              <select value={durationFilter} onChange={(e) => setDurationFilter(e.target.value)}>
+                <option value="All">Any Duration</option>
+                <option value="3-5">3–5 Days (Quick Getaway)</option>
+                <option value="6-9">6–9 Days (Most Popular)</option>
+                <option value="10-14">10–14 Days (Grand Tour)</option>
               </select>
             </div>
           </div>
@@ -121,9 +148,9 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           <div className="dock-divider"></div>
 
           {/* Guests Count Selector */}
-          <div className="dock-field guest-field-rel">
+          <div className="dock-field">
             <div className="field-icon-box">
-              <Users size={20} className="text-primary" />
+              <Users size={20} className="text-amber" />
             </div>
             <div className="field-inputs">
               <label>Travelers</label>
@@ -154,12 +181,12 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           </div>
         </form>
 
-        {/* Slide Selector Indicators & Quick Search Tags */}
+        {/* Slide Indicators & Quick Search Tags */}
         <div className="hero-footer-bar">
           {/* Quick Trending Tags */}
           <div className="quick-tags-group">
             <span className="tags-label">Trending Now:</span>
-            {['Kashmir', 'Bali', 'Swiss Alps', 'Dubai', 'Andaman', 'Kerala', 'Char Dham'].map((tag) => (
+            {['Kashmir', 'Swiss Alps', 'Bali', 'Dubai', 'Iceland', 'Kenya Safari', 'Andaman', 'Amalfi', 'Char Dham'].map((tag) => (
               <button
                 key={tag}
                 type="button"
@@ -199,7 +226,7 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           align-items: center;
           padding: 8.5rem 0 4.5rem 0;
           overflow: hidden;
-          background: #070B14;
+          background: var(--cj-bg-obsidian);
         }
 
         .hero-bg-wrapper {
@@ -214,22 +241,20 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           background-size: cover;
           background-position: center;
           opacity: 0;
-          transform: scale(1.06);
-          transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1), transform 6s ease-out;
+          transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .hero-bg-slide.active {
           opacity: 1;
-          transform: scale(1);
         }
 
         .hero-gradient-overlay {
           position: absolute;
           inset: 0;
           background: linear-gradient(180deg, 
-            rgba(7, 11, 20, 0.75) 0%, 
+            rgba(7, 11, 20, 0.72) 0%, 
             rgba(7, 11, 20, 0.85) 60%, 
-            #070B14 100%
+            var(--cj-bg-obsidian) 100%
           );
         }
 
@@ -261,21 +286,26 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           border: 1px solid rgba(255, 255, 255, 0.2);
           padding: 0.4rem 1.1rem;
           border-radius: var(--radius-full);
+          font-family: var(--font-ui);
           font-size: 0.82rem;
           font-weight: 700;
           color: #E2E8F0;
         }
 
-        .text-accent {
-          color: var(--color-accent);
+        .text-emerald {
+          color: var(--cj-emerald-500);
+        }
+
+        .text-amber {
+          color: var(--cj-amber-500);
         }
 
         .weather-ticker {
           display: inline-flex;
           align-items: center;
           gap: 0.6rem;
-          background: rgba(15, 23, 42, 0.8);
-          border: 1px solid rgba(255, 184, 0, 0.3);
+          background: rgba(15, 23, 42, 0.85);
+          border: 1px solid rgba(255, 184, 0, 0.35);
           padding: 0.4rem 1rem;
           border-radius: var(--radius-full);
           font-size: 0.78rem;
@@ -286,8 +316,8 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           width: 7px;
           height: 7px;
           border-radius: 50%;
-          background: #10B981;
-          box-shadow: 0 0 10px #10B981;
+          background: var(--cj-emerald-500);
+          box-shadow: 0 0 10px var(--cj-emerald-500);
           animation: pulse 2s infinite;
         }
 
@@ -297,7 +327,8 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
         }
 
         .ticker-label {
-          color: #FFB800;
+          color: var(--cj-gold-500);
+          font-family: var(--font-ui);
           font-weight: 800;
           text-transform: uppercase;
         }
@@ -318,48 +349,59 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
         }
 
         .hero-headline-block {
-          max-width: 900px;
+          max-width: 950px;
           margin-bottom: 2.25rem;
         }
 
-        .slide-tag-pill {
+        .eyebrow-tag {
           display: inline-block;
-          font-family: var(--font-heading);
+          font-family: var(--font-ui);
           font-size: 0.85rem;
           font-weight: 800;
           text-transform: uppercase;
           letter-spacing: 0.15em;
-          color: var(--color-primary);
+          color: var(--cj-amber-500);
           background: rgba(255, 107, 0, 0.15);
-          padding: 0.3rem 1rem;
+          padding: 0.35rem 1.1rem;
           border-radius: var(--radius-full);
           border: 1px solid rgba(255, 107, 0, 0.3);
-          margin-bottom: 0.85rem;
+          margin-bottom: 1rem;
         }
 
         .hero-title {
-          font-size: clamp(2.6rem, 6.5vw, 4.8rem);
-          line-height: 1.08;
-          font-weight: 900;
-          margin-bottom: 0.85rem;
+          font-size: clamp(2.8rem, 6.8vw, 5.2rem);
+          line-height: 1.06;
+          font-weight: 800;
+          margin-bottom: 0.75rem;
           text-transform: uppercase;
-          letter-spacing: 0.01em;
         }
 
-        .hero-subtitle {
-          font-family: var(--font-heading);
-          font-size: clamp(1.25rem, 3.2vw, 1.85rem);
+        .hero-subline {
+          font-family: var(--font-serif);
+          font-size: clamp(1.3rem, 3.2vw, 1.95rem);
           color: #E2E8F0;
           font-weight: 600;
           font-style: italic;
-          margin-bottom: 0.85rem;
-          letter-spacing: 0.02em;
+          margin-bottom: 0.6rem;
+        }
+
+        .hero-campaign-tag {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          font-family: var(--font-ui);
+          font-size: 0.95rem;
+          font-weight: 800;
+          color: var(--cj-gold-400);
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          margin-bottom: 1rem;
         }
 
         .hero-description {
-          max-width: 720px;
+          max-width: 760px;
           margin: 0 auto;
-          font-size: 1.05rem;
+          font-size: 1.08rem;
           color: #94A3B8;
           line-height: 1.65;
         }
@@ -368,37 +410,32 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
         .hero-search-dock {
           display: flex;
           align-items: center;
-          gap: 1rem;
+          gap: 0.85rem;
           padding: 0.85rem 1.25rem;
           width: 100%;
-          max-width: 1050px;
+          max-width: 1100px;
           border-radius: var(--radius-full);
-          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 107, 0, 0.15);
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 35px rgba(255, 107, 0, 0.15);
           margin-bottom: 2rem;
         }
 
         .dock-field {
           display: flex;
           align-items: center;
-          gap: 0.75rem;
+          gap: 0.65rem;
           flex: 1;
           text-align: left;
         }
 
         .field-icon-box {
-          width: 40px;
-          height: 40px;
+          width: 38px;
+          height: 38px;
           border-radius: 50%;
           background: rgba(255, 107, 0, 0.15);
           display: flex;
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
-        }
-
-        .text-primary {
-          color: var(--color-primary);
         }
 
         .field-inputs {
@@ -408,7 +445,8 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
         }
 
         .field-inputs label {
-          font-size: 0.72rem;
+          font-family: var(--font-ui);
+          font-size: 0.7rem;
           font-weight: 800;
           text-transform: uppercase;
           color: #94A3B8;
@@ -428,18 +466,18 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
         }
 
         .field-inputs input::placeholder {
-          color: rgba(255, 255, 255, 0.5);
+          color: rgba(255, 255, 255, 0.45);
           font-weight: 500;
         }
 
         .field-inputs select option {
-          background: #0F172A;
+          background: var(--cj-bg-card);
           color: #FFFFFF;
         }
 
         .dock-divider {
           width: 1px;
-          height: 38px;
+          height: 36px;
           background: rgba(255, 255, 255, 0.15);
         }
 
@@ -450,19 +488,19 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
         }
 
         .search-submit-btn {
-          padding: 0.9rem 1.85rem;
+          padding: 0.85rem 1.75rem;
           flex-shrink: 0;
         }
 
         .ai-dock-btn {
-          padding: 0.9rem 1.65rem;
+          padding: 0.85rem 1.65rem;
           flex-shrink: 0;
         }
 
         /* Hero Footer Bar */
         .hero-footer-bar {
           width: 100%;
-          max-width: 1050px;
+          max-width: 1100px;
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -473,11 +511,12 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
         .quick-tags-group {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.45rem;
           flex-wrap: wrap;
         }
 
         .tags-label {
+          font-family: var(--font-ui);
           font-size: 0.82rem;
           color: #94A3B8;
           font-weight: 700;
@@ -487,6 +526,7 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.15);
           color: #F8FAFC;
+          font-family: var(--font-ui);
           font-size: 0.8rem;
           font-weight: 600;
           padding: 0.3rem 0.8rem;
@@ -495,8 +535,8 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
         }
 
         .hero-tag-btn:hover {
-          background: var(--color-primary);
-          border-color: var(--color-primary);
+          background: var(--cj-amber-500);
+          border-color: var(--cj-amber-500);
           transform: translateY(-1px);
         }
 
@@ -525,27 +565,28 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
 
         .slide-dot-pill.active {
           background: rgba(255, 107, 0, 0.2);
-          border-color: var(--color-primary);
+          border-color: var(--cj-amber-500);
           box-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
         }
 
         .dot-title {
-          font-family: var(--font-heading);
+          font-family: var(--font-ui);
           font-size: 0.82rem;
           font-weight: 800;
           color: #FFFFFF;
         }
 
         .dot-price {
+          font-family: var(--font-ui);
           font-size: 0.7rem;
-          color: var(--color-primary);
+          color: var(--cj-amber-500);
           font-weight: 700;
         }
 
-        @media (max-width: 960px) {
+        @media (max-width: 1080px) {
           .hero-search-dock {
             flex-direction: column;
-            border-radius: var(--radius-lg);
+            border-radius: var(--radius-xl);
             padding: 1.25rem;
             gap: 1rem;
           }

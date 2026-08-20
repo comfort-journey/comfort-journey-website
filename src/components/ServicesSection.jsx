@@ -1,28 +1,44 @@
 import React from 'react';
-import { SERVICES_DATA } from '../data/toursData';
-import { Sparkles, ArrowRight } from 'lucide-react';
+import { SERVICES_LIST } from '../data/toursData';
+import { Sparkles, ArrowRight, MessageCircle } from 'lucide-react';
 
-export default function ServicesSection({ onOpenQuote }) {
+export default function ServicesSection({ onOpenAIPlanner }) {
   return (
     <section id="services" className="services-root">
       <div className="container">
-        <div className="services-header">
-          <div>
-            <span className="badge badge-accent">Everything You Need. Nothing You Don't.</span>
-            <h2 className="services-title">What We Do For Your Trip</h2>
+        {/* Section Header */}
+        <div className="section-header">
+          <div className="badge badge-amber">
+            <Sparkles size={14} />
+            <span>Specialized Services</span>
           </div>
-          <button className="btn-primary" onClick={onOpenQuote}>
-            <span>Plan My Custom Trip</span>
-            <ArrowRight size={18} />
-          </button>
+          <h2 className="section-title">
+            Bespoke Travel Solutions for <br />
+            <span className="gradient-text-gold">Every Travel Desire</span>
+          </h2>
+          <p className="section-subtitle">
+            From romantic overwater escapes to high-altitude Himalayan pilgrimages and corporate retreats.
+          </p>
         </div>
 
+        {/* 8 Services Grid */}
         <div className="services-grid">
-          {SERVICES_DATA.map((srv) => (
-            <div key={srv.num} className="service-card">
-              <span className="service-num">{srv.num}</span>
-              <h3 className="service-name">{srv.title}</h3>
-              <p className="service-desc">{srv.desc}</p>
+          {SERVICES_LIST.map((service, idx) => (
+            <div key={idx} className="service-card glass-card">
+              <span className="service-num">{service.num}</span>
+              <h3 className="service-title">{service.title}</h3>
+              <p className="service-desc">{service.desc}</p>
+              
+              <button
+                className="service-link-btn"
+                onClick={() => {
+                  const msg = encodeURIComponent(`Hi Comfort Journey! I would like to inquire about your ${service.title} services.`);
+                  window.open(`https://wa.me/918770403315?text=${msg}`, '_blank');
+                }}
+              >
+                <span>Inquire Service</span>
+                <ArrowRight size={15} />
+              </button>
             </div>
           ))}
         </div>
@@ -30,104 +46,79 @@ export default function ServicesSection({ onOpenQuote }) {
 
       <style>{`
         .services-root {
-          padding: 6rem 0;
-          background: #0F172A;
+          padding: 6.5rem 0;
+          background: var(--cj-bg-panel);
           color: #FFFFFF;
         }
 
-        .services-header {
-          display: flex;
-          align-items: flex-end;
-          justify-content: space-between;
+        .section-header {
+          text-align: center;
           margin-bottom: 3.5rem;
-          flex-wrap: wrap;
-          gap: 1.5rem;
         }
 
-        .services-title {
-          font-size: clamp(2rem, 4vw, 2.75rem);
-          color: #FFFFFF;
-          margin-top: 0.5rem;
+        .section-title {
+          font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+          margin: 0.85rem 0;
+          line-height: 1.2;
+        }
+
+        .section-subtitle {
+          max-width: 680px;
+          margin: 0 auto;
+          color: #94A3B8;
+          font-size: 1.05rem;
         }
 
         .services-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-          gap: 1.5rem;
+          grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+          gap: 1.75rem;
         }
 
         .service-card {
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: var(--radius-md);
           padding: 2rem;
-          transition: all 0.3s ease;
           display: flex;
           flex-direction: column;
-        }
-
-        .service-card:hover {
-          transform: translateY(-6px);
-          background: rgba(255, 255, 255, 0.08);
-          border-color: var(--color-primary);
+          gap: 0.85rem;
+          background: rgba(19, 29, 51, 0.7);
         }
 
         .service-num {
-          font-family: var(--font-heading);
-          font-size: 2.2rem;
-          font-weight: 800;
-          color: var(--color-primary);
-          opacity: 0.9;
-          margin-bottom: 1rem;
-          line-height: 1;
+          font-family: var(--font-ui);
+          font-size: 1.5rem;
+          font-weight: 900;
+          color: var(--cj-amber-500);
         }
 
-        .service-name {
+        .service-title {
+          font-family: var(--font-ui);
           font-size: 1.25rem;
           color: #FFFFFF;
-          margin-bottom: 0.75rem;
+          line-height: 1.3;
         }
 
         .service-desc {
-          font-size: 0.92rem;
+          font-size: 0.9rem;
           color: #94A3B8;
           line-height: 1.6;
         }
 
-        @media (max-width: 640px) {
-          .services-root {
-            padding: 3.5rem 0;
-          }
-          .services-header {
-            flex-direction: column;
-            align-items: flex-start;
-            margin-bottom: 2rem;
-            gap: 1rem;
-          }
-          .services-title {
-            font-size: clamp(1.75rem, 6vw, 2.2rem);
-          }
-          .services-header .btn-primary {
-            width: 100%;
-            justify-content: center;
-          }
-          .services-grid {
-            grid-template-columns: 1fr;
-            gap: 1.25rem;
-          }
-          .service-card {
-            padding: 1.25rem;
-          }
-          .service-num {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-          }
-          .service-name {
-            font-size: 1.15rem;
-          }
-          .service-desc {
-            font-size: 0.88rem;
-          }
+        .service-link-btn {
+          margin-top: auto;
+          padding-top: 1rem;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          color: var(--cj-gold-500);
+          font-family: var(--font-ui);
+          font-size: 0.85rem;
+          font-weight: 700;
+          transition: all 0.2s ease;
+        }
+
+        .service-link-btn:hover {
+          color: var(--cj-amber-500);
+          transform: translateX(4px);
         }
       `}</style>
     </section>
