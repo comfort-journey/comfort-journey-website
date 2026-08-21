@@ -17,12 +17,12 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
     <section id="why-us" className="why-us-root">
       <div className="container">
         {/* Section Header */}
-        <div className="section-header">
+        <div className="section-header" data-reveal="fade-up">
           <div className="badge badge-amber">
             <ShieldCheck size={14} />
             <span>The Comfort Journey Standard</span>
           </div>
-          <h2 className="section-title">
+          <h2 className="section-title font-editorial illuminate-text">
             Why Discerning Travelers Choose <br />
             <span className="gradient-text-gold">Comfort Journey</span>
           </h2>
@@ -32,10 +32,14 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
           </p>
         </div>
 
-        {/* 7 Pillars Grid */}
+        {/* 7 Pillars Grid with Dynamic Spotlight */}
         <div className="pillars-grid">
           {WHY_US_PILLARS.map((pillar, idx) => (
-            <div key={idx} className="pillar-card glass-card">
+            <div 
+              key={idx} 
+              className="pillar-card glass-card spotlight-card"
+              data-reveal="stagger"
+            >
               <div className="pillar-top-row">
                 <div className="pillar-icon-box">
                   {icons[idx % icons.length]}
@@ -43,7 +47,7 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
                 <span className="pillar-num">0{idx + 1}</span>
               </div>
 
-              <h3 className="pillar-title">{pillar.title}</h3>
+              <h3 className="pillar-title font-editorial">{pillar.title}</h3>
               <p className="pillar-desc">{pillar.desc}</p>
 
               <div className="pillar-check">
@@ -55,17 +59,17 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
         </div>
 
         {/* Bottom Callout */}
-        <div className="why-us-banner glass-panel">
+        <div className="why-us-banner glass-panel spotlight-card" data-reveal="fade-up">
           <div className="banner-text">
-            <h3>Ready to Experience Travel with Absolute Comfort?</h3>
+            <h3 className="font-editorial">Ready to Experience Travel with Absolute Comfort?</h3>
             <p>Speak directly with our senior trip designers or design a custom itinerary in 2 minutes.</p>
           </div>
           <div className="banner-actions">
-            <button className="btn-ai-glow" onClick={onOpenAIPlanner}>
+            <button className="btn-ai-glow btn-magnetic" onClick={onOpenAIPlanner}>
               <Sparkles size={18} />
               Plan with AI Designer
             </button>
-            <a href="tel:+918770403315" className="btn-secondary">
+            <a href="tel:+918770403315" className="btn-secondary btn-magnetic">
               Call VIP Line: +91 8770403315
             </a>
           </div>
