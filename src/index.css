@@ -377,123 +377,49 @@ img, svg {
 }
 
 /* =======================================================
-   LUXURY ANIMATION SUITE (2026 Next-Gen Motion System)
+   CLEAN & HIGH-PERFORMANCE 120FPS DESIGN SYSTEM
    ======================================================= */
 
-/* 1. Dynamic Mouse Spotlight Glow (Haoqi / Linear Physics) */
-.spotlight-card,
+/* Fast, Crisp Glass Card Hover */
 .glass-card,
 .tour-card,
 .service-card,
 .pillar-card,
 .tier-card {
-  position: relative;
-  isolation: isolate;
-}
-
-.spotlight-card::before,
-.glass-card::before,
-.tour-card::before,
-.service-card::before,
-.pillar-card::before,
-.tier-card::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: radial-gradient(
-    550px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
-    rgba(255, 107, 0, 0.22) 0%,
-    rgba(255, 184, 0, 0.12) 25%,
-    rgba(139, 92, 246, 0.08) 45%,
-    transparent 65%
-  );
-  opacity: 0;
-  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.spotlight-card:hover::before,
-.glass-card:hover::before,
-.tour-card:hover::before,
-.service-card:hover::before,
-.pillar-card:hover::before,
-.tier-card:hover::before {
-  opacity: 1;
-}
-
-/* 2. 3D Card Perspective Tilt Physics */
-.tour-card,
-.spotlight-card {
-  transform: perspective(1000px) rotateX(var(--tilt-rx, 0deg)) rotateY(var(--tilt-ry, 0deg));
-  transform-style: preserve-3d;
-  transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.35s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   will-change: transform;
 }
 
+.glass-card:hover,
 .tour-card:hover,
-.spotlight-card:hover {
-  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.65), 0 0 30px rgba(255, 107, 0, 0.2);
+.service-card:hover,
+.pillar-card:hover,
+.tier-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 107, 0, 0.4);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 107, 0, 0.15);
 }
 
-/* 3. Smooth Intersection Observer Scroll Reveal */
-.reveal-on-scroll,
-[data-reveal],
-.section-header,
-.tour-card,
-.service-card,
-.pillar-card,
-.reel-card,
-.review-card,
-.studio-controls,
-.studio-preview-card {
-  opacity: 0;
-  transform: translateY(36px) scale(0.98);
-  filter: blur(8px);
-  transition: 
-    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform, filter;
-}
-
-.reveal-on-scroll.is-revealed,
-[data-reveal].is-revealed,
-.section-header.is-revealed,
-.tour-card.is-revealed,
-.service-card.is-revealed,
-.pillar-card.is-revealed,
-.reel-card.is-revealed,
-.review-card.is-revealed,
-.studio-controls.is-revealed,
-.studio-preview-card.is-revealed {
-  opacity: 1;
-  transform: translateY(0px) scale(1);
-  filter: blur(0px);
-}
-
-/* 4. Text Illumination on Scroll (Okaydev Style) */
-.illuminate-text {
-  background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0.35) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: background 0.8s ease;
-}
-
-.is-revealed .illuminate-text,
-.illuminate-text.is-revealed {
-  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* 5. Magnetic Button Physics */
-.btn-magnetic,
+/* Snappy Button Transitions */
 .btn-primary,
-.btn-ai-glow {
-  transition: transform 0.18s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.3s ease;
-  will-change: transform;
+.btn-ai-glow,
+.btn-secondary {
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.btn-primary:hover,
+.btn-ai-glow:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary:active,
+.btn-ai-glow:active {
+  transform: translateY(0);
+}
+
+/* Clean Editorial Text */
+.illuminate-text {
+  color: #FFFFFF;
 }
 
 /* Mobile glass optimization */
@@ -504,8 +430,6 @@ img, svg {
   .glass-card, .glass-panel {
     background: rgba(19, 29, 51, 0.95);
   }
-  .tour-card, .spotlight-card {
-    transform: none !important;
-  }
 }
+
 

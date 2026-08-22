@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { CurrencyProvider } from './context/CurrencyContext';
 import { WishlistCompareProvider } from './context/WishlistCompareContext';
-import SmoothScrollProvider from './components/SmoothScrollProvider';
-import AmbientBackgroundOrbs from './components/AmbientBackgroundOrbs';
-import { useLuxuryAnimationSuite } from './hooks/useLuxuryAnimationSuite';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import StatsBar from './components/StatsBar';
@@ -26,9 +23,6 @@ import FloatingQuickDock from './components/FloatingQuickDock';
 import LiveBookingToast from './components/LiveBookingToast';
 
 export default function App() {
-  // Activate luxury animation physics (Spotlight, Scroll Reveals, 3D Tilt, Magnetic CTAs)
-  useLuxuryAnimationSuite();
-
   const [searchFilters, setSearchFilters] = useState({ destination: '', category: 'All' });
   const [selectedItineraryTour, setSelectedItineraryTour] = useState(null);
   const [selectedBookingTour, setSelectedBookingTour] = useState(null);
@@ -40,17 +34,13 @@ export default function App() {
   return (
     <CurrencyProvider>
       <WishlistCompareProvider>
-        <SmoothScrollProvider>
-          <div className="app-root">
-            {/* Ambient Background Gradient Orbs (Fixed Parallax) */}
-            <AmbientBackgroundOrbs />
-
-            {/* 1. Header Navigation with Currency Switcher & AI Trigger */}
-            <Navbar 
-              onOpenQuote={() => setIsQuickQuoteOpen(true)} 
-              onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
-              onOpenAdmin={() => setIsAdminCMSOpen(true)}
-            />
+        <div className="app-root">
+          {/* 1. Header Navigation with Currency Switcher & AI Trigger */}
+          <Navbar 
+            onOpenQuote={() => setIsQuickQuoteOpen(true)} 
+            onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+            onOpenAdmin={() => setIsAdminCMSOpen(true)}
+          />
 
           {/* 2. Next-Gen Cinematic Hero ("YOUR JOURNEY YOUR COMFORT") */}
           <Hero 
@@ -175,7 +165,6 @@ export default function App() {
             }
           `}</style>
         </div>
-        </SmoothScrollProvider>
       </WishlistCompareProvider>
     </CurrencyProvider>
   );
