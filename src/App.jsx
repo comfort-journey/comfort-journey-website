@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CurrencyProvider } from './context/CurrencyContext';
 import { WishlistCompareProvider } from './context/WishlistCompareContext';
+import { useScrollAnimation } from './hooks/useScrollAnimation';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import StatsBar from './components/StatsBar';
@@ -23,6 +24,9 @@ import FloatingQuickDock from './components/FloatingQuickDock';
 import LiveBookingToast from './components/LiveBookingToast';
 
 export default function App() {
+  // Activate high-performance scroll reveals
+  useScrollAnimation();
+
   const [searchFilters, setSearchFilters] = useState({ destination: '', category: 'All' });
   const [selectedItineraryTour, setSelectedItineraryTour] = useState(null);
   const [selectedBookingTour, setSelectedBookingTour] = useState(null);

@@ -66,14 +66,182 @@ html {
   background-color: var(--cj-bg-obsidian);
 }
 
+/* Ambient Background with High-Performance CSS Radial Gradients */
 body {
   font-family: var(--font-body);
   background-color: var(--cj-bg-obsidian);
+  background-image: 
+    radial-gradient(ellipse 90% 50% at 50% -10%, rgba(255, 107, 0, 0.12), transparent 60%),
+    radial-gradient(ellipse 70% 40% at 95% 45%, rgba(139, 92, 246, 0.08), transparent 50%),
+    radial-gradient(ellipse 70% 40% at 5% 75%, rgba(255, 184, 0, 0.08), transparent 50%),
+    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(16, 185, 129, 0.06), transparent 60%);
+  background-attachment: fixed;
   color: var(--cj-text-body);
   line-height: 1.65;
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+}
+
+/* =======================================================
+   HIGH-PERFORMANCE LUXURY ANIMATIONS (120FPS GPU COMPLIANT)
+   ======================================================= */
+
+/* 1. Scroll-Reveal Entrance */
+.animate-on-scroll,
+.section-header,
+.tour-card,
+.service-card,
+.pillar-card,
+.review-card,
+.reel-card,
+.studio-controls,
+.studio-preview-card,
+.about-image-col,
+.about-content-col {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.animate-on-scroll.revealed,
+.section-header.revealed,
+.tour-card.revealed,
+.service-card.revealed,
+.pillar-card.revealed,
+.review-card.revealed,
+.reel-card.revealed,
+.studio-controls.revealed,
+.studio-preview-card.revealed,
+.about-image-col.revealed,
+.about-content-col.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 2. Floating Badge Animation */
+@keyframes floatSoft {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.trust-pill,
+.trust-badge-overlay,
+.floating-badge {
+  animation: floatSoft 5s ease-in-out infinite;
+}
+
+/* 3. Luxury Gold Shimmer Text */
+@keyframes goldShimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.gradient-text-gold {
+  background: linear-gradient(
+    90deg,
+    var(--cj-gold-400) 0%,
+    #FFF4CC 25%,
+    var(--cj-amber-500) 50%,
+    var(--cj-gold-500) 75%,
+    var(--cj-gold-400) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: goldShimmer 8s linear infinite;
+}
+
+/* 4. Interactive Card Elevation & Image Zoom */
+.glass-card,
+.tour-card,
+.service-card,
+.pillar-card,
+.tier-card,
+.reel-card,
+.review-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+  will-change: transform;
+}
+
+.glass-card:hover,
+.tour-card:hover,
+.service-card:hover,
+.pillar-card:hover,
+.tier-card:hover,
+.reel-card:hover,
+.review-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 107, 0, 0.45);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 107, 0, 0.18);
+}
+
+.tour-card:hover img,
+.reel-card:hover img,
+.image-stack:hover img {
+  transform: scale(1.05);
+}
+
+.tour-card img,
+.reel-card img,
+.image-stack img {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Subtle Top Border Glow on Card Hover */
+.glass-card::after,
+.tour-card::after,
+.service-card::after,
+.pillar-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 107, 0, 0.8), rgba(255, 184, 0, 0.8), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.glass-card:hover::after,
+.tour-card:hover::after,
+.service-card:hover::after,
+.pillar-card:hover::after {
+  opacity: 1;
+}
+
+/* 5. Snappy Button Transitions & Shimmer */
+.btn-primary,
+.btn-ai-glow,
+.btn-secondary,
+.btn-whatsapp {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+}
+
+.btn-primary:hover,
+.btn-ai-glow:hover,
+.btn-secondary:hover,
+.btn-whatsapp:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary:active,
+.btn-ai-glow:active,
+.btn-secondary:active {
+  transform: translateY(0);
 }
 
 /* Typography Hierarchy per Spec B2 */
@@ -431,5 +599,3 @@ img, svg {
     background: rgba(19, 29, 51, 0.95);
   }
 }
-
-
