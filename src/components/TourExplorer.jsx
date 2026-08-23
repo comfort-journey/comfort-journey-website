@@ -84,6 +84,9 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
     return b.reviews - a.reviews; // popularity default
   });
 
+  const isExactCityNotFound = filteredTours.length === 0 && Boolean(searchFilters?.destination);
+  const displayedTours = isExactCityNotFound ? TOURS_DATA : filteredTours;
+
   return (
     <section id="tours" className="tours-root">
       <div className="container">
@@ -100,6 +103,31 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
             100% Bespoke Itineraries with 5-Star Accommodations, Private Chauffeurs & 24/7 Personal VIP Concierge.
           </p>
         </div>
+
+        {/* Dynamic Destination Filter Status Banner */}
+        {searchFilters?.destination && (
+          <div className={`destination-status-banner ${isExactCityNotFound ? 'fallback-notice' : 'match-notice'}`}>
+            {!isExactCityNotFound ? (
+              <div className="status-banner-content">
+                <MapPin size={16} className="text-amber" />
+                <span>
+                  Showing packages matching <strong>"{searchFilters.destination}"</strong> ({filteredTours.length} luxury {filteredTours.length === 1 ? 'itinerary' : 'itineraries'} found)
+                </span>
+              </div>
+            ) : (
+              <div className="status-banner-content">
+                <Sparkles size={16} className="text-amber" />
+                <span>
+                  No pre-built package for <strong>"{searchFilters.destination}"</strong> yet — showing all <strong>{TOURS_DATA.length} luxury packages</strong>. We craft 100% bespoke VIP tours worldwide!
+                </span>
+                <button type="button" className="btn-ai-pill" onClick={onOpenAIPlanner}>
+                  <span>Plan {searchFilters.destination} with AI</span>
+                  <ArrowRight size={13} />
+                </button>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Category Tabs */}
         <div className="category-tabs">
@@ -154,7 +182,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
         {/* Results Counter Bar */}
         <div className="results-counter-strip">
-          <span className="count-text">Showing <strong>{filteredTours.length}</strong> Luxury Tour Packages</span>
+          <span className="count-text">Showing <strong>{displayedTours.length}</strong> Luxury Tour Packages</span>
           <button 
             className="ai-help-link"
             onClick={onOpenAIPlanner}
@@ -165,9 +193,9 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         </div>
 
         {/* Tours Grid */}
-        {filteredTours.length > 0 ? (
+        {displayedTours.length > 0 ? (
           <div className="tours-grid">
-            {filteredTours.map((tour) => {
+            {displayedTours.map((tour) => {
               const saved = isInWishlist(tour.id);
               const comparing = isComparing(tour.id);
 
@@ -360,6 +388,63 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           color: #94A3B8;
           font-size: 1.05rem;
           line-height: 1.6;
+        }
+
+        .destination-status-banner {
+          max-width: 900px;
+          margin: 0 auto 1.5rem auto;
+          padding: 0.75rem 1.25rem;
+          border-radius: var(--radius-md);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          animation: luxuryScaleFadeIn 0.3s ease;
+        }
+
+        .destination-status-banner.match-notice {
+          background: rgba(0, 29, 81, 0.85);
+          border: 1px solid rgba(255, 137, 47, 0.35);
+          box-shadow: 0 4px 20px rgba(0, 18, 51, 0.5);
+        }
+
+        .destination-status-banner.fallback-notice {
+          background: rgba(5, 38, 105, 0.9);
+          border: 1px solid rgba(111, 230, 252, 0.3);
+          box-shadow: 0 6px 25px rgba(0, 18, 51, 0.6);
+        }
+
+        .status-banner-content {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          flex-wrap: wrap;
+          justify-content: center;
+          font-size: 0.88rem;
+          color: #F9FBE7;
+        }
+
+        .status-banner-content strong {
+          color: #FF892F;
+        }
+
+        .btn-ai-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          background: linear-gradient(135deg, #6FE6FC, #FF892F);
+          color: #001233;
+          font-family: var(--font-ui);
+          font-size: 0.76rem;
+          font-weight: 800;
+          padding: 0.3rem 0.85rem;
+          border-radius: var(--radius-full);
+          transition: all 0.2s ease;
+          cursor: pointer;
+        }
+
+        .btn-ai-pill:hover {
+          transform: translateY(-2px) scale(1.04);
+          box-shadow: 0 4px 15px rgba(111, 230, 252, 0.4);
         }
 
         .category-tabs {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, MapPin, Users, ShieldCheck, Sparkles, Compass, Calendar, ChevronRight, Award, Flame, Radio } from 'lucide-react';
+import { Search, MapPin, Users, ShieldCheck, Sparkles, Compass, Calendar, ChevronRight, Award, Flame, Radio, ExternalLink } from 'lucide-react';
 import { HERO_SLIDES, STATS_DATA } from '../data/toursData';
 import { useCurrency } from '../context/CurrencyContext';
 import { useLiveWeather } from '../hooks/useLiveWeather';
@@ -70,8 +70,11 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           </div>
 
           <div className="weather-ticker">
-            <span className="live-dot" title={isLive ? 'Real-Time Live Weather Active' : 'Connecting to Live Weather'}></span>
-            <span className="ticker-label">{isLive ? 'Real-Time Live Weather:' : 'Live Destination Weather:'}</span>
+            <div className="ticker-label-group">
+              <span className="live-dot" title={isLive ? 'Real-Time Live Meteorological Satellite Active' : 'Connecting to Live Weather'}></span>
+              <span className="ticker-label">{isLive ? 'Live Weather:' : 'Destination Weather:'}</span>
+            </div>
+
             <div className="ticker-scroll">
               {weatherList.map((w, idx) => (
                 <button
@@ -84,7 +87,7 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
                     const target = document.getElementById('tours');
                     if (target) target.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  title={`Explore ${w.city} packages • Live ${w.temp} (${w.condition})`}
+                  title={`View ${w.city} packages • Live ${w.temp} (${w.condition})`}
                 >
                   <span className="w-icon">{w.icon}</span>
                   <strong>{w.city}:</strong>
@@ -93,6 +96,17 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
                 </button>
               ))}
             </div>
+
+            <a
+              href="https://open-meteo.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="verified-radar-link"
+              title="Verify live global meteorological satellite radar (Opens in new tab)"
+            >
+              <ExternalLink size={12} />
+              <span>Verified Satellite Radar ↗</span>
+            </a>
           </div>
         </div>
 
@@ -409,13 +423,21 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
         .weather-ticker {
           display: inline-flex;
           align-items: center;
-          gap: 0.6rem;
-          background: rgba(15, 23, 42, 0.85);
+          gap: 0.75rem;
+          background: rgba(15, 23, 42, 0.88);
           border: 1px solid rgba(255, 184, 0, 0.35);
-          padding: 0.4rem 1rem;
+          padding: 0.35rem 0.85rem 0.35rem 1rem;
           border-radius: var(--radius-full);
           font-size: 0.78rem;
           color: #F8FAFC;
+          max-width: 95vw;
+        }
+
+        .ticker-label-group {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          flex-shrink: 0;
         }
 
         .live-dot {
@@ -437,6 +459,31 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           font-family: var(--font-ui);
           font-weight: 800;
           text-transform: uppercase;
+          white-space: nowrap;
+        }
+
+        .verified-radar-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          background: rgba(111, 230, 252, 0.12);
+          border: 1px solid rgba(111, 230, 252, 0.3);
+          color: #6FE6FC;
+          font-family: var(--font-ui);
+          font-size: 0.72rem;
+          font-weight: 700;
+          padding: 0.25rem 0.65rem;
+          border-radius: var(--radius-full);
+          white-space: nowrap;
+          transition: all 0.2s ease;
+          flex-shrink: 0;
+        }
+
+        .verified-radar-link:hover {
+          background: rgba(111, 230, 252, 0.25);
+          color: #FFFFFF;
+          border-color: #6FE6FC;
+          box-shadow: 0 0 12px rgba(111, 230, 252, 0.4);
         }
 
         .ticker-scroll {
