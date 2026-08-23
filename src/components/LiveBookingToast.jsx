@@ -152,9 +152,9 @@ export default function LiveBookingToast() {
           }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 900px) {
           .live-toast-wrapper {
-            display: none;
+            display: none !important;
           }
         }
       `}</style>

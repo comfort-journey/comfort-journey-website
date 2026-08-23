@@ -225,10 +225,10 @@ export default function AboutPromoSection({ onOpenQuote }) {
 
         @media (max-width: 640px) {
           .about-root {
-            padding: 4.5rem 0;
+            padding: 3rem 0 2rem 0;
           }
           .img-main {
-            height: 300px;
+            height: 280px;
           }
           .trust-badge-overlay {
             bottom: 1rem;

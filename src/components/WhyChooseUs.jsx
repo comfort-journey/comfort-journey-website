@@ -208,6 +208,16 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
             justify-content: center;
           }
         }
+
+        @media (max-width: 640px) {
+          .pillars-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+          }
+          .pillar-card {
+            padding: 1.25rem;
+          }
+        }
       `}</style>
     </section>
   );

@@ -891,10 +891,11 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
         @media (max-width: 768px) {
           .tours-root {
-            padding: 4rem 0;
+            padding: 3rem 0 2rem 0;
           }
           .tours-grid {
             grid-template-columns: 1fr;
+            gap: 1.5rem;
           }
           .category-tabs, .vibe-pills-list {
             justify-content: flex-start;
@@ -911,14 +912,20 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           .filter-controls-bar {
             flex-direction: column;
             align-items: stretch;
+            gap: 1rem;
           }
           .filter-selects-row {
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+          }
+          .select-pill select {
+            max-width: 100%;
           }
           .card-footer {
             flex-direction: column;
             align-items: stretch;
-            gap: 1rem;
+            gap: 0.85rem;
           }
           .price-box {
             display: flex;

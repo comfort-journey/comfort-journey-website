@@ -56,17 +56,11 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
       </div>
 
       <div className="container hero-content-container">
-        {/* Top Badges: Trust Pill + Compass + Live Interactive Weather Ticker */}
+        {/* Top Badges: Trust Pill + Live Interactive Weather Ticker */}
         <div className="hero-top-badges">
           <div className="trust-pill">
-            <ShieldCheck size={16} className="text-emerald" />
-            <span>Est. 1992 • Bhopal & Worldwide Luxury Specialist</span>
-          </div>
-
-          {/* Interactive Micro Compass Vector Widget */}
-          <div className="hero-compass-widget">
-            <InteractiveCompassSVG size={36} showLabels={false} />
-            <span className="compass-live-tag">NAVIGATE WORLD</span>
+            <ShieldCheck size={15} className="text-emerald" />
+            <span>Est. 1992 • Luxury Specialist</span>
           </div>
 
           <div className="weather-ticker">
@@ -105,15 +99,13 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
               title="Verify live global meteorological satellite radar (Opens in new tab)"
             >
               <ExternalLink size={12} />
-              <span>Verified Satellite Radar ↗</span>
+              <span>Satellite Radar ↗</span>
             </a>
           </div>
         </div>
 
-        {/* Master Spec Part A Headlines with Zajno Kinetic Typography */}
+        {/* 1 Single Clean Main Heading + 1 Single Subtitle */}
         <div className="hero-headline-block">
-          <span className="eyebrow-tag">MOUNTAIN ROYALTY & GLOBAL ADVENTURES</span>
-          
           <h1 className="hero-title font-editorial">
             <KineticHeading as="span" staggerDelay={0.07}>
               YOUR JOURNEY
@@ -123,17 +115,7 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           </h1>
 
           <p className="hero-subline">
-            "We cover Distance with Comfort"
-          </p>
-
-          <div className="hero-campaign-tag">
-            <Flame size={16} className="text-amber inline-icon" />
-            <span>Adrenaline, Wrapped in Comfort.</span>
-          </div>
-
-          <p className="hero-description">
-            Tailor-made Luxury Vacations for 2,000+ Worldwide Destinations. 
-            Handpicked 5-Star Stays, Private Chauffeurs, Helicopters, Visas & 24/7 Personal Concierge Included.
+            "We cover Distance with Comfort" • 33+ Years of Bespoke 5-Star Luxury Tours Worldwide
           </p>
         </div>
 
@@ -319,10 +301,10 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
       <style>{`
         .hero-root {
           position: relative;
-          min-height: 90vh;
+          min-height: auto;
           display: flex;
           align-items: center;
-          padding: 6.5rem 0 2rem 0;
+          padding: calc(75px + 1.25rem) 0 2rem 0;
           overflow: hidden;
           background: #001233;
           color: #FFFFFF;
@@ -351,8 +333,8 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           position: absolute;
           inset: 0;
           background: linear-gradient(180deg, 
-            rgba(7, 11, 20, 0.72) 0%, 
-            rgba(7, 11, 20, 0.85) 60%, 
+            rgba(7, 11, 20, 0.75) 0%, 
+            rgba(7, 11, 20, 0.88) 60%, 
             var(--cj-bg-obsidian) 100%
           );
         }
@@ -370,8 +352,8 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
         .hero-top-badges {
           display: flex;
           align-items: center;
-          gap: 1rem;
-          margin-bottom: 1.5rem;
+          gap: 0.75rem;
+          margin-bottom: 0.85rem;
           flex-wrap: wrap;
           justify-content: center;
         }
@@ -379,37 +361,17 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
         .trust-pill {
           display: inline-flex;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.45rem;
           background: rgba(255, 255, 255, 0.1);
           backdrop-filter: blur(12px);
           border: 1px solid rgba(255, 255, 255, 0.2);
-          padding: 0.4rem 1.1rem;
+          padding: 0.35rem 0.95rem;
           border-radius: var(--radius-full);
           font-family: var(--font-ui);
-          font-size: 0.82rem;
+          font-size: 0.8rem;
           font-weight: 700;
           color: #E2E8F0;
-        }
-
-        .hero-compass-widget {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.6rem;
-          background: rgba(0, 29, 81, 0.7);
-          backdrop-filter: blur(12px);
-          border: 1px solid rgba(111, 230, 252, 0.3);
-          padding: 0.25rem 0.9rem 0.25rem 0.45rem;
-          border-radius: var(--radius-full);
-          box-shadow: 0 4px 15px rgba(0, 18, 51, 0.6);
-        }
-
-        .compass-live-tag {
-          font-family: var(--font-ui);
-          font-size: 0.72rem;
-          font-weight: 900;
-          letter-spacing: 0.08em;
-          color: #6FE6FC;
-          text-transform: uppercase;
+          white-space: nowrap;
         }
 
         .text-emerald {
@@ -423,10 +385,10 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
         .weather-ticker {
           display: inline-flex;
           align-items: center;
-          gap: 0.75rem;
+          gap: 0.65rem;
           background: rgba(15, 23, 42, 0.88);
           border: 1px solid rgba(255, 184, 0, 0.35);
-          padding: 0.35rem 0.85rem 0.35rem 1rem;
+          padding: 0.3rem 0.75rem 0.3rem 0.9rem;
           border-radius: var(--radius-full);
           font-size: 0.78rem;
           color: #F8FAFC;
@@ -436,7 +398,7 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
         .ticker-label-group {
           display: inline-flex;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.45rem;
           flex-shrink: 0;
         }
 
@@ -460,6 +422,7 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           font-weight: 800;
           text-transform: uppercase;
           white-space: nowrap;
+          font-size: 0.75rem;
         }
 
         .verified-radar-link {
@@ -488,101 +451,57 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
 
         .ticker-scroll {
           display: flex;
-          gap: 0.85rem;
+          gap: 0.75rem;
           overflow: hidden;
         }
 
-        .weather-item {
-          color: #E2E8F0;
-          white-space: nowrap;
-        }
-
-        .weather-item strong {
-          color: #FFFFFF;
-        }
-
         .hero-headline-block {
-          max-width: 950px;
-          margin-bottom: 2.25rem;
-        }
-
-        .eyebrow-tag {
-          display: inline-block;
-          font-family: var(--font-ui);
-          font-size: 0.85rem;
-          font-weight: 800;
-          text-transform: uppercase;
-          letter-spacing: 0.15em;
-          color: var(--cj-amber-500);
-          background: rgba(255, 107, 0, 0.15);
-          padding: 0.35rem 1.1rem;
-          border-radius: var(--radius-full);
-          border: 1px solid rgba(255, 107, 0, 0.3);
-          margin-bottom: 1rem;
+          max-width: 900px;
+          margin-bottom: 1.15rem;
         }
 
         .hero-title {
-          font-size: clamp(2.8rem, 6.8vw, 5.2rem);
-          line-height: 1.06;
+          font-size: clamp(2.3rem, 5.2vw, 4.2rem);
+          line-height: 1.08;
           font-weight: 800;
-          margin-bottom: 0.75rem;
+          margin-bottom: 0.5rem;
           text-transform: uppercase;
         }
 
         .hero-subline {
-          font-family: var(--font-serif);
-          font-size: clamp(1.3rem, 3.2vw, 1.95rem);
+          font-family: var(--font-body);
+          font-size: clamp(0.95rem, 2vw, 1.2rem);
           color: #E2E8F0;
-          font-weight: 600;
-          font-style: italic;
-          margin-bottom: 0.6rem;
-        }
-
-        .hero-campaign-tag {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.4rem;
-          font-family: var(--font-ui);
-          font-size: 0.95rem;
-          font-weight: 800;
-          color: var(--cj-gold-400);
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          margin-bottom: 1rem;
-        }
-
-        .hero-description {
-          max-width: 760px;
-          margin: 0 auto;
-          font-size: 1.08rem;
-          color: #94A3B8;
-          line-height: 1.65;
+          font-weight: 500;
+          line-height: 1.45;
+          margin-bottom: 0;
         }
 
         /* Search Dock */
         .hero-search-dock {
           display: flex;
           align-items: center;
-          gap: 0.85rem;
-          padding: 0.85rem 1.25rem;
+          gap: 0.65rem;
+          padding: 0.65rem 1rem;
           width: 100%;
           max-width: 1100px;
           border-radius: var(--radius-full);
           box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 35px rgba(255, 107, 0, 0.15);
-          margin-bottom: 2rem;
+          margin-bottom: 1.25rem;
         }
 
         .dock-field {
           display: flex;
           align-items: center;
-          gap: 0.65rem;
+          gap: 0.55rem;
           flex: 1;
           text-align: left;
+          min-width: 0;
         }
 
         .field-icon-box {
-          width: 38px;
-          height: 38px;
+          width: 34px;
+          height: 34px;
           border-radius: 50%;
           background: rgba(255, 107, 0, 0.15);
           display: flex;
@@ -595,15 +514,17 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           display: flex;
           flex-direction: column;
           width: 100%;
+          min-width: 0;
         }
 
         .field-inputs label {
           font-family: var(--font-ui);
-          font-size: 0.7rem;
+          font-size: 0.68rem;
           font-weight: 800;
           text-transform: uppercase;
           color: #94A3B8;
           letter-spacing: 0.05em;
+          white-space: nowrap;
         }
 
         .field-inputs input, .field-inputs select {
@@ -611,11 +532,13 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           outline: none;
           background: transparent;
           font-family: var(--font-body);
-          font-size: 0.95rem;
+          font-size: 0.9rem;
           font-weight: 700;
           color: #FFFFFF;
           width: 100%;
           cursor: pointer;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
 
         .field-inputs input::placeholder {
@@ -630,24 +553,30 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
 
         .dock-divider {
           width: 1px;
-          height: 36px;
+          height: 32px;
           background: rgba(255, 255, 255, 0.15);
+          flex-shrink: 0;
         }
 
         .dock-actions {
           display: flex;
           align-items: center;
-          gap: 0.65rem;
+          gap: 0.5rem;
+          flex-shrink: 0;
         }
 
         .search-submit-btn {
-          padding: 0.85rem 1.75rem;
+          padding: 0.75rem 1.45rem;
           flex-shrink: 0;
+          white-space: nowrap;
+          font-size: 0.88rem;
         }
 
         .ai-dock-btn {
-          padding: 0.85rem 1.65rem;
+          padding: 0.75rem 1.35rem;
           flex-shrink: 0;
+          white-space: nowrap;
+          font-size: 0.88rem;
         }
 
         /* Hero Footer Bar */
@@ -657,7 +586,7 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 1.5rem;
+          gap: 1rem;
           flex-wrap: wrap;
         }
 
@@ -670,7 +599,7 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
 
         .tags-label {
           font-family: var(--font-ui);
-          font-size: 0.82rem;
+          font-size: 0.8rem;
           color: #94A3B8;
           font-weight: 700;
         }
@@ -680,11 +609,18 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           border: 1px solid rgba(255, 255, 255, 0.15);
           color: #F8FAFC;
           font-family: var(--font-ui);
-          font-size: 0.8rem;
+          font-size: 0.78rem;
           font-weight: 600;
-          padding: 0.3rem 0.8rem;
+          padding: 0.25rem 0.75rem;
           border-radius: var(--radius-full);
           transition: all 0.2s ease;
+          cursor: pointer;
+        }
+
+        .hero-tag-btn:hover {
+          background: var(--cj-amber-500);
+          border-color: var(--cj-amber-500);
+          transform: translateY(-1px);
         }
 
         .weather-item-btn {
@@ -716,55 +652,10 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           color: #94A3B8;
         }
 
-        .conversational-hint-strip {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 0.6rem;
-          flex-wrap: wrap;
-          margin-top: -0.75rem;
-          margin-bottom: 2rem;
-          max-width: 1000px;
-        }
-
-        .hint-pill-title {
-          font-family: var(--font-ui);
-          font-size: 0.78rem;
-          font-weight: 800;
-          color: #C084FC;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-        }
-
-        .conv-chip {
-          background: rgba(139, 92, 246, 0.12);
-          border: 1px solid rgba(139, 92, 246, 0.35);
-          color: #E2E8F0;
-          font-family: var(--font-ui);
-          font-size: 0.78rem;
-          font-weight: 600;
-          padding: 0.3rem 0.8rem;
-          border-radius: var(--radius-full);
-          transition: all 0.2s ease;
-        }
-
-        .conv-chip:hover {
-          background: rgba(139, 92, 246, 0.3);
-          border-color: #C084FC;
-          color: #FFFFFF;
-          transform: translateY(-1px);
-        }
-
-        .hero-tag-btn:hover {
-          background: var(--cj-amber-500);
-          border-color: var(--cj-amber-500);
-          transform: translateY(-1px);
-        }
-
         .slide-dots-group {
           display: flex;
           align-items: center;
-          gap: 0.6rem;
+          gap: 0.5rem;
         }
 
         .slide-dot-pill {
@@ -773,7 +664,7 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           text-align: left;
           background: rgba(255, 255, 255, 0.06);
           border: 1px solid rgba(255, 255, 255, 0.12);
-          padding: 0.4rem 0.85rem;
+          padding: 0.35rem 0.75rem;
           border-radius: var(--radius-sm);
           transition: all 0.3s ease;
           cursor: pointer;
@@ -792,23 +683,24 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
 
         .dot-title {
           font-family: var(--font-ui);
-          font-size: 0.82rem;
+          font-size: 0.78rem;
           font-weight: 800;
           color: #FFFFFF;
         }
 
         .dot-price {
           font-family: var(--font-ui);
-          font-size: 0.7rem;
+          font-size: 0.68rem;
           color: var(--cj-amber-500);
           font-weight: 700;
         }
 
         @media (max-width: 1080px) {
           .hero-search-dock {
-            flex-direction: column;
-            border-radius: var(--radius-xl);
-            padding: 1.25rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-radius: var(--radius-lg);
+            padding: 1.15rem;
             gap: 1rem;
           }
           .dock-divider {
@@ -817,18 +709,49 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           .dock-field {
             width: 100%;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 0.6rem;
+            padding-bottom: 0.5rem;
           }
           .dock-actions {
+            grid-column: span 2;
             width: 100%;
-            flex-direction: column;
+            display: flex;
+            flex-direction: row;
+            gap: 0.65rem;
           }
           .search-submit-btn, .ai-dock-btn {
-            width: 100%;
+            flex: 1;
             justify-content: center;
           }
           .slide-dots-group {
             display: none;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .hero-root {
+            padding: calc(70px + 1rem) 0 1.5rem 0;
+          }
+          .hero-search-dock {
+            grid-template-columns: 1fr;
+            border-radius: var(--radius-md);
+            padding: 0.95rem;
+            gap: 0.75rem;
+          }
+          .dock-actions {
+            grid-column: span 1;
+            flex-direction: column;
+          }
+          .search-submit-btn, .ai-dock-btn {
+            width: 100%;
+          }
+          .hero-top-badges {
+            flex-direction: column;
+            gap: 0.5rem;
+          }
+          .weather-ticker {
+            max-width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
           }
         }
       `}</style>

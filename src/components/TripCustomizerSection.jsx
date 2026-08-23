@@ -601,6 +601,19 @@ Please share the day-by-day customized itinerary proposal!`;
             position: static;
           }
         }
+
+        @media (max-width: 640px) {
+          .cards-selection-row {
+            grid-template-columns: 1fr;
+            gap: 0.65rem;
+          }
+          .studio-summary-pane {
+            padding: 1.5rem;
+          }
+          .big-calc-price {
+            font-size: 2rem;
+          }
+        }
       `}</style>
     </section>
   );

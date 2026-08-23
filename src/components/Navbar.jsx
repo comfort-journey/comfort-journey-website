@@ -236,27 +236,31 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
           display: flex;
           align-items: center;
           justify-content: space-between;
+          gap: 1rem;
         }
 
         .brand-logo {
           display: flex;
           align-items: center;
-          gap: 0.75rem;
+          gap: 0.65rem;
           color: #FFFFFF;
+          flex-shrink: 0;
+          white-space: nowrap;
         }
 
         .logo-glow-wrapper {
           position: relative;
           border-radius: 50%;
+          flex-shrink: 0;
         }
 
         .logo-img {
-          width: 44px;
-          height: 44px;
+          width: 40px;
+          height: 40px;
           border-radius: 50%;
           border: 2px solid var(--cj-amber-500);
           object-fit: cover;
-          box-shadow: 0 0 15px rgba(255, 107, 0, 0.4);
+          box-shadow: 0 0 12px rgba(255, 107, 0, 0.4);
         }
 
         .logo-text {
@@ -267,33 +271,38 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
         .logo-text .title {
           font-family: var(--font-ui);
           font-weight: 800;
-          font-size: 1.15rem;
+          font-size: 1.05rem;
           letter-spacing: 0.04em;
           color: #FFFFFF;
-          line-height: 1.2;
+          line-height: 1.15;
+          white-space: nowrap;
         }
 
         .logo-text .sub {
-          font-size: 0.7rem;
+          font-size: 0.65rem;
           color: var(--cj-amber-500);
           font-weight: 700;
           letter-spacing: 0.05em;
           text-transform: uppercase;
+          white-space: nowrap;
         }
 
         .desktop-nav {
           display: flex;
           align-items: center;
-          gap: 1.75rem;
+          gap: 1.15rem;
+          white-space: nowrap;
+          flex-shrink: 0;
         }
 
         .nav-link {
-          color: rgba(255, 255, 255, 0.82);
+          color: rgba(255, 255, 255, 0.85);
           font-family: var(--font-ui);
-          font-weight: 600;
-          font-size: 0.92rem;
+          font-weight: 700;
+          font-size: 0.88rem;
           transition: all 0.2s ease;
           position: relative;
+          white-space: nowrap;
         }
 
         .nav-link::after {
@@ -318,13 +327,14 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
         .nav-actions {
           display: flex;
           align-items: center;
-          gap: 0.75rem;
+          gap: 0.5rem;
+          flex-shrink: 0;
         }
 
         .nav-icon-btn {
           position: relative;
-          width: 38px;
-          height: 38px;
+          width: 36px;
+          height: 36px;
           border-radius: 50%;
           background: rgba(255, 255, 255, 0.07);
           border: 1px solid var(--cj-glass-border);
@@ -333,6 +343,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
           align-items: center;
           justify-content: center;
           transition: all 0.2s ease;
+          flex-shrink: 0;
         }
 
         .nav-icon-btn:hover {
@@ -374,6 +385,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
 
         .currency-selector-rel {
           position: relative;
+          flex-shrink: 0;
         }
 
         .currency-btn {
@@ -383,12 +395,13 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid var(--cj-glass-border);
           color: #FFFFFF;
-          padding: 0.45rem 0.8rem;
+          padding: 0.4rem 0.75rem;
           border-radius: var(--radius-full);
           font-family: var(--font-ui);
-          font-size: 0.82rem;
+          font-size: 0.8rem;
           font-weight: 700;
           transition: all 0.2s ease;
+          white-space: nowrap;
         }
 
         .currency-btn:hover {
@@ -443,29 +456,37 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
         }
 
         .nav-ai-btn {
-          padding: 0.45rem 1rem;
-          font-size: 0.85rem;
+          padding: 0.45rem 0.95rem;
+          font-size: 0.82rem;
+          white-space: nowrap;
+          flex-shrink: 0;
         }
 
         .phone-btn {
-          display: flex;
+          display: inline-flex;
           align-items: center;
-          gap: 0.4rem;
+          gap: 0.35rem;
           color: #FFFFFF;
           font-family: var(--font-ui);
           font-weight: 700;
-          font-size: 0.85rem;
+          font-size: 0.82rem;
           background: rgba(255, 255, 255, 0.08);
-          padding: 0.45rem 0.95rem;
+          padding: 0.45rem 0.85rem;
           border-radius: var(--radius-full);
           border: 1px solid var(--cj-glass-border);
           transition: all 0.2s ease;
+          white-space: nowrap;
+          flex-shrink: 0;
         }
 
         .phone-btn:hover {
           background: rgba(255, 107, 0, 0.2);
           border-color: var(--cj-amber-500);
           color: var(--cj-amber-500);
+        }
+
+        .phone-text {
+          white-space: nowrap;
         }
 
         .admin-trigger-btn {
@@ -479,6 +500,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
           align-items: center;
           justify-content: center;
           transition: all 0.2s ease;
+          flex-shrink: 0;
         }
 
         .admin-trigger-btn:hover {
@@ -490,6 +512,8 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
           display: none;
           background: none;
           color: #FFFFFF;
+          cursor: pointer;
+          padding: 0.25rem;
         }
 
         .mobile-drawer {
@@ -527,8 +551,8 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
           justify-content: center;
         }
 
-        @media (max-width: 1080px) {
-          .desktop-nav, .phone-text {
+        @media (max-width: 1140px) {
+          .desktop-nav, .phone-btn {
             display: none;
           }
           .mobile-toggle {
@@ -536,12 +560,15 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
           }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 640px) {
           .ai-btn-text {
             display: none;
           }
           .nav-ai-btn {
-            padding: 0.45rem 0.65rem;
+            padding: 0.4rem 0.6rem;
+          }
+          .brand-logo .logo-text .sub {
+            display: none;
           }
         }
       `}</style>
