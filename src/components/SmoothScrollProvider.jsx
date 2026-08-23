@@ -1,57 +1,47 @@
-import React, { useEffect, useState, createContext, useContext } from 'react';
-import Lenis from 'lenis';
+import React, { useEffect, useRef, createContext, useContext } from 'react';
 
 const SmoothScrollContext = createContext(null);
 
 export const useSmoothScroll = () => useContext(SmoothScrollContext);
 
+/**
+ * SmoothScrollProvider:
+ * Ultra-fast native GPU hardware scrolling with instant input responsiveness.
+ * Passive RAF scroll tracker for top laser progress bar with 0ms input lag.
+ */
 export default function SmoothScrollProvider({ children }) {
-  const [lenisInstance, setLenisInstance] = useState(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const laserRef = useRef(null);
+  const glowRef = useRef(null);
 
   useEffect(() => {
-    // Check if user prefers reduced motion
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
-      return;
-    }
+    let ticking = false;
 
-    // Initialize Lenis with luxury travel inertia curve
-    const lenis = new Lenis({
-      duration: 1.25,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Cubic-out smooth inertia
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 0.95,
-      touchMultiplier: 1.5,
-      infinite: false,
-    });
-
-    setLenisInstance(lenis);
-
-    // Track scroll progress for the top laser glow bar & ambient orbs
-    const onScroll = (e) => {
+    const updateScrollLaser = () => {
+      const scrollY = window.scrollY || window.pageYOffset;
       const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
       if (totalScroll > 0) {
-        const progress = Math.min(100, Math.max(0, (e.scroll / totalScroll) * 100));
-        setScrollProgress(progress);
-        document.documentElement.style.setProperty('--scroll-progress', `${progress}%`);
-        document.documentElement.style.setProperty('--scroll-y', `${e.scroll}px`);
+        const progress = Math.min(100, Math.max(0, (scrollY / totalScroll) * 100));
+        if (laserRef.current) {
+          laserRef.current.style.transform = `scaleX(${progress / 100})`;
+        }
+        if (glowRef.current) {
+          glowRef.current.style.left = `${progress}%`;
+          glowRef.current.style.opacity = progress > 0.5 && progress < 99.5 ? '1' : '0';
+        }
+      }
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateScrollLaser);
+        ticking = true;
       }
     };
 
-    lenis.on('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
 
-    // RAF loop
-    let rafId;
-    function raf(time) {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    }
-    rafId = requestAnimationFrame(raf);
-
-    // Handle internal anchor links smoothly
+    // Handle internal anchor links with smooth scroll
     const handleAnchorClick = (e) => {
       const target = e.target.closest('a[href^="#"]');
       if (target) {
@@ -60,7 +50,7 @@ export default function SmoothScrollProvider({ children }) {
           const element = document.querySelector(id);
           if (element) {
             e.preventDefault();
-            lenis.scrollTo(element, { offset: -70, duration: 1.4 });
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
         }
       }
@@ -69,44 +59,32 @@ export default function SmoothScrollProvider({ children }) {
     document.addEventListener('click', handleAnchorClick);
 
     return () => {
+      window.removeEventListener('scroll', onScroll);
       document.removeEventListener('click', handleAnchorClick);
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
     };
   }, []);
 
   return (
-    <SmoothScrollContext.Provider value={{ lenis: lenisInstance, scrollProgress }}>
-      {/* 1. Ultra-Thin Gold Aurora Laser Scroll Progress Bar */}
+    <SmoothScrollContext.Provider value={{}}>
+      {/* 1. Ultra-Thin Gold Aurora Laser Scroll Progress Bar (Direct GPU RAF) */}
       <div className="scroll-progress-container">
         <div 
+          ref={laserRef}
           className="scroll-progress-laser" 
-          style={{ transform: `scaleX(${scrollProgress / 100})` }} 
+          style={{ transform: 'scaleX(0)' }} 
         />
         <div 
+          ref={glowRef}
           className="scroll-progress-glow" 
-          style={{ left: `${scrollProgress}%` }} 
+          style={{ left: '0%', opacity: 0 }} 
         />
       </div>
 
       {children}
 
       <style>{`
-        /* Lenis base styles */
-        html.lenis, html.lenis body {
-          height: auto;
-        }
-        .lenis.lenis-smooth {
-          scroll-behavior: auto !important;
-        }
-        .lenis.lenis-smooth [data-lenis-prevent] {
-          overscroll-behavior: contain;
-        }
-        .lenis.lenis-stopped {
-          overflow: hidden;
-        }
-        .lenis.lenis-scrolling iframe {
-          pointer-events: none;
+        html {
+          scroll-behavior: smooth;
         }
 
         /* Laser Scroll Progress Bar */
@@ -116,9 +94,10 @@ export default function SmoothScrollProvider({ children }) {
           left: 0;
           right: 0;
           height: 3px;
-          z-index: 9999;
+          z-index: 99999;
           pointer-events: none;
           background: rgba(255, 255, 255, 0.05);
+          transform: translateZ(0);
         }
 
         .scroll-progress-laser {
@@ -129,26 +108,26 @@ export default function SmoothScrollProvider({ children }) {
           height: 100%;
           transform-origin: 0% 50%;
           background: linear-gradient(90deg, 
-            #FF6B00 0%, 
-            #FFA000 30%, 
-            #FFD700 65%, 
-            #8B5CF6 100%
+            #FF892F 0%, 
+            #FFA459 30%, 
+            #DAF561 65%, 
+            #6FE6FC 100%
           );
-          box-shadow: 0 0 12px rgba(255, 107, 0, 0.8), 0 0 20px rgba(255, 184, 0, 0.5);
-          transition: transform 0.08s ease-out;
+          box-shadow: 0 0 10px rgba(255, 137, 47, 0.8), 0 0 16px rgba(218, 245, 97, 0.5);
+          will-change: transform;
         }
 
         .scroll-progress-glow {
           position: absolute;
           top: -3px;
-          width: 20px;
+          width: 16px;
           height: 9px;
           border-radius: 50%;
           background: #FFF;
-          box-shadow: 0 0 15px #FFB800, 0 0 25px #FF6B00;
+          box-shadow: 0 0 12px #DAF561, 0 0 20px #FF892F;
           transform: translateX(-50%);
-          opacity: ${scrollProgress > 1 && scrollProgress < 99 ? 1 : 0};
           transition: opacity 0.2s ease;
+          pointer-events: none;
         }
       `}</style>
     </SmoothScrollContext.Provider>

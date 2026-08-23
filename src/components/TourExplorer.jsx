@@ -3,10 +3,13 @@ import { TOURS_DATA } from '../data/toursData';
 import { Clock, MapPin, Star, CheckCircle, ArrowRight, MessageCircle, Sparkles, Compass, Heart, Scale, ShieldCheck, Flame } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useWishlistCompare } from '../context/WishlistCompareContext';
+import Tilt3DCard from './animations/Tilt3DCard';
+import { useParticleBurst } from '../hooks/useParticleBurst';
 
 export default function TourExplorer({ searchFilters, onSelectItinerary, onBookNow, onOpenAIPlanner }) {
   const { formatPrice } = useCurrency();
   const { toggleWishlist, isInWishlist, toggleCompare, isComparing } = useWishlistCompare();
+  const { triggerBurst } = useParticleBurst();
 
   const [activeCategory, setActiveCategory] = useState('All');
   const [activeVibe, setActiveVibe] = useState('All');
@@ -169,119 +172,125 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
               const comparing = isComparing(tour.id);
 
               return (
-                <div key={tour.id} className="tour-card glass-card">
-                  {/* Card Media */}
-                  <div className="card-media">
-                    <img 
-                      src={tour.image} 
-                      alt={tour.name} 
-                      loading="lazy" 
-                      decoding="async" 
-                      width="400" 
-                      height="240" 
-                    />
-                    <div className="media-overlay"></div>
-                    
-                    {/* Top Badges */}
-                    <div className="media-top-badges">
-                      {tour.badge && (
-                        <span className="ribbon-badge">{tour.badge}</span>
-                      )}
-                      <span className="region-badge">{tour.region}</span>
+                <Tilt3DCard key={tour.id} maxTilt={7} scale={1.02} glare={true} className="tour-tilt-container">
+                  <div className="tour-card glass-card">
+                    {/* Card Media */}
+                    <div className="card-media">
+                      <img 
+                        src={tour.image} 
+                        alt={tour.name} 
+                        loading="lazy" 
+                        decoding="async" 
+                        width="400" 
+                        height="240" 
+                      />
+                      <div className="media-overlay"></div>
+                      
+                      {/* Top Badges */}
+                      <div className="media-top-badges">
+                        {tour.badge && (
+                          <span className="ribbon-badge">{tour.badge}</span>
+                        )}
+                        <span className="region-badge">{tour.region}</span>
+                      </div>
+
+                      {/* Wishlist Heart & Compare Checkbox */}
+                      <div className="media-action-buttons">
+                        <button
+                          type="button"
+                          className={`action-circle-btn ${saved ? 'active-saved' : ''}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (!saved) triggerBurst(e, { count: 18, colors: ['#FF892F', '#FFA459', '#F9FBE7'] });
+                            toggleWishlist(tour.id);
+                          }}
+                          title={saved ? 'Remove from Wishlist' : 'Add to Wishlist'}
+                          aria-label="Wishlist"
+                        >
+                          <Heart size={16} fill={saved ? '#FF892F' : 'none'} color={saved ? '#FF892F' : '#FFFFFF'} />
+                        </button>
+
+                        <button
+                          type="button"
+                          className={`action-circle-btn ${comparing ? 'active-compare' : ''}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleCompare(tour);
+                          }}
+                          title={comparing ? 'Comparing' : 'Compare with others'}
+                          aria-label="Compare"
+                        >
+                          <Scale size={16} color={comparing ? '#10B981' : '#FFFFFF'} />
+                        </button>
+                      </div>
+
+                      {/* Duration Badge */}
+                      <div className="duration-badge">
+                        <Clock size={13} />
+                        <span>{tour.duration}</span>
+                      </div>
                     </div>
 
-                    {/* Wishlist Heart & Compare Checkbox */}
-                    <div className="media-action-buttons">
-                      <button
-                        type="button"
-                        className={`action-circle-btn ${saved ? 'active-saved' : ''}`}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          toggleWishlist(tour.id);
-                        }}
-                        title={saved ? 'Remove from Wishlist' : 'Add to Wishlist'}
-                        aria-label="Wishlist"
-                      >
-                        <Heart size={16} fill={saved ? '#FF6B00' : 'none'} color={saved ? '#FF6B00' : '#FFFFFF'} />
-                      </button>
-
-                      <button
-                        type="button"
-                        className={`action-circle-btn ${comparing ? 'active-compare' : ''}`}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          toggleCompare(tour);
-                        }}
-                        title={comparing ? 'Comparing' : 'Compare with others'}
-                        aria-label="Compare"
-                      >
-                        <Scale size={16} color={comparing ? '#10B981' : '#FFFFFF'} />
-                      </button>
-                    </div>
-
-                    {/* Duration Badge */}
-                    <div className="duration-badge">
-                      <Clock size={13} />
-                      <span>{tour.duration}</span>
-                    </div>
-                  </div>
-
-                  {/* Body Content */}
-                  <div className="card-body">
-                    <div className="location-rating">
-                      <span className="location">
-                        <MapPin size={14} className="text-amber" />
-                        {tour.country}
-                      </span>
-                      <span className="rating">
-                        <Star size={14} className="star-icon" />
-                        {tour.rating} ({tour.reviews})
-                      </span>
-                    </div>
-
-                    <h3 className="tour-title">{tour.name}</h3>
-                    <p className="tour-tagline">{tour.tagline}</p>
-
-                    {/* Inclusions Checklist Chips */}
-                    <div className="inclusions-row">
-                      {tour.inclusionChips?.map((inc, i) => (
-                        <span key={i} className="inc-chip">
-                          <CheckCircle size={12} className="text-emerald" />
-                          {inc}
+                    {/* Body Content */}
+                    <div className="card-body">
+                      <div className="location-rating">
+                        <span className="location">
+                          <MapPin size={14} className="text-amber" />
+                          {tour.country}
                         </span>
-                      ))}
-                    </div>
+                        <span className="rating">
+                          <Star size={14} className="star-icon" />
+                          {tour.rating} ({tour.reviews})
+                        </span>
+                      </div>
 
-                    {/* Pricing & Footer Actions */}
-                    <div className="card-footer">
-                      <div className="price-box">
-                        <span className="price-label">Starting from</span>
-                        <div className="price-vals">
-                          <span className="current-price">{formatPrice(tour.price)}</span>
-                          {tour.originalPrice > tour.price && (
-                            <span className="original-price">{formatPrice(tour.originalPrice)}</span>
-                          )}
+                      <h3 className="tour-title">{tour.name}</h3>
+                      <p className="tour-tagline">{tour.tagline}</p>
+
+                      {/* Inclusions Checklist Chips */}
+                      <div className="inclusions-row">
+                        {tour.inclusionChips?.map((inc, i) => (
+                          <span key={i} className="inc-chip">
+                            <CheckCircle size={12} className="text-emerald" />
+                            {inc}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Pricing & Footer Actions */}
+                      <div className="card-footer">
+                        <div className="price-box">
+                          <span className="price-label">Starting from</span>
+                          <div className="price-vals">
+                            <span className="current-price">{formatPrice(tour.price)}</span>
+                            {tour.originalPrice > tour.price && (
+                              <span className="original-price">{formatPrice(tour.originalPrice)}</span>
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="cta-actions">
+                          <button 
+                            className="itinerary-btn"
+                            onClick={() => onSelectItinerary(tour)}
+                            title="View detailed day-wise itinerary"
+                          >
+                            Itinerary
+                          </button>
+                          <button 
+                            className="btn-primary book-btn"
+                            onClick={(e) => {
+                              triggerBurst(e, { count: 24, colors: ['#FF892F', '#6FE6FC', '#DAF561'] });
+                              onBookNow(tour);
+                            }}
+                          >
+                            Book Now
+                          </button>
                         </div>
                       </div>
-
-                      <div className="cta-actions">
-                        <button 
-                          className="itinerary-btn"
-                          onClick={() => onSelectItinerary(tour)}
-                          title="View detailed day-wise itinerary"
-                        >
-                          Itinerary
-                        </button>
-                        <button 
-                          className="btn-primary book-btn"
-                          onClick={() => onBookNow(tour)}
-                        >
-                          Book Now
-                        </button>
-                      </div>
                     </div>
                   </div>
-                </div>
+                </Tilt3DCard>
               );
             })}
           </div>

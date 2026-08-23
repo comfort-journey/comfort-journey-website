@@ -1,35 +1,72 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* Master Spec Part B1 Color System Tokens */
-  --cj-bg-obsidian: #070B14;
-  --cj-bg-panel: #0B0F19;
-  --cj-bg-card: #131D33;
-  --cj-bg-light: #F8FAFC;
+  /* =======================================================
+     OFFICIAL COMFORT JOURNEY COLOR PALETTE MEMORY
+     1. Vivid Tangerine: #FF892F (Primary Action / Highlights)
+     2. Beige Cream:     #F9FBE7 (Primary Light / Headings / Text)
+     3. Electric Aqua:   #6FE6FC (Secondary Tropical / Sky / AI)
+     4. Lime Cream:       #DAF561 (Tertiary Energy / Verified)
+     5. Deep Navy:        #001D51 (Primary Dark Base / Replaces Black)
+     ======================================================= */
 
-  --cj-amber-500: #FF6B00;
-  --cj-amber-400: #FFA000;
-  --cj-amber-700: #D95300;
+  /* Dark Base Tokens (Deep Navy Shades replacing flat black) */
+  --cj-navy-950: #001233;
+  --cj-navy-900: #001D51; /* Official Deep Navy */
+  --cj-navy-800: #052669;
+  --cj-navy-700: #0A3282;
+  --cj-navy-600: #0E3E9C;
 
-  --cj-gold-400: #FFD700;
-  --cj-gold-500: #FFB800;
+  --cj-bg-obsidian: #001233;
+  --cj-bg-panel: #001D51;
+  --cj-bg-card: #052669;
+  --cj-bg-light: #F9FBE7;
 
-  --cj-glass-from: rgba(109, 93, 246, 0.18);
-  --cj-glass-to: rgba(59, 130, 246, 0.14);
-  --cj-glass-border: rgba(255, 255, 255, 0.12);
+  /* Light Base Tokens (Beige Cream replacing harsh pure white) */
+  --cj-cream-50: #F9FBE7;  /* Official Beige Cream */
+  --cj-cream-100: #EDF3D2;
+  --cj-cream-200: #DEE9B8;
+  --cj-cream-300: #C8D796;
 
-  --cj-emerald-500: #10B981;
-  --cj-emerald-50: #ECFDF5;
+  --cj-text-heading: #F9FBE7;
+  --cj-text-body: #EDF3D2;
+  --cj-text-muted: #93B2D2;
 
-  --cj-ai-1: #8B5CF6;
-  --cj-ai-2: #EC4899;
-  --cj-ai-3: #FF6B00;
+  /* Vivid Tangerine Tokens (Primary Brand Action / Glow) */
+  --cj-tangerine-400: #FFA459;
+  --cj-tangerine-500: #FF892F; /* Official Vivid Tangerine */
+  --cj-tangerine-600: #E66F12;
 
-  --cj-text-heading: #FFFFFF;
-  --cj-text-body: #E2E8F0;
-  --cj-text-muted: #94A3B8;
+  --cj-amber-400: #FFA459;
+  --cj-amber-500: #FF892F;
+  --cj-amber-700: #E66F12;
 
-  --cj-blur-desktop: 20px;
+  /* Electric Aqua Tokens (Secondary Sky, Ocean, Tech) */
+  --cj-aqua-400: #93EEFD;
+  --cj-aqua-500: #6FE6FC; /* Official Electric Aqua */
+  --cj-aqua-600: #3DD7F3;
+
+  /* Lime Cream Tokens (Tertiary Energy, Verified, Discount) */
+  --cj-lime-400: #E5F886;
+  --cj-lime-500: #DAF561; /* Official Lime Cream */
+  --cj-lime-600: #BFE032;
+
+  --cj-gold-400: #DAF561;
+  --cj-gold-500: #FF892F;
+  --cj-emerald-500: #DAF561;
+  --cj-emerald-50: #052669;
+
+  /* AI Gradient Tokens (Electric Aqua -> Tangerine -> Lime Cream) */
+  --cj-ai-1: #6FE6FC;
+  --cj-ai-2: #FF892F;
+  --cj-ai-3: #DAF561;
+
+  /* Deep Navy Glassmorphism Tokens */
+  --cj-glass-from: rgba(0, 29, 81, 0.85);
+  --cj-glass-to: rgba(5, 38, 105, 0.78);
+  --cj-glass-border: rgba(111, 230, 252, 0.18);
+
+  --cj-blur-desktop: 16px;
   --cj-blur-mobile: 8px;
 
   /* Typography mapping per Spec B2 */
@@ -45,13 +82,13 @@
   --radius-xl: 36px;
   --radius-full: 9999px;
 
-  /* Shadow & Glow Tokens */
-  --shadow-sm: 0 2px 8px rgba(7, 11, 20, 0.08);
-  --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.35);
-  --shadow-lg: 0 20px 45px rgba(0, 0, 0, 0.5);
-  --shadow-amber-glow: 0 12px 35px rgba(255, 107, 0, 0.35);
-  --shadow-gold-glow: 0 12px 35px rgba(255, 184, 0, 0.35);
-  --shadow-ai-glow: 0 12px 35px rgba(236, 72, 153, 0.4);
+  /* Shadow & Glow Tokens with Brand Colors */
+  --shadow-sm: 0 2px 8px rgba(0, 18, 51, 0.2);
+  --shadow-md: 0 10px 25px rgba(0, 18, 51, 0.45);
+  --shadow-lg: 0 20px 45px rgba(0, 18, 51, 0.65);
+  --shadow-amber-glow: 0 10px 30px rgba(255, 137, 47, 0.4);
+  --shadow-gold-glow: 0 10px 30px rgba(218, 245, 97, 0.35);
+  --shadow-ai-glow: 0 10px 30px rgba(111, 230, 252, 0.45);
 }
 
 * {
@@ -70,12 +107,6 @@ html {
 body {
   font-family: var(--font-body);
   background-color: var(--cj-bg-obsidian);
-  background-image: 
-    radial-gradient(ellipse 90% 50% at 50% -10%, rgba(255, 107, 0, 0.12), transparent 60%),
-    radial-gradient(ellipse 70% 40% at 95% 45%, rgba(139, 92, 246, 0.08), transparent 50%),
-    radial-gradient(ellipse 70% 40% at 5% 75%, rgba(255, 184, 0, 0.08), transparent 50%),
-    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(16, 185, 129, 0.06), transparent 60%);
-  background-attachment: fixed;
   color: var(--cj-text-body);
   line-height: 1.65;
   overflow-x: hidden;
@@ -88,34 +119,14 @@ body {
    ======================================================= */
 
 /* 1. Scroll-Reveal Entrance */
-.animate-on-scroll,
-.section-header,
-.tour-card,
-.service-card,
-.pillar-card,
-.review-card,
-.reel-card,
-.studio-controls,
-.studio-preview-card,
-.about-image-col,
-.about-content-col {
+.animate-on-scroll {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(18px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
-.animate-on-scroll.revealed,
-.section-header.revealed,
-.tour-card.revealed,
-.service-card.revealed,
-.pillar-card.revealed,
-.review-card.revealed,
-.reel-card.revealed,
-.studio-controls.revealed,
-.studio-preview-card.revealed,
-.about-image-col.revealed,
-.about-content-col.revealed {
+.animate-on-scroll.revealed {
   opacity: 1;
   transform: translateY(0);
 }
@@ -597,5 +608,80 @@ img, svg {
   }
   .glass-card, .glass-panel {
     background: rgba(19, 29, 51, 0.95);
+  }
+}
+
+/* =======================================================
+   MODERN TRAVEL ANIMATION SUITE (SVGator / Zajno / Anime / Vanta)
+   ======================================================= */
+
+/* 1. Kinetic Word Slide-Up Keyframes */
+@keyframes kineticWordEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(100%) rotate(3deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.kinetic-word-inner {
+  animation: kineticWordEntrance 0.75s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+/* 2. Airplane Flying Subtle Bobbing */
+@keyframes planeFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(2deg);
+  }
+}
+
+.animate-plane {
+  animation: planeFloat 3s ease-in-out infinite;
+}
+
+/* 3. Magnetic Hover & 3D Tilt Helper Classes */
+.tilt-3d-wrapper {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.tilt-glare-overlay {
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* 4. Smooth Fade Scale For Modals & Overlays */
+@keyframes luxuryScaleFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.luxury-scale-in {
+  animation: luxuryScaleFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 5. Reduced Motion Override for Full Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .zajno-cursor-wrapper,
+  .vanta-sky-canvas {
+    display: none !important;
   }
 }

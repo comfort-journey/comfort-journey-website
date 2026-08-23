@@ -1,6 +1,8 @@
 import React from 'react';
 import { STATS_DATA } from '../data/toursData';
 import { Award, Globe, HeartHandshake, Headphones, ShieldCheck, Sparkles } from 'lucide-react';
+import AnimatedCounter from './animations/AnimatedCounter';
+import Tilt3DCard from './animations/Tilt3DCard';
 
 export default function StatsBar() {
   const icons = [
@@ -10,22 +12,47 @@ export default function StatsBar() {
     <Headphones size={28} className="stat-icon" key={3} />
   ];
 
+  // Helper to parse numeric values for AnimatedCounter
+  const parseStat = (valStr) => {
+    if (valStr.includes('33+')) return { target: 33, suffix: '+ Years' };
+    if (valStr.includes('30,000+')) return { target: 30000, suffix: '+ Satisfied' };
+    if (valStr.includes('4.9/5')) return { target: 4.9, suffix: '/5 Rating', decimals: 1 };
+    if (valStr.includes('100%')) return { target: 100, suffix: '% Bespoke' };
+    return null;
+  };
+
   return (
     <section className="stats-root">
       <div className="container">
         <div className="stats-grid">
-          {STATS_DATA.map((stat, idx) => (
-            <div key={idx} className="stat-card">
-              <div className="stat-icon-wrapper">
-                {icons[idx]}
-              </div>
-              <div className="stat-info">
-                <span className="stat-value">{stat.value}</span>
-                <span className="stat-label">{stat.label}</span>
-                <span className="stat-sub">{stat.sub}</span>
-              </div>
-            </div>
-          ))}
+          {STATS_DATA.map((stat, idx) => {
+            const parsed = parseStat(stat.value);
+            return (
+              <Tilt3DCard key={idx} maxTilt={6} scale={1.03} className="stat-tilt-wrapper">
+                <div className="stat-card">
+                  <div className="stat-icon-wrapper">
+                    {icons[idx]}
+                  </div>
+                  <div className="stat-info">
+                    <span className="stat-value font-editorial">
+                      {parsed ? (
+                        <AnimatedCounter
+                          target={parsed.target}
+                          suffix={parsed.suffix}
+                          decimals={parsed.decimals || 0}
+                          duration={2200}
+                        />
+                      ) : (
+                        stat.value
+                      )}
+                    </span>
+                    <span className="stat-label">{stat.label}</span>
+                    <span className="stat-sub">{stat.sub}</span>
+                  </div>
+                </div>
+              </Tilt3DCard>
+            );
+          })}
         </div>
       </div>
 

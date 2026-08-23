@@ -1,31 +1,38 @@
 import React from 'react';
 import { Compass, Award, Users, ShieldCheck, Sparkles, MapPin, CheckCircle2 } from 'lucide-react';
+import Tilt3DCard from './animations/Tilt3DCard';
+import InteractiveCompassSVG from './animations/InteractiveCompassSVG';
+import { useParticleBurst } from '../hooks/useParticleBurst';
 
 export default function AboutPromoSection({ onOpenQuote }) {
+  const { triggerBurst } = useParticleBurst();
+
   return (
     <section id="about" className="about-root">
       <div className="container">
         <div className="about-grid">
-          {/* Left Column: Image Stack with Floating Trust Badge */}
+          {/* Left Column: Image Stack with Floating Trust Badge & Compass */}
           <div className="about-image-col" data-reveal="fade-up">
-            <div className="image-stack spotlight-card">
-              <img 
-                src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=80" 
-                alt="Comfort Journey Luxury Travel" 
-                className="img-main"
-                loading="lazy"
-                decoding="async"
-                width="800"
-                height="480"
-              />
-              <div className="glass-card trust-badge-overlay spotlight-card">
-                <Award size={36} className="badge-icon text-amber" />
-                <div>
-                  <span className="b-val font-editorial">33+ Years</span>
-                  <span className="b-lbl">Established 1992 • Bhopal HQ</span>
+            <Tilt3DCard maxTilt={6} scale={1.02} glare={true} className="about-tilt-wrapper">
+              <div className="image-stack spotlight-card">
+                <img 
+                  src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=80" 
+                  alt="Comfort Journey Luxury Travel" 
+                  className="img-main"
+                  loading="lazy"
+                  decoding="async"
+                  width="800"
+                  height="480"
+                />
+                <div className="glass-card trust-badge-overlay spotlight-card">
+                  <InteractiveCompassSVG size={44} showLabels={false} />
+                  <div>
+                    <span className="b-val font-editorial">33+ Years</span>
+                    <span className="b-lbl">Established 1992 • Bhopal HQ</span>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Tilt3DCard>
           </div>
 
           {/* Right Column: Editorial Copy */}
@@ -64,7 +71,13 @@ export default function AboutPromoSection({ onOpenQuote }) {
             </div>
 
             <div className="about-actions-row">
-              <button className="btn-primary btn-magnetic lets-travel-btn" onClick={onOpenQuote}>
+              <button 
+                className="btn-primary btn-magnetic lets-travel-btn" 
+                onClick={(e) => {
+                  triggerBurst(e, { count: 24 });
+                  onOpenQuote();
+                }}
+              >
                 <Compass size={20} />
                 <span>LET'S TRAVEL</span>
               </button>

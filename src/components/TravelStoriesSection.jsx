@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import { TRAVELER_REELS, TESTIMONIALS } from '../data/toursData';
 import { Star, Play, MessageCircle, Heart, Eye, CheckCircle2, ShieldCheck, Quote, X, Volume2, Sparkles } from 'lucide-react';
+import Tilt3DCard from './animations/Tilt3DCard';
+import { useParticleBurst } from '../hooks/useParticleBurst';
 
 export default function TravelStoriesSection({ onOpenQuote }) {
+  const { triggerBurst } = useParticleBurst();
   const [activeTab, setActiveTab] = useState('reels'); // 'reels' or 'reviews'
   const [likedReels, setLikedReels] = useState({});
   const [activeReelModal, setActiveReelModal] = useState(null);
 
-  const toggleLike = (id) => {
+  const toggleLike = (e, id) => {
+    e.stopPropagation();
+    if (!likedReels[id]) {
+      triggerBurst(e, { count: 16, colors: ['#EF4444', '#FF892F', '#F9FBE7'] });
+    }
     setLikedReels(prev => ({
       ...prev,
       [id]: !prev[id]
@@ -55,66 +62,65 @@ export default function TravelStoriesSection({ onOpenQuote }) {
             {TRAVELER_REELS.map((reel) => {
               const isLiked = likedReels[reel.id];
               return (
-                <div 
-                  key={reel.id} 
-                  className="reel-card"
-                  onClick={() => setActiveReelModal(reel)}
-                >
-                  <div className="reel-media">
-                    <img 
-                      src={reel.videoThumb} 
-                      alt={reel.destination}
-                      loading="lazy"
-                      width="280"
-                      height="460"
-                    />
-                    <div className="reel-gradient-overlay"></div>
+                <Tilt3DCard key={reel.id} maxTilt={6} scale={1.03} glare={true} className="reel-tilt-wrapper">
+                  <div 
+                    className="reel-card"
+                    onClick={() => setActiveReelModal(reel)}
+                  >
+                    <div className="reel-media">
+                      <img 
+                        src={reel.videoThumb} 
+                        alt={reel.destination}
+                        loading="lazy"
+                        width="280"
+                        height="460"
+                      />
+                      <div className="reel-gradient-overlay"></div>
 
-                    {/* Views Badge */}
-                    <div className="reel-views-badge">
-                      <Eye size={13} />
-                      <span>{reel.views} views</span>
-                      <span className="reel-flag">{reel.flag}</span>
-                    </div>
-
-                    {/* Center Play Button Overlay */}
-                    <div className="play-btn-circle">
-                      <Play size={20} className="play-icon" />
-                    </div>
-
-                    {/* Reel Footer Details */}
-                    <div className="reel-caption-box">
-                      <div className="reel-user-row">
-                        <div className="user-avatar-mini">
-                          {reel.author.charAt(0)}
-                        </div>
-                        <div className="user-text">
-                          <span className="user-name">{reel.author}</span>
-                          <span className="dest-tag">{reel.destination} ({reel.duration})</span>
-                        </div>
-                        <button 
-                          type="button" 
-                          className={`heart-btn ${isLiked ? 'liked' : ''}`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toggleLike(reel.id);
-                          }}
-                        >
-                          <Heart size={18} fill={isLiked ? '#EF4444' : 'none'} color={isLiked ? '#EF4444' : '#FFFFFF'} />
-                        </button>
+                      {/* Views Badge */}
+                      <div className="reel-views-badge">
+                        <Eye size={13} />
+                        <span>{reel.views} views</span>
+                        <span className="reel-flag">{reel.flag}</span>
                       </div>
 
-                      <p className="reel-quote">"{reel.tagline}"</p>
+                      {/* Center Play Button Overlay */}
+                      <div className="play-btn-circle">
+                        <Play size={20} className="play-icon" />
+                      </div>
 
-                      <div className="reel-stars">
-                        {[...Array(reel.rating)].map((_, i) => (
-                          <Star key={i} size={12} className="star-fill" />
-                        ))}
-                        <span className="verified-text">Verified Trip</span>
+                      {/* Reel Footer Details */}
+                      <div className="reel-caption-box">
+                        <div className="reel-user-row">
+                          <div className="user-avatar-mini">
+                            {reel.author.charAt(0)}
+                          </div>
+                          <div className="user-text">
+                            <span className="user-name">{reel.author}</span>
+                            <span className="dest-tag">{reel.destination} ({reel.duration})</span>
+                          </div>
+                          <button 
+                            type="button" 
+                            className={`heart-btn ${isLiked ? 'liked' : ''}`}
+                            onClick={(e) => toggleLike(e, reel.id)}
+                            aria-label="Like reel"
+                          >
+                            <Heart size={18} fill={isLiked ? '#EF4444' : 'none'} color={isLiked ? '#EF4444' : '#FFFFFF'} />
+                          </button>
+                        </div>
+
+                        <p className="reel-quote">"{reel.tagline}"</p>
+
+                        <div className="reel-stars">
+                          {[...Array(reel.rating)].map((_, i) => (
+                            <Star key={i} size={12} className="star-fill" />
+                          ))}
+                          <span className="verified-text">Verified Trip</span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </Tilt3DCard>
               );
             })}
           </div>

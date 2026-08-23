@@ -1,6 +1,7 @@
 import React from 'react';
 import { Car, Hotel, Compass, Clock, Sparkles, ShieldCheck, Globe, CheckCircle2 } from 'lucide-react';
 import { WHY_US_PILLARS } from '../data/toursData';
+import Tilt3DCard from './animations/Tilt3DCard';
 
 export default function WhyChooseUs({ onOpenAIPlanner }) {
   const icons = [
@@ -32,29 +33,30 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
           </p>
         </div>
 
-        {/* 7 Pillars Grid with Dynamic Spotlight */}
+        {/* 7 Pillars Grid with 3D Perspective Tilt */}
         <div className="pillars-grid">
           {WHY_US_PILLARS.map((pillar, idx) => (
-            <div 
-              key={idx} 
-              className="pillar-card glass-card spotlight-card"
-              data-reveal="stagger"
-            >
-              <div className="pillar-top-row">
-                <div className="pillar-icon-box">
-                  {icons[idx % icons.length]}
+            <Tilt3DCard key={idx} maxTilt={6} scale={1.03} glare={true} className="pillar-tilt-wrapper">
+              <div 
+                className="pillar-card glass-card spotlight-card"
+                data-reveal="stagger"
+              >
+                <div className="pillar-top-row">
+                  <div className="pillar-icon-box">
+                    {icons[idx % icons.length]}
+                  </div>
+                  <span className="pillar-num">0{idx + 1}</span>
                 </div>
-                <span className="pillar-num">0{idx + 1}</span>
-              </div>
 
-              <h3 className="pillar-title font-editorial">{pillar.title}</h3>
-              <p className="pillar-desc">{pillar.desc}</p>
+                <h3 className="pillar-title font-editorial">{pillar.title}</h3>
+                <p className="pillar-desc">{pillar.desc}</p>
 
-              <div className="pillar-check">
-                <CheckCircle2 size={15} className="text-emerald" />
-                <span>Guaranteed Standard</span>
+                <div className="pillar-check">
+                  <CheckCircle2 size={15} className="text-emerald" />
+                  <span>Guaranteed Standard</span>
+                </div>
               </div>
-            </div>
+            </Tilt3DCard>
           ))}
         </div>
 

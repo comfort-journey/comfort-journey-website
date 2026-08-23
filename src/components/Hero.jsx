@@ -2,9 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Search, MapPin, Users, ShieldCheck, Sparkles, Compass, Calendar, ChevronRight, Award, Flame } from 'lucide-react';
 import { HERO_SLIDES, DESTINATION_WEATHER, STATS_DATA } from '../data/toursData';
 import { useCurrency } from '../context/CurrencyContext';
+import VantaTravelSkyCanvas from './animations/VantaTravelSkyCanvas';
+import KineticHeading from './animations/KineticHeading';
+import InteractiveCompassSVG from './animations/InteractiveCompassSVG';
+import { useParticleBurst } from '../hooks/useParticleBurst';
 
 export default function Hero({ onSearch, onOpenAIPlanner }) {
   const { formatPrice } = useCurrency();
+  const { triggerBurst } = useParticleBurst();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [destination, setDestination] = useState('');
   const [category, setCategory] = useState('All');
@@ -21,6 +26,7 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
+    triggerBurst(e, { count: 20 });
     onSearch({ destination, category, duration: durationFilter });
     const target = document.getElementById('tours');
     if (target) {
@@ -32,6 +38,9 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
 
   return (
     <section id="hero" className="hero-root">
+      {/* 1. Vanta.js-Inspired Flocking Travel Birds & Sky Jet Streams Canvas */}
+      <VantaTravelSkyCanvas birdCount={26} jetStreamCount={4} opacity={0.7} />
+
       {/* Ambient Background with Ken Burns Slow Motion */}
       <div className="hero-bg-wrapper">
         {HERO_SLIDES.map((s, idx) => (
@@ -45,11 +54,17 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
       </div>
 
       <div className="container hero-content-container">
-        {/* Top Badges: Trust Pill + Live Interactive Weather Ticker */}
+        {/* Top Badges: Trust Pill + Compass + Live Interactive Weather Ticker */}
         <div className="hero-top-badges">
           <div className="trust-pill">
             <ShieldCheck size={16} className="text-emerald" />
             <span>Est. 1992 • Bhopal & Worldwide Luxury Specialist</span>
+          </div>
+
+          {/* Interactive Micro Compass Vector Widget */}
+          <div className="hero-compass-widget">
+            <InteractiveCompassSVG size={36} showLabels={false} />
+            <span className="compass-live-tag">NAVIGATE WORLD</span>
           </div>
 
           <div className="weather-ticker">
@@ -79,12 +94,15 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           </div>
         </div>
 
-        {/* Master Spec Part A Headlines */}
+        {/* Master Spec Part A Headlines with Zajno Kinetic Typography */}
         <div className="hero-headline-block">
           <span className="eyebrow-tag">MOUNTAIN ROYALTY & GLOBAL ADVENTURES</span>
           
           <h1 className="hero-title font-editorial">
-            YOUR JOURNEY <br />
+            <KineticHeading as="span" staggerDelay={0.07}>
+              YOUR JOURNEY
+            </KineticHeading>
+            <br />
             <span className="gradient-text-gold">YOUR COMFORT</span>
           </h1>
 
@@ -186,7 +204,10 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
             <button 
               type="button" 
               className="btn-ai-glow ai-dock-btn"
-              onClick={onOpenAIPlanner}
+              onClick={(e) => {
+                triggerBurst(e, { count: 28, colors: ['#6FE6FC', '#FF892F', '#DAF561'] });
+                onOpenAIPlanner();
+              }}
               title="Plan custom trip with AI"
             >
               <Sparkles size={18} />
@@ -351,6 +372,27 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           font-size: 0.82rem;
           font-weight: 700;
           color: #E2E8F0;
+        }
+
+        .hero-compass-widget {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.6rem;
+          background: rgba(0, 29, 81, 0.7);
+          backdrop-filter: blur(12px);
+          border: 1px solid rgba(111, 230, 252, 0.3);
+          padding: 0.25rem 0.9rem 0.25rem 0.45rem;
+          border-radius: var(--radius-full);
+          box-shadow: 0 4px 15px rgba(0, 18, 51, 0.6);
+        }
+
+        .compass-live-tag {
+          font-family: var(--font-ui);
+          font-size: 0.72rem;
+          font-weight: 900;
+          letter-spacing: 0.08em;
+          color: #6FE6FC;
+          text-transform: uppercase;
         }
 
         .text-emerald {

@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { CurrencyProvider } from './context/CurrencyContext';
 import { WishlistCompareProvider } from './context/WishlistCompareContext';
 import { useScrollAnimation } from './hooks/useScrollAnimation';
+import SmoothScrollProvider from './components/SmoothScrollProvider';
+import AmbientBackgroundOrbs from './components/AmbientBackgroundOrbs';
+import ZajnoMagneticCursor from './components/animations/ZajnoMagneticCursor';
+import FlightRouteVisualizer from './components/animations/FlightRouteVisualizer';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import StatsBar from './components/StatsBar';
@@ -38,60 +42,75 @@ export default function App() {
   return (
     <CurrencyProvider>
       <WishlistCompareProvider>
-        <div className="app-root">
-          {/* 1. Header Navigation with Currency Switcher & AI Trigger */}
-          <Navbar 
-            onOpenQuote={() => setIsQuickQuoteOpen(true)} 
-            onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
-            onOpenAdmin={() => setIsAdminCMSOpen(true)}
-          />
+        <SmoothScrollProvider>
+          {/* Zajno Magnetic Cursor Follower */}
+          <ZajnoMagneticCursor />
 
-          {/* 2. Next-Gen Cinematic Hero ("YOUR JOURNEY YOUR COMFORT") */}
-          <Hero 
-            onSearch={(filters) => setSearchFilters(filters)} 
-            onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
-          />
+          {/* Ambient Parallax Gradient Orbs */}
+          <AmbientBackgroundOrbs />
 
-          {/* 3. Trust & Experience Stats Bar */}
-          <StatsBar />
+          <div className="app-root">
+            {/* 1. Header Navigation with Currency Switcher & AI Trigger */}
+            <Navbar 
+              onOpenQuote={() => setIsQuickQuoteOpen(true)} 
+              onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+              onOpenAdmin={() => setIsAdminCMSOpen(true)}
+            />
 
-          {/* 4. Handcrafted Luxury Tour Packages Explorer */}
-          <TourExplorer 
-            searchFilters={searchFilters} 
-            onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
-            onBookNow={(tour) => setSelectedBookingTour(tour)}
-            onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
-          />
+            {/* 2. Next-Gen Cinematic Hero ("YOUR JOURNEY YOUR COMFORT") with Vanta Sky Canvas */}
+            <Hero 
+              onSearch={(filters) => setSearchFilters(filters)} 
+              onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+            />
 
-          {/* 5. Interactive Trip Studio & Live Price Estimator */}
-          <TripCustomizerSection />
+            {/* 3. Trust & Experience Stats Bar with Anime.js Elastic Counters */}
+            <StatsBar />
 
-          {/* 6. Traveler Video Stories, Reels & Verified Google Reviews */}
-          <TravelStoriesSection 
-            onOpenQuote={() => setIsQuickQuoteOpen(true)} 
-          />
+            {/* 4. Handcrafted Luxury Tour Packages Explorer with 3D Card Tilt */}
+            <TourExplorer 
+              searchFilters={searchFilters} 
+              onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
+              onBookNow={(tour) => setSelectedBookingTour(tour)}
+              onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+            />
 
-          {/* 7. What We Do (Services) */}
-          <ServicesSection 
-            onOpenQuote={() => setIsQuickQuoteOpen(true)} 
-          />
+            {/* 5. SVGator Real-Time Vector Flight Routes & Global Radar */}
+            <FlightRouteVisualizer 
+              onSelectRoute={(route) => {
+                setSearchFilters({ destination: route.name.split(' ')[0], category: 'All' });
+              }}
+              onOpenQuote={() => setIsQuickQuoteOpen(true)}
+            />
 
-          {/* 8. Why Choose Comfort Journey */}
-          <WhyChooseUs />
+            {/* 6. Interactive Trip Studio & Live Price Estimator */}
+            <TripCustomizerSection />
 
-          {/* 9. About Us ("WE MAKE YOUR TRIPS UNFORGOTTABLE" - Est. 1992) */}
-          <AboutPromoSection 
-            onOpenQuote={() => setIsQuickQuoteOpen(true)} 
-          />
+            {/* 7. Traveler Video Stories, Reels & Verified Google Reviews with 3D Tilt */}
+            <TravelStoriesSection 
+              onOpenQuote={() => setIsQuickQuoteOpen(true)} 
+            />
 
-          {/* 10. Frequently Asked Questions */}
-          <FaqSection />
+            {/* 8. What We Do (Services) */}
+            <ServicesSection 
+              onOpenQuote={() => setIsQuickQuoteOpen(true)} 
+            />
 
-          {/* 11. Global Footer with Trust Policies & Team Portal */}
-          <Footer 
-            onOpenPolicy={(type) => setPolicyModalType(type)}
-            onOpenAdmin={() => setIsAdminCMSOpen(true)}
-          />
+            {/* 9. Why Choose Comfort Journey (7 Pillars with 3D Tilt) */}
+            <WhyChooseUs onOpenAIPlanner={() => setIsAIPlannerOpen(true)} />
+
+            {/* 10. About Us ("WE MAKE YOUR TRIPS UNFORGOTTABLE" - Est. 1992) */}
+            <AboutPromoSection 
+              onOpenQuote={() => setIsQuickQuoteOpen(true)} 
+            />
+
+            {/* 11. Frequently Asked Questions */}
+            <FaqSection />
+
+            {/* 12. Global Footer with Trust Policies & Team Portal */}
+            <Footer 
+              onOpenPolicy={(type) => setPolicyModalType(type)}
+              onOpenAdmin={() => setIsAdminCMSOpen(true)}
+            />
 
           {/* --- MODALS & OVERLAYS --- */}
 
@@ -169,6 +188,7 @@ export default function App() {
             }
           `}</style>
         </div>
+        </SmoothScrollProvider>
       </WishlistCompareProvider>
     </CurrencyProvider>
   );
