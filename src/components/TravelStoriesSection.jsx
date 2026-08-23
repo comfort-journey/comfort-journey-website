@@ -103,60 +103,44 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                         onClick={() => setActiveReelModal(reel)}
                       >
                         <div className="reel-media">
-                          <img 
-                            src={reel.videoThumb} 
-                            alt={reel.destination}
-                            loading="lazy"
-                            width="260"
-                            height="380"
-                          />
-                          <div className="reel-gradient-overlay"></div>
+                          {/* Live Instagram Embed Preview Frame */}
+                          <iframe
+                            src={`https://www.instagram.com/reel/${reel.reelId}/embed/`}
+                            className="reel-card-ig-iframe"
+                            frameBorder="0"
+                            scrolling="no"
+                            allowFullScreen
+                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+                            title={`Instagram Reel ${reel.destination}`}
+                          ></iframe>
 
-                          {/* Top Badges: Instagram + Views */}
-                          <div className="reel-top-bar">
-                            <div className="reel-ig-badge">
-                              <Instagram size={13} />
-                              <span>Reel</span>
+                          {/* Quick Overlay Action Bar */}
+                          <div className="reel-card-footer-strip">
+                            <div className="reel-card-meta-title">
+                              <span className="reel-dest-flag">{reel.flag}</span>
+                              <span className="reel-dest-name">{reel.destination}</span>
                             </div>
-                            <div className="reel-views-badge">
-                              <Eye size={12} />
-                              <span>{reel.views}</span>
-                              <span className="reel-flag">{reel.flag}</span>
-                            </div>
-                          </div>
-
-                          {/* Center Play Button Overlay */}
-                          <div className="play-btn-circle">
-                            <Play size={18} className="play-icon" />
-                          </div>
-
-                          {/* Reel Footer Details */}
-                          <div className="reel-caption-box">
-                            <div className="reel-user-row">
-                              <div className="user-avatar-mini">
-                                {reel.author.charAt(0)}
-                              </div>
-                              <div className="user-text">
-                                <span className="user-name">{reel.author}</span>
-                                <span className="dest-tag">{reel.destination} ({reel.duration})</span>
-                              </div>
-                              <button 
-                                type="button" 
-                                className={`heart-btn ${isLiked ? 'liked' : ''}`}
-                                onClick={(e) => toggleLike(e, reel.id)}
-                                aria-label="Like reel"
+                            <div className="reel-card-action-btns">
+                              <button
+                                type="button"
+                                className="reel-play-chip"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setActiveReelModal(reel);
+                                }}
                               >
-                                <Heart size={16} fill={isLiked ? '#EF4444' : 'none'} color={isLiked ? '#EF4444' : '#FFFFFF'} />
+                                <Play size={13} fill="#FFFFFF" />
+                                <span>Play Reel</span>
                               </button>
-                            </div>
-
-                            <p className="reel-quote">"{reel.tagline}"</p>
-
-                            <div className="reel-stars">
-                              {[...Array(reel.rating)].map((_, i) => (
-                                <Star key={i} size={11} className="star-fill" />
-                              ))}
-                              <span className="verified-text">Verified Trip</span>
+                              <a
+                                href={reel.instagramUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="reel-ig-chip"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                <Instagram size={13} />
+                              </a>
                             </div>
                           </div>
                         </div>
@@ -193,25 +177,51 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           </div>
         )}
 
-        {/* REEL MODAL POPUP */}
+        {/* LIVE INSTAGRAM REEL MODAL POPUP */}
         {activeReelModal && (
           <div className="modal-overlay" onClick={() => setActiveReelModal(null)}>
-            <div className="reel-modal-card" onClick={(e) => e.stopPropagation()}>
-              <button className="reel-close-btn" onClick={() => setActiveReelModal(null)}>
-                <X size={20} />
+            <div className="reel-modal-card live-video-modal" onClick={(e) => e.stopPropagation()}>
+              <button className="reel-close-btn" onClick={() => setActiveReelModal(null)} aria-label="Close Reel">
+                <X size={22} />
               </button>
 
-              <div className="reel-modal-media">
-                <img src={activeReelModal.videoThumb} alt={activeReelModal.destination} />
-                <div className="reel-modal-overlay"></div>
-                
-                <div className="reel-modal-content">
+              <div className="reel-modal-two-col">
+                {/* Left Column: Live Instagram Embed Player */}
+                <div className="reel-modal-video-pane">
+                  <iframe
+                    src={`https://www.instagram.com/reel/${activeReelModal.reelId}/embed/`}
+                    className="reel-modal-ig-iframe"
+                    frameBorder="0"
+                    scrolling="no"
+                    allowFullScreen
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                    title={`Instagram Reel Video ${activeReelModal.destination}`}
+                  ></iframe>
+                </div>
+
+                {/* Right Column: Story Details & Booking CTAs */}
+                <div className="reel-modal-info-pane">
                   <div className="reel-modal-badges">
                     <span className="badge badge-amber">{activeReelModal.flag} {activeReelModal.destination}</span>
-                    <span className="badge badge-ig"><Instagram size={13} /> Instagram Reel</span>
+                    <span className="badge badge-ig"><Instagram size={13} /> Official Reel</span>
                   </div>
-                  <h3>"{activeReelModal.tagline}"</h3>
-                  <p className="reel-modal-meta">Shared by <strong>{activeReelModal.author}</strong> • {activeReelModal.duration} Luxury Vacation</p>
+
+                  <h3 className="modal-reel-heading">"{activeReelModal.tagline}"</h3>
+                  
+                  <div className="reel-modal-stats-box">
+                    <div className="stat-line">
+                      <span>Shared by:</span>
+                      <strong>{activeReelModal.author}</strong>
+                    </div>
+                    <div className="stat-line">
+                      <span>Duration:</span>
+                      <strong>{activeReelModal.duration} Bespoke Trip</strong>
+                    </div>
+                    <div className="stat-line">
+                      <span>Instagram Views:</span>
+                      <strong>{activeReelModal.views} Views</strong>
+                    </div>
+                  </div>
 
                   <div className="reel-modal-actions">
                     {activeReelModal.instagramUrl && (
@@ -222,7 +232,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                         className="btn-instagram w-full"
                       >
                         <Instagram size={18} />
-                        <span>Watch Video on Instagram</span>
+                        <span>Watch on Instagram App</span>
                         <ExternalLink size={15} />
                       </a>
                     )}
@@ -719,34 +729,208 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           font-size: 0.95rem;
         }
 
-        .reel-flag {
-          margin-left: 0.35rem;
+        .reel-item-col {
+          width: 320px;
+          min-width: 300px;
+          flex-shrink: 0;
         }
 
-        /* Reel Modal Card */
-        .reel-modal-card {
+        .reel-card {
+          position: relative;
+          height: 490px;
+          border-radius: var(--radius-lg);
+          overflow: hidden;
+          background: #001233;
+          border: 1px solid rgba(111, 230, 252, 0.25);
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+          transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .reel-card:hover {
+          border-color: #FF892F;
+          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 137, 47, 0.25);
+        }
+
+        .reel-media {
           position: relative;
           width: 100%;
-          max-width: 440px;
-          border-radius: var(--radius-xl);
-          overflow: hidden;
-          background: #0F172A;
-          border: 1px solid rgba(255, 107, 0, 0.4);
-          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(255, 107, 0, 0.25);
-          animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          height: 100%;
+          display: flex;
+          flex-direction: column;
         }
 
-        @keyframes scaleUp {
-          from { transform: scale(0.92); opacity: 0; }
-          to { transform: scale(1); opacity: 1; }
+        .reel-card-ig-iframe {
+          width: 100%;
+          height: 100%;
+          min-height: 430px;
+          border: none;
+          border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+          background: #000000;
+        }
+
+        .reel-card-footer-strip {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: linear-gradient(180deg, transparent 0%, rgba(0, 18, 51, 0.95) 40%, rgba(0, 18, 51, 1) 100%);
+          padding: 1.25rem 0.85rem 0.75rem 0.85rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 0.5rem;
+          z-index: 5;
+        }
+
+        .reel-card-meta-title {
+          display: flex;
+          align-items: center;
+          gap: 0.35rem;
+          font-family: var(--font-ui);
+          font-weight: 700;
+          font-size: 0.82rem;
+          color: #F9FBE7;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 150px;
+        }
+
+        .reel-card-action-btns {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+        }
+
+        .reel-play-chip {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.3rem;
+          padding: 0.4rem 0.75rem;
+          border-radius: var(--radius-full);
+          background: linear-gradient(135deg, #FF892F, #E66F12);
+          color: #FFFFFF;
+          font-weight: 800;
+          font-size: 0.76rem;
+          border: none;
+          cursor: pointer;
+          box-shadow: 0 4px 12px rgba(255, 137, 47, 0.4);
+          transition: transform 0.2s ease;
+        }
+
+        .reel-play-chip:hover {
+          transform: scale(1.05);
+        }
+
+        .reel-ig-chip {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(135deg, #E1306C, #F56040);
+          color: #FFFFFF;
+          text-decoration: none;
+          box-shadow: 0 4px 12px rgba(225, 48, 108, 0.4);
+          transition: transform 0.2s ease;
+        }
+
+        .reel-ig-chip:hover {
+          transform: scale(1.1);
+        }
+
+        /* Live Video Modal Card */
+        .live-video-modal {
+          max-width: 820px !important;
+          width: 95%;
+          background: rgba(0, 18, 51, 0.98);
+          border: 1px solid rgba(255, 137, 47, 0.4);
+          border-radius: var(--radius-xl);
+          overflow: hidden;
+          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(255, 137, 47, 0.25);
+          animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          position: relative;
+        }
+
+        .reel-modal-two-col {
+          display: grid;
+          grid-template-columns: 360px 1fr;
+          min-height: 520px;
+        }
+
+        .reel-modal-video-pane {
+          background: #000000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+          min-height: 520px;
+          border-right: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .reel-modal-ig-iframe {
+          width: 100%;
+          height: 100%;
+          min-height: 520px;
+          border: none;
+        }
+
+        .reel-modal-info-pane {
+          padding: 2rem 1.75rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 1.25rem;
+          color: #FFFFFF;
+        }
+
+        .modal-reel-heading {
+          font-family: var(--font-serif);
+          font-size: 1.35rem;
+          color: #F9FBE7;
+          line-height: 1.35;
+        }
+
+        .reel-modal-stats-box {
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(111, 230, 252, 0.15);
+          border-radius: var(--radius-md);
+          padding: 1rem 1.25rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.6rem;
+        }
+
+        .stat-line {
+          display: flex;
+          justify-content: space-between;
+          font-size: 0.88rem;
+        }
+
+        .stat-line span {
+          color: #93B2D2;
+        }
+
+        .stat-line strong {
+          color: #FFFFFF;
+          font-family: var(--font-ui);
+        }
+
+        .reel-modal-actions {
+          display: flex;
+          flex-direction: column;
+          gap: 0.65rem;
         }
 
         .reel-close-btn {
           position: absolute;
           top: 1rem;
           right: 1rem;
-          width: 38px;
-          height: 38px;
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
           background: rgba(0, 0, 0, 0.7);
           backdrop-filter: blur(8px);
@@ -754,7 +938,9 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           display: flex;
           align-items: center;
           justify-content: center;
-          z-index: 10;
+          z-index: 20;
+          cursor: pointer;
+          border: 1px solid var(--cj-glass-border);
           transition: transform 0.2s ease;
         }
 
@@ -762,52 +948,24 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           transform: scale(1.1);
         }
 
-        .reel-modal-media {
-          position: relative;
-          height: 580px;
-        }
-
-        .reel-modal-media img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-
-        .reel-modal-overlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(7, 11, 20, 0.95) 100%);
-        }
-
-        .reel-modal-content {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          padding: 2rem 1.5rem;
-          display: flex;
-          flex-direction: column;
-          gap: 0.75rem;
-          z-index: 5;
-        }
-
-        .reel-modal-content h3 {
-          font-family: var(--font-serif);
-          font-size: 1.25rem;
-          color: #FFFFFF;
-          line-height: 1.35;
-        }
-
-        .reel-modal-meta {
-          font-size: 0.85rem;
-          color: #CBD5E1;
-        }
-
-        .reel-modal-actions {
-          display: flex;
-          flex-direction: column;
-          gap: 0.65rem;
-          margin-top: 0.5rem;
+        @media (max-width: 860px) {
+          .reel-modal-two-col {
+            grid-template-columns: 1fr;
+            max-height: 90vh;
+            overflow-y: auto;
+          }
+          .reel-modal-video-pane {
+            min-height: 440px;
+            height: 440px;
+            border-right: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          }
+          .reel-modal-ig-iframe {
+            min-height: 440px;
+          }
+          .reel-modal-info-pane {
+            padding: 1.5rem 1.25rem;
+          }
         }
 
         @media (max-width: 768px) {
