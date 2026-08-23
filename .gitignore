@@ -1,9 +1,27 @@
+# Dependencies & Build
 node_modules/
 dist/
 .vercel/
+.netlify/
+
+# Secrets & Environment Variables
 .env
 .env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 !.env.example
+
+# Private Keys & Certificates
+*.pem
+*.key
+*.cert
+*.crt
+*credentials*
+*secret*
+
+# OS & Logs
 *.log
 .DS_Store
 Thumbs.db
