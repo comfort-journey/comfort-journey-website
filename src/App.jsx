@@ -184,7 +184,8 @@ export default function App() {
               min-height: 100vh;
               display: flex;
               flex-direction: column;
-              background-color: #070B14;
+              background-color: var(--cj-navy-950, #001233);
+              position: relative;
             }
           `}</style>
         </div>

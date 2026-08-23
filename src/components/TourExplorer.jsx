@@ -321,14 +321,14 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
       <style>{`
         .tours-root {
-          padding: 6.5rem 0;
+          padding: 3.5rem 0 2.5rem 0;
           background: var(--cj-bg-panel);
           color: #FFFFFF;
         }
 
         .section-header {
           text-align: center;
-          margin-bottom: 2.5rem;
+          margin-bottom: 1.5rem;
         }
 
         .header-pill {

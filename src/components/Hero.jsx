@@ -303,12 +303,13 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
       <style>{`
         .hero-root {
           position: relative;
-          min-height: 100vh;
+          min-height: 90vh;
           display: flex;
           align-items: center;
-          padding: 8.5rem 0 4.5rem 0;
+          padding: 6.5rem 0 2rem 0;
           overflow: hidden;
-          background: var(--cj-bg-obsidian);
+          background: #001233;
+          color: #FFFFFF;
         }
 
         .hero-bg-wrapper {

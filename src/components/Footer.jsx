@@ -104,17 +104,19 @@ export default function Footer({ onOpenPolicy, onOpenAdmin }) {
 
       <style>{`
         .footer-root {
-          background: #060911;
+          background: #001233;
           color: #94A3B8;
-          padding: 5rem 0 2rem 0;
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          padding: 3.5rem 0 2rem 0;
+          border-top: 1px solid rgba(111, 230, 252, 0.15);
+          position: relative;
+          z-index: 10;
         }
 
         .footer-grid {
           display: grid;
           grid-template-columns: 1.8fr 1.2fr 1.3fr 1.4fr;
-          gap: 2.5rem;
-          margin-bottom: 4rem;
+          gap: 2rem;
+          margin-bottom: 2.5rem;
         }
 
         .footer-logo {

@@ -80,14 +80,14 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
 
       <style>{`
         .why-us-root {
-          padding: 6.5rem 0;
+          padding: 3.5rem 0 2.5rem 0;
           background: var(--cj-bg-obsidian);
           color: #FFFFFF;
         }
 
         .section-header {
           text-align: center;
-          margin-bottom: 3.5rem;
+          margin-bottom: 2rem;
         }
 
         .section-title {
@@ -106,8 +106,8 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
         .pillars-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-          gap: 2rem;
-          margin-bottom: 4rem;
+          gap: 1.5rem;
+          margin-bottom: 2.25rem;
         }
 
         .pillar-card {

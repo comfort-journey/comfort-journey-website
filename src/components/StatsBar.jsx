@@ -58,8 +58,8 @@ export default function StatsBar() {
 
       <style>{`
         .stats-root {
-          background: #070B14;
-          padding: 2.75rem 0;
+          background: #001233;
+          padding: 1.5rem 0;
           border-bottom: 1px solid rgba(255, 255, 255, 0.08);
           color: #FFFFFF;
         }

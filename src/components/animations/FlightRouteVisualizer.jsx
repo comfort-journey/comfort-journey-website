@@ -423,7 +423,7 @@ export default function FlightRouteVisualizer({ onSelectRoute, onOpenQuote }) {
 
       <style>{`
         .flight-route-section {
-          padding: 6.5rem 0;
+          padding: 3.5rem 0 2.5rem 0;
           background: var(--cj-bg-obsidian);
           position: relative;
           color: #FFFFFF;

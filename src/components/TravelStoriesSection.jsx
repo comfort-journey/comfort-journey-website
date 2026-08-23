@@ -211,8 +211,8 @@ export default function TravelStoriesSection({ onOpenQuote }) {
 
       <style>{`
         .stories-root {
-          padding: 6.5rem 0;
-          background: #0B0F19;
+          padding: 3.5rem 0 2.5rem 0;
+          background: #001233;
           color: #FFFFFF;
         }
 
@@ -239,7 +239,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           display: flex;
           justify-content: center;
           gap: 0.75rem;
-          margin-bottom: 3rem;
+          margin-bottom: 1.75rem;
           flex-wrap: wrap;
         }
 

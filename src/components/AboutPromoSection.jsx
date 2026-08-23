@@ -91,7 +91,7 @@ export default function AboutPromoSection({ onOpenQuote }) {
 
       <style>{`
         .about-root {
-          padding: 7rem 0;
+          padding: 3.5rem 0 2.5rem 0;
           background: var(--cj-bg-obsidian);
           color: #FFFFFF;
           position: relative;
@@ -100,7 +100,7 @@ export default function AboutPromoSection({ onOpenQuote }) {
         .about-grid {
           display: grid;
           grid-template-columns: 1.05fr 1fr;
-          gap: 4.5rem;
+          gap: 2.5rem;
           align-items: center;
         }
 

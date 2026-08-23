@@ -87,7 +87,7 @@ export default function FaqSection() {
 
       <style>{`
         .faq-root {
-          padding: 6.5rem 0;
+          padding: 3.5rem 0 2.5rem 0;
           background: var(--cj-bg-panel, #001D51);
           color: #FFFFFF;
           position: relative;
@@ -96,7 +96,7 @@ export default function FaqSection() {
 
         .section-header {
           text-align: center;
-          margin-bottom: 3.5rem;
+          margin-bottom: 2rem;
         }
 
         .section-title {
@@ -115,7 +115,7 @@ export default function FaqSection() {
 
         .faq-container {
           max-width: 860px;
-          margin: 0 auto 3.5rem auto;
+          margin: 0 auto 2.25rem auto;
           display: flex;
           flex-direction: column;
           gap: 1.15rem;

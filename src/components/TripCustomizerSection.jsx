@@ -268,14 +268,14 @@ Please share the day-by-day customized itinerary proposal!`;
 
       <style>{`
         .studio-root {
-          padding: 6.5rem 0;
+          padding: 3.5rem 0 2.5rem 0;
           background: var(--cj-bg-obsidian);
           color: #FFFFFF;
         }
 
         .section-header {
           text-align: center;
-          margin-bottom: 3.5rem;
+          margin-bottom: 2rem;
         }
 
         .section-title {
