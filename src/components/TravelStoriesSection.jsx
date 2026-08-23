@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { TRAVELER_REELS, TESTIMONIALS } from '../data/toursData';
-import { Star, Play, MessageCircle, Heart, Eye, CheckCircle2, ShieldCheck, Quote, X, Volume2, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star, Play, MessageCircle, Heart, Eye, CheckCircle2, ShieldCheck, Quote, X, Volume2, Sparkles, ChevronLeft, ChevronRight, Instagram, ExternalLink } from 'lucide-react';
 import Tilt3DCard from './animations/Tilt3DCard';
 import { useParticleBurst } from '../hooks/useParticleBurst';
 
@@ -42,7 +42,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
             Real Moments, <span className="gradient-text-gold">Unforgettable Journeys</span>
           </h2>
           <p className="section-subtitle">
-            See how real travelers experienced their bespoke luxury vacations with Comfort Journey's 24/7 personal care since 1992.
+            Watch real traveler stories & Instagram reels from our bespoke luxury vacations worldwide since 1992.
           </p>
         </div>
 
@@ -54,14 +54,16 @@ export default function TravelStoriesSection({ onOpenQuote }) {
               className={`story-tab ${activeTab === 'reels' ? 'active' : ''}`}
               onClick={() => setActiveTab('reels')}
             >
-              🎬 Traveler Video Stories & Reels
+              <Instagram size={18} className="text-instagram" />
+              🎬 Instagram Stories & Reels ({TRAVELER_REELS.length})
             </button>
             <button 
               type="button" 
               className={`story-tab ${activeTab === 'reviews' ? 'active' : ''}`}
               onClick={() => setActiveTab('reviews')}
             >
-              💬 Verified Google 5-Star Reviews
+              <ShieldCheck size={18} className="text-emerald" />
+              ⭐ Verified Client Reviews
             </button>
           </div>
 
@@ -71,17 +73,17 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                 type="button" 
                 className="reel-nav-btn" 
                 onClick={() => handleScrollReels('left')}
-                aria-label="Scroll left"
+                aria-label="Previous Reels"
               >
-                <ChevronLeft size={18} />
+                <ChevronLeft size={20} />
               </button>
               <button 
                 type="button" 
                 className="reel-nav-btn" 
                 onClick={() => handleScrollReels('right')}
-                aria-label="Scroll right"
+                aria-label="Next Reels"
               >
-                <ChevronRight size={18} />
+                <ChevronRight size={20} />
               </button>
             </div>
           )}
@@ -110,11 +112,17 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                           />
                           <div className="reel-gradient-overlay"></div>
 
-                          {/* Views Badge */}
-                          <div className="reel-views-badge">
-                            <Eye size={12} />
-                            <span>{reel.views}</span>
-                            <span className="reel-flag">{reel.flag}</span>
+                          {/* Top Badges: Instagram + Views */}
+                          <div className="reel-top-bar">
+                            <div className="reel-ig-badge">
+                              <Instagram size={13} />
+                              <span>Reel</span>
+                            </div>
+                            <div className="reel-views-badge">
+                              <Eye size={12} />
+                              <span>{reel.views}</span>
+                              <span className="reel-flag">{reel.flag}</span>
+                            </div>
                           </div>
 
                           {/* Center Play Button Overlay */}
@@ -198,15 +206,30 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                 <div className="reel-modal-overlay"></div>
                 
                 <div className="reel-modal-content">
-                  <span className="badge badge-amber">{activeReelModal.flag} {activeReelModal.destination}</span>
+                  <div className="reel-modal-badges">
+                    <span className="badge badge-amber">{activeReelModal.flag} {activeReelModal.destination}</span>
+                    <span className="badge badge-ig"><Instagram size={13} /> Instagram Reel</span>
+                  </div>
                   <h3>"{activeReelModal.tagline}"</h3>
                   <p className="reel-modal-meta">Shared by <strong>{activeReelModal.author}</strong> • {activeReelModal.duration} Luxury Vacation</p>
 
                   <div className="reel-modal-actions">
+                    {activeReelModal.instagramUrl && (
+                      <a 
+                        href={activeReelModal.instagramUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="btn-instagram w-full"
+                      >
+                        <Instagram size={18} />
+                        <span>Watch Video on Instagram</span>
+                        <ExternalLink size={15} />
+                      </a>
+                    )}
                     <button 
                       className="btn-whatsapp w-full"
                       onClick={() => {
-                        const msg = `Hi Comfort Journey! I saw the traveler story of ${activeReelModal.author} for ${activeReelModal.destination}. Please share package options and pricing!`;
+                        const msg = `Hi Comfort Journey! I saw your Instagram reel for ${activeReelModal.destination} (${activeReelModal.instagramUrl || ''}). Please share customized package options!`;
                         window.open(`https://wa.me/918770403315?text=${encodeURIComponent(msg)}`, '_blank');
                       }}
                     >
@@ -406,11 +429,36 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.2) 40%, rgba(7, 11, 20, 0.95) 100%);
         }
 
-        .reel-views-badge {
+        .reel-top-bar {
           position: absolute;
-          top: 1rem;
-          left: 1rem;
-          background: rgba(0, 0, 0, 0.6);
+          top: 0.85rem;
+          left: 0.85rem;
+          right: 0.85rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          z-index: 2;
+        }
+
+        .reel-ig-badge {
+          background: linear-gradient(135deg, #E1306C, #FD1D1D, #F56040);
+          color: #FFFFFF;
+          font-size: 0.7rem;
+          font-weight: 800;
+          padding: 0.25rem 0.6rem;
+          border-radius: var(--radius-full);
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+          box-shadow: 0 4px 12px rgba(225, 48, 108, 0.4);
+        }
+
+        .text-instagram {
+          color: #E1306C;
+        }
+
+        .reel-views-badge {
+          background: rgba(0, 0, 0, 0.65);
           backdrop-filter: blur(8px);
           border: 1px solid rgba(255, 255, 255, 0.2);
           color: #FFFFFF;
@@ -421,6 +469,48 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           display: flex;
           align-items: center;
           gap: 0.35rem;
+        }
+
+        .reel-modal-badges {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          flex-wrap: wrap;
+        }
+
+        .badge-ig {
+          background: linear-gradient(135deg, rgba(225, 48, 108, 0.25), rgba(245, 96, 64, 0.25));
+          border: 1px solid rgba(225, 48, 108, 0.5);
+          color: #FF8BA7;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.3rem;
+          font-size: 0.75rem;
+          font-weight: 700;
+          padding: 0.25rem 0.65rem;
+          border-radius: var(--radius-full);
+        }
+
+        .btn-instagram {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          padding: 0.85rem 1.25rem;
+          border-radius: var(--radius-full);
+          background: linear-gradient(135deg, #833AB4, #FD1D1D, #FCAF45);
+          color: #FFFFFF;
+          font-weight: 700;
+          font-size: 0.92rem;
+          box-shadow: 0 4px 18px rgba(225, 48, 108, 0.4);
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+          text-decoration: none;
+        }
+
+        .btn-instagram:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(225, 48, 108, 0.6);
+          color: #FFFFFF;
         }
 
         .play-btn-circle {
@@ -721,9 +811,44 @@ export default function TravelStoriesSection({ onOpenQuote }) {
         }
 
         @media (max-width: 768px) {
+          .stories-root {
+            padding: 2.5rem 0 2rem 0;
+          }
+          .section-title {
+            font-size: 2.2rem;
+          }
+          .google-rating-pill {
+            font-size: 0.76rem;
+            padding: 0.4rem 0.85rem;
+            text-align: center;
+          }
+          .stories-tab-bar {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+          }
+          .story-tab {
+            width: 100%;
+            justify-content: center;
+            min-height: 44px;
+            font-size: 0.92rem;
+          }
+          .reels-nav-controls {
+            display: none;
+          }
+          .reviews-grid {
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+          }
+          .review-card {
+            padding: 1.5rem 1.25rem;
+          }
           .stories-cta-banner {
             flex-direction: column;
             text-align: center;
+            padding: 1.75rem 1.25rem;
+            gap: 1.25rem;
           }
           .cta-right {
             width: 100%;
@@ -731,6 +856,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           .cta-right button {
             width: 100%;
             justify-content: center;
+            min-height: 48px;
           }
         }
       `}</style>

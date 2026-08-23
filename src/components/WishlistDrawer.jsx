@@ -147,20 +147,21 @@ export default function WishlistDrawer({ onSelectItinerary, onBookTour }) {
         }
 
         .title-row h3 {
-          font-family: var(--font-ui);
-          font-size: 1.25rem;
+          font-family: var(--font-serif);
+          font-size: 1.3rem;
           color: #FFFFFF;
         }
 
         .close-drawer-btn {
-          width: 36px;
-          height: 36px;
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
           background: rgba(255, 255, 255, 0.08);
           color: #FFFFFF;
           display: flex;
           align-items: center;
           justify-content: center;
+          cursor: pointer;
         }
 
         .saved-items-list {
@@ -196,6 +197,7 @@ export default function WishlistDrawer({ onSelectItinerary, onBookTour }) {
         }
 
         .saved-cat {
+          font-family: var(--font-ui);
           font-size: 0.7rem;
           font-weight: 800;
           color: var(--cj-amber-500);
@@ -203,8 +205,8 @@ export default function WishlistDrawer({ onSelectItinerary, onBookTour }) {
         }
 
         .saved-name {
-          font-family: var(--font-ui);
-          font-size: 0.95rem;
+          font-family: var(--font-serif);
+          font-size: 1.05rem;
           color: #FFFFFF;
           line-height: 1.3;
         }
@@ -218,27 +220,32 @@ export default function WishlistDrawer({ onSelectItinerary, onBookTour }) {
         }
 
         .saved-price {
+          font-family: var(--font-serif);
           color: var(--cj-gold-500);
-          font-size: 0.95rem;
-          font-weight: 800;
+          font-size: 1.15rem;
+          font-weight: 900;
         }
 
         .saved-actions {
           display: flex;
           align-items: center;
-          gap: 0.4rem;
+          gap: 0.5rem;
           margin-top: 0.4rem;
         }
 
         .mini-btn {
-          padding: 0.35rem 0.75rem;
-          font-size: 0.78rem;
+          padding: 0.45rem 0.85rem;
+          font-size: 0.82rem;
+          min-height: 38px;
         }
 
         .delete-btn {
           color: #94A3B8;
-          padding: 0.35rem;
+          padding: 0.45rem;
           transition: color 0.2s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .delete-btn:hover {
@@ -256,7 +263,8 @@ export default function WishlistDrawer({ onSelectItinerary, onBookTour }) {
         }
 
         .empty-wishlist h4 {
-          font-size: 1.3rem;
+          font-family: var(--font-serif);
+          font-size: 1.4rem;
           color: #FFFFFF;
         }
 
@@ -264,6 +272,16 @@ export default function WishlistDrawer({ onSelectItinerary, onBookTour }) {
           padding: 1.25rem;
           border-top: 1px solid var(--cj-glass-border);
           background: var(--cj-bg-card);
+        }
+
+        @media (max-width: 600px) {
+          .wishlist-drawer-content {
+            max-width: 100%;
+          }
+          .drawer-footer button {
+            min-height: 48px;
+            font-size: 1rem;
+          }
         }
       `}</style>
     </div>

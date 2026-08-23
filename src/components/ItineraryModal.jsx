@@ -458,8 +458,8 @@ Please share customized availability and booking details!`);
         }
 
         .footer-current-price {
-          font-family: var(--font-ui);
-          font-size: 1.65rem;
+          font-family: var(--font-serif);
+          font-size: 1.75rem;
           font-weight: 900;
           color: var(--cj-gold-500);
         }
@@ -481,23 +481,69 @@ Please share customized availability and booking details!`);
           gap: 0.75rem;
         }
 
+        .banner-close-btn {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          background: rgba(0, 0, 0, 0.7);
+          border: 1px solid var(--cj-glass-border);
+          color: #FFFFFF;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          z-index: 10;
+        }
+
         @media (max-width: 768px) {
+          .itinerary-hero-banner {
+            height: 200px;
+          }
+          .banner-text-content {
+            padding: 1.25rem 1rem;
+          }
+          .banner-title {
+            font-size: 1.35rem;
+          }
           .itinerary-body-container {
-            padding: 1.25rem;
+            padding: 1.25rem 1rem;
+            max-height: 60vh;
+          }
+          .highlights-grid {
+            grid-template-columns: 1fr;
+          }
+          .day-amenities-bar {
+            flex-direction: column;
+            gap: 0.5rem;
           }
           .inc-exc-grid {
             grid-template-columns: 1fr;
+            gap: 1rem;
           }
           .itinerary-modal-footer {
             flex-direction: column;
             align-items: stretch;
+            padding: 1.25rem 1rem;
+            gap: 1rem;
+          }
+          .footer-price-block {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
           }
           .footer-cta-buttons {
             flex-direction: column;
+            width: 100%;
+            gap: 0.65rem;
           }
           .footer-cta-buttons button {
             width: 100%;
             justify-content: center;
+            min-height: 48px;
+            font-size: 1rem;
           }
         }
       `}</style>

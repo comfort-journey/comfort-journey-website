@@ -198,25 +198,54 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
           50% { transform: translateY(-4px); }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
           .quick-dock-wrapper {
-            bottom: 16px;
-            right: 12px;
-            left: 12px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 99990;
+            transform: none !important;
+            opacity: 1 !important;
+          }
+          .quick-dock-wrapper.minimized .glass-dock-card {
+            transform: none !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            position: static !important;
+          }
+          .dock-expand-trigger {
+            display: none !important;
           }
           .glass-dock-card {
-            width: 100%;
-            padding: 0.4rem 0.5rem;
+            border-radius: 20px 20px 0 0;
+            border-bottom: none;
+            padding: 0.65rem 0.75rem calc(0.65rem + env(safe-area-inset-bottom, 0px)) 0.75rem;
+            background: rgba(0, 18, 51, 0.98);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-top: 1px solid rgba(255, 137, 47, 0.4);
+            box-shadow: 0 -10px 35px rgba(0, 0, 0, 0.7);
           }
           .dock-actions-row {
             width: 100%;
+            gap: 0.45rem;
             justify-content: space-between;
           }
           .dock-btn {
             flex: 1;
+            min-height: 48px;
+            padding: 0.45rem 0.25rem;
+            font-size: 0.78rem;
+            font-weight: 800;
+            border-radius: var(--radius-md);
+            flex-direction: column;
+            gap: 0.2rem;
             justify-content: center;
-            padding: 0.5rem 0.35rem;
-            font-size: 0.76rem;
+          }
+          .dock-btn .btn-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.02em;
           }
         }
       `}</style>

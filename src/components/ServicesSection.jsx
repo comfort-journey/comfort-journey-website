@@ -84,22 +84,23 @@ export default function ServicesSection({ onOpenAIPlanner }) {
         }
 
         .service-num {
-          font-family: var(--font-ui);
-          font-size: 1.5rem;
+          font-family: var(--font-serif);
+          font-size: 1.6rem;
           font-weight: 900;
           color: var(--cj-amber-500);
         }
 
         .service-title {
-          font-family: var(--font-ui);
-          font-size: 1.25rem;
+          font-family: var(--font-serif);
+          font-size: 1.3rem;
           color: #FFFFFF;
           line-height: 1.3;
         }
 
         .service-desc {
-          font-size: 0.9rem;
-          color: #94A3B8;
+          font-family: var(--font-body);
+          font-size: 0.92rem;
+          color: #CBD5E1;
           line-height: 1.6;
         }
 
@@ -111,14 +112,31 @@ export default function ServicesSection({ onOpenAIPlanner }) {
           gap: 0.4rem;
           color: var(--cj-gold-500);
           font-family: var(--font-ui);
-          font-size: 0.85rem;
+          font-size: 0.9rem;
           font-weight: 700;
           transition: all 0.2s ease;
+          min-height: 44px;
         }
 
         .service-link-btn:hover {
           color: var(--cj-amber-500);
           transform: translateX(4px);
+        }
+
+        @media (max-width: 768px) {
+          .services-root {
+            padding: 2.5rem 0 2rem 0;
+          }
+          .section-title {
+            font-size: 2.2rem;
+          }
+          .services-grid {
+            grid-template-columns: 1fr;
+            gap: 1.15rem;
+          }
+          .service-card {
+            padding: 1.5rem 1.25rem;
+          }
         }
       `}</style>
     </section>

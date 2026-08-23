@@ -152,7 +152,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle Navigation Menu"
           >
-            {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
@@ -170,6 +170,22 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
               {link.label}
             </a>
           ))}
+
+          <div className="drawer-currency-row">
+            <span className="drawer-curr-label">Currency:</span>
+            <div className="drawer-curr-pills">
+              {Object.keys(currencies).map((currKey) => (
+                <button
+                  key={currKey}
+                  type="button"
+                  className={`drawer-curr-pill ${currency === currKey ? 'active' : ''}`}
+                  onClick={() => setCurrency(currKey)}
+                >
+                  {currencies[currKey].symbol} {currKey}
+                </button>
+              ))}
+            </div>
+          </div>
 
           <div className="drawer-actions">
             <button 
@@ -205,6 +221,17 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
             >
               <MessageCircle size={18} />
               Chat on WhatsApp
+            </button>
+            <button
+              type="button"
+              className="drawer-admin-btn"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onOpenAdmin();
+              }}
+            >
+              <Lock size={14} />
+              <span>Admin & SEO Portal</span>
             </button>
           </div>
         </div>
@@ -269,17 +296,18 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
         }
 
         .logo-text .title {
-          font-family: var(--font-ui);
+          font-family: var(--font-serif);
           font-weight: 800;
-          font-size: 1.05rem;
-          letter-spacing: 0.04em;
+          font-size: 1.15rem;
+          letter-spacing: 0.02em;
           color: #FFFFFF;
           line-height: 1.15;
           white-space: nowrap;
         }
 
         .logo-text .sub {
-          font-size: 0.65rem;
+          font-family: var(--font-ui);
+          font-size: 0.68rem;
           color: var(--cj-amber-500);
           font-weight: 700;
           letter-spacing: 0.05em;
@@ -333,8 +361,8 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
 
         .nav-icon-btn {
           position: relative;
-          width: 36px;
-          height: 36px;
+          width: 40px;
+          height: 40px;
           border-radius: 50%;
           background: rgba(255, 255, 255, 0.07);
           border: 1px solid var(--cj-glass-border);
@@ -395,13 +423,14 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid var(--cj-glass-border);
           color: #FFFFFF;
-          padding: 0.4rem 0.75rem;
+          padding: 0.5rem 0.85rem;
           border-radius: var(--radius-full);
           font-family: var(--font-ui);
-          font-size: 0.8rem;
+          font-size: 0.82rem;
           font-weight: 700;
           transition: all 0.2s ease;
           white-space: nowrap;
+          min-height: 38px;
         }
 
         .currency-btn:hover {
@@ -429,11 +458,11 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
           display: flex;
           align-items: center;
           gap: 0.6rem;
-          padding: 0.5rem 0.75rem;
+          padding: 0.6rem 0.85rem;
           border-radius: var(--radius-xs);
           color: #E2E8F0;
           font-family: var(--font-ui);
-          font-size: 0.82rem;
+          font-size: 0.85rem;
           font-weight: 600;
           width: 100%;
           text-align: left;
@@ -456,10 +485,11 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
         }
 
         .nav-ai-btn {
-          padding: 0.45rem 0.95rem;
-          font-size: 0.82rem;
+          padding: 0.5rem 1rem;
+          font-size: 0.85rem;
           white-space: nowrap;
           flex-shrink: 0;
+          min-height: 38px;
         }
 
         .phone-btn {
@@ -471,12 +501,13 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
           font-weight: 700;
           font-size: 0.82rem;
           background: rgba(255, 255, 255, 0.08);
-          padding: 0.45rem 0.85rem;
+          padding: 0.5rem 0.85rem;
           border-radius: var(--radius-full);
           border: 1px solid var(--cj-glass-border);
           transition: all 0.2s ease;
           white-space: nowrap;
           flex-shrink: 0;
+          min-height: 38px;
         }
 
         .phone-btn:hover {
@@ -490,8 +521,8 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
         }
 
         .admin-trigger-btn {
-          width: 32px;
-          height: 32px;
+          width: 38px;
+          height: 38px;
           border-radius: 50%;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid var(--cj-glass-border);
@@ -510,10 +541,15 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
 
         .mobile-toggle {
           display: none;
-          background: none;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid var(--cj-glass-border);
           color: #FFFFFF;
           cursor: pointer;
-          padding: 0.25rem;
+          width: 44px;
+          height: 44px;
+          border-radius: var(--radius-sm);
+          align-items: center;
+          justify-content: center;
         }
 
         .mobile-drawer {
@@ -521,34 +557,101 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
           top: 100%;
           left: 0;
           right: 0;
-          background: var(--cj-bg-obsidian);
-          border-bottom: 1px solid var(--cj-glass-border);
-          padding: 1.5rem;
+          background: rgba(0, 18, 51, 0.98);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-bottom: 1px solid rgba(255, 137, 47, 0.3);
+          padding: 1.5rem 1.25rem 2rem 1.25rem;
           display: flex;
           flex-direction: column;
-          gap: 1rem;
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+          gap: 0.75rem;
+          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+          max-height: calc(100vh - 70px);
+          overflow-y: auto;
         }
 
         .drawer-link {
-          color: #FFFFFF;
+          color: #F9FBE7;
           font-family: var(--font-ui);
-          font-size: 1.1rem;
+          font-size: 1.15rem;
           font-weight: 700;
-          padding: 0.6rem 0;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+          padding: 0.75rem 0.5rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          display: block;
+        }
+
+        .drawer-link:active {
+          color: var(--cj-amber-500);
+        }
+
+        .drawer-currency-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0.75rem 0.5rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          gap: 0.5rem;
+        }
+
+        .drawer-curr-label {
+          font-size: 0.9rem;
+          font-weight: 700;
+          color: #94A3B8;
+        }
+
+        .drawer-curr-pills {
+          display: flex;
+          gap: 0.4rem;
+        }
+
+        .drawer-curr-pill {
+          padding: 0.35rem 0.75rem;
+          border-radius: var(--radius-full);
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid var(--cj-glass-border);
+          color: #E2E8F0;
+          font-size: 0.82rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .drawer-curr-pill.active {
+          background: var(--cj-amber-500);
+          color: #001233;
+          border-color: var(--cj-amber-500);
+        }
+
+        .drawer-admin-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          padding: 0.6rem;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px dashed rgba(255, 255, 255, 0.2);
+          border-radius: var(--radius-sm);
+          color: #94A3B8;
+          font-size: 0.85rem;
+          cursor: pointer;
+          transition: color 0.2s ease;
+        }
+
+        .drawer-admin-btn:hover {
+          color: #FFFFFF;
         }
 
         .drawer-actions {
           display: flex;
           flex-direction: column;
           gap: 0.85rem;
-          margin-top: 0.75rem;
+          margin-top: 1rem;
         }
 
         .w-full {
           width: 100%;
           justify-content: center;
+          min-height: 48px;
         }
 
         @media (max-width: 1140px) {
@@ -556,19 +659,28 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
             display: none;
           }
           .mobile-toggle {
-            display: block;
+            display: flex;
           }
         }
 
-        @media (max-width: 640px) {
-          .ai-btn-text {
+        @media (max-width: 768px) {
+          .navbar-root {
+            padding: 0.65rem 0;
+          }
+          .nav-ai-btn, .currency-dropdown-wrap, .admin-trigger-btn {
             display: none;
           }
-          .nav-ai-btn {
-            padding: 0.4rem 0.6rem;
+          .mobile-toggle {
+            display: flex;
+            background: rgba(255, 137, 47, 0.15);
+            border: 1px solid rgba(255, 137, 47, 0.4);
+            color: #FF892F;
           }
           .brand-logo .logo-text .sub {
             display: none;
+          }
+          .brand-logo .logo-text .title {
+            font-size: 1.15rem;
           }
         }
       `}</style>

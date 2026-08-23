@@ -643,6 +643,25 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
           flex-direction: column;
         }
 
+        .ai-close-btn {
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.08);
+          color: #E2E8F0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        }
+
+        .ai-step-title {
+          font-family: var(--font-serif);
+          font-size: 1.65rem;
+          color: #FFFFFF;
+          line-height: 1.25;
+        }
+
         .handoff-text strong {
           color: #25D366;
           font-size: 0.92rem;
@@ -651,6 +670,38 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
         .handoff-text span {
           font-size: 0.8rem;
           color: #CBD5E1;
+        }
+
+        @media (max-width: 768px) {
+          .modal-overlay {
+            align-items: flex-end;
+            padding: 0;
+          }
+          .ai-modal-content {
+            border-radius: 20px 20px 0 0;
+            max-height: 92vh;
+            padding: 1.5rem 1.15rem;
+          }
+          .ai-step-title {
+            font-size: 1.35rem;
+          }
+          .ai-landscapes-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 0.65rem;
+          }
+          .ai-landscape-btn {
+            padding: 1rem 0.75rem;
+          }
+          .ai-step-actions {
+            flex-direction: column-reverse;
+            gap: 0.75rem;
+          }
+          .ai-step-actions button {
+            width: 100%;
+            justify-content: center;
+            min-height: 48px;
+            font-size: 0.98rem;
+          }
         }
       `}</style>
     </div>

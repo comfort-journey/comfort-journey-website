@@ -235,14 +235,16 @@ export default function FaqSection() {
         }
 
         .faq-help-content h4 {
-          font-size: 1.25rem;
+          font-family: var(--font-serif);
+          font-size: 1.35rem;
           color: #F9FBE7;
           margin-bottom: 0.35rem;
         }
 
         .faq-help-content p {
+          font-family: var(--font-body);
           color: #93B2D2;
-          font-size: 0.9rem;
+          font-size: 0.92rem;
         }
 
         .faq-help-actions {
@@ -253,22 +255,33 @@ export default function FaqSection() {
 
         @media (max-width: 768px) {
           .faq-root {
-            padding: 4.5rem 0;
+            padding: 2.5rem 0 2rem 0;
+          }
+          .section-title {
+            font-size: 2.2rem;
           }
           .faq-question {
-            padding: 1.15rem 1.25rem;
+            padding: 1.15rem 1.15rem;
+            min-height: 52px;
           }
           .q-title {
-            font-size: 0.95rem;
+            font-size: 0.98rem;
           }
           .faq-help-box {
-            padding: 1.5rem;
+            padding: 1.5rem 1.25rem;
             flex-direction: column;
             text-align: center;
           }
           .faq-help-actions {
             width: 100%;
+            flex-direction: column;
+            gap: 0.75rem;
+          }
+          .faq-help-actions a {
+            width: 100%;
             justify-content: center;
+            min-height: 48px;
+            font-size: 0.98rem;
           }
         }
       `}</style>

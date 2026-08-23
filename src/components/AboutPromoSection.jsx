@@ -151,8 +151,9 @@ export default function AboutPromoSection({ onOpenQuote }) {
         }
 
         .b-val {
-          font-size: 1.45rem;
-          font-weight: 800;
+          font-family: var(--font-serif);
+          font-size: 1.55rem;
+          font-weight: 900;
           display: block;
           line-height: 1.1;
           color: #FFFFFF;
@@ -166,12 +167,14 @@ export default function AboutPromoSection({ onOpenQuote }) {
         }
 
         .about-title {
+          font-family: var(--font-serif);
           font-size: clamp(2.2rem, 4vw, 3.2rem);
           margin: 1rem 0 1.25rem 0;
           line-height: 1.18;
         }
 
         .about-lead {
+          font-family: var(--font-body);
           font-size: 1.08rem;
           color: #E2E8F0;
           margin-bottom: 1rem;
@@ -179,6 +182,7 @@ export default function AboutPromoSection({ onOpenQuote }) {
         }
 
         .about-body {
+          font-family: var(--font-body);
           font-size: 0.95rem;
           color: #94A3B8;
           line-height: 1.68;
@@ -211,21 +215,22 @@ export default function AboutPromoSection({ onOpenQuote }) {
         .lets-travel-btn {
           padding: 0.95rem 2.25rem;
           font-size: 1.02rem;
+          min-height: 48px;
         }
 
         @media (max-width: 960px) {
           .about-grid {
             grid-template-columns: 1fr;
-            gap: 3rem;
+            gap: 2.5rem;
           }
           .img-main {
             height: 380px;
           }
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .about-root {
-            padding: 3rem 0 2rem 0;
+            padding: 2.5rem 0 2rem 0;
           }
           .img-main {
             height: 280px;
@@ -236,9 +241,15 @@ export default function AboutPromoSection({ onOpenQuote }) {
             right: 1rem;
             padding: 0.85rem 1.15rem;
           }
-          .lets-travel-btn {
+          .about-actions-row {
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+          }
+          .about-actions-row button, .about-actions-row a {
             width: 100%;
             justify-content: center;
+            min-height: 48px;
           }
         }
       `}</style>

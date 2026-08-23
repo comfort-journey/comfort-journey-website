@@ -754,10 +754,10 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         }
 
         .tour-title {
-          font-family: var(--font-ui);
-          font-size: 1.25rem;
-          line-height: 1.35;
-          margin-bottom: 0.35rem;
+          font-family: var(--font-serif);
+          font-size: 1.35rem;
+          line-height: 1.3;
+          margin-bottom: 0.4rem;
           color: #FFFFFF;
           display: -webkit-box;
           -webkit-line-clamp: 2;
@@ -766,8 +766,9 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         }
 
         .tour-tagline {
-          font-size: 0.85rem;
-          color: #94A3B8;
+          font-family: var(--font-body);
+          font-size: 0.88rem;
+          color: #CBD5E1;
           line-height: 1.45;
           margin-bottom: 1.15rem;
           display: -webkit-box;
@@ -787,9 +788,10 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.08);
           color: #CBD5E1;
+          font-family: var(--font-ui);
           font-size: 0.75rem;
           font-weight: 600;
-          padding: 0.3rem 0.65rem;
+          padding: 0.35rem 0.7rem;
           border-radius: var(--radius-sm);
           display: flex;
           align-items: center;
@@ -821,9 +823,9 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         }
 
         .current-price {
-          font-family: var(--font-ui);
+          font-family: var(--font-serif);
           font-weight: 900;
-          font-size: 1.45rem;
+          font-size: 1.55rem;
           color: var(--cj-gold-500);
         }
 
@@ -843,11 +845,15 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid var(--cj-glass-border);
           color: #FFFFFF;
-          padding: 0.6rem 1rem;
-          font-size: 0.88rem;
+          padding: 0.65rem 1.15rem;
+          font-size: 0.9rem;
           font-weight: 700;
           border-radius: var(--radius-full);
           transition: all 0.2s ease;
+          min-height: 42px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .itinerary-btn:hover {
@@ -856,8 +862,9 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         }
 
         .book-btn {
-          padding: 0.6rem 1.25rem;
-          font-size: 0.88rem;
+          padding: 0.65rem 1.35rem;
+          font-size: 0.9rem;
+          min-height: 42px;
         }
 
         .no-results-box {
@@ -872,6 +879,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         }
 
         .no-results-box h3 {
+          font-family: var(--font-serif);
           font-size: 1.65rem;
           color: #FFFFFF;
         }
@@ -891,23 +899,38 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
         @media (max-width: 768px) {
           .tours-root {
-            padding: 3rem 0 2rem 0;
+            padding: 2.5rem 0 2rem 0;
+          }
+          .section-title {
+            font-size: 2.2rem;
           }
           .tours-grid {
             grid-template-columns: 1fr;
             gap: 1.5rem;
+            width: 100%;
           }
           .category-tabs, .vibe-pills-list {
             justify-content: flex-start;
             flex-wrap: nowrap;
             overflow-x: auto;
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.65rem;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
+            width: 100%;
           }
-          .tab-btn, .vibe-pill {
+          .tab-btn {
             flex-shrink: 0;
             white-space: nowrap;
+            padding: 0.65rem 1.25rem;
+            font-size: 0.9rem;
+            min-height: 44px;
+          }
+          .vibe-pill {
+            flex-shrink: 0;
+            white-space: nowrap;
+            padding: 0.5rem 0.95rem;
+            font-size: 0.82rem;
+            min-height: 38px;
           }
           .filter-controls-bar {
             flex-direction: column;
@@ -918,14 +941,24 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 0.75rem;
+            width: 100%;
+          }
+          .select-pill {
+            padding: 0.5rem 0.85rem;
+            min-height: 44px;
           }
           .select-pill select {
             max-width: 100%;
+            font-size: 16px !important;
+          }
+          .card-body {
+            padding: 1.35rem 1.15rem;
           }
           .card-footer {
             flex-direction: column;
             align-items: stretch;
-            gap: 0.85rem;
+            gap: 1rem;
+            padding-top: 1rem;
           }
           .price-box {
             display: flex;
@@ -934,10 +967,14 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           }
           .cta-actions {
             width: 100%;
+            display: flex;
+            gap: 0.65rem;
           }
           .itinerary-btn, .book-btn {
             flex: 1;
             justify-content: center;
+            min-height: 48px;
+            font-size: 0.98rem;
           }
         }
       `}</style>

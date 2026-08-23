@@ -675,14 +675,15 @@ export default function FlightRouteVisualizer({ onSelectRoute, onOpenQuote }) {
         }
 
         .featured-title {
-          font-family: var(--font-ui);
-          font-size: 1.35rem;
+          font-family: var(--font-serif);
+          font-size: 1.4rem;
           line-height: 1.3;
           margin-bottom: 0.5rem;
           color: #F9FBE7;
         }
 
         .featured-desc {
+          font-family: var(--font-body);
           font-size: 0.88rem;
           color: #EDF3D2;
           line-height: 1.55;
@@ -702,7 +703,7 @@ export default function FlightRouteVisualizer({ onSelectRoute, onOpenQuote }) {
           gap: 0.35rem;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.09);
-          padding: 0.3rem 0.65rem;
+          padding: 0.35rem 0.7rem;
           border-radius: var(--radius-sm);
           font-size: 0.75rem;
           font-weight: 600;
@@ -730,20 +731,44 @@ export default function FlightRouteVisualizer({ onSelectRoute, onOpenQuote }) {
         }
 
         .p-val {
-          font-size: 1.5rem;
+          font-family: var(--font-serif);
+          font-size: 1.6rem;
           font-weight: 900;
           color: #DAF561;
         }
 
         .route-book-cta {
           padding: 0.65rem 1.35rem;
-          font-size: 0.88rem;
+          font-size: 0.9rem;
+          min-height: 44px;
         }
 
         @media (max-width: 960px) {
+          .radar-root {
+            padding: 2.5rem 0 2rem 0;
+          }
           .route-visualizer-grid {
             grid-template-columns: 1fr;
             padding: 1.25rem;
+            gap: 1.5rem;
+          }
+          .route-tabs-container {
+            overflow-x: auto;
+            flex-wrap: nowrap;
+            padding-bottom: 0.5rem;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            width: 100%;
+          }
+          .route-tab-pill {
+            flex-shrink: 0;
+            white-space: nowrap;
+            min-height: 40px;
+            padding: 0.5rem 0.85rem;
+          }
+          .route-book-cta {
+            min-height: 48px;
+            font-size: 0.95rem;
           }
         }
       `}</style>

@@ -136,22 +136,23 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
         }
 
         .pillar-num {
-          font-family: var(--font-ui);
-          font-size: 1.35rem;
+          font-family: var(--font-serif);
+          font-size: 1.5rem;
           font-weight: 900;
-          color: rgba(255, 255, 255, 0.2);
+          color: rgba(255, 137, 47, 0.4);
         }
 
         .pillar-title {
-          font-family: var(--font-ui);
-          font-size: 1.2rem;
+          font-family: var(--font-serif);
+          font-size: 1.25rem;
           color: #FFFFFF;
-          line-height: 1.35;
+          line-height: 1.3;
         }
 
         .pillar-desc {
+          font-family: var(--font-body);
           font-size: 0.92rem;
-          color: #94A3B8;
+          color: #CBD5E1;
           line-height: 1.6;
         }
 
@@ -179,7 +180,7 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
         }
 
         .banner-text h3 {
-          font-family: var(--font-ui);
+          font-family: var(--font-serif);
           font-size: 1.45rem;
           color: #FFFFFF;
           margin-bottom: 0.35rem;
@@ -198,24 +199,30 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
         }
 
         @media (max-width: 860px) {
+          .why-us-root {
+            padding: 2.5rem 0 2rem 0;
+          }
+          .pillars-grid {
+            grid-template-columns: 1fr;
+            gap: 1.15rem;
+          }
+          .pillar-card {
+            padding: 1.5rem 1.25rem;
+          }
           .why-us-banner {
-            padding: 1.75rem;
+            padding: 1.75rem 1.25rem;
             flex-direction: column;
             text-align: center;
           }
           .banner-actions {
             width: 100%;
+            flex-direction: column;
+            gap: 0.75rem;
+          }
+          .banner-actions button, .banner-actions a {
+            width: 100%;
             justify-content: center;
-          }
-        }
-
-        @media (max-width: 640px) {
-          .pillars-grid {
-            grid-template-columns: 1fr;
-            gap: 1rem;
-          }
-          .pillar-card {
-            padding: 1.25rem;
+            min-height: 48px;
           }
         }
       `}</style>

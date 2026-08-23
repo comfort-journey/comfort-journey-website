@@ -116,6 +116,19 @@ export default function QuickBookingModal({ selectedTour, onClose }) {
       </div>
 
       <style>{`
+        .modal-title {
+          font-family: var(--font-serif);
+          font-size: 1.5rem;
+          color: #FFFFFF;
+          margin-top: 0.35rem;
+        }
+
+        .modal-subtitle {
+          font-family: var(--font-body);
+          font-size: 0.88rem;
+          color: #94A3B8;
+        }
+
         .booking-modal-body {
           padding: 2rem;
         }
@@ -134,23 +147,27 @@ export default function QuickBookingModal({ selectedTour, onClose }) {
         }
 
         .form-group label {
+          font-family: var(--font-ui);
           font-size: 0.85rem;
-          font-weight: 600;
-          color: var(--color-secondary);
+          font-weight: 700;
+          color: #E2E8F0;
         }
 
         .form-group input, .form-group select {
-          padding: 0.75rem 1rem;
+          padding: 0.85rem 1rem;
           border-radius: var(--radius-sm);
-          border: 1px solid var(--color-border);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          background: rgba(0, 18, 51, 0.6);
+          color: #FFFFFF;
           font-family: var(--font-body);
-          font-size: 0.95rem;
+          font-size: 16px !important;
           outline: none;
           transition: border-color 0.2s ease;
+          min-height: 48px;
         }
 
         .form-group input:focus, .form-group select:focus {
-          border-color: var(--color-primary);
+          border-color: var(--cj-amber-500);
         }
 
         .form-row {
@@ -162,17 +179,20 @@ export default function QuickBookingModal({ selectedTour, onClose }) {
         .submit-btn {
           width: 100%;
           justify-content: center;
-          padding: 0.9rem;
+          padding: 0.95rem;
+          min-height: 50px;
+          font-size: 1rem;
+          font-weight: 800;
         }
 
         .direct-call-hint {
           text-align: center;
           font-size: 0.85rem;
-          color: var(--color-text-muted);
+          color: #94A3B8;
         }
 
         .direct-call-hint a {
-          color: var(--color-primary);
+          color: var(--cj-amber-500);
           font-weight: 700;
         }
 
@@ -185,22 +205,38 @@ export default function QuickBookingModal({ selectedTour, onClose }) {
           gap: 1rem;
         }
 
-        .success-icon {
-          color: var(--color-accent);
+        .submitted-view h4 {
+          font-family: var(--font-serif);
+          font-size: 1.6rem;
+          color: #FFFFFF;
         }
 
-        @media (max-width: 600px) {
+        .close-btn {
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid var(--cj-glass-border);
+          color: #FFFFFF;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
           .modal-overlay {
             align-items: flex-end;
             padding: 0;
           }
           .booking-modal-body {
             border-radius: 20px 20px 0 0;
-            max-height: 90vh;
-            padding: 1.25rem;
+            max-height: 92vh;
+            padding: 1.5rem 1.25rem;
           }
           .form-row {
             grid-template-columns: 1fr;
+            gap: 1.25rem;
           }
         }
       `}</style>

@@ -135,14 +135,15 @@ export default function Footer({ onOpenPolicy, onOpenAdmin }) {
         }
 
         .f-title {
-          font-family: var(--font-ui);
-          font-size: 1.2rem;
+          font-family: var(--font-serif);
+          font-size: 1.3rem;
           color: #FFFFFF;
           font-weight: 800;
           line-height: 1.2;
         }
 
         .f-sub {
+          font-family: var(--font-ui);
           font-size: 0.78rem;
           color: var(--cj-amber-500);
           font-style: italic;
@@ -150,10 +151,11 @@ export default function Footer({ onOpenPolicy, onOpenAdmin }) {
         }
 
         .f-desc {
+          font-family: var(--font-body);
           font-size: 0.88rem;
           line-height: 1.6;
           margin-bottom: 1.15rem;
-          color: #94A3B8;
+          color: #CBD5E1;
         }
 
         .f-badges {
@@ -181,6 +183,8 @@ export default function Footer({ onOpenPolicy, onOpenAdmin }) {
           color: #94A3B8;
           font-size: 0.88rem;
           transition: color 0.2s ease;
+          display: inline-block;
+          padding: 0.2rem 0;
         }
 
         .col-links a:hover {
@@ -197,9 +201,10 @@ export default function Footer({ onOpenPolicy, onOpenAdmin }) {
           font-family: var(--font-ui);
           font-size: 0.88rem;
           text-align: left;
-          padding: 0;
+          padding: 0.25rem 0;
           cursor: pointer;
           transition: all 0.2s ease;
+          min-height: 38px;
         }
 
         .footer-link-btn:hover {
@@ -239,6 +244,8 @@ export default function Footer({ onOpenPolicy, onOpenAdmin }) {
           color: #FFFFFF;
           font-weight: 600;
           transition: color 0.2s ease;
+          display: inline-block;
+          padding: 0.2rem 0;
         }
 
         .c-item a:hover {
@@ -268,18 +275,24 @@ export default function Footer({ onOpenPolicy, onOpenAdmin }) {
           }
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .footer-root {
-            padding: 3.5rem 0 1.5rem 0;
+            padding: 3rem 0 5.5rem 0; /* Extra bottom padding for floating dock */
           }
           .footer-grid {
             grid-template-columns: 1fr;
-            margin-bottom: 2.5rem;
+            gap: 2rem;
+            margin-bottom: 2rem;
           }
           .footer-bottom {
             flex-direction: column;
             text-align: center;
-            gap: 0.5rem;
+            gap: 0.65rem;
+          }
+          .col-links a, .footer-link-btn, .c-item a {
+            min-height: 44px;
+            display: flex;
+            align-items: center;
           }
         }
       `}</style>

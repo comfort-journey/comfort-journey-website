@@ -107,28 +107,30 @@ export default function StatsBar() {
         }
 
         .stat-value {
-          font-family: var(--font-heading);
+          font-family: var(--font-serif);
           font-weight: 900;
-          font-size: 2rem;
+          font-size: 2.1rem;
           line-height: 1.1;
-          color: #FFFFFF;
+          color: var(--cj-gold-500);
           margin-bottom: 0.15rem;
         }
 
         .stat-label {
+          font-family: var(--font-ui);
           font-weight: 800;
-          font-size: 0.92rem;
-          color: var(--color-primary);
+          font-size: 0.95rem;
+          color: #FFFFFF;
         }
 
         .stat-sub {
+          font-family: var(--font-body);
           font-size: 0.78rem;
           color: #94A3B8;
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .stats-root {
-            padding: 2rem 0;
+            padding: 1.75rem 0;
           }
           .stats-grid {
             grid-template-columns: repeat(2, 1fr);
@@ -137,11 +139,11 @@ export default function StatsBar() {
           .stat-card {
             flex-direction: column;
             text-align: center;
-            padding: 1rem 0.75rem;
+            padding: 1.15rem 0.75rem;
             gap: 0.65rem;
           }
           .stat-value {
-            font-size: 1.5rem;
+            font-size: 1.65rem;
           }
         }
       `}</style>

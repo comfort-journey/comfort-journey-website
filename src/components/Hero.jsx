@@ -461,6 +461,7 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
         }
 
         .hero-title {
+          font-family: var(--font-serif);
           font-size: clamp(2.3rem, 5.2vw, 4.2rem);
           line-height: 1.08;
           font-weight: 800;
@@ -695,6 +696,49 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           font-weight: 700;
         }
 
+        .conversational-hint-strip {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin-bottom: 1.25rem;
+          max-width: 1100px;
+          width: 100%;
+          overflow-x: auto;
+          padding-bottom: 0.35rem;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+        }
+
+        .hint-pill-title {
+          font-family: var(--font-ui);
+          font-size: 0.78rem;
+          font-weight: 800;
+          color: #C084FC;
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+
+        .conv-chip {
+          background: rgba(139, 92, 246, 0.12);
+          border: 1px solid rgba(192, 132, 252, 0.3);
+          color: #E2E8F0;
+          font-family: var(--font-ui);
+          font-size: 0.76rem;
+          font-weight: 600;
+          padding: 0.35rem 0.85rem;
+          border-radius: var(--radius-full);
+          white-space: nowrap;
+          flex-shrink: 0;
+          transition: all 0.2s ease;
+          cursor: pointer;
+        }
+
+        .conv-chip:hover {
+          background: rgba(139, 92, 246, 0.25);
+          color: #FFFFFF;
+          border-color: #C084FC;
+        }
+
         @media (max-width: 1080px) {
           .hero-search-dock {
             display: grid;
@@ -721,37 +765,95 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           .search-submit-btn, .ai-dock-btn {
             flex: 1;
             justify-content: center;
+            min-height: 48px;
           }
           .slide-dots-group {
             display: none;
           }
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .hero-root {
-            padding: calc(70px + 1rem) 0 1.5rem 0;
+            padding: calc(65px + 1rem) 0 2rem 0;
+          }
+          .hero-title {
+            font-size: 2.35rem;
+            line-height: 1.12;
+          }
+          .hero-subline {
+            font-size: 0.95rem;
+            padding: 0 0.5rem;
           }
           .hero-search-dock {
             grid-template-columns: 1fr;
-            border-radius: var(--radius-md);
-            padding: 0.95rem;
+            border-radius: 20px;
+            padding: 1.15rem 1rem;
+            gap: 1rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+          }
+          .dock-field {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.75rem;
             gap: 0.75rem;
+          }
+          .field-icon-box {
+            width: 40px;
+            height: 40px;
+          }
+          .field-inputs label {
+            font-size: 0.75rem;
+            color: var(--cj-amber-500);
+            margin-bottom: 2px;
+          }
+          .field-inputs input, .field-inputs select {
+            font-size: 16px !important;
+            padding: 0.2rem 0;
           }
           .dock-actions {
             grid-column: span 1;
             flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 0.25rem;
           }
           .search-submit-btn, .ai-dock-btn {
             width: 100%;
+            min-height: 50px;
+            font-size: 1rem;
+            border-radius: var(--radius-full);
           }
           .hero-top-badges {
             flex-direction: column;
             gap: 0.5rem;
+            width: 100%;
+          }
+          .trust-pill {
+            width: auto;
+            font-size: 0.78rem;
           }
           .weather-ticker {
+            width: 100%;
             max-width: 100%;
-            flex-wrap: wrap;
-            justify-content: center;
+            overflow-x: auto;
+            justify-content: flex-start;
+            -webkit-overflow-scrolling: touch;
+            padding: 0.4rem 0.75rem;
+          }
+          .quick-tags-group {
+            width: 100%;
+            overflow-x: auto;
+            flex-wrap: nowrap;
+            padding-bottom: 0.5rem;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+          }
+          .tags-label {
+            flex-shrink: 0;
+          }
+          .hero-tag-btn {
+            flex-shrink: 0;
+            white-space: nowrap;
+            padding: 0.4rem 0.85rem;
+            font-size: 0.82rem;
           }
         }
       `}</style>

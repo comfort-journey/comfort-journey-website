@@ -560,7 +560,7 @@ Please share the day-by-day customized itinerary proposal!`;
         }
 
         .big-calc-price {
-          font-family: var(--font-ui);
+          font-family: var(--font-serif);
           font-size: 2.45rem;
           font-weight: 900;
           color: var(--cj-gold-500);
@@ -577,6 +577,7 @@ Please share the day-by-day customized itinerary proposal!`;
           padding: 1rem;
           font-size: 1rem;
           justify-content: center;
+          width: 100%;
         }
 
         .summary-trust-bullets {
@@ -596,22 +597,57 @@ Please share the day-by-day customized itinerary proposal!`;
         @media (max-width: 990px) {
           .studio-grid {
             grid-template-columns: 1fr;
+            gap: 1.5rem;
           }
           .studio-summary-pane {
             position: static;
           }
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
+          .studio-root {
+            padding: 2.5rem 0 2rem 0;
+          }
+          .section-title {
+            font-size: 2.2rem;
+          }
+          .dest-pills-wrap {
+            display: flex;
+            overflow-x: auto;
+            flex-wrap: nowrap;
+            padding-bottom: 0.5rem;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            width: 100%;
+          }
+          .dest-pill {
+            flex-shrink: 0;
+            white-space: nowrap;
+            min-height: 44px;
+            padding: 0.5rem 0.95rem;
+          }
           .cards-selection-row {
             grid-template-columns: 1fr;
-            gap: 0.65rem;
+            gap: 0.75rem;
+          }
+          .tier-card {
+            min-height: 48px;
+            padding: 1rem;
+          }
+          .addon-item {
+            min-height: 48px;
+            padding: 0.85rem 1rem;
           }
           .studio-summary-pane {
-            padding: 1.5rem;
+            padding: 1.5rem 1.25rem;
+            border-radius: 20px;
           }
           .big-calc-price {
-            font-size: 2rem;
+            font-size: 2.2rem;
+          }
+          .lock-btn {
+            min-height: 50px;
+            font-size: 1rem;
           }
         }
       `}</style>

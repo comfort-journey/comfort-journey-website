@@ -1043,69 +1043,94 @@ export const TOURS_DATA = [
 export const REELS_DATA = [
   {
     id: "reel-1",
-    author: "Rohan & Sneha",
-    destination: "Kashmir Houseboat & Gondola",
-    duration: "6 Days",
-    tagline: "Waking up to Dal Lake mist in a 5-star wooden houseboat was pure magic!",
+    reelId: "DY0_FKniL_8",
+    instagramUrl: "https://www.instagram.com/reel/DY0_FKniL_8/?igsi=MTRsdWF4cWl5MHhx",
+    author: "Comfort Journey Traveler",
+    destination: "Signature Luxury Moments",
+    duration: "Exclusive Reel",
+    tagline: "Unforgettable vacations and 5-star comfort crafted with love since 1992!",
     videoThumb: "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=500&q=80",
     rating: 5,
-    views: "24.5K",
-    flag: "🇮🇳"
+    views: "52.4K",
+    flag: "✨"
   },
   {
     id: "reel-2",
-    author: "Dr. Alok Verma & Family",
-    destination: "Bali Tropical Villa & Nusa Penida",
+    reelId: "Dbc810lRFJ1",
+    instagramUrl: "https://www.instagram.com/reel/Dbc810lRFJ1/?igsi=eDNjamszcnBqNGV0",
+    author: "VIP Family Vacation",
+    destination: "Tropical Coast & Island Escapes",
     duration: "7 Days",
-    tagline: "Our kids loved the Nusa Penida speedboat and Ubud private pool villa!",
+    tagline: "Private speedboats, pristine azure waters, and 5-star villa hospitality!",
     videoThumb: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=500&q=80",
     rating: 5,
-    views: "38.2K",
-    flag: "🇮🇩"
+    views: "44.8K",
+    flag: "🌴"
   },
   {
     id: "reel-3",
-    author: "Kavita & Rajesh",
-    destination: "Swiss Alps & Titlis Glacier",
-    duration: "7 Days",
-    tagline: "Glacier Express train and Mt. Titlis cable car were dream come true!",
+    reelId: "DbkodDLR30C",
+    instagramUrl: "https://www.instagram.com/reel/DbkodDLR30C/?igsi=NGE1dXY2MXIyeWVn",
+    author: "Alpine Wanderers",
+    destination: "Snow Peaks & Mountain Trails",
+    duration: "8 Days",
+    tagline: "Panoramic glacier cable cars and cozy Alpine chalets under crisp blue skies!",
     videoThumb: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=500&q=80",
     rating: 5,
-    views: "42.1K",
-    flag: "🇨🇭"
+    views: "48.1K",
+    flag: "🏔️"
   },
   {
     id: "reel-4",
-    author: "Amit & Priya",
-    destination: "Dubai Marina & Red Dunes",
+    reelId: "DbXyPnoiwiW",
+    instagramUrl: "https://www.instagram.com/reel/DbXyPnoiwiW/?igsi=ZzB4dTllYjk2cWV1",
+    author: "Desert & Skyline VIPs",
+    destination: "Dune Safari & Luxury Marina",
     duration: "6 Days",
-    tagline: "Red dunes bashing and luxury Marina yacht dinner exceeded all expectations.",
+    tagline: "Golden sunset dunes bashing, private yacht dining & VIP city vistas!",
     videoThumb: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=500&q=80",
     rating: 5,
-    views: "31.4K",
-    flag: "🇦🇪"
+    views: "39.6K",
+    flag: "🌆"
   },
   {
     id: "reel-5",
-    author: "Siddharth & Meera",
-    destination: "Amalfi Coast & Capri Yacht",
-    duration: "7 Days",
-    tagline: "Cliffside Positano sunset dinner and private yacht to Capri Blue Grotto!",
-    videoThumb: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=500&q=80",
+    reelId: "DZuiACNic5-",
+    instagramUrl: "https://www.instagram.com/reel/DZuiACNic5-/?igsi=bzJsa3p1cHB2Nnc4",
+    author: "Heritage Royalty Tour",
+    destination: "Royal Heritage Palaces & Forts",
+    duration: "6 Days",
+    tagline: "Living like royalty in regal suites with private chauffeur luxury.",
+    videoThumb: "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=500&q=80",
     rating: 5,
-    views: "29.8K",
-    flag: "🇮🇹"
+    views: "35.2K",
+    flag: "🏰"
   },
   {
     id: "reel-6",
-    author: "Vikram & Group",
-    destination: "Kenya Maasai Mara Safari",
+    reelId: "DZO8RMzC3hR",
+    instagramUrl: "https://www.instagram.com/reel/DZO8RMzC3hR/?igsi=MTYwdm5jbG5rbHF4dQ==",
+    author: "Seaside Dreamers",
+    destination: "Azure Lagoons & Overwater Villas",
     duration: "7 Days",
-    tagline: "Witnessed lion pride hunt at sunrise and hot air balloon Champagne breakfast!",
+    tagline: "Waking up right over coral lagoons with private sundecks & sunset cruising!",
+    videoThumb: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=500&q=80",
+    rating: 5,
+    views: "43.7K",
+    flag: "🌊"
+  },
+  {
+    id: "reel-7",
+    reelId: "DZAUCdtCd8H",
+    instagramUrl: "https://www.instagram.com/reel/DZAUCdtCd8H/?igsi=MXY5dWJjOXJjNXpmag==",
+    author: "Wildlife & Nature Explorers",
+    destination: "Wild Safaris & Glamping Trails",
+    duration: "7 Days",
+    tagline: "Spectacular wildlife sightings at golden dawn and luxury forest lodges.",
     videoThumb: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=500&q=80",
     rating: 5,
-    views: "35.6K",
-    flag: "🇰🇪"
+    views: "38.9K",
+    flag: "🦁"
   }
 ];
 

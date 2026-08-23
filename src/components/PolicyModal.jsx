@@ -94,20 +94,21 @@ export default function PolicyModal({ type, isOpen, onClose }) {
         }
 
         .policy-title {
-          font-family: var(--font-ui);
-          font-size: 1.3rem;
+          font-family: var(--font-serif);
+          font-size: 1.35rem;
           color: #FFFFFF;
         }
 
         .policy-close-btn {
-          width: 36px;
-          height: 36px;
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
           background: rgba(255, 255, 255, 0.08);
           color: #E2E8F0;
           display: flex;
           align-items: center;
           justify-content: center;
+          cursor: pointer;
         }
 
         .policy-text-content {
@@ -123,8 +124,8 @@ export default function PolicyModal({ type, isOpen, onClose }) {
         }
 
         .policy-text-content h3 {
-          font-family: var(--font-ui);
-          font-size: 1.15rem;
+          font-family: var(--font-serif);
+          font-size: 1.2rem;
           color: #FFFFFF;
         }
 
@@ -148,6 +149,24 @@ export default function PolicyModal({ type, isOpen, onClose }) {
           border-top: 1px solid var(--cj-glass-border);
           display: flex;
           justify-content: flex-end;
+        }
+
+        @media (max-width: 768px) {
+          .modal-overlay {
+            align-items: flex-end;
+            padding: 0;
+          }
+          .policy-modal-body {
+            border-radius: 20px 20px 0 0;
+            max-height: 90vh;
+            padding: 1.5rem 1.25rem;
+          }
+          .policy-footer button {
+            width: 100%;
+            justify-content: center;
+            min-height: 48px;
+            font-size: 1rem;
+          }
         }
       `}</style>
     </div>

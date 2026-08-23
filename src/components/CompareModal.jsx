@@ -320,19 +320,45 @@ export default function CompareModal({ onBookTour, onSelectItinerary }) {
           color: #E2E8F0;
         }
 
-        .compare-actions-row {
+        .compare-heading {
+          font-family: var(--font-serif);
+          font-size: 1.5rem;
+          color: #FFFFFF;
+          margin-top: 0.35rem;
+        }
+
+        .close-btn {
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.08);
+          color: #FFFFFF;
           display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-          margin-top: 0.5rem;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
         }
 
         @media (max-width: 768px) {
+          .modal-overlay {
+            align-items: flex-end;
+            padding: 0;
+          }
           .compare-modal-body {
-            padding: 1.25rem;
+            padding: 1.5rem 1.15rem;
+            border-radius: 20px 20px 0 0;
+            max-height: 92vh;
+          }
+          .compare-heading {
+            font-size: 1.25rem;
           }
           .compare-columns-grid {
             grid-template-columns: 1fr;
+            gap: 1.25rem;
+          }
+          .compare-actions-row button {
+            min-height: 48px;
+            font-size: 0.98rem;
           }
         }
       `}</style>
