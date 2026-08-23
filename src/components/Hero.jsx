@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Search, MapPin, Users, ShieldCheck, Sparkles, Compass, Calendar, ChevronRight, Award, Flame } from 'lucide-react';
-import { HERO_SLIDES, DESTINATION_WEATHER, STATS_DATA } from '../data/toursData';
+import { Search, MapPin, Users, ShieldCheck, Sparkles, Compass, Calendar, ChevronRight, Award, Flame, Radio } from 'lucide-react';
+import { HERO_SLIDES, STATS_DATA } from '../data/toursData';
 import { useCurrency } from '../context/CurrencyContext';
+import { useLiveWeather } from '../hooks/useLiveWeather';
 import VantaTravelSkyCanvas from './animations/VantaTravelSkyCanvas';
 import KineticHeading from './animations/KineticHeading';
 import InteractiveCompassSVG from './animations/InteractiveCompassSVG';
@@ -10,6 +11,7 @@ import { useParticleBurst } from '../hooks/useParticleBurst';
 export default function Hero({ onSearch, onOpenAIPlanner }) {
   const { formatPrice } = useCurrency();
   const { triggerBurst } = useParticleBurst();
+  const { weatherList, isLive } = useLiveWeather();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [destination, setDestination] = useState('');
   const [category, setCategory] = useState('All');
@@ -68,10 +70,10 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           </div>
 
           <div className="weather-ticker">
-            <span className="live-dot"></span>
-            <span className="ticker-label">Live Weather:</span>
+            <span className="live-dot" title={isLive ? 'Real-Time Live Weather Active' : 'Connecting to Live Weather'}></span>
+            <span className="ticker-label">{isLive ? 'Real-Time Live Weather:' : 'Live Destination Weather:'}</span>
             <div className="ticker-scroll">
-              {DESTINATION_WEATHER.map((w, idx) => (
+              {weatherList.map((w, idx) => (
                 <button
                   key={idx}
                   type="button"
@@ -82,7 +84,7 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
                     const target = document.getElementById('tours');
                     if (target) target.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  title={`Explore ${w.city} packages`}
+                  title={`Explore ${w.city} packages • Live ${w.temp} (${w.condition})`}
                 >
                   <span className="w-icon">{w.icon}</span>
                   <strong>{w.city}:</strong>

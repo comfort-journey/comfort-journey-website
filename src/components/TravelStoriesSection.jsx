@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { TRAVELER_REELS, TESTIMONIALS } from '../data/toursData';
-import { Star, Play, MessageCircle, Heart, Eye, CheckCircle2, ShieldCheck, Quote, X, Volume2, Sparkles } from 'lucide-react';
+import { Star, Play, MessageCircle, Heart, Eye, CheckCircle2, ShieldCheck, Quote, X, Volume2, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import Tilt3DCard from './animations/Tilt3DCard';
 import { useParticleBurst } from '../hooks/useParticleBurst';
 
 export default function TravelStoriesSection({ onOpenQuote }) {
   const { triggerBurst } = useParticleBurst();
+  const reelsScrollRef = useRef(null);
   const [activeTab, setActiveTab] = useState('reels'); // 'reels' or 'reviews'
   const [likedReels, setLikedReels] = useState({});
   const [activeReelModal, setActiveReelModal] = useState(null);
@@ -19,6 +20,13 @@ export default function TravelStoriesSection({ onOpenQuote }) {
       ...prev,
       [id]: !prev[id]
     }));
+  };
+
+  const handleScrollReels = (direction) => {
+    if (reelsScrollRef.current) {
+      const scrollAmount = direction === 'left' ? -320 : 320;
+      reelsScrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
   };
 
   return (
@@ -38,91 +46,118 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           </p>
         </div>
 
-        {/* View Switcher Tabs */}
-        <div className="stories-tab-bar">
-          <button 
-            type="button" 
-            className={`story-tab ${activeTab === 'reels' ? 'active' : ''}`}
-            onClick={() => setActiveTab('reels')}
-          >
-            🎬 Traveler Video Stories & Reels
-          </button>
-          <button 
-            type="button" 
-            className={`story-tab ${activeTab === 'reviews' ? 'active' : ''}`}
-            onClick={() => setActiveTab('reviews')}
-          >
-            💬 Verified Google 5-Star Reviews
-          </button>
+        {/* View Switcher Tabs with Carousel Navigation Buttons */}
+        <div className="stories-tab-bar-container">
+          <div className="stories-tab-bar">
+            <button 
+              type="button" 
+              className={`story-tab ${activeTab === 'reels' ? 'active' : ''}`}
+              onClick={() => setActiveTab('reels')}
+            >
+              🎬 Traveler Video Stories & Reels
+            </button>
+            <button 
+              type="button" 
+              className={`story-tab ${activeTab === 'reviews' ? 'active' : ''}`}
+              onClick={() => setActiveTab('reviews')}
+            >
+              💬 Verified Google 5-Star Reviews
+            </button>
+          </div>
+
+          {activeTab === 'reels' && (
+            <div className="reels-nav-controls">
+              <button 
+                type="button" 
+                className="reel-nav-btn" 
+                onClick={() => handleScrollReels('left')}
+                aria-label="Scroll left"
+              >
+                <ChevronLeft size={18} />
+              </button>
+              <button 
+                type="button" 
+                className="reel-nav-btn" 
+                onClick={() => handleScrollReels('right')}
+                aria-label="Scroll right"
+              >
+                <ChevronRight size={18} />
+              </button>
+            </div>
+          )}
         </div>
 
-        {/* REELS VIEW */}
+        {/* REELS VIEW - Single Row Carousel */}
         {activeTab === 'reels' ? (
-          <div className="reels-grid">
-            {TRAVELER_REELS.map((reel) => {
-              const isLiked = likedReels[reel.id];
-              return (
-                <Tilt3DCard key={reel.id} maxTilt={6} scale={1.03} glare={true} className="reel-tilt-wrapper">
-                  <div 
-                    className="reel-card"
-                    onClick={() => setActiveReelModal(reel)}
-                  >
-                    <div className="reel-media">
-                      <img 
-                        src={reel.videoThumb} 
-                        alt={reel.destination}
-                        loading="lazy"
-                        width="280"
-                        height="460"
-                      />
-                      <div className="reel-gradient-overlay"></div>
+          <div className="reels-carousel-wrapper">
+            <div className="reels-grid-single-row" ref={reelsScrollRef}>
+              {TRAVELER_REELS.map((reel) => {
+                const isLiked = likedReels[reel.id];
+                return (
+                  <div key={reel.id} className="reel-item-col">
+                    <Tilt3DCard maxTilt={5} scale={1.02} glare={true} className="reel-tilt-wrapper">
+                      <div 
+                        className="reel-card"
+                        onClick={() => setActiveReelModal(reel)}
+                      >
+                        <div className="reel-media">
+                          <img 
+                            src={reel.videoThumb} 
+                            alt={reel.destination}
+                            loading="lazy"
+                            width="260"
+                            height="380"
+                          />
+                          <div className="reel-gradient-overlay"></div>
 
-                      {/* Views Badge */}
-                      <div className="reel-views-badge">
-                        <Eye size={13} />
-                        <span>{reel.views} views</span>
-                        <span className="reel-flag">{reel.flag}</span>
-                      </div>
-
-                      {/* Center Play Button Overlay */}
-                      <div className="play-btn-circle">
-                        <Play size={20} className="play-icon" />
-                      </div>
-
-                      {/* Reel Footer Details */}
-                      <div className="reel-caption-box">
-                        <div className="reel-user-row">
-                          <div className="user-avatar-mini">
-                            {reel.author.charAt(0)}
+                          {/* Views Badge */}
+                          <div className="reel-views-badge">
+                            <Eye size={12} />
+                            <span>{reel.views}</span>
+                            <span className="reel-flag">{reel.flag}</span>
                           </div>
-                          <div className="user-text">
-                            <span className="user-name">{reel.author}</span>
-                            <span className="dest-tag">{reel.destination} ({reel.duration})</span>
+
+                          {/* Center Play Button Overlay */}
+                          <div className="play-btn-circle">
+                            <Play size={18} className="play-icon" />
                           </div>
-                          <button 
-                            type="button" 
-                            className={`heart-btn ${isLiked ? 'liked' : ''}`}
-                            onClick={(e) => toggleLike(e, reel.id)}
-                            aria-label="Like reel"
-                          >
-                            <Heart size={18} fill={isLiked ? '#EF4444' : 'none'} color={isLiked ? '#EF4444' : '#FFFFFF'} />
-                          </button>
-                        </div>
 
-                        <p className="reel-quote">"{reel.tagline}"</p>
+                          {/* Reel Footer Details */}
+                          <div className="reel-caption-box">
+                            <div className="reel-user-row">
+                              <div className="user-avatar-mini">
+                                {reel.author.charAt(0)}
+                              </div>
+                              <div className="user-text">
+                                <span className="user-name">{reel.author}</span>
+                                <span className="dest-tag">{reel.destination} ({reel.duration})</span>
+                              </div>
+                              <button 
+                                type="button" 
+                                className={`heart-btn ${isLiked ? 'liked' : ''}`}
+                                onClick={(e) => toggleLike(e, reel.id)}
+                                aria-label="Like reel"
+                              >
+                                <Heart size={16} fill={isLiked ? '#EF4444' : 'none'} color={isLiked ? '#EF4444' : '#FFFFFF'} />
+                              </button>
+                            </div>
 
-                        <div className="reel-stars">
-                          {[...Array(reel.rating)].map((_, i) => (
-                            <Star key={i} size={12} className="star-fill" />
-                          ))}
-                          <span className="verified-text">Verified Trip</span>
+                            <p className="reel-quote">"{reel.tagline}"</p>
+
+                            <div className="reel-stars">
+                              {[...Array(reel.rating)].map((_, i) => (
+                                <Star key={i} size={11} className="star-fill" />
+                              ))}
+                              <span className="verified-text">Verified Trip</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </Tilt3DCard>
                   </div>
-                </Tilt3DCard>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         ) : (
           /* REVIEWS VIEW */
@@ -235,22 +270,56 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           fill: #FFB800;
         }
 
+        .stories-tab-bar-container {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 1.75rem;
+          flex-wrap: wrap;
+          gap: 1rem;
+        }
+
         .stories-tab-bar {
           display: flex;
-          justify-content: center;
           gap: 0.75rem;
-          margin-bottom: 1.75rem;
           flex-wrap: wrap;
         }
 
+        .reels-nav-controls {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .reel-nav-btn {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          color: #F9FBE7;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .reel-nav-btn:hover {
+          background: rgba(255, 137, 47, 0.25);
+          border-color: #FF892F;
+          color: #FF892F;
+          transform: scale(1.08);
+        }
+
         .story-tab {
-          padding: 0.75rem 1.75rem;
+          padding: 0.65rem 1.5rem;
           border-radius: var(--radius-full);
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.1);
           color: #E2E8F0;
           font-weight: 700;
-          font-size: 0.95rem;
+          font-size: 0.9rem;
           transition: all 0.25s ease;
         }
 
@@ -260,38 +329,63 @@ export default function TravelStoriesSection({ onOpenQuote }) {
         }
 
         .story-tab.active {
-          background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-          border-color: var(--color-primary);
+          background: linear-gradient(135deg, var(--cj-amber-500, #FF892F), var(--cj-amber-700, #E66F12));
+          border-color: var(--cj-amber-500, #FF892F);
           color: #FFFFFF;
-          box-shadow: 0 8px 25px rgba(255, 107, 0, 0.35);
+          box-shadow: 0 6px 20px rgba(255, 137, 47, 0.35);
         }
 
-        /* Reels Grid */
-        .reels-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-          gap: 2rem;
+        /* Reels Single-Row Carousel */
+        .reels-carousel-wrapper {
+          position: relative;
+          width: 100%;
+          overflow: hidden;
+        }
+
+        .reels-grid-single-row {
+          display: flex;
+          gap: 1.25rem;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          padding: 0.5rem 0.25rem 1.25rem 0.25rem;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255, 137, 47, 0.4) transparent;
+        }
+
+        .reels-grid-single-row::-webkit-scrollbar {
+          height: 5px;
+        }
+
+        .reels-grid-single-row::-webkit-scrollbar-thumb {
+          background: rgba(255, 137, 47, 0.35);
+          border-radius: 4px;
+        }
+
+        .reel-item-col {
+          flex: 0 0 260px;
+          scroll-snap-align: start;
         }
 
         .reel-card {
           border-radius: var(--radius-lg);
           overflow: hidden;
-          background: #131D33;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-          transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+          background: #001D51;
+          border: 1px solid rgba(111, 230, 252, 0.18);
+          box-shadow: 0 14px 30px rgba(0, 18, 51, 0.6);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           cursor: pointer;
         }
 
         .reel-card:hover {
-          transform: translateY(-8px) scale(1.02);
-          border-color: rgba(255, 107, 0, 0.5);
-          box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 107, 0, 0.2);
+          transform: translateY(-6px);
+          border-color: #FF892F;
+          box-shadow: 0 20px 40px rgba(0, 18, 51, 0.8), 0 0 20px rgba(255, 137, 47, 0.25);
         }
 
         .reel-media {
           position: relative;
-          height: 440px;
+          height: 380px;
           overflow: hidden;
         }
 
