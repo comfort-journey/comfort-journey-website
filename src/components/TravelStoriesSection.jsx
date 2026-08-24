@@ -1,20 +1,19 @@
 import React, { useState, useRef } from 'react';
-import { TRAVELER_REELS, TESTIMONIALS } from '../data/toursData';
-import { Star, Play, MessageCircle, Heart, Eye, CheckCircle2, ShieldCheck, Quote, X, Volume2, Sparkles, ChevronLeft, ChevronRight, Instagram, ExternalLink } from 'lucide-react';
+import { TRAVELER_REELS } from '../data/toursData';
+import { Play, MessageCircle, Heart, CheckCircle2, X, Sparkles, ChevronLeft, ChevronRight, Instagram, ExternalLink } from 'lucide-react';
 import Tilt3DCard from './animations/Tilt3DCard';
 import { useParticleBurst } from '../hooks/useParticleBurst';
 
 export default function TravelStoriesSection({ onOpenQuote }) {
   const { triggerBurst } = useParticleBurst();
   const reelsScrollRef = useRef(null);
-  const [activeTab, setActiveTab] = useState('reels'); // 'reels' or 'reviews'
   const [likedReels, setLikedReels] = useState({});
   const [activeReelModal, setActiveReelModal] = useState(null);
 
   const toggleLike = (e, id) => {
     e.stopPropagation();
     if (!likedReels[id]) {
-      triggerBurst(e, { count: 16, colors: ['#EF4444', '#FF892F', '#F9FBE7'] });
+      triggerBurst(e, { count: 16, colors: ['#E1306C', '#FF892F', '#F9FBE7'] });
     }
     setLikedReels(prev => ({
       ...prev,
@@ -24,7 +23,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
 
   const handleScrollReels = (direction) => {
     if (reelsScrollRef.current) {
-      const scrollAmount = direction === 'left' ? -320 : 320;
+      const scrollAmount = direction === 'left' ? -340 : 340;
       reelsScrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
@@ -34,148 +33,105 @@ export default function TravelStoriesSection({ onOpenQuote }) {
       <div className="container">
         {/* Section Header */}
         <div className="section-header">
-          <div className="google-rating-pill">
-            <Star size={14} className="star-fill" />
-            <span>4.95 ★★★★★ Google Verified Traveler Rating (50,000+ Delighted Guests)</span>
+          <div className="instagram-section-badge">
+            <Instagram size={15} />
+            <span>OFFICIAL INSTAGRAM REELS • @comfort.journey</span>
           </div>
           <h2 className="section-title font-editorial">
-            Real Moments, <span className="gradient-text-gold">Unforgettable Journeys</span>
+            Real Moments, <span className="gradient-text-gold">Traveler Stories</span>
           </h2>
           <p className="section-subtitle">
-            Watch real traveler stories & Instagram reels from our bespoke luxury vacations worldwide since 1992.
+            Watch authentic travel reels from our guests experiencing handcrafted vacations across India and the globe.
           </p>
         </div>
 
-        {/* View Switcher Tabs with Carousel Navigation Buttons */}
-        <div className="stories-tab-bar-container">
-          <div className="stories-tab-bar">
+        {/* Carousel Controls Bar */}
+        <div className="reels-header-controls">
+          <div className="reels-count-tag">
+            <span>Showing 7 Featured Reels</span>
+          </div>
+          <div className="reels-nav-controls">
             <button 
               type="button" 
-              className={`story-tab ${activeTab === 'reels' ? 'active' : ''}`}
-              onClick={() => setActiveTab('reels')}
+              className="reel-nav-btn" 
+              onClick={() => handleScrollReels('left')}
+              aria-label="Previous Reels"
             >
-              <Instagram size={18} className="text-instagram" />
-              🎬 Instagram Stories & Reels ({TRAVELER_REELS.length})
+              <ChevronLeft size={20} />
             </button>
             <button 
               type="button" 
-              className={`story-tab ${activeTab === 'reviews' ? 'active' : ''}`}
-              onClick={() => setActiveTab('reviews')}
+              className="reel-nav-btn" 
+              onClick={() => handleScrollReels('right')}
+              aria-label="Next Reels"
             >
-              <ShieldCheck size={18} className="text-emerald" />
-              ⭐ Verified Client Reviews
+              <ChevronRight size={20} />
             </button>
           </div>
-
-          {activeTab === 'reels' && (
-            <div className="reels-nav-controls">
-              <button 
-                type="button" 
-                className="reel-nav-btn" 
-                onClick={() => handleScrollReels('left')}
-                aria-label="Previous Reels"
-              >
-                <ChevronLeft size={20} />
-              </button>
-              <button 
-                type="button" 
-                className="reel-nav-btn" 
-                onClick={() => handleScrollReels('right')}
-                aria-label="Next Reels"
-              >
-                <ChevronRight size={20} />
-              </button>
-            </div>
-          )}
         </div>
 
         {/* REELS VIEW - Single Row Carousel */}
-        {activeTab === 'reels' ? (
-          <div className="reels-carousel-wrapper">
-            <div className="reels-grid-single-row" ref={reelsScrollRef}>
-              {TRAVELER_REELS.map((reel) => {
-                const isLiked = likedReels[reel.id];
-                return (
-                  <div key={reel.id} className="reel-item-col">
-                    <Tilt3DCard maxTilt={5} scale={1.02} glare={true} className="reel-tilt-wrapper">
-                      <div 
-                        className="reel-card"
-                        onClick={() => setActiveReelModal(reel)}
-                      >
-                        <div className="reel-media">
-                          {/* Live Instagram Embed Preview Frame */}
-                          <iframe
-                            src={`https://www.instagram.com/reel/${reel.reelId}/embed/`}
-                            className="reel-card-ig-iframe"
-                            frameBorder="0"
-                            scrolling="no"
-                            allowFullScreen
-                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
-                            title={`Instagram Reel ${reel.destination}`}
-                          ></iframe>
+        <div className="reels-carousel-wrapper">
+          <div className="reels-grid-single-row" ref={reelsScrollRef}>
+            {TRAVELER_REELS.map((reel) => {
+              const isLiked = likedReels[reel.id];
+              return (
+                <div key={reel.id} className="reel-item-col">
+                  <Tilt3DCard maxTilt={5} scale={1.02} glare={true} className="reel-tilt-wrapper">
+                    <div 
+                      className="reel-card"
+                      onClick={() => setActiveReelModal(reel)}
+                    >
+                      <div className="reel-media">
+                        {/* Live Instagram Embed Preview Frame */}
+                        <iframe
+                          src={`https://www.instagram.com/reel/${reel.reelId}/embed/`}
+                          className="reel-card-ig-iframe"
+                          frameBorder="0"
+                          scrolling="no"
+                          allowFullScreen
+                          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+                          title={`Instagram Reel ${reel.destination}`}
+                        ></iframe>
 
-                          {/* Quick Overlay Action Bar */}
-                          <div className="reel-card-footer-strip">
-                            <div className="reel-card-meta-title">
-                              <span className="reel-dest-flag">{reel.flag}</span>
-                              <span className="reel-dest-name">{reel.destination}</span>
-                            </div>
-                            <div className="reel-card-action-btns">
-                              <button
-                                type="button"
-                                className="reel-play-chip"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setActiveReelModal(reel);
-                                }}
-                              >
-                                <Play size={13} fill="#FFFFFF" />
-                                <span>Play Reel</span>
-                              </button>
-                              <a
-                                href={reel.instagramUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="reel-ig-chip"
-                                onClick={(e) => e.stopPropagation()}
-                              >
-                                <Instagram size={13} />
-                              </a>
-                            </div>
+                        {/* Quick Overlay Action Bar */}
+                        <div className="reel-card-footer-strip">
+                          <div className="reel-card-meta-title">
+                            <span className="reel-dest-flag">{reel.flag}</span>
+                            <span className="reel-dest-name">{reel.destination}</span>
+                          </div>
+                          <div className="reel-card-action-btns">
+                            <button
+                              type="button"
+                              className="reel-play-chip"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setActiveReelModal(reel);
+                              }}
+                            >
+                              <Play size={13} fill="#FFFFFF" />
+                              <span>Play Reel</span>
+                            </button>
+                            <a
+                              href={reel.instagramUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="reel-ig-chip"
+                              onClick={(e) => e.stopPropagation()}
+                              aria-label="Open on Instagram"
+                            >
+                              <Instagram size={13} />
+                            </a>
                           </div>
                         </div>
                       </div>
-                    </Tilt3DCard>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        ) : (
-          /* REVIEWS VIEW */
-          <div className="reviews-grid">
-            {TESTIMONIALS.map((rev, idx) => (
-              <div key={idx} className="review-card glass-card">
-                <Quote size={32} className="quote-watermark" />
-                <div className="rev-rating">
-                  {[...Array(rev.rating)].map((_, i) => (
-                    <Star key={i} size={16} className="star-fill" />
-                  ))}
+                    </div>
+                  </Tilt3DCard>
                 </div>
-                <p className="rev-comment">"{rev.comment}"</p>
-
-                <div className="rev-author-box">
-                  <img src={rev.avatar} alt={rev.name} className="author-img" />
-                  <div className="author-details">
-                    <h4 className="author-name">{rev.name}</h4>
-                    <span className="author-loc">{rev.location} • <em>{rev.tour}</em></span>
-                  </div>
-                  <CheckCircle2 size={18} className="text-emerald verified-icon" />
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
-        )}
+        </div>
 
         {/* LIVE INSTAGRAM REEL MODAL POPUP */}
         {activeReelModal && (
@@ -199,27 +155,33 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                   ></iframe>
                 </div>
 
-                {/* Right Column: Story Details & Booking CTAs */}
+                {/* Right Column: Real Analyzed Story Details & Actions */}
                 <div className="reel-modal-info-pane">
-                  <div className="reel-modal-badges">
-                    <span className="badge badge-amber">{activeReelModal.flag} {activeReelModal.destination}</span>
-                    <span className="badge badge-ig"><Instagram size={13} /> Official Reel</span>
-                  </div>
+                  <div>
+                    <div className="reel-modal-badges">
+                      <span className="badge badge-amber">{activeReelModal.flag} {activeReelModal.destination}</span>
+                      <span className="badge badge-ig"><Instagram size={13} /> Official Reel</span>
+                    </div>
 
-                  <h3 className="modal-reel-heading">"{activeReelModal.tagline}"</h3>
-                  
-                  <div className="reel-modal-stats-box">
-                    <div className="stat-line">
-                      <span>Shared by:</span>
-                      <strong>{activeReelModal.author}</strong>
-                    </div>
-                    <div className="stat-line">
-                      <span>Duration:</span>
-                      <strong>{activeReelModal.duration} Bespoke Trip</strong>
-                    </div>
-                    <div className="stat-line">
-                      <span>Instagram Views:</span>
-                      <strong>{activeReelModal.views} Views</strong>
+                    <h3 className="modal-reel-heading">{activeReelModal.headline || activeReelModal.destination}</h3>
+                    
+                    <p className="modal-reel-caption">
+                      "{activeReelModal.tagline}"
+                    </p>
+
+                    <div className="reel-modal-stats-box">
+                      <div className="stat-line">
+                        <span>Creator / Channel:</span>
+                        <strong>{activeReelModal.author}</strong>
+                      </div>
+                      <div className="stat-line">
+                        <span>Experience Type:</span>
+                        <strong>{activeReelModal.duration}</strong>
+                      </div>
+                      <div className="stat-line">
+                        <span>Instagram Reach:</span>
+                        <strong>{activeReelModal.views} Views</strong>
+                      </div>
                     </div>
                   </div>
 
@@ -239,7 +201,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                     <button 
                       className="btn-whatsapp w-full"
                       onClick={() => {
-                        const msg = `Hi Comfort Journey! I saw your Instagram reel for ${activeReelModal.destination} (${activeReelModal.instagramUrl || ''}). Please share customized package options!`;
+                        const msg = `Hi Comfort Journey! I saw your Instagram reel for "${activeReelModal.headline}" (${activeReelModal.instagramUrl || ''}). Please share customized package options!`;
                         window.open(`https://wa.me/918770403315?text=${encodeURIComponent(msg)}`, '_blank');
                       }}
                     >
@@ -284,38 +246,33 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           color: #FFFFFF;
         }
 
-        .google-rating-pill {
+        .instagram-section-badge {
           display: inline-flex;
           align-items: center;
-          gap: 0.4rem;
-          background: rgba(255, 184, 0, 0.12);
-          border: 1px solid rgba(255, 184, 0, 0.3);
-          color: #FFB800;
+          gap: 0.45rem;
+          background: linear-gradient(135deg, rgba(225, 48, 108, 0.2), rgba(253, 29, 29, 0.2));
+          border: 1px solid rgba(225, 48, 108, 0.4);
+          color: #FF8BA7;
           padding: 0.35rem 0.95rem;
           border-radius: var(--radius-full);
-          font-size: 0.82rem;
+          font-size: 0.8rem;
           font-weight: 800;
+          letter-spacing: 0.05em;
           margin-bottom: 0.75rem;
         }
 
-        .star-fill {
-          color: #FFB800;
-          fill: #FFB800;
-        }
-
-        .stories-tab-bar-container {
+        .reels-header-controls {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin-bottom: 1.75rem;
-          flex-wrap: wrap;
-          gap: 1rem;
+          margin-bottom: 1.5rem;
+          padding: 0 0.5rem;
         }
 
-        .stories-tab-bar {
-          display: flex;
-          gap: 0.75rem;
-          flex-wrap: wrap;
+        .reels-count-tag {
+          font-size: 0.85rem;
+          color: #93B2D2;
+          font-weight: 600;
         }
 
         .reels-nav-controls {
@@ -325,17 +282,25 @@ export default function TravelStoriesSection({ onOpenQuote }) {
         }
 
         .reel-nav-btn {
-          width: 36px;
-          height: 36px;
+          width: 38px;
+          height: 38px;
           border-radius: 50%;
-          background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.2);
           color: #F9FBE7;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
           transition: all 0.2s ease;
+        }
+
+        .modal-reel-caption {
+          font-size: 0.92rem;
+          color: #CBD5E1;
+          line-height: 1.5;
+          font-style: italic;
+          margin: 0.5rem 0 1rem 0;
         }
 
         .reel-nav-btn:hover {

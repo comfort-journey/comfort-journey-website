@@ -22,7 +22,8 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
   const navLinks = [
     { label: 'Destinations', href: '#tours' },
     { label: 'Trip Studio', href: '#custom-builder' },
-    { label: 'Stories & Reels', href: '#stories' },
+    { label: 'Google Reviews', href: '#google-reviews' },
+    { label: 'Reels & Stories', href: '#stories' },
     { label: 'Why Us', href: '#why-us' },
     { label: 'Services', href: '#services' },
     { label: 'About', href: '#about' },

@@ -73,22 +73,33 @@ export default function Footer({ onOpenPolicy, onOpenAdmin }) {
             </ul>
           </div>
 
-          {/* Contact Details */}
+          {/* Contact & Google Profile */}
           <div className="footer-col">
             <h4 className="col-title">24/7 VIP Concierge</h4>
             <div className="contact-list">
               <div className="c-item">
                 <MapPin size={18} className="c-icon" />
-                <span>Main Road 1, Bhopal, Madhya Pradesh 462016</span>
+                <span>Shop no 2, Phase 5, Ankur Complex, 6 Number Bus Stop, Shivaji Nagar, Bhopal, MP 462016</span>
               </div>
               <div className="c-item">
                 <Phone size={18} className="c-icon" />
-                <a href="tel:+918770403315">+91 8770403315</a>
+                <a href="tel:+918770403315">+91 87704 03315</a>
               </div>
               <div className="c-item">
                 <MessageCircle size={18} className="c-icon" />
                 <a href="https://wa.me/918770403315?text=Hi%20Comfort%20Journey!%20I%20want%20to%20plan%20a%20luxury%20vacation." target="_blank" rel="noopener noreferrer">
                   Instant WhatsApp VIP Desk
+                </a>
+              </div>
+              <div className="c-item google-link-item">
+                <a 
+                  href="https://share.google/EUhDlYWM7iZDuJVs0" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="footer-google-btn"
+                >
+                  <span className="google-star-gold">★ 4.8</span>
+                  <span>Google Business Profile (85+ Reviews)</span>
                 </a>
               </div>
             </div>
@@ -250,6 +261,33 @@ export default function Footer({ onOpenPolicy, onOpenAdmin }) {
 
         .c-item a:hover {
           color: var(--cj-amber-500);
+        }
+
+        .footer-google-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(251, 188, 5, 0.4);
+          padding: 0.45rem 0.85rem;
+          border-radius: var(--radius-full);
+          color: #FFFFFF !important;
+          font-size: 0.82rem !important;
+          font-weight: 700 !important;
+          margin-top: 0.35rem;
+          transition: all 0.2s ease;
+          text-decoration: none;
+        }
+
+        .footer-google-btn:hover {
+          background: rgba(251, 188, 5, 0.15);
+          border-color: #FBBC05;
+          transform: translateY(-2px);
+        }
+
+        .google-star-gold {
+          color: #FBBC05;
+          font-weight: 900;
         }
 
         .footer-bottom {

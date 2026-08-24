@@ -11,6 +11,7 @@ import Hero from './components/Hero';
 import StatsBar from './components/StatsBar';
 import TourExplorer from './components/TourExplorer';
 import TripCustomizerSection from './components/TripCustomizerSection';
+import GoogleReviewsSection from './components/GoogleReviewsSection';
 import TravelStoriesSection from './components/TravelStoriesSection';
 import ServicesSection from './components/ServicesSection';
 import AboutPromoSection from './components/AboutPromoSection';
@@ -85,7 +86,12 @@ export default function App() {
             {/* 6. Interactive Trip Studio & Live Price Estimator */}
             <TripCustomizerSection />
 
-            {/* 7. Traveler Video Stories, Reels & Verified Google Reviews with 3D Tilt */}
+            {/* 7. Dedicated Verified Google Reviews Section (4.8★ Rating / 85+ Real Reviews) */}
+            <GoogleReviewsSection 
+              onOpenQuote={() => setIsQuickQuoteOpen(true)}
+            />
+
+            {/* 8. Traveler Instagram Reels & Live Video Stories with 3D Tilt */}
             <TravelStoriesSection 
               onOpenQuote={() => setIsQuickQuoteOpen(true)} 
             />
