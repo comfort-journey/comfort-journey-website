@@ -93,8 +93,15 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                 <div key={reel.id} className="reel-item-col">
                   <Tilt3DCard maxTilt={3} scale={1.02} glare={true} className="reel-tilt-wrapper">
                     <div className="reel-card glass-card" onClick={() => setActiveReelModal(reel)}>
-                      {/* Video Media Container with Native Motion Autoplay */}
+                      {/* Video Media Container with Instant Cover Image Fallback & Play Overlay */}
                       <div className="reel-media-wrapper">
+                        <img
+                          src={reel.videoThumb}
+                          alt={reel.destination}
+                          className="reel-cover-img"
+                          loading="lazy"
+                        />
+
                         <video
                           src={reel.videoUrl}
                           poster={reel.videoThumb}
@@ -102,9 +109,15 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                           muted={!isUnmuted}
                           loop
                           playsInline
-                          preload="auto"
+                          preload="metadata"
                           className="reel-autoplay-video"
+                          onError={(e) => { e.target.style.display = 'none'; }}
                         />
+
+                        {/* Glowing Play Center Badge */}
+                        <div className="reel-play-center-badge">
+                          <Play size={22} fill="#FFFFFF" color="#FFFFFF" style={{ marginLeft: '3px' }} />
+                        </div>
 
                         {/* Luxury Dark Gradient Mask */}
                         <div className="reel-dark-veil" />
@@ -425,6 +438,21 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           width: 100%;
           height: 100%;
           overflow: hidden;
+          background: #001233;
+        }
+
+        .reel-cover-img {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          z-index: 1;
+          transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reel-card:hover .reel-cover-img {
+          transform: scale(1.06);
         }
 
         .reel-autoplay-video {
@@ -433,11 +461,40 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          z-index: 2;
           transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .reel-card:hover .reel-autoplay-video {
-          transform: scale(1.04);
+          transform: scale(1.06);
+        }
+
+        .reel-play-center-badge {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 4;
+          width: 52px;
+          height: 52px;
+          border-radius: 50%;
+          background: rgba(0, 29, 81, 0.7);
+          backdrop-filter: blur(10px);
+          border: 1.5px solid rgba(255, 137, 47, 0.6);
+          color: #FFFFFF;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 137, 47, 0.3);
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          pointer-events: none;
+        }
+
+        .reel-card:hover .reel-play-center-badge {
+          transform: translate(-50%, -50%) scale(1.18);
+          background: #FF892F;
+          border-color: #FFFFFF;
+          box-shadow: 0 10px 30px rgba(255, 137, 47, 0.7), 0 0 30px rgba(255, 137, 47, 0.9);
         }
 
         .reel-dark-veil {
