@@ -10,7 +10,10 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import StatsBar from './components/StatsBar';
 import TourExplorer from './components/TourExplorer';
+import TravelStyleDNASection from './components/TravelStyleDNASection';
 import TripCustomizerSection from './components/TripCustomizerSection';
+import PackageTiersSection from './components/PackageTiersSection';
+import DestinationReadinessSection from './components/DestinationReadinessSection';
 import GoogleReviewsSection from './components/GoogleReviewsSection';
 import TravelStoriesSection from './components/TravelStoriesSection';
 import ServicesSection from './components/ServicesSection';
@@ -75,7 +78,7 @@ export default function App() {
             {/* 3. Trust & Experience Stats Bar with Anime.js Elastic Counters */}
             <StatsBar />
 
-            {/* 4. Handcrafted Luxury Tour Packages Explorer with 3D Card Tilt */}
+            {/* 4. Handcrafted Luxury Tour Packages Explorer with 3D Card Tilt & Seasonal Radar */}
             <TourExplorer 
               searchFilters={searchFilters} 
               onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
@@ -89,7 +92,13 @@ export default function App() {
               onOpenReadiness={(dest) => setReadinessDestKey(dest || 'kashmir')}
             />
 
-            {/* 5. SVGator Real-Time Vector Flight Routes & Global Radar */}
+            {/* 5. On-Page Interactive Travel Style DNA Discovery Engine */}
+            <TravelStyleDNASection 
+              onSelectTour={(tour) => setSelectedItineraryTour(tour)}
+              onOpenQuote={() => setIsQuickQuoteOpen(true)}
+            />
+
+            {/* 6. SVGator Real-Time Vector Flight Routes & Global Radar */}
             <FlightRouteVisualizer 
               onSelectRoute={(route) => {
                 setSearchFilters({ destination: route.name.split(' ')[0], category: 'All' });
@@ -97,36 +106,46 @@ export default function App() {
               onOpenQuote={() => setIsQuickQuoteOpen(true)}
             />
 
-            {/* 6. Interactive Trip Studio & Live Price Estimator */}
+            {/* 7. Interactive Trip Studio & Live Price Estimator */}
             <TripCustomizerSection />
 
-            {/* 7. Dedicated Verified Google Reviews Section (4.8★ Rating / 85+ Real Reviews) */}
+            {/* 8. Side-by-Side Package Tiers Comparison (Standard vs Premium vs VIP) */}
+            <PackageTiersSection 
+              onOpenQuote={() => setIsQuickQuoteOpen(true)}
+            />
+
+            {/* 9. Destination Readiness & Practical Travel Intelligence Hub */}
+            <DestinationReadinessSection 
+              onOpenQuote={() => setIsQuickQuoteOpen(true)}
+            />
+
+            {/* 10. Dedicated Verified Google Reviews Section (4.8★ Rating / 85+ Real Reviews) */}
             <GoogleReviewsSection 
               onOpenQuote={() => setIsQuickQuoteOpen(true)}
             />
 
-            {/* 8. Traveler Instagram Reels & Live Video Stories with 3D Tilt */}
+            {/* 11. Traveler Instagram Reels & Live Video Stories with 3D Tilt */}
             <TravelStoriesSection 
               onOpenQuote={() => setIsQuickQuoteOpen(true)} 
             />
 
-            {/* 8. What We Do (Services) */}
+            {/* 12. What We Do (Services) */}
             <ServicesSection 
               onOpenQuote={() => setIsQuickQuoteOpen(true)} 
             />
 
-            {/* 9. Why Choose Comfort Journey (7 Pillars with 3D Tilt) */}
+            {/* 13. Why Choose Comfort Journey (7 Pillars with 3D Tilt) */}
             <WhyChooseUs onOpenAIPlanner={() => setIsAIPlannerOpen(true)} />
 
-            {/* 10. About Us ("WE MAKE YOUR TRIPS UNFORGOTTABLE" - Est. 1992) */}
+            {/* 14. About Us ("WE MAKE YOUR TRIPS UNFORGOTTABLE" - Est. 1992) */}
             <AboutPromoSection 
               onOpenQuote={() => setIsQuickQuoteOpen(true)} 
             />
 
-            {/* 11. Frequently Asked Questions */}
+            {/* 15. Frequently Asked Questions */}
             <FaqSection />
 
-            {/* 12. Global Footer with Trust Policies & Team Portal */}
+            {/* 16. Global Footer with Trust Policies & Team Portal */}
             <Footer 
               onOpenPolicy={(type) => setPolicyModalType(type)}
               onOpenAdmin={() => setIsAdminCMSOpen(true)}
