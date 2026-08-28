@@ -143,7 +143,12 @@ export default function App() {
           {/* Interactive AI Smart Dream Trip Planner */}
           {isAIPlannerOpen && (
             <AITripPlannerModal 
+              isOpen={isAIPlannerOpen}
               onClose={() => setIsAIPlannerOpen(false)}
+              onSelectTour={(tour) => {
+                setIsAIPlannerOpen(false);
+                setSelectedItineraryTour(tour);
+              }}
               onBookCustomTrip={(plan) => {
                 setIsAIPlannerOpen(false);
                 setIsQuickQuoteOpen(true);

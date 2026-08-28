@@ -9,16 +9,19 @@ import React from 'react';
 export default function AmbientBackgroundOrbs() {
   return (
     <div className="ambient-orbs-wrapper" aria-hidden="true">
-      {/* 1. Amber-Gold Sun Aurora Glow */}
+      {/* 1. Luminous Sky Blue & Cyan Aurora Glow (Top Left) */}
+      <div className="ambient-gradient-layer orb-sky-aqua" />
+
+      {/* 2. Amber-Gold Sunset Aurora Glow (Top Right) */}
       <div className="ambient-gradient-layer orb-amber" />
 
-      {/* 2. Deep Royal Violet Aurora Glow */}
-      <div className="ambient-gradient-layer orb-violet" />
+      {/* 3. Mint & Emerald Spring Aurora Glow (Center Left) */}
+      <div className="ambient-gradient-layer orb-emerald" />
 
-      {/* 3. Electric Aqua Aurora Glow */}
+      {/* 4. Electric Aqua Lagoon Glow (Bottom Right) */}
       <div className="ambient-gradient-layer orb-aqua" />
 
-      {/* Subtle Noise / Texture Overlay */}
+      {/* Subtle Star Dust / Texture Overlay */}
       <div className="ambient-noise-layer" />
 
       <style>{`
@@ -28,7 +31,7 @@ export default function AmbientBackgroundOrbs() {
           pointer-events: none;
           z-index: 0;
           overflow: hidden;
-          background: #001233;
+          background: linear-gradient(180deg, #001233 0%, #001D51 40%, #001233 100%);
           transform: translateZ(0);
           will-change: transform;
         }
@@ -41,46 +44,55 @@ export default function AmbientBackgroundOrbs() {
           will-change: transform;
         }
 
+        .orb-sky-aqua {
+          top: -10%;
+          left: -5%;
+          width: 850px;
+          height: 850px;
+          background: radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, rgba(111, 230, 252, 0.08) 45%, transparent 70%);
+          animation: floatSoftAqua 22s ease-in-out infinite alternate;
+        }
+
         .orb-amber {
-          top: -15%;
-          right: 0%;
-          width: 700px;
-          height: 700px;
-          background: radial-gradient(circle, rgba(255, 137, 47, 0.18) 0%, rgba(255, 137, 47, 0.06) 45%, transparent 70%);
+          top: 15%;
+          right: -8%;
+          width: 800px;
+          height: 800px;
+          background: radial-gradient(circle, rgba(255, 137, 47, 0.18) 0%, rgba(255, 137, 47, 0.05) 45%, transparent 70%);
           animation: floatSoftAmber 24s ease-in-out infinite alternate;
         }
 
-        .orb-violet {
-          top: 30%;
+        .orb-emerald {
+          top: 45%;
           left: -10%;
-          width: 800px;
-          height: 800px;
-          background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(139, 92, 246, 0.04) 50%, transparent 70%);
-          animation: floatSoftViolet 28s ease-in-out infinite alternate;
+          width: 750px;
+          height: 750px;
+          background: radial-gradient(circle, rgba(52, 211, 153, 0.16) 0%, rgba(16, 185, 129, 0.04) 48%, transparent 70%);
+          animation: floatSoftEmerald 28s ease-in-out infinite alternate;
         }
 
         .orb-aqua {
-          top: 65%;
+          top: 75%;
           right: -5%;
-          width: 750px;
-          height: 750px;
-          background: radial-gradient(circle, rgba(111, 230, 252, 0.14) 0%, rgba(111, 230, 252, 0.03) 48%, transparent 70%);
+          width: 850px;
+          height: 850px;
+          background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, rgba(111, 230, 252, 0.06) 48%, transparent 70%);
           animation: floatSoftAqua 26s ease-in-out infinite alternate;
-        }
-
-        @keyframes floatSoftAmber {
-          0% { transform: translate3d(0, 0, 0) scale(1); }
-          100% { transform: translate3d(-40px, 30px, 0) scale(1.06); }
-        }
-
-        @keyframes floatSoftViolet {
-          0% { transform: translate3d(0, 0, 0) scale(1); }
-          100% { transform: translate3d(35px, -35px, 0) scale(1.08); }
         }
 
         @keyframes floatSoftAqua {
           0% { transform: translate3d(0, 0, 0) scale(1); }
-          100% { transform: translate3d(-30px, -25px, 0) scale(1.05); }
+          100% { transform: translate3d(40px, 30px, 0) scale(1.08); }
+        }
+
+        @keyframes floatSoftAmber {
+          0% { transform: translate3d(0, 0, 0) scale(1); }
+          100% { transform: translate3d(-35px, 35px, 0) scale(1.06); }
+        }
+
+        @keyframes floatSoftEmerald {
+          0% { transform: translate3d(0, 0, 0) scale(1); }
+          100% { transform: translate3d(35px, -30px, 0) scale(1.07); }
         }
 
         .ambient-noise-layer {
@@ -92,7 +104,7 @@ export default function AmbientBackgroundOrbs() {
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .orb-amber, .orb-violet, .orb-aqua {
+          .orb-sky-aqua, .orb-amber, .orb-emerald, .orb-aqua {
             animation: none !important;
           }
         }

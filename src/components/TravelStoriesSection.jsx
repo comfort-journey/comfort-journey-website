@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { TRAVELER_REELS } from '../data/toursData';
-import { Play, MessageCircle, Heart, CheckCircle2, X, Sparkles, ChevronLeft, ChevronRight, Instagram, ExternalLink } from 'lucide-react';
+import { Play, MessageCircle, Heart, CheckCircle2, X, Sparkles, ChevronLeft, ChevronRight, Instagram, ExternalLink, Eye, Volume2, VolumeX } from 'lucide-react';
 import Tilt3DCard from './animations/Tilt3DCard';
 import { useParticleBurst } from '../hooks/useParticleBurst';
 
@@ -8,12 +8,13 @@ export default function TravelStoriesSection({ onOpenQuote }) {
   const { triggerBurst } = useParticleBurst();
   const reelsScrollRef = useRef(null);
   const [likedReels, setLikedReels] = useState({});
+  const [unmutedReels, setUnmutedReels] = useState({});
   const [activeReelModal, setActiveReelModal] = useState(null);
 
   const toggleLike = (e, id) => {
     e.stopPropagation();
     if (!likedReels[id]) {
-      triggerBurst(e, { count: 16, colors: ['#E1306C', '#FF892F', '#F9FBE7'] });
+      triggerBurst(e, { count: 18, colors: ['#E1306C', '#FF892F', '#F9FBE7'] });
     }
     setLikedReels(prev => ({
       ...prev,
@@ -21,9 +22,17 @@ export default function TravelStoriesSection({ onOpenQuote }) {
     }));
   };
 
+  const toggleSound = (e, id) => {
+    e.stopPropagation();
+    setUnmutedReels(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
+
   const handleScrollReels = (direction) => {
     if (reelsScrollRef.current) {
-      const scrollAmount = direction === 'left' ? -340 : 340;
+      const scrollAmount = direction === 'left' ? -360 : 360;
       reelsScrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
@@ -32,23 +41,24 @@ export default function TravelStoriesSection({ onOpenQuote }) {
     <section id="stories" className="stories-root">
       <div className="container">
         {/* Section Header */}
-        <div className="section-header">
+        <div className="section-header text-center">
           <div className="instagram-section-badge">
             <Instagram size={15} />
-            <span>OFFICIAL INSTAGRAM REELS • @comfort.journey</span>
+            <span>AUTHENTIC TRAVEL DIARIES • @comfort.journey</span>
           </div>
           <h2 className="section-title font-editorial">
-            Real Moments, <span className="gradient-text-gold">Traveler Stories</span>
+            Real Moments, <span className="gradient-text-gold">Live Traveler Stories</span>
           </h2>
           <p className="section-subtitle">
-            Watch authentic travel reels from our guests experiencing handcrafted vacations across India and the globe.
+            Watch authentic travel experiences from our guests exploring bespoke vacation packages across India and the globe.
           </p>
         </div>
 
         {/* Carousel Controls Bar */}
         <div className="reels-header-controls">
           <div className="reels-count-tag">
-            <span>Showing 7 Featured Reels</span>
+            <span className="live-pulse-dot"></span>
+            <span>7 Signature Featured Video Stories</span>
           </div>
           <div className="reels-nav-controls">
             <button 
@@ -56,6 +66,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
               className="reel-nav-btn" 
               onClick={() => handleScrollReels('left')}
               aria-label="Previous Reels"
+              title="Scroll Left"
             >
               <ChevronLeft size={20} />
             </button>
@@ -64,63 +75,111 @@ export default function TravelStoriesSection({ onOpenQuote }) {
               className="reel-nav-btn" 
               onClick={() => handleScrollReels('right')}
               aria-label="Next Reels"
+              title="Scroll Right"
             >
               <ChevronRight size={20} />
             </button>
           </div>
         </div>
 
-        {/* REELS VIEW - Single Row Carousel */}
+        {/* REELS VIEW - Next-Gen Phone-Mockup Vertical Video Story Carousel */}
         <div className="reels-carousel-wrapper">
           <div className="reels-grid-single-row" ref={reelsScrollRef}>
             {TRAVELER_REELS.map((reel) => {
               const isLiked = likedReels[reel.id];
+              const isUnmuted = unmutedReels[reel.id];
+
               return (
                 <div key={reel.id} className="reel-item-col">
-                  <Tilt3DCard maxTilt={5} scale={1.02} glare={true} className="reel-tilt-wrapper">
-                    <div 
-                      className="reel-card"
-                      onClick={() => setActiveReelModal(reel)}
-                    >
-                      <div className="reel-media">
-                        {/* Live Instagram Embed Preview Frame */}
-                        <iframe
-                          src={`https://www.instagram.com/reel/${reel.reelId}/embed/`}
-                          className="reel-card-ig-iframe"
-                          frameBorder="0"
-                          scrolling="no"
-                          allowFullScreen
-                          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
-                          title={`Instagram Reel ${reel.destination}`}
-                        ></iframe>
+                  <Tilt3DCard maxTilt={3} scale={1.02} glare={true} className="reel-tilt-wrapper">
+                    <div className="reel-card glass-card" onClick={() => setActiveReelModal(reel)}>
+                      {/* Video Media Container with Native Motion Autoplay */}
+                      <div className="reel-media-wrapper">
+                        <video
+                          src={reel.videoUrl}
+                          poster={reel.videoThumb}
+                          autoPlay
+                          muted={!isUnmuted}
+                          loop
+                          playsInline
+                          preload="auto"
+                          className="reel-autoplay-video"
+                        />
 
-                        {/* Quick Overlay Action Bar */}
-                        <div className="reel-card-footer-strip">
-                          <div className="reel-card-meta-title">
-                            <span className="reel-dest-flag">{reel.flag}</span>
-                            <span className="reel-dest-name">{reel.destination}</span>
+                        {/* Luxury Dark Gradient Mask */}
+                        <div className="reel-dark-veil" />
+
+                        {/* Top Instagram Profile Lockup */}
+                        <div className="reel-top-bar">
+                          <div className="insta-profile-lockup">
+                            <div className="insta-story-ring">
+                              <Instagram size={13} color="#FFFFFF" />
+                            </div>
+                            <div className="insta-meta">
+                              <div className="insta-handles-row">
+                                <span className="insta-handle">@comfort.journey</span>
+                              </div>
+                              <span className="insta-verified-tag">
+                                <CheckCircle2 size={10} className="text-emerald" /> Verified Story
+                              </span>
+                            </div>
                           </div>
-                          <div className="reel-card-action-btns">
+
+                          <button
+                            type="button"
+                            className="reel-sound-btn"
+                            onClick={(e) => toggleSound(e, reel.id)}
+                            aria-label={isUnmuted ? "Mute audio" : "Unmute audio"}
+                            title={isUnmuted ? "Mute Audio" : "Play with Sound"}
+                          >
+                            {isUnmuted ? <Volume2 size={14} /> : <VolumeX size={14} />}
+                          </button>
+                        </div>
+
+                        {/* Live Story Pulse Badge */}
+                        <div className="reel-live-tag">
+                          <span className="live-dot-pulse"></span>
+                          <span>LIVE REEL</span>
+                        </div>
+
+                        {/* Bottom Information & Action Overlay */}
+                        <div className="reel-bottom-overlay">
+                          <div className="reel-views-pill">
+                            <Eye size={12} className="text-aqua" />
+                            <span>{reel.views} Views</span>
+                          </div>
+
+                          <div className="reel-dest-title">
+                            <span className="dest-flag">{reel.flag}</span>
+                            <span className="dest-name">{reel.destination}</span>
+                          </div>
+
+                          <p className="reel-tagline-text">
+                            "{reel.tagline}"
+                          </p>
+
+                          <div className="reel-card-footer-btns">
                             <button
                               type="button"
-                              className="reel-play-chip"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setActiveReelModal(reel);
-                              }}
+                              className={`reel-mini-heart ${isLiked ? 'liked' : ''}`}
+                              onClick={(e) => toggleLike(e, reel.id)}
+                              aria-label="Like story"
+                              title="Like Reel"
                             >
-                              <Play size={13} fill="#FFFFFF" />
-                              <span>Play Reel</span>
+                              <Heart size={15} fill={isLiked ? '#FF892F' : 'none'} color={isLiked ? '#FF892F' : '#F9FBE7'} />
                             </button>
+
                             <a
                               href={reel.instagramUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="reel-ig-chip"
+                              className="btn-open-ig-direct"
                               onClick={(e) => e.stopPropagation()}
-                              aria-label="Open on Instagram"
+                              title="Watch directly on Instagram App"
                             >
                               <Instagram size={13} />
+                              <span>Watch on IG</span>
+                              <ExternalLink size={11} />
                             </a>
                           </div>
                         </div>
@@ -133,34 +192,34 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           </div>
         </div>
 
-        {/* LIVE INSTAGRAM REEL MODAL POPUP */}
+        {/* ULTRA-MODERN REEL LIGHTBOX MODAL */}
         {activeReelModal && (
           <div className="modal-overlay" onClick={() => setActiveReelModal(null)}>
             <div className="reel-modal-card live-video-modal" onClick={(e) => e.stopPropagation()}>
               <button className="reel-close-btn" onClick={() => setActiveReelModal(null)} aria-label="Close Reel">
-                <X size={22} />
+                <X size={20} />
               </button>
 
               <div className="reel-modal-two-col">
-                {/* Left Column: Live Instagram Embed Player */}
+                {/* Left Column: Full-Height Native Autoplay Video Pane */}
                 <div className="reel-modal-video-pane">
-                  <iframe
-                    src={`https://www.instagram.com/reel/${activeReelModal.reelId}/embed/`}
-                    className="reel-modal-ig-iframe"
-                    frameBorder="0"
-                    scrolling="no"
-                    allowFullScreen
-                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                    title={`Instagram Reel Video ${activeReelModal.destination}`}
-                  ></iframe>
+                  <video
+                    src={activeReelModal.videoUrl}
+                    poster={activeReelModal.videoThumb}
+                    autoPlay
+                    controls
+                    loop
+                    playsInline
+                    className="modal-full-video"
+                  />
                 </div>
 
-                {/* Right Column: Real Analyzed Story Details & Actions */}
+                {/* Right Column: Experience Details & Booking Actions */}
                 <div className="reel-modal-info-pane">
                   <div>
                     <div className="reel-modal-badges">
                       <span className="badge badge-amber">{activeReelModal.flag} {activeReelModal.destination}</span>
-                      <span className="badge badge-ig"><Instagram size={13} /> Official Reel</span>
+                      <span className="badge badge-ig"><Instagram size={13} /> @comfort.journey</span>
                     </div>
 
                     <h3 className="modal-reel-heading">{activeReelModal.headline || activeReelModal.destination}</h3>
@@ -171,11 +230,11 @@ export default function TravelStoriesSection({ onOpenQuote }) {
 
                     <div className="reel-modal-stats-box">
                       <div className="stat-line">
-                        <span>Creator / Channel:</span>
-                        <strong>{activeReelModal.author}</strong>
+                        <span>Official Account:</span>
+                        <strong>@comfort.journey</strong>
                       </div>
                       <div className="stat-line">
-                        <span>Experience Type:</span>
+                        <span>Tour Category:</span>
                         <strong>{activeReelModal.duration}</strong>
                       </div>
                       <div className="stat-line">
@@ -186,46 +245,33 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                   </div>
 
                   <div className="reel-modal-actions">
-                    {activeReelModal.instagramUrl && (
-                      <a 
-                        href={activeReelModal.instagramUrl} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="btn-instagram w-full"
-                      >
-                        <Instagram size={18} />
-                        <span>Watch on Instagram App</span>
-                        <ExternalLink size={15} />
-                      </a>
-                    )}
+                    <a 
+                      href={activeReelModal.instagramUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="btn-instagram w-full"
+                    >
+                      <Instagram size={18} />
+                      <span>Watch Original on Instagram App</span>
+                      <ExternalLink size={15} />
+                    </a>
+
                     <button 
                       className="btn-whatsapp w-full"
                       onClick={() => {
-                        const msg = `Hi Comfort Journey! I saw your Instagram reel for "${activeReelModal.headline}" (${activeReelModal.instagramUrl || ''}). Please share customized package options!`;
+                        const msg = `Hi Comfort Journey! I saw your Instagram reel for "${activeReelModal.destination}" (${activeReelModal.instagramUrl}). Please share customized tour package options!`;
                         window.open(`https://wa.me/918770403315?text=${encodeURIComponent(msg)}`, '_blank');
                       }}
                     >
                       <MessageCircle size={18} />
-                      Plan Similar Trip on WhatsApp
-                    </button>
-                    <button 
-                      className="btn-primary w-full"
-                      onClick={() => {
-                        setActiveReelModal(null);
-                        onOpenQuote();
-                      }}
-                    >
-                      <Sparkles size={18} />
-                      Get Instant Custom Quote
+                      <span>Inquire About This Tour on WhatsApp</span>
                     </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        )}
-
-        {/* CTA Strip */}
+        )}{/* CTA Strip */}
         <div className="stories-cta-banner glass-card">
           <div className="cta-left">
             <h3 className="font-editorial">Ready to create your own lifelong travel memories?</h3>
@@ -241,24 +287,26 @@ export default function TravelStoriesSection({ onOpenQuote }) {
 
       <style>{`
         .stories-root {
-          padding: 3.5rem 0 2.5rem 0;
-          background: #001233;
+          padding: 4rem 0 3rem 0;
+          background: linear-gradient(180deg, #001233 0%, #001A40 50%, #001233 100%);
           color: #FFFFFF;
+          position: relative;
         }
 
         .instagram-section-badge {
           display: inline-flex;
           align-items: center;
-          gap: 0.45rem;
-          background: linear-gradient(135deg, rgba(225, 48, 108, 0.2), rgba(253, 29, 29, 0.2));
-          border: 1px solid rgba(225, 48, 108, 0.4);
+          gap: 0.5rem;
+          background: linear-gradient(135deg, rgba(225, 48, 108, 0.18), rgba(253, 29, 29, 0.18));
+          border: 1px solid rgba(225, 48, 108, 0.45);
           color: #FF8BA7;
-          padding: 0.35rem 0.95rem;
-          border-radius: var(--radius-full);
-          font-size: 0.8rem;
+          padding: 0.35rem 1rem;
+          border-radius: var(--radius-full, 9999px);
+          font-size: 0.78rem;
           font-weight: 800;
-          letter-spacing: 0.05em;
+          letter-spacing: 0.06em;
           margin-bottom: 0.75rem;
+          box-shadow: 0 4px 15px rgba(225, 48, 108, 0.2);
         }
 
         .reels-header-controls {
@@ -270,9 +318,26 @@ export default function TravelStoriesSection({ onOpenQuote }) {
         }
 
         .reels-count-tag {
-          font-size: 0.85rem;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-size: 0.86rem;
           color: #93B2D2;
-          font-weight: 600;
+          font-weight: 700;
+        }
+
+        .live-pulse-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #FF892F;
+          box-shadow: 0 0 10px #FF892F;
+          animation: pulseDot 1.8s infinite;
+        }
+
+        @keyframes pulseDot {
+          0%, 100% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.4); opacity: 0.5; }
         }
 
         .reels-nav-controls {
@@ -285,52 +350,22 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           width: 38px;
           height: 38px;
           border-radius: 50%;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          background: rgba(0, 40, 85, 0.6);
+          border: 1px solid rgba(111, 230, 252, 0.25);
           color: #F9FBE7;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .modal-reel-caption {
-          font-size: 0.92rem;
-          color: #CBD5E1;
-          line-height: 1.5;
-          font-style: italic;
-          margin: 0.5rem 0 1rem 0;
-        }
-
-        .reel-nav-btn:hover {
-          background: rgba(255, 137, 47, 0.25);
-          border-color: #FF892F;
-          color: #FF892F;
-          transform: scale(1.08);
-        }
-
-        .story-tab {
-          padding: 0.65rem 1.5rem;
-          border-radius: var(--radius-full);
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: #E2E8F0;
-          font-weight: 700;
-          font-size: 0.9rem;
           transition: all 0.25s ease;
         }
 
-        .story-tab:hover {
-          background: rgba(255, 255, 255, 0.12);
+        .reel-nav-btn:hover {
+          background: #FF892F;
+          border-color: #FF892F;
           color: #FFFFFF;
-        }
-
-        .story-tab.active {
-          background: linear-gradient(135deg, var(--cj-amber-500, #FF892F), var(--cj-amber-700, #E66F12));
-          border-color: var(--cj-amber-500, #FF892F);
-          color: #FFFFFF;
-          box-shadow: 0 6px 20px rgba(255, 137, 47, 0.35);
+          transform: scale(1.08);
+          box-shadow: 0 4px 15px rgba(255, 137, 47, 0.4);
         }
 
         /* Reels Single-Row Carousel */
@@ -342,10 +377,10 @@ export default function TravelStoriesSection({ onOpenQuote }) {
 
         .reels-grid-single-row {
           display: flex;
-          gap: 1.25rem;
+          gap: 1.35rem;
           overflow-x: auto;
           scroll-snap-type: x mandatory;
-          padding: 0.5rem 0.25rem 1.25rem 0.25rem;
+          padding: 0.5rem 0.25rem 1.5rem 0.25rem;
           -webkit-overflow-scrolling: touch;
           scrollbar-width: thin;
           scrollbar-color: rgba(255, 137, 47, 0.4) transparent;
@@ -361,326 +396,378 @@ export default function TravelStoriesSection({ onOpenQuote }) {
         }
 
         .reel-item-col {
-          flex: 0 0 260px;
+          flex: 0 0 328px;
           scroll-snap-align: start;
         }
 
         .reel-card {
-          border-radius: var(--radius-lg);
+          position: relative;
+          height: 520px;
+          border-radius: var(--radius-xl, 22px);
           overflow: hidden;
           background: #001D51;
-          border: 1px solid rgba(111, 230, 252, 0.18);
-          box-shadow: 0 14px 30px rgba(0, 18, 51, 0.6);
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          border: 1.5px solid rgba(111, 230, 252, 0.28);
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+          display: flex;
+          flex-direction: column;
           cursor: pointer;
+          transition: all 0.3s ease;
         }
 
         .reel-card:hover {
-          transform: translateY(-6px);
-          border-color: #FF892F;
-          box-shadow: 0 20px 40px rgba(0, 18, 51, 0.8), 0 0 20px rgba(255, 137, 47, 0.25);
+          border-color: #6FE6FC;
+          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.75), 0 0 25px rgba(111, 230, 252, 0.35);
+          transform: translateY(-4px);
         }
 
-        .reel-media {
+        .reel-media-wrapper {
           position: relative;
-          height: 380px;
+          width: 100%;
+          height: 100%;
           overflow: hidden;
         }
 
-        .reel-media img {
+        .reel-autoplay-video {
+          position: absolute;
+          inset: 0;
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: transform 0.6s ease;
+          transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .reel-card:hover .reel-media img {
-          transform: scale(1.08);
+        .reel-card:hover .reel-autoplay-video {
+          transform: scale(1.04);
         }
 
-        .reel-gradient-overlay {
+        .reel-dark-veil {
           position: absolute;
           inset: 0;
-          background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.2) 40%, rgba(7, 11, 20, 0.95) 100%);
+          background: linear-gradient(
+            180deg, 
+            rgba(0, 29, 81, 0.88) 0%, 
+            rgba(0, 29, 81, 0.15) 28%, 
+            rgba(0, 29, 81, 0.35) 60%, 
+            rgba(0, 29, 81, 0.96) 100%
+          );
+          pointer-events: none;
         }
 
         .reel-top-bar {
           position: absolute;
-          top: 0.85rem;
-          left: 0.85rem;
-          right: 0.85rem;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 5;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          z-index: 2;
+          padding: 0.85rem 1rem;
         }
 
-        .reel-ig-badge {
-          background: linear-gradient(135deg, #E1306C, #FD1D1D, #F56040);
-          color: #FFFFFF;
-          font-size: 0.7rem;
-          font-weight: 800;
-          padding: 0.25rem 0.6rem;
-          border-radius: var(--radius-full);
+        .insta-profile-lockup {
+          display: flex;
+          align-items: center;
+          gap: 0.55rem;
+        }
+
+        .insta-story-ring {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #833AB4, #FD1D1D, #F56040);
+          padding: 2px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 0 10px rgba(225, 48, 108, 0.5);
+          flex-shrink: 0;
+        }
+
+        .insta-meta {
+          display: flex;
+          flex-direction: column;
+          gap: 0.1rem;
+          min-width: 0;
+        }
+
+        .insta-handles-row {
           display: flex;
           align-items: center;
           gap: 0.3rem;
-          box-shadow: 0 4px 12px rgba(225, 48, 108, 0.4);
+          white-space: nowrap;
+          overflow: hidden;
         }
 
-        .text-instagram {
-          color: #E1306C;
+        .insta-handle {
+          font-family: var(--font-ui);
+          font-size: 0.78rem;
+          font-weight: 800;
+          color: #F9FBE7;
+          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
         }
 
-        .reel-views-badge {
-          background: rgba(0, 0, 0, 0.65);
-          backdrop-filter: blur(8px);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #FFFFFF;
-          font-size: 0.72rem;
+        .insta-verified-tag {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.2rem;
+          font-size: 0.65rem;
+          color: #DAF561;
           font-weight: 700;
-          padding: 0.25rem 0.65rem;
-          border-radius: var(--radius-full);
+        }
+
+        .reel-sound-btn {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          background: rgba(0, 29, 81, 0.7);
+          backdrop-filter: blur(8px);
+          border: 1px solid rgba(111, 230, 252, 0.35);
+          color: #6FE6FC;
           display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .reel-sound-btn:hover {
+          background: rgba(111, 230, 252, 0.25);
+          border-color: #6FE6FC;
+          color: #FFFFFF;
+          transform: scale(1.1);
+        }
+
+        .reel-live-tag {
+          position: absolute;
+          top: 3.5rem;
+          right: 1rem;
+          z-index: 4;
+          display: inline-flex;
           align-items: center;
           gap: 0.35rem;
-        }
-
-        .reel-modal-badges {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          flex-wrap: wrap;
-        }
-
-        .badge-ig {
-          background: linear-gradient(135deg, rgba(225, 48, 108, 0.25), rgba(245, 96, 64, 0.25));
-          border: 1px solid rgba(225, 48, 108, 0.5);
-          color: #FF8BA7;
-          display: inline-flex;
-          align-items: center;
-          gap: 0.3rem;
-          font-size: 0.75rem;
-          font-weight: 700;
-          padding: 0.25rem 0.65rem;
-          border-radius: var(--radius-full);
-        }
-
-        .btn-instagram {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 0.5rem;
-          padding: 0.85rem 1.25rem;
-          border-radius: var(--radius-full);
-          background: linear-gradient(135deg, #833AB4, #FD1D1D, #FCAF45);
-          color: #FFFFFF;
-          font-weight: 700;
-          font-size: 0.92rem;
-          box-shadow: 0 4px 18px rgba(225, 48, 108, 0.4);
-          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-          text-decoration: none;
-        }
-
-        .btn-instagram:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 25px rgba(225, 48, 108, 0.6);
-          color: #FFFFFF;
-        }
-
-        .play-btn-circle {
-          position: absolute;
-          top: 40%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 54px;
-          height: 54px;
-          border-radius: 50%;
-          background: rgba(255, 107, 0, 0.85);
+          padding: 0.2rem 0.55rem;
+          border-radius: var(--radius-full, 9999px);
+          background: rgba(0, 29, 81, 0.7);
           backdrop-filter: blur(8px);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #FFFFFF;
-          box-shadow: 0 0 25px rgba(255, 107, 0, 0.6);
-          transition: transform 0.3s ease, background 0.3s ease;
+          border: 1px solid rgba(111, 230, 252, 0.4);
+          color: #6FE6FC;
+          font-size: 0.65rem;
+          font-weight: 800;
+          letter-spacing: 0.04em;
         }
 
-        .reel-card:hover .play-btn-circle {
-          transform: translate(-50%, -50%) scale(1.15);
-          background: var(--color-primary);
+        .live-dot-pulse {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #DAF561;
+          box-shadow: 0 0 8px #DAF561;
+          animation: livePulse 1.5s infinite;
         }
 
-        .play-icon {
-          margin-left: 3px;
+        @keyframes livePulse {
+          0%, 100% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.4); opacity: 0.5; }
         }
 
-        .reel-caption-box {
+        .reel-bottom-overlay {
           position: absolute;
           bottom: 0;
           left: 0;
           right: 0;
-          padding: 1.25rem;
+          z-index: 5;
+          padding: 1rem;
           display: flex;
           flex-direction: column;
-          gap: 0.5rem;
+          gap: 0.35rem;
         }
 
-        .reel-user-row {
-          display: flex;
+        .reel-views-pill {
+          display: inline-flex;
           align-items: center;
-          gap: 0.65rem;
-        }
-
-        .user-avatar-mini {
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
-          background: var(--color-primary);
-          color: #FFFFFF;
-          font-weight: 800;
-          font-size: 0.85rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-        }
-
-        .user-text {
-          display: flex;
-          flex-direction: column;
-          flex: 1;
-        }
-
-        .user-name {
-          font-size: 0.88rem;
+          gap: 0.3rem;
+          align-self: flex-start;
+          padding: 0.2rem 0.55rem;
+          border-radius: var(--radius-full, 9999px);
+          background: rgba(111, 230, 252, 0.15);
+          border: 1px solid rgba(111, 230, 252, 0.35);
+          color: #6FE6FC;
+          font-size: 0.68rem;
           font-weight: 700;
-          color: #FFFFFF;
-          line-height: 1.2;
         }
 
-        .dest-tag {
-          font-size: 0.72rem;
-          color: var(--color-primary);
-          font-weight: 600;
+        .reel-dest-title {
+          display: flex;
+          align-items: center;
+          gap: 0.35rem;
+          font-size: 0.92rem;
+          font-weight: 800;
+          color: #F9FBE7;
         }
 
-        .heart-btn {
-          color: #FFFFFF;
-          padding: 0.25rem;
-          transition: transform 0.2s ease;
+        .dest-flag {
+          font-size: 1rem;
         }
 
-        .heart-btn:hover {
-          transform: scale(1.2);
+        .dest-name {
+          color: #F9FBE7;
         }
 
-        .reel-quote {
-          font-size: 0.84rem;
+        .reel-tagline-text {
+          font-size: 0.76rem;
           color: #E2E8F0;
-          line-height: 1.4;
+          line-height: 1.35;
+          margin: 0;
           display: -webkit-box;
           -webkit-line-clamp: 2;
           -webkit-box-orient: vertical;
           overflow: hidden;
         }
 
-        .reel-stars {
+        .reel-card-footer-btns {
           display: flex;
           align-items: center;
-          gap: 0.25rem;
+          gap: 0.45rem;
+          margin-top: 0.35rem;
         }
 
-        .verified-text {
-          font-size: 0.7rem;
-          color: var(--color-accent);
-          font-weight: 700;
-          margin-left: 0.35rem;
-          text-transform: uppercase;
-        }
-
-        /* Reviews Grid */
-        .reviews-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-          gap: 2rem;
-        }
-
-        .review-card {
-          background: #131D33;
-          border-radius: var(--radius-lg);
-          padding: 2.25rem;
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-        }
-
-        .quote-watermark {
-          position: absolute;
-          top: 1.5rem;
-          right: 1.5rem;
-          color: rgba(255, 255, 255, 0.05);
-        }
-
-        .rev-rating {
-          display: flex;
-          gap: 0.25rem;
-          margin-bottom: 1.25rem;
-        }
-
-        .rev-comment {
-          font-size: 0.95rem;
-          color: #E2E8F0;
-          line-height: 1.65;
-          margin-bottom: 2rem;
-          font-style: italic;
-        }
-
-        .rev-author-box {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          padding-top: 1.25rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .author-img {
-          width: 48px;
-          height: 48px;
+        .reel-mini-heart {
+          width: 34px;
+          height: 34px;
           border-radius: 50%;
-          object-fit: cover;
-          border: 2px solid var(--color-primary);
+          background: rgba(0, 29, 81, 0.7);
+          backdrop-filter: blur(8px);
+          border: 1px solid rgba(249, 251, 231, 0.25);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          flex-shrink: 0;
         }
 
-        .author-details {
+        .reel-mini-heart:hover {
+          background: rgba(255, 137, 47, 0.25);
+          border-color: #FF892F;
+          transform: scale(1.1);
+        }
+
+        .reel-mini-heart.liked {
+          background: rgba(255, 137, 47, 0.35);
+          border-color: #FF892F;
+        }
+
+        .btn-open-ig-direct {
           flex: 1;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.35rem;
+          padding: 0.45rem 0.85rem;
+          border-radius: var(--radius-full, 9999px);
+          background: linear-gradient(135deg, rgba(225, 48, 108, 0.25), rgba(253, 29, 29, 0.25));
+          border: 1px solid rgba(225, 48, 108, 0.6);
+          color: #F9FBE7;
+          font-size: 0.76rem;
+          font-weight: 800;
+          text-decoration: none;
+          transition: all 0.2s ease;
+          white-space: nowrap;
         }
 
-        .author-name {
-          font-size: 1rem;
+        .btn-open-ig-direct:hover {
+          background: linear-gradient(135deg, #E1306C, #FD1D1D);
           color: #FFFFFF;
-          font-weight: 700;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px rgba(225, 48, 108, 0.4);
         }
 
-        .author-loc {
-          font-size: 0.78rem;
-          color: #94A3B8;
+        .modal-full-video {
+          width: 100%;
+          height: 100%;
+          max-height: 520px;
+          object-fit: cover;
+          display: block;
+          border-radius: 16px 0 0 16px;
+        }
+          line-height: 1.35;
+          margin: 0;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        .reel-card-footer-btns {
+          display: flex;
+          align-items: center;
+          gap: 0.45rem;
+          margin-top: 0.35rem;
+        }
+
+        .reel-mini-heart {
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+          background: rgba(0, 18, 51, 0.7);
+          backdrop-filter: blur(8px);
+          border: 1px solid rgba(255, 255, 255, 0.25);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          flex-shrink: 0;
+        }
+
+        .reel-mini-heart:hover {
+          background: rgba(225, 48, 108, 0.25);
+          border-color: #E1306C;
+          transform: scale(1.1);
+        }
+
+        .reel-mini-heart.liked {
+          background: rgba(225, 48, 108, 0.35);
+          border-color: #E1306C;
+        }
+
+        .btn-open-ig-direct {
+          flex: 1;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.35rem;
+          padding: 0.45rem 0.85rem;
+          border-radius: var(--radius-full, 9999px);
+          background: linear-gradient(135deg, rgba(225, 48, 108, 0.25), rgba(253, 29, 29, 0.25));
+          border: 1px solid rgba(225, 48, 108, 0.6);
+          color: #FFFFFF;
+          font-size: 0.76rem;
+          font-weight: 800;
+          text-decoration: none;
+          transition: all 0.2s ease;
+          white-space: nowrap;
+        }
+
+        .btn-open-ig-direct:hover {
+          background: linear-gradient(135deg, #E1306C, #FD1D1D);
+          color: #FFFFFF;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px rgba(225, 48, 108, 0.4);
         }
 
         .stories-cta-banner {
-          margin-top: 4rem;
-          background: linear-gradient(135deg, #1E1B4B 0%, #0F172A 100%);
-          border-radius: var(--radius-lg);
-          padding: 2.5rem;
-          border: 1px solid rgba(139, 92, 246, 0.3);
+          margin-top: 3.5rem;
+          background: linear-gradient(135deg, rgba(0, 40, 85, 0.85) 0%, rgba(0, 18, 51, 0.95) 100%);
+          border-radius: var(--radius-xl, 24px);
+          padding: 2.25rem 2.5rem;
+          border: 1px solid rgba(255, 137, 47, 0.3);
           display: flex;
           align-items: center;
           justify-content: space-between;
           gap: 2rem;
-          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
 
         .cta-left h3 {
@@ -690,227 +777,14 @@ export default function TravelStoriesSection({ onOpenQuote }) {
         }
 
         .cta-left p {
-          color: #C7D2FE;
-          font-size: 0.95rem;
+          color: #CBD5E1;
+          font-size: 0.92rem;
+          margin: 0;
         }
 
-        .reel-item-col {
-          width: 320px;
-          min-width: 300px;
-          flex-shrink: 0;
-        }
-
-        .reel-card {
-          position: relative;
-          height: 490px;
-          border-radius: var(--radius-lg);
-          overflow: hidden;
-          background: #001233;
-          border: 1px solid rgba(111, 230, 252, 0.25);
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-          transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .reel-card:hover {
-          border-color: #FF892F;
-          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 137, 47, 0.25);
-        }
-
-        .reel-media {
-          position: relative;
+        .w-full {
           width: 100%;
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .reel-card-ig-iframe {
-          width: 100%;
-          height: 100%;
-          min-height: 430px;
-          border: none;
-          border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-          background: #000000;
-        }
-
-        .reel-card-footer-strip {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          background: linear-gradient(180deg, transparent 0%, rgba(0, 18, 51, 0.95) 40%, rgba(0, 18, 51, 1) 100%);
-          padding: 1.25rem 0.85rem 0.75rem 0.85rem;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 0.5rem;
-          z-index: 5;
-        }
-
-        .reel-card-meta-title {
-          display: flex;
-          align-items: center;
-          gap: 0.35rem;
-          font-family: var(--font-ui);
-          font-weight: 700;
-          font-size: 0.82rem;
-          color: #F9FBE7;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          max-width: 150px;
-        }
-
-        .reel-card-action-btns {
-          display: flex;
-          align-items: center;
-          gap: 0.4rem;
-        }
-
-        .reel-play-chip {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.3rem;
-          padding: 0.4rem 0.75rem;
-          border-radius: var(--radius-full);
-          background: linear-gradient(135deg, #FF892F, #E66F12);
-          color: #FFFFFF;
-          font-weight: 800;
-          font-size: 0.76rem;
-          border: none;
-          cursor: pointer;
-          box-shadow: 0 4px 12px rgba(255, 137, 47, 0.4);
-          transition: transform 0.2s ease;
-        }
-
-        .reel-play-chip:hover {
-          transform: scale(1.05);
-        }
-
-        .reel-ig-chip {
-          width: 30px;
-          height: 30px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
           justify-content: center;
-          background: linear-gradient(135deg, #E1306C, #F56040);
-          color: #FFFFFF;
-          text-decoration: none;
-          box-shadow: 0 4px 12px rgba(225, 48, 108, 0.4);
-          transition: transform 0.2s ease;
-        }
-
-        .reel-ig-chip:hover {
-          transform: scale(1.1);
-        }
-
-        /* Live Video Modal Card */
-        .live-video-modal {
-          max-width: 820px !important;
-          width: 95%;
-          background: rgba(0, 18, 51, 0.98);
-          border: 1px solid rgba(255, 137, 47, 0.4);
-          border-radius: var(--radius-xl);
-          overflow: hidden;
-          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(255, 137, 47, 0.25);
-          animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-          position: relative;
-        }
-
-        .reel-modal-two-col {
-          display: grid;
-          grid-template-columns: 360px 1fr;
-          min-height: 520px;
-        }
-
-        .reel-modal-video-pane {
-          background: #000000;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          height: 100%;
-          min-height: 520px;
-          border-right: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .reel-modal-ig-iframe {
-          width: 100%;
-          height: 100%;
-          min-height: 520px;
-          border: none;
-        }
-
-        .reel-modal-info-pane {
-          padding: 2rem 1.75rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          gap: 1.25rem;
-          color: #FFFFFF;
-        }
-
-        .modal-reel-heading {
-          font-family: var(--font-serif);
-          font-size: 1.35rem;
-          color: #F9FBE7;
-          line-height: 1.35;
-        }
-
-        .reel-modal-stats-box {
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid rgba(111, 230, 252, 0.15);
-          border-radius: var(--radius-md);
-          padding: 1rem 1.25rem;
-          display: flex;
-          flex-direction: column;
-          gap: 0.6rem;
-        }
-
-        .stat-line {
-          display: flex;
-          justify-content: space-between;
-          font-size: 0.88rem;
-        }
-
-        .stat-line span {
-          color: #93B2D2;
-        }
-
-        .stat-line strong {
-          color: #FFFFFF;
-          font-family: var(--font-ui);
-        }
-
-        .reel-modal-actions {
-          display: flex;
-          flex-direction: column;
-          gap: 0.65rem;
-        }
-
-        .reel-close-btn {
-          position: absolute;
-          top: 1rem;
-          right: 1rem;
-          width: 44px;
-          height: 44px;
-          border-radius: 50%;
-          background: rgba(0, 0, 0, 0.7);
-          backdrop-filter: blur(8px);
-          color: #FFFFFF;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 20;
-          cursor: pointer;
-          border: 1px solid var(--cj-glass-border);
-          transition: transform 0.2s ease;
-        }
-
-        .reel-close-btn:hover {
-          transform: scale(1.1);
         }
 
         @media (max-width: 860px) {
@@ -920,13 +794,13 @@ export default function TravelStoriesSection({ onOpenQuote }) {
             overflow-y: auto;
           }
           .reel-modal-video-pane {
-            min-height: 440px;
-            height: 440px;
+            min-height: 400px;
+            height: 400px;
             border-right: none;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
           }
           .reel-modal-ig-iframe {
-            min-height: 440px;
+            min-height: 400px;
           }
           .reel-modal-info-pane {
             padding: 1.5rem 1.25rem;
@@ -938,39 +812,12 @@ export default function TravelStoriesSection({ onOpenQuote }) {
             padding: 2.5rem 0 2rem 0;
           }
           .section-title {
-            font-size: 2.2rem;
-          }
-          .google-rating-pill {
-            font-size: 0.76rem;
-            padding: 0.4rem 0.85rem;
-            text-align: center;
-          }
-          .stories-tab-bar {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-          }
-          .story-tab {
-            width: 100%;
-            justify-content: center;
-            min-height: 44px;
-            font-size: 0.92rem;
-          }
-          .reels-nav-controls {
-            display: none;
-          }
-          .reviews-grid {
-            grid-template-columns: 1fr;
-            gap: 1.25rem;
-          }
-          .review-card {
-            padding: 1.5rem 1.25rem;
+            font-size: 2rem;
           }
           .stories-cta-banner {
             flex-direction: column;
             text-align: center;
-            padding: 1.75rem 1.25rem;
+            padding: 1.5rem 1.25rem;
             gap: 1.25rem;
           }
           .cta-right {

@@ -16,7 +16,7 @@ export default function Footer({ onOpenPolicy, onOpenAdmin }) {
               />
               <div>
                 <h3 className="f-title">COMFORT JOURNEY</h3>
-                <span className="f-sub">"We cover Distance with Comfort"</span>
+                <span className="f-sub">We Cover Distance with Comfort</span>
               </div>
             </div>
             <p className="f-desc">

@@ -3,10 +3,11 @@ import { X, Sparkles, Send, CheckCircle, Clock, MapPin, Hotel, Users, ArrowRight
 import { useCurrency } from '../context/CurrencyContext';
 import { TOURS_DATA } from '../data/toursData';
 
-export default function AITripPlannerModal({ isOpen, onClose, onSelectTour }) {
+export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTour, onBookCustomTrip }) {
   const { formatPrice } = useCurrency();
 
   const [step, setStep] = useState(1);
+  const [customPrompt, setCustomPrompt] = useState('');
   const [vibe, setVibe] = useState('Romantic Honeymoon');
   const [landscape, setLandscape] = useState('Snow & Glaciers');
   const [durationGroup, setDurationGroup] = useState('5–6 Days');
@@ -15,7 +16,7 @@ export default function AITripPlannerModal({ isOpen, onClose, onSelectTour }) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedResult, setGeneratedResult] = useState(null);
 
-  if (!isOpen) return null;
+  if (isOpen === false) return null;
 
   const vibesList = [
     { title: 'Romantic Honeymoon', desc: 'Candlelight dinners, private villas & sunset cruises', icon: '💑' },
@@ -40,27 +41,42 @@ export default function AITripPlannerModal({ isOpen, onClose, onSelectTour }) {
 
     setTimeout(() => {
       let matchedTour = TOURS_DATA[0];
-      if (landscape === 'Tropical Islands') matchedTour = TOURS_DATA[1]; // Bali
-      else if (landscape === 'European Fairytale' || landscape === 'Snow & Glaciers') matchedTour = TOURS_DATA[2]; // Swiss / Kashmir
-      else if (landscape === 'Desert Oasis') matchedTour = TOURS_DATA[3]; // Dubai
-      else if (landscape === 'African Safari') matchedTour = TOURS_DATA[7]; // Kenya
-      else if (vibe === 'Sacred Heritage') matchedTour = TOURS_DATA[8]; // Char Dham
+      const lowerPrompt = customPrompt.toLowerCase();
+
+      if (lowerPrompt) {
+        const found = TOURS_DATA.find(t => 
+          t.name.toLowerCase().includes(lowerPrompt) ||
+          t.country.toLowerCase().includes(lowerPrompt) ||
+          t.region.toLowerCase().includes(lowerPrompt) ||
+          (t.vibeTags && t.vibeTags.some(v => lowerPrompt.includes(v.toLowerCase()))) ||
+          (t.tagline && t.tagline.toLowerCase().includes(lowerPrompt))
+        );
+        if (found) matchedTour = found;
+      } else {
+        if (landscape === 'Tropical Islands') matchedTour = TOURS_DATA.find(t => t.country.includes('Indonesia') || t.name.includes('Bali')) || TOURS_DATA[1];
+        else if (landscape === 'European Fairytale') matchedTour = TOURS_DATA.find(t => t.region === 'Europe' || t.name.includes('Swiss')) || TOURS_DATA[2];
+        else if (landscape === 'Snow & Glaciers') matchedTour = TOURS_DATA.find(t => t.name.includes('Kashmir') || t.name.includes('Iceland')) || TOURS_DATA[0];
+        else if (landscape === 'Desert Oasis') matchedTour = TOURS_DATA.find(t => t.name.includes('Dubai') || t.name.includes('Rajasthan')) || TOURS_DATA[3];
+        else if (landscape === 'African Safari') matchedTour = TOURS_DATA.find(t => t.region === 'Africa' || t.name.includes('Kenya')) || TOURS_DATA[7] || TOURS_DATA[0];
+        else if (vibe === 'Sacred Heritage') matchedTour = TOURS_DATA.find(t => t.category.includes('Pilgrimage') || t.name.includes('Kedarnath')) || TOURS_DATA[8] || TOURS_DATA[0];
+      }
 
       setGeneratedResult({
         matchedTour,
-        customDays: matchedTour.itinerary.slice(0, 5),
+        customDays: matchedTour.itinerary ? matchedTour.itinerary.slice(0, 5) : [],
         estimatedCost: matchedTour.price,
-        summary: `Tailor-made ${durationGroup} VIP itinerary for ${guestsCount} traveler(s) combining ${vibe} with ${landscape} scenery and ${hotelTier}.`
+        summary: customPrompt 
+          ? `Bespoke AI Itinerary generated for "${customPrompt}" featuring 5-star properties, private transfers & dedicated 24/7 concierge.`
+          : `Tailor-made ${durationGroup} VIP itinerary for ${guestsCount} traveler(s) combining ${vibe} with ${landscape} scenery and ${hotelTier}.`
       });
       setIsGenerating(false);
-    }, 1600);
+    }, 1200);
   };
 
   const handleWhatsAppBooking = () => {
     if (!generatedResult) return;
     const msg = encodeURIComponent(`Hi Comfort Journey! I generated a custom trip on your AI Dream Planner:
-✨ Vibe: ${vibe}
-🌄 Landscape: ${landscape}
+✨ Custom Request: ${customPrompt || `${vibe} in ${landscape}`}
 ⏱️ Duration: ${durationGroup}
 👥 Travelers: ${guestsCount} Person(s)
 🏨 Hotel Tier: ${hotelTier}
@@ -94,7 +110,29 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
         {step === 1 && (
           <div className="ai-step-body">
             <h2 className="ai-step-title">What is your desired <span className="gradient-text-ai">Travel Vibe?</span></h2>
-            <p className="ai-step-desc">Choose the primary emotion and pace for this journey.</p>
+            <p className="ai-step-desc">Choose your preferred style or type your dream trip in your own words.</p>
+
+            {/* Smart Natural Language Prompt Input */}
+            <div className="ai-prompt-input-row">
+              <div className="ai-input-wrap">
+                <Sparkles size={16} className="text-ai" />
+                <input 
+                  type="text" 
+                  placeholder="Type anything, e.g. 7 days in Kashmir snow with houseboats"
+                  value={customPrompt}
+                  onChange={(e) => setCustomPrompt(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === 'Enter') handleGenerate(); }}
+                />
+              </div>
+              <button type="button" className="btn-ai-glow instant-gen-btn" onClick={handleGenerate}>
+                <span>Instant AI Plan</span>
+                <ArrowRight size={14} />
+              </button>
+            </div>
+
+            <div className="ai-divider-text">
+              <span>OR CHOOSE A CURATED TRAVEL VIBE</span>
+            </div>
 
             <div className="ai-options-grid">
               {vibesList.map((v) => (
@@ -290,15 +328,38 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
                   ))}
                 </div>
 
-                {/* Bottom WhatsApp Handoff (Spec C6 & G1) */}
-                <div className="ai-handoff-banner">
-                  <div className="handoff-text">
-                    <strong>Direct Human Trip Designer Handoff</strong>
-                    <span>Connect directly with our senior trip planner on WhatsApp to lock this exact customized proposal.</span>
-                  </div>
-                  <button className="btn-whatsapp" onClick={handleWhatsAppBooking}>
+                {/* Direct Action Hub */}
+                <div className="ai-result-actions-hub">
+                  <button 
+                    type="button" 
+                    className="btn-whatsapp ai-hub-btn" 
+                    onClick={handleWhatsAppBooking}
+                  >
                     <MessageCircle size={18} />
                     <span>Lock Itinerary via WhatsApp</span>
+                  </button>
+
+                  {onSelectTour && (
+                    <button 
+                      type="button" 
+                      className="btn-primary ai-hub-btn"
+                      onClick={() => onSelectTour(generatedResult.matchedTour)}
+                    >
+                      <span>View Full Tour Details</span>
+                      <ArrowRight size={16} />
+                    </button>
+                  )}
+
+                  <button 
+                    type="button" 
+                    className="btn-secondary ai-hub-btn"
+                    onClick={() => {
+                      setStep(1);
+                      setGeneratedResult(null);
+                      setCustomPrompt('');
+                    }}
+                  >
+                    <span>Plan Another Trip</span>
                   </button>
                 </div>
               </div>
@@ -643,6 +704,93 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
           flex-direction: column;
         }
 
+        .ai-prompt-input-row {
+          display: flex;
+          gap: 0.65rem;
+          margin-bottom: 0.5rem;
+          flex-wrap: wrap;
+        }
+
+        .ai-input-wrap {
+          flex: 1;
+          min-width: 260px;
+          display: flex;
+          align-items: center;
+          gap: 0.65rem;
+          padding: 0.75rem 1rem;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(139, 92, 246, 0.35);
+          border-radius: var(--radius-md, 14px);
+        }
+
+        .ai-input-wrap input {
+          flex: 1;
+          background: transparent;
+          border: none;
+          outline: none;
+          color: #FFFFFF;
+          font-size: 0.88rem;
+          font-family: inherit;
+        }
+
+        .ai-input-wrap input::placeholder {
+          color: #94A3B8;
+        }
+
+        .instant-gen-btn {
+          padding: 0.75rem 1.15rem;
+          font-size: 0.84rem;
+          border-radius: var(--radius-md, 14px);
+          white-space: nowrap;
+        }
+
+        .ai-divider-text {
+          text-align: center;
+          margin: 0.5rem 0;
+          position: relative;
+        }
+
+        .ai-divider-text::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 50%;
+          width: 100%;
+          height: 1px;
+          background: rgba(255, 255, 255, 0.1);
+        }
+
+        .ai-divider-text span {
+          position: relative;
+          background: #001233;
+          padding: 0 0.85rem;
+          font-size: 0.72rem;
+          font-weight: 800;
+          color: #94A3B8;
+          letter-spacing: 0.06em;
+        }
+
+        .ai-result-actions-hub {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          flex-wrap: wrap;
+          margin-top: 0.5rem;
+        }
+
+        .ai-hub-btn {
+          flex: 1;
+          min-width: 180px;
+          justify-content: center;
+          padding: 0.75rem 1.15rem;
+          border-radius: var(--radius-md, 14px);
+          font-size: 0.88rem;
+          font-weight: 800;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.45rem;
+        }
+
         .ai-close-btn {
           width: 44px;
           height: 44px;
@@ -701,6 +849,12 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
             justify-content: center;
             min-height: 48px;
             font-size: 0.98rem;
+          }
+          .ai-result-actions-hub {
+            flex-direction: column;
+          }
+          .ai-hub-btn {
+            width: 100%;
           }
         }
       `}</style>

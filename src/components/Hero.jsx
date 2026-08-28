@@ -104,19 +104,49 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           </div>
         </div>
 
-        {/* 1 Single Clean Main Heading + 1 Single Subtitle */}
+        {/* Modern Luxury Editorial Hero Headline & Trust Bar */}
         <div className="hero-headline-block">
-          <h1 className="hero-title font-editorial">
-            <KineticHeading as="span" staggerDelay={0.07}>
-              YOUR JOURNEY
-            </KineticHeading>
-            <br />
-            <span className="gradient-text-gold">YOUR COMFORT</span>
+          <div className="hero-luxury-kicker">
+            <div className="kicker-star-line left"></div>
+            <div className="kicker-badge">
+              <Sparkles size={13} className="text-amber" />
+              <span>HANDCRAFTED HOLIDAYS</span>
+              <span className="kicker-dot">•</span>
+              <span>SINCE 1992</span>
+            </div>
+            <div className="kicker-star-line right"></div>
+          </div>
+
+          <h1 className="hero-title">
+            <span className="hero-title-top">
+              Curating Extraordinary <span className="gradient-text-gold">Journeys</span>,
+            </span>
+            <span className="hero-title-bot">
+              Crafted in Pure <span className="gradient-text-cyan-emerald">Comfort</span>
+            </span>
           </h1>
 
           <p className="hero-subline">
-            "We cover Distance with Comfort" • 33+ Years of Bespoke 5-Star Luxury Tours Worldwide
+            33+ Years of Tailor-Made Private Tours, Handpicked 4 & 5-Star Stays, and Dedicated 24/7 Concierge Across India & Worldwide.
           </p>
+
+          {/* Quick Luxury Trust Bar */}
+          <div className="hero-trust-bar">
+            <div className="trust-item">
+              <Award size={14} className="text-amber" />
+              <span><strong>4.8★</strong> Google Rating (85+ Reviews)</span>
+            </div>
+            <span className="trust-sep">|</span>
+            <div className="trust-item">
+              <ShieldCheck size={14} className="text-emerald" />
+              <span><strong>100% Tailor-Made</strong> Itineraries</span>
+            </div>
+            <span className="trust-sep">|</span>
+            <div className="trust-item">
+              <Sparkles size={14} className="text-aqua" />
+              <span><strong>24/7</strong> On-Tour Concierge</span>
+            </div>
+          </div>
         </div>
 
         {/* Next-Gen Glass Luxury Search Dock */}
@@ -214,9 +244,9 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           </div>
         </form>
 
-        {/* Conversational Smart Search Prompt Helper */}
+        {/* Quick One-Click Instant Search Pill Bar */}
         <div className="conversational-hint-strip">
-          <span className="hint-pill-title">✨ Conversational Search:</span>
+          <span className="hint-pill-title">✨ Popular Instant Searches:</span>
           <button 
             type="button" 
             className="conv-chip"
@@ -229,7 +259,7 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
               if (target) target.scrollIntoView({ behavior: 'smooth' });
             }}
           >
-            "7 days in Bali with pool villa"
+            <span>🏖️ Bali 7-Day Villa</span>
           </button>
           <button 
             type="button" 
@@ -242,7 +272,7 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
               if (target) target.scrollIntoView({ behavior: 'smooth' });
             }}
           >
-            "Kashmir Honeymoon with Houseboat & Snow"
+            <span>🏔️ Kashmir Snow & Houseboat</span>
           </button>
           <button 
             type="button" 
@@ -255,7 +285,19 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
               if (target) target.scrollIntoView({ behavior: 'smooth' });
             }}
           >
-            "Swiss Alps & Titlis Glacier Pass"
+            <span>✈️ Swiss Alps & Titlis Pass</span>
+          </button>
+          <button 
+            type="button" 
+            className="conv-chip"
+            onClick={() => {
+              setDestination('Maldives');
+              onSearch({ destination: 'Maldives', category: 'All' });
+              const target = document.getElementById('tours');
+              if (target) target.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            <span>🏝️ Maldives Overwater</span>
           </button>
         </div>
 
@@ -456,26 +498,126 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
         }
 
         .hero-headline-block {
-          max-width: 900px;
-          margin-bottom: 1.15rem;
+          max-width: 980px;
+          margin-bottom: 1.35rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
 
-        .hero-title {
-          font-family: var(--font-serif);
-          font-size: clamp(2.3rem, 5.2vw, 4.2rem);
-          line-height: 1.08;
+        .hero-luxury-kicker {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          margin-bottom: 0.65rem;
+        }
+
+        .kicker-star-line {
+          width: 40px;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(255, 137, 47, 0.6));
+        }
+
+        .kicker-star-line.right {
+          background: linear-gradient(90deg, rgba(255, 137, 47, 0.6), transparent);
+        }
+
+        .kicker-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.45rem;
+          padding: 0.28rem 0.85rem;
+          border-radius: var(--radius-full);
+          background: rgba(255, 137, 47, 0.12);
+          border: 1px solid rgba(255, 137, 47, 0.35);
+          color: #FFB070;
+          font-family: 'Outfit', sans-serif;
+          font-size: 0.72rem;
           font-weight: 800;
-          margin-bottom: 0.5rem;
+          letter-spacing: 0.12em;
           text-transform: uppercase;
         }
 
+        .kicker-dot {
+          color: #DAF561;
+        }
+
+        .hero-title {
+          font-family: 'Fraunces', Georgia, serif;
+          font-size: clamp(1.85rem, 3.8vw, 2.9rem);
+          line-height: 1.15;
+          font-weight: 800;
+          margin-bottom: 0.45rem;
+          letter-spacing: -0.015em;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .hero-title-top {
+          color: #F9FBE7;
+          text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .text-champagne-glow {
+          color: #FFFFFF;
+          font-style: italic;
+          font-weight: 700;
+        }
+
+        .hero-title-bot {
+          color: #F9FBE7;
+        }
+
+        .hero-title-bot .gradient-text-gold {
+          background: linear-gradient(135deg, #FFA459 0%, #FF892F 45%, #DAF561 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          filter: drop-shadow(0 4px 15px rgba(255, 137, 47, 0.45));
+          font-style: italic;
+        }
+
         .hero-subline {
-          font-family: var(--font-body);
-          font-size: clamp(0.95rem, 2vw, 1.2rem);
-          color: #E2E8F0;
+          font-family: 'Outfit', sans-serif;
+          font-size: clamp(0.85rem, 1.4vw, 0.98rem);
+          color: #CBD5E1;
           font-weight: 500;
           line-height: 1.45;
-          margin-bottom: 0;
+          margin-bottom: 0.75rem;
+          max-width: 720px;
+        }
+
+        .hero-trust-bar {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.85rem;
+          flex-wrap: wrap;
+          padding: 0.4rem 1.1rem;
+          border-radius: var(--radius-full);
+          background: rgba(0, 24, 60, 0.55);
+          border: 1px solid rgba(111, 230, 252, 0.18);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+          font-size: 0.78rem;
+          color: #E2E8F0;
+        }
+
+        .trust-item {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+        }
+
+        .trust-item strong {
+          color: #FFFFFF;
+        }
+
+        .trust-sep {
+          color: rgba(255, 255, 255, 0.2);
+        }
+
+        .text-aqua {
+          color: var(--cj-aqua-500, #6FE6FC);
         }
 
         /* Search Dock */

@@ -16,6 +16,9 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
   const [activeRegion, setActiveRegion] = useState('All');
   const [activeDuration, setActiveDuration] = useState('All');
   const [sortBy, setSortBy] = useState('popularity'); // 'popularity', 'price-low', 'price-high', 'duration'
+  const [showAllTours, setShowAllTours] = useState(false);
+
+  const INITIAL_LIMIT = 6;
 
   const categories = [
     { id: 'All', label: '🌟 All Packages' },
@@ -182,7 +185,9 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
         {/* Results Counter Bar */}
         <div className="results-counter-strip">
-          <span className="count-text">Showing <strong>{displayedTours.length}</strong> Luxury Tour Packages</span>
+          <span className="count-text">
+            Showing <strong>{showAllTours ? displayedTours.length : Math.min(INITIAL_LIMIT, displayedTours.length)}</strong> of <strong>{displayedTours.length}</strong> Handcrafted Packages
+          </span>
           <button 
             className="ai-help-link"
             onClick={onOpenAIPlanner}
@@ -194,8 +199,9 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
         {/* Tours Grid */}
         {displayedTours.length > 0 ? (
-          <div className="tours-grid">
-            {displayedTours.map((tour) => {
+          <>
+            <div className="tours-grid">
+              {(showAllTours ? displayedTours : displayedTours.slice(0, INITIAL_LIMIT)).map((tour) => {
               const saved = isInWishlist(tour.id);
               const comparing = isComparing(tour.id);
 
@@ -322,6 +328,24 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
               );
             })}
           </div>
+
+          {/* See All Packages Expansion Toggle */}
+          {displayedTours.length > INITIAL_LIMIT && (
+            <div className="see-more-packages-row">
+              <button 
+                type="button" 
+                className="btn-see-more-tours"
+                onClick={() => setShowAllTours(!showAllTours)}
+              >
+                <span>{showAllTours ? 'Collapse Tour Catalog' : `View All Packages (${displayedTours.length} Signature Tours)`}</span>
+                <ArrowRight size={16} className={`see-more-icon ${showAllTours ? 'rotated-up' : ''}`} />
+              </button>
+              <p className="see-more-caption">
+                Showing {showAllTours ? displayedTours.length : Math.min(INITIAL_LIMIT, displayedTours.length)} of {displayedTours.length} verified handpicked tour packages
+              </p>
+            </div>
+          )}
+        </>
         ) : (
           <div className="no-results-box glass-card">
             <Compass size={48} className="text-amber" />
@@ -865,6 +889,56 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           padding: 0.65rem 1.35rem;
           font-size: 0.9rem;
           min-height: 42px;
+          white-space: nowrap;
+        }
+
+        /* See All Packages Expansion Row */
+        .see-more-packages-row {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          margin-top: 2.75rem;
+          gap: 0.85rem;
+        }
+
+        .btn-see-more-tours {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.65rem;
+          padding: 0.85rem 2.25rem;
+          background: linear-gradient(135deg, rgba(255, 137, 47, 0.18), rgba(255, 107, 0, 0.28));
+          border: 1.5px solid rgba(255, 137, 47, 0.6);
+          border-radius: var(--radius-full, 9999px);
+          color: #FFFFFF;
+          font-family: 'Outfit', sans-serif;
+          font-size: 1rem;
+          font-weight: 800;
+          letter-spacing: 0.02em;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 8px 25px rgba(255, 137, 47, 0.25);
+        }
+
+        .btn-see-more-tours:hover {
+          background: linear-gradient(135deg, #FF892F, #FF6B00);
+          border-color: #FF892F;
+          transform: translateY(-2px);
+          box-shadow: 0 12px 30px rgba(255, 137, 47, 0.45);
+        }
+
+        .see-more-icon {
+          transition: transform 0.3s ease;
+        }
+
+        .see-more-icon.rotated-up {
+          transform: rotate(-90deg);
+        }
+
+        .see-more-caption {
+          font-size: 0.85rem;
+          color: #94A3B8;
+          font-weight: 600;
         }
 
         .no-results-box {

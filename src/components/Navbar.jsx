@@ -33,20 +33,28 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
   return (
     <header className={`navbar-root ${isScrolled ? 'scrolled' : ''}`}>
       <div className="container nav-container">
-        {/* Brand Logo & Tagline */}
-        <a href="#hero" className="brand-logo">
+        {/* Modern Luxury Brand Logo & Tagline */}
+        <a href="#hero" className="brand-logo" aria-label="Comfort Journey Luxury Travel">
           <div className="logo-glow-wrapper">
-            <img 
-              src="https://static.wixstatic.com/media/43df74_c248c4fdb5bf421aa3465ca1f6846ba0~mv2.jpg/v1/fill/w_192,h_192,lg_1,usm_0.66_1.00_0.01/43df74_c248c4fdb5bf421aa3465ca1f6846ba0~mv2.jpg" 
-              alt="Comfort Journey Luxury Travel" 
-              className="logo-img"
-              width="44"
-              height="44"
-            />
+            <div className="brand-emblem-badge">
+              <img 
+                src="https://static.wixstatic.com/media/43df74_c248c4fdb5bf421aa3465ca1f6846ba0~mv2.jpg/v1/fill/w_192,h_192,lg_1,usm_0.66_1.00_0.01/43df74_c248c4fdb5bf421aa3465ca1f6846ba0~mv2.jpg" 
+                alt="Comfort Journey Logo" 
+                className="navbar-brand-img"
+              />
+              <div className="emblem-pulse-ring"></div>
+            </div>
           </div>
           <div className="logo-text">
-            <span className="title">COMFORT JOURNEY</span>
-            <span className="sub">Since 1992 • Luxury & Comfort</span>
+            <div className="title-row">
+              <span className="title-comfort">Comfort</span>
+              <span className="title-journey">Journey</span>
+            </div>
+            <div className="sub-row">
+              <span className="sub-tag">LUXURY TRAVEL</span>
+              <span className="sub-dot">★</span>
+              <span className="sub-est">EST. 1992</span>
+            </div>
           </div>
         </a>
 
@@ -270,50 +278,128 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
         .brand-logo {
           display: flex;
           align-items: center;
-          gap: 0.65rem;
+          gap: 0.75rem;
           color: #FFFFFF;
           flex-shrink: 0;
           white-space: nowrap;
+          text-decoration: none;
+          transition: transform 0.25s ease;
+        }
+
+        .brand-logo:hover {
+          transform: translateY(-1px);
         }
 
         .logo-glow-wrapper {
           position: relative;
-          border-radius: 50%;
           flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
-        .logo-img {
+        .brand-emblem-badge {
+          position: relative;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .brand-logo:hover .brand-emblem-badge {
+          transform: scale(1.06);
+        }
+
+        .navbar-brand-img {
           width: 40px;
           height: 40px;
           border-radius: 50%;
-          border: 2px solid var(--cj-amber-500);
           object-fit: cover;
-          box-shadow: 0 0 12px rgba(255, 107, 0, 0.4);
+          border: 2px solid #FF892F;
+          box-shadow: 0 0 12px rgba(255, 137, 47, 0.45);
+          display: block;
+        }
+
+        .emblem-pulse-ring {
+          position: absolute;
+          inset: -3px;
+          border-radius: 50%;
+          border: 1.5px solid rgba(255, 137, 47, 0.5);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+
+        .brand-logo:hover .emblem-pulse-ring {
+          opacity: 1;
+          animation: emblemPulse 2s infinite ease-out;
+        }
+
+        @keyframes emblemPulse {
+          0% { transform: scale(1); opacity: 0.8; }
+          100% { transform: scale(1.35); opacity: 0; }
         }
 
         .logo-text {
           display: flex;
           flex-direction: column;
+          gap: 0.05rem;
         }
 
-        .logo-text .title {
-          font-family: var(--font-serif);
+        .title-row {
+          display: flex;
+          align-items: baseline;
+          gap: 0.28rem;
+          line-height: 1.1;
+        }
+
+        .title-comfort {
+          font-family: 'Fraunces', Georgia, serif;
           font-weight: 800;
-          font-size: 1.15rem;
-          letter-spacing: 0.02em;
-          color: #FFFFFF;
-          line-height: 1.15;
-          white-space: nowrap;
+          font-size: 1.32rem;
+          letter-spacing: -0.01em;
+          background: linear-gradient(135deg, #6FE6FC 0%, #38BDF8 35%, #2DD4BF 70%, #10B981 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          filter: drop-shadow(0 2px 10px rgba(56, 189, 248, 0.45));
         }
 
-        .logo-text .sub {
-          font-family: var(--font-ui);
-          font-size: 0.68rem;
-          color: var(--cj-amber-500);
-          font-weight: 700;
-          letter-spacing: 0.05em;
+        .title-journey {
+          font-family: 'Outfit', sans-serif;
+          font-weight: 900;
+          font-size: 1.32rem;
+          letter-spacing: -0.02em;
+          background: linear-gradient(135deg, #FFB070 0%, #FF892F 60%, #FFA459 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          filter: drop-shadow(0 2px 8px rgba(255, 137, 47, 0.45));
+        }
+
+        .sub-row {
+          display: flex;
+          align-items: center;
+          gap: 0.35rem;
+          font-family: 'Outfit', sans-serif;
+          font-size: 0.62rem;
+          font-weight: 800;
+          letter-spacing: 0.14em;
+          color: #7DD3FC;
           text-transform: uppercase;
-          white-space: nowrap;
+        }
+
+        .sub-tag {
+          color: #7DD3FC;
+        }
+
+        .sub-dot {
+          color: #FF892F;
+          font-size: 0.55rem;
+        }
+
+        .sub-est {
+          color: #FFB070;
+          font-weight: 800;
         }
 
         .desktop-nav {
@@ -677,11 +763,19 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
             border: 1px solid rgba(255, 137, 47, 0.4);
             color: #FF892F;
           }
-          .brand-logo .logo-text .sub {
+          .brand-logo .sub-row {
             display: none;
           }
-          .brand-logo .logo-text .title {
+          .title-comfort, .title-journey {
             font-size: 1.15rem;
+          }
+          .brand-emblem-badge {
+            width: 34px;
+            height: 34px;
+          }
+          .brand-emblem-badge svg {
+            width: 34px;
+            height: 34px;
           }
         }
       `}</style>
