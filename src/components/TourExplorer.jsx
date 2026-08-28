@@ -6,7 +6,7 @@ import { useWishlistCompare } from '../context/WishlistCompareContext';
 import Tilt3DCard from './animations/Tilt3DCard';
 import { useParticleBurst } from '../hooks/useParticleBurst';
 
-export default function TourExplorer({ searchFilters, onSelectItinerary, onBookNow, onOpenAIPlanner }) {
+export default function TourExplorer({ searchFilters, onSelectItinerary, onBookNow, onOpenAIPlanner, onOpenDNAQuiz, onOpenTierCompare, onOpenReadiness }) {
   const { formatPrice } = useCurrency();
   const { toggleWishlist, isInWishlist, toggleCompare, isComparing } = useWishlistCompare();
   const { triggerBurst } = useParticleBurst();
@@ -15,10 +15,19 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
   const [activeVibe, setActiveVibe] = useState('All');
   const [activeRegion, setActiveRegion] = useState('All');
   const [activeDuration, setActiveDuration] = useState('All');
+  const [activeSeason, setActiveSeason] = useState('All');
   const [sortBy, setSortBy] = useState('popularity'); // 'popularity', 'price-low', 'price-high', 'duration'
   const [showAllTours, setShowAllTours] = useState(false);
 
   const INITIAL_LIMIT = 6;
+
+  const seasons = [
+    { id: 'All', label: 'All Seasons', icon: '🌐' },
+    { id: 'spring', label: '🌸 Spring Bloom (Mar–May)', match: ['kashmir', 'japan', 'paris', 'swiss'] },
+    { id: 'summer', label: '☀️ Summer Escapes (Jun–Aug)', match: ['swiss', 'bali', 'amalfi', 'iceland'] },
+    { id: 'autumn', label: '🍁 Autumn Golden (Sep–Nov)', match: ['rajasthan', 'kerala', 'dubai', 'vietnam'] },
+    { id: 'winter', label: '❄️ Winter Snow & Lights (Dec–Feb)', match: ['kashmir', 'iceland', 'maldives', 'dubai'] }
+  ];
 
   const categories = [
     { id: 'All', label: '🌟 All Packages' },
@@ -60,6 +69,14 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
     if (activeDuration === '10-14') durationMatch = tour.durationDays >= 10 && tour.durationDays <= 14;
     if (activeDuration === '15+') durationMatch = tour.durationDays >= 15;
 
+    let seasonMatch = true;
+    if (activeSeason !== 'All') {
+      const selectedSeasonObj = seasons.find(s => s.id === activeSeason);
+      if (selectedSeasonObj && selectedSeasonObj.match) {
+        seasonMatch = selectedSeasonObj.match.some(m => tour.id.toLowerCase().includes(m) || tour.name.toLowerCase().includes(m));
+      }
+    }
+
     const searchDest = searchFilters?.destination?.toLowerCase() || '';
     const searchCat = searchFilters?.category || 'All';
     const searchDur = searchFilters?.duration || 'All';
@@ -79,7 +96,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
     if (searchDur === '10-14') searchDurMatch = tour.durationDays >= 10 && tour.durationDays <= 14;
     if (searchDur === '15+') searchDurMatch = tour.durationDays >= 15;
 
-    return categoryMatch && vibeMatch && regionMatch && durationMatch && destMatch && searchCatMatch && searchDurMatch;
+    return categoryMatch && vibeMatch && regionMatch && durationMatch && seasonMatch && destMatch && searchCatMatch && searchDurMatch;
   }).sort((a, b) => {
     if (sortBy === 'price-low') return a.price - b.price;
     if (sortBy === 'price-high') return b.price - a.price;
@@ -99,12 +116,36 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
             <Sparkles size={14} className="text-amber" />
             <span>Curated Global Catalog</span>
           </div>
-          <h2 className="section-title">
+          <h2 className="section-title font-editorial">
             Explore Handcrafted <span className="gradient-text-gold">Tour Packages</span>
           </h2>
           <p className="section-subtitle">
             100% Bespoke Itineraries with 5-Star Accommodations, Private Chauffeurs & 24/7 Personal VIP Concierge.
           </p>
+
+          {/* Quick Hub Tools Bar */}
+          <div className="explorer-quick-tools-strip">
+            {onOpenDNAQuiz && (
+              <button type="button" className="tool-pill-btn dna-pill" onClick={onOpenDNAQuiz}>
+                <Compass size={14} />
+                <span>Travel Style DNA Quiz (60s)</span>
+              </button>
+            )}
+
+            {onOpenTierCompare && (
+              <button type="button" className="tool-pill-btn tier-pill" onClick={() => onOpenTierCompare(null)}>
+                <Scale size={14} />
+                <span>Package Tiers Comparison (Standard vs VIP)</span>
+              </button>
+            )}
+
+            {onOpenReadiness && (
+              <button type="button" className="tool-pill-btn guide-pill" onClick={() => onOpenReadiness('kashmir')}>
+                <ShieldCheck size={14} />
+                <span>Destination Readiness Guides</span>
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Dynamic Destination Filter Status Banner */}
@@ -131,6 +172,25 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
             )}
           </div>
         )}
+
+        {/* Seasonal Discovery Radar Bar */}
+        <div className="seasonal-radar-bar">
+          <span className="radar-label">
+            <Sparkles size={13} className="text-amber" /> Seasonal Radar:
+          </span>
+          <div className="seasonal-chips-row">
+            {seasons.map((s) => (
+              <button
+                key={s.id}
+                type="button"
+                className={`season-chip ${activeSeason === s.id ? 'active' : ''}`}
+                onClick={() => setActiveSeason(s.id)}
+              >
+                <span>{s.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
 
         {/* Category Tabs */}
         <div className="category-tabs">
@@ -466,9 +526,110 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           cursor: pointer;
         }
 
-        .btn-ai-pill:hover {
-          transform: translateY(-2px) scale(1.04);
-          box-shadow: 0 4px 15px rgba(111, 230, 252, 0.4);
+        .explorer-quick-tools-strip {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.75rem;
+          flex-wrap: wrap;
+          margin-top: 1.25rem;
+        }
+
+        .tool-pill-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          padding: 0.45rem 1rem;
+          border-radius: var(--radius-full);
+          font-family: var(--font-ui);
+          font-size: 0.8rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          background: rgba(0, 29, 81, 0.7);
+          border: 1px solid rgba(111, 230, 252, 0.25);
+          color: #F9FBE7;
+        }
+
+        .tool-pill-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+        }
+
+        .dna-pill:hover {
+          border-color: #FF892F;
+          color: #FF892F;
+          background: rgba(255, 137, 47, 0.15);
+        }
+
+        .tier-pill:hover {
+          border-color: #6FE6FC;
+          color: #6FE6FC;
+          background: rgba(111, 230, 252, 0.15);
+        }
+
+        .guide-pill:hover {
+          border-color: #DAF561;
+          color: #DAF561;
+          background: rgba(218, 245, 97, 0.15);
+        }
+
+        .seasonal-radar-bar {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.75rem;
+          flex-wrap: wrap;
+          margin-bottom: 1.25rem;
+          background: rgba(0, 18, 51, 0.6);
+          border: 1px solid rgba(111, 230, 252, 0.2);
+          border-radius: var(--radius-full);
+          padding: 0.4rem 1rem;
+          max-width: 920px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .radar-label {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          font-size: 0.78rem;
+          font-weight: 800;
+          color: #FF892F;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .seasonal-chips-row {
+          display: flex;
+          align-items: center;
+          gap: 0.45rem;
+          flex-wrap: wrap;
+        }
+
+        .season-chip {
+          background: transparent;
+          border: 1px solid transparent;
+          color: #93B2D2;
+          font-size: 0.78rem;
+          font-weight: 700;
+          padding: 0.3rem 0.75rem;
+          border-radius: var(--radius-full);
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .season-chip:hover {
+          color: #F9FBE7;
+          border-color: rgba(111, 230, 252, 0.3);
+        }
+
+        .season-chip.active {
+          background: rgba(255, 137, 47, 0.2);
+          border-color: #FF892F;
+          color: #FF892F;
+          box-shadow: 0 0 10px rgba(255, 137, 47, 0.3);
         }
 
         .category-tabs {

@@ -3,7 +3,7 @@ import { Phone, MessageCircle, Menu, X, Sparkles, ChevronDown, Globe, Heart, Sca
 import { useCurrency } from '../context/CurrencyContext';
 import { useWishlistCompare } from '../context/WishlistCompareContext';
 
-export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
+export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOpenDNAQuiz }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
@@ -22,12 +22,11 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
   const navLinks = [
     { label: 'Destinations', href: '#tours' },
     { label: 'Trip Studio', href: '#custom-builder' },
-    { label: 'Google Reviews', href: '#google-reviews' },
-    { label: 'Reels & Stories', href: '#stories' },
+    { label: 'Reviews', href: '#google-reviews' },
+    { label: 'Reels', href: '#stories' },
     { label: 'Why Us', href: '#why-us' },
     { label: 'Services', href: '#services' },
     { label: 'About', href: '#about' },
-    { label: 'Contact', href: '#contact' },
   ];
 
   return (
@@ -69,12 +68,25 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
 
         {/* Utility & Actions */}
         <div className="nav-actions">
+          {/* Travel Style DNA Trigger */}
+          {onOpenDNAQuiz && (
+            <button
+              type="button"
+              className="nav-dna-btn"
+              onClick={onOpenDNAQuiz}
+              title="Take 60s Travel Style DNA Quiz"
+            >
+              <span className="dna-icon-spark">🧭</span>
+              <span className="dna-btn-text">Trip DNA</span>
+            </button>
+          )}
+
           {/* Wishlist Button with Badge */}
           <button 
             type="button" 
             className="nav-icon-btn"
             onClick={() => setIsWishlistOpen(true)}
-            title="Saved Wishlist"
+            title="Saved Dreamboard Wishlist"
             aria-label="Wishlist"
           >
             <Heart size={17} className={wishlist.length > 0 ? 'text-amber fill-amber' : ''} />
@@ -135,7 +147,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
             title="Design Custom Trip with AI"
           >
             <Sparkles size={15} />
-            <span className="ai-btn-text">AI Trip Planner</span>
+            <span className="ai-btn-text">AI Planner</span>
           </button>
 
           {/* Phone VIP Link */}
@@ -444,6 +456,34 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
           align-items: center;
           gap: 0.5rem;
           flex-shrink: 0;
+        }
+
+        .nav-dna-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          background: rgba(255, 137, 47, 0.15);
+          border: 1px solid rgba(255, 137, 47, 0.4);
+          color: #FF892F;
+          padding: 0.4rem 0.8rem;
+          border-radius: var(--radius-full);
+          font-size: 0.78rem;
+          font-weight: 800;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          white-space: nowrap;
+        }
+
+        .nav-dna-btn:hover {
+          background: #FF892F;
+          color: #FFFFFF;
+          border-color: #FF892F;
+          box-shadow: 0 0 15px rgba(255, 137, 47, 0.4);
+          transform: translateY(-1px);
+        }
+
+        .dna-icon-spark {
+          font-size: 0.9rem;
         }
 
         .nav-icon-btn {

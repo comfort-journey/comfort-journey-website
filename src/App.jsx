@@ -21,6 +21,9 @@ import Footer from './components/Footer';
 import ItineraryModal from './components/ItineraryModal';
 import QuickBookingModal from './components/QuickBookingModal';
 import AITripPlannerModal from './components/AITripPlannerModal';
+import TravelStyleDNAQuizModal from './components/TravelStyleDNAQuizModal';
+import PackageTierCompareModal from './components/PackageTierCompareModal';
+import DestinationReadinessModal from './components/DestinationReadinessModal';
 import WishlistDrawer from './components/WishlistDrawer';
 import CompareModal from './components/CompareModal';
 import PolicyModal from './components/PolicyModal';
@@ -37,6 +40,10 @@ export default function App() {
   const [selectedBookingTour, setSelectedBookingTour] = useState(null);
   const [isQuickQuoteOpen, setIsQuickQuoteOpen] = useState(false);
   const [isAIPlannerOpen, setIsAIPlannerOpen] = useState(false);
+  const [isDNAQuizOpen, setIsDNAQuizOpen] = useState(false);
+  const [tierCompareTour, setTierCompareTour] = useState(null);
+  const [isTierCompareOpen, setIsTierCompareOpen] = useState(false);
+  const [readinessDestKey, setReadinessDestKey] = useState(null);
   const [isAdminCMSOpen, setIsAdminCMSOpen] = useState(false);
   const [policyModalType, setPolicyModalType] = useState(null); // 'cancellation' | 'privacy' | 'terms' | null
 
@@ -56,6 +63,7 @@ export default function App() {
               onOpenQuote={() => setIsQuickQuoteOpen(true)} 
               onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
               onOpenAdmin={() => setIsAdminCMSOpen(true)}
+              onOpenDNAQuiz={() => setIsDNAQuizOpen(true)}
             />
 
             {/* 2. Next-Gen Cinematic Hero ("YOUR JOURNEY YOUR COMFORT") with Vanta Sky Canvas */}
@@ -73,6 +81,12 @@ export default function App() {
               onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
               onBookNow={(tour) => setSelectedBookingTour(tour)}
               onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+              onOpenDNAQuiz={() => setIsDNAQuizOpen(true)}
+              onOpenTierCompare={(tour) => {
+                setTierCompareTour(tour);
+                setIsTierCompareOpen(true);
+              }}
+              onOpenReadiness={(dest) => setReadinessDestKey(dest || 'kashmir')}
             />
 
             {/* 5. SVGator Real-Time Vector Flight Routes & Global Radar */}
@@ -126,10 +140,15 @@ export default function App() {
               tour={selectedItineraryTour} 
               onClose={() => setSelectedItineraryTour(null)} 
               onBookTour={(tour) => setSelectedBookingTour(tour)}
+              onOpenTierCompare={(tour) => {
+                setTierCompareTour(tour);
+                setIsTierCompareOpen(true);
+              }}
+              onOpenReadiness={(dest) => setReadinessDestKey(dest)}
             />
           )}
 
-          {/* Quick Quote / Booking Modal */}
+          {/* Quick Quote / 5-Step Booking Modal */}
           {(selectedBookingTour || isQuickQuoteOpen) && (
             <QuickBookingModal 
               selectedTour={selectedBookingTour} 
@@ -155,6 +174,41 @@ export default function App() {
               }}
             />
           )}
+
+          {/* Travel Style DNA Discovery Quiz Modal */}
+          <TravelStyleDNAQuizModal
+            isOpen={isDNAQuizOpen}
+            onClose={() => setIsDNAQuizOpen(false)}
+            onSelectTour={(tour) => {
+              setIsDNAQuizOpen(false);
+              setSelectedItineraryTour(tour);
+            }}
+            onOpenQuote={() => {
+              setIsDNAQuizOpen(false);
+              setIsQuickQuoteOpen(true);
+            }}
+          />
+
+          {/* Package Tier Comparison Modal (Standard vs Premium vs VIP) */}
+          <PackageTierCompareModal
+            isOpen={isTierCompareOpen}
+            onClose={() => {
+              setIsTierCompareOpen(false);
+              setTierCompareTour(null);
+            }}
+            selectedTour={tierCompareTour}
+            onOpenQuote={() => {
+              setIsTierCompareOpen(false);
+              setIsQuickQuoteOpen(true);
+            }}
+          />
+
+          {/* Destination Readiness & Advisory Modal */}
+          <DestinationReadinessModal
+            isOpen={Boolean(readinessDestKey)}
+            onClose={() => setReadinessDestKey(null)}
+            initialDestination={readinessDestKey || 'kashmir'}
+          />
 
           {/* Saved Wishlist Drawer */}
           <WishlistDrawer 
@@ -205,3 +259,4 @@ export default function App() {
     </CurrencyProvider>
   );
 }
+

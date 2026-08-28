@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { X, Calendar, MapPin, CheckCircle, XCircle, Clock, MessageCircle, Star, Sparkles, Hotel, Car, Utensils, ShieldCheck } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 
-export default function ItineraryModal({ tour, onClose, onBookNow }) {
+export default function ItineraryModal({ tour, onClose, onBookNow, onOpenTierCompare, onOpenReadiness }) {
   const { formatPrice } = useCurrency();
   const [activeDay, setActiveDay] = useState(1);
 
@@ -17,6 +17,14 @@ Please share customized availability and booking details!`);
 
     window.open(`https://wa.me/918770403315?text=${msg}`, '_blank');
   };
+
+  const destKey = tour.id.includes('kashmir') ? 'kashmir' :
+    tour.id.includes('swiss') ? 'swiss-alps' :
+    tour.id.includes('bali') ? 'bali' :
+    tour.id.includes('dubai') ? 'dubai' :
+    tour.id.includes('andaman') ? 'andaman' :
+    tour.id.includes('rajasthan') ? 'rajasthan' :
+    tour.id.includes('maldives') ? 'maldives' : 'kashmir';
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -36,13 +44,38 @@ Please share customized availability and booking details!`);
               <span className="badge badge-gold">⭐ {tour.rating} ({tour.reviews} Reviews)</span>
             </div>
 
-            <h2 className="banner-title">{tour.name}</h2>
+            <h2 className="banner-title font-editorial">{tour.name}</h2>
             <p className="banner-tagline">{tour.tagline}</p>
           </div>
         </div>
 
         {/* Modal Body */}
         <div className="itinerary-body-container">
+          {/* Quick Hub Advisory Strip */}
+          <div className="itinerary-quick-links-strip">
+            {onOpenTierCompare && (
+              <button 
+                type="button" 
+                className="itin-hub-btn"
+                onClick={() => onOpenTierCompare(tour)}
+              >
+                <Sparkles size={14} className="text-amber" />
+                <span>Compare Tiers (Standard / Premium / VIP)</span>
+              </button>
+            )}
+
+            {onOpenReadiness && (
+              <button 
+                type="button" 
+                className="itin-hub-btn"
+                onClick={() => onOpenReadiness(destKey)}
+              >
+                <ShieldCheck size={14} className="text-emerald" />
+                <span>Destination Readiness & Visa Guide</span>
+              </button>
+            )}
+          </div>
+
           {/* Highlights & Inclusions Strip */}
           <div className="highlights-strip glass-card">
             <h4 className="strip-title">⭐ Tour Highlights & VIP Inclusions</h4>
@@ -246,6 +279,33 @@ Please share customized availability and booking details!`);
           gap: 1.5rem;
           max-height: 52vh;
           overflow-y: auto;
+        }
+
+        .itinerary-quick-links-strip {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+        }
+
+        .itin-hub-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          background: rgba(0, 29, 81, 0.7);
+          border: 1px solid rgba(111, 230, 252, 0.25);
+          color: #F9FBE7;
+          padding: 0.45rem 1rem;
+          border-radius: var(--radius-full);
+          font-size: 0.8rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .itin-hub-btn:hover {
+          border-color: #6FE6FC;
+          background: rgba(5, 38, 105, 0.9);
+          transform: translateY(-1px);
         }
 
         .highlights-strip {

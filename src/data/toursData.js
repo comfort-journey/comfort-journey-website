@@ -1359,3 +1359,234 @@ export const LIVE_BOOKINGS_FEED = [
   { name: "Ananya & Group", from: "Delhi", tour: "Andaman Coral Island Escape", time: "22 mins ago" },
   { name: "Sunil Gupta & Family", from: "Jabalpur", tour: "Sacred Kedarnath & Badrinath", time: "31 mins ago" }
 ];
+
+// =======================================================
+// 13. TRAVEL STYLE DNA DISCOVERY QUIZ (5-QUESTION FLOW)
+// =======================================================
+export const TRAVEL_STYLE_DNA_QUESTIONS = [
+  {
+    id: 1,
+    title: "What pace defines your dream journey?",
+    subtitle: "Choose the daily rhythm that best rejuvenates you.",
+    options: [
+      { id: "slow", label: "Slow & Serene Luxury", desc: "Leisurely mornings, scenic veranda breakfasts, unhurried sunset walks.", icon: "☕", tag: "Relaxed" },
+      { id: "active", label: "Active Discovery & Wonder", desc: "Panoramic cable cars, glacier walks, vibrant local markets & viewpoints.", icon: "🥾", tag: "Adventure" },
+      { id: "heritage", label: "Royal Culture & Storytelling", desc: "Private palace tours, regal architecture, folk evenings & artisan visits.", icon: "👑", tag: "Heritage" },
+      { id: "coastal", label: "Ocean Breeze & Private Yachting", desc: "Overwater bungalows, turquoise lagoons, beach clubs & coral reefs.", icon: "⛵", tag: "Island" }
+    ]
+  },
+  {
+    id: 2,
+    title: "Who are you exploring the world with?",
+    subtitle: "We tailor private vehicles, suite layouts, and pacing accordingly.",
+    options: [
+      { id: "couple", label: "Romantic Couple / Honeymoon", desc: "Private candlelight dinners, secluded stays, thoughtful romantic touches.", icon: "💍", tag: "Honeymoon" },
+      { id: "family", label: "Family with Kids & Elders", desc: "Spacious private vehicles, interconnected rooms, gentle pacing & warm care.", icon: "👨‍👩‍👧‍👦", tag: "Family" },
+      { id: "friends", label: "Private Friends Squad", desc: "Exciting group outings, nightlife & cafes, adventure sports & photo spots.", icon: "🎉", tag: "Group" },
+      { id: "solo", label: "Solo / Mindful Travel", desc: "Safe curated boutique stays, mindful retreats, dedicated chauffeur assistance.", icon: "🧭", tag: "Solo" }
+    ]
+  },
+  {
+    id: 3,
+    title: "Which scenery calls to your soul right now?",
+    subtitle: "Select the climate and landscape you long to wake up to.",
+    options: [
+      { id: "snow", label: "Snow Peaks & Alpine Meadows", desc: "Crisp pine air, snowy valleys, cozy mountain chalets & gondolas.", icon: "🏔️", match: ["kashmir-paradise", "swiss-alps", "himachal-wonderland"] },
+      { id: "tropical", label: "Tropical Coastlines & Coral Islands", desc: "Warm turquoise waters, private plunge pools, palm-fringed sands.", icon: "🌴", match: ["bali-paradise", "maldives-luxury", "andaman-escape"] },
+      { id: "desert_city", label: "Golden Dunes & Ultra-Luxury Skylines", desc: "Sunset desert safaris, iconic architecture, rooftop dining & VIP malls.", icon: "🌆", match: ["dubai-luxury", "singapore-malaysia"] },
+      { id: "royalty", label: "Historic Forts & Royal Lake Palaces", desc: "Centuries-old heritage suites, peacock courtyards, majestic ramparts.", icon: "🏰", match: ["rajasthan-royals", "kerala-backwaters"] }
+    ]
+  },
+  {
+    id: 4,
+    title: "What is your accommodation philosophy?",
+    subtitle: "Your stay is the sanctuary of your journey.",
+    options: [
+      { id: "boutique_5star", label: "5★ Heritage Palaces & Luxury Resorts", desc: "Iconic hospitality, private butler service, world-class spas.", icon: "✨", tier: "VIP" },
+      { id: "curated_4star", label: "Curated 4★ & 5★ Boutique Stays", desc: "Authentic character, prime central location, panoramic views & comfort.", icon: "🌟", tier: "Premium" },
+      { id: "cozy_standard", label: "Comfortable Handpicked 3★+ Stays", desc: "Clean, safe, highly rated cozy hotels with warm local hospitality.", icon: "🏡", tier: "Standard" }
+    ]
+  },
+  {
+    id: 5,
+    title: "What level of on-trip care do you value most?",
+    subtitle: "Comfort Journey covers every detail with complete peace of mind.",
+    options: [
+      { id: "all_inclusive", label: "Total VIP Concierge & Fast-Track", desc: "Chauffeur on call, VIP airport greeting, pre-arranged priority passes.", icon: "🛡️" },
+      { id: "smooth_care", label: "Dedicated On-Trip Concierge", desc: "24/7 WhatsApp manager, verified drivers, flexible daily timetable.", icon: "📱" },
+      { id: "balanced", label: "Self-Exploration with Assured Safety", desc: "All logistics & hotels locked in, with freedom to explore freely.", icon: "🗺️" }
+    ]
+  }
+];
+
+// =======================================================
+// 14. PACKAGE TIER COMPARISON MATRIX (STANDARD / PREMIUM / VIP)
+// =======================================================
+export const PACKAGE_TIER_MATRIX = {
+  title: "Comfort Journey Package Tiers Explained",
+  subtitle: "Transparent side-by-side comparison of our signature travel tiers. Custom combinations always available upon request.",
+  tiers: [
+    {
+      id: "standard",
+      name: "Standard Comfort",
+      tagline: "Uncompromised Safety & Great Value",
+      badge: "Smart Value",
+      color: "#93B2D2",
+      features: [
+        { name: "Accommodation", value: "Verified 3★+ & Boutique Hotels", note: "Clean, prime locations with high guest ratings" },
+        { name: "Private Transport", value: "Dedicated AC Sedan (Dzire / Etios)", note: "Chauffeur with all toll & fuel covered" },
+        { name: "Meal Plan", value: "Daily Delicious Breakfast Included", note: "Fresh multi-cuisine buffet spreads" },
+        { name: "Sightseeing Passes", value: "Standard Pre-Arranged Entry Passes", note: "Confirmed tickets to all itinerary attractions" },
+        { name: "On-Trip Support", value: "Dedicated Bhopal Helpdesk Desk (9am–9pm)", note: "Emergency support line active throughout" },
+        { name: "Date Flexibility", value: "Standard Airline & Hotel Change Policy", note: "Subject to carrier rebooking terms" }
+      ]
+    },
+    {
+      id: "premium",
+      name: "Premium Curated",
+      tagline: "Our Most Popular Signature Experience",
+      badge: "Most Popular",
+      color: "#6FE6FC",
+      isPopular: true,
+      features: [
+        { name: "Accommodation", value: "Handpicked 4★ & 5★ Luxury Resorts", note: "Deluxe view rooms, swimming pool & spa access" },
+        { name: "Private Transport", value: "Premium SUV (Toyota Innova Crysta)", note: "Extra legroom, experienced courteous driver" },
+        { name: "Meal Plan", value: "Daily Breakfast + Select Curated Dinners", note: "Special local culinary dinner experiences" },
+        { name: "Sightseeing Passes", value: "Priority Fast-Track & Skip-the-Line", note: "Gondola Phase 1&2 / Burj Khalifa 124th Level" },
+        { name: "On-Trip Support", value: "24/7 Dedicated Personal WhatsApp Concierge", note: "Instant responses from senior Bhopal trip manager" },
+        { name: "Date Flexibility", value: "1 Free Date Reschedule up to 21 Days Prior", note: "Zero rebooking agency surcharge" }
+      ]
+    },
+    {
+      id: "vip",
+      name: "VIP Royal Sanctuary",
+      tagline: "Ultra-Luxury Palaces & Private Chauffeur",
+      badge: "Pure Luxury",
+      color: "#FF892F",
+      features: [
+        { name: "Accommodation", value: "5★ Heritage Palaces / Overwater Pool Villas", note: "Club suites, Taj/Oberoi/JW Marriott standards" },
+        { name: "Private Transport", value: "Luxury Mercedes / Fortuner / Private Yacht", note: "Airport VIP tarmac meet & greet assistance" },
+        { name: "Meal Plan", value: "All-Inclusive Gourmet Dining & Wine Tastings", note: "Candlelight private dinners & chef-crafted menus" },
+        { name: "Sightseeing Passes", value: "VIP Private Guided Access & Private Charters", note: "Private Shikara / Speedboat / Helicopter shuttles" },
+        { name: "On-Trip Support", value: "Dedicated Senior Tour Director 24/7 On-Call", note: "Proactive reservations & luggage coordination" },
+        { name: "Date Flexibility", value: "100% Flexible Rescheduling up to 14 Days Prior", note: "Maximum peace of mind for luxury itineraries" }
+      ]
+    }
+  ]
+};
+
+// =======================================================
+// 15. DESTINATION READINESS & PRACTICAL TRAVEL ADVISORIES
+// =======================================================
+export const DESTINATION_READINESS_GUIDES = {
+  "kashmir": {
+    name: "Kashmir (Srinagar, Gulmarg & Pahalgam)",
+    idealMonths: "April to October (Gardens & Chinar), Dec to March (Snow & Gondola Skiing)",
+    climate: "Cool summers (15°C–25°C), Cold snowy winters (-2°C–8°C)",
+    visaInfo: "No permit required for Indian citizens. Valid Gov Photo ID (Aadhaar/Passport) required for hotel & Gondola check-ins.",
+    currency: "INR (Indian Rupee). UPI widely accepted in Srinagar; carry cash for local Shikara & pony rides in Pahalgam/Gulmarg.",
+    altitudeTips: "Gulmarg Phase 2 sits at 13,780 ft. Stay hydrated, walk gently on day 1, and rent verified snow jackets/boots at Tangmarg.",
+    packingList: ["Thermal inners (Oct–Apr)", "UV Sunglasses for snow reflection", "Comfortable gripping shoes", "Postpaid mobile SIM (Postpaid Airtel/Jio works best)"]
+  },
+  "swiss-alps": {
+    name: "Swiss Alps (Interlaken, Lucerne & Zurich)",
+    idealMonths: "May to September (Alpine meadows & lakes), Dec to March (Winter skiing & glaciers)",
+    climate: "Pleasant summers (18°C–26°C), Crisp winter mountains (-5°C–5°C)",
+    visaInfo: "Schengen Visa required for Indian passport holders. Apply 60–90 days in advance; Comfort Journey provides complete documentation filing.",
+    currency: "Swiss Franc (CHF) & Euro (EUR). Credit cards and Apple/Google Pay accepted everywhere; Swiss Travel Pass covers trains, buses & boats.",
+    altitudeTips: "Mt. Titlis (10,000 ft) & Jungfraujoch (11,333 ft) have high-altitude crisp air. Wear layered clothing and drink plenty of water.",
+    packingList: ["Schengen Travel Insurance", "Type J Swiss plug adapter", "Waterproof windcheater jacket", "Universal power bank"]
+  },
+  "bali": {
+    name: "Bali & Nusa Penida (Indonesia)",
+    idealMonths: "April to October (Dry season, sunny beaches), Year-round tropical warmth",
+    climate: "Tropical sunshine (26°C–31°C) with gentle ocean breezes",
+    visaInfo: "Visa on Arrival (e-VoA) available for Indian travellers (approx. IDR 500,000 / ~₹2,700). Valid passport with 6+ months validity required.",
+    currency: "Indonesian Rupiah (IDR). Forex card and cash exchange at authorized counters; credit cards accepted in major Ubud/Seminyak cafes.",
+    altitudeTips: "Mount Batur sunrise trek requires a light jacket. Pack reef-safe sunscreen and waterproof phone pouches for speedboat crossings.",
+    packingList: ["Breathable cotton outfits", "Reef-safe sunscreen & sunglasses", "Swimwear & water shoes for coral beaches", "Mosquito repellent"]
+  },
+  "dubai": {
+    name: "Dubai & Abu Dhabi (UAE)",
+    idealMonths: "October to April (Glorious sunshine & outdoor events), Year-round for luxury shopping & indoor theme parks",
+    climate: "Pleasant winters (20°C–28°C), Hot summers (35°C–42°C with 100% climate-controlled interiors)",
+    visaInfo: "30-day UAE Tourist eVisa processed in 48–72 hours through Comfort Journey.",
+    currency: "UAE Dirham (AED). Cards and digital payments accepted across 99% of venues; carry minimal AED for souks.",
+    altitudeTips: "Burj Khalifa 124th/148th observation decks are climate-controlled. Modest dress recommended when visiting Sheikh Zayed Grand Mosque.",
+    packingList: ["Light linen clothing", "Smart evening wear for luxury rooftop dining", "Universal UK 3-pin plug adapter", "Sun hat & UV sunglasses"]
+  },
+  "andaman": {
+    name: "Andaman Islands (Port Blair, Havelock & Neil)",
+    idealMonths: "October to May (Calm azure seas, scuba diving & water sports)",
+    climate: "Warm tropical island maritime weather (24°C–30°C)",
+    visaInfo: "No permit needed for Indian citizens. Foreign nationals require standard Indian e-Tourist Visa.",
+    currency: "INR (Indian Rupee). BSNL/Airtel have best island reception; carry cash for water sports as beach network can be intermittent.",
+    altitudeTips: "Sea voyages via luxury Makruzz / Nautika catamarans. Take light motion sickness tablets 30 mins prior if prone to sea swaying.",
+    packingList: ["Dry bags for island speedboats", "Rash guards & swimwear", "Comfortable sandals/crocs", "Personal beach towels"]
+  },
+  "rajasthan": {
+    name: "Rajasthan (Jaipur, Udaipur, Jodhpur & Jaisalmer)",
+    idealMonths: "October to March (Royal desert festivals, pleasant palace breezes)",
+    climate: "Pleasant days (20°C–28°C), Chilly desert nights (8°C–14°C)",
+    visaInfo: "Domestic destination — Gov ID (Aadhaar/Passport/DL) needed for palace hotel check-ins.",
+    currency: "INR (Indian Rupee). UPI and cards widely accepted in cities; carry cash for local handicrafts in Johari/Bapu bazaars.",
+    altitudeTips: "Flat plains and Thar desert. Stay well-hydrated during daytime fort walking tours.",
+    packingList: ["Layered jackets for desert nights", "Comfortable walking shoes for massive fort ramparts", "Sunscreen & scarf", "Traditional evening wear"]
+  },
+  "maldives": {
+    name: "Maldives (Private Resort Atolls)",
+    idealMonths: "November to April (Pristine visibility, dry tropical days)",
+    climate: "Year-round warm tropical paradise (27°C–32°C)",
+    visaInfo: "Free 30-day Visa on Arrival for Indian passport holders with confirmed hotel reservation and return ticket.",
+    currency: "USD & Maldivian Rufiyaa (MVR). Resort islands bill directly in USD on credit cards.",
+    altitudeTips: "Direct private speedboat or seaplane transfer from Velana International Airport. Pack underwater cameras for house reef snorkeling.",
+    packingList: ["Resort casual & swimwear", "Polarized sunglasses", "GoPro / Waterproof camera", "Sun protection & aloe vera"]
+  }
+};
+
+// =======================================================
+// 16. SEASONAL DISCOVERY RADAR DATA
+// =======================================================
+export const SEASONAL_RADAR_DATA = [
+  {
+    id: "spring",
+    seasonName: "Spring Bloom",
+    months: "March – May",
+    icon: "🌸",
+    headline: "Tulip Valleys & Mountain Blossoms",
+    destinations: ["Kashmir Tulip Festival", "Japan Cherry Blossoms", "Paris & Switzerland"],
+    vibe: "Fresh & Romantic",
+    color: "#DAF561"
+  },
+  {
+    id: "summer",
+    seasonName: "Summer Escapes",
+    months: "June – August",
+    icon: "☀️",
+    headline: "Alpine Heights & Ocean Lagoons",
+    destinations: ["Swiss Alps & Glaciers", "Bali & Nusa Penida", "Amalfi Coast & Greece"],
+    vibe: "Sun-Kissed Luxury",
+    color: "#6FE6FC"
+  },
+  {
+    id: "autumn",
+    seasonName: "Autumn Golden",
+    months: "Sept – November",
+    icon: "🍁",
+    headline: "Golden Chinar & Desert Royalty",
+    destinations: ["Rajasthan Heritage Forts", "Kerala Backwaters", "Dubai Dune Safaris"],
+    vibe: "Regal & Cultural",
+    color: "#FF892F"
+  },
+  {
+    id: "winter",
+    seasonName: "Winter Snow & Lights",
+    months: "Dec – February",
+    icon: "❄️",
+    headline: "Ski Slopes & Northern Lights",
+    destinations: ["Gulmarg Snow Gondola", "Iceland Aurora Caves", "Maldives Overwater Luxury"],
+    vibe: "Adrenaline & Warm Bliss",
+    color: "#93EEFD"
+  }
+];
+
