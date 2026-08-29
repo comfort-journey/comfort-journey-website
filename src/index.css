@@ -747,6 +747,67 @@ img, svg {
   animation: luxuryScaleFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* 7. 120 FPS Spline 3D & Tactile Micro-Interactions */
+.btn-3d-tactile {
+  position: relative;
+  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.12s ease, filter 0.12s ease;
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+  user-select: none;
+}
+
+.btn-3d-tactile:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: brightness(1.06);
+}
+
+.btn-3d-tactile:active {
+  transform: translateY(2px) scale(0.97);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+  filter: brightness(0.96);
+}
+
+/* 8. The Gold Seal Moment 3D Stamp Keyframes */
+@keyframes goldSealImpact {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateZ(60px) scale(1.8) rotate(-15deg);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateZ(0px) scale(0.92) rotate(2deg);
+  }
+  80% {
+    transform: translate(-50%, -50%) translateZ(6px) scale(1.05) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateZ(0px) scale(1) rotate(0deg);
+  }
+}
+
+.gold-seal-stamp-animated {
+  animation: goldSealImpact 0.48s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+}
+
+/* 9. Holographic Ember Route Beam Glow */
+@keyframes emberRouteFlow {
+  0% {
+    stroke-dashoffset: 600;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.ember-route-beam {
+  stroke-dasharray: 600;
+  animation: emberRouteFlow 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  filter: drop-shadow(0 0 8px #FF6B00) drop-shadow(0 0 16px rgba(255, 107, 0, 0.6));
+}
+
 /* 5. Reduced Motion Override for Full Accessibility */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {

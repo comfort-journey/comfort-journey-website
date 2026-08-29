@@ -5,14 +5,13 @@ import { useScrollAnimation } from './hooks/useScrollAnimation';
 import SmoothScrollProvider from './components/SmoothScrollProvider';
 import AmbientBackgroundOrbs from './components/AmbientBackgroundOrbs';
 import ZajnoMagneticCursor from './components/animations/ZajnoMagneticCursor';
-import FlightRouteVisualizer from './components/animations/FlightRouteVisualizer';
+import NaviCompassKeeper3D from './components/animations/NaviCompassKeeper3D';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import StatsBar from './components/StatsBar';
 import TourExplorer from './components/TourExplorer';
 import TravelStyleDNASection from './components/TravelStyleDNASection';
 import TripCustomizerSection from './components/TripCustomizerSection';
-import PackageTiersSection from './components/PackageTiersSection';
 import DestinationReadinessSection from './components/DestinationReadinessSection';
 import GoogleReviewsSection from './components/GoogleReviewsSection';
 import TravelStoriesSection from './components/TravelStoriesSection';
@@ -98,23 +97,10 @@ export default function App() {
               onOpenQuote={() => setIsQuickQuoteOpen(true)}
             />
 
-            {/* 6. SVGator Real-Time Vector Flight Routes & Global Radar */}
-            <FlightRouteVisualizer 
-              onSelectRoute={(route) => {
-                setSearchFilters({ destination: route.name.split(' ')[0], category: 'All' });
-              }}
-              onOpenQuote={() => setIsQuickQuoteOpen(true)}
-            />
-
-            {/* 7. Interactive Trip Studio & Live Price Estimator */}
+            {/* 6. Interactive Trip Studio & Live Price Estimator */}
             <TripCustomizerSection />
 
-            {/* 8. Side-by-Side Package Tiers Comparison (Standard vs Premium vs VIP) */}
-            <PackageTiersSection 
-              onOpenQuote={() => setIsQuickQuoteOpen(true)}
-            />
-
-            {/* 9. Destination Readiness & Practical Travel Intelligence Hub */}
+            {/* 7. Destination Readiness & Practical Travel Intelligence Hub */}
             <DestinationReadinessSection 
               onOpenQuote={() => setIsQuickQuoteOpen(true)}
             />
@@ -252,6 +238,12 @@ export default function App() {
           <AdminCMSModal 
             isOpen={isAdminCMSOpen}
             onClose={() => setIsAdminCMSOpen(false)}
+          />
+
+          {/* Navi, The 3D Compass Keeper Concierge (120+ FPS Cursor Look-At Gaze) */}
+          <NaviCompassKeeper3D 
+            onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+            onOpenQuote={() => setIsQuickQuoteOpen(true)}
           />
 
           {/* Floating Glassmorphism Action Dock */}

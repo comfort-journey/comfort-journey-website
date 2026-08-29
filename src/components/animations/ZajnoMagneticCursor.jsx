@@ -9,6 +9,7 @@ import React, { useEffect, useRef } from 'react';
 export default function ZajnoMagneticCursor() {
   const dotRef = useRef(null);
   const ringRef = useRef(null);
+  const torchRef = useRef(null);
 
   useEffect(() => {
     // Only enable on desktop mouse devices
@@ -20,12 +21,14 @@ export default function ZajnoMagneticCursor() {
     }
 
     let animId;
-    let targetX = -100;
-    let targetY = -100;
-    let currentX = -100;
-    let currentY = -100;
-    let ringX = -100;
-    let ringY = -100;
+    let targetX = -200;
+    let targetY = -200;
+    let currentX = -200;
+    let currentY = -200;
+    let ringX = -200;
+    let ringY = -200;
+    let torchX = -200;
+    let torchY = -200;
 
     const handleMouseMove = (e) => {
       targetX = e.clientX;
@@ -33,15 +36,17 @@ export default function ZajnoMagneticCursor() {
     };
 
     const handleMouseLeave = () => {
-      targetX = -100;
-      targetY = -100;
+      targetX = -200;
+      targetY = -200;
       if (dotRef.current) dotRef.current.style.opacity = '0';
       if (ringRef.current) ringRef.current.style.opacity = '0';
+      if (torchRef.current) torchRef.current.style.opacity = '0';
     };
 
     const handleMouseEnter = () => {
       if (dotRef.current) dotRef.current.style.opacity = '1';
       if (ringRef.current) ringRef.current.style.opacity = '1';
+      if (torchRef.current) torchRef.current.style.opacity = '1';
     };
 
     // Event delegation for hover states
@@ -49,8 +54,8 @@ export default function ZajnoMagneticCursor() {
       const target = e.target;
       if (!target || !ringRef.current) return;
 
-      const clickable = target.closest('button, a, input, select, textarea, .tab-btn, .vibe-pill, .conv-chip, .hero-tag-btn, .action-circle-btn, [role="button"]');
-      const card = target.closest('.tour-card, .glass-card, .reel-card, .service-card, .stat-card');
+      const clickable = target.closest('button, a, input, select, textarea, .tab-btn, .vibe-pill, .conv-chip, .hero-tag-btn, .action-circle-btn, [role="button"], .btn-3d-tactile');
+      const card = target.closest('.tour-card, .glass-card, .reel-card, .service-card, .stat-card, .tilt-3d-wrapper');
 
       if (clickable) {
         ringRef.current.classList.add('cursor-hover-btn');
@@ -78,12 +83,19 @@ export default function ZajnoMagneticCursor() {
       ringX = lerp(ringX, targetX, 0.2);
       ringY = lerp(ringY, targetY, 0.2);
 
+      torchX = lerp(torchX, targetX, 0.12);
+      torchY = lerp(torchY, targetY, 0.12);
+
       if (dotRef.current) {
         dotRef.current.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
       }
 
       if (ringRef.current) {
         ringRef.current.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
+      }
+
+      if (torchRef.current) {
+        torchRef.current.style.transform = `translate3d(${torchX}px, ${torchY}px, 0)`;
       }
 
       animId = requestAnimationFrame(render);
@@ -102,6 +114,8 @@ export default function ZajnoMagneticCursor() {
 
   return (
     <div className="zajno-cursor-wrapper" aria-hidden="true">
+      {/* Dynamic Amber Torchlight Glow */}
+      <div ref={torchRef} className="cursor-amber-torch" />
       <div ref={dotRef} className="cursor-dot" />
       <div ref={ringRef} className="cursor-aura" />
 
@@ -115,6 +129,23 @@ export default function ZajnoMagneticCursor() {
           pointer-events: none;
           z-index: 999999;
           overflow: hidden;
+        }
+
+        .cursor-amber-torch {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 240px;
+          height: 240px;
+          margin-top: -120px;
+          margin-left: -120px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(255, 107, 0, 0.09) 0%, rgba(218, 245, 97, 0.04) 40%, transparent 70%);
+          pointer-events: none;
+          will-change: transform;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          mix-blend-mode: screen;
         }
 
         .cursor-dot {

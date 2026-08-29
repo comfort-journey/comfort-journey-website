@@ -56,97 +56,22 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
       </div>
 
       <div className="container hero-content-container">
-        {/* Top Badges: Trust Pill + Live Interactive Weather Ticker */}
-        <div className="hero-top-badges">
-          <div className="trust-pill">
-            <ShieldCheck size={15} className="text-emerald" />
-            <span>Est. 1992 • Luxury Specialist</span>
-          </div>
-
-          <div className="weather-ticker">
-            <div className="ticker-label-group">
-              <span className="live-dot" title={isLive ? 'Real-Time Live Meteorological Satellite Active' : 'Connecting to Live Weather'}></span>
-              <span className="ticker-label">{isLive ? 'Live Weather:' : 'Destination Weather:'}</span>
-            </div>
-
-            <div className="ticker-scroll">
-              {weatherList.map((w, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  className="weather-item-btn"
-                  onClick={() => {
-                    setDestination(w.city);
-                    onSearch({ destination: w.city, category: 'All' });
-                    const target = document.getElementById('tours');
-                    if (target) target.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  title={`View ${w.city} packages • Live ${w.temp} (${w.condition})`}
-                >
-                  <span className="w-icon">{w.icon}</span>
-                  <strong>{w.city}:</strong>
-                  <span>{w.temp}</span>
-                  <small>({w.condition})</small>
-                </button>
-              ))}
-            </div>
-
-            <a
-              href="https://open-meteo.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="verified-radar-link"
-              title="Verify live global meteorological satellite radar (Opens in new tab)"
-            >
-              <ExternalLink size={12} />
-              <span>Satellite Radar ↗</span>
-            </a>
-          </div>
+        {/* Clean Brand Wordmark in Plain Beige */}
+        <div className="hero-brand-wordmark">
+          <span className="brand-plain-beige">COMFORT JOURNEY</span>
+          <span className="brand-dot">•</span>
+          <span className="brand-est">SINCE 1992</span>
         </div>
 
-        {/* Modern Luxury Editorial Hero Headline & Trust Bar */}
+        {/* Minimal Clean Headline */}
         <div className="hero-headline-block">
-          <div className="hero-luxury-kicker">
-            <div className="kicker-star-line left"></div>
-            <div className="kicker-badge">
-              <Sparkles size={13} className="text-amber" />
-              <span>HANDCRAFTED HOLIDAYS</span>
-              <span className="kicker-dot">•</span>
-              <span>SINCE 1992</span>
-            </div>
-            <div className="kicker-star-line right"></div>
-          </div>
-
           <h1 className="hero-title">
-            <span className="hero-title-top">
-              Curating Extraordinary <span className="gradient-text-gold">Journeys</span>,
-            </span>
-            <span className="hero-title-bot">
-              Crafted in Pure <span className="gradient-text-cyan-emerald">Comfort</span>
-            </span>
+            Your Journey • <span className="text-orange-glow">Your Comfort</span>
           </h1>
 
           <p className="hero-subline">
-            33+ Years of Tailor-Made Private Tours, Handpicked 4 & 5-Star Stays, and Dedicated 24/7 Concierge Across India & Worldwide.
+            Handcrafted private tour packages for 2,000+ destinations worldwide. Handpicked 4 & 5-star stays, private chauffeurs, and 24/7 dedicated concierge.
           </p>
-
-          {/* Quick Luxury Trust Bar */}
-          <div className="hero-trust-bar">
-            <div className="trust-item">
-              <Award size={14} className="text-amber" />
-              <span><strong>4.8★</strong> Google Rating (85+ Reviews)</span>
-            </div>
-            <span className="trust-sep">|</span>
-            <div className="trust-item">
-              <ShieldCheck size={14} className="text-emerald" />
-              <span><strong>100% Tailor-Made</strong> Itineraries</span>
-            </div>
-            <span className="trust-sep">|</span>
-            <div className="trust-item">
-              <Sparkles size={14} className="text-aqua" />
-              <span><strong>24/7</strong> On-Tour Concierge</span>
-            </div>
-          </div>
         </div>
 
         {/* Next-Gen Glass Luxury Search Dock */}
@@ -391,199 +316,65 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           color: #FFFFFF;
         }
 
-        .hero-top-badges {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          margin-bottom: 0.85rem;
-          flex-wrap: wrap;
-          justify-content: center;
-        }
-
-        .trust-pill {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.45rem;
-          background: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(12px);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          padding: 0.35rem 0.95rem;
-          border-radius: var(--radius-full);
-          font-family: var(--font-ui);
-          font-size: 0.8rem;
-          font-weight: 700;
-          color: #E2E8F0;
-          white-space: nowrap;
-        }
-
-        .text-emerald {
-          color: var(--cj-emerald-500);
-        }
-
-        .text-amber {
-          color: var(--cj-amber-500);
-        }
-
-        .weather-ticker {
+        .hero-brand-wordmark {
           display: inline-flex;
           align-items: center;
           gap: 0.65rem;
-          background: rgba(15, 23, 42, 0.88);
-          border: 1px solid rgba(255, 184, 0, 0.35);
-          padding: 0.3rem 0.75rem 0.3rem 0.9rem;
-          border-radius: var(--radius-full);
-          font-size: 0.78rem;
-          color: #F8FAFC;
-          max-width: 95vw;
+          margin-bottom: 0.75rem;
         }
 
-        .ticker-label-group {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.45rem;
-          flex-shrink: 0;
-        }
-
-        .live-dot {
-          width: 7px;
-          height: 7px;
-          border-radius: 50%;
-          background: var(--cj-emerald-500);
-          box-shadow: 0 0 10px var(--cj-emerald-500);
-          animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.4; transform: scale(1.3); }
-        }
-
-        .ticker-label {
-          color: var(--cj-gold-500);
-          font-family: var(--font-ui);
-          font-weight: 800;
+        .brand-plain-beige {
+          font-family: var(--font-ui, 'Outfit', sans-serif);
+          font-size: 0.88rem;
+          font-weight: 900;
+          letter-spacing: 0.14em;
+          color: #F9FBE7;
           text-transform: uppercase;
-          white-space: nowrap;
-          font-size: 0.75rem;
         }
 
-        .verified-radar-link {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.35rem;
-          background: rgba(111, 230, 252, 0.12);
-          border: 1px solid rgba(111, 230, 252, 0.3);
-          color: #6FE6FC;
-          font-family: var(--font-ui);
-          font-size: 0.72rem;
+        .brand-dot {
+          color: #FF892F;
+          font-size: 0.85rem;
+        }
+
+        .brand-est {
+          font-family: var(--font-ui, 'Outfit', sans-serif);
+          font-size: 0.76rem;
           font-weight: 700;
-          padding: 0.25rem 0.65rem;
-          border-radius: var(--radius-full);
-          white-space: nowrap;
-          transition: all 0.2s ease;
-          flex-shrink: 0;
-        }
-
-        .verified-radar-link:hover {
-          background: rgba(111, 230, 252, 0.25);
-          color: #FFFFFF;
-          border-color: #6FE6FC;
-          box-shadow: 0 0 12px rgba(111, 230, 252, 0.4);
-        }
-
-        .ticker-scroll {
-          display: flex;
-          gap: 0.75rem;
-          overflow: hidden;
+          letter-spacing: 0.1em;
+          color: #94A3B8;
         }
 
         .hero-headline-block {
-          max-width: 980px;
-          margin-bottom: 1.35rem;
+          max-width: 900px;
+          margin-bottom: 1.5rem;
           display: flex;
           flex-direction: column;
           align-items: center;
-        }
-
-        .hero-luxury-kicker {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          margin-bottom: 0.65rem;
-        }
-
-        .kicker-star-line {
-          width: 40px;
-          height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(255, 137, 47, 0.6));
-        }
-
-        .kicker-star-line.right {
-          background: linear-gradient(90deg, rgba(255, 137, 47, 0.6), transparent);
-        }
-
-        .kicker-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.45rem;
-          padding: 0.28rem 0.85rem;
-          border-radius: var(--radius-full);
-          background: rgba(255, 137, 47, 0.12);
-          border: 1px solid rgba(255, 137, 47, 0.35);
-          color: #FFB070;
-          font-family: 'Outfit', sans-serif;
-          font-size: 0.72rem;
-          font-weight: 800;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-        }
-
-        .kicker-dot {
-          color: #DAF561;
         }
 
         .hero-title {
-          font-family: 'Fraunces', Georgia, serif;
-          font-size: clamp(1.85rem, 3.8vw, 2.9rem);
-          line-height: 1.15;
+          font-family: var(--font-serif, 'Cinzel', serif);
+          font-size: clamp(2.1rem, 4.2vw, 3.4rem);
+          line-height: 1.18;
           font-weight: 800;
-          margin-bottom: 0.45rem;
+          margin-bottom: 0.65rem;
           letter-spacing: -0.015em;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .hero-title-top {
-          color: #F9FBE7;
-          text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .text-champagne-glow {
-          color: #FFFFFF;
-          font-style: italic;
-          font-weight: 700;
-        }
-
-        .hero-title-bot {
           color: #F9FBE7;
         }
 
-        .hero-title-bot .gradient-text-gold {
-          background: linear-gradient(135deg, #FFA459 0%, #FF892F 45%, #DAF561 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          filter: drop-shadow(0 4px 15px rgba(255, 137, 47, 0.45));
-          font-style: italic;
+        .text-orange-glow {
+          color: #FF892F;
+          text-shadow: 0 0 25px rgba(255, 137, 47, 0.45);
         }
 
         .hero-subline {
-          font-family: 'Outfit', sans-serif;
-          font-size: clamp(0.85rem, 1.4vw, 0.98rem);
+          font-family: var(--font-ui, 'Outfit', sans-serif);
+          font-size: clamp(0.92rem, 1.35vw, 1.08rem);
           color: #CBD5E1;
           font-weight: 500;
-          line-height: 1.45;
-          margin-bottom: 0.75rem;
+          line-height: 1.55;
+          margin-bottom: 0;
           max-width: 720px;
         }
 

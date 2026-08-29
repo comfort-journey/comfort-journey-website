@@ -87,13 +87,12 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           <div className="reels-grid-single-row" ref={reelsScrollRef}>
             {TRAVELER_REELS.map((reel) => {
               const isLiked = likedReels[reel.id];
-              const isUnmuted = unmutedReels[reel.id];
 
               return (
                 <div key={reel.id} className="reel-item-col">
-                  <Tilt3DCard maxTilt={3} scale={1.02} glare={true} className="reel-tilt-wrapper">
+                  <Tilt3DCard maxTilt={4} scale={1.02} glare={true} className="reel-tilt-wrapper">
                     <div className="reel-card glass-card" onClick={() => setActiveReelModal(reel)}>
-                      {/* Video Media Container with Instant Cover Image Fallback & Play Overlay */}
+                      {/* Video Thumbnail & Clean Play Badge */}
                       <div className="reel-media-wrapper">
                         <img
                           src={reel.videoThumb}
@@ -102,74 +101,31 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                           loading="lazy"
                         />
 
-                        <video
-                          src={reel.videoUrl}
-                          poster={reel.videoThumb}
-                          autoPlay
-                          muted={!isUnmuted}
-                          loop
-                          playsInline
-                          preload="metadata"
-                          className="reel-autoplay-video"
-                          onError={(e) => { e.target.style.display = 'none'; }}
-                        />
-
                         {/* Glowing Play Center Badge */}
                         <div className="reel-play-center-badge">
-                          <Play size={22} fill="#FFFFFF" color="#FFFFFF" style={{ marginLeft: '3px' }} />
+                          <Play size={24} fill="#FFFFFF" color="#FFFFFF" style={{ marginLeft: '3px' }} />
                         </div>
 
                         {/* Luxury Dark Gradient Mask */}
                         <div className="reel-dark-veil" />
 
-                        {/* Top Instagram Profile Lockup */}
+                        {/* Top Instagram Profile Pill */}
                         <div className="reel-top-bar">
                           <div className="insta-profile-lockup">
                             <div className="insta-story-ring">
                               <Instagram size={13} color="#FFFFFF" />
                             </div>
-                            <div className="insta-meta">
-                              <div className="insta-handles-row">
-                                <span className="insta-handle">@comfort.journey</span>
-                              </div>
-                              <span className="insta-verified-tag">
-                                <CheckCircle2 size={10} className="text-emerald" /> Verified Story
-                              </span>
-                            </div>
+                            <span className="insta-handle">@comfort.journey</span>
+                            <CheckCircle2 size={12} className="text-emerald" />
                           </div>
-
-                          <button
-                            type="button"
-                            className="reel-sound-btn"
-                            onClick={(e) => toggleSound(e, reel.id)}
-                            aria-label={isUnmuted ? "Mute audio" : "Unmute audio"}
-                            title={isUnmuted ? "Mute Audio" : "Play with Sound"}
-                          >
-                            {isUnmuted ? <Volume2 size={14} /> : <VolumeX size={14} />}
-                          </button>
                         </div>
 
-                        {/* Live Story Pulse Badge */}
-                        <div className="reel-live-tag">
-                          <span className="live-dot-pulse"></span>
-                          <span>LIVE REEL</span>
-                        </div>
-
-                        {/* Bottom Information & Action Overlay */}
+                        {/* Clean Bottom Bar: Destination & Watch on IG Action */}
                         <div className="reel-bottom-overlay">
-                          <div className="reel-views-pill">
-                            <Eye size={12} className="text-aqua" />
-                            <span>{reel.views} Views</span>
-                          </div>
-
                           <div className="reel-dest-title">
                             <span className="dest-flag">{reel.flag}</span>
                             <span className="dest-name">{reel.destination}</span>
                           </div>
-
-                          <p className="reel-tagline-text">
-                            "{reel.tagline}"
-                          </p>
 
                           <div className="reel-card-footer-btns">
                             <button
@@ -205,7 +161,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           </div>
         </div>
 
-        {/* ULTRA-MODERN REEL LIGHTBOX MODAL */}
+        {/* ULTRA-MODERN REEL LIGHTBOX MODAL WITH REAL INSTAGRAM EMBED */}
         {activeReelModal && (
           <div className="modal-overlay" onClick={() => setActiveReelModal(null)}>
             <div className="reel-modal-card live-video-modal" onClick={(e) => e.stopPropagation()}>
@@ -214,16 +170,16 @@ export default function TravelStoriesSection({ onOpenQuote }) {
               </button>
 
               <div className="reel-modal-two-col">
-                {/* Left Column: Full-Height Native Autoplay Video Pane */}
+                {/* Left Column: Real Instagram Reel Video Embed Player */}
                 <div className="reel-modal-video-pane">
-                  <video
-                    src={activeReelModal.videoUrl}
-                    poster={activeReelModal.videoThumb}
-                    autoPlay
-                    controls
-                    loop
-                    playsInline
-                    className="modal-full-video"
+                  <iframe
+                    src={`https://www.instagram.com/reel/${activeReelModal.reelId}/embed/`}
+                    className="reel-modal-ig-iframe"
+                    frameBorder="0"
+                    scrolling="no"
+                    allowTransparency="true"
+                    allow="autoplay; encrypted-media; clipboard-write"
+                    title={`Instagram Reel - ${activeReelModal.destination}`}
                   />
                 </div>
 
@@ -243,16 +199,16 @@ export default function TravelStoriesSection({ onOpenQuote }) {
 
                     <div className="reel-modal-stats-box">
                       <div className="stat-line">
-                        <span>Official Account:</span>
-                        <strong>@comfort.journey</strong>
+                        <span>Official Channel:</span>
+                        <strong>Instagram (@comfort.journey)</strong>
                       </div>
                       <div className="stat-line">
-                        <span>Tour Category:</span>
+                        <span>Category:</span>
                         <strong>{activeReelModal.duration}</strong>
                       </div>
                       <div className="stat-line">
-                        <span>Instagram Reach:</span>
-                        <strong>{activeReelModal.views} Views</strong>
+                        <span>Reel ID:</span>
+                        <strong>{activeReelModal.reelId}</strong>
                       </div>
                     </div>
                   </div>
@@ -265,7 +221,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                       className="btn-instagram w-full"
                     >
                       <Instagram size={18} />
-                      <span>Watch Original on Instagram App</span>
+                      <span>Open on Instagram App</span>
                       <ExternalLink size={15} />
                     </a>
 
@@ -740,78 +696,13 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           box-shadow: 0 4px 15px rgba(225, 48, 108, 0.4);
         }
 
-        .modal-full-video {
+        .reel-modal-ig-iframe {
           width: 100%;
           height: 100%;
-          max-height: 520px;
-          object-fit: cover;
-          display: block;
+          min-height: 520px;
+          border: none;
           border-radius: 16px 0 0 16px;
-        }
-          line-height: 1.35;
-          margin: 0;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-
-        .reel-card-footer-btns {
-          display: flex;
-          align-items: center;
-          gap: 0.45rem;
-          margin-top: 0.35rem;
-        }
-
-        .reel-mini-heart {
-          width: 34px;
-          height: 34px;
-          border-radius: 50%;
-          background: rgba(0, 18, 51, 0.7);
-          backdrop-filter: blur(8px);
-          border: 1px solid rgba(255, 255, 255, 0.25);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          flex-shrink: 0;
-        }
-
-        .reel-mini-heart:hover {
-          background: rgba(225, 48, 108, 0.25);
-          border-color: #E1306C;
-          transform: scale(1.1);
-        }
-
-        .reel-mini-heart.liked {
-          background: rgba(225, 48, 108, 0.35);
-          border-color: #E1306C;
-        }
-
-        .btn-open-ig-direct {
-          flex: 1;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 0.35rem;
-          padding: 0.45rem 0.85rem;
-          border-radius: var(--radius-full, 9999px);
-          background: linear-gradient(135deg, rgba(225, 48, 108, 0.25), rgba(253, 29, 29, 0.25));
-          border: 1px solid rgba(225, 48, 108, 0.6);
-          color: #FFFFFF;
-          font-size: 0.76rem;
-          font-weight: 800;
-          text-decoration: none;
-          transition: all 0.2s ease;
-          white-space: nowrap;
-        }
-
-        .btn-open-ig-direct:hover {
-          background: linear-gradient(135deg, #E1306C, #FD1D1D);
-          color: #FFFFFF;
-          transform: translateY(-2px);
-          box-shadow: 0 4px 15px rgba(225, 48, 108, 0.4);
+          background: #000B1E;
         }
 
         .stories-cta-banner {

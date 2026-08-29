@@ -4,6 +4,7 @@ import { Clock, MapPin, Star, CheckCircle, ArrowRight, MessageCircle, Sparkles, 
 import { useCurrency } from '../context/CurrencyContext';
 import { useWishlistCompare } from '../context/WishlistCompareContext';
 import Tilt3DCard from './animations/Tilt3DCard';
+import GoldSealStamp from './animations/GoldSealStamp';
 import { useParticleBurst } from '../hooks/useParticleBurst';
 
 export default function TourExplorer({ searchFilters, onSelectItinerary, onBookNow, onOpenAIPlanner, onOpenDNAQuiz, onOpenTierCompare, onOpenReadiness }) {
@@ -18,6 +19,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
   const [activeSeason, setActiveSeason] = useState('All');
   const [sortBy, setSortBy] = useState('popularity'); // 'popularity', 'price-low', 'price-high', 'duration'
   const [showAllTours, setShowAllTours] = useState(false);
+  const [activeGoldSealId, setActiveGoldSealId] = useState(null);
 
   const INITIAL_LIMIT = 6;
 
@@ -266,8 +268,22 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
               const comparing = isComparing(tour.id);
 
               return (
-                <Tilt3DCard key={tour.id} maxTilt={7} scale={1.02} glare={true} className="tour-tilt-container">
-                  <div className="tour-card glass-card">
+                <Tilt3DCard
+                  key={tour.id}
+                  maxTilt={5}
+                  scale={1.025}
+                  glare={true}
+                  holographic={true}
+                  className="tour-tilt-container"
+                >
+                  <div className="tour-card glass-card liquid-glass-tour-card">
+                    {/* The Gold Seal Moment 3D Stamp */}
+                    <GoldSealStamp
+                      isActive={activeGoldSealId === tour.id}
+                      onComplete={() => setActiveGoldSealId(null)}
+                      destinationName={tour.name}
+                    />
+
                     {/* Card Media */}
                     <div className="card-media">
                       <img 
@@ -292,13 +308,16 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
                       <div className="media-action-buttons">
                         <button
                           type="button"
-                          className={`action-circle-btn ${saved ? 'active-saved' : ''}`}
+                          className={`action-circle-btn btn-3d-tactile ${saved ? 'active-saved' : ''}`}
                           onClick={(e) => {
                             e.stopPropagation();
-                            if (!saved) triggerBurst(e, { count: 18, colors: ['#FF892F', '#FFA459', '#F9FBE7'] });
+                            if (!saved) {
+                              setActiveGoldSealId(tour.id);
+                              triggerBurst(e, { count: 24, colors: ['#FFA000', '#DAF561', '#F9FBE7'] });
+                            }
                             toggleWishlist(tour.id);
                           }}
-                          title={saved ? 'Remove from Wishlist' : 'Add to Wishlist'}
+                          title={saved ? 'Saved in Dreamboard' : 'Save to Dreamboard'}
                           aria-label="Wishlist"
                         >
                           <Heart size={16} fill={saved ? '#FF892F' : 'none'} color={saved ? '#FF892F' : '#FFFFFF'} />
@@ -306,7 +325,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
                         <button
                           type="button"
-                          className={`action-circle-btn ${comparing ? 'active-compare' : ''}`}
+                          className={`action-circle-btn btn-3d-tactile ${comparing ? 'active-compare' : ''}`}
                           onClick={(e) => {
                             e.stopPropagation();
                             toggleCompare(tour);
@@ -365,14 +384,14 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
                         <div className="cta-actions">
                           <button 
-                            className="itinerary-btn"
+                            className="itinerary-btn btn-3d-tactile"
                             onClick={() => onSelectItinerary(tour)}
                             title="View detailed day-wise itinerary"
                           >
                             Itinerary
                           </button>
                           <button 
-                            className="btn-primary book-btn"
+                            className="btn-primary book-btn btn-3d-tactile"
                             onClick={(e) => {
                               triggerBurst(e, { count: 24, colors: ['#FF892F', '#6FE6FC', '#DAF561'] });
                               onBookNow(tour);
@@ -787,6 +806,18 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           overflow: hidden;
           display: flex;
           flex-direction: column;
+          background: rgba(0, 29, 81, 0.82);
+          border: 1.5px solid rgba(111, 230, 252, 0.22);
+          border-radius: var(--radius-xl, 22px);
+          backdrop-filter: blur(16px) saturate(160%);
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.55);
+          transition: border-color 0.3s ease, box-shadow 0.3s ease;
+          transform-style: preserve-3d;
+        }
+
+        .tour-card:hover {
+          border-color: rgba(255, 137, 47, 0.7);
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 25px rgba(255, 137, 47, 0.25);
         }
 
         .card-media {
@@ -794,6 +825,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           height: 240px;
           overflow: hidden;
           background: #0F172A;
+          transform: translateZ(12px);
         }
 
         .card-media img {
@@ -810,7 +842,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         .media-overlay {
           position: absolute;
           inset: 0;
-          background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(19, 29, 51, 0.95) 100%);
+          background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0, 18, 51, 0.95) 100%);
         }
 
         .media-top-badges {

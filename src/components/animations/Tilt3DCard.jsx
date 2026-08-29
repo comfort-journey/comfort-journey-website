@@ -1,16 +1,19 @@
 import React, { useRef, useEffect } from 'react';
 
 /**
- * Tilt3DCard:
- * Ultra-high-performance 3D perspective tilt card.
- * Uses DIRECT DOM element transform manipulation with ZERO React state rerenders on mousemove,
+ * 21st.dev Style 3D Liquid Glass Card with Holographic Tilt:
+ * Ultra-high-performance 3D perspective tilt card with liquid glass refraction,
+ * dynamic holographic chromatic edge lighting, and specular cursor glares.
+ * 
+ * Direct DOM element transform manipulation with ZERO React state rerenders on mousemove,
  * delivering solid 120 FPS performance with zero frame drops.
  */
 export default function Tilt3DCard({
   children,
-  maxTilt = 6, // max rotation in degrees
-  scale = 1.02,
+  maxTilt = 5, // 5 degree maximum tilt as specified in 3D tactile card system
+  scale = 1.025,
   glare = true,
+  holographic = true,
   className = '',
   style = {},
   onClick,
@@ -18,6 +21,7 @@ export default function Tilt3DCard({
 }) {
   const cardRef = useRef(null);
   const glareRef = useRef(null);
+  const holoRef = useRef(null);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -47,18 +51,32 @@ export default function Tilt3DCard({
         const rotateX = -normY * maxTilt;
         const rotateY = normX * maxTilt;
 
-        card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(${scale}, ${scale}, ${scale})`;
+        // 3D Shadow Offset calculation based on tilt direction
+        const shadowX = -normX * 16;
+        const shadowY = normY * 20 + 20;
 
+        card.style.transform = `perspective(1100px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(${scale}, ${scale}, ${scale})`;
+        card.style.boxShadow = `${shadowX.toFixed(1)}px ${shadowY.toFixed(1)}px 40px rgba(0, 18, 51, 0.7), 0 0 20px rgba(255, 137, 47, 0.18)`;
+
+        // 1. Dynamic Refractive Specular Glare (Moves with cursor)
         if (glare && glareRef.current) {
-          glareRef.current.style.background = `radial-gradient(circle at ${(x * 100).toFixed(1)}% ${(y * 100).toFixed(1)}%, rgba(255, 255, 255, 0.22) 0%, rgba(111, 230, 252, 0.08) 35%, transparent 65%)`;
-          glareRef.current.style.opacity = '0.28';
+          glareRef.current.style.background = `radial-gradient(circle at ${(x * 100).toFixed(1)}% ${(y * 100).toFixed(1)}%, rgba(255, 255, 255, 0.38) 0%, rgba(255, 137, 47, 0.2) 30%, rgba(111, 230, 252, 0.1) 50%, transparent 70%)`;
+          glareRef.current.style.opacity = '0.45';
+        }
+
+        // 2. Holographic Chromatic Reflection
+        if (holographic && holoRef.current) {
+          const angle = Math.atan2(normY, normX) * (180 / Math.PI) + 180;
+          holoRef.current.style.background = `linear-gradient(${angle}deg, rgba(255, 137, 47, 0.5) 0%, rgba(218, 245, 97, 0.4) 50%, rgba(111, 230, 252, 0.4) 100%)`;
+          holoRef.current.style.opacity = '0.5';
         }
       });
     };
 
     const handleMouseEnter = () => {
       card.style.transition = 'transform 0.08s ease-out, box-shadow 0.2s ease';
-      if (glare && glareRef.current) glareRef.current.style.opacity = '0.28';
+      if (glare && glareRef.current) glareRef.current.style.opacity = '0.38';
+      if (holographic && holoRef.current) holoRef.current.style.opacity = '0.45';
     };
 
     const handleMouseLeave = () => {
@@ -66,9 +84,10 @@ export default function Tilt3DCard({
         cancelAnimationFrame(rafId);
         rafId = null;
       }
-      card.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease';
-      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      card.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease';
+      card.style.transform = 'perspective(1100px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
       if (glare && glareRef.current) glareRef.current.style.opacity = '0';
+      if (holographic && holoRef.current) holoRef.current.style.opacity = '0';
     };
 
     card.addEventListener('mousemove', handleMouseMove, { passive: true });
@@ -81,12 +100,12 @@ export default function Tilt3DCard({
       card.removeEventListener('mouseenter', handleMouseEnter);
       card.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [maxTilt, scale, glare]);
+  }, [maxTilt, scale, glare, holographic]);
 
   return (
     <div
       ref={cardRef}
-      className={`tilt-3d-wrapper ${className}`}
+      className={`tilt-3d-wrapper liquid-glass-tilt ${className}`}
       onClick={onClick}
       style={{
         transformStyle: 'preserve-3d',
@@ -96,9 +115,30 @@ export default function Tilt3DCard({
       }}
       {...props}
     >
-      {children}
+      {/* Dynamic 21st.dev Holographic Rim Light Layer */}
+      {holographic && (
+        <div
+          ref={holoRef}
+          className="tilt-holo-rim"
+          style={{
+            position: 'absolute',
+            inset: '-1px',
+            pointerEvents: 'none',
+            borderRadius: 'inherit',
+            opacity: 0,
+            transition: 'opacity 0.35s ease',
+            zIndex: 1,
+            filter: 'blur(2px)',
+          }}
+        />
+      )}
 
-      {/* Dynamic Cursor Light Glare Layer (Direct DOM) */}
+      {/* Main Card Children with 3D Depth */}
+      <div className="tilt-inner-content" style={{ transformStyle: 'preserve-3d', position: 'relative', zIndex: 2 }}>
+        {children}
+      </div>
+
+      {/* Dynamic Liquid Cursor Glare Layer */}
       {glare && (
         <div
           ref={glareRef}
@@ -109,7 +149,7 @@ export default function Tilt3DCard({
             pointerEvents: 'none',
             borderRadius: 'inherit',
             opacity: 0,
-            transition: 'opacity 0.3s ease',
+            transition: 'opacity 0.35s ease',
             zIndex: 10,
           }}
         />

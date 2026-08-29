@@ -286,10 +286,26 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
         {step === 5 && (
           <div className="ai-step-body">
             {isGenerating ? (
-              <div className="ai-loading-box">
-                <div className="spinner-glow"></div>
-                <h3>Synthesizing Your Custom Itinerary...</h3>
-                <p>Analyzing weather, flight routes, 5-star hotel availability & private chauffeurs for {landscape}.</p>
+              <div className="ai-loading-box 3d-concierge-loading">
+                {/* 3D Map Unfolding & Route Tracer Artifact */}
+                <div className="concierge-3d-map-card">
+                  <div className="map-grid-mesh"></div>
+                  <div className="compass-calculating-spinner">
+                    <Compass size={38} className="text-amber-spinner" />
+                    <div className="pulse-radar-ring"></div>
+                  </div>
+                  <svg className="map-tracer-svg" viewBox="0 0 200 80">
+                    <path d="M 20,60 Q 100,10 180,40" fill="none" stroke="#FF892F" strokeWidth="2.5" strokeDasharray="6 4" className="ember-tracer-line" />
+                    <circle cx="20" cy="60" r="4" fill="#DAF561" />
+                    <circle cx="180" cy="40" r="5" fill="#6FE6FC" />
+                  </svg>
+                </div>
+
+                <div className="concierge-status-block">
+                  <span className="badge badge-amber"><Sparkles size={13} /> 3D AI Concierge Processing</span>
+                  <h3 className="loading-headline">Synthesizing Your Bespoke Itinerary...</h3>
+                  <p className="loading-subline">Calculating flight corridors, auditing 5-star boutique stays & locking private chauffeur availability for <strong>{landscape}</strong>.</p>
+                </div>
               </div>
             ) : generatedResult ? (
               <div className="ai-result-box">
@@ -572,13 +588,87 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
           gap: 1rem;
         }
 
-        .spinner-glow {
-          width: 56px;
-          height: 56px;
-          border: 4px solid rgba(139, 92, 246, 0.2);
-          border-top-color: #EC4899;
+        /* 3D Concierge Loading Experience */
+        .ai-loading-box.3d-concierge-loading {
+          padding: 2.5rem 1.5rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 1.25rem;
+        }
+
+        .concierge-3d-map-card {
+          position: relative;
+          width: 240px;
+          height: 120px;
+          border-radius: 16px;
+          background: linear-gradient(135deg, rgba(0, 29, 81, 0.85), rgba(0, 18, 51, 0.95));
+          border: 1.5px solid rgba(255, 137, 47, 0.45);
+          box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 24px rgba(255, 137, 47, 0.2);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          perspective: 800px;
+          transform: perspective(600px) rotateX(15deg);
+          overflow: hidden;
+        }
+
+        .map-grid-mesh {
+          position: absolute;
+          inset: 0;
+          background-size: 20px 20px;
+          background-image: 
+            linear-gradient(to right, rgba(111, 230, 252, 0.1) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(111, 230, 252, 0.1) 1px, transparent 1px);
+        }
+
+        .compass-calculating-spinner {
+          position: relative;
+          z-index: 3;
+          animation: spin 6s linear infinite;
+        }
+
+        .text-amber-spinner {
+          color: #FF892F;
+          filter: drop-shadow(0 0 10px #FF892F);
+        }
+
+        .pulse-radar-ring {
+          position: absolute;
+          inset: -12px;
           border-radius: 50%;
-          animation: spin 1s linear infinite;
+          border: 1.5px solid rgba(218, 245, 97, 0.4);
+          animation: pulse 1.8s infinite;
+        }
+
+        .map-tracer-svg {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 2;
+        }
+
+        .ember-tracer-line {
+          animation: emberRouteFlow 2s ease-in-out infinite alternate;
+        }
+
+        .concierge-status-block {
+          max-width: 480px;
+        }
+
+        .loading-headline {
+          font-family: var(--font-serif);
+          font-size: 1.35rem;
+          color: #F9FBE7;
+          margin: 0.5rem 0 0.25rem 0;
+        }
+
+        .loading-subline {
+          font-size: 0.84rem;
+          color: #CBD5E1;
+          line-height: 1.45;
         }
 
         @keyframes spin {
