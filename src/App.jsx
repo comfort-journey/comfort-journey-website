@@ -129,7 +129,6 @@ export default function App() {
                 setTierCompareTour(tour);
                 setIsTierCompareOpen(true);
               }}
-              onOpenReadiness={(dest) => setReadinessDestKey(dest)}
             />
           )}
 

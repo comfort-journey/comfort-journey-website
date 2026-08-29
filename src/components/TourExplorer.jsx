@@ -125,29 +125,6 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
             100% Bespoke Itineraries with 5-Star Accommodations, Private Chauffeurs & 24/7 Personal VIP Concierge.
           </p>
 
-          {/* Quick Hub Tools Bar */}
-          <div className="explorer-quick-tools-strip">
-            {onOpenDNAQuiz && (
-              <button type="button" className="tool-pill-btn dna-pill" onClick={onOpenDNAQuiz}>
-                <Compass size={14} />
-                <span>Travel Style DNA Quiz (60s)</span>
-              </button>
-            )}
-
-            {onOpenTierCompare && (
-              <button type="button" className="tool-pill-btn tier-pill" onClick={() => onOpenTierCompare(null)}>
-                <Scale size={14} />
-                <span>Package Tiers Comparison (Standard vs VIP)</span>
-              </button>
-            )}
-
-            {onOpenReadiness && (
-              <button type="button" className="tool-pill-btn guide-pill" onClick={() => onOpenReadiness('kashmir')}>
-                <ShieldCheck size={14} />
-                <span>Destination Readiness Guides</span>
-              </button>
-            )}
-          </div>
         </div>
 
         {/* Dynamic Destination Filter Status Banner */}

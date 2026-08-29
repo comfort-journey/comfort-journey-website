@@ -63,17 +63,6 @@ Please share customized availability and booking details!`);
                 <span>Compare Tiers (Standard / Premium / VIP)</span>
               </button>
             )}
-
-            {onOpenReadiness && (
-              <button 
-                type="button" 
-                className="itin-hub-btn"
-                onClick={() => onOpenReadiness(destKey)}
-              >
-                <ShieldCheck size={14} className="text-emerald" />
-                <span>Destination Readiness & Visa Guide</span>
-              </button>
-            )}
           </div>
 
           {/* Highlights & Inclusions Strip */}
