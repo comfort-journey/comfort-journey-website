@@ -7,7 +7,7 @@ import Tilt3DCard from './animations/Tilt3DCard';
 import GoldSealStamp from './animations/GoldSealStamp';
 import { useParticleBurst } from '../hooks/useParticleBurst';
 
-export default function TourExplorer({ searchFilters, onSelectItinerary, onBookNow, onOpenAIPlanner, onOpenDNAQuiz, onOpenTierCompare, onOpenReadiness }) {
+export default function TourExplorer({ searchFilters, onSelectItinerary, onBookNow, onOpenAIPlanner, onOpenTierCompare }) {
   const { formatPrice } = useCurrency();
   const { toggleWishlist, isInWishlist, toggleCompare, isComparing } = useWishlistCompare();
   const { triggerBurst } = useParticleBurst();

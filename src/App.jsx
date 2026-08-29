@@ -10,9 +10,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import StatsBar from './components/StatsBar';
 import TourExplorer from './components/TourExplorer';
-import TravelStyleDNASection from './components/TravelStyleDNASection';
 import TripCustomizerSection from './components/TripCustomizerSection';
-import DestinationReadinessSection from './components/DestinationReadinessSection';
 import GoogleReviewsSection from './components/GoogleReviewsSection';
 import TravelStoriesSection from './components/TravelStoriesSection';
 import ServicesSection from './components/ServicesSection';
@@ -23,9 +21,7 @@ import Footer from './components/Footer';
 import ItineraryModal from './components/ItineraryModal';
 import QuickBookingModal from './components/QuickBookingModal';
 import AITripPlannerModal from './components/AITripPlannerModal';
-import TravelStyleDNAQuizModal from './components/TravelStyleDNAQuizModal';
 import PackageTierCompareModal from './components/PackageTierCompareModal';
-import DestinationReadinessModal from './components/DestinationReadinessModal';
 import WishlistDrawer from './components/WishlistDrawer';
 import CompareModal from './components/CompareModal';
 import PolicyModal from './components/PolicyModal';
@@ -42,10 +38,8 @@ export default function App() {
   const [selectedBookingTour, setSelectedBookingTour] = useState(null);
   const [isQuickQuoteOpen, setIsQuickQuoteOpen] = useState(false);
   const [isAIPlannerOpen, setIsAIPlannerOpen] = useState(false);
-  const [isDNAQuizOpen, setIsDNAQuizOpen] = useState(false);
   const [tierCompareTour, setTierCompareTour] = useState(null);
   const [isTierCompareOpen, setIsTierCompareOpen] = useState(false);
-  const [readinessDestKey, setReadinessDestKey] = useState(null);
   const [isAdminCMSOpen, setIsAdminCMSOpen] = useState(false);
   const [policyModalType, setPolicyModalType] = useState(null); // 'cancellation' | 'privacy' | 'terms' | null
 
@@ -65,7 +59,6 @@ export default function App() {
               onOpenQuote={() => setIsQuickQuoteOpen(true)} 
               onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
               onOpenAdmin={() => setIsAdminCMSOpen(true)}
-              onOpenDNAQuiz={() => setIsDNAQuizOpen(true)}
             />
 
             {/* 2. Next-Gen Cinematic Hero ("YOUR JOURNEY YOUR COMFORT") with Vanta Sky Canvas */}
@@ -83,27 +76,14 @@ export default function App() {
               onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
               onBookNow={(tour) => setSelectedBookingTour(tour)}
               onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
-              onOpenDNAQuiz={() => setIsDNAQuizOpen(true)}
               onOpenTierCompare={(tour) => {
                 setTierCompareTour(tour);
                 setIsTierCompareOpen(true);
               }}
-              onOpenReadiness={(dest) => setReadinessDestKey(dest || 'kashmir')}
             />
 
-            {/* 5. On-Page Interactive Travel Style DNA Discovery Engine */}
-            <TravelStyleDNASection 
-              onSelectTour={(tour) => setSelectedItineraryTour(tour)}
-              onOpenQuote={() => setIsQuickQuoteOpen(true)}
-            />
-
-            {/* 6. Interactive Trip Studio & Live Price Estimator */}
+            {/* 5. Interactive Trip Studio & Live Price Estimator */}
             <TripCustomizerSection />
-
-            {/* 7. Destination Readiness & Practical Travel Intelligence Hub */}
-            <DestinationReadinessSection 
-              onOpenQuote={() => setIsQuickQuoteOpen(true)}
-            />
 
             {/* 10. Dedicated Verified Google Reviews Section (4.8★ Rating / 85+ Real Reviews) */}
             <GoogleReviewsSection 
@@ -180,20 +160,6 @@ export default function App() {
             />
           )}
 
-          {/* Travel Style DNA Discovery Quiz Modal */}
-          <TravelStyleDNAQuizModal
-            isOpen={isDNAQuizOpen}
-            onClose={() => setIsDNAQuizOpen(false)}
-            onSelectTour={(tour) => {
-              setIsDNAQuizOpen(false);
-              setSelectedItineraryTour(tour);
-            }}
-            onOpenQuote={() => {
-              setIsDNAQuizOpen(false);
-              setIsQuickQuoteOpen(true);
-            }}
-          />
-
           {/* Package Tier Comparison Modal (Standard vs Premium vs VIP) */}
           <PackageTierCompareModal
             isOpen={isTierCompareOpen}
@@ -206,13 +172,6 @@ export default function App() {
               setIsTierCompareOpen(false);
               setIsQuickQuoteOpen(true);
             }}
-          />
-
-          {/* Destination Readiness & Advisory Modal */}
-          <DestinationReadinessModal
-            isOpen={Boolean(readinessDestKey)}
-            onClose={() => setReadinessDestKey(null)}
-            initialDestination={readinessDestKey || 'kashmir'}
           />
 
           {/* Saved Wishlist Drawer */}

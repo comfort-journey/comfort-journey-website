@@ -3,7 +3,7 @@ import { Phone, MessageCircle, Menu, X, Sparkles, ChevronDown, Globe, Heart, Sca
 import { useCurrency } from '../context/CurrencyContext';
 import { useWishlistCompare } from '../context/WishlistCompareContext';
 
-export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOpenDNAQuiz }) {
+export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
@@ -68,19 +68,6 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
 
         {/* Utility & Actions */}
         <div className="nav-actions">
-          {/* Travel Style DNA Trigger */}
-          {onOpenDNAQuiz && (
-            <button
-              type="button"
-              className="nav-dna-btn"
-              onClick={onOpenDNAQuiz}
-              title="Take 60s Travel Style DNA Quiz"
-            >
-              <span className="dna-icon-spark">🧭</span>
-              <span className="dna-btn-text">Trip DNA</span>
-            </button>
-          )}
-
           {/* Wishlist Button with Badge */}
           <button 
             type="button" 
