@@ -226,6 +226,39 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           </button>
         </div>
 
+        {/* "How Do You Want to Travel?" 3 Master Discovery Portals */}
+        <div className="hero-travel-portals-wrapper">
+          <span className="portals-title-kicker">✨ CHOOSE HOW YOU WANT TO EXPLORE:</span>
+          <div className="hero-portals-grid">
+            <a href="#continents-map-section" className="hero-portal-card map-portal">
+              <span className="portal-icon">🗺️</span>
+              <div className="portal-text">
+                <strong>7 Continents World Map</strong>
+                <span>Drill down by Continent & Cities</span>
+              </div>
+              <ChevronRight size={16} className="portal-arrow" />
+            </a>
+
+            <a href="#seasonal-vacations-section" className="hero-portal-card season-portal">
+              <span className="portal-icon">🌦️</span>
+              <div className="portal-text">
+                <strong>By Weather & Best Season</strong>
+                <span>Summer, Winter, Monsoon & Autumn</span>
+              </div>
+              <ChevronRight size={16} className="portal-arrow" />
+            </a>
+
+            <a href="#traveler-styles-section" className="hero-portal-card styles-portal">
+              <span className="portal-icon">👥</span>
+              <div className="portal-text">
+                <strong>By Traveler Style</strong>
+                <span>Solo, Couple, Family & Corporate</span>
+              </div>
+              <ChevronRight size={16} className="portal-arrow" />
+            </a>
+          </div>
+        </div>
+
         {/* Slide Indicators & Quick Search Tags */}
         <div className="hero-footer-bar">
           {/* Quick Trending Tags */}
@@ -703,6 +736,84 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           .slide-dots-group {
             display: none;
           }
+        }
+
+        .hero-travel-portals-wrapper {
+          margin-top: 1.75rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.75rem;
+          width: 100%;
+        }
+
+        .portals-title-kicker {
+          font-size: 0.75rem;
+          font-weight: 800;
+          color: #FF892F;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+
+        .hero-portals-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+          gap: 1rem;
+          width: 100%;
+          max-width: 980px;
+        }
+
+        .hero-portal-card {
+          display: flex;
+          align-items: center;
+          gap: 0.85rem;
+          padding: 0.85rem 1.15rem;
+          border-radius: 18px;
+          background: rgba(0, 18, 51, 0.75);
+          backdrop-filter: blur(12px);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: #E2E8F0;
+          text-decoration: none;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-portal-card:hover {
+          transform: translateY(-4px);
+          border-color: #FF892F;
+          box-shadow: 0 12px 30px rgba(255, 137, 47, 0.35);
+          background: rgba(0, 29, 81, 0.9);
+        }
+
+        .portal-icon {
+          font-size: 1.65rem;
+          flex-shrink: 0;
+        }
+
+        .portal-text {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          text-align: left;
+        }
+
+        .portal-text strong {
+          font-size: 0.9rem;
+          color: #FFFFFF;
+        }
+
+        .portal-text span {
+          font-size: 0.72rem;
+          color: #94A3B8;
+        }
+
+        .portal-arrow {
+          color: #FF892F;
+          transition: transform 0.2s ease;
+        }
+
+        .hero-portal-card:hover .portal-arrow {
+          transform: translateX(3px);
         }
 
         @media (max-width: 768px) {
