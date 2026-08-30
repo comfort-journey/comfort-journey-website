@@ -8,9 +8,6 @@ import ZajnoMagneticCursor from './components/animations/ZajnoMagneticCursor';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import StatsBar from './components/StatsBar';
-import ContinentMapExplorer from './components/ContinentMapExplorer';
-import SeasonalVacationsSection from './components/SeasonalVacationsSection';
-import TravelerStylesSection from './components/TravelerStylesSection';
 import TourExplorer from './components/TourExplorer';
 import TripCustomizerSection from './components/TripCustomizerSection';
 import GoogleReviewsSection from './components/GoogleReviewsSection';
@@ -97,36 +94,18 @@ export default function App() {
             ) : (
               /* HOMEPAGE VIEW */
               <>
-                {/* 2. Next-Gen Cinematic Hero ("YOUR JOURNEY YOUR COMFORT") with Vanta Sky Canvas & 3 Discovery Portals */}
+                {/* 2. In-Place Interactive Hero Studio: "How Do You Want to Travel?" (7 Continents Map, Weather/Season, Travel Styles) */}
                 <Hero 
-                  onSearch={(filters) => setSearchFilters(filters)} 
+                  onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
+                  onBookNow={(tour) => setSelectedBookingTour(tour)}
                   onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+                  onOpenQuote={() => setIsQuickQuoteOpen(true)}
                 />
 
                 {/* 3. Trust & Experience Stats Bar with Anime.js Elastic Counters */}
                 <StatsBar />
 
-                {/* 4. Dedicated 7 Continents Interactive World Map & City Explorer */}
-                <ContinentMapExplorer 
-                  onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
-                  onBookNow={(tour) => setSelectedBookingTour(tour)}
-                  onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
-                />
-
-                {/* 5. Dedicated Four-Season & Weather Vacation Curator */}
-                <SeasonalVacationsSection 
-                  onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
-                  onBookNow={(tour) => setSelectedBookingTour(tour)}
-                />
-
-                {/* 6. Dedicated Traveler Styles (Solo, Couple, Family, Group) */}
-                <TravelerStylesSection 
-                  onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
-                  onBookNow={(tour) => setSelectedBookingTour(tour)}
-                  onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
-                />
-
-                {/* 7. Handcrafted Luxury Tour Packages Explorer with 3D Card Tilt & Seasonal Radar */}
+                {/* 4. Handcrafted Luxury Tour Packages Catalog Explorer with 3D Card Tilt & Seasonal Radar */}
                 <TourExplorer 
                   searchFilters={searchFilters} 
                   onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}

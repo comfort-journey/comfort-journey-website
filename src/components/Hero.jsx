@@ -1,49 +1,94 @@
 import React, { useState, useEffect } from 'react';
-import { Search, MapPin, Users, ShieldCheck, Sparkles, Compass, Calendar, ChevronRight, Award, Flame, Radio, ExternalLink } from 'lucide-react';
-import { HERO_SLIDES, STATS_DATA } from '../data/toursData';
+import { 
+  Globe, Sun, Users, Sparkles, MapPin, Calendar, Compass, 
+  ChevronRight, ArrowRight, CheckCircle2, Heart, ShieldCheck, 
+  MessageCircle, ExternalLink, Flame, ArrowLeft
+} from 'lucide-react';
+import { CONTINENTS_TREE_DATA, SEASONS_DATA, TRAVELER_STYLES_DATA } from '../data/continentHierarchyData';
+import { TOURS_DATA, HERO_SLIDES } from '../data/toursData';
 import { useCurrency } from '../context/CurrencyContext';
-import { useLiveWeather } from '../hooks/useLiveWeather';
 import VantaTravelSkyCanvas from './animations/VantaTravelSkyCanvas';
-import KineticHeading from './animations/KineticHeading';
-import InteractiveCompassSVG from './animations/InteractiveCompassSVG';
-import { useParticleBurst } from '../hooks/useParticleBurst';
 
-export default function Hero({ onSearch, onOpenAIPlanner }) {
+export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, onOpenQuote }) {
   const { formatPrice } = useCurrency();
-  const { triggerBurst } = useParticleBurst();
-  const { weatherList, isLive } = useLiveWeather();
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [destination, setDestination] = useState('');
-  const [category, setCategory] = useState('All');
-  const [durationFilter, setDurationFilter] = useState('All');
-  const [guestsCount, setGuestsCount] = useState('2 Guests (Couple)');
 
-  // Auto-advance hero slides
+  // Background slider index
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Master Discovery Mode: 'continent' | 'weather' | 'style'
+  const [discoveryMode, setDiscoveryMode] = useState('continent');
+
+  // Continents drill-down state (all in-place!)
+  const [activeContinentId, setActiveContinentId] = useState('asia');
+  const [activeCountryId, setActiveCountryId] = useState('india');
+
+  // Weather & Style filter state
+  const [activeSeasonId, setActiveSeasonId] = useState('summer');
+  const [activeStyleId, setActiveStyleId] = useState('couple');
+
+  // Auto-advance background slides gently
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 6500);
+    }, 7000);
     return () => clearInterval(timer);
   }, []);
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    triggerBurst(e, { count: 20 });
-    onSearch({ destination, category, duration: durationFilter });
-    const target = document.getElementById('tours');
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+  const activeContinent = CONTINENTS_TREE_DATA.find(c => c.id === activeContinentId) || CONTINENTS_TREE_DATA[0];
+  const activeCountry = activeContinent.countries.find(c => c.id === activeCountryId) || activeContinent.countries[0];
+
+  const handleContinentClick = (continentId) => {
+    setActiveContinentId(continentId);
+    const continent = CONTINENTS_TREE_DATA.find(c => c.id === continentId);
+    if (continent && continent.countries.length > 0) {
+      setActiveCountryId(continent.countries[0].id);
     }
   };
 
-  const slide = HERO_SLIDES[currentSlide];
+  const getTourObject = (tourId) => {
+    return TOURS_DATA.find(t => t.id === tourId) || TOURS_DATA[0];
+  };
+
+  // Weather seasonal tours
+  const getSeasonalTours = () => {
+    switch (activeSeasonId) {
+      case 'summer':
+        return TOURS_DATA.filter(t => t.id.includes('swiss') || t.id.includes('bali') || t.id.includes('amalfi') || t.id.includes('ladakh'));
+      case 'winter':
+        return TOURS_DATA.filter(t => t.id.includes('kashmir') || t.id.includes('iceland') || t.id.includes('dubai') || t.id.includes('rajasthan'));
+      case 'monsoon':
+        return TOURS_DATA.filter(t => t.id.includes('kerala') || t.id.includes('andaman') || t.vibeTags?.includes('Serene Backwaters'));
+      case 'autumn':
+        return TOURS_DATA.filter(t => t.id.includes('rajasthan') || t.id.includes('char-dham') || t.id.includes('dubai'));
+      case 'spring':
+        return TOURS_DATA.filter(t => t.id.includes('kashmir') || t.id.includes('swiss') || t.id.includes('andaman'));
+      default:
+        return TOURS_DATA.slice(0, 3);
+    }
+  };
+
+  // Traveler style tours
+  const getStyleTours = () => {
+    switch (activeStyleId) {
+      case 'couple':
+        return TOURS_DATA.filter(t => t.category?.includes('Honeymoon') || t.id.includes('kashmir') || t.id.includes('bali') || t.id.includes('amalfi'));
+      case 'family':
+        return TOURS_DATA.filter(t => t.category?.includes('Family') || t.id.includes('andaman') || t.id.includes('char-dham') || t.id.includes('dubai'));
+      case 'solo':
+        return TOURS_DATA.filter(t => t.category?.includes('Adventure') || t.id.includes('iceland') || t.id.includes('kashmir'));
+      case 'group':
+        return TOURS_DATA.filter(t => t.id.includes('rajasthan') || t.id.includes('char-dham') || t.id.includes('dubai'));
+      default:
+        return TOURS_DATA.slice(0, 3);
+    }
+  };
 
   return (
     <section id="hero" className="hero-root">
-      {/* 1. Vanta.js-Inspired Flocking Travel Birds & Sky Jet Streams Canvas */}
-      <VantaTravelSkyCanvas birdCount={26} jetStreamCount={4} opacity={0.7} />
+      {/* Flocking Travel Birds & Sky Jet Streams */}
+      <VantaTravelSkyCanvas birdCount={24} jetStreamCount={4} opacity={0.65} />
 
-      {/* Ambient Background with Ken Burns Slow Motion */}
+      {/* Ambient Ken Burns Background */}
       <div className="hero-bg-wrapper">
         {HERO_SLIDES.map((s, idx) => (
           <div
@@ -52,262 +97,331 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
             style={{ backgroundImage: `url(${s.image})` }}
           />
         ))}
-        <div className="hero-gradient-overlay"></div>
+        <div className="hero-gradient-overlay" />
       </div>
 
       <div className="container hero-content-container">
-        {/* Clean Brand Wordmark in Plain Beige */}
+        {/* Brand Wordmark */}
         <div className="hero-brand-wordmark">
           <span className="brand-plain-beige">COMFORT JOURNEY</span>
           <span className="brand-dot">•</span>
-          <span className="brand-est">SINCE 1992</span>
+          <span className="brand-est">EST. 1992</span>
         </div>
 
-        {/* Minimal Clean Headline */}
+        {/* Headline */}
         <div className="hero-headline-block">
           <h1 className="hero-title">
             Your Journey • <span className="text-orange-glow">Your Comfort</span>
           </h1>
-
           <p className="hero-subline">
-            Handcrafted private tour packages for 2,000+ destinations worldwide. Handpicked 4 & 5-star stays, private chauffeurs, and 24/7 dedicated concierge.
+            Handcrafted luxury vacations across 2,000+ destinations worldwide with verified 5-star stays, private chauffeurs, and 24/7 dedicated concierge.
           </p>
         </div>
 
-        {/* Next-Gen Glass Luxury Search Dock */}
-        <form className="glass-panel hero-search-dock" onSubmit={handleSearchSubmit}>
-          {/* Destination Field */}
-          <div className="dock-field">
-            <div className="field-icon-box">
-              <MapPin size={20} className="text-amber" />
-            </div>
-            <div className="field-inputs">
-              <label>Where to?</label>
-              <input
-                type="text"
-                placeholder="e.g. Kashmir, Bali, Swiss Alps, Iceland"
-                value={destination}
-                onChange={(e) => setDestination(e.target.value)}
-              />
-            </div>
+        {/* =========================================================================
+            PROMINENT QUESTION & 3 MASTER TRAVEL GATEWAYS (IN-PLACE EXPLORATION)
+            ========================================================================= */}
+        <div className="hero-question-container">
+          <div className="question-badge-row">
+            <span className="question-icon-spark">✨</span>
+            <h3 className="question-text">How Do You Want to Travel?</h3>
           </div>
 
-          <div className="dock-divider"></div>
-
-          {/* Experience Style */}
-          <div className="dock-field">
-            <div className="field-icon-box">
-              <Compass size={20} className="text-amber" />
-            </div>
-            <div className="field-inputs">
-              <label>Experience Style</label>
-              <select value={category} onChange={(e) => setCategory(e.target.value)}>
-                <option value="All">All Experiences</option>
-                <option value="Honeymoon & Couple">💑 Honeymoon & Couple</option>
-                <option value="Family Expedition">👨‍👩‍👧‍👦 Family Expedition</option>
-                <option value="Adrenaline & Adventure">🧗 Adrenaline & Adventure</option>
-                <option value="International Signature">✈️ International Signature</option>
-                <option value="Sacred Pilgrimage">🕉️ Sacred Char Dham</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="dock-divider"></div>
-
-          {/* Duration Selector */}
-          <div className="dock-field">
-            <div className="field-icon-box">
-              <Calendar size={20} className="text-amber" />
-            </div>
-            <div className="field-inputs">
-              <label>Duration</label>
-              <select value={durationFilter} onChange={(e) => setDurationFilter(e.target.value)}>
-                <option value="All">Any Duration</option>
-                <option value="3-5">3–5 Days (Quick Getaway)</option>
-                <option value="6-9">6–9 Days (Most Popular)</option>
-                <option value="10-14">10–14 Days (Grand Tour)</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="dock-divider"></div>
-
-          {/* Guests Count Selector */}
-          <div className="dock-field">
-            <div className="field-icon-box">
-              <Users size={20} className="text-amber" />
-            </div>
-            <div className="field-inputs">
-              <label>Travelers</label>
-              <select value={guestsCount} onChange={(e) => setGuestsCount(e.target.value)}>
-                <option value="2 Guests (Couple)">2 Guests (Couple)</option>
-                <option value="3-5 Guests (Family)">3 - 5 Guests (Family)</option>
-                <option value="6+ Guests (Group)">6+ Guests (Group)</option>
-                <option value="1 Guest (Solo)">1 Guest (Solo)</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Actions: Search & AI Planner */}
-          <div className="dock-actions">
-            <button type="submit" className="btn-primary search-submit-btn">
-              <Search size={18} />
-              <span>Explore Tours</span>
-            </button>
-            <button 
-              type="button" 
-              className="btn-ai-glow ai-dock-btn"
-              onClick={(e) => {
-                triggerBurst(e, { count: 28, colors: ['#6FE6FC', '#FF892F', '#DAF561'] });
-                onOpenAIPlanner();
-              }}
-              title="Plan custom trip with AI"
+          {/* 3 Master Modes */}
+          <div className="master-mode-tabs">
+            <button
+              type="button"
+              className={`mode-tab-btn ${discoveryMode === 'continent' ? 'active' : ''}`}
+              onClick={() => setDiscoveryMode('continent')}
             >
-              <Sparkles size={18} />
-              <span>AI Trip Planner</span>
+              <Globe size={18} />
+              <span>🗺️ 7 Continents World Map</span>
+            </button>
+
+            <button
+              type="button"
+              className={`mode-tab-btn ${discoveryMode === 'weather' ? 'active' : ''}`}
+              onClick={() => setDiscoveryMode('weather')}
+            >
+              <Sun size={18} />
+              <span>🌦️ By Weather & Season</span>
+            </button>
+
+            <button
+              type="button"
+              className={`mode-tab-btn ${discoveryMode === 'style' ? 'active' : ''}`}
+              onClick={() => setDiscoveryMode('style')}
+            >
+              <Users size={18} />
+              <span>👥 By Travel Style (Solo, Couple, Family, Group)</span>
             </button>
           </div>
-        </form>
-
-        {/* Quick One-Click Instant Search Pill Bar */}
-        <div className="conversational-hint-strip">
-          <span className="hint-pill-title">✨ Popular Instant Searches:</span>
-          <button 
-            type="button" 
-            className="conv-chip"
-            onClick={() => {
-              setDestination('Bali');
-              setCategory('Honeymoon & Couple');
-              setDurationFilter('6-9');
-              onSearch({ destination: 'Bali', category: 'Honeymoon & Couple', duration: '6-9' });
-              const target = document.getElementById('tours');
-              if (target) target.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            <span>🏖️ Bali 7-Day Villa</span>
-          </button>
-          <button 
-            type="button" 
-            className="conv-chip"
-            onClick={() => {
-              setDestination('Kashmir');
-              setCategory('Honeymoon & Couple');
-              onSearch({ destination: 'Kashmir', category: 'Honeymoon & Couple' });
-              const target = document.getElementById('tours');
-              if (target) target.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            <span>🏔️ Kashmir Snow & Houseboat</span>
-          </button>
-          <button 
-            type="button" 
-            className="conv-chip"
-            onClick={() => {
-              setDestination('Swiss');
-              setCategory('International Signature');
-              onSearch({ destination: 'Swiss', category: 'International Signature' });
-              const target = document.getElementById('tours');
-              if (target) target.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            <span>✈️ Swiss Alps & Titlis Pass</span>
-          </button>
-          <button 
-            type="button" 
-            className="conv-chip"
-            onClick={() => {
-              setDestination('Maldives');
-              onSearch({ destination: 'Maldives', category: 'All' });
-              const target = document.getElementById('tours');
-              if (target) target.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            <span>🏝️ Maldives Overwater</span>
-          </button>
         </div>
 
-        {/* "How Do You Want to Travel?" 3 Master Discovery Portals */}
-        <div className="hero-travel-portals-wrapper">
-          <span className="portals-title-kicker">✨ CHOOSE HOW YOU WANT TO EXPLORE:</span>
-          <div className="hero-portals-grid">
-            <a href="#continents-map-section" className="hero-portal-card map-portal">
-              <span className="portal-icon">🗺️</span>
-              <div className="portal-text">
-                <strong>7 Continents World Map</strong>
-                <span>Drill down by Continent & Cities</span>
+        {/* =========================================================================
+            IN-PLACE INTERACTIVE TRAVELER STAGE (SAME PLACE RESULTS - NO LENGTHY TABLES!)
+            ========================================================================= */}
+        <div className="hero-interactive-stage glass-card">
+          {/* MODE 1: 7 CONTINENTS MAP & CITY EXPLORER */}
+          {discoveryMode === 'continent' && (
+            <div className="stage-content-block animate-fade-in">
+              {/* Level 1: Continents Deck */}
+              <div className="continents-deck-strip">
+                {CONTINENTS_TREE_DATA.map((continent) => (
+                  <div
+                    key={continent.id}
+                    className={`continent-chip-card ${activeContinentId === continent.id ? 'active' : ''}`}
+                    onClick={() => handleContinentClick(continent.id)}
+                  >
+                    <span className="continent-icon-glow">{continent.icon}</span>
+                    <div className="continent-chip-meta">
+                      <strong className="c-title">{continent.name}</strong>
+                      <span className="c-subtext">{continent.countries.length} Countries</span>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <ChevronRight size={16} className="portal-arrow" />
-            </a>
 
-            <a href="#seasonal-vacations-section" className="hero-portal-card season-portal">
-              <span className="portal-icon">🌦️</span>
-              <div className="portal-text">
-                <strong>By Weather & Best Season</strong>
-                <span>Summer, Winter, Monsoon & Autumn</span>
+              {/* Level 2: In-Place Country Selector Pills */}
+              <div className="country-pills-bar">
+                <span className="pills-label">Countries in {activeContinent.name}:</span>
+                <div className="pills-scroll-row">
+                  {activeContinent.countries.map((country) => (
+                    <button
+                      key={country.id}
+                      type="button"
+                      className={`country-pill-btn ${activeCountryId === country.id ? 'active' : ''}`}
+                      onClick={() => setActiveCountryId(country.id)}
+                    >
+                      <span className="flag-emoji">{country.flag}</span>
+                      <span>{country.name}</span>
+                      <span className="badge-count">{country.cities.length}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
-              <ChevronRight size={16} className="portal-arrow" />
-            </a>
 
-            <a href="#traveler-styles-section" className="hero-portal-card styles-portal">
-              <span className="portal-icon">👥</span>
-              <div className="portal-text">
-                <strong>By Traveler Style</strong>
-                <span>Solo, Couple, Family & Corporate</span>
+              {/* Level 3: In-Place Travel Cities Cards (Direct Results Right Here!) */}
+              <div className="stage-cities-grid">
+                {activeCountry.cities.map((city) => {
+                  const tour = getTourObject(city.tourId);
+
+                  return (
+                    <div key={city.id} className="city-in-place-card glass-card">
+                      <div className="c-card-top-header">
+                        <div className="c-city-name-lockup">
+                          <span className="city-marker">📍</span>
+                          <div>
+                            <h4 className="city-headline">{city.name}</h4>
+                            <span className="city-state-sub">{city.state}</span>
+                          </div>
+                        </div>
+                        <span className="weather-pill-tag">{city.weatherTag}</span>
+                      </div>
+
+                      <div className="c-theme-badge">
+                        <span>{city.type}</span>
+                      </div>
+
+                      <ul className="c-highlights-list">
+                        {city.highlights.map((h, i) => (
+                          <li key={i}>
+                            <CheckCircle2 size={13} className="text-emerald" />
+                            <span>{h}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div className="c-card-footer-action">
+                        <div>
+                          <span className="start-lbl">From</span>
+                          <strong className="price-bold font-editorial">{formatPrice(city.startingPrice)}</strong>
+                          <span className="price-unit-tag">/ person • {city.duration}</span>
+                        </div>
+
+                        <div className="action-buttons-inline">
+                          <button
+                            type="button"
+                            className="btn-itinerary-inline"
+                            onClick={() => onSelectItinerary(tour)}
+                          >
+                            <span>Itinerary</span>
+                            <ArrowRight size={13} />
+                          </button>
+
+                          <button
+                            type="button"
+                            className="btn-book-inline"
+                            onClick={() => onBookNow(tour)}
+                          >
+                            <span>Book</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-              <ChevronRight size={16} className="portal-arrow" />
-            </a>
-          </div>
-        </div>
+            </div>
+          )}
 
-        {/* Slide Indicators & Quick Search Tags */}
-        <div className="hero-footer-bar">
-          {/* Quick Trending Tags */}
-          <div className="quick-tags-group">
-            <span className="tags-label">Trending Now:</span>
-            {['Kashmir', 'Swiss Alps', 'Bali', 'Dubai', 'Iceland', 'Kenya Safari', 'Andaman', 'Amalfi', 'Char Dham'].map((tag) => (
-              <button
-                key={tag}
-                type="button"
-                className="hero-tag-btn"
-                onClick={() => {
-                  setDestination(tag);
-                  onSearch({ destination: tag, category: 'All' });
-                  const target = document.getElementById('tours');
-                  if (target) target.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                {tag}
-              </button>
-            ))}
-          </div>
+          {/* MODE 2: WEATHER & FOUR-SEASON EXPLORER */}
+          {discoveryMode === 'weather' && (
+            <div className="stage-content-block animate-fade-in">
+              {/* Seasons Selector Strip */}
+              <div className="seasons-selector-bar">
+                {SEASONS_DATA.filter(s => s.id !== 'all').map((season) => (
+                  <button
+                    key={season.id}
+                    type="button"
+                    className={`season-pill-tab ${activeSeasonId === season.id ? 'active' : ''}`}
+                    onClick={() => setActiveSeasonId(season.id)}
+                  >
+                    <span className="season-icon-tag">{season.icon}</span>
+                    <div className="season-info-box">
+                      <strong>{season.label.split('(')[0]}</strong>
+                      <span className="season-temp">{season.temp}</span>
+                    </div>
+                  </button>
+                ))}
+              </div>
 
-          {/* Slide Navigation Dots */}
-          <div className="slide-dots-group">
-            {HERO_SLIDES.map((s, idx) => (
-              <button
-                key={s.id}
-                type="button"
-                className={`slide-dot-pill ${idx === currentSlide ? 'active' : ''}`}
-                onClick={() => setCurrentSlide(idx)}
-              >
-                <span className="dot-title">{s.location.split(',')[0]}</span>
-                <span className="dot-price">from {formatPrice(s.startingPrice)}</span>
-              </button>
-            ))}
-          </div>
+              {/* Season Highlight Info */}
+              {(() => {
+                const sObj = SEASONS_DATA.find(s => s.id === activeSeasonId) || SEASONS_DATA[1];
+                return (
+                  <div className="season-summary-strip">
+                    <span>✨ {sObj.desc}</span>
+                    {sObj.topDestinations && (
+                      <div className="dest-chips-row">
+                        {sObj.topDestinations.slice(0, 4).map((d, i) => (
+                          <span key={i} className="chip-item">📍 {d}</span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
+
+              {/* In-Place Seasonal Tour Cards */}
+              <div className="stage-cities-grid">
+                {getSeasonalTours().map((tour) => (
+                  <div key={tour.id} className="seasonal-stage-card glass-card">
+                    <div className="st-img-pane">
+                      <img src={tour.image} alt={tour.name} className="st-img" />
+                      <span className="st-badge">{tour.badge}</span>
+                      <span className="st-dur">⏱️ {tour.duration}</span>
+                    </div>
+                    <div className="st-body">
+                      <span className="st-country">📍 {tour.country}</span>
+                      <h4 className="st-title font-editorial">{tour.name}</h4>
+                      <div className="st-footer">
+                        <strong className="st-price gradient-text-gold">{formatPrice(tour.price)}</strong>
+                        <button
+                          type="button"
+                          className="btn-itinerary-inline"
+                          onClick={() => onSelectItinerary(tour)}
+                        >
+                          <span>View Itinerary</span>
+                          <ArrowRight size={13} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* MODE 3: TRAVELER STYLE EXPLORER (SOLO, COUPLE, FAMILY, GROUP) */}
+          {discoveryMode === 'style' && (
+            <div className="stage-content-block animate-fade-in">
+              {/* Style Selector Strip */}
+              <div className="styles-selector-bar">
+                {TRAVELER_STYLES_DATA.map((style) => (
+                  <button
+                    key={style.id}
+                    type="button"
+                    className={`style-pill-tab ${activeStyleId === style.id ? 'active' : ''}`}
+                    onClick={() => setActiveStyleId(style.id)}
+                  >
+                    <span className="style-icon-tag">{style.icon}</span>
+                    <div className="style-info-box">
+                      <strong>{style.label}</strong>
+                      <span className="style-sub">{style.perks.length} Perks</span>
+                    </div>
+                  </button>
+                ))}
+              </div>
+
+              {/* Style Perks Strip */}
+              {(() => {
+                const styleObj = TRAVELER_STYLES_DATA.find(s => s.id === activeStyleId) || TRAVELER_STYLES_DATA[0];
+                return (
+                  <div className="style-perks-banner">
+                    <div className="perks-pills-row">
+                      {styleObj.perks.map((p, i) => (
+                        <span key={i} className="perk-pill">
+                          <CheckCircle2 size={13} className="text-emerald" />
+                          <span>{p}</span>
+                        </span>
+                      ))}
+                    </div>
+                    <a
+                      href={`https://wa.me/918770403315?text=Hi%20Comfort%20Journey!%20I'm%20planning%20a%20${encodeURIComponent(styleObj.label)}%20vacation.`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-whatsapp-mini"
+                    >
+                      <MessageCircle size={14} />
+                      <span>WhatsApp {styleObj.label} Curator</span>
+                    </a>
+                  </div>
+                );
+              })()}
+
+              {/* In-Place Style Tour Cards */}
+              <div className="stage-cities-grid">
+                {getStyleTours().map((tour) => (
+                  <div key={tour.id} className="seasonal-stage-card glass-card">
+                    <div className="st-img-pane">
+                      <img src={tour.image} alt={tour.name} className="st-img" />
+                      <span className="st-badge">{tour.badge}</span>
+                      <span className="st-dur">⏱️ {tour.duration}</span>
+                    </div>
+                    <div className="st-body">
+                      <span className="st-country">📍 {tour.country} • {tour.category}</span>
+                      <h4 className="st-title font-editorial">{tour.name}</h4>
+                      <div className="st-footer">
+                        <strong className="st-price gradient-text-gold">{formatPrice(tour.price)}</strong>
+                        <button
+                          type="button"
+                          className="btn-itinerary-inline"
+                          onClick={() => onSelectItinerary(tour)}
+                        >
+                          <span>View Package</span>
+                          <ArrowRight size={13} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
+      {/* STYLES FOR HERO TRAVEL STUDIO */}
       <style>{`
         .hero-root {
           position: relative;
-          min-height: auto;
+          min-height: 100vh;
+          padding: calc(75px + 2rem) 0 3.5rem 0;
           display: flex;
           align-items: center;
-          padding: calc(75px + 1.25rem) 0 2rem 0;
+          justify-content: center;
           overflow: hidden;
-          background: #001233;
-          color: #FFFFFF;
         }
 
         .hero-bg-wrapper {
@@ -322,582 +436,644 @@ export default function Hero({ onSearch, onOpenAIPlanner }) {
           background-size: cover;
           background-position: center;
           opacity: 0;
-          transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: opacity 1.5s ease-in-out;
         }
 
         .hero-bg-slide.active {
           opacity: 1;
         }
 
+        .ken-burns {
+          animation: kenBurns 12s infinite alternate ease-in-out;
+        }
+
+        @keyframes kenBurns {
+          0% { transform: scale(1); }
+          100% { transform: scale(1.08); }
+        }
+
         .hero-gradient-overlay {
           position: absolute;
           inset: 0;
-          background: linear-gradient(180deg, 
+          background: linear-gradient(
+            180deg, 
             rgba(7, 11, 20, 0.75) 0%, 
-            rgba(7, 11, 20, 0.88) 60%, 
-            var(--cj-bg-obsidian) 100%
+            rgba(0, 18, 51, 0.88) 50%, 
+            rgba(7, 11, 20, 0.98) 100%
           );
         }
 
         .hero-content-container {
           position: relative;
-          z-index: 2;
+          z-index: 10;
           display: flex;
           flex-direction: column;
           align-items: center;
           text-align: center;
-          color: #FFFFFF;
         }
 
         .hero-brand-wordmark {
-          display: inline-flex;
+          display: flex;
           align-items: center;
-          gap: 0.65rem;
+          gap: 0.5rem;
           margin-bottom: 0.75rem;
         }
 
         .brand-plain-beige {
-          font-family: var(--font-ui, 'Outfit', sans-serif);
-          font-size: 0.88rem;
-          font-weight: 900;
-          letter-spacing: 0.14em;
+          font-family: var(--font-ui, sans-serif);
+          font-size: 0.82rem;
+          font-weight: 800;
+          letter-spacing: 0.15em;
           color: #F9FBE7;
-          text-transform: uppercase;
         }
 
         .brand-dot {
           color: #FF892F;
-          font-size: 0.85rem;
+          font-size: 0.8rem;
         }
 
         .brand-est {
-          font-family: var(--font-ui, 'Outfit', sans-serif);
-          font-size: 0.76rem;
-          font-weight: 700;
-          letter-spacing: 0.1em;
+          font-size: 0.75rem;
           color: #94A3B8;
+          font-weight: 700;
         }
 
         .hero-headline-block {
-          max-width: 900px;
-          margin-bottom: 1.5rem;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
+          max-width: 850px;
+          margin-bottom: 2rem;
         }
 
         .hero-title {
-          font-family: var(--font-serif, 'Cinzel', serif);
-          font-size: clamp(2.1rem, 4.2vw, 3.4rem);
-          line-height: 1.18;
-          font-weight: 800;
-          margin-bottom: 0.65rem;
-          letter-spacing: -0.015em;
-          color: #F9FBE7;
+          font-size: 3.6rem;
+          font-weight: 900;
+          color: #FFFFFF;
+          margin-bottom: 0.85rem;
+          line-height: 1.15;
+          letter-spacing: -0.02em;
         }
 
         .text-orange-glow {
           color: #FF892F;
-          text-shadow: 0 0 25px rgba(255, 137, 47, 0.45);
+          text-shadow: 0 0 30px rgba(255, 137, 47, 0.5);
         }
 
         .hero-subline {
-          font-family: var(--font-ui, 'Outfit', sans-serif);
-          font-size: clamp(0.92rem, 1.35vw, 1.08rem);
+          font-size: 1.15rem;
           color: #CBD5E1;
-          font-weight: 500;
-          line-height: 1.55;
-          margin-bottom: 0;
+          line-height: 1.6;
           max-width: 720px;
+          margin: 0 auto;
         }
 
-        .hero-trust-bar {
+        /* Question & Mode Tabs */
+        .hero-question-container {
+          width: 100%;
+          max-width: 960px;
+          margin-bottom: 1.5rem;
+        }
+
+        .question-badge-row {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 0.85rem;
-          flex-wrap: wrap;
-          padding: 0.4rem 1.1rem;
-          border-radius: var(--radius-full);
-          background: rgba(0, 24, 60, 0.55);
-          border: 1px solid rgba(111, 230, 252, 0.18);
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-          font-size: 0.78rem;
-          color: #E2E8F0;
+          gap: 0.45rem;
+          margin-bottom: 0.85rem;
         }
 
-        .trust-item {
+        .question-icon-spark {
+          font-size: 1.2rem;
+        }
+
+        .question-text {
+          font-size: 1.35rem;
+          font-weight: 800;
+          color: #FFFFFF;
+          margin: 0;
+          font-family: var(--font-editorial, serif);
+        }
+
+        .master-mode-tabs {
+          display: flex;
+          justify-content: center;
+          gap: 0.75rem;
+          flex-wrap: wrap;
+        }
+
+        .mode-tab-btn {
           display: inline-flex;
           align-items: center;
-          gap: 0.4rem;
+          gap: 0.5rem;
+          padding: 0.75rem 1.4rem;
+          border-radius: 9999px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: #CBD5E1;
+          font-size: 0.92rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.25s ease;
+          backdrop-filter: blur(10px);
         }
 
-        .trust-item strong {
+        .mode-tab-btn:hover {
+          background: rgba(255, 137, 47, 0.15);
+          border-color: #FF892F;
           color: #FFFFFF;
+          transform: translateY(-2px);
         }
 
-        .trust-sep {
-          color: rgba(255, 255, 255, 0.2);
+        .mode-tab-btn.active {
+          background: linear-gradient(135deg, #FF892F, #E65100);
+          border-color: #FF892F;
+          color: #FFFFFF;
+          box-shadow: 0 0 25px rgba(255, 137, 47, 0.45);
+          transform: translateY(-2px);
         }
 
-        .text-aqua {
-          color: var(--cj-aqua-500, #6FE6FC);
+        /* In-Place Interactive Stage */
+        .hero-interactive-stage {
+          width: 100%;
+          max-width: 1120px;
+          padding: 1.75rem;
+          border-radius: 28px;
+          background: rgba(0, 18, 51, 0.85);
+          backdrop-filter: blur(20px);
+          border: 1.5px solid rgba(111, 230, 252, 0.25);
+          box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
         }
 
-        /* Search Dock */
-        .hero-search-dock {
+        .animate-fade-in {
+          animation: fadeInStage 0.35s ease-out;
+        }
+
+        @keyframes fadeInStage {
+          from { opacity: 0; transform: translateY(6px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Continents Deck Strip */
+        .continents-deck-strip {
+          display: flex;
+          gap: 0.75rem;
+          overflow-x: auto;
+          padding-bottom: 1rem;
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255, 137, 47, 0.4) transparent;
+        }
+
+        .continent-chip-card {
+          flex: 1;
+          min-width: 135px;
           display: flex;
           align-items: center;
           gap: 0.65rem;
-          padding: 0.65rem 1rem;
-          width: 100%;
-          max-width: 1100px;
-          border-radius: var(--radius-full);
-          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 35px rgba(255, 107, 0, 0.15);
-          margin-bottom: 1.25rem;
-        }
-
-        .dock-field {
-          display: flex;
-          align-items: center;
-          gap: 0.55rem;
-          flex: 1;
+          padding: 0.75rem 1rem;
+          border-radius: 16px;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          color: #E2E8F0;
+          cursor: pointer;
+          transition: all 0.25s ease;
           text-align: left;
-          min-width: 0;
         }
 
-        .field-icon-box {
-          width: 34px;
-          height: 34px;
-          border-radius: 50%;
-          background: rgba(255, 107, 0, 0.15);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
+        .continent-chip-card:hover {
+          background: rgba(111, 230, 252, 0.12);
+          border-color: rgba(111, 230, 252, 0.4);
+          transform: translateY(-2px);
         }
 
-        .field-inputs {
+        .continent-chip-card.active {
+          background: rgba(255, 137, 47, 0.2);
+          border-color: #FF892F;
+          box-shadow: 0 0 18px rgba(255, 137, 47, 0.35);
+        }
+
+        .continent-icon-glow {
+          font-size: 1.6rem;
+        }
+
+        .continent-chip-meta {
           display: flex;
           flex-direction: column;
-          width: 100%;
-          min-width: 0;
         }
 
-        .field-inputs label {
-          font-family: var(--font-ui);
-          font-size: 0.68rem;
-          font-weight: 800;
-          text-transform: uppercase;
-          color: #94A3B8;
-          letter-spacing: 0.05em;
-          white-space: nowrap;
-        }
-
-        .field-inputs input, .field-inputs select {
-          border: none;
-          outline: none;
-          background: transparent;
-          font-family: var(--font-body);
+        .c-title {
           font-size: 0.9rem;
-          font-weight: 700;
-          color: #FFFFFF;
-          width: 100%;
-          cursor: pointer;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-        }
-
-        .field-inputs input::placeholder {
-          color: rgba(255, 255, 255, 0.45);
-          font-weight: 500;
-        }
-
-        .field-inputs select option {
-          background: var(--cj-bg-card);
           color: #FFFFFF;
         }
 
-        .dock-divider {
-          width: 1px;
-          height: 32px;
-          background: rgba(255, 255, 255, 0.15);
-          flex-shrink: 0;
-        }
-
-        .dock-actions {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          flex-shrink: 0;
-        }
-
-        .search-submit-btn {
-          padding: 0.75rem 1.45rem;
-          flex-shrink: 0;
-          white-space: nowrap;
-          font-size: 0.88rem;
-        }
-
-        .ai-dock-btn {
-          padding: 0.75rem 1.35rem;
-          flex-shrink: 0;
-          white-space: nowrap;
-          font-size: 0.88rem;
-        }
-
-        /* Hero Footer Bar */
-        .hero-footer-bar {
-          width: 100%;
-          max-width: 1100px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 1rem;
-          flex-wrap: wrap;
-        }
-
-        .quick-tags-group {
-          display: flex;
-          align-items: center;
-          gap: 0.45rem;
-          flex-wrap: wrap;
-        }
-
-        .tags-label {
-          font-family: var(--font-ui);
-          font-size: 0.8rem;
-          color: #94A3B8;
-          font-weight: 700;
-        }
-
-        .hero-tag-btn {
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          color: #F8FAFC;
-          font-family: var(--font-ui);
-          font-size: 0.78rem;
-          font-weight: 600;
-          padding: 0.25rem 0.75rem;
-          border-radius: var(--radius-full);
-          transition: all 0.2s ease;
-          cursor: pointer;
-        }
-
-        .hero-tag-btn:hover {
-          background: var(--cj-amber-500);
-          border-color: var(--cj-amber-500);
-          transform: translateY(-1px);
-        }
-
-        .weather-item-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.35rem;
-          background: none;
-          border: none;
-          color: #E2E8F0;
-          font-family: var(--font-ui);
-          font-size: 0.78rem;
-          white-space: nowrap;
-          padding: 0.2rem 0.45rem;
-          border-radius: var(--radius-xs);
-          transition: all 0.2s ease;
-          cursor: pointer;
-        }
-
-        .weather-item-btn:hover {
-          background: rgba(255, 255, 255, 0.15);
-          color: #FFFFFF;
-        }
-
-        .weather-item-btn strong {
-          color: #FFFFFF;
-        }
-
-        .weather-item-btn small {
-          color: #94A3B8;
-        }
-
-        .slide-dots-group {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-
-        .slide-dot-pill {
-          display: flex;
-          flex-direction: column;
-          text-align: left;
-          background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          padding: 0.35rem 0.75rem;
-          border-radius: var(--radius-sm);
-          transition: all 0.3s ease;
-          cursor: pointer;
-        }
-
-        .slide-dot-pill:hover {
-          background: rgba(255, 255, 255, 0.14);
-          border-color: rgba(255, 107, 0, 0.5);
-        }
-
-        .slide-dot-pill.active {
-          background: rgba(255, 107, 0, 0.2);
-          border-color: var(--cj-amber-500);
-          box-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
-        }
-
-        .dot-title {
-          font-family: var(--font-ui);
-          font-size: 0.78rem;
-          font-weight: 800;
-          color: #FFFFFF;
-        }
-
-        .dot-price {
-          font-family: var(--font-ui);
+        .c-subtext {
           font-size: 0.68rem;
-          color: var(--cj-amber-500);
-          font-weight: 700;
+          color: #94A3B8;
         }
 
-        .conversational-hint-strip {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          margin-bottom: 1.25rem;
-          max-width: 1100px;
-          width: 100%;
-          overflow-x: auto;
-          padding-bottom: 0.35rem;
-          -webkit-overflow-scrolling: touch;
-          scrollbar-width: none;
-        }
-
-        .hint-pill-title {
-          font-family: var(--font-ui);
-          font-size: 0.78rem;
-          font-weight: 800;
-          color: #C084FC;
-          white-space: nowrap;
-          flex-shrink: 0;
-        }
-
-        .conv-chip {
-          background: rgba(139, 92, 246, 0.12);
-          border: 1px solid rgba(192, 132, 252, 0.3);
-          color: #E2E8F0;
-          font-family: var(--font-ui);
-          font-size: 0.76rem;
-          font-weight: 600;
-          padding: 0.35rem 0.85rem;
-          border-radius: var(--radius-full);
-          white-space: nowrap;
-          flex-shrink: 0;
-          transition: all 0.2s ease;
-          cursor: pointer;
-        }
-
-        .conv-chip:hover {
-          background: rgba(139, 92, 246, 0.25);
-          color: #FFFFFF;
-          border-color: #C084FC;
-        }
-
-        @media (max-width: 1080px) {
-          .hero-search-dock {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            border-radius: var(--radius-lg);
-            padding: 1.15rem;
-            gap: 1rem;
-          }
-          .dock-divider {
-            display: none;
-          }
-          .dock-field {
-            width: 100%;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 0.5rem;
-          }
-          .dock-actions {
-            grid-column: span 2;
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-            gap: 0.65rem;
-          }
-          .search-submit-btn, .ai-dock-btn {
-            flex: 1;
-            justify-content: center;
-            min-height: 48px;
-          }
-          .slide-dots-group {
-            display: none;
-          }
-        }
-
-        .hero-travel-portals-wrapper {
-          margin-top: 1.75rem;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 0.75rem;
-          width: 100%;
-        }
-
-        .portals-title-kicker {
-          font-size: 0.75rem;
-          font-weight: 800;
-          color: #FF892F;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-        }
-
-        .hero-portals-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-          gap: 1rem;
-          width: 100%;
-          max-width: 980px;
-        }
-
-        .hero-portal-card {
+        /* Country Pills Bar */
+        .country-pills-bar {
           display: flex;
           align-items: center;
           gap: 0.85rem;
-          padding: 0.85rem 1.15rem;
-          border-radius: 18px;
-          background: rgba(0, 18, 51, 0.75);
-          backdrop-filter: blur(12px);
-          border: 1px solid rgba(255, 255, 255, 0.12);
+          padding: 0.85rem 0;
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+          margin-bottom: 1.25rem;
+          flex-wrap: wrap;
+        }
+
+        .pills-label {
+          font-size: 0.82rem;
+          font-weight: 700;
+          color: #94A3B8;
+        }
+
+        .pills-scroll-row {
+          display: flex;
+          gap: 0.5rem;
+          overflow-x: auto;
+          flex-wrap: wrap;
+        }
+
+        .country-pill-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          padding: 0.35rem 0.85rem;
+          border-radius: 9999px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           color: #E2E8F0;
-          text-decoration: none;
-          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+          font-size: 0.8rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.2s ease;
         }
 
-        .hero-portal-card:hover {
-          transform: translateY(-4px);
+        .country-pill-btn:hover {
+          background: rgba(111, 230, 252, 0.15);
+          border-color: #6FE6FC;
+          color: #6FE6FC;
+        }
+
+        .country-pill-btn.active {
+          background: #FF892F;
           border-color: #FF892F;
-          box-shadow: 0 12px 30px rgba(255, 137, 47, 0.35);
-          background: rgba(0, 29, 81, 0.9);
+          color: #FFFFFF;
         }
 
-        .portal-icon {
-          font-size: 1.65rem;
-          flex-shrink: 0;
+        .badge-count {
+          font-size: 0.65rem;
+          background: rgba(0, 0, 0, 0.3);
+          padding: 0.1rem 0.4rem;
+          border-radius: 9999px;
         }
 
-        .portal-text {
-          flex: 1;
+        /* Cities In-Place Grid */
+        .stage-cities-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 1.15rem;
+        }
+
+        .city-in-place-card {
+          padding: 1.25rem;
+          border-radius: 18px;
+          background: rgba(0, 29, 81, 0.5);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 0.85rem;
+          text-align: left;
+          transition: all 0.25s ease;
+        }
+
+        .city-in-place-card:hover {
+          border-color: rgba(255, 137, 47, 0.45);
+          transform: translateY(-3px);
+          box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+        }
+
+        .c-card-top-header {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 0.5rem;
+        }
+
+        .c-city-name-lockup {
+          display: flex;
+          gap: 0.4rem;
+        }
+
+        .city-marker {
+          font-size: 1.15rem;
+        }
+
+        .city-headline {
+          font-size: 1.05rem;
+          color: #FFFFFF;
+          margin: 0;
+        }
+
+        .city-state-sub {
+          font-size: 0.74rem;
+          color: #94A3B8;
+        }
+
+        .weather-pill-tag {
+          font-size: 0.68rem;
+          font-weight: 700;
+          color: #6FE6FC;
+          background: rgba(111, 230, 252, 0.15);
+          padding: 0.2rem 0.55rem;
+          border-radius: 9999px;
+          white-space: nowrap;
+        }
+
+        .c-theme-badge {
+          font-size: 0.74rem;
+          font-weight: 700;
+          color: #FF892F;
+        }
+
+        .c-highlights-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 0.35rem;
+        }
+
+        .c-highlights-list li {
+          display: flex;
+          align-items: center;
+          gap: 0.35rem;
+          font-size: 0.78rem;
+          color: #CBD5E1;
+        }
+
+        .c-card-footer-action {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-top: 0.75rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
+          flex-wrap: wrap;
+          gap: 0.5rem;
+        }
+
+        .start-lbl {
+          display: block;
+          font-size: 0.68rem;
+          color: #94A3B8;
+        }
+
+        .price-bold {
+          font-size: 1.2rem;
+          color: #FF892F;
+        }
+
+        .price-unit-tag {
+          font-size: 0.7rem;
+          color: #94A3B8;
+          margin-left: 0.25rem;
+        }
+
+        .action-buttons-inline {
+          display: flex;
+          align-items: center;
+          gap: 0.35rem;
+        }
+
+        .btn-itinerary-inline {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.25rem;
+          padding: 0.4rem 0.8rem;
+          border-radius: 9999px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          color: #FFFFFF;
+          font-size: 0.75rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .btn-itinerary-inline:hover {
+          background: rgba(111, 230, 252, 0.2);
+          border-color: #6FE6FC;
+          color: #6FE6FC;
+        }
+
+        .btn-book-inline {
+          padding: 0.4rem 0.8rem;
+          border-radius: 9999px;
+          background: #FF892F;
+          border: none;
+          color: #FFFFFF;
+          font-size: 0.75rem;
+          font-weight: 800;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .btn-book-inline:hover {
+          background: #E65100;
+        }
+
+        /* Seasons and Styles bars */
+        .seasons-selector-bar, .styles-selector-bar {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+          gap: 0.75rem;
+          margin-bottom: 1.25rem;
+        }
+
+        .season-pill-tab, .style-pill-tab {
+          display: flex;
+          align-items: center;
+          gap: 0.65rem;
+          padding: 0.75rem 1rem;
+          border-radius: 16px;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          color: #E2E8F0;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          text-align: left;
+        }
+
+        .season-pill-tab.active, .style-pill-tab.active {
+          background: rgba(255, 137, 47, 0.2);
+          border-color: #FF892F;
+        }
+
+        .season-icon-tag, .style-icon-tag {
+          font-size: 1.6rem;
+        }
+
+        .season-info-box, .style-info-box {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .season-temp {
+          font-size: 0.7rem;
+          color: #6FE6FC;
+          font-weight: 700;
+        }
+
+        .season-summary-strip {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0.75rem 1.25rem;
+          border-radius: 14px;
+          background: rgba(0, 29, 81, 0.6);
+          border: 1px solid rgba(255, 137, 47, 0.25);
+          font-size: 0.85rem;
+          color: #CBD5E1;
+          margin-bottom: 1.25rem;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+        }
+
+        .dest-chips-row, .perks-pills-row {
+          display: flex;
+          gap: 0.4rem;
+          flex-wrap: wrap;
+        }
+
+        .chip-item {
+          background: rgba(255, 255, 255, 0.08);
+          padding: 0.2rem 0.55rem;
+          border-radius: 9999px;
+          font-size: 0.75rem;
+          color: #F9FBE7;
+        }
+
+        .seasonal-stage-card {
+          border-radius: 18px;
+          overflow: hidden;
+          background: rgba(0, 29, 81, 0.5);
+          border: 1px solid rgba(255, 255, 255, 0.08);
           display: flex;
           flex-direction: column;
           text-align: left;
         }
 
-        .portal-text strong {
-          font-size: 0.9rem;
-          color: #FFFFFF;
+        .st-img-pane {
+          position: relative;
+          height: 140px;
         }
 
-        .portal-text span {
+        .st-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .st-badge {
+          position: absolute;
+          top: 8px;
+          left: 8px;
+          background: rgba(255, 137, 47, 0.9);
+          color: #FFFFFF;
+          font-size: 0.65rem;
+          font-weight: 800;
+          padding: 0.15rem 0.5rem;
+          border-radius: 9999px;
+        }
+
+        .st-dur {
+          position: absolute;
+          bottom: 8px;
+          right: 8px;
+          background: rgba(0, 18, 51, 0.85);
+          color: #6FE6FC;
+          font-size: 0.68rem;
+          padding: 0.15rem 0.5rem;
+          border-radius: 9999px;
+        }
+
+        .st-body {
+          padding: 1rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          flex: 1;
+        }
+
+        .st-country {
           font-size: 0.72rem;
           color: #94A3B8;
         }
 
-        .portal-arrow {
-          color: #FF892F;
-          transition: transform 0.2s ease;
+        .st-title {
+          font-size: 0.98rem;
+          color: #FFFFFF;
+          margin: 0.25rem 0 0.75rem 0;
         }
 
-        .hero-portal-card:hover .portal-arrow {
-          transform: translateX(3px);
+        .st-footer {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-top: 0.5rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        @media (max-width: 768px) {
-          .hero-root {
-            padding: calc(65px + 1rem) 0 2rem 0;
-          }
+        .style-perks-banner {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0.85rem 1.25rem;
+          border-radius: 14px;
+          background: rgba(0, 29, 81, 0.6);
+          border: 1px solid rgba(255, 137, 47, 0.25);
+          margin-bottom: 1.25rem;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+        }
+
+        .perk-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          font-size: 0.78rem;
+          color: #CBD5E1;
+          background: rgba(255, 255, 255, 0.06);
+          padding: 0.25rem 0.6rem;
+          border-radius: 9999px;
+        }
+
+        .btn-whatsapp-mini {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          padding: 0.4rem 0.85rem;
+          border-radius: 9999px;
+          background: #10B981;
+          color: #FFFFFF;
+          font-size: 0.78rem;
+          font-weight: 800;
+          text-decoration: none;
+        }
+
+        @media (max-width: 860px) {
           .hero-title {
             font-size: 2.35rem;
-            line-height: 1.12;
           }
-          .hero-subline {
-            font-size: 0.95rem;
-            padding: 0 0.5rem;
+          .continents-deck-strip {
+            grid-template-columns: repeat(2, 1fr);
           }
-          .hero-search-dock {
-            grid-template-columns: 1fr;
-            border-radius: 20px;
-            padding: 1.15rem 1rem;
-            gap: 1rem;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+          .seasons-selector-bar, .styles-selector-bar {
+            grid-template-columns: 1fr 1fr;
           }
-          .dock-field {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 0.75rem;
-            gap: 0.75rem;
-          }
-          .field-icon-box {
-            width: 40px;
-            height: 40px;
-          }
-          .field-inputs label {
-            font-size: 0.75rem;
-            color: var(--cj-amber-500);
-            margin-bottom: 2px;
-          }
-          .field-inputs input, .field-inputs select {
-            font-size: 16px !important;
-            padding: 0.2rem 0;
-          }
-          .dock-actions {
-            grid-column: span 1;
-            flex-direction: column;
-            gap: 0.75rem;
-            margin-top: 0.25rem;
-          }
-          .search-submit-btn, .ai-dock-btn {
-            width: 100%;
-            min-height: 50px;
-            font-size: 1rem;
-            border-radius: var(--radius-full);
-          }
-          .hero-top-badges {
-            flex-direction: column;
-            gap: 0.5rem;
-            width: 100%;
-          }
-          .trust-pill {
-            width: auto;
-            font-size: 0.78rem;
-          }
-          .weather-ticker {
-            width: 100%;
-            max-width: 100%;
-            overflow-x: auto;
-            justify-content: flex-start;
-            -webkit-overflow-scrolling: touch;
-            padding: 0.4rem 0.75rem;
-          }
-          .quick-tags-group {
-            width: 100%;
-            overflow-x: auto;
-            flex-wrap: nowrap;
-            padding-bottom: 0.5rem;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-          }
-          .tags-label {
-            flex-shrink: 0;
-          }
-          .hero-tag-btn {
-            flex-shrink: 0;
-            white-space: nowrap;
-            padding: 0.4rem 0.85rem;
-            font-size: 0.82rem;
+          .hero-interactive-stage {
+            padding: 1.15rem;
           }
         }
       `}</style>

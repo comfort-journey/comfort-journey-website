@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TOURS_DATA } from '../data/toursData';
-import { Clock, MapPin, Star, CheckCircle, ArrowRight, MessageCircle, Sparkles, Compass, Heart, Scale, ShieldCheck, Flame } from 'lucide-react';
+import { Clock, MapPin, Star, CheckCircle, ArrowRight, MessageCircle, Sparkles, Compass, Heart, Scale, ShieldCheck, Flame, Search } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useWishlistCompare } from '../context/WishlistCompareContext';
 import Tilt3DCard from './animations/Tilt3DCard';
@@ -20,6 +20,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
   const [sortBy, setSortBy] = useState('popularity'); // 'popularity', 'price-low', 'price-high', 'duration'
   const [showAllTours, setShowAllTours] = useState(false);
   const [activeGoldSealId, setActiveGoldSealId] = useState(null);
+  const [searchKeyword, setSearchKeyword] = useState('');
 
   const INITIAL_LIMIT = 6;
 
@@ -58,12 +59,14 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
   const filteredTours = TOURS_DATA.filter((tour) => {
     const categoryMatch = activeCategory === 'All' || 
       tour.category === activeCategory || 
-      (activeCategory === 'Responsible Travel' && (tour.vibeTags?.includes('Serene Backwaters') || tour.vibeTags?.includes('Wildlife Safari') || tour.region === 'Polar & Middle East'));
+      (tour.categories && tour.categories.includes(activeCategory));
 
-    const vibeMatch = activeVibe === 'All' || (tour.vibeTags && tour.vibeTags.includes(activeVibe));
+    const vibeMatch = activeVibe === 'All' || 
+      (tour.vibeTags && tour.vibeTags.includes(activeVibe));
+
     const regionMatch = activeRegion === 'All' || 
       tour.region === activeRegion || 
-      (activeRegion === 'Multi-Country Combos' && (tour.id.includes('combo') || tour.durationDays >= 13));
+      (activeRegion === 'India' && tour.country === 'India');
 
     let durationMatch = true;
     if (activeDuration === '3-5') durationMatch = tour.durationDays >= 3 && tour.durationDays <= 5;
@@ -73,25 +76,28 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
     let seasonMatch = true;
     if (activeSeason !== 'All') {
-      const selectedSeasonObj = seasons.find(s => s.id === activeSeason);
-      if (selectedSeasonObj && selectedSeasonObj.match) {
-        seasonMatch = selectedSeasonObj.match.some(m => tour.id.toLowerCase().includes(m) || tour.name.toLowerCase().includes(m));
+      const s = seasons.find(item => item.id === activeSeason);
+      if (s && s.match) {
+        seasonMatch = s.match.some(keyword => 
+          tour.id.includes(keyword) || 
+          tour.name.toLowerCase().includes(keyword) ||
+          tour.country.toLowerCase().includes(keyword)
+        );
       }
     }
 
-    const searchDest = searchFilters?.destination?.toLowerCase() || '';
-    const searchCat = searchFilters?.category || 'All';
-    const searchDur = searchFilters?.duration || 'All';
-
-    const destMatch = !searchDest || 
-      tour.name.toLowerCase().includes(searchDest) || 
-      tour.country.toLowerCase().includes(searchDest) ||
-      tour.region.toLowerCase().includes(searchDest) ||
-      (tour.tagline && tour.tagline.toLowerCase().includes(searchDest)) ||
-      (tour.vibeTags && tour.vibeTags.some(v => v.toLowerCase().includes(searchDest)));
+    const keywordQuery = (searchKeyword || searchFilters?.destination || '').toLowerCase();
+    const destMatch = !keywordQuery || 
+      tour.name.toLowerCase().includes(keywordQuery) || 
+      tour.country.toLowerCase().includes(keywordQuery) ||
+      tour.region.toLowerCase().includes(keywordQuery) ||
+      (tour.tagline && tour.tagline.toLowerCase().includes(keywordQuery)) ||
+      (tour.vibeTags && tour.vibeTags.some(v => v.toLowerCase().includes(keywordQuery)));
     
+    const searchCat = searchFilters?.category || 'All';
     const searchCatMatch = searchCat === 'All' || tour.category === searchCat;
     
+    const searchDur = searchFilters?.duration || 'All';
     let searchDurMatch = true;
     if (searchDur === '3-5') searchDurMatch = tour.durationDays >= 3 && tour.durationDays <= 5;
     if (searchDur === '6-9') searchDurMatch = tour.durationDays >= 6 && tour.durationDays <= 9;
@@ -106,7 +112,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
     return b.reviews - a.reviews; // popularity default
   });
 
-  const isExactCityNotFound = filteredTours.length === 0 && Boolean(searchFilters?.destination);
+  const isExactCityNotFound = filteredTours.length === 0 && Boolean(searchKeyword || searchFilters?.destination);
   const displayedTours = isExactCityNotFound ? TOURS_DATA : filteredTours;
 
   return (
@@ -125,6 +131,24 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
             100% Bespoke Itineraries with 5-Star Accommodations, Private Chauffeurs & 24/7 Personal VIP Concierge.
           </p>
 
+          {/* Inline Live Catalog Search Filter */}
+          <div className="catalog-inline-search-dock glass-card">
+            <div className="search-field-input-box">
+              <Search size={18} className="text-amber" />
+              <input
+                type="text"
+                placeholder="Search packages by destination, city or theme (e.g. Kashmir, Bali, Alps, Safari)..."
+                value={searchKeyword}
+                onChange={(e) => setSearchKeyword(e.target.value)}
+                className="catalog-search-input"
+              />
+              {searchKeyword && (
+                <button type="button" className="btn-clear-search" onClick={() => setSearchKeyword('')}>
+                  ✕
+                </button>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* Dynamic Destination Filter Status Banner */}
@@ -1221,6 +1245,61 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
             justify-content: center;
             min-height: 48px;
             font-size: 0.98rem;
+          }
+        .catalog-inline-search-dock {
+          margin: 1.5rem auto 0 auto;
+          width: 100%;
+          max-width: 680px;
+          border-radius: 9999px;
+          background: rgba(0, 18, 51, 0.75);
+          backdrop-filter: blur(16px);
+          border: 1.5px solid rgba(111, 230, 252, 0.3);
+          padding: 0.4rem 0.6rem;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .search-field-input-box {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.35rem 0.75rem;
+        }
+
+        .catalog-search-input {
+          flex: 1;
+          background: transparent;
+          border: none;
+          outline: none;
+          color: #FFFFFF;
+          font-size: 0.95rem;
+        }
+
+        .catalog-search-input::placeholder {
+          color: #94A3B8;
+        }
+
+        .btn-clear-search {
+          background: rgba(255, 255, 255, 0.1);
+          border: none;
+          color: #CBD5E1;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          cursor: pointer;
+          font-size: 0.75rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .btn-clear-search:hover {
+          background: #FF892F;
+          color: #FFFFFF;
+        }
+
+        @media (max-width: 768px) {
+          .catalog-inline-search-dock {
+            border-radius: 16px;
           }
         }
       `}</style>
