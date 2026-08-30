@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { X, Sparkles, CheckCircle, AlertCircle, FileText, Globe, Search, Share2, Plus, Trash2, Eye, Lock, RefreshCw, LayoutDashboard } from 'lucide-react';
 
 export default function AdminCMSModal({ isOpen, onClose }) {
@@ -16,6 +16,10 @@ export default function AdminCMSModal({ isOpen, onClose }) {
 In this guide, Comfort Journey's senior trip curators review the top luxury stays in Kashmir for 2026, complete with private butler services and authentic Wazwan gourmet dining.`);
   const [postCategory, setPostCategory] = useState('Destination Guides');
   const [isSaved, setIsSaved] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
+
+  // Textarea ref for selection-based formatting
+  const contentRef = useRef(null);
 
   // New Tour Package State
   const [tourName, setTourName] = useState('');
@@ -27,6 +31,85 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
   ]);
 
   if (!isOpen) return null;
+
+  // ─── Toolbar Formatting Helpers ───────────────────────────────────
+  const wrapSelection = (prefix, suffix = prefix) => {
+    const ta = contentRef.current;
+    if (!ta) return;
+    const start = ta.selectionStart;
+    const end = ta.selectionEnd;
+    const selected = blogContent.substring(start, end);
+    const before = blogContent.substring(0, start);
+    const after = blogContent.substring(end);
+
+    if (selected) {
+      const newText = before + prefix + selected + suffix + after;
+      setBlogContent(newText);
+      setTimeout(() => { ta.focus(); ta.selectionStart = start + prefix.length; ta.selectionEnd = end + prefix.length; }, 0);
+    } else {
+      const placeholder = prefix + 'text' + suffix;
+      const newText = before + placeholder + after;
+      setBlogContent(newText);
+      setTimeout(() => { ta.focus(); ta.selectionStart = start + prefix.length; ta.selectionEnd = start + prefix.length + 4; }, 0);
+    }
+  };
+
+  const insertLinePrefix = (prefix) => {
+    const ta = contentRef.current;
+    if (!ta) return;
+    const start = ta.selectionStart;
+    const end = ta.selectionEnd;
+    const selected = blogContent.substring(start, end);
+    const before = blogContent.substring(0, start);
+    const after = blogContent.substring(end);
+
+    if (selected) {
+      const prefixed = selected.split('\n').map(line => prefix + line).join('\n');
+      setBlogContent(before + prefixed + after);
+      setTimeout(() => { ta.focus(); ta.selectionStart = start; ta.selectionEnd = start + prefixed.length; }, 0);
+    } else {
+      const nl = start > 0 && blogContent[start - 1] !== '\n' ? '\n' : '';
+      const ins = nl + prefix;
+      setBlogContent(before + ins + after);
+      setTimeout(() => { ta.focus(); ta.selectionStart = ta.selectionEnd = start + ins.length; }, 0);
+    }
+  };
+
+  const handleBold = () => wrapSelection('**');
+  const handleItalic = () => wrapSelection('*');
+  const handleH2 = () => insertLinePrefix('## ');
+  const handleH3 = () => insertLinePrefix('### ');
+  const handleBulletList = () => insertLinePrefix('- ');
+  const handleBlockquote = () => insertLinePrefix('> ');
+  const handleHorizontalRule = () => {
+    const ta = contentRef.current;
+    if (!ta) return;
+    const pos = ta.selectionStart;
+    const before = blogContent.substring(0, pos);
+    const after = blogContent.substring(pos);
+    const nl = pos > 0 && blogContent[pos - 1] !== '\n' ? '\n' : '';
+    const ins = nl + '\n---\n';
+    setBlogContent(before + ins + after);
+    setTimeout(() => { ta.focus(); ta.selectionStart = ta.selectionEnd = pos + ins.length; }, 0);
+  };
+  const handleInsertLink = () => { const url = prompt('Enter link URL:'); if (url) wrapSelection('[', `](${url})`); };
+  const handleInsertImage = () => { const url = prompt('Enter image URL:'); if (url) wrapSelection('![', `](${url})`); };
+
+  // Simple markdown to HTML renderer for live preview
+  const renderMarkdownPreview = (md) => {
+    return md
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/^### (.+)$/gm, '<h3 style="color:#FF892F;font-size:1.1rem;margin:0.8rem 0 0.3rem;">$1</h3>')
+      .replace(/^## (.+)$/gm, '<h2 style="color:#6FE6FC;font-size:1.25rem;margin:1rem 0 0.4rem;">$1</h2>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong style="color:#F9FBE7;">$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/^- (.+)$/gm, '<li style="margin-left:1.2rem;">$1</li>')
+      .replace(/^&gt; (.+)$/gm, '<blockquote style="border-left:3px solid #FF892F;padding-left:0.75rem;color:#94A3B8;margin:0.5rem 0;">$1</blockquote>')
+      .replace(/^---$/gm, '<hr style="border:none;border-top:1px solid rgba(255,255,255,0.15);margin:1rem 0;" />')
+      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" style="max-width:100%;border-radius:8px;margin:0.5rem 0;" />')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" style="color:#6FE6FC;" target="_blank">$1</a>')
+      .replace(/\n/g, '<br/>');
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -167,24 +250,68 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
                     />
                   </div>
 
+                  {/* ── Functional Formatting Toolbar ── */}
                   <div className="editor-toolbar">
-                    <button type="button" className="tool-btn" title="Bold"><strong>B</strong></button>
-                    <button type="button" className="tool-btn" title="Italic"><em>I</em></button>
-                    <button type="button" className="tool-btn" title="Heading 2">H2</button>
-                    <button type="button" className="tool-btn" title="Heading 3">H3</button>
-                    <button type="button" className="tool-btn" title="Bullet List">• List</button>
-                    <button type="button" className="tool-btn" title="Insert Media">🖼️ Image</button>
+                    <button type="button" className="tool-btn" title="Bold (**text**)" onClick={handleBold}>
+                      <strong>B</strong>
+                    </button>
+                    <button type="button" className="tool-btn" title="Italic (*text*)" onClick={handleItalic}>
+                      <em>I</em>
+                    </button>
+                    <button type="button" className="tool-btn" title="Heading 2 (##)" onClick={handleH2}>
+                      H2
+                    </button>
+                    <button type="button" className="tool-btn" title="Heading 3 (###)" onClick={handleH3}>
+                      H3
+                    </button>
+                    <button type="button" className="tool-btn" title="Bullet List (-)" onClick={handleBulletList}>
+                      • List
+                    </button>
+                    <button type="button" className="tool-btn" title="Blockquote (>)" onClick={handleBlockquote}>
+                      ❝ Quote
+                    </button>
+                    <button type="button" className="tool-btn" title="Horizontal Rule (---)" onClick={handleHorizontalRule}>
+                      ― Rule
+                    </button>
+                    <button type="button" className="tool-btn" title="Insert Link" onClick={handleInsertLink}>
+                      🔗 Link
+                    </button>
+                    <button type="button" className="tool-btn" title="Insert Image" onClick={handleInsertImage}>
+                      🖼️ Image
+                    </button>
+                    <button
+                      type="button"
+                      className={`tool-btn preview-toggle-btn ${showPreview ? 'active' : ''}`}
+                      title="Toggle Live Preview"
+                      onClick={() => setShowPreview(!showPreview)}
+                    >
+                      <Eye size={14} />
+                      {showPreview ? 'Editor' : 'Preview'}
+                    </button>
                     <span className="word-counter">{blogContent.split(/\s+/).filter(Boolean).length} Words</span>
                   </div>
 
                   <div className="field-group">
-                    <label>Article Content (Word/Notion Markdown Format)</label>
-                    <textarea
-                      rows={9}
-                      className="cms-textarea"
-                      value={blogContent}
-                      onChange={(e) => setBlogContent(e.target.value)}
-                    />
+                    <label>{showPreview ? 'Live Rendered Preview' : 'Article Content (Markdown Format)'}</label>
+                    {showPreview ? (
+                      <div
+                        className="cms-preview-pane"
+                        dangerouslySetInnerHTML={{ __html: renderMarkdownPreview(blogContent) }}
+                      />
+                    ) : (
+                      <textarea
+                        ref={contentRef}
+                        rows={12}
+                        className="cms-textarea"
+                        value={blogContent}
+                        onChange={(e) => setBlogContent(e.target.value)}
+                        placeholder="Write your article here using Markdown. Select text and click toolbar buttons to format."
+                      />
+                    )}
+                  </div>
+
+                  <div className="cms-format-hint">
+                    💡 <strong>Tip:</strong> Select text in the editor, then click <strong>B</strong>, <em>I</em>, <strong>H2</strong>, etc. to format it. Click <strong>Preview</strong> to see how it renders.
                   </div>
 
                   <div className="field-group">
@@ -660,11 +787,49 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
           color: #FFFFFF;
         }
 
+        .tool-btn:active {
+          transform: scale(0.92);
+        }
+
+        .preview-toggle-btn {
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+        }
+
+        .preview-toggle-btn.active {
+          background: rgba(111, 230, 252, 0.25);
+          color: #6FE6FC;
+          border: 1px solid rgba(111, 230, 252, 0.4);
+        }
+
         .word-counter {
           margin-left: auto;
           font-size: 0.75rem;
           color: #94A3B8;
           font-weight: 700;
+        }
+
+        .cms-preview-pane {
+          min-height: 220px;
+          max-height: 400px;
+          overflow-y: auto;
+          background: rgba(0, 18, 51, 0.8);
+          border: 1px solid var(--cj-glass-border);
+          border-radius: var(--radius-md);
+          padding: 1.25rem;
+          color: #CBD5E1;
+          font-size: 0.88rem;
+          line-height: 1.7;
+        }
+
+        .cms-format-hint {
+          font-size: 0.78rem;
+          color: #64748B;
+          padding: 0.5rem 0.75rem;
+          background: rgba(255, 137, 47, 0.08);
+          border-radius: var(--radius-sm);
+          border: 1px solid rgba(255, 137, 47, 0.15);
         }
 
         /* SEO Pane */
