@@ -92,19 +92,20 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                 <div key={reel.id} className="reel-item-col">
                   <Tilt3DCard maxTilt={4} scale={1.02} glare={true} className="reel-tilt-wrapper">
                     <div className="reel-card glass-card" onClick={() => setActiveReelModal(reel)}>
-                      {/* Video Thumbnail & Clean Play Badge */}
+                      {/* Real Instagram Reel Embed */}
                       <div className="reel-media-wrapper">
-                        <img
-                          src={reel.videoThumb}
-                          alt={reel.destination}
-                          className="reel-cover-img"
+                        <iframe
+                          src={`https://www.instagram.com/reel/${reel.reelId}/embed/`}
+                          className="reel-embed-iframe"
+                          frameBorder="0"
+                          scrolling="no"
+                          allowTransparency="true"
                           loading="lazy"
+                          title={reel.destination}
                         />
 
-                        {/* Glowing Play Center Badge */}
-                        <div className="reel-play-center-badge">
-                          <Play size={24} fill="#FFFFFF" color="#FFFFFF" style={{ marginLeft: '3px' }} />
-                        </div>
+                        {/* Click overlay to open full modal (sits above iframe) */}
+                        <div className="reel-click-overlay" />
 
                         {/* Luxury Dark Gradient Mask */}
                         <div className="reel-dark-veil" />
@@ -397,60 +398,23 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           background: #001233;
         }
 
-        .reel-cover-img {
+        .reel-embed-iframe {
           position: absolute;
           inset: 0;
           width: 100%;
           height: 100%;
-          object-fit: cover;
+          border: none;
           z-index: 1;
-          transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+          pointer-events: none;
+          transform: scale(1.02);
         }
 
-        .reel-card:hover .reel-cover-img {
-          transform: scale(1.06);
-        }
-
-        .reel-autoplay-video {
+        .reel-click-overlay {
           position: absolute;
           inset: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          z-index: 2;
-          transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reel-card:hover .reel-autoplay-video {
-          transform: scale(1.06);
-        }
-
-        .reel-play-center-badge {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          z-index: 4;
-          width: 52px;
-          height: 52px;
-          border-radius: 50%;
-          background: rgba(0, 29, 81, 0.7);
-          backdrop-filter: blur(10px);
-          border: 1.5px solid rgba(255, 137, 47, 0.6);
-          color: #FFFFFF;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 137, 47, 0.3);
-          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-          pointer-events: none;
-        }
-
-        .reel-card:hover .reel-play-center-badge {
-          transform: translate(-50%, -50%) scale(1.18);
-          background: #FF892F;
-          border-color: #FFFFFF;
-          box-shadow: 0 10px 30px rgba(255, 137, 47, 0.7), 0 0 30px rgba(255, 137, 47, 0.9);
+          z-index: 3;
+          cursor: pointer;
+          background: transparent;
         }
 
         .reel-dark-veil {
@@ -458,12 +422,13 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           inset: 0;
           background: linear-gradient(
             180deg, 
-            rgba(0, 29, 81, 0.88) 0%, 
-            rgba(0, 29, 81, 0.15) 28%, 
-            rgba(0, 29, 81, 0.35) 60%, 
-            rgba(0, 29, 81, 0.96) 100%
+            rgba(0, 29, 81, 0.75) 0%, 
+            rgba(0, 29, 81, 0.05) 30%, 
+            rgba(0, 29, 81, 0.05) 65%, 
+            rgba(0, 29, 81, 0.85) 100%
           );
           pointer-events: none;
+          z-index: 4;
         }
 
         .reel-top-bar {
