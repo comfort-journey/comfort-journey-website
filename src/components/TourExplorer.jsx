@@ -574,13 +574,13 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 0.75rem;
+          gap: 0.5rem;
           flex-wrap: wrap;
-          margin-bottom: 1.25rem;
+          margin-bottom: 0.75rem;
           background: rgba(0, 18, 51, 0.6);
           border: 1px solid rgba(111, 230, 252, 0.2);
           border-radius: var(--radius-full);
-          padding: 0.4rem 1rem;
+          padding: 0.3rem 0.75rem;
           max-width: 920px;
           margin-left: auto;
           margin-right: auto;
@@ -600,7 +600,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         .seasonal-chips-row {
           display: flex;
           align-items: center;
-          gap: 0.45rem;
+          gap: 0.35rem;
           flex-wrap: wrap;
         }
 
@@ -608,12 +608,13 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           background: transparent;
           border: 1px solid transparent;
           color: #93B2D2;
-          font-size: 0.78rem;
+          font-size: 0.7rem;
           font-weight: 700;
-          padding: 0.3rem 0.75rem;
+          padding: 0.15rem 0.45rem;
           border-radius: var(--radius-full);
           cursor: pointer;
           transition: all 0.2s ease;
+          white-space: nowrap;
         }
 
         .season-chip:hover {
@@ -631,21 +632,22 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         .category-tabs {
           display: flex;
           justify-content: center;
-          gap: 0.75rem;
-          margin-bottom: 1.75rem;
+          gap: 0.45rem;
+          margin-bottom: 0.75rem;
           flex-wrap: wrap;
         }
 
         .tab-btn {
-          padding: 0.75rem 1.65rem;
+          padding: 0.45rem 1.1rem;
           border-radius: var(--radius-full);
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid var(--cj-glass-border);
           color: #E2E8F0;
           font-family: var(--font-ui);
           font-weight: 700;
-          font-size: 0.92rem;
+          font-size: 0.82rem;
           transition: all 0.25s ease;
+          white-space: nowrap;
         }
 
         .tab-btn:hover {
@@ -665,8 +667,8 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 1.5rem;
-          margin-bottom: 1.5rem;
+          gap: 1rem;
+          margin-bottom: 0.75rem;
           flex-wrap: wrap;
         }
 

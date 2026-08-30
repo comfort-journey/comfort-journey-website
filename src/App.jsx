@@ -5,7 +5,6 @@ import { useScrollAnimation } from './hooks/useScrollAnimation';
 import SmoothScrollProvider from './components/SmoothScrollProvider';
 import AmbientBackgroundOrbs from './components/AmbientBackgroundOrbs';
 import ZajnoMagneticCursor from './components/animations/ZajnoMagneticCursor';
-import NaviCompassKeeper3D from './components/animations/NaviCompassKeeper3D';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import StatsBar from './components/StatsBar';
@@ -219,11 +218,8 @@ export default function App() {
             }}
           />
 
-          {/* Navi, The 3D Compass Keeper Concierge (120+ FPS Cursor Look-At Gaze) */}
-          <NaviCompassKeeper3D 
-            onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
-            onOpenQuote={() => setIsQuickQuoteOpen(true)}
-          />
+
+
 
           {/* Floating Glassmorphism Action Dock */}
           <FloatingQuickDock 

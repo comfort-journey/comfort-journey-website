@@ -358,10 +358,8 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
           font-weight: 800;
           font-size: 1.32rem;
           letter-spacing: -0.01em;
-          background: linear-gradient(135deg, #6FE6FC 0%, #38BDF8 35%, #2DD4BF 70%, #10B981 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          filter: drop-shadow(0 2px 10px rgba(56, 189, 248, 0.45));
+          color: #FFFFFF;
+          text-shadow: 0 1px 8px rgba(255, 255, 255, 0.15);
         }
 
         .title-journey {
@@ -369,10 +367,8 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
           font-weight: 900;
           font-size: 1.32rem;
           letter-spacing: -0.02em;
-          background: linear-gradient(135deg, #FFB070 0%, #FF892F 60%, #FFA459 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          filter: drop-shadow(0 2px 8px rgba(255, 137, 47, 0.45));
+          color: #FFB070;
+          text-shadow: 0 1px 8px rgba(255, 137, 47, 0.3);
         }
 
         .sub-row {
@@ -383,12 +379,12 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
           font-size: 0.62rem;
           font-weight: 800;
           letter-spacing: 0.14em;
-          color: #7DD3FC;
+          color: rgba(255, 255, 255, 0.55);
           text-transform: uppercase;
         }
 
         .sub-tag {
-          color: #7DD3FC;
+          color: rgba(255, 255, 255, 0.55);
         }
 
         .sub-dot {
@@ -397,7 +393,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
         }
 
         .sub-est {
-          color: #FFB070;
+          color: rgba(255, 176, 112, 0.8);
           font-weight: 800;
         }
 
