@@ -3,7 +3,7 @@ import { Phone, MessageCircle, Menu, X, Sparkles, ChevronDown, Globe, Heart, Sca
 import { useCurrency } from '../context/CurrencyContext';
 import { useWishlistCompare } from '../context/WishlistCompareContext';
 
-export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
+export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOpenLandingHub }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
@@ -21,6 +21,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
 
   const navLinks = [
     { label: 'Destinations', href: '#tours' },
+    { label: 'Specialty Trips', href: '#/landing-hub', isHub: true },
     { label: 'Trip Studio', href: '#custom-builder' },
     { label: 'Reviews', href: '#google-reviews' },
     { label: 'Reels', href: '#stories' },
@@ -60,9 +61,21 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
         {/* Desktop Navigation Links */}
         <nav className="desktop-nav">
           {navLinks.map((link, idx) => (
-            <a key={idx} href={link.href} className="nav-link">
-              {link.label}
-            </a>
+            link.isHub ? (
+              <button 
+                key={idx} 
+                type="button" 
+                className="nav-link nav-hub-trigger" 
+                onClick={onOpenLandingHub}
+              >
+                <span>{link.label}</span>
+                <span className="nav-special-dot"></span>
+              </button>
+            ) : (
+              <a key={idx} href={link.href} className="nav-link">
+                {link.label}
+              </a>
+            )
           ))}
         </nav>
 
@@ -169,14 +182,29 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
       {mobileMenuOpen && (
         <div className="mobile-drawer">
           {navLinks.map((link, idx) => (
-            <a 
-              key={idx} 
-              href={link.href} 
-              className="drawer-link"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {link.label}
-            </a>
+            link.isHub ? (
+              <button
+                key={idx}
+                type="button"
+                className="drawer-link text-left flex items-center justify-between"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenLandingHub();
+                }}
+              >
+                <span>{link.label}</span>
+                <span className="badge badge-amber" style={{ fontSize: '0.65rem', padding: '0.15rem 0.5rem' }}>15 Campaigns</span>
+              </button>
+            ) : (
+              <a 
+                key={idx} 
+                href={link.href} 
+                className="drawer-link"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {link.label}
+              </a>
+            )
           ))}
 
           <div className="drawer-currency-row">

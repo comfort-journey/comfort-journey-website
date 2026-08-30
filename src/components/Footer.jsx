@@ -1,7 +1,7 @@
 import React from 'react';
 import { MapPin, Phone, Mail, MessageCircle, Heart, ShieldCheck, FileText, Lock } from 'lucide-react';
 
-export default function Footer({ onOpenPolicy, onOpenAdmin }) {
+export default function Footer({ onOpenPolicy, onOpenAdmin, onOpenLandingHub, onSelectLandingPage }) {
   return (
     <footer id="contact" className="footer-root">
       <div className="container">
@@ -29,16 +29,42 @@ export default function Footer({ onOpenPolicy, onOpenAdmin }) {
             </div>
           </div>
 
+          {/* Specialty Landing Pages & Ads Hub */}
+          <div className="footer-col">
+            <h4 className="col-title">Campaign Pages (SEO & Ads)</h4>
+            <ul className="col-links">
+              <li><a href="#/solo-travel">Solo Traveler Escapes</a></li>
+              <li><a href="#/family-travel">Family Holiday Packages</a></li>
+              <li><a href="#/couple-honeymoon">Honeymoon & Couples</a></li>
+              <li><a href="#/group-travel">Friends & Squad Trips</a></li>
+              <li><a href="#/corporate-travel">Corporate Offsites & Retreats</a></li>
+              <li><a href="#/school-college-trips">Educational Study Tours</a></li>
+              <li><a href="#/weekend-getaways">48-Hour Weekend Escapes</a></li>
+              <li><a href="#/fixed-departures">Fixed Departures Tribe</a></li>
+              <li>
+                <button 
+                  type="button" 
+                  className="footer-link-btn" 
+                  style={{ color: '#FF892F', fontWeight: 800, marginTop: '0.35rem' }}
+                  onClick={onOpenLandingHub}
+                >
+                  <span>View All 15 Landing Pages ➔</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+
           {/* Popular Destinations */}
           <div className="footer-col">
-            <h4 className="col-title">Popular Packages</h4>
+            <h4 className="col-title">Signature Circuits</h4>
             <ul className="col-links">
-              <li><a href="#tours">Kashmir Paradise & Houseboats</a></li>
-              <li><a href="#tours">Himachal Shimla & Manali</a></li>
-              <li><a href="#tours">Kerala Backwaters & Ayurveda</a></li>
-              <li><a href="#tours">Exotic Bali Honeymoon</a></li>
-              <li><a href="#tours">Dubai Luxury Extravaganza</a></li>
-              <li><a href="#tours">Divine Char Dham Helicopter Yatra</a></li>
+              <li><a href="#/india-packages">Incredible India Signature</a></li>
+              <li><a href="#/international-packages">World Passport Holidays</a></li>
+              <li><a href="#/adventure-tours">Adventure & Treks</a></li>
+              <li><a href="#/beach-vacations">Tropical Beach & Islands</a></li>
+              <li><a href="#/mountain-escapes">Mountain & Snow Escapes</a></li>
+              <li><a href="#/summer-packages">Summer Vacation Specials</a></li>
+              <li><a href="#/winter-packages">Winter Snow Wonderland</a></li>
             </ul>
           </div>
 
@@ -125,9 +151,21 @@ export default function Footer({ onOpenPolicy, onOpenAdmin }) {
 
         .footer-grid {
           display: grid;
-          grid-template-columns: 1.8fr 1.2fr 1.3fr 1.4fr;
-          gap: 2rem;
+          grid-template-columns: 1.4fr 1fr 1fr 1fr 1.3fr;
+          gap: 1.75rem;
           margin-bottom: 2.5rem;
+        }
+
+        @media (max-width: 1024px) {
+          .footer-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 640px) {
+          .footer-grid {
+            grid-template-columns: 1fr;
+          }
         }
 
         .footer-logo {

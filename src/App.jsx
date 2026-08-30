@@ -17,6 +17,9 @@ import AboutUsPage from './components/AboutUsPage';
 import WhyChooseUs from './components/WhyChooseUs';
 import FaqSection from './components/FaqSection';
 import Footer from './components/Footer';
+import LandingPageTemplate from './components/LandingPageTemplate';
+import LandingPagesHubModal from './components/LandingPagesHubModal';
+import { getLandingPageBySlug, LANDING_PAGES_DATA } from './data/landingPagesData';
 import ItineraryModal from './components/ItineraryModal';
 import QuickBookingModal from './components/QuickBookingModal';
 import AITripPlannerModal from './components/AITripPlannerModal';
@@ -40,28 +43,55 @@ export default function App() {
   const [tierCompareTour, setTierCompareTour] = useState(null);
   const [isTierCompareOpen, setIsTierCompareOpen] = useState(false);
   const [isAdminCMSOpen, setIsAdminCMSOpen] = useState(false);
+  const [isLPHubOpen, setIsLPHubOpen] = useState(false);
   const [policyModalType, setPolicyModalType] = useState(null); // 'cancellation' | 'privacy' | 'terms' | null
-  const [currentView, setCurrentView] = useState('home'); // 'home' | 'about'
+  const [currentView, setCurrentView] = useState('home'); // 'home' | 'about' | 'landing'
+  const [activeLandingPage, setActiveLandingPage] = useState(null);
 
-  // Hash-based URL routing: auto-open Admin CMS or switch to About Us page
+  // Hash-based URL routing: auto-open Admin CMS, switch to About Us page, or load dedicated Campaign Landing Pages
   useEffect(() => {
     const handleRouteChange = () => {
       const hash = window.location.hash.toLowerCase();
+      
       if (hash === '#/admin' || hash === '#admin') {
         setIsAdminCMSOpen(true);
+      } else if (hash === '#/landing-hub' || hash === '#/all-landing-pages' || hash === '#landing-hub') {
+        setIsLPHubOpen(true);
       } else if (hash === '#/about' || hash === '#/who-we-are' || hash === '#/about-us' || hash === '#about') {
         setCurrentView('about');
+        setActiveLandingPage(null);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        setCurrentView('home');
+        // Check if hash matches any of our 15 dedicated Campaign Landing Pages
+        const matchedPage = getLandingPageBySlug(hash);
+        if (matchedPage) {
+          setActiveLandingPage(matchedPage);
+          setCurrentView('landing');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          setCurrentView('home');
+          setActiveLandingPage(null);
+        }
       }
     };
-    // Check on mount (direct URL navigation)
+
+    // Check on mount (direct URL navigation or ad click)
     handleRouteChange();
     // Listen for hash changes (in-app navigation)
     window.addEventListener('hashchange', handleRouteChange);
     return () => window.removeEventListener('hashchange', handleRouteChange);
   }, []);
+
+  const navigateToLandingPage = (slug) => {
+    window.location.hash = `#/landing/${slug}`;
+  };
+
+  const navigateToHome = () => {
+    history.pushState(null, '', window.location.pathname);
+    setCurrentView('home');
+    setActiveLandingPage(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <CurrencyProvider>
@@ -79,17 +109,25 @@ export default function App() {
               onOpenQuote={() => setIsQuickQuoteOpen(true)} 
               onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
               onOpenAdmin={() => setIsAdminCMSOpen(true)}
+              onOpenLandingHub={() => setIsLPHubOpen(true)}
             />
 
-            {currentView === 'about' ? (
+            {currentView === 'landing' && activeLandingPage ? (
+              /* DEDICATED CAMPAIGN / SEO LANDING PAGE VIEW */
+              <LandingPageTemplate 
+                pageData={activeLandingPage}
+                onBackToHome={navigateToHome}
+                onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
+                onBookNow={(tour) => setSelectedBookingTour(tour)}
+                onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+                onOpenQuote={() => setIsQuickQuoteOpen(true)}
+              />
+            ) : currentView === 'about' ? (
               /* DEDICATED ABOUT US / WHO WE ARE PAGE VIEW */
               <AboutUsPage 
                 onOpenQuote={() => setIsQuickQuoteOpen(true)}
                 onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
-                onNavigateHome={() => {
-                  window.location.hash = '';
-                  setCurrentView('home');
-                }}
+                onNavigateHome={navigateToHome}
               />
             ) : (
               /* HOMEPAGE VIEW */
@@ -147,9 +185,23 @@ export default function App() {
             <Footer 
               onOpenPolicy={(type) => setPolicyModalType(type)}
               onOpenAdmin={() => setIsAdminCMSOpen(true)}
+              onOpenLandingHub={() => setIsLPHubOpen(true)}
+              onSelectLandingPage={navigateToLandingPage}
             />
 
           {/* --- MODALS & OVERLAYS --- */}
+
+          {/* All 15 Campaign & SEO Landing Pages Directory Modal */}
+          <LandingPagesHubModal 
+            isOpen={isLPHubOpen}
+            onClose={() => {
+              setIsLPHubOpen(false);
+              if (window.location.hash.toLowerCase().includes('landing-hub')) {
+                history.replaceState(null, '', window.location.pathname);
+              }
+            }}
+            onSelectLandingPage={navigateToLandingPage}
+          />
 
           {/* Day-by-Day Detailed Itinerary Modal */}
           {selectedItineraryTour && (
