@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { 
   Globe, Sun, Users, Sparkles, MapPin, Calendar, Compass, 
   ChevronRight, ArrowRight, CheckCircle2, Heart, ShieldCheck, 
-  MessageCircle, ExternalLink, Flame, ArrowLeft
+  MessageCircle, ExternalLink, Flame, ArrowLeft, Landmark, 
+  Building2, Palmtree, Waves, Snowflake, CloudRain, Leaf, Flower2,
+  Hotel, Car, Utensils, Ticket, Clock, Star, Briefcase
 } from 'lucide-react';
 import { CONTINENTS_TREE_DATA, SEASONS_DATA, TRAVELER_STYLES_DATA } from '../data/continentHierarchyData';
 import { TOURS_DATA, HERO_SLIDES } from '../data/toursData';
@@ -47,6 +49,40 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
   const getTourObject = (tourId) => {
     return TOURS_DATA.find(t => t.id === tourId) || TOURS_DATA[0];
+  };
+
+  const getContinentIcon = (id) => {
+    switch (id) {
+      case 'asia': return <Globe size={20} className="text-amber" />;
+      case 'europe': return <Landmark size={20} className="text-cyan" />;
+      case 'africa': return <Compass size={20} className="text-amber" />;
+      case 'north-america': return <Building2 size={20} className="text-cyan" />;
+      case 'south-america': return <Palmtree size={20} className="text-emerald" />;
+      case 'oceania': return <Waves size={20} className="text-cyan" />;
+      case 'polar': return <Snowflake size={20} className="text-cyan" />;
+      default: return <Globe size={20} className="text-amber" />;
+    }
+  };
+
+  const getSeasonIcon = (id) => {
+    switch (id) {
+      case 'summer': return <Sun size={20} className="text-amber" />;
+      case 'winter': return <Snowflake size={20} className="text-cyan" />;
+      case 'monsoon': return <CloudRain size={20} className="text-cyan" />;
+      case 'autumn': return <Leaf size={20} className="text-amber" />;
+      case 'spring': return <Flower2 size={20} className="text-emerald" />;
+      default: return <Sun size={20} className="text-amber" />;
+    }
+  };
+
+  const getStyleIcon = (id) => {
+    switch (id) {
+      case 'couple': return <Heart size={20} className="text-amber" />;
+      case 'family': return <Users size={20} className="text-cyan" />;
+      case 'solo': return <Compass size={20} className="text-amber" />;
+      case 'group': return <Building2 size={20} className="text-emerald" />;
+      default: return <Users size={20} className="text-cyan" />;
+    }
   };
 
   // Weather seasonal tours
@@ -123,7 +159,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
             ========================================================================= */}
         <div className="hero-question-container">
           <div className="question-badge-row">
-            <span className="question-icon-spark">✨</span>
+            <Sparkles size={16} className="text-amber" />
             <h3 className="question-text">How Do You Want to Travel?</h3>
           </div>
 
@@ -134,8 +170,8 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               className={`mode-tab-btn ${discoveryMode === 'continent' ? 'active' : ''}`}
               onClick={() => setDiscoveryMode('continent')}
             >
-              <Globe size={18} />
-              <span>🗺️ 7 Continents World Map</span>
+              <Globe size={16} className="text-amber" />
+              <span>7 Continents World Map</span>
             </button>
 
             <button
@@ -143,8 +179,8 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               className={`mode-tab-btn ${discoveryMode === 'weather' ? 'active' : ''}`}
               onClick={() => setDiscoveryMode('weather')}
             >
-              <Sun size={18} />
-              <span>🌦️ By Weather & Season</span>
+              <Sun size={16} className="text-cyan" />
+              <span>By Weather & Season</span>
             </button>
 
             <button
@@ -152,8 +188,8 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               className={`mode-tab-btn ${discoveryMode === 'style' ? 'active' : ''}`}
               onClick={() => setDiscoveryMode('style')}
             >
-              <Users size={18} />
-              <span>👥 By Travel Style (Solo, Couple, Family, Group)</span>
+              <Users size={16} className="text-emerald" />
+              <span>By Travel Style (Solo, Couple, Family, Group)</span>
             </button>
           </div>
         </div>
@@ -173,7 +209,9 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                     className={`continent-chip-card ${activeContinentId === continent.id ? 'active' : ''}`}
                     onClick={() => handleContinentClick(continent.id)}
                   >
-                    <span className="continent-icon-glow">{continent.icon}</span>
+                    <div className="continent-icon-badge">
+                      {getContinentIcon(continent.id)}
+                    </div>
                     <div className="continent-chip-meta">
                       <strong className="c-title">{continent.name}</strong>
                       <span className="c-subtext">{continent.countries.length} Countries</span>
@@ -193,7 +231,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                       className={`country-pill-btn ${activeCountryId === country.id ? 'active' : ''}`}
                       onClick={() => setActiveCountryId(country.id)}
                     >
-                      <span className="flag-emoji">{country.flag}</span>
+                      <span className="country-code-badge">{country.code}</span>
                       <span>{country.name}</span>
                       <span className="badge-count">{country.cities.length}</span>
                     </button>
@@ -212,7 +250,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                     <div key={city.id} className="city-in-place-card glass-card">
                       <div className="c-card-top-header">
                         <div className="c-city-name-lockup">
-                          <span className="city-marker">📍</span>
+                          <MapPin size={15} className="text-amber flex-shrink-0 mt-1" />
                           <div>
                             <h4 className="city-headline">{city.name}</h4>
                             <span className="city-state-sub">{city.state}</span>
@@ -224,23 +262,33 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                       {/* Visual Inclusions Icon Bar */}
                       <div className="compact-inclusions-icon-bar">
                         <div className="inc-icon-item" title="4★/5★ Luxury Stay">
-                          <span className="inc-emoji">🏨</span>
+                          <div className="inc-svg-badge">
+                            <Hotel size={13} className="text-amber" />
+                          </div>
                           <span className="inc-text">Stay</span>
                         </div>
                         <div className="inc-icon-item" title="Private Cab & Transfers">
-                          <span className="inc-emoji">🚗</span>
+                          <div className="inc-svg-badge">
+                            <Car size={13} className="text-cyan" />
+                          </div>
                           <span className="inc-text">Transfers</span>
                         </div>
-                        <div className="inc-icon-item" title="Daily Breakfast">
-                          <span className="inc-emoji">🍽️</span>
+                        <div className="inc-icon-item" title="Daily Breakfast & Dining">
+                          <div className="inc-svg-badge">
+                            <Utensils size={13} className="text-emerald" />
+                          </div>
                           <span className="inc-text">Meals</span>
                         </div>
                         <div className="inc-icon-item" title="VIP Passes & Sightseeing">
-                          <span className="inc-emoji">🎟️</span>
+                          <div className="inc-svg-badge">
+                            <Ticket size={13} className="text-amber" />
+                          </div>
                           <span className="inc-text">Sightseeing</span>
                         </div>
                         <div className="inc-icon-item" title="24/7 VIP Concierge">
-                          <span className="inc-emoji">🛡️</span>
+                          <div className="inc-svg-badge">
+                            <ShieldCheck size={13} className="text-emerald" />
+                          </div>
                           <span className="inc-text">24/7 VIP</span>
                         </div>
                       </div>
@@ -294,7 +342,9 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                     className={`season-pill-tab ${activeSeasonId === season.id ? 'active' : ''}`}
                     onClick={() => setActiveSeasonId(season.id)}
                   >
-                    <span className="season-icon-tag">{season.icon}</span>
+                    <div className="season-icon-badge">
+                      {getSeasonIcon(season.id)}
+                    </div>
                     <div className="season-info-box">
                       <strong>{season.label.split('(')[0]}</strong>
                       <span className="season-temp">{season.temp}</span>
@@ -330,18 +380,24 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                       <div className="st-img-pane">
                         <img src={tour.image} alt={tour.name} className="st-img" />
                         <span className="st-badge">{tour.badge}</span>
-                        <span className="st-dur">⏱️ {tour.duration}</span>
+                        <span className="st-dur">
+                          <Clock size={10} className="inline mr-1 text-cyan" />
+                          {tour.duration}
+                        </span>
                       </div>
                       <div className="st-body">
-                        <span className="st-country">📍 {tour.country}</span>
+                        <span className="st-country">
+                          <MapPin size={11} className="inline mr-1 text-amber" />
+                          {tour.country}
+                        </span>
                         <h4 className="st-title font-editorial">{tour.name}</h4>
 
                         {/* Inclusions Row */}
                         <div className="compact-inclusions-icon-bar mb-2">
-                          <div className="inc-icon-item"><span className="inc-emoji">🏨</span><span className="inc-text">Stay</span></div>
-                          <div className="inc-icon-item"><span className="inc-emoji">🚗</span><span className="inc-text">Cabs</span></div>
-                          <div className="inc-icon-item"><span className="inc-emoji">🍽️</span><span className="inc-text">Meals</span></div>
-                          <div className="inc-icon-item"><span className="inc-emoji">🎟️</span><span className="inc-text">Sightseeing</span></div>
+                          <div className="inc-icon-item"><div className="inc-svg-badge"><Hotel size={12} className="text-amber" /></div><span className="inc-text">Stay</span></div>
+                          <div className="inc-icon-item"><div className="inc-svg-badge"><Car size={12} className="text-cyan" /></div><span className="inc-text">Cabs</span></div>
+                          <div className="inc-icon-item"><div className="inc-svg-badge"><Utensils size={12} className="text-emerald" /></div><span className="inc-text">Meals</span></div>
+                          <div className="inc-icon-item"><div className="inc-svg-badge"><Ticket size={12} className="text-amber" /></div><span className="inc-text">Sightseeing</span></div>
                         </div>
 
                         <div className="st-footer">
@@ -377,7 +433,9 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                     className={`style-pill-tab ${activeStyleId === style.id ? 'active' : ''}`}
                     onClick={() => setActiveStyleId(style.id)}
                   >
-                    <span className="style-icon-tag">{style.icon}</span>
+                    <div className="style-icon-badge">
+                      {getStyleIcon(style.id)}
+                    </div>
                     <div className="style-info-box">
                       <strong>{style.label}</strong>
                       <span className="style-sub">{style.perks.length} Perks</span>
@@ -422,18 +480,24 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                       <div className="st-img-pane">
                         <img src={tour.image} alt={tour.name} className="st-img" />
                         <span className="st-badge">{tour.badge}</span>
-                        <span className="st-dur">⏱️ {tour.duration}</span>
+                        <span className="st-dur">
+                          <Clock size={10} className="inline mr-1 text-cyan" />
+                          {tour.duration}
+                        </span>
                       </div>
                       <div className="st-body">
-                        <span className="st-country">📍 {tour.country} • {tour.category}</span>
+                        <span className="st-country">
+                          <MapPin size={11} className="inline mr-1 text-amber" />
+                          {tour.country} • {tour.category}
+                        </span>
                         <h4 className="st-title font-editorial">{tour.name}</h4>
 
                         {/* Inclusions Row */}
                         <div className="compact-inclusions-icon-bar mb-2">
-                          <div className="inc-icon-item"><span className="inc-emoji">🏨</span><span className="inc-text">Stay</span></div>
-                          <div className="inc-icon-item"><span className="inc-emoji">🚗</span><span className="inc-text">Cabs</span></div>
-                          <div className="inc-icon-item"><span className="inc-emoji">🍽️</span><span className="inc-text">Meals</span></div>
-                          <div className="inc-icon-item"><span className="inc-emoji">🎟️</span><span className="inc-text">Sightseeing</span></div>
+                          <div className="inc-icon-item"><div className="inc-svg-badge"><Hotel size={12} className="text-amber" /></div><span className="inc-text">Stay</span></div>
+                          <div className="inc-icon-item"><div className="inc-svg-badge"><Car size={12} className="text-cyan" /></div><span className="inc-text">Cabs</span></div>
+                          <div className="inc-icon-item"><div className="inc-svg-badge"><Utensils size={12} className="text-emerald" /></div><span className="inc-text">Meals</span></div>
+                          <div className="inc-icon-item"><div className="inc-svg-badge"><Ticket size={12} className="text-amber" /></div><span className="inc-text">Sightseeing</span></div>
                         </div>
 
                         <div className="st-footer">
@@ -696,8 +760,31 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           box-shadow: 0 0 18px rgba(255, 137, 47, 0.35);
         }
 
-        .continent-icon-glow {
-          font-size: 1.6rem;
+        .continent-icon-badge, .season-icon-badge, .style-icon-badge {
+          width: 38px;
+          height: 38px;
+          border-radius: 10px;
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          transition: all 0.25s ease;
+        }
+
+        .continent-chip-card:hover .continent-icon-badge,
+        .season-pill-tab:hover .season-icon-badge,
+        .style-pill-tab:hover .style-icon-badge {
+          background: rgba(255, 137, 47, 0.18);
+          border-color: rgba(255, 137, 47, 0.4);
+        }
+
+        .continent-chip-card.active .continent-icon-badge,
+        .season-pill-tab.active .season-icon-badge,
+        .style-pill-tab.active .style-icon-badge {
+          background: rgba(255, 137, 47, 0.3);
+          border-color: #FF892F;
         }
 
         .continent-chip-meta {
@@ -725,6 +812,23 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           border-bottom: 1px solid rgba(255, 255, 255, 0.06);
           margin-bottom: 1.25rem;
           flex-wrap: wrap;
+        }
+
+        .country-code-badge {
+          font-size: 0.65rem;
+          font-weight: 800;
+          color: #6FE6FC;
+          background: rgba(0, 18, 51, 0.6);
+          border: 1px solid rgba(111, 230, 252, 0.3);
+          padding: 0.15rem 0.45rem;
+          border-radius: 6px;
+          letter-spacing: 0.05em;
+        }
+
+        .country-pill-btn.active .country-code-badge {
+          color: #FFFFFF;
+          border-color: rgba(255, 255, 255, 0.4);
+          background: rgba(0, 0, 0, 0.25);
         }
 
         .pills-label {
@@ -887,7 +991,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           margin-left: 0.25rem;
         }
 
-        /* Thrillophilia / Pickyourtrail Style Inclusions Row */
+        /* Flaticon Style Inclusions Row */
         .compact-inclusions-icon-bar {
           display: flex;
           align-items: center;
@@ -903,12 +1007,25 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 0.15rem;
+          gap: 0.2rem;
         }
 
-        .inc-emoji {
-          font-size: 1rem;
-          line-height: 1;
+        .inc-svg-badge {
+          width: 24px;
+          height: 24px;
+          border-radius: 6px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.2s ease;
+        }
+
+        .city-in-place-card:hover .inc-svg-badge,
+        .seasonal-stage-card:hover .inc-svg-badge {
+          background: rgba(255, 137, 47, 0.15);
+          border-color: rgba(255, 137, 47, 0.4);
         }
 
         .inc-text {

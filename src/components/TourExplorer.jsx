@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { TOURS_DATA } from '../data/toursData';
-import { Clock, MapPin, Star, CheckCircle, ArrowRight, MessageCircle, Sparkles, Compass, Heart, Scale, ShieldCheck, Flame, Search } from 'lucide-react';
+import { 
+  Clock, MapPin, Star, CheckCircle, ArrowRight, MessageCircle, 
+  Sparkles, Compass, Heart, Scale, ShieldCheck, Flame, Search, 
+  Globe, Plane, Users, Sun, Snowflake, CloudRain, Leaf, Flower2, 
+  Palmtree, Waves, Landmark, Hotel, Car, Utensils, Ticket 
+} from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useWishlistCompare } from '../context/WishlistCompareContext';
 import Tilt3DCard from './animations/Tilt3DCard';
@@ -25,32 +30,32 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
   const INITIAL_LIMIT = 6;
 
   const seasons = [
-    { id: 'All', label: 'All Seasons', icon: '🌐' },
-    { id: 'spring', label: '🌸 Spring Bloom (Mar–May)', match: ['kashmir', 'japan', 'paris', 'swiss'] },
-    { id: 'summer', label: '☀️ Summer Escapes (Jun–Aug)', match: ['swiss', 'bali', 'amalfi', 'iceland'] },
-    { id: 'autumn', label: '🍁 Autumn Golden (Sep–Nov)', match: ['rajasthan', 'kerala', 'dubai', 'vietnam'] },
-    { id: 'winter', label: '❄️ Winter Snow & Lights (Dec–Feb)', match: ['kashmir', 'iceland', 'maldives', 'dubai'] }
+    { id: 'All', label: 'All Seasons', icon: Globe },
+    { id: 'spring', label: 'Spring Bloom (Mar–May)', icon: Flower2, match: ['kashmir', 'japan', 'paris', 'swiss'] },
+    { id: 'summer', label: 'Summer Escapes (Jun–Aug)', icon: Sun, match: ['swiss', 'bali', 'amalfi', 'iceland'] },
+    { id: 'autumn', label: 'Autumn Golden (Sep–Nov)', icon: Leaf, match: ['rajasthan', 'kerala', 'dubai', 'vietnam'] },
+    { id: 'winter', label: 'Winter Snow & Lights (Dec–Feb)', icon: Snowflake, match: ['kashmir', 'iceland', 'maldives', 'dubai'] }
   ];
 
   const categories = [
-    { id: 'All', label: '🌟 All Packages' },
-    { id: 'Honeymoon & Couple', label: '💑 Honeymoon & Couple' },
-    { id: 'Family Expedition', label: '👨‍👩‍👧‍👦 Family Expedition' },
-    { id: 'Adrenaline & Adventure', label: '🧗 Adrenaline & Adventure' },
-    { id: 'International Signature', label: '✈️ International Signature' },
-    { id: 'Sacred Pilgrimage', label: '🕉️ Sacred Char Dham' },
-    { id: 'Responsible Travel', label: '🌿 Responsible Eco-Luxury' }
+    { id: 'All', label: 'All Packages', icon: Sparkles },
+    { id: 'Honeymoon & Couple', label: 'Honeymoon & Romance', icon: Heart },
+    { id: 'Family Expedition', label: 'Family Expeditions', icon: Users },
+    { id: 'Adrenaline & Adventure', label: 'Adventure & Trails', icon: Compass },
+    { id: 'International Signature', label: 'International Signature', icon: Plane },
+    { id: 'Sacred Pilgrimage', label: 'Sacred Pilgrimage', icon: Landmark },
+    { id: 'Responsible Travel', label: 'Responsible Eco-Luxury', icon: Leaf }
   ];
 
   const vibes = [
-    { id: 'All', label: 'All Vibes' },
-    { id: 'Snow & Alpine', label: '🏔️ Snow & Alpine' },
-    { id: 'Tropical Islands', label: '🏝️ Tropical Islands' },
-    { id: 'Royal Luxury', label: '👑 Royal Luxury' },
-    { id: 'Wildlife Safari', label: '🦁 Wildlife Safari' },
-    { id: 'Northern Lights', label: '🌌 Northern Lights' },
-    { id: 'Serene Backwaters', label: '🌿 Serene Backwaters' },
-    { id: 'Sacred Char Dham', label: '🕉️ Sacred Char Dham' }
+    { id: 'All', label: 'All Vibes', icon: Sparkles },
+    { id: 'Snow & Alpine', label: 'Snow & Alpine', icon: Snowflake },
+    { id: 'Tropical Islands', label: 'Tropical Islands', icon: Palmtree },
+    { id: 'Royal Luxury', label: 'Royal Heritage', icon: Sparkles },
+    { id: 'Wildlife Safari', label: 'Wildlife Safari', icon: Compass },
+    { id: 'Northern Lights', label: 'Northern Lights', icon: Flame },
+    { id: 'Serene Backwaters', label: 'Serene Backwaters', icon: Waves },
+    { id: 'Sacred Char Dham', label: 'Sacred Char Dham', icon: Landmark }
   ];
 
   const regions = ['All', 'India', 'Asia', 'Europe', 'Africa', 'Americas', 'Oceania', 'Polar & Middle East'];
@@ -182,45 +187,57 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
             <Sparkles size={13} className="text-amber" /> Seasonal Radar:
           </span>
           <div className="seasonal-chips-row">
-            {seasons.map((s) => (
-              <button
-                key={s.id}
-                type="button"
-                className={`season-chip ${activeSeason === s.id ? 'active' : ''}`}
-                onClick={() => setActiveSeason(s.id)}
-              >
-                <span>{s.label}</span>
-              </button>
-            ))}
+            {seasons.map((s) => {
+              const Icon = s.icon;
+              return (
+                <button
+                  key={s.id}
+                  type="button"
+                  className={`season-chip ${activeSeason === s.id ? 'active' : ''}`}
+                  onClick={() => setActiveSeason(s.id)}
+                >
+                  {Icon && <Icon size={13} className="text-amber" />}
+                  <span>{s.label}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
         {/* Category Tabs */}
         <div className="category-tabs">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              className={`tab-btn ${activeCategory === cat.id ? 'active' : ''}`}
-              onClick={() => setActiveCategory(cat.id)}
-            >
-              {cat.label}
-            </button>
-          ))}
+          {categories.map((cat) => {
+            const Icon = cat.icon;
+            return (
+              <button
+                key={cat.id}
+                className={`tab-btn ${activeCategory === cat.id ? 'active' : ''}`}
+                onClick={() => setActiveCategory(cat.id)}
+              >
+                {Icon && <Icon size={15} />}
+                <span>{cat.label}</span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Secondary Filter Bar: Vibes & Region & Sort */}
         <div className="filter-controls-bar">
           {/* Vibe Pills */}
           <div className="vibe-pills-list">
-            {vibes.map((v) => (
-              <button
-                key={v.id}
-                className={`vibe-pill ${activeVibe === v.id ? 'active' : ''}`}
-                onClick={() => setActiveVibe(v.id)}
-              >
-                {v.label}
-              </button>
-            ))}
+            {vibes.map((v) => {
+              const Icon = v.icon;
+              return (
+                <button
+                  key={v.id}
+                  className={`vibe-pill ${activeVibe === v.id ? 'active' : ''}`}
+                  onClick={() => setActiveVibe(v.id)}
+                >
+                  {Icon && <Icon size={13} />}
+                  <span>{v.label}</span>
+                </button>
+              );
+            })}
           </div>
 
           {/* Region Dropdown & Sort */}
@@ -311,7 +328,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
                         })()}
                       </div>
 
-                      {/* Wishlist Heart & Compare Checkbox */}
+                      {/* Wishlist Heart Button */}
                       <div className="media-action-buttons">
                         <button
                           type="button"
@@ -331,10 +348,16 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
                         </button>
                       </div>
 
-                      {/* Duration & Rating Floating Pill */}
+                      {/* Duration & Rating Floating Strip */}
                       <div className="media-bottom-strip">
-                        <span className="compact-dur-pill">⏱️ {tour.duration}</span>
-                        <span className="compact-rating-pill">⭐ {tour.rating || '4.9'} ({tour.reviews || '80+'})</span>
+                        <span className="compact-dur-pill">
+                          <Clock size={11} className="text-cyan" />
+                          <span>{tour.duration}</span>
+                        </span>
+                        <span className="compact-rating-pill">
+                          <Star size={11} className="fill-gold text-gold" />
+                          <span>{tour.rating || '4.9'} ({tour.reviews || '80+'})</span>
+                        </span>
                       </div>
                     </div>
 
@@ -347,26 +370,36 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
                       <h3 className="compact-tour-title">{tour.name}</h3>
 
-                      {/* Visual Inclusions Icon Bar (Thrillophilia / Pickyourtrail Style) */}
+                      {/* Visual Inclusions Icon Bar (Flaticon / Vector Badge Style) */}
                       <div className="compact-inclusions-icon-bar">
                         <div className="inc-icon-item" title="4-Star or 5-Star Luxury Stay">
-                          <span className="inc-emoji">🏨</span>
+                          <div className="inc-svg-badge">
+                            <Hotel size={13} className="text-amber" />
+                          </div>
                           <span className="inc-text">Stay</span>
                         </div>
-                        <div className="inc-icon-item" title="Private Cab & Airport Transfers">
-                          <span className="inc-emoji">🚗</span>
+                        <div className="inc-icon-item" title="Private Cab & Transfers">
+                          <div className="inc-svg-badge">
+                            <Car size={13} className="text-cyan" />
+                          </div>
                           <span className="inc-text">Transfers</span>
                         </div>
-                        <div className="inc-icon-item" title="Daily Breakfast Included">
-                          <span className="inc-emoji">🍽️</span>
+                        <div className="inc-icon-item" title="Daily Breakfast & Meals">
+                          <div className="inc-svg-badge">
+                            <Utensils size={13} className="text-emerald" />
+                          </div>
                           <span className="inc-text">Meals</span>
                         </div>
-                        <div className="inc-icon-item" title="Guided VIP Sightseeing & Passes">
-                          <span className="inc-emoji">🎟️</span>
+                        <div className="inc-icon-item" title="VIP Sightseeing & Entry Passes">
+                          <div className="inc-svg-badge">
+                            <Ticket size={13} className="text-amber" />
+                          </div>
                           <span className="inc-text">Sightseeing</span>
                         </div>
-                        <div className="inc-icon-item" title="24/7 Dedicated Concierge Support">
-                          <span className="inc-emoji">🛡️</span>
+                        <div className="inc-icon-item" title="24/7 Dedicated VIP Concierge">
+                          <div className="inc-svg-badge">
+                            <ShieldCheck size={13} className="text-emerald" />
+                          </div>
                           <span className="inc-text">24/7 VIP</span>
                         </div>
                       </div>
@@ -1021,12 +1054,12 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           overflow: hidden;
         }
 
-        /* Thrillophilia / Pickyourtrail Style Inclusions Row */
+        /* Flaticon Style Inclusions Row */
         .compact-inclusions-icon-bar {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 0.5rem 0.65rem;
+          padding: 0.45rem 0.5rem;
           border-radius: 12px;
           background: rgba(0, 29, 81, 0.45);
           border: 1px solid rgba(255, 255, 255, 0.05);
@@ -1036,16 +1069,28 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 0.15rem;
+          gap: 0.2rem;
         }
 
-        .inc-emoji {
-          font-size: 1.05rem;
-          line-height: 1;
+        .inc-svg-badge {
+          width: 26px;
+          height: 26px;
+          border-radius: 8px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.2s ease;
+        }
+
+        .tour-card:hover .inc-svg-badge {
+          background: rgba(255, 137, 47, 0.15);
+          border-color: rgba(255, 137, 47, 0.4);
         }
 
         .inc-text {
-          font-size: 0.65rem;
+          font-size: 0.62rem;
           color: #CBD5E1;
           font-weight: 600;
         }

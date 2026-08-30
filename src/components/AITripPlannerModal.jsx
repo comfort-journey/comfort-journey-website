@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { X, Sparkles, Send, CheckCircle, Clock, MapPin, Hotel, Users, ArrowRight, MessageCircle, Heart, ShieldCheck, Flame } from 'lucide-react';
+import { 
+  X, Sparkles, Send, CheckCircle, Clock, MapPin, Hotel, Users, 
+  ArrowRight, MessageCircle, Heart, ShieldCheck, Flame, Compass, 
+  Landmark, Snowflake, Palmtree, Sun, Flower2, Building2, BedDouble, Star
+} from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { TOURS_DATA } from '../data/toursData';
 
@@ -19,20 +23,20 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
   if (isOpen === false) return null;
 
   const vibesList = [
-    { title: 'Romantic Honeymoon', desc: 'Candlelight dinners, private villas & sunset cruises', icon: '💑' },
-    { title: 'Family Wonder', desc: 'Child-friendly pacing, spacious SUVs & luxury resorts', icon: '👨‍👩‍👧‍👦' },
-    { title: 'Thrill & Treks', desc: 'Snowmobiling, scuba, dune bashing & hiking', icon: '🧗' },
-    { title: 'Ultra Luxury Palaces', desc: 'Royal heritage suites, private butlers & helicopters', icon: '👑' },
-    { title: 'Sacred Heritage', desc: 'Char Dham, Kedarnath VIP darshan & Ganga aarti', icon: '🕉️' }
+    { title: 'Romantic Honeymoon', desc: 'Candlelight dinners, private villas & sunset cruises', icon: Heart },
+    { title: 'Family Wonder', desc: 'Child-friendly pacing, spacious SUVs & luxury resorts', icon: Users },
+    { title: 'Thrill & Treks', desc: 'Snowmobiling, scuba, dune bashing & hiking', icon: Compass },
+    { title: 'Ultra Luxury Palaces', desc: 'Royal heritage suites, private butlers & helicopters', icon: Sparkles },
+    { title: 'Sacred Heritage', desc: 'Char Dham, Kedarnath VIP darshan & Ganga aarti', icon: Landmark }
   ];
 
   const landscapesList = [
-    { title: 'Snow & Glaciers', sub: 'Kashmir, Swiss Alps, Iceland', icon: '❄️' },
-    { title: 'Tropical Islands', sub: 'Bali, Maldives, Andaman', icon: '🏝️' },
-    { title: 'Desert Oasis', sub: 'Dubai, Abu Dhabi, Rajasthan', icon: '🏜️' },
-    { title: 'European Fairytale', sub: 'Italy, France, Switzerland', icon: '🏰' },
-    { title: 'African Safari', sub: 'Kenya Maasai Mara, Serengeti', icon: '🦁' },
-    { title: 'Japanese Zen', sub: 'Kyoto, Tokyo, Mount Fuji', icon: '🌸' }
+    { title: 'Snow & Glaciers', sub: 'Kashmir, Swiss Alps, Iceland', icon: Snowflake },
+    { title: 'Tropical Islands', sub: 'Bali, Maldives, Andaman', icon: Palmtree },
+    { title: 'Desert Oasis', sub: 'Dubai, Abu Dhabi, Rajasthan', icon: Sun },
+    { title: 'European Fairytale', sub: 'Italy, France, Switzerland', icon: Landmark },
+    { title: 'African Safari', sub: 'Kenya Maasai Mara, Serengeti', icon: Compass },
+    { title: 'Japanese Zen', sub: 'Kyoto, Tokyo, Mount Fuji', icon: Flower2 }
   ];
 
   const handleGenerate = () => {
@@ -135,20 +139,25 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
             </div>
 
             <div className="ai-options-grid">
-              {vibesList.map((v) => (
-                <button
-                  key={v.title}
-                  type="button"
-                  className={`ai-card-btn ${vibe === v.title ? 'active' : ''}`}
-                  onClick={() => setVibe(v.title)}
-                >
-                  <span className="vibe-emoji">{v.icon}</span>
-                  <div className="vibe-text">
-                    <strong>{v.title}</strong>
-                    <span>{v.desc}</span>
-                  </div>
-                </button>
-              ))}
+              {vibesList.map((v) => {
+                const Icon = v.icon;
+                return (
+                  <button
+                    key={v.title}
+                    type="button"
+                    className={`ai-card-btn ${vibe === v.title ? 'active' : ''}`}
+                    onClick={() => setVibe(v.title)}
+                  >
+                    <div className="vibe-svg-badge">
+                      <Icon size={20} className="text-amber" />
+                    </div>
+                    <div className="vibe-text">
+                      <strong>{v.title}</strong>
+                      <span>{v.desc}</span>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
 
             <div className="ai-step-actions">
@@ -167,18 +176,23 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
             <p className="ai-step-desc">Where does your imagination want to wake up?</p>
 
             <div className="ai-landscapes-grid">
-              {landscapesList.map((l) => (
-                <button
-                  key={l.title}
-                  type="button"
-                  className={`ai-landscape-btn ${landscape === l.title ? 'active' : ''}`}
-                  onClick={() => setLandscape(l.title)}
-                >
-                  <span className="landscape-emoji">{l.icon}</span>
-                  <strong>{l.title}</strong>
-                  <small>{l.sub}</small>
-                </button>
-              ))}
+              {landscapesList.map((l) => {
+                const Icon = l.icon;
+                return (
+                  <button
+                    key={l.title}
+                    type="button"
+                    className={`ai-landscape-btn ${landscape === l.title ? 'active' : ''}`}
+                    onClick={() => setLandscape(l.title)}
+                  >
+                    <div className="landscape-svg-badge">
+                      <Icon size={22} className="text-cyan" />
+                    </div>
+                    <strong>{l.title}</strong>
+                    <small>{l.sub}</small>
+                  </button>
+                );
+              })}
             </div>
 
             <div className="ai-step-actions between">
@@ -197,37 +211,42 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
         {step === 3 && (
           <div className="ai-step-body">
             <h2 className="ai-step-title">Trip Duration & <span className="gradient-text-ai">Travelers</span></h2>
-            <p className="ai-step-desc">Tell us your time window and group size.</p>
+            <p className="ai-step-desc">Help our algorithm tailor the exact day-by-day pacing.</p>
 
             <div className="ai-form-group">
-              <label>Ideal Vacation Duration</label>
-              <div className="duration-pills-row">
-                {['3–4 Days (Quick Getaway)', '5–6 Days (Most Popular)', '7–9 Days (Grand Tour)', '10–14 Days (Expedition)'].map((d) => (
+              <label className="ai-label">How long do you want to travel?</label>
+              <div className="ai-chips-group">
+                {['3–4 Days (Quick Getaway)', '5–6 Days (Signature)', '7–9 Days (Grand Journey)', '10+ Days (Epic Odyssey)'].map((d) => (
                   <button
                     key={d}
                     type="button"
-                    className={`dur-pill ${durationGroup === d ? 'active' : ''}`}
+                    className={`ai-chip-btn ${durationGroup === d ? 'active' : ''}`}
                     onClick={() => setDurationGroup(d)}
                   >
-                    {d}
+                    <Clock size={14} />
+                    <span>{d}</span>
                   </button>
                 ))}
               </div>
             </div>
 
             <div className="ai-form-group">
-              <label>Number of Travelers: <strong>{guestsCount} Guests</strong></label>
-              <div className="guests-stepper-row">
-                {[1, 2, 3, 4, 5, 6].map((num) => (
-                  <button
-                    key={num}
-                    type="button"
-                    className={`guest-num-btn ${guestsCount === num ? 'active' : ''}`}
-                    onClick={() => setGuestsCount(num)}
-                  >
-                    {num} {num === 1 ? 'Solo' : num === 2 ? 'Couple' : 'Guests'}
-                  </button>
-                ))}
+              <label className="ai-label">Number of Travelers (Guests)</label>
+              <div className="ai-guests-picker">
+                <button 
+                  type="button" 
+                  className="guest-step-btn"
+                  onClick={() => setGuestsCount(Math.max(1, guestsCount - 1))}
+                >-</button>
+                <div className="guest-display">
+                  <Users size={18} className="text-amber" />
+                  <strong>{guestsCount} {guestsCount === 1 ? 'Solo Traveler' : 'Travelers'}</strong>
+                </div>
+                <button 
+                  type="button" 
+                  className="guest-step-btn"
+                  onClick={() => setGuestsCount(Math.min(20, guestsCount + 1))}
+                >+</button>
               </div>
             </div>
 
@@ -236,7 +255,7 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
                 Back
               </button>
               <button className="btn-ai-glow" onClick={() => setStep(4)}>
-                <span>Next: Hotel Tier</span>
+                <span>Next: Luxury Hotel Tier</span>
                 <ArrowRight size={16} />
               </button>
             </div>
@@ -251,23 +270,28 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
 
             <div className="ai-options-grid">
               {[
-                { title: '3-Star Boutique Comfort', desc: 'Cozy verified hotels, spotless rooms & complimentary breakfast', icon: '🏨' },
-                { title: '4-Star Premium Deluxe Resort', desc: 'Scenic mountain/beach resorts, swimming pools & gourmet dining', icon: '🌟' },
-                { title: '5-Star Royal Palace / Pool Villa', desc: 'Overwater bungalows, private pool villas, 24/7 butler & royal luxury', icon: '👑' }
-              ].map((tier) => (
-                <button
-                  key={tier.title}
-                  type="button"
-                  className={`ai-card-btn ${hotelTier === tier.title ? 'active' : ''}`}
-                  onClick={() => setHotelTier(tier.title)}
-                >
-                  <span className="vibe-emoji">{tier.icon}</span>
-                  <div className="vibe-text">
-                    <strong>{tier.title}</strong>
-                    <span>{tier.desc}</span>
-                  </div>
-                </button>
-              ))}
+                { title: '3-Star Boutique Comfort', desc: 'Cozy verified hotels, spotless rooms & complimentary breakfast', icon: BedDouble },
+                { title: '4-Star Premium Deluxe Resort', desc: 'Scenic mountain/beach resorts, swimming pools & gourmet dining', icon: Hotel },
+                { title: '5-Star Royal Palace / Pool Villa', desc: 'Overwater bungalows, private pool villas, 24/7 butler & royal luxury', icon: Sparkles }
+              ].map((tier) => {
+                const Icon = tier.icon;
+                return (
+                  <button
+                    key={tier.title}
+                    type="button"
+                    className={`ai-card-btn ${hotelTier === tier.title ? 'active' : ''}`}
+                    onClick={() => setHotelTier(tier.title)}
+                  >
+                    <div className="vibe-svg-badge">
+                      <Icon size={20} className="text-amber" />
+                    </div>
+                    <div className="vibe-text">
+                      <strong>{tier.title}</strong>
+                      <span>{tier.desc}</span>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
 
             <div className="ai-step-actions between">
@@ -470,9 +494,22 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
           box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
         }
 
-        .vibe-emoji {
-          font-size: 1.85rem;
+        .vibe-svg-badge {
+          width: 44px;
+          height: 44px;
+          border-radius: 12px;
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          display: flex;
+          align-items: center;
+          justify-content: center;
           flex-shrink: 0;
+          transition: all 0.25s ease;
+        }
+
+        .ai-card-btn:hover .vibe-svg-badge {
+          background: rgba(139, 92, 246, 0.2);
+          border-color: #8B5CF6;
         }
 
         .vibe-text {
@@ -502,7 +539,7 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
           display: flex;
           flex-direction: column;
           align-items: flex-start;
-          gap: 0.35rem;
+          gap: 0.5rem;
           padding: 1.25rem;
           border-radius: var(--radius-md);
           background: rgba(255, 255, 255, 0.04);
@@ -522,8 +559,15 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
           box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
         }
 
-        .landscape-emoji {
-          font-size: 2rem;
+        .landscape-svg-badge {
+          width: 42px;
+          height: 42px;
+          border-radius: 10px;
+          background: rgba(111, 230, 252, 0.1);
+          border: 1px solid rgba(111, 230, 252, 0.25);
+          display: flex;
+          align-items: center;
+          justify-content: center;
           margin-bottom: 0.25rem;
         }
 
