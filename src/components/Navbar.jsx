@@ -26,7 +26,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin }) {
     { label: 'Reels', href: '#stories' },
     { label: 'Why Us', href: '#why-us' },
     { label: 'Services', href: '#services' },
-    { label: 'About', href: '#about' },
+    { label: 'Who We Are', href: '#/about' },
   ];
 
   return (

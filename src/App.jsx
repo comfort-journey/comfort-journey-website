@@ -13,7 +13,7 @@ import TripCustomizerSection from './components/TripCustomizerSection';
 import GoogleReviewsSection from './components/GoogleReviewsSection';
 import TravelStoriesSection from './components/TravelStoriesSection';
 import ServicesSection from './components/ServicesSection';
-import AboutPromoSection from './components/AboutPromoSection';
+import AboutUsPage from './components/AboutUsPage';
 import WhyChooseUs from './components/WhyChooseUs';
 import FaqSection from './components/FaqSection';
 import Footer from './components/Footer';
@@ -41,20 +41,26 @@ export default function App() {
   const [isTierCompareOpen, setIsTierCompareOpen] = useState(false);
   const [isAdminCMSOpen, setIsAdminCMSOpen] = useState(false);
   const [policyModalType, setPolicyModalType] = useState(null); // 'cancellation' | 'privacy' | 'terms' | null
+  const [currentView, setCurrentView] = useState('home'); // 'home' | 'about'
 
-  // Hash-based URL routing: auto-open Admin CMS when URL contains #/admin or #admin
+  // Hash-based URL routing: auto-open Admin CMS or switch to About Us page
   useEffect(() => {
-    const checkAdminRoute = () => {
+    const handleRouteChange = () => {
       const hash = window.location.hash.toLowerCase();
       if (hash === '#/admin' || hash === '#admin') {
         setIsAdminCMSOpen(true);
+      } else if (hash === '#/about' || hash === '#/who-we-are' || hash === '#/about-us' || hash === '#about') {
+        setCurrentView('about');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        setCurrentView('home');
       }
     };
     // Check on mount (direct URL navigation)
-    checkAdminRoute();
+    handleRouteChange();
     // Listen for hash changes (in-app navigation)
-    window.addEventListener('hashchange', checkAdminRoute);
-    return () => window.removeEventListener('hashchange', checkAdminRoute);
+    window.addEventListener('hashchange', handleRouteChange);
+    return () => window.removeEventListener('hashchange', handleRouteChange);
   }, []);
 
   return (
@@ -75,55 +81,65 @@ export default function App() {
               onOpenAdmin={() => setIsAdminCMSOpen(true)}
             />
 
-            {/* 2. Next-Gen Cinematic Hero ("YOUR JOURNEY YOUR COMFORT") with Vanta Sky Canvas */}
-            <Hero 
-              onSearch={(filters) => setSearchFilters(filters)} 
-              onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
-            />
+            {currentView === 'about' ? (
+              /* DEDICATED ABOUT US / WHO WE ARE PAGE VIEW */
+              <AboutUsPage 
+                onOpenQuote={() => setIsQuickQuoteOpen(true)}
+                onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+                onNavigateHome={() => {
+                  window.location.hash = '';
+                  setCurrentView('home');
+                }}
+              />
+            ) : (
+              /* HOMEPAGE VIEW (AboutPromoSection Removed) */
+              <>
+                {/* 2. Next-Gen Cinematic Hero ("YOUR JOURNEY YOUR COMFORT") with Vanta Sky Canvas */}
+                <Hero 
+                  onSearch={(filters) => setSearchFilters(filters)} 
+                  onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+                />
 
-            {/* 3. Trust & Experience Stats Bar with Anime.js Elastic Counters */}
-            <StatsBar />
+                {/* 3. Trust & Experience Stats Bar with Anime.js Elastic Counters */}
+                <StatsBar />
 
-            {/* 4. Handcrafted Luxury Tour Packages Explorer with 3D Card Tilt & Seasonal Radar */}
-            <TourExplorer 
-              searchFilters={searchFilters} 
-              onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
-              onBookNow={(tour) => setSelectedBookingTour(tour)}
-              onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
-              onOpenTierCompare={(tour) => {
-                setTierCompareTour(tour);
-                setIsTierCompareOpen(true);
-              }}
-            />
+                {/* 4. Handcrafted Luxury Tour Packages Explorer with 3D Card Tilt & Seasonal Radar */}
+                <TourExplorer 
+                  searchFilters={searchFilters} 
+                  onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
+                  onBookNow={(tour) => setSelectedBookingTour(tour)}
+                  onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+                  onOpenTierCompare={(tour) => {
+                    setTierCompareTour(tour);
+                    setIsTierCompareOpen(true);
+                  }}
+                />
 
-            {/* 5. Interactive Trip Studio & Live Price Estimator */}
-            <TripCustomizerSection />
+                {/* 5. Interactive Trip Studio & Live Price Estimator */}
+                <TripCustomizerSection />
 
-            {/* 10. Dedicated Verified Google Reviews Section (4.8★ Rating / 85+ Real Reviews) */}
-            <GoogleReviewsSection 
-              onOpenQuote={() => setIsQuickQuoteOpen(true)}
-            />
+                {/* 10. Dedicated Verified Google Reviews Section (4.8★ Rating / 85+ Real Reviews) */}
+                <GoogleReviewsSection 
+                  onOpenQuote={() => setIsQuickQuoteOpen(true)}
+                />
 
-            {/* 11. Traveler Instagram Reels & Live Video Stories with 3D Tilt */}
-            <TravelStoriesSection 
-              onOpenQuote={() => setIsQuickQuoteOpen(true)} 
-            />
+                {/* 11. Traveler Instagram Reels & Live Video Stories with 3D Tilt */}
+                <TravelStoriesSection 
+                  onOpenQuote={() => setIsQuickQuoteOpen(true)} 
+                />
 
-            {/* 12. What We Do (Services) */}
-            <ServicesSection 
-              onOpenQuote={() => setIsQuickQuoteOpen(true)} 
-            />
+                {/* 12. What We Do (Services) */}
+                <ServicesSection 
+                  onOpenQuote={() => setIsQuickQuoteOpen(true)} 
+                />
 
-            {/* 13. Why Choose Comfort Journey (7 Pillars with 3D Tilt) */}
-            <WhyChooseUs onOpenAIPlanner={() => setIsAIPlannerOpen(true)} />
+                {/* 13. Why Choose Comfort Journey (7 Pillars with 3D Tilt) */}
+                <WhyChooseUs onOpenAIPlanner={() => setIsAIPlannerOpen(true)} />
 
-            {/* 14. About Us ("WE MAKE YOUR TRIPS UNFORGOTTABLE" - Est. 1992) */}
-            <AboutPromoSection 
-              onOpenQuote={() => setIsQuickQuoteOpen(true)} 
-            />
-
-            {/* 15. Frequently Asked Questions */}
-            <FaqSection />
+                {/* 15. Frequently Asked Questions */}
+                <FaqSection />
+              </>
+            )}
 
             {/* 16. Global Footer with Trust Policies & Team Portal */}
             <Footer 
