@@ -205,6 +205,8 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               <div className="stage-cities-grid">
                 {activeCountry.cities.map((city) => {
                   const tour = getTourObject(city.tourId);
+                  const origPrice = Math.round(city.startingPrice * 1.25);
+                  const discountPct = 20;
 
                   return (
                     <div key={city.id} className="city-in-place-card glass-card">
@@ -219,24 +221,40 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                         <span className="weather-pill-tag">{city.weatherTag}</span>
                       </div>
 
-                      <div className="c-theme-badge">
-                        <span>{city.type}</span>
+                      {/* Visual Inclusions Icon Bar */}
+                      <div className="compact-inclusions-icon-bar">
+                        <div className="inc-icon-item" title="4★/5★ Luxury Stay">
+                          <span className="inc-emoji">🏨</span>
+                          <span className="inc-text">Stay</span>
+                        </div>
+                        <div className="inc-icon-item" title="Private Cab & Transfers">
+                          <span className="inc-emoji">🚗</span>
+                          <span className="inc-text">Transfers</span>
+                        </div>
+                        <div className="inc-icon-item" title="Daily Breakfast">
+                          <span className="inc-emoji">🍽️</span>
+                          <span className="inc-text">Meals</span>
+                        </div>
+                        <div className="inc-icon-item" title="VIP Passes & Sightseeing">
+                          <span className="inc-emoji">🎟️</span>
+                          <span className="inc-text">Sightseeing</span>
+                        </div>
+                        <div className="inc-icon-item" title="24/7 VIP Concierge">
+                          <span className="inc-emoji">🛡️</span>
+                          <span className="inc-text">24/7 VIP</span>
+                        </div>
                       </div>
 
-                      <ul className="c-highlights-list">
-                        {city.highlights.map((h, i) => (
-                          <li key={i}>
-                            <CheckCircle2 size={13} className="text-emerald" />
-                            <span>{h}</span>
-                          </li>
-                        ))}
-                      </ul>
-
                       <div className="c-card-footer-action">
-                        <div>
-                          <span className="start-lbl">From</span>
-                          <strong className="price-bold font-editorial">{formatPrice(city.startingPrice)}</strong>
-                          <span className="price-unit-tag">/ person • {city.duration}</span>
+                        <div className="compact-price-box">
+                          <div className="price-strike-row">
+                            <span className="orig-price-strike">{formatPrice(origPrice)}</span>
+                            <span className="price-save-badge">{discountPct}% OFF</span>
+                          </div>
+                          <div className="price-main-row">
+                            <strong className="current-offer-price font-editorial">{formatPrice(city.startingPrice)}</strong>
+                            <span className="price-per-person">/ person • {city.duration}</span>
+                          </div>
                         </div>
 
                         <div className="action-buttons-inline">
@@ -246,7 +264,6 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                             onClick={() => onSelectItinerary(tour)}
                           >
                             <span>Itinerary</span>
-                            <ArrowRight size={13} />
                           </button>
 
                           <button
@@ -305,30 +322,45 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
               {/* In-Place Seasonal Tour Cards */}
               <div className="stage-cities-grid">
-                {getSeasonalTours().map((tour) => (
-                  <div key={tour.id} className="seasonal-stage-card glass-card">
-                    <div className="st-img-pane">
-                      <img src={tour.image} alt={tour.name} className="st-img" />
-                      <span className="st-badge">{tour.badge}</span>
-                      <span className="st-dur">⏱️ {tour.duration}</span>
-                    </div>
-                    <div className="st-body">
-                      <span className="st-country">📍 {tour.country}</span>
-                      <h4 className="st-title font-editorial">{tour.name}</h4>
-                      <div className="st-footer">
-                        <strong className="st-price gradient-text-gold">{formatPrice(tour.price)}</strong>
-                        <button
-                          type="button"
-                          className="btn-itinerary-inline"
-                          onClick={() => onSelectItinerary(tour)}
-                        >
-                          <span>View Itinerary</span>
-                          <ArrowRight size={13} />
-                        </button>
+                {getSeasonalTours().map((tour) => {
+                  const origPrice = tour.originalPrice || Math.round(tour.price * 1.25);
+
+                  return (
+                    <div key={tour.id} className="seasonal-stage-card glass-card">
+                      <div className="st-img-pane">
+                        <img src={tour.image} alt={tour.name} className="st-img" />
+                        <span className="st-badge">{tour.badge}</span>
+                        <span className="st-dur">⏱️ {tour.duration}</span>
+                      </div>
+                      <div className="st-body">
+                        <span className="st-country">📍 {tour.country}</span>
+                        <h4 className="st-title font-editorial">{tour.name}</h4>
+
+                        {/* Inclusions Row */}
+                        <div className="compact-inclusions-icon-bar mb-2">
+                          <div className="inc-icon-item"><span className="inc-emoji">🏨</span><span className="inc-text">Stay</span></div>
+                          <div className="inc-icon-item"><span className="inc-emoji">🚗</span><span className="inc-text">Cabs</span></div>
+                          <div className="inc-icon-item"><span className="inc-emoji">🍽️</span><span className="inc-text">Meals</span></div>
+                          <div className="inc-icon-item"><span className="inc-emoji">🎟️</span><span className="inc-text">Sightseeing</span></div>
+                        </div>
+
+                        <div className="st-footer">
+                          <div className="compact-price-box">
+                            <span className="orig-price-strike">{formatPrice(origPrice)}</span>
+                            <strong className="current-offer-price font-editorial">{formatPrice(tour.price)}</strong>
+                          </div>
+                          <button
+                            type="button"
+                            className="btn-itinerary-inline"
+                            onClick={() => onSelectItinerary(tour)}
+                          >
+                            <span>Itinerary</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}
@@ -382,30 +414,45 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
               {/* In-Place Style Tour Cards */}
               <div className="stage-cities-grid">
-                {getStyleTours().map((tour) => (
-                  <div key={tour.id} className="seasonal-stage-card glass-card">
-                    <div className="st-img-pane">
-                      <img src={tour.image} alt={tour.name} className="st-img" />
-                      <span className="st-badge">{tour.badge}</span>
-                      <span className="st-dur">⏱️ {tour.duration}</span>
-                    </div>
-                    <div className="st-body">
-                      <span className="st-country">📍 {tour.country} • {tour.category}</span>
-                      <h4 className="st-title font-editorial">{tour.name}</h4>
-                      <div className="st-footer">
-                        <strong className="st-price gradient-text-gold">{formatPrice(tour.price)}</strong>
-                        <button
-                          type="button"
-                          className="btn-itinerary-inline"
-                          onClick={() => onSelectItinerary(tour)}
-                        >
-                          <span>View Package</span>
-                          <ArrowRight size={13} />
-                        </button>
+                {getStyleTours().map((tour) => {
+                  const origPrice = tour.originalPrice || Math.round(tour.price * 1.25);
+
+                  return (
+                    <div key={tour.id} className="seasonal-stage-card glass-card">
+                      <div className="st-img-pane">
+                        <img src={tour.image} alt={tour.name} className="st-img" />
+                        <span className="st-badge">{tour.badge}</span>
+                        <span className="st-dur">⏱️ {tour.duration}</span>
+                      </div>
+                      <div className="st-body">
+                        <span className="st-country">📍 {tour.country} • {tour.category}</span>
+                        <h4 className="st-title font-editorial">{tour.name}</h4>
+
+                        {/* Inclusions Row */}
+                        <div className="compact-inclusions-icon-bar mb-2">
+                          <div className="inc-icon-item"><span className="inc-emoji">🏨</span><span className="inc-text">Stay</span></div>
+                          <div className="inc-icon-item"><span className="inc-emoji">🚗</span><span className="inc-text">Cabs</span></div>
+                          <div className="inc-icon-item"><span className="inc-emoji">🍽️</span><span className="inc-text">Meals</span></div>
+                          <div className="inc-icon-item"><span className="inc-emoji">🎟️</span><span className="inc-text">Sightseeing</span></div>
+                        </div>
+
+                        <div className="st-footer">
+                          <div className="compact-price-box">
+                            <span className="orig-price-strike">{formatPrice(origPrice)}</span>
+                            <strong className="current-offer-price font-editorial">{formatPrice(tour.price)}</strong>
+                          </div>
+                          <button
+                            type="button"
+                            className="btn-itinerary-inline"
+                            onClick={() => onSelectItinerary(tour)}
+                          >
+                            <span>View Package</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}
@@ -840,6 +887,77 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           margin-left: 0.25rem;
         }
 
+        /* Thrillophilia / Pickyourtrail Style Inclusions Row */
+        .compact-inclusions-icon-bar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0.45rem 0.65rem;
+          border-radius: 12px;
+          background: rgba(0, 29, 81, 0.45);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          margin-bottom: 0.5rem;
+        }
+
+        .inc-icon-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.15rem;
+        }
+
+        .inc-emoji {
+          font-size: 1rem;
+          line-height: 1;
+        }
+
+        .inc-text {
+          font-size: 0.62rem;
+          color: #CBD5E1;
+          font-weight: 600;
+        }
+
+        /* Compact Price Box */
+        .compact-price-box {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .price-strike-row {
+          display: flex;
+          align-items: center;
+          gap: 0.35rem;
+        }
+
+        .orig-price-strike {
+          font-size: 0.75rem;
+          text-decoration: line-through;
+          color: #64748B;
+        }
+
+        .price-save-badge {
+          font-size: 0.65rem;
+          font-weight: 800;
+          color: #10B981;
+        }
+
+        .price-main-row {
+          display: flex;
+          align-items: baseline;
+          gap: 0.25rem;
+        }
+
+        .current-offer-price {
+          font-size: 1.25rem;
+          font-weight: 900;
+          color: #FF892F;
+        }
+
+        .price-per-person {
+          font-size: 0.68rem;
+          color: #94A3B8;
+        }
+
         .action-buttons-inline {
           display: flex;
           align-items: center;
@@ -847,9 +965,6 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         }
 
         .btn-itinerary-inline {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.25rem;
           padding: 0.4rem 0.8rem;
           border-radius: 9999px;
           background: rgba(255, 255, 255, 0.08);
@@ -870,17 +985,19 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         .btn-book-inline {
           padding: 0.4rem 0.8rem;
           border-radius: 9999px;
-          background: #FF892F;
+          background: linear-gradient(135deg, #FF892F, #E65100);
           border: none;
           color: #FFFFFF;
           font-size: 0.75rem;
           font-weight: 800;
           cursor: pointer;
           transition: all 0.2s ease;
+          box-shadow: 0 4px 10px rgba(255, 137, 47, 0.35);
         }
 
         .btn-book-inline:hover {
           background: #E65100;
+          transform: scale(1.04);
         }
 
         /* Seasons and Styles bars */

@@ -292,8 +292,8 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
                         alt={tour.name} 
                         loading="lazy" 
                         decoding="async" 
-                        width="400" 
-                        height="240" 
+                        width="360" 
+                        height="180" 
                       />
                       <div className="media-overlay"></div>
                       
@@ -302,7 +302,13 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
                         {tour.badge && (
                           <span className="ribbon-badge">{tour.badge}</span>
                         )}
-                        <span className="region-badge">{tour.region}</span>
+                        {(() => {
+                          const origPrice = tour.originalPrice || Math.round(tour.price * 1.25);
+                          const discountPct = Math.round(((origPrice - tour.price) / origPrice) * 100);
+                          return discountPct > 0 ? (
+                            <span className="discount-ribbon">{discountPct}% OFF</span>
+                          ) : null;
+                        })()}
                       </div>
 
                       {/* Wishlist Heart & Compare Checkbox */}
@@ -321,84 +327,84 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
                           title={saved ? 'Saved in Dreamboard' : 'Save to Dreamboard'}
                           aria-label="Wishlist"
                         >
-                          <Heart size={16} fill={saved ? '#FF892F' : 'none'} color={saved ? '#FF892F' : '#FFFFFF'} />
-                        </button>
-
-                        <button
-                          type="button"
-                          className={`action-circle-btn btn-3d-tactile ${comparing ? 'active-compare' : ''}`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toggleCompare(tour);
-                          }}
-                          title={comparing ? 'Comparing' : 'Compare with others'}
-                          aria-label="Compare"
-                        >
-                          <Scale size={16} color={comparing ? '#10B981' : '#FFFFFF'} />
+                          <Heart size={15} fill={saved ? '#FF892F' : 'none'} color={saved ? '#FF892F' : '#FFFFFF'} />
                         </button>
                       </div>
 
-                      {/* Duration Badge */}
-                      <div className="duration-badge">
-                        <Clock size={13} />
-                        <span>{tour.duration}</span>
+                      {/* Duration & Rating Floating Pill */}
+                      <div className="media-bottom-strip">
+                        <span className="compact-dur-pill">⏱️ {tour.duration}</span>
+                        <span className="compact-rating-pill">⭐ {tour.rating || '4.9'} ({tour.reviews || '80+'})</span>
                       </div>
                     </div>
 
                     {/* Body Content */}
                     <div className="card-body">
-                      <div className="location-rating">
-                        <span className="location">
-                          <MapPin size={14} className="text-amber" />
-                          {tour.country}
-                        </span>
-                        <span className="rating">
-                          <Star size={14} className="star-icon" />
-                          {tour.rating} ({tour.reviews})
-                        </span>
+                      <div className="compact-location-tag">
+                        <MapPin size={12} className="text-amber" />
+                        <span>{tour.country} • {tour.region}</span>
                       </div>
 
-                      <h3 className="tour-title">{tour.name}</h3>
-                      <p className="tour-tagline">{tour.tagline}</p>
+                      <h3 className="compact-tour-title">{tour.name}</h3>
 
-                      {/* Inclusions Checklist Chips */}
-                      <div className="inclusions-row">
-                        {tour.inclusionChips?.map((inc, i) => (
-                          <span key={i} className="inc-chip">
-                            <CheckCircle size={12} className="text-emerald" />
-                            {inc}
-                          </span>
-                        ))}
+                      {/* Visual Inclusions Icon Bar (Thrillophilia / Pickyourtrail Style) */}
+                      <div className="compact-inclusions-icon-bar">
+                        <div className="inc-icon-item" title="4-Star or 5-Star Luxury Stay">
+                          <span className="inc-emoji">🏨</span>
+                          <span className="inc-text">Stay</span>
+                        </div>
+                        <div className="inc-icon-item" title="Private Cab & Airport Transfers">
+                          <span className="inc-emoji">🚗</span>
+                          <span className="inc-text">Transfers</span>
+                        </div>
+                        <div className="inc-icon-item" title="Daily Breakfast Included">
+                          <span className="inc-emoji">🍽️</span>
+                          <span className="inc-text">Meals</span>
+                        </div>
+                        <div className="inc-icon-item" title="Guided VIP Sightseeing & Passes">
+                          <span className="inc-emoji">🎟️</span>
+                          <span className="inc-text">Sightseeing</span>
+                        </div>
+                        <div className="inc-icon-item" title="24/7 Dedicated Concierge Support">
+                          <span className="inc-emoji">🛡️</span>
+                          <span className="inc-text">24/7 VIP</span>
+                        </div>
                       </div>
 
                       {/* Pricing & Footer Actions */}
-                      <div className="card-footer">
-                        <div className="price-box">
-                          <span className="price-label">Starting from</span>
-                          <div className="price-vals">
-                            <span className="current-price">{formatPrice(tour.price)}</span>
-                            {tour.originalPrice > tour.price && (
-                              <span className="original-price">{formatPrice(tour.originalPrice)}</span>
-                            )}
-                          </div>
-                        </div>
+                      <div className="compact-card-footer">
+                        {(() => {
+                          const origPrice = tour.originalPrice || Math.round(tour.price * 1.25);
+                          return (
+                            <div className="compact-price-box">
+                              <div className="price-strike-row">
+                                <span className="orig-price-strike">{formatPrice(origPrice)}</span>
+                                <span className="price-save-badge">Save {formatPrice(origPrice - tour.price)}</span>
+                              </div>
+                              <div className="price-main-row">
+                                <strong className="current-offer-price font-editorial">{formatPrice(tour.price)}</strong>
+                                <span className="price-per-person">/ person</span>
+                              </div>
+                            </div>
+                          );
+                        })()}
 
-                        <div className="cta-actions">
+                        <div className="compact-cta-actions">
                           <button 
-                            className="itinerary-btn btn-3d-tactile"
+                            className="btn-itinerary-compact btn-3d-tactile"
                             onClick={() => onSelectItinerary(tour)}
                             title="View detailed day-wise itinerary"
                           >
-                            Itinerary
+                            <span>Itinerary</span>
                           </button>
                           <button 
-                            className="btn-primary book-btn btn-3d-tactile"
+                            className="btn-book-compact btn-3d-tactile"
                             onClick={(e) => {
-                              triggerBurst(e, { count: 24, colors: ['#FF892F', '#6FE6FC', '#DAF561'] });
+                              triggerBurst(e, { count: 20, colors: ['#FF892F', '#6FE6FC', '#DAF561'] });
                               onBookNow(tour);
                             }}
                           >
-                            Book Now
+                            <span>Book Now</span>
                           </button>
                         </div>
                       </div>
@@ -842,250 +848,298 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           transform: scale(1.08);
         }
 
+        .tours-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));
+          gap: 1.35rem;
+          margin-bottom: 2.5rem;
+        }
+
+        .tour-card {
+          border-radius: 20px;
+          overflow: hidden;
+          background: rgba(0, 18, 51, 0.75);
+          backdrop-filter: blur(16px);
+          border: 1.2px solid rgba(255, 255, 255, 0.09);
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .tour-card:hover {
+          border-color: rgba(255, 137, 47, 0.5);
+          box-shadow: 0 15px 40px rgba(255, 137, 47, 0.22);
+          transform: translateY(-4px);
+        }
+
+        .card-media {
+          position: relative;
+          height: 175px;
+          overflow: hidden;
+        }
+
+        .card-media img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.6s ease;
+        }
+
+        .tour-card:hover .card-media img {
+          transform: scale(1.06);
+        }
+
         .media-overlay {
           position: absolute;
           inset: 0;
-          background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0, 18, 51, 0.95) 100%);
+          background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0, 18, 51, 0.8) 100%);
         }
 
         .media-top-badges {
           position: absolute;
-          top: 1rem;
-          left: 1rem;
+          top: 0.65rem;
+          left: 0.65rem;
           display: flex;
           align-items: center;
-          gap: 0.4rem;
+          gap: 0.35rem;
+          z-index: 2;
         }
 
         .ribbon-badge {
-          background: linear-gradient(135deg, var(--cj-amber-500), var(--cj-amber-700));
+          background: linear-gradient(135deg, #FF892F, #E65100);
           color: #FFFFFF;
           font-family: var(--font-ui);
-          font-size: 0.75rem;
+          font-size: 0.68rem;
           font-weight: 800;
-          padding: 0.35rem 0.85rem;
-          border-radius: var(--radius-full);
+          padding: 0.2rem 0.6rem;
+          border-radius: 9999px;
           text-transform: uppercase;
-          letter-spacing: 0.05em;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+          letter-spacing: 0.04em;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.4);
         }
 
-        .region-badge {
-          background: rgba(15, 23, 42, 0.85);
-          backdrop-filter: blur(8px);
-          color: #E2E8F0;
+        .discount-ribbon {
+          background: #10B981;
+          color: #FFFFFF;
           font-family: var(--font-ui);
-          font-size: 0.72rem;
-          font-weight: 700;
-          padding: 0.35rem 0.75rem;
-          border-radius: var(--radius-full);
-          border: 1px solid var(--cj-glass-border);
+          font-size: 0.68rem;
+          font-weight: 800;
+          padding: 0.2rem 0.55rem;
+          border-radius: 9999px;
+          box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);
         }
 
         .media-action-buttons {
           position: absolute;
-          top: 1rem;
-          right: 1rem;
-          display: flex;
-          gap: 0.4rem;
+          top: 0.65rem;
+          right: 0.65rem;
+          z-index: 2;
         }
 
         .action-circle-btn {
-          width: 34px;
-          height: 34px;
+          width: 30px;
+          height: 30px;
           border-radius: 50%;
-          background: rgba(15, 23, 42, 0.85);
+          background: rgba(0, 18, 51, 0.85);
           backdrop-filter: blur(8px);
-          border: 1px solid var(--cj-glass-border);
+          border: 1px solid rgba(255, 255, 255, 0.15);
           display: flex;
           align-items: center;
           justify-content: center;
+          cursor: pointer;
           transition: all 0.2s ease;
         }
 
         .action-circle-btn:hover {
           transform: scale(1.1);
-          background: rgba(15, 23, 42, 0.95);
+          background: rgba(0, 18, 51, 0.98);
         }
 
-        .active-saved {
-          border-color: var(--cj-amber-500);
-        }
-
-        .active-compare {
-          border-color: var(--cj-emerald-500);
-          background: rgba(16, 185, 129, 0.3);
-        }
-
-        .duration-badge {
+        .media-bottom-strip {
           position: absolute;
-          bottom: 1rem;
-          right: 1rem;
-          background: rgba(15, 23, 42, 0.88);
-          backdrop-filter: blur(8px);
-          border: 1px solid var(--cj-glass-border);
-          color: #FFFFFF;
-          font-family: var(--font-ui);
-          font-size: 0.78rem;
-          font-weight: 700;
-          padding: 0.35rem 0.8rem;
-          border-radius: var(--radius-full);
+          bottom: 0.65rem;
+          left: 0.65rem;
+          right: 0.65rem;
           display: flex;
           align-items: center;
-          gap: 0.35rem;
+          justify-content: space-between;
+          z-index: 2;
         }
 
+        .compact-dur-pill {
+          background: rgba(0, 18, 51, 0.85);
+          backdrop-filter: blur(8px);
+          border: 1px solid rgba(111, 230, 252, 0.3);
+          color: #6FE6FC;
+          font-size: 0.7rem;
+          font-weight: 700;
+          padding: 0.15rem 0.5rem;
+          border-radius: 9999px;
+        }
+
+        .compact-rating-pill {
+          background: rgba(0, 18, 51, 0.85);
+          backdrop-filter: blur(8px);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: #FFFFFF;
+          font-size: 0.7rem;
+          font-weight: 800;
+          padding: 0.15rem 0.5rem;
+          border-radius: 9999px;
+        }
+
+        /* Compact Card Body */
         .card-body {
-          padding: 1.65rem;
+          padding: 1rem 1.15rem;
           display: flex;
           flex-direction: column;
           flex: 1;
-        }
-
-        .location-rating {
-          display: flex;
-          align-items: center;
           justify-content: space-between;
-          font-size: 0.85rem;
-          margin-bottom: 0.75rem;
+          gap: 0.65rem;
         }
 
-        .location {
-          color: #94A3B8;
-          display: flex;
-          align-items: center;
-          gap: 0.35rem;
-          font-family: var(--font-ui);
-          font-weight: 700;
-        }
-
-        .rating {
-          font-family: var(--font-ui);
-          font-weight: 800;
-          color: #FFFFFF;
+        .compact-location-tag {
           display: flex;
           align-items: center;
           gap: 0.3rem;
-        }
-
-        .star-icon {
-          color: var(--cj-gold-500);
-          fill: var(--cj-gold-500);
-        }
-
-        .tour-title {
-          font-family: var(--font-serif);
-          font-size: 1.35rem;
-          line-height: 1.3;
-          margin-bottom: 0.4rem;
-          color: #FFFFFF;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-
-        .tour-tagline {
-          font-family: var(--font-body);
-          font-size: 0.88rem;
-          color: #CBD5E1;
-          line-height: 1.45;
-          margin-bottom: 1.15rem;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-
-        .inclusions-row {
-          display: flex;
-          gap: 0.45rem;
-          flex-wrap: wrap;
-          margin-bottom: 1.5rem;
-        }
-
-        .inc-chip {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          color: #CBD5E1;
-          font-family: var(--font-ui);
           font-size: 0.75rem;
-          font-weight: 600;
-          padding: 0.35rem 0.7rem;
-          border-radius: var(--radius-sm);
-          display: flex;
-          align-items: center;
-          gap: 0.35rem;
+          font-weight: 700;
+          color: #94A3B8;
         }
 
-        .card-footer {
-          margin-top: auto;
-          padding-top: 1.25rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
+        .compact-tour-title {
+          font-size: 1.08rem;
+          font-weight: 800;
+          line-height: 1.32;
+          color: #FFFFFF;
+          margin: 0;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        /* Thrillophilia / Pickyourtrail Style Inclusions Row */
+        .compact-inclusions-icon-bar {
           display: flex;
           align-items: center;
           justify-content: space-between;
+          padding: 0.5rem 0.65rem;
+          border-radius: 12px;
+          background: rgba(0, 29, 81, 0.45);
+          border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .price-label {
-          font-family: var(--font-ui);
-          font-size: 0.72rem;
-          color: #94A3B8;
-          display: block;
-          text-transform: uppercase;
-          font-weight: 700;
-        }
-
-        .price-vals {
+        .inc-icon-item {
           display: flex;
-          align-items: baseline;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.15rem;
+        }
+
+        .inc-emoji {
+          font-size: 1.05rem;
+          line-height: 1;
+        }
+
+        .inc-text {
+          font-size: 0.65rem;
+          color: #CBD5E1;
+          font-weight: 600;
+        }
+
+        /* Compact Card Footer */
+        .compact-card-footer {
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          padding-top: 0.75rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
           gap: 0.5rem;
         }
 
-        .current-price {
-          font-family: var(--font-serif);
-          font-weight: 900;
-          font-size: 1.55rem;
-          color: var(--cj-gold-500);
+        .compact-price-box {
+          display: flex;
+          flex-direction: column;
         }
 
-        .original-price {
-          font-family: var(--font-ui);
-          font-size: 0.85rem;
+        .price-strike-row {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+        }
+
+        .orig-price-strike {
+          font-size: 0.78rem;
           text-decoration: line-through;
           color: #64748B;
         }
 
-        .cta-actions {
+        .price-save-badge {
+          font-size: 0.65rem;
+          font-weight: 800;
+          color: #10B981;
+        }
+
+        .price-main-row {
           display: flex;
-          gap: 0.5rem;
+          align-items: baseline;
+          gap: 0.3rem;
         }
 
-        .itinerary-btn {
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid var(--cj-glass-border);
-          color: #FFFFFF;
-          padding: 0.65rem 1.15rem;
-          font-size: 0.9rem;
-          font-weight: 700;
-          border-radius: var(--radius-full);
-          transition: all 0.2s ease;
-          min-height: 42px;
-          display: inline-flex;
+        .current-offer-price {
+          font-size: 1.35rem;
+          font-weight: 900;
+          color: #FF892F;
+        }
+
+        .price-per-person {
+          font-size: 0.68rem;
+          color: #94A3B8;
+        }
+
+        .compact-cta-actions {
+          display: flex;
           align-items: center;
-          justify-content: center;
+          gap: 0.35rem;
         }
 
-        .itinerary-btn:hover {
-          background: rgba(255, 255, 255, 0.18);
-          border-color: #FFFFFF;
+        .btn-itinerary-compact {
+          padding: 0.45rem 0.85rem;
+          border-radius: 9999px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          color: #FFFFFF;
+          font-size: 0.76rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.2s ease;
         }
 
-        .book-btn {
-          padding: 0.65rem 1.35rem;
-          font-size: 0.9rem;
-          min-height: 42px;
-          white-space: nowrap;
+        .btn-itinerary-compact:hover {
+          background: rgba(111, 230, 252, 0.2);
+          border-color: #6FE6FC;
+          color: #6FE6FC;
+        }
+
+        .btn-book-compact {
+          padding: 0.45rem 0.95rem;
+          border-radius: 9999px;
+          background: linear-gradient(135deg, #FF892F, #E65100);
+          border: none;
+          color: #FFFFFF;
+          font-size: 0.78rem;
+          font-weight: 800;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          box-shadow: 0 4px 12px rgba(255, 137, 47, 0.35);
+        }
+
+        .btn-book-compact:hover {
+          background: #E65100;
+          transform: scale(1.04);
         }
 
         /* See All Packages Expansion Row */
