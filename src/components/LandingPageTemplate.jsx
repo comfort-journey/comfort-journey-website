@@ -1,12 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
-  ArrowLeft, ArrowRight, CheckCircle2, ShieldCheck, Heart, 
-  MessageCircle, Sparkles, MapPin, Clock, Star, Phone, 
-  ChevronDown, ChevronUp, Hotel, Car, Utensils, Ticket, 
-  Compass, Users, Briefcase, Camera, Coffee, Wallet, Globe, Award
+  ArrowLeft, 
+  MessageCircle, 
+  Phone, 
+  Sparkles, 
+  ShieldCheck, 
+  Star, 
+  Clock, 
+  Heart, 
+  Coffee, 
+  Compass, 
+  Wallet, 
+  Camera, 
+  Users, 
+  Hotel, 
+  MapPin, 
+  ChevronDown, 
+  ChevronUp, 
+  CheckCircle2, 
+  Car, 
+  Utensils, 
+  Ticket,
+  Flame,
+  Award,
+  Zap,
+  Smile,
+  Quote
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
-import { TOURS_DATA } from '../data/toursData';
 
 export default function LandingPageTemplate({ 
   pageData, 
@@ -16,65 +37,61 @@ export default function LandingPageTemplate({
   onOpenAIPlanner, 
   onOpenQuote 
 }) {
-  const { formatPrice } = useCurrency();
+  const [activeTab, setActiveTab] = useState('india'); // 'india' | 'intl'
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
-  const [destTab, setDestTab] = useState('india'); // 'india' | 'intl'
-
-  // Update Page Title and Meta for SEO
-  useEffect(() => {
-    if (pageData?.metaTitle) {
-      document.title = pageData.metaTitle;
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [pageData]);
+  const [activeVibeFilter, setActiveVibeFilter] = useState('all');
+  const { formatPrice } = useCurrency();
 
   if (!pageData) return null;
 
-  const getIconComponent = (type) => {
-    switch (type) {
-      case 'coffee': return <Coffee size={20} className="text-amber" />;
-      case 'compass': return <Compass size={20} className="text-cyan" />;
-      case 'shield': return <ShieldCheck size={20} className="text-emerald" />;
-      case 'wallet': return <Wallet size={20} className="text-amber" />;
-      case 'camera': return <Camera size={20} className="text-cyan" />;
-      case 'users': return <Users size={20} className="text-cyan" />;
-      case 'heart': return <Heart size={20} className="text-rose-400" />;
-      case 'hotel': return <Hotel size={20} className="text-amber" />;
-      case 'car': return <Car size={20} className="text-cyan" />;
-      case 'utensils': return <Utensils size={20} className="text-emerald" />;
-      case 'clock': return <Clock size={20} className="text-amber" />;
-      case 'star': return <Star size={20} className="text-amber fill-amber" />;
-      default: return <Sparkles size={20} className="text-amber" />;
+  const theme = pageData.theme || {
+    accentColor: '#FF892F',
+    glowColor: 'rgba(255, 137, 47, 0.25)',
+    bgGradient: 'radial-gradient(circle at 50% 15%, rgba(0, 29, 81, 0.6) 0%, rgba(0, 11, 29, 0.95) 75%)',
+    heroImage: 'https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1600&q=85',
+    personaMood: 'Bespoke Luxury Experience',
+    vibePills: [
+      { label: '✨ 100% Tailor-Made', icon: 'sparkles' },
+      { label: '🛡️ 24/7 VIP Concierge', icon: 'shield' },
+      { label: '🏨 Verified 5-Star Stays', icon: 'hotel' }
+    ]
+  };
+
+  const getFeatureIcon = (iconType) => {
+    switch (iconType) {
+      case 'coffee': return <Coffee size={22} style={{ color: theme.accentColor }} />;
+      case 'compass': return <Compass size={22} style={{ color: theme.accentColor }} />;
+      case 'shield': return <ShieldCheck size={22} style={{ color: theme.accentColor }} />;
+      case 'wallet': return <Wallet size={22} style={{ color: theme.accentColor }} />;
+      case 'camera': return <Camera size={22} style={{ color: theme.accentColor }} />;
+      case 'heart': return <Heart size={22} style={{ color: theme.accentColor }} />;
+      case 'users': return <Users size={22} style={{ color: theme.accentColor }} />;
+      case 'hotel': return <Hotel size={22} style={{ color: theme.accentColor }} />;
+      case 'car': return <Car size={22} style={{ color: theme.accentColor }} />;
+      case 'utensils': return <Utensils size={22} style={{ color: theme.accentColor }} />;
+      case 'clock': return <Clock size={22} style={{ color: theme.accentColor }} />;
+      case 'ticket': return <Ticket size={22} style={{ color: theme.accentColor }} />;
+      case 'sparkles': return <Sparkles size={22} style={{ color: theme.accentColor }} />;
+      default: return <Sparkles size={22} style={{ color: theme.accentColor }} />;
     }
   };
 
-  const getTourFromId = (tourId, fallbackDestination) => {
-    const matched = TOURS_DATA.find(t => t.id === tourId);
-    if (matched) return matched;
-    return {
-      id: tourId || 'custom-pkg',
-      name: fallbackDestination.name,
-      country: fallbackDestination.name.split(',')[0],
-      region: 'Curated',
-      image: fallbackDestination.img,
-      price: fallbackDestination.price,
-      originalPrice: fallbackDestination.origPrice || Math.round(fallbackDestination.price * 1.25),
-      duration: fallbackDestination.duration,
-      tagline: fallbackDestination.tag,
-      inclusions: ['4★/5★ Stay', 'Private Cab', 'Breakfast', 'VIP Sightseeing', '24/7 Concierge']
-    };
-  };
+  const destinations = activeTab === 'india' 
+    ? (pageData.destinationsIndia || []) 
+    : (pageData.destinationsIntl || []);
 
-  const activeDestinations = (destTab === 'india' && pageData.destinationsIndia)
-    ? pageData.destinationsIndia
-    : (pageData.destinationsIntl || pageData.destinationsIndia || []);
-
-  const encodedWhatsAppUrl = `https://wa.me/918770403315?text=${encodeURIComponent(pageData.whatsAppMsg || `Hi Comfort Journey! I'm interested in the ${pageData.slug} packages.`)}`;
+  const encodedWhatsAppUrl = `https://wa.me/918770403315?text=${encodeURIComponent(pageData.whatsAppMsg || 'Hi Comfort Journey! I would like to plan a trip.')}`;
 
   return (
-    <div className="landing-page-root">
-      {/* Top Header Navigation */}
-      <header className="lp-top-nav">
+    <div 
+      className="landing-page-root"
+      style={{
+        '--lp-accent': theme.accentColor,
+        '--lp-glow': theme.glowColor
+      }}
+    >
+      {/* Top Floating Navigation Bar */}
+      <nav className="lp-top-nav">
         <div className="container lp-nav-container">
           <button 
             type="button" 
@@ -85,102 +102,155 @@ export default function LandingPageTemplate({
             <span>Back to Main Site</span>
           </button>
 
-          <div className="lp-brand-lockup">
-            <span className="lp-brand-title">COMFORT JOURNEY</span>
-            <span className="lp-brand-sub">EST. 1992 • LUXURY TRAVEL</span>
+          <div className="lp-nav-brand">
+            <img 
+              src="https://static.wixstatic.com/media/43df74_c248c4fdb5bf421aa3465ca1f6846ba0~mv2.jpg/v1/fill/w_192,h_192,lg_1,usm_0.66_1.00_0.01/43df74_c248c4fdb5bf421aa3465ca1f6846ba0~mv2.jpg" 
+              alt="Comfort Journey" 
+              className="lp-brand-logo"
+            />
+            <span className="lp-brand-name font-editorial">Comfort Journey</span>
           </div>
 
           <div className="lp-nav-actions">
-            <a 
-              href="tel:+918770403315" 
-              className="lp-phone-link"
-              title="Call VIP Concierge"
-            >
-              <Phone size={14} />
-              <span>+91 8770403315</span>
+            <a href="tel:+918770403315" className="lp-phone-link">
+              <Phone size={15} />
+              <span>+91 87704 03315</span>
             </a>
-            <a
-              href={encodedWhatsAppUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="lp-whatsapp-cta"
+            <a 
+              href={encodedWhatsAppUrl} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="btn-lp-whatsapp"
             >
               <MessageCircle size={15} />
-              <span>WhatsApp Us</span>
+              <span>Chat on WhatsApp</span>
             </a>
           </div>
         </div>
-      </header>
+      </nav>
 
-      {/* Hero Section */}
-      <section className="lp-hero-section">
-        <div className="container lp-hero-content">
-          <div className="lp-category-pill">
-            <Sparkles size={14} className="text-amber" />
-            <span>{pageData.categoryBadge || 'Special Edition'}</span>
+      {/* Hero Atmosphere Section with Parallax Persona Image & Atmospheric Lighting */}
+      <header className="lp-hero-section">
+        {/* Background Visual Banner with Atmospheric Overlay */}
+        <div className="lp-hero-bg-wrapper">
+          <img 
+            src={theme.heroImage} 
+            alt={pageData.heroHeadline}
+            className="lp-hero-bg-img"
+          />
+          <div className="lp-hero-scrim"></div>
+          <div className="lp-hero-radial-glow" style={{ background: theme.bgGradient }}></div>
+        </div>
+
+        <div className="container lp-hero-container">
+          {/* Persona Mood Pill */}
+          <div className="lp-persona-badge-wrapper animate-fade-in">
+            <div className="lp-persona-badge">
+              <span className="lp-persona-dot" style={{ backgroundColor: theme.accentColor }}></span>
+              <span className="lp-persona-text">{theme.personaMood || pageData.categoryBadge}</span>
+              <span className="lp-category-tag">{pageData.categoryBadge}</span>
+            </div>
           </div>
 
-          <h1 className="lp-hero-headline font-editorial">
+          {/* Hero Headline */}
+          <h1 className="lp-hero-title font-editorial animate-fade-in-up">
             {pageData.heroHeadline}
           </h1>
 
-          <p className="lp-hero-subline">
+          {/* Hero Subline */}
+          <p className="lp-hero-subline animate-fade-in-up delay-100">
             {pageData.heroSubline}
           </p>
 
-          {/* Trust Badges Bar */}
-          <div className="lp-trust-strip">
-            <div className="lp-trust-item">
-              <Star size={14} className="text-gold fill-gold" />
+          {/* Persona Vibe Pills Strip (Generation Z Aesthetic) */}
+          {theme.vibePills && theme.vibePills.length > 0 && (
+            <div className="lp-vibe-pills-row animate-fade-in-up delay-200">
+              {theme.vibePills.map((pill, pIdx) => (
+                <div key={pIdx} className="lp-vibe-pill">
+                  <span>{pill.label}</span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Trust Highlights Strip */}
+          <div className="lp-hero-trust-bar animate-fade-in-up delay-300">
+            <div className="trust-item">
+              <Star size={16} className="text-amber fill-amber" />
               <span><strong>4.95/5</strong> (1,200+ Reviews)</span>
             </div>
-            <span className="lp-divider-dot">•</span>
-            <div className="lp-trust-item">
-              <Award size={14} className="text-cyan" />
+            <span className="trust-divider">•</span>
+            <div className="trust-item">
+              <Clock size={16} style={{ color: theme.accentColor }} />
               <span><strong>30+ Years</strong> Since 1992</span>
             </div>
-            <span className="lp-divider-dot">•</span>
-            <div className="lp-trust-item">
-              <ShieldCheck size={14} className="text-emerald" />
+            <span className="trust-divider">•</span>
+            <div className="trust-item">
+              <ShieldCheck size={16} className="text-emerald" />
               <span><strong>100% Verified</strong> Luxury Stays</span>
             </div>
           </div>
 
-          {/* Primary Action Buttons */}
-          <div className="lp-hero-actions">
-            <a
+          {/* Hero CTAs */}
+          <div className="lp-hero-cta-group animate-fade-in-up delay-400">
+            <a 
               href={encodedWhatsAppUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-lp-primary"
+              style={{
+                background: `linear-gradient(135deg, ${theme.accentColor}, #E65100)`,
+                boxShadow: `0 8px 25px ${theme.glowColor}`
+              }}
             >
               <MessageCircle size={18} />
               <span>{pageData.ctaText || "Let's Plan This Trip"}</span>
             </a>
 
-            <button
-              type="button"
+            <button 
+              type="button" 
               className="btn-lp-secondary"
               onClick={onOpenAIPlanner}
             >
-              <Sparkles size={16} className="text-amber" />
+              <Sparkles size={18} style={{ color: theme.accentColor }} />
               <span>Customize with AI Planner</span>
             </button>
           </div>
         </div>
-      </section>
+      </header>
 
-      {/* The Reality Check / Opening Story Block */}
+      {/* Relatable Traveler Persona Quote Spotlight */}
+      {theme.personaQuote && (
+        <section className="lp-persona-quote-section">
+          <div className="container">
+            <div className="lp-persona-quote-card glass-card">
+              <Quote size={28} className="quote-icon" style={{ color: theme.accentColor }} />
+              <p className="quote-body font-editorial">"{theme.personaQuote.text}"</p>
+              <div className="quote-author-row">
+                <div className="quote-author-badge" style={{ borderColor: theme.accentColor }}>
+                  <Smile size={18} style={{ color: theme.accentColor }} />
+                </div>
+                <div>
+                  <span className="quote-author-name">{theme.personaQuote.author}</span>
+                  <span className="quote-verified-tag">✓ Verified Traveler</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Opening Editorial Story Section ("The Reality Check") */}
       {pageData.openingParagraph && (
         <section className="lp-story-section">
           <div className="container">
             <div className="lp-story-card glass-card">
-              <h3 className="lp-story-title font-editorial">
+              <h2 className="lp-story-title font-editorial" style={{ color: theme.accentColor }}>
                 {pageData.openingHeading || "The Reality Check"}
-              </h3>
+              </h2>
               <div className="lp-story-body">
-                {pageData.openingParagraph.split('\n\n').map((para, i) => (
-                  <p key={i}>{para}</p>
+                {pageData.openingParagraph.split('\n\n').map((para, idx) => (
+                  <p key={idx}>{para}</p>
                 ))}
               </div>
             </div>
@@ -188,24 +258,28 @@ export default function LandingPageTemplate({
         </section>
       )}
 
-      {/* Why This Hits Different (5 Feature Badges) */}
+      {/* "Why This Hits Different" 5-Feature Grid */}
       {pageData.whyHitsDifferent && pageData.whyHitsDifferent.length > 0 && (
         <section className="lp-features-section">
           <div className="container">
             <div className="lp-section-header">
-              <span className="lp-section-kicker">✨ ZERO DRAMA • 100% VIBES</span>
-              <h2 className="lp-section-title font-editorial">Why This Hits Different</h2>
-              <p className="lp-section-desc">We do the heavy lifting. You just show up and make the memories.</p>
+              <span className="lp-section-kicker" style={{ color: theme.accentColor }}>
+                ✨ WHY COMFORT JOURNEY HITS DIFFERENT
+              </span>
+              <h2 className="lp-section-title font-editorial">Built For Modern Travelers</h2>
+              <p className="lp-section-desc">
+                We eliminated all the boring, stressful friction so you can focus on pure wanderlust.
+              </p>
             </div>
 
             <div className="lp-features-grid">
-              {pageData.whyHitsDifferent.map((feat, idx) => (
+              {pageData.whyHitsDifferent.map((item, idx) => (
                 <div key={idx} className="lp-feature-card glass-card">
                   <div className="lp-feat-icon-badge">
-                    {getIconComponent(feat.iconType)}
+                    {getFeatureIcon(item.iconType)}
                   </div>
-                  <h4 className="lp-feat-title font-editorial">{feat.title}</h4>
-                  <p className="lp-feat-desc">{feat.desc}</p>
+                  <h3 className="lp-feat-title font-editorial">{item.title}</h3>
+                  <p className="lp-feat-desc">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -213,118 +287,155 @@ export default function LandingPageTemplate({
         </section>
       )}
 
-      {/* Curated Destinations & Compact Cards Grid */}
+      {/* Curated Tour Packages Section with Compact Luxury Cards */}
       <section className="lp-destinations-section">
         <div className="container">
           <div className="lp-section-header">
-            <span className="lp-section-kicker">📍 HANDPICKED ITINERARIES</span>
+            <span className="lp-section-kicker" style={{ color: theme.accentColor }}>
+              📍 CURATED ESCAPES & PACKAGES
+            </span>
             <h2 className="lp-section-title font-editorial">Where To Next?</h2>
             <p className="lp-section-desc">Transparent pricing. 5-star verified comfort. Zero hidden surcharges.</p>
           </div>
 
-          {/* India vs International Selector */}
-          {pageData.destinationsIndia && pageData.destinationsIntl && (
+          {/* India vs International Tabs */}
+          {(pageData.destinationsIndia?.length > 0 && pageData.destinationsIntl?.length > 0) && (
             <div className="lp-dest-tabs-bar">
-              <button
-                type="button"
-                className={`lp-dest-tab ${destTab === 'india' ? 'active' : ''}`}
-                onClick={() => setDestTab('india')}
+              <button 
+                type="button" 
+                className={`lp-dest-tab ${activeTab === 'india' ? 'active' : ''}`}
+                style={activeTab === 'india' ? { background: theme.accentColor, borderColor: theme.accentColor } : {}}
+                onClick={() => setActiveTab('india')}
               >
-                <span>Incredible India ({pageData.destinationsIndia.length})</span>
+                Incredible India ({pageData.destinationsIndia.length})
               </button>
-              <button
-                type="button"
-                className={`lp-dest-tab ${destTab === 'intl' ? 'active' : ''}`}
-                onClick={() => setDestTab('intl')}
+              <button 
+                type="button" 
+                className={`lp-dest-tab ${activeTab === 'intl' ? 'active' : ''}`}
+                style={activeTab === 'intl' ? { background: theme.accentColor, borderColor: theme.accentColor } : {}}
+                onClick={() => setActiveTab('intl')}
               >
-                <span>International Passport ({pageData.destinationsIntl.length})</span>
+                International Passport ({pageData.destinationsIntl.length})
               </button>
             </div>
           )}
 
           {/* Cards Grid */}
           <div className="lp-tours-grid">
-            {activeDestinations.map((dest, i) => {
-              const tourObj = getTourFromId(dest.tourId, dest);
-              const origPrice = dest.origPrice || Math.round(dest.price * 1.25);
-              const discountPct = Math.round(((origPrice - dest.price) / origPrice) * 100);
+            {destinations.map((tour, idx) => {
+              const discountPercent = tour.origPrice && tour.price 
+                ? Math.round(((tour.origPrice - tour.price) / tour.origPrice) * 100) 
+                : 20;
 
               return (
-                <div key={i} className="lp-tour-card glass-card">
+                <div key={idx} className="lp-tour-card glass-card">
+                  {/* Card Media */}
                   <div className="lp-card-media">
-                    <img src={dest.img} alt={dest.name} loading="lazy" />
-                    <div className="lp-media-overlay" />
-                    
-                    {discountPct > 0 && (
-                      <span className="lp-discount-badge">{discountPct}% OFF</span>
-                    )}
-
+                    <img src={tour.img} alt={tour.name} loading="lazy" />
+                    <div className="lp-media-overlay"></div>
+                    <span className="lp-discount-badge">{discountPercent}% OFF</span>
                     <span className="lp-duration-badge">
-                      <Clock size={11} className="text-cyan inline mr-1" />
-                      {dest.duration}
+                      <Clock size={12} className="inline mr-1" />
+                      {tour.duration}
                     </span>
                   </div>
 
+                  {/* Card Body */}
                   <div className="lp-card-body">
-                    <div className="lp-location-tag">
-                      <MapPin size={12} className="text-amber" />
-                      <span>{dest.name}</span>
+                    <div>
+                      <div className="lp-location-tag">
+                        <MapPin size={13} style={{ color: theme.accentColor }} />
+                        <span>{tour.name}</span>
+                      </div>
+                      <h3 className="lp-card-title font-editorial">{tour.name}</h3>
+                      <p className="lp-card-tag">{tour.tag}</p>
                     </div>
 
-                    <h4 className="lp-card-title font-editorial">{dest.name}</h4>
-                    <p className="lp-card-tag">{dest.tag}</p>
-
-                    {/* Vector Inclusions Bar */}
+                    {/* Compact Inclusions Bar */}
                     <div className="compact-inclusions-icon-bar">
-                      <div className="inc-icon-item" title="4★/5★ Luxury Stay">
-                        <div className="inc-svg-badge"><Hotel size={12} className="text-amber" /></div>
+                      <div className="inc-icon-item" title="Verified Luxury Stay">
+                        <div className="inc-svg-badge">
+                          <Hotel size={13} style={{ color: theme.accentColor }} />
+                        </div>
                         <span className="inc-text">Stay</span>
                       </div>
-                      <div className="inc-icon-item" title="Private Cab & Transfers">
-                        <div className="inc-svg-badge"><Car size={12} className="text-cyan" /></div>
+                      <div className="inc-icon-item" title="Private Sanitized Cabs">
+                        <div className="inc-svg-badge">
+                          <Car size={13} style={{ color: theme.accentColor }} />
+                        </div>
                         <span className="inc-text">Transfers</span>
                       </div>
-                      <div className="inc-icon-item" title="Daily Breakfast & Dining">
-                        <div className="inc-svg-badge"><Utensils size={12} className="text-emerald" /></div>
+                      <div className="inc-icon-item" title="Breakfast & Meals Included">
+                        <div className="inc-svg-badge">
+                          <Utensils size={13} style={{ color: theme.accentColor }} />
+                        </div>
                         <span className="inc-text">Meals</span>
                       </div>
-                      <div className="inc-icon-item" title="VIP Passes & Sightseeing">
-                        <div className="inc-svg-badge"><Ticket size={12} className="text-amber" /></div>
+                      <div className="inc-icon-item" title="Monument & Sightseeing Passes">
+                        <div className="inc-svg-badge">
+                          <Ticket size={13} style={{ color: theme.accentColor }} />
+                        </div>
                         <span className="inc-text">Sightseeing</span>
                       </div>
-                      <div className="inc-icon-item" title="24/7 Dedicated Concierge">
-                        <div className="inc-svg-badge"><ShieldCheck size={12} className="text-emerald" /></div>
+                      <div className="inc-icon-item" title="24/7 VIP Concierge Support">
+                        <div className="inc-svg-badge">
+                          <ShieldCheck size={13} style={{ color: theme.accentColor }} />
+                        </div>
                         <span className="inc-text">24/7 VIP</span>
                       </div>
                     </div>
 
-                    {/* Pricing & CTA Action */}
+                    {/* Card Price & Actions */}
                     <div className="lp-card-footer">
                       <div className="compact-price-box">
                         <div className="price-strike-row">
-                          <span className="orig-price-strike">{formatPrice(origPrice)}</span>
-                          <span className="price-save-badge">Save {formatPrice(origPrice - dest.price)}</span>
+                          <span className="orig-price-strike">{formatPrice(tour.origPrice || tour.price * 1.25)}</span>
+                          <span className="price-save-badge">Save {formatPrice((tour.origPrice || tour.price * 1.25) - tour.price)}</span>
                         </div>
                         <div className="price-main-row">
-                          <strong className="current-offer-price font-editorial">{formatPrice(dest.price)}</strong>
+                          <span className="current-offer-price" style={{ color: theme.accentColor }}>
+                            {formatPrice(tour.price)}
+                          </span>
                           <span className="price-per-person">/ person</span>
                         </div>
                       </div>
 
                       <div className="lp-card-btns">
-                        <button
-                          type="button"
+                        <button 
+                          type="button" 
                           className="btn-lp-itinerary"
-                          onClick={() => onSelectItinerary(tourObj)}
+                          onClick={() => onSelectItinerary({
+                            id: tour.tourId || `tour-${tour.name.toLowerCase().replace(/\s+/g, '-')}`,
+                            title: tour.name,
+                            category: pageData.categoryBadge,
+                            duration: tour.duration,
+                            price: tour.price,
+                            origPrice: tour.origPrice,
+                            image: tour.img,
+                            rating: 4.95,
+                            reviewsCount: 88,
+                            overview: tour.tag
+                          })}
                         >
-                          <span>Itinerary</span>
+                          Itinerary
                         </button>
-                        <button
-                          type="button"
+                        <button 
+                          type="button" 
                           className="btn-lp-book"
-                          onClick={() => onBookNow(tourObj)}
+                          style={{
+                            background: `linear-gradient(135deg, ${theme.accentColor}, #E65100)`
+                          }}
+                          onClick={() => onBookNow({
+                            id: tour.tourId || `tour-${tour.name.toLowerCase().replace(/\s+/g, '-')}`,
+                            title: tour.name,
+                            category: pageData.categoryBadge,
+                            duration: tour.duration,
+                            price: tour.price,
+                            origPrice: tour.origPrice,
+                            image: tour.img
+                          })}
                         >
-                          <span>Book</span>
+                          Book
                         </button>
                       </div>
                     </div>
@@ -336,13 +447,15 @@ export default function LandingPageTemplate({
         </div>
       </section>
 
-      {/* What You Actually Get (5 Transparency Pillars) */}
+      {/* "What You Actually Get" (The Comfort Promise) */}
       {pageData.whatYouGet && (
         <section className="lp-pillars-section">
           <div className="container">
             <div className="lp-pillars-card glass-card">
               <div className="lp-section-header">
-                <span className="lp-section-kicker">🛡️ THE COMFORT PROMISE</span>
+                <span className="lp-section-kicker" style={{ color: theme.accentColor }}>
+                  🛡️ THE COMFORT PROMISE
+                </span>
                 <h2 className="lp-section-title font-editorial">What You Actually Get</h2>
                 <p className="lp-section-desc">No asterisks. No hidden fees. Just 100% peace of mind.</p>
               </div>
@@ -350,7 +463,7 @@ export default function LandingPageTemplate({
               <div className="lp-pillars-grid">
                 {pageData.whatYouGet.map((item, idx) => (
                   <div key={idx} className="lp-pillar-item">
-                    <div className="pillar-num">{idx + 1}</div>
+                    <div className="pillar-num" style={{ background: theme.accentColor }}>{idx + 1}</div>
                     <div className="pillar-text">
                       <h4 className="pillar-title">{item.title}</h4>
                       <p className="pillar-desc">{item.desc}</p>
@@ -368,7 +481,9 @@ export default function LandingPageTemplate({
         <section className="lp-faqs-section">
           <div className="container">
             <div className="lp-section-header">
-              <span className="lp-section-kicker">❓ COMMON QUESTIONS</span>
+              <span className="lp-section-kicker" style={{ color: theme.accentColor }}>
+                ❓ COMMON QUESTIONS
+              </span>
               <h2 className="lp-section-title font-editorial">Frequently Asked Questions</h2>
               <p className="lp-section-desc">Everything you need to know before booking your trip.</p>
             </div>
@@ -378,13 +493,13 @@ export default function LandingPageTemplate({
                 const isOpen = openFaqIndex === idx;
                 return (
                   <div key={idx} className={`lp-faq-item glass-card ${isOpen ? 'active' : ''}`}>
-                    <button
-                      type="button"
+                    <button 
+                      type="button" 
                       className="lp-faq-trigger"
                       onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
                     >
                       <span className="lp-faq-q">{faq.q}</span>
-                      {isOpen ? <ChevronUp size={18} className="text-amber" /> : <ChevronDown size={18} className="text-muted" />}
+                      {isOpen ? <ChevronUp size={18} style={{ color: theme.accentColor }} /> : <ChevronDown size={18} className="text-muted" />}
                     </button>
                     {isOpen && (
                       <div className="lp-faq-answer animate-fade-in">
@@ -408,17 +523,21 @@ export default function LandingPageTemplate({
           </div>
 
           <div className="lp-final-actions">
-            <a
+            <a 
               href={encodedWhatsAppUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-lp-primary"
+              style={{
+                background: `linear-gradient(135deg, ${theme.accentColor}, #E65100)`,
+                boxShadow: `0 8px 25px ${theme.glowColor}`
+              }}
             >
               <MessageCircle size={18} />
               <span>WhatsApp Direct Curator</span>
             </a>
-            <button
-              type="button"
+            <button 
+              type="button" 
               className="btn-lp-secondary"
               onClick={onBackToHome}
             >
@@ -458,7 +577,7 @@ export default function LandingPageTemplate({
         .lp-back-btn {
           display: inline-flex;
           align-items: center;
-          gap: 0.45rem;
+          gap: 0.4rem;
           background: rgba(255, 255, 255, 0.06);
           border: 1px solid rgba(255, 255, 255, 0.12);
           color: #E2E8F0;
@@ -471,30 +590,29 @@ export default function LandingPageTemplate({
         }
 
         .lp-back-btn:hover {
-          background: rgba(111, 230, 252, 0.15);
-          border-color: #6FE6FC;
-          color: #6FE6FC;
+          background: var(--lp-accent);
+          border-color: var(--lp-accent);
+          color: #FFFFFF;
         }
 
-        .lp-brand-lockup {
+        .lp-nav-brand {
           display: flex;
-          flex-direction: column;
           align-items: center;
+          gap: 0.65rem;
         }
 
-        .lp-brand-title {
-          font-family: var(--font-serif);
+        .lp-brand-logo {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          border: 1.5px solid var(--lp-accent);
+        }
+
+        .lp-brand-name {
           font-size: 1.15rem;
-          font-weight: 900;
-          letter-spacing: 0.08em;
-          color: #F9FBE7;
-        }
-
-        .lp-brand-sub {
-          font-size: 0.65rem;
           font-weight: 800;
-          color: #FF892F;
-          letter-spacing: 0.12em;
+          color: #FFFFFF;
+          letter-spacing: 0.02em;
         }
 
         .lp-nav-actions {
@@ -507,144 +625,231 @@ export default function LandingPageTemplate({
           display: inline-flex;
           align-items: center;
           gap: 0.35rem;
-          color: #CBD5E1;
+          color: #94A3B8;
           font-size: 0.82rem;
-          font-weight: 700;
+          font-weight: 600;
           text-decoration: none;
         }
 
         .lp-phone-link:hover {
-          color: #6FE6FC;
+          color: #FFFFFF;
         }
 
-        .lp-whatsapp-cta {
+        .btn-lp-whatsapp {
           display: inline-flex;
           align-items: center;
           gap: 0.4rem;
-          background: #10B981;
+          background: #25D366;
           color: #FFFFFF;
           font-size: 0.82rem;
-          font-weight: 800;
-          padding: 0.45rem 0.95rem;
+          font-weight: 700;
+          padding: 0.45rem 1rem;
           border-radius: 9999px;
           text-decoration: none;
-          transition: all 0.2s ease;
+          transition: transform 0.2s ease;
         }
 
-        .lp-whatsapp-cta:hover {
-          background: #059669;
-          transform: scale(1.03);
+        .btn-lp-whatsapp:hover {
+          transform: translateY(-1px);
         }
 
-        /* Hero Section */
+        /* Hero Atmosphere Section with Persona Imagery & Scrim */
         .lp-hero-section {
-          padding: 4.5rem 0 3rem 0;
+          position: relative;
+          min-height: 520px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 4.5rem 0 3.5rem 0;
+          overflow: hidden;
           text-align: center;
-          background: radial-gradient(circle at 50% 20%, rgba(0, 48, 135, 0.45) 0%, rgba(0, 11, 29, 0) 70%);
         }
 
-        .lp-hero-content {
-          max-width: 860px;
+        .lp-hero-bg-wrapper {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          overflow: hidden;
+        }
+
+        .lp-hero-bg-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          filter: brightness(0.4) saturate(1.2);
+          transform: scale(1.04);
+          transition: transform 10s ease;
+        }
+
+        .lp-hero-scrim {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(180deg, rgba(0, 11, 29, 0.7) 0%, rgba(0, 11, 29, 0.95) 100%);
+        }
+
+        .lp-hero-radial-glow {
+          position: absolute;
+          inset: 0;
+          opacity: 0.65;
+          mix-blend-mode: screen;
+        }
+
+        .lp-hero-container {
+          position: relative;
+          z-index: 2;
+          max-width: 900px;
           margin: 0 auto;
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 1.25rem;
         }
 
-        .lp-category-pill {
+        .lp-persona-badge-wrapper {
+          margin-bottom: 1rem;
+        }
+
+        .lp-persona-badge {
           display: inline-flex;
           align-items: center;
-          gap: 0.45rem;
-          padding: 0.35rem 0.95rem;
+          gap: 0.55rem;
+          background: rgba(0, 18, 51, 0.85);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          padding: 0.35rem 0.9rem;
           border-radius: 9999px;
-          background: rgba(255, 137, 47, 0.15);
-          border: 1px solid rgba(255, 137, 47, 0.4);
-          color: #FF892F;
-          font-size: 0.78rem;
-          font-weight: 800;
-          text-transform: uppercase;
-          letter-spacing: 0.06em;
+          backdrop-filter: blur(12px);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
-        .lp-hero-headline {
-          font-size: 3.2rem;
-          line-height: 1.15;
+        .lp-persona-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          display: inline-block;
+          box-shadow: 0 0 10px currentColor;
+          animation: pulse 2s infinite;
+        }
+
+        .lp-persona-text {
+          font-size: 0.78rem;
+          font-weight: 700;
+          color: #E2E8F0;
+          letter-spacing: 0.04em;
+        }
+
+        .lp-category-tag {
+          font-size: 0.68rem;
+          font-weight: 800;
+          color: var(--lp-accent);
+          background: rgba(255, 255, 255, 0.08);
+          padding: 0.15rem 0.45rem;
+          border-radius: 9999px;
+          text-transform: uppercase;
+        }
+
+        .lp-hero-title {
+          font-size: 3.4rem;
+          font-weight: 900;
           color: #FFFFFF;
-          margin: 0;
+          line-height: 1.15;
+          margin-bottom: 1.15rem;
           letter-spacing: -0.02em;
+          text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
         }
 
         .lp-hero-subline {
-          font-size: 1.18rem;
+          font-size: 1.22rem;
           color: #CBD5E1;
           line-height: 1.6;
-          max-width: 720px;
-          margin: 0;
+          max-width: 740px;
+          margin: 0 auto 1.5rem auto;
         }
 
-        .lp-trust-strip {
+        /* Generation-Z Vibe Pills Strip */
+        .lp-vibe-pills-row {
           display: flex;
-          align-items: center;
-          gap: 0.85rem;
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          padding: 0.5rem 1.25rem;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 0.65rem;
+          margin-bottom: 1.5rem;
+          max-width: 760px;
+        }
+
+        .lp-vibe-pill {
+          background: rgba(255, 255, 255, 0.07);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(8px);
+          padding: 0.4rem 0.9rem;
           border-radius: 9999px;
           font-size: 0.82rem;
-          color: #CBD5E1;
-          flex-wrap: wrap;
+          font-weight: 700;
+          color: #F8FAFC;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+          transition: all 0.25s ease;
+        }
+
+        .lp-vibe-pill:hover {
+          background: rgba(255, 255, 255, 0.14);
+          border-color: var(--lp-accent);
+          transform: translateY(-2px);
+        }
+
+        .lp-hero-trust-bar {
+          display: flex;
+          align-items: center;
           justify-content: center;
+          gap: 1.25rem;
+          font-size: 0.88rem;
+          color: #94A3B8;
+          margin-bottom: 2rem;
+          background: rgba(0, 18, 51, 0.6);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          padding: 0.55rem 1.35rem;
+          border-radius: 9999px;
         }
 
-        .lp-trust-item {
+        .trust-item {
           display: flex;
           align-items: center;
-          gap: 0.35rem;
+          gap: 0.4rem;
         }
 
-        .lp-divider-dot {
-          color: rgba(255, 255, 255, 0.3);
+        .trust-divider {
+          color: rgba(255, 255, 255, 0.2);
         }
 
-        .lp-hero-actions {
+        .lp-hero-cta-group {
           display: flex;
           align-items: center;
+          justify-content: center;
           gap: 1rem;
-          margin-top: 0.5rem;
           flex-wrap: wrap;
-          justify-content: center;
         }
 
         .btn-lp-primary {
           display: inline-flex;
           align-items: center;
-          gap: 0.5rem;
-          background: linear-gradient(135deg, #FF892F, #E65100);
+          gap: 0.55rem;
           color: #FFFFFF;
-          font-size: 0.98rem;
+          font-size: 1rem;
           font-weight: 800;
-          padding: 0.85rem 1.75rem;
+          padding: 0.9rem 1.85rem;
           border-radius: 9999px;
           text-decoration: none;
-          box-shadow: 0 8px 25px rgba(255, 137, 47, 0.4);
-          transition: all 0.25s ease;
-          border: none;
           cursor: pointer;
+          transition: all 0.25s ease;
         }
 
         .btn-lp-primary:hover {
-          background: #E65100;
           transform: translateY(-2px);
-          box-shadow: 0 12px 30px rgba(255, 137, 47, 0.5);
+          filter: brightness(1.1);
         }
 
         .btn-lp-secondary {
           display: inline-flex;
           align-items: center;
-          gap: 0.5rem;
-          background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          gap: 0.55rem;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.2);
           color: #FFFFFF;
           font-size: 0.95rem;
           font-weight: 700;
@@ -659,9 +864,71 @@ export default function LandingPageTemplate({
           border-color: #FFFFFF;
         }
 
+        /* Persona Spotlight Quote Section */
+        .lp-persona-quote-section {
+          padding: 1.5rem 0 2.5rem 0;
+        }
+
+        .lp-persona-quote-card {
+          max-width: 860px;
+          margin: 0 auto;
+          padding: 2rem 2.5rem;
+          border-radius: 20px;
+          background: rgba(0, 18, 51, 0.65);
+          border: 1px solid var(--lp-glow);
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .quote-icon {
+          opacity: 0.8;
+        }
+
+        .quote-body {
+          font-size: 1.15rem;
+          line-height: 1.6;
+          color: #E2E8F0;
+          margin: 0;
+          font-style: italic;
+        }
+
+        .quote-author-row {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding-top: 0.75rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .quote-author-badge {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          border: 1.5px solid var(--lp-accent);
+          background: rgba(255, 255, 255, 0.05);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .quote-author-name {
+          font-size: 0.85rem;
+          font-weight: 700;
+          color: #FFFFFF;
+          display: block;
+        }
+
+        .quote-verified-tag {
+          font-size: 0.72rem;
+          font-weight: 700;
+          color: #10B981;
+        }
+
         /* Story Section */
         .lp-story-section {
-          padding: 2.5rem 0;
+          padding: 2rem 0 3rem 0;
         }
 
         .lp-story-card {
@@ -670,12 +937,11 @@ export default function LandingPageTemplate({
           padding: 2.5rem;
           border-radius: 24px;
           background: rgba(0, 29, 81, 0.45);
-          border: 1px solid rgba(255, 137, 47, 0.2);
+          border: 1px solid var(--lp-glow);
         }
 
         .lp-story-title {
           font-size: 1.85rem;
-          color: #FF892F;
           margin-bottom: 1.25rem;
         }
 
@@ -704,7 +970,6 @@ export default function LandingPageTemplate({
         .lp-section-kicker {
           font-size: 0.76rem;
           font-weight: 800;
-          color: #6FE6FC;
           letter-spacing: 0.1em;
           display: block;
           margin-bottom: 0.4rem;
@@ -740,7 +1005,7 @@ export default function LandingPageTemplate({
         }
 
         .lp-feature-card:hover {
-          border-color: rgba(255, 137, 47, 0.4);
+          border-color: var(--lp-glow);
           transform: translateY(-4px);
         }
 
@@ -793,8 +1058,6 @@ export default function LandingPageTemplate({
         }
 
         .lp-dest-tab.active {
-          background: #FF892F;
-          border-color: #FF892F;
           color: #FFFFFF;
         }
 
@@ -815,7 +1078,7 @@ export default function LandingPageTemplate({
         }
 
         .lp-tour-card:hover {
-          border-color: rgba(255, 137, 47, 0.45);
+          border-color: var(--lp-glow);
           transform: translateY(-4px);
         }
 
@@ -860,8 +1123,8 @@ export default function LandingPageTemplate({
           bottom: 0.65rem;
           left: 0.65rem;
           background: rgba(0, 18, 51, 0.85);
-          border: 1px solid rgba(111, 230, 252, 0.3);
-          color: #6FE6FC;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: #FFFFFF;
           font-size: 0.7rem;
           font-weight: 700;
           padding: 0.15rem 0.5rem;
@@ -901,54 +1164,6 @@ export default function LandingPageTemplate({
           line-height: 1.4;
         }
 
-        .lp-card-footer {
-          display: flex;
-          align-items: flex-end;
-          justify-content: space-between;
-          padding-top: 0.75rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.06);
-          gap: 0.5rem;
-        }
-
-        .lp-card-btns {
-          display: flex;
-          align-items: center;
-          gap: 0.35rem;
-        }
-
-        .btn-lp-itinerary {
-          padding: 0.45rem 0.85rem;
-          border-radius: 9999px;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          color: #FFFFFF;
-          font-size: 0.76rem;
-          font-weight: 700;
-          cursor: pointer;
-        }
-
-        .btn-lp-itinerary:hover {
-          background: rgba(111, 230, 252, 0.2);
-          border-color: #6FE6FC;
-          color: #6FE6FC;
-        }
-
-        .btn-lp-book {
-          padding: 0.45rem 0.95rem;
-          border-radius: 9999px;
-          background: linear-gradient(135deg, #FF892F, #E65100);
-          border: none;
-          color: #FFFFFF;
-          font-size: 0.78rem;
-          font-weight: 800;
-          cursor: pointer;
-          box-shadow: 0 4px 12px rgba(255, 137, 47, 0.35);
-        }
-
-        .btn-lp-book:hover {
-          background: #E65100;
-        }
-
         /* Compact Vector Inclusions Bar */
         .compact-inclusions-icon-bar {
           display: flex;
@@ -982,8 +1197,8 @@ export default function LandingPageTemplate({
         }
 
         .inc-icon-item:hover .inc-svg-badge {
-          background: rgba(255, 137, 47, 0.15);
-          border-color: rgba(255, 137, 47, 0.35);
+          background: rgba(255, 255, 255, 0.12);
+          border-color: var(--lp-accent);
         }
 
         .inc-text {
@@ -1030,12 +1245,56 @@ export default function LandingPageTemplate({
         .current-offer-price {
           font-size: 1.25rem;
           font-weight: 900;
-          color: #FF892F;
         }
 
         .price-per-person {
           font-size: 0.7rem;
           color: #94A3B8;
+        }
+
+        .lp-card-footer {
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          padding-top: 0.75rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
+          gap: 0.5rem;
+        }
+
+        .lp-card-btns {
+          display: flex;
+          align-items: center;
+          gap: 0.35rem;
+        }
+
+        .btn-lp-itinerary {
+          padding: 0.45rem 0.85rem;
+          border-radius: 9999px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          color: #FFFFFF;
+          font-size: 0.76rem;
+          font-weight: 700;
+          cursor: pointer;
+        }
+
+        .btn-lp-itinerary:hover {
+          background: rgba(255, 255, 255, 0.2);
+          border-color: #FFFFFF;
+        }
+
+        .btn-lp-book {
+          padding: 0.45rem 0.95rem;
+          border-radius: 9999px;
+          border: none;
+          color: #FFFFFF;
+          font-size: 0.78rem;
+          font-weight: 800;
+          cursor: pointer;
+        }
+
+        .btn-lp-book:hover {
+          filter: brightness(1.1);
         }
 
         /* Pillars Section */
@@ -1044,34 +1303,30 @@ export default function LandingPageTemplate({
         }
 
         .lp-pillars-card {
-          max-width: 960px;
-          margin: 0 auto;
-          padding: 2.5rem;
+          padding: 3rem;
           border-radius: 24px;
-          background: rgba(0, 29, 81, 0.45);
+          background: rgba(0, 18, 51, 0.7);
           border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .lp-pillars-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
           gap: 1.5rem;
         }
 
         .lp-pillar-item {
           display: flex;
-          gap: 1rem;
           align-items: flex-start;
+          gap: 1rem;
         }
 
         .pillar-num {
-          width: 34px;
-          height: 34px;
+          width: 36px;
+          height: 36px;
           border-radius: 50%;
-          background: #FF892F;
           color: #FFFFFF;
           font-weight: 900;
-          font-size: 0.95rem;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -1080,13 +1335,13 @@ export default function LandingPageTemplate({
 
         .pillar-title {
           font-size: 1.05rem;
-          color: #FFFFFF;
-          margin: 0 0 0.25rem 0;
           font-weight: 800;
+          color: #FFFFFF;
+          margin: 0 0 0.3rem 0;
         }
 
         .pillar-desc {
-          font-size: 0.85rem;
+          font-size: 0.86rem;
           color: #94A3B8;
           line-height: 1.5;
           margin: 0;
@@ -1107,32 +1362,36 @@ export default function LandingPageTemplate({
 
         .lp-faq-item {
           border-radius: 16px;
-          background: rgba(0, 18, 51, 0.65);
+          background: rgba(0, 18, 51, 0.6);
           border: 1px solid rgba(255, 255, 255, 0.08);
           overflow: hidden;
           transition: all 0.2s ease;
         }
 
+        .lp-faq-item.active {
+          border-color: var(--lp-glow);
+          background: rgba(0, 29, 81, 0.5);
+        }
+
         .lp-faq-trigger {
           width: 100%;
           padding: 1.25rem 1.5rem;
-          background: transparent;
-          border: none;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          text-align: left;
+          background: transparent;
+          border: none;
           color: #FFFFFF;
           font-size: 1rem;
           font-weight: 700;
+          text-align: left;
           cursor: pointer;
-          gap: 1rem;
         }
 
         .lp-faq-answer {
           padding: 0 1.5rem 1.25rem 1.5rem;
-          color: #CBD5E1;
           font-size: 0.92rem;
+          color: #CBD5E1;
           line-height: 1.6;
         }
 
@@ -1140,13 +1399,13 @@ export default function LandingPageTemplate({
           margin: 0;
         }
 
-        /* Final Banner */
+        /* Bottom Final CTA Banner */
         .lp-final-cta-banner {
           margin-top: 3.5rem;
-          background: linear-gradient(135deg, rgba(0, 48, 135, 0.6), rgba(0, 18, 51, 0.95));
-          border-top: 1px solid rgba(255, 137, 47, 0.3);
-          border-bottom: 1px solid rgba(255, 137, 47, 0.3);
           padding: 3rem 0;
+          background: linear-gradient(180deg, rgba(0, 29, 81, 0.6) 0%, rgba(0, 11, 29, 0.95) 100%);
+          border-top: 1px solid var(--lp-glow);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .lp-final-container {
@@ -1158,14 +1417,14 @@ export default function LandingPageTemplate({
         }
 
         .lp-final-title {
-          font-size: 2.1rem;
+          font-size: 1.85rem;
           color: #FFFFFF;
           margin: 0 0 0.4rem 0;
         }
 
         .lp-final-desc {
-          font-size: 1rem;
-          color: #CBD5E1;
+          font-size: 0.95rem;
+          color: #94A3B8;
           margin: 0;
         }
 
@@ -1177,12 +1436,23 @@ export default function LandingPageTemplate({
         }
 
         @media (max-width: 768px) {
-          .lp-hero-headline {
+          .lp-hero-title {
             font-size: 2.2rem;
+          }
+          .lp-hero-trust-bar {
+            flex-direction: column;
+            gap: 0.5rem;
+            border-radius: 16px;
+          }
+          .trust-divider {
+            display: none;
           }
           .lp-final-container {
             flex-direction: column;
             text-align: center;
+          }
+          .lp-final-actions {
+            justify-content: center;
           }
         }
       `}</style>

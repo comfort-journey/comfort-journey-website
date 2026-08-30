@@ -1,6 +1,7 @@
 // =========================================================================
 // COMFORT JOURNEY - COMPREHENSIVE SEO & GOOGLE ADS LANDING PAGES DATA
-// Extracted from comfort_journey_website_v2 Landing Page Content & Niche Categories
+// Enriched with Hyper-Personalized Generation-Z Aesthetics, Thematic Visuals,
+// Dynamic Mood Lighting & Interactive Persona Badges
 // =========================================================================
 
 export const LANDING_PAGES_DATA = {
@@ -12,9 +13,26 @@ export const LANDING_PAGES_DATA = {
     metaTitle: "Solo Travel Packages 2026 | Safe Solo Trips with 24/7 Concierge | Comfort Journey",
     metaDesc: "Stop waiting for the group chat. Solo travel with the ultimate backup plan. Verified 5-star stays, no single supplement tax, and 24/7 WhatsApp emergency support since 1992.",
     categoryBadge: "Solo Explorer Edition",
+    theme: {
+      accentColor: "#6FE6FC",
+      glowColor: "rgba(111, 230, 252, 0.25)",
+      bgGradient: "radial-gradient(circle at 50% 15%, rgba(0, 48, 135, 0.6) 0%, rgba(0, 11, 29, 0.95) 75%)",
+      heroImage: "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1600&q=85",
+      personaMood: "Main Character Wanderlust",
+      vibePills: [
+        { label: "🧘 Main Character Vibes", icon: "sparkles" },
+        { label: "🛡️ Female-Safe Verified Stays", icon: "shield" },
+        { label: "💸 Zero Single-Supplement Tax", icon: "wallet" },
+        { label: "🎧 Curated Roadtrip Playlists", icon: "coffee" }
+      ],
+      personaQuote: {
+        author: "Tanya Sharma, 26 • Solo Backpacker from Bangalore",
+        text: "I was terrified of my first solo trip. Comfort Journey gave me a private driver who was so respectful, a boutique stay with incredible coffee, and a 24/7 WhatsApp concierge that answered my silly questions in 30 seconds."
+      }
+    },
     heroHeadline: "Stop waiting for them. Just go.",
     heroSubline: "Your friends are busy. Your group chat is dead. Your soul isn't. Solo travel with the ultimate backup plan.",
-    ctaText: "Let's Plan My Escape",
+    ctaText: "Let's Plan My Solo Escape",
     whatsAppMsg: "Hi Comfort Journey! I want to plan my solo escape. Let's make it happen.",
     openingHeading: "The Reality Check",
     openingParagraph: `You've been dropping hints in the group chat for months. "Goa next month?" "Bali in December?" Crickets. Or worse, the dreaded "Let's see yaar, I'll check my leaves."
@@ -90,6 +108,23 @@ That's where we come in. We've got your back while you go find yourself (or just
     metaTitle: "Best Family Tour Packages 2026 | Stress-Free Family Vacations | Comfort Journey",
     metaDesc: "Finally, a family trip that actually happens. Child-friendly pacing, grandparent-approved luxury comfort, Indian vegetarian food on request, and 24/7 dedicated family concierge.",
     categoryBadge: "Family Expedition Edition",
+    theme: {
+      accentColor: "#10B981",
+      glowColor: "rgba(16, 185, 129, 0.25)",
+      bgGradient: "radial-gradient(circle at 50% 15%, rgba(6, 95, 70, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
+      heroImage: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1600&q=85",
+      personaMood: "Multi-Gen Harmony & Ease",
+      vibePills: [
+        { label: "🥘 Pure Veg & Jain Pre-Screened", icon: "utensils" },
+        { label: "🛗 Ground-Floor / Elevator Guaranteed", icon: "heart" },
+        { label: "👶 0-Tantrum Kid Pacing", icon: "clock" },
+        { label: "🚐 100% Private Luxury Innova", icon: "car" }
+      ],
+      personaQuote: {
+        author: "Rajesh & Meenakshi Agarwal, Delhi • Traveled with Kids & Grandparents to Kashmir",
+        text: "Traveling with 7 family members across 3 generations usually causes chaos. Comfort Journey handled our parents' wheelchair requests, ensured warm Jain meals at every stop, and the kids had a blast in the snow."
+      }
+    },
     heroHeadline: "Finally, a family trip that actually happens.",
     heroSubline: "Your kids won't remember the toys. They will remember the trips. Let's get out of the WhatsApp group and into the world.",
     ctaText: "Let's Plan This Family Vacation",
@@ -164,6 +199,23 @@ We handle the chaos. You just show up and make the memories.`,
     metaTitle: "Romantic Honeymoon Packages 2026 | Private Pool Villas | Comfort Journey",
     metaDesc: "Just you, them, and zero planning stress. Handcrafted romantic honeymoons with private pool villas, floating breakfasts, candlelit beach dinners, and dedicated 24/7 concierge.",
     categoryBadge: "Couple & Honeymoon Edition",
+    theme: {
+      accentColor: "#FB7185",
+      glowColor: "rgba(251, 113, 133, 0.28)",
+      bgGradient: "radial-gradient(circle at 50% 15%, rgba(136, 19, 55, 0.55) 0%, rgba(0, 11, 29, 0.95) 75%)",
+      heroImage: "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=1600&q=85",
+      personaMood: "Intimate Romance & Luxury",
+      vibePills: [
+        { label: "🥂 Private Pool Villa Upgrade", icon: "sparkles" },
+        { label: "🌹 Rose Petal Bath & Candlelight", icon: "heart" },
+        { label: "🌅 Sunset Seashore Dinner For Two", icon: "utensils" },
+        { label: "📸 Complimentary Honeymoon Shoot", icon: "camera" }
+      ],
+      personaQuote: {
+        author: "Karan & Pooja Kapoor, Mumbai • Bali Honeymoon",
+        text: "The private pool villa in Ubud took our breath away. Floating breakfast in the morning, sunset dinner on the cliff, and zero stress with visas or airport transfers. Best decision of our wedding!"
+      }
+    },
     heroHeadline: "Just you, them, and zero planning stress.",
     heroSubline: "Your love story deserves a beautiful backdrop. We handle the boring stuff so you can focus on the butterflies.",
     ctaText: "Let's Plan This Romantic Date",
@@ -235,6 +287,23 @@ We get it. You want the dreamy moments without the logistical nightmares.`,
     metaTitle: "Friends & Group Tour Packages 2026 | Group Trips Without Chaos | Comfort Journey",
     metaDesc: "The trip your group chat has been planning for 3 years? Let's actually make it happen. Split payments, private party villas, flexible bookings, and 24/7 squad support.",
     categoryBadge: "Squad & Group Travel Edition",
+    theme: {
+      accentColor: "#F59E0B",
+      glowColor: "rgba(245, 158, 11, 0.28)",
+      bgGradient: "radial-gradient(circle at 50% 15%, rgba(120, 53, 15, 0.55) 0%, rgba(0, 11, 29, 0.95) 75%)",
+      heroImage: "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&w=1600&q=85",
+      personaMood: "Squad Energy & High Vibes",
+      vibePills: [
+        { label: "🎵 AUX Cord Road Trips", icon: "sparkles" },
+        { label: "🏡 Private 4BHK Pool Villas", icon: "hotel" },
+        { label: "💳 Individual UPI Split Links", icon: "wallet" },
+        { label: "🚫 Rahul-Proof Flexible Booking", icon: "shield" }
+      ],
+      personaQuote: {
+        author: "Aman, Dhruv & Squad (8 Friends), Pune • Goa Villa Trip",
+        text: "Our college WhatsApp group was stuck in planning limbo for 4 years. Comfort Journey sent each of us separate payment links so nobody was owed money, booked us an insane pool villa in North Goa, and got us private yacht passes. Unforgettable!"
+      }
+    },
     heroHeadline: "The trip your group chat has been planning for 3 years? Let's actually make it happen.",
     heroSubline: "Stop talking. Start packing. We'll handle the drama, the bookings, and the math. You just handle the memories.",
     ctaText: "Let's Go (Before Someone Cancels)",
@@ -305,6 +374,23 @@ Since 1992, we've been turning "maybe next year" into "remember that night?" for
     metaTitle: "Corporate Tour Packages & Team Offsites 2026 | Comfort Journey",
     metaDesc: "Team offsites that don't suck. GST-compliant corporate retreats, executive leadership conferences, luxury team building, and transparent billing since 1992.",
     categoryBadge: "Corporate Offsite & MICE Edition",
+    theme: {
+      accentColor: "#38BDF8",
+      glowColor: "rgba(56, 189, 248, 0.25)",
+      bgGradient: "radial-gradient(circle at 50% 15%, rgba(12, 74, 110, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
+      heroImage: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=85",
+      personaMood: "Executive Leadership & Team Morale",
+      vibePills: [
+        { label: "🧾 100% GST Tax Invoice & POs", icon: "wallet" },
+        { label: "⚡ 24h Quotation SLA for HR & Finance", icon: "clock" },
+        { label: "🎤 AV & High-Speed Conference Facilities", icon: "sparkles" },
+        { label: "🍸 Private Sundowner Gala Dinners", icon: "utensils" }
+      ],
+      personaQuote: {
+        author: "Vikram Malhotra, Head of HR • 65-Person Annual Retreat in Goa",
+        text: "Zero logistical headaches. Rooming lists were executed flawlessly, airport shuttles were on time to the minute, and our employees rated the team gala 9.8/10."
+      }
+    },
     heroHeadline: "Team offsites that don't suck.",
     heroSubline: "Finally, corporate trips your team actually wants to go on. Real bonding, luxury stays, and zero logistics headache.",
     ctaText: "Plan Our Corporate Offsite",
@@ -372,6 +458,23 @@ Let us handle the headache. You just take the credit.`,
     metaTitle: "Educational School & College Tour Packages 2026 | Comfort Journey",
     metaDesc: "Textbooks are boring. Let's go outside. 100% safe, verified, and engaging educational study tours for schools & colleges with 24/7 on-ground tracking since 1992.",
     categoryBadge: "Educational & Student Travel",
+    theme: {
+      accentColor: "#A78BFA",
+      glowColor: "rgba(167, 139, 250, 0.25)",
+      bgGradient: "radial-gradient(circle at 50% 15%, rgba(76, 29, 149, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
+      heroImage: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=85",
+      personaMood: "Experiential Learning & Wonder",
+      vibePills: [
+        { label: "📍 GPS Live Bus Tracking for Parents", icon: "shield" },
+        { label: "👩‍💼 Female Tour Marshals 24/7", icon: "heart" },
+        { label: "📜 Curriculum-Mapped Field Excursions", icon: "sparkles" },
+        { label: "🏥 Certified First-Aid Personnel", icon: "shield" }
+      ],
+      personaQuote: {
+        author: "Dr. Sunita Sharma, Senior Academic Coordinator, Indore",
+        text: "Comfort Journey has organized our school's annual science and heritage excursions for 6 years straight. The safety protocols, hygienic meal audits, and student engagement are gold standard."
+      }
+    },
     heroHeadline: "Textbooks Are Boring. Let's Go Outside.",
     heroSubline: "Safe, organized, and actually fun educational trips. Because the best lessons happen when you're not looking at a whiteboard.",
     ctaText: "Plan The Best Trip Ever",
@@ -438,6 +541,23 @@ We handle the headaches. You get the credit for being the cool teacher.`,
     metaTitle: "Quick Weekend Getaways & 48-Hour Escapes | Comfort Journey",
     metaDesc: "Friday night. Bags packed. Let's go. 48-hour resets to recharge and escape screen burnout. Instant bookings, aesthetic boutique stays, and zero planning drama.",
     categoryBadge: "48-Hour Weekend Escapes",
+    theme: {
+      accentColor: "#F43F5E",
+      glowColor: "rgba(244, 63, 94, 0.25)",
+      bgGradient: "radial-gradient(circle at 50% 15%, rgba(159, 18, 57, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
+      heroImage: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1600&q=85",
+      personaMood: "Instant 48-Hour Recharge",
+      vibePills: [
+        { label: "🎒 0 Leave Approvals Needed", icon: "clock" },
+        { label: "🚗 Under 4 Hours Driving Transit", icon: "car" },
+        { label: "☕ Local Plantation Coffee Included", icon: "coffee" },
+        { label: "📵 Work Slack Muted Zone", icon: "sparkles" }
+      ],
+      personaQuote: {
+        author: "Sneha Roy, Product Manager, Mumbai • Coorg Weekend Break",
+        text: "I booked on Thursday evening during a stressful sprint. Friday night I was drinking hot filter coffee in a misty plantation cottage. The reset was unbelievable."
+      }
+    },
     heroHeadline: "Friday night. Bags packed. Let's go.",
     heroSubline: "Because your laptop screen isn't a view. 48 hours to reset, recharge, and actually feel alive again.",
     ctaText: "Get Me Outta Here",
@@ -504,6 +624,23 @@ We've been doing this for 30 years. You just show up.`,
     metaTitle: "Fixed Departure Group Tours 2026 | Guaranteed Departures | Comfort Journey",
     metaDesc: "Just show up. We got the rest. Join our scheduled travel tribe. Pre-planned group trips, verified 5-star stays, zero stress, 100% vibes since 1992.",
     categoryBadge: "Fixed Departure Tribe Edition",
+    theme: {
+      accentColor: "#F97316",
+      glowColor: "rgba(249, 115, 22, 0.28)",
+      bgGradient: "radial-gradient(circle at 50% 15%, rgba(154, 52, 18, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
+      heroImage: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1600&q=85",
+      personaMood: "Travel Tribe & Guaranteed Dates",
+      vibePills: [
+        { label: "🤝 Meet Like-Minded Travelers", icon: "users" },
+        { label: "🔒 100% Guaranteed Fixed Dates", icon: "clock" },
+        { label: "💰 Bulk Group Economy Pricing", icon: "wallet" },
+        { label: "🚌 Premium AC Volvo & Coaches", icon: "car" }
+      ],
+      personaQuote: {
+        author: "Devendra Singhal, Solo Traveler on Spiti Fixed Batch",
+        text: "I joined the August Spiti departure as a solo traveler. By day 2 around the campsite bonfire, our group was like family. 10/10 trip coordination!"
+      }
+    },
     heroHeadline: "Just show up. We got the rest.",
     heroSubline: "Your group chat failed again? Join our tribe. Pre-planned trips, zero stress, 100% vibes.",
     ctaText: "Save My Spot on Next Departure",
@@ -571,6 +708,23 @@ Just bring your energy. We'll handle the logistics.`,
     metaTitle: "India Tour Packages 2026 | Luxury Domestic Vacations | Comfort Journey",
     metaDesc: "You've seen the world. But have you seen India? From Kashmir snow to Kerala backwaters and Rajasthan royal palaces. Handcrafted luxury vacations since 1992.",
     categoryBadge: "Incredible India Luxury Collection",
+    theme: {
+      accentColor: "#F59E0B",
+      glowColor: "rgba(245, 158, 11, 0.28)",
+      bgGradient: "radial-gradient(circle at 50% 15%, rgba(180, 83, 9, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
+      heroImage: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1600&q=85",
+      personaMood: "Royal Desi Heritage & Wonders",
+      vibePills: [
+        { label: "🇮🇳 Zero Visa Drama Required", icon: "shield" },
+        { label: "☕ Local Tapri Chai & Food Plugs", icon: "coffee" },
+        { label: "🏰 Sleep in Verified Heritage Palaces", icon: "hotel" },
+        { label: "👑 30+ Years Royal Hospitality", icon: "sparkles" }
+      ],
+      personaQuote: {
+        author: "Sunil & Ananya Joshi, Hyderabad • Rajasthan & Kashmir Tours",
+        text: "We used to only travel abroad for vacations until Comfort Journey showed us the magic of Kashmir and Udaipur. The VIP royal treatment was beyond anything we experienced in Europe!"
+      }
+    },
     heroHeadline: "You've seen the world. But have you seen India?",
     heroSubline: "Stop scrolling through Euro trips. Your own backyard is calling, and it's wilder, louder, and way more beautiful than you think.",
     ctaText: "Let's Explore Home",
@@ -637,6 +791,23 @@ From snow-capped peaks in the north to beaches that rival Bali in the south. It 
     metaTitle: "International Tour Packages 2026 | World Holidays | Comfort Journey",
     metaDesc: "The world is bigger than your city. Go see it. Hassle-free international vacations with complete visa assistance, verified 5-star stays, and 24/7 overseas concierge since 1992.",
     categoryBadge: "World Passport Signature Collection",
+    theme: {
+      accentColor: "#38BDF8",
+      glowColor: "rgba(56, 189, 248, 0.28)",
+      bgGradient: "radial-gradient(circle at 50% 15%, rgba(3, 105, 161, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
+      heroImage: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1600&q=85",
+      personaMood: "Global Stamps & Seamless Horizons",
+      vibePills: [
+        { label: "🛂 In-House Visa Filing Assistance", icon: "shield" },
+        { label: "🥐 Local Hidden Culinary Guides", icon: "coffee" },
+        { label: "🏨 Central 5-Star Neighborhoods", icon: "hotel" },
+        { label: "✈️ 24/7 Global Timezone Support", icon: "sparkles" }
+      ],
+      personaQuote: {
+        author: "Mehul & Riddhi Shah, Ahmedabad • Europe & Dubai Tours",
+        text: "Our Schengen visa appointments and documents were completed in 3 days. We landed in Paris with our driver waiting at the terminal holding our name board. 100% world class."
+      }
+    },
     heroHeadline: "The world is bigger than your city. Go see it.",
     heroSubline: "That visa-approved feeling? We package it. Your passport is looking a little too empty. Let's fix that.",
     ctaText: "Let's Go Places",
@@ -705,6 +876,23 @@ You just pack your bags. We handle the rest.`,
     metaTitle: "Adventure & Hiking Tour Packages 2026 | Adrenaline Expeditions | Comfort Journey",
     metaDesc: "Chase the thrill. High-altitude Himalayan passes, white-water rapids, desert dune buggies, and scuba reefs. Fully insured and certified guides since 1992.",
     categoryBadge: "Adrenaline & Adventure Edition",
+    theme: {
+      accentColor: "#F97316",
+      glowColor: "rgba(249, 115, 22, 0.28)",
+      bgGradient: "radial-gradient(circle at 50% 15%, rgba(154, 52, 18, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
+      heroImage: "https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=1600&q=85",
+      personaMood: "Adrenaline Rush & Peak Conquering",
+      vibePills: [
+        { label: "🧗 IMF & Certified Mountain Guides", icon: "compass" },
+        { label: "🏕️ Heated Alpine Glamping Domes", icon: "hotel" },
+        { label: "🫁 Emergency O2 & Medical Backup", icon: "shield" },
+        { label: "⚡ High-Pass Motorbiking & Rapids", icon: "sparkles" }
+      ],
+      personaQuote: {
+        author: "Rohit Verma, Trekker from Chandigarh • Ladakh Khardung La Expedition",
+        text: "The bike route was exhilarating and the support backup truck gave our entire crew total peace of mind. Truly the trip of a lifetime."
+      }
+    },
     heroHeadline: "Feel Alive Again. Push Past The Horizon.",
     heroSubline: "Say goodbye to boring routine. High-altitude mountain passes, raging river rapids, and uncharted wilderness expeditions.",
     ctaText: "Unlock Adventure Expeditions",
@@ -740,6 +928,23 @@ Whether it's conquering the world's highest motorable pass in Ladakh or white-wa
     metaTitle: "Tropical Beach & Island Tour Packages 2026 | Comfort Journey",
     metaDesc: "Sun, turquoise waters, and zero stress. Handcrafted beach escapes across Maldives, Bali, Andaman, and South Goa with beachfront pool villas.",
     categoryBadge: "Tropical Beach & Island Escapes",
+    theme: {
+      accentColor: "#06B6D4",
+      glowColor: "rgba(6, 182, 212, 0.28)",
+      bgGradient: "radial-gradient(circle at 50% 15%, rgba(14, 116, 144, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
+      heroImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=85",
+      personaMood: "Turquoise Waves & Barefoot Luxury",
+      vibePills: [
+        { label: "🥥 Fresh Coconut Welcome Drinks", icon: "sparkles" },
+        { label: "🤿 Free Scuba & Coral Snorkeling", icon: "compass" },
+        { label: "🌅 Direct Beachfront Access", icon: "hotel" },
+        { label: "🍹 Private Sunset Cocktail Lounges", icon: "utensils" }
+      ],
+      personaQuote: {
+        author: "Aakash & Simran, Delhi • Havelock Andaman Escape",
+        text: "Radhanagar beach sunset from our private cabana was surreal. Comfort Journey pre-booked our scuba slot so we didn't wait 1 minute in queue."
+      }
+    },
     heroHeadline: "Turquoise Waves. Private Beachfront Stays.",
     heroSubline: "Escape the concrete jungle. Overwater villas, coral reefs, sunset cocktails, and pristine white sands.",
     ctaText: "Explore Island Escapes",
@@ -773,6 +978,23 @@ Whether it's conquering the world's highest motorable pass in Ladakh or white-wa
     metaTitle: "Mountain & Snow Tour Packages 2026 | Alpine Vacations | Comfort Journey",
     metaDesc: "Breathe the alpine air. Snow-capped Himalayan ranges, Swiss glaciers, cozy pinewood chalets, and hot mountain coffee since 1992.",
     categoryBadge: "Mountain & Alpine Collection",
+    theme: {
+      accentColor: "#38BDF8",
+      glowColor: "rgba(56, 189, 248, 0.28)",
+      bgGradient: "radial-gradient(circle at 50% 15%, rgba(2, 132, 199, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
+      heroImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=85",
+      personaMood: "Alpine Heights & Cozy Pinewood Chalets",
+      vibePills: [
+        { label: "🔥 In-Room Heated Blankets & Fireplaces", icon: "hotel" },
+        { label: "🚠 Skip-The-Line Cable Car Gondola", icon: "ticket" },
+        { label: "❄️ Guaranteed Thick Snow Slopes", icon: "sparkles" },
+        { label: "☕ Steaming Hot Spiced Mountain Kahwa", icon: "coffee" }
+      ],
+      personaQuote: {
+        author: "Prateek Mathur, Jaipur • Gulmarg & Pahalgam Winter Trip",
+        text: "The wooden chalet had large heated bay windows overlooking snow pines. Sitting there with hot kahwa while it was snowing outside was pure bliss."
+      }
+    },
     heroHeadline: "The Mountains Are Calling. Breathe Pure Air.",
     heroSubline: "Escape the summer heat and city smog. Snow-capped peaks, pine forests, hot kahwa, and mountain luxury.",
     ctaText: "Discover Mountain Escapes",
@@ -805,6 +1027,23 @@ Whether it's conquering the world's highest motorable pass in Ladakh or white-wa
     metaTitle: "Summer Vacation Tour Packages 2026 | Beat The Heat | Comfort Journey",
     metaDesc: "Beat the heat with refreshing summer holiday packages across Kashmir, Himachal, Bali, Switzerland, and Dubai. Handcrafted since 1992.",
     categoryBadge: "Summer Vacation Special",
+    theme: {
+      accentColor: "#10B981",
+      glowColor: "rgba(16, 185, 129, 0.28)",
+      bgGradient: "radial-gradient(circle at 50% 15%, rgba(4, 120, 87, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
+      heroImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=85",
+      personaMood: "Cool Climates & Refreshing Lakes",
+      vibePills: [
+        { label: "🌡️ Crisp Under-22°C Mountain Weather", icon: "sparkles" },
+        { label: "🚣 Private Shikara & Lake Boat Rides", icon: "compass" },
+        { label: "🍓 Fresh Fruit Orchard Excursions", icon: "utensils" },
+        { label: "🌲 Pine Forest Nature Canopy Walks", icon: "hotel" }
+      ],
+      personaQuote: {
+        author: "The Nambiar Family, Chennai • Himachal Summer Tour",
+        text: "Leaving 42°C Chennai for the 18°C breeze of Manali and Dharamshala was the best decision of the summer. The kids loved the apple orchards."
+      }
+    },
     heroHeadline: "Beat The Scorching Heat. Escape to Cool Climes.",
     heroSubline: "Escape 45°C summers. Refreshing hill stations, cool mountain lakes, and overseas summer getaways for families & couples.",
     ctaText: "Plan Summer Vacation",
@@ -836,6 +1075,23 @@ Whether it's conquering the world's highest motorable pass in Ladakh or white-wa
     metaTitle: "Winter Tour Packages 2026 | Snow & Northern Lights | Comfort Journey",
     metaDesc: "Winter wonderland escapes. Gulmarg skiing, Dal Lake frozen shikara, Rajasthan desert winter camps, and Swiss snow. Handcrafted since 1992.",
     categoryBadge: "Winter Wonderland Collection",
+    theme: {
+      accentColor: "#67E8F9",
+      glowColor: "rgba(103, 232, 249, 0.28)",
+      bgGradient: "radial-gradient(circle at 50% 15%, rgba(8, 145, 178, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
+      heroImage: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1600&q=85",
+      personaMood: "Snow Powder & Desert Bonfires",
+      vibePills: [
+        { label: "☃️ Fresh Powder Snow Days Guaranteed", icon: "sparkles" },
+        { label: "🌌 Starry Desert Dune Campfire Nights", icon: "hotel" },
+        { label: "☕ Spiced Hot Chocolate & Kahwa", icon: "coffee" },
+        { label: "🧤 Complimentary Winter Packing Kit", icon: "shield" }
+      ],
+      personaQuote: {
+        author: "Vivek & Rashmi, Kolkata • Kashmir Winter Snow Tour",
+        text: "Seeing Dal Lake in the winter morning mist and skiing down Gulmarg slopes was a dream come true. Heated cars made all the difference."
+      }
+    },
     heroHeadline: "Cozy Up in Winter Snow & Starry Deserts.",
     heroSubline: "Snowfall in the Himalayas, golden winter sunshine in Rajasthan deserts, and fairy-tale European Christmas lights.",
     ctaText: "Explore Winter Packages",
