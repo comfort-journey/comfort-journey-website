@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CurrencyProvider } from './context/CurrencyContext';
 import { WishlistCompareProvider } from './context/WishlistCompareContext';
 import { useScrollAnimation } from './hooks/useScrollAnimation';
@@ -42,6 +42,21 @@ export default function App() {
   const [isTierCompareOpen, setIsTierCompareOpen] = useState(false);
   const [isAdminCMSOpen, setIsAdminCMSOpen] = useState(false);
   const [policyModalType, setPolicyModalType] = useState(null); // 'cancellation' | 'privacy' | 'terms' | null
+
+  // Hash-based URL routing: auto-open Admin CMS when URL contains #/admin or #admin
+  useEffect(() => {
+    const checkAdminRoute = () => {
+      const hash = window.location.hash.toLowerCase();
+      if (hash === '#/admin' || hash === '#admin') {
+        setIsAdminCMSOpen(true);
+      }
+    };
+    // Check on mount (direct URL navigation)
+    checkAdminRoute();
+    // Listen for hash changes (in-app navigation)
+    window.addEventListener('hashchange', checkAdminRoute);
+    return () => window.removeEventListener('hashchange', checkAdminRoute);
+  }, []);
 
   return (
     <CurrencyProvider>
@@ -195,7 +210,13 @@ export default function App() {
           {/* Marketing Team CMS, Blog Publisher & SEO Studio */}
           <AdminCMSModal 
             isOpen={isAdminCMSOpen}
-            onClose={() => setIsAdminCMSOpen(false)}
+            onClose={() => {
+              setIsAdminCMSOpen(false);
+              // Clear the #admin hash from URL on close
+              if (window.location.hash.toLowerCase().includes('admin')) {
+                history.replaceState(null, '', window.location.pathname);
+              }
+            }}
           />
 
           {/* Navi, The 3D Compass Keeper Concierge (120+ FPS Cursor Look-At Gaze) */}
