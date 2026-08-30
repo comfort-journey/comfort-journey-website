@@ -8,6 +8,7 @@ import ZajnoMagneticCursor from './components/animations/ZajnoMagneticCursor';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import StatsBar from './components/StatsBar';
+import GlobalDestinationTree from './components/GlobalDestinationTree';
 import TourExplorer from './components/TourExplorer';
 import TripCustomizerSection from './components/TripCustomizerSection';
 import GoogleReviewsSection from './components/GoogleReviewsSection';
@@ -92,7 +93,7 @@ export default function App() {
                 }}
               />
             ) : (
-              /* HOMEPAGE VIEW (AboutPromoSection Removed) */
+              /* HOMEPAGE VIEW */
               <>
                 {/* 2. Next-Gen Cinematic Hero ("YOUR JOURNEY YOUR COMFORT") with Vanta Sky Canvas */}
                 <Hero 
@@ -103,7 +104,15 @@ export default function App() {
                 {/* 3. Trust & Experience Stats Bar with Anime.js Elastic Counters */}
                 <StatsBar />
 
-                {/* 4. Handcrafted Luxury Tour Packages Explorer with 3D Card Tilt & Seasonal Radar */}
+                {/* 4. Interactive 7 Continents Tree Navigator (Continent -> Country -> City -> Tours), Weather & Travel Styles */}
+                <GlobalDestinationTree 
+                  onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
+                  onBookNow={(tour) => setSelectedBookingTour(tour)}
+                  onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+                  onOpenQuote={() => setIsQuickQuoteOpen(true)}
+                />
+
+                {/* 5. Handcrafted Luxury Tour Packages Explorer with 3D Card Tilt & Seasonal Radar */}
                 <TourExplorer 
                   searchFilters={searchFilters} 
                   onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
