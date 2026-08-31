@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { X, Sparkles, CheckCircle, AlertCircle, FileText, Globe, Search, Share2, Plus, Trash2, Eye, Lock, Unlock, RefreshCw, LayoutDashboard, Server, Database, ExternalLink, Link2 } from 'lucide-react';
-import { directusService, slugify } from '../services/directusClient';
+import { X, Sparkles, CheckCircle, AlertCircle, FileText, Globe, Search, Share2, Plus, Trash2, Eye, Lock, Unlock, RefreshCw, LayoutDashboard, Server, Database, ExternalLink, Link2, UploadCloud, FileSpreadsheet, ArrowRight, CheckCheck, Image as ImageIcon } from 'lucide-react';
+import { directusService, slugify, parseWixCsv, transformWixTourRow } from '../services/directusClient';
 import { TOURS_DATA } from '../data/toursData';
 
 export default function AdminCMSModal({ isOpen, onClose }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passwordInput, setPasswordInput] = useState('');
   const [authError, setAuthError] = useState('');
-  const [activeTab, setActiveTab] = useState('blog'); // 'blog', 'tour', 'seo-preview', 'directus-config'
+  const [activeTab, setActiveTab] = useState('blog'); // 'blog', 'tour', 'seo-preview', 'directus-config', 'wix-migration'
 
   // Directus Connection State
   const [directusUrl, setDirectusUrl] = useState(directusService.getBaseUrl());
@@ -16,6 +16,12 @@ export default function AdminCMSModal({ isOpen, onClose }) {
   const [isTestingConnection, setIsTestingConnection] = useState(false);
   const [publishedBlogSlug, setPublishedBlogSlug] = useState(null);
   const [publishedTourSlug, setPublishedTourSlug] = useState(null);
+
+  // Wix CSV Migration State
+  const [wixCsvText, setWixCsvText] = useState('');
+  const [parsedWixPackages, setParsedWixPackages] = useState([]);
+  const [isImportingWix, setIsImportingWix] = useState(false);
+  const [wixImportResult, setWixImportResult] = useState(null);
 
   // Blog Post State
   const [blogTitle, setBlogTitle] = useState('Top 7 Luxury Stays in Kashmir You Must Experience in 2026');
@@ -272,6 +278,13 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
               >
                 <Database size={16} />
                 <span>Directus & AWS Bridge</span>
+              </button>
+              <button
+                className={`cms-tab-btn ${activeTab === 'wix-migration' ? 'active' : ''}`}
+                onClick={() => setActiveTab('wix-migration')}
+              >
+                <UploadCloud size={16} />
+                <span>Wix Data Migration</span>
               </button>
             </div>
 
@@ -820,6 +833,175 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
                     </li>
                   </ol>
                 </div>
+              </div>
+            )}
+
+            {/* TAB 5: Wix Historical Data Migration & Media Replacement */}
+            {activeTab === 'wix-migration' && (
+              <div className="wix-migration-pane">
+                {/* Migration Overview Banner */}
+                <div className="wix-migration-header glass-card">
+                  <div className="wix-header-icon-box">
+                    <FileSpreadsheet size={28} className="text-amber" />
+                  </div>
+                  <div>
+                    <h3 className="wix-title font-editorial">Historical Wix Tour Packages Importer</h3>
+                    <p className="wix-desc">
+                      Import your historical tour packages exported from Wix (<code>.csv</code> / <code>.xlsx</code>). 
+                      The migration engine automatically maps columns, formats day-by-day itineraries, and 
+                      <strong> replaces all legacy Wix CDN image URLs</strong> with curated, high-definition destination photography.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Upload & Sample Loading Controls */}
+                <div className="wix-controls-grid">
+                  <div className="wix-upload-card glass-card">
+                    <h4 className="card-sub-title">1. Upload Wix Export File</h4>
+                    <div className="wix-dropzone">
+                      <UploadCloud size={32} className="text-cyan mb-2" />
+                      <p className="drop-title">Drag & Drop Wix .csv file here</p>
+                      <span className="drop-or">or</span>
+                      <label className="btn-file-select">
+                        <span>Browse Computer</span>
+                        <input 
+                          type="file" 
+                          accept=".csv" 
+                          style={{ display: 'none' }}
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              const reader = new FileReader();
+                              reader.onload = (event) => {
+                                const text = event.target?.result;
+                                if (typeof text === 'string') {
+                                  setWixCsvText(text);
+                                  const rows = parseWixCsv(text);
+                                  const pkgs = rows.map(r => transformWixTourRow(r));
+                                  setParsedWixPackages(pkgs);
+                                };
+                              };
+                              reader.readAsText(file);
+                            }
+                          }}
+                        />
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="wix-sample-card glass-card">
+                    <h4 className="card-sub-title">2. Quick Test with Sample Export</h4>
+                    <p className="sample-desc">
+                      Test the migration pipeline immediately with 5 real historical Wix tour packages (Kashmir, Bali, Dubai, Kerala, Swiss Alps).
+                    </p>
+                    <button 
+                      type="button" 
+                      className="btn-load-sample"
+                      onClick={() => {
+                        const sampleCsv = `HandleId,Title,FieldType,Price,ComparePrice,Duration,Destination,Category,Description,WixImageUrl,Inclusions,Day1_Title,Day1_Desc,Day2_Title,Day2_Desc,Day3_Title,Day3_Desc,Day4_Title,Day4_Desc,Day5_Title,Day5_Desc
+wix-pkg-101,"Kashmir Royal Houseboat & Gulmarg Ski Odyssey",Product,28999,35999,"6 Days / 5 Nights","Srinagar, Kashmir","Luxury Signature","Experience paradise on earth with luxury handcrafted houseboats on Dal Lake and heated pine chalets in Gulmarg.","https://static.wixstatic.com/media/43df74_kashmir_legacy_wix_01~mv2.jpg/v1/fill/w_800,h_600/kashmir.jpg","5-Star Stay; Private Cab; Daily Breakfast & Dinner; Shikara Ride; VIP Gondola Passes","Arrival in Srinagar","VIP pickup from Srinagar airport and transfer to Royal Cedar Houseboat on Nigeen Lake with sunset Shikara ride.","Srinagar to Gulmarg Expedition","Drive through pine valleys to Gulmarg. Check into heated alpine chalet and take Gondola Phase 1 & 2.","Gulmarg Snow Activities","Skiing and snowboarding with certified instructors. Evening bonfire with Kashmiri Kahwa.","Gulmarg to Pahalgam Valley","Scenic drive to Lidder River valley. Check into riverside pine cottages.","Pahalgam Sightseeing & Departure","Visit Betaab Valley and Aru Valley. Evening shopping at Lal Chowk and airport drop."
+wix-pkg-102,"Bali Romance: Jungle Pool Villas & Uluwatu Sunset",Product,42999,54999,"7 Days / 6 Nights","Bali, Indonesia","Honeymoon & Couple","Romantic split stay between Ubud rainforest infinity pools and Uluwatu ocean clifftop luxury suites.","https://static.wixstatic.com/media/43df74_bali_honeymoon_wix_02~mv2.jpg/v1/fill/w_800,h_600/bali.jpg","Private Pool Villa; Daily Floating Breakfast; Candlelight Dinner; Sunset Cruise; 24/7 Concierge","Arrival in Denpasar & Ubud Transfer","Traditional Balinese flower garland welcome, private VIP transfer to Ubud Jungle Villa.","Tegalalang Rice Terraces & Jungle Swing","Explore iconic green terraces, Aloha swing, and sacred Tirta Empul water temple.","Ubud to Seminyak & Sunset Beach Club","Transfer to luxury Seminyak beachfront suite. Sunset cocktails at Potato Head Beach Club.","Nusa Penida Island Private Speedboat Tour","Fast boat to Kelingking T-Rex Beach, Broken Beach, and Angel's Billabong snorkeling.","Uluwatu Temple & Kecak Fire Dance","Cliffside Uluwatu temple tour and traditional sunset fire dance with Jimbaran seafood dinner."
+wix-pkg-103,"Dubai Extravaganza: Desert Luxury & Burj Khalifa VIP",Product,38999,48999,"5 Days / 4 Nights","Dubai, UAE","Luxury Signature","Ultra-modern luxury with 5-star Marina hotels, private yacht cruise, and premium desert safari glamping.","https://static.wixstatic.com/media/43df74_dubai_skyline_wix_03~mv2.jpg/v1/fill/w_800,h_600/dubai.jpg","5-Star Hotel; Desert Safari; Private Yacht; Burj 124th Floor; Limousine Airport Transfer","Arrival in Dubai","Limousine airport transfer to 5-star Dubai Marina hotel. Evening Dubai Marina Dhow Cruise.","Dubai City Tour & Burj Khalifa At The Top","Visit Museum of the Future, Dubai Mall, and 124th-floor sunset Burj Khalifa VIP entry.","VIP Red Dunes Desert Safari","Luxury 4x4 dune bashing, camel riding, quad biking, and gourmet Arabian BBQ dinner with live Tanoura show.","Private Luxury Yacht Cruise & Atlantis Aquaventure","2-hour private yacht cruise along Dubai Marina and Palm Jumeirah with Atlantis Aquaventure pass.","Dubai Gold Souk & Departure","Morning shopping at traditional Deira Gold and Spice Souks. VIP airport drop-off."
+wix-pkg-104,"Kerala Serenity: Munnar Tea Hills & Alleppey Houseboat",Product,21999,28999,"6 Days / 5 Nights","Kerala, India","Family & Group","Lush tea plantation mists, aromatic spice gardens, and private luxury backwater houseboat cruises.","https://static.wixstatic.com/media/43df74_kerala_backwaters_wix_04~mv2.jpg/v1/fill/w_800,h_600/kerala.jpg","Luxury Resort; Private Houseboat; All Meals on Boat; Ayurvedic Spa Voucher; Private AC Cab","Arrival in Kochi & Munnar Drive","Scenic drive past Cheeyappara waterfalls to Munnar tea country. Check-in to plantation resort.","Munnar Tea Gardens & Eravikulam National Park","Visit Nilgiri Tahr sanctuary, Mattupetty Dam, and Tata Tea Museum with tea-tasting session.","Munnar to Thekkady Spice Plantations","Scenic drive to Periyar. Guided spice plantation walk and Periyar lake boat safari.","Thekkady to Alleppey Backwaters","Board private luxury AC houseboat. Cruise through palm-fringed backwaters with authentic Kerala lunch.","Alleppey to Kochi Departure","Morning sunrise village cruise, visit Fort Kochi Chinese Fishing Nets, and airport transfer."
+wix-pkg-105,"Swiss Alps & Glacier Express Fantasy",Product,129999,159999,"7 Days / 6 Nights","Interlaken, Switzerland","International Luxury","First-class panoramic Swiss rail pass, Jungfraujoch Top of Europe, and Lake Lucerne steam cruises.","https://static.wixstatic.com/media/43df74_swiss_alps_wix_05~mv2.jpg/v1/fill/w_800,h_600/swiss.jpg","4-Star Superior Hotels; Swiss Travel Pass 1st Class; Jungfraujoch Ticket; Lake Lucerne Cruise","Arrival in Zurich to Lucerne","Scenic Swiss rail to Lucerne. Walk across historical Chapel Bridge and Lion Monument.","Mount Titlis Revolving Cable Car","Rotair cable car to 10,000 ft, glacier cave walk, and Cliff Walk suspension bridge.","Lucerne to Interlaken GoldenPass Express","Panoramic train journey along scenic turquoise lakes to alpine Interlaken resort.","Jungfraujoch - Top of Europe","Cogwheel train to highest railway station in Europe (3,454m) with Ice Palace tour.","Interlaken to Zurich & Departure","Scenic lake cruise on Lake Brienz, transfer to Zurich for airport departure."`;
+                        setWixCsvText(sampleCsv);
+                        const rows = parseWixCsv(sampleCsv);
+                        const pkgs = rows.map(r => transformWixTourRow(r));
+                        setParsedWixPackages(pkgs);
+                      }}
+                    >
+                      <Sparkles size={16} />
+                      <span>Load 5 Sample Wix Tour Packages</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Media Replacement & Column Detection Strip */}
+                {parsedWixPackages.length > 0 && (
+                  <div className="wix-preview-section animate-fade-in mt-4">
+                    <div className="media-rule-alert glass-card">
+                      <div className="flex items-center gap-2 mb-2">
+                        <ImageIcon size={18} className="text-emerald" />
+                        <strong className="text-white text-sm">Media Asset Transformation (Rule Enforced)</strong>
+                      </div>
+                      <p className="text-xs text-slate-300 mb-0 leading-relaxed">
+                        Detected <strong>{parsedWixPackages.length} raw Wix CDN URLs</strong> (<code>static.wixstatic.com</code>). 
+                        All URLs have been automatically resolved and replaced with high-definition destination photography tailored to Kashmir, Bali, Dubai, Kerala, and Switzerland.
+                      </p>
+                    </div>
+
+                    {/* Parsed Packages Table */}
+                    <div className="parsed-packages-card glass-card mt-3">
+                      <div className="flex items-center justify-between mb-3">
+                        <h4 className="table-title">Detected Tour Packages Ready to Import ({parsedWixPackages.length})</h4>
+                        <button
+                          type="button"
+                          className="btn-primary btn-import-now"
+                          disabled={isImportingWix}
+                          onClick={async () => {
+                            setIsImportingWix(true);
+                            const result = await directusService.importWixTourPackages(parsedWixPackages);
+                            setIsImportingWix(false);
+                            setWixImportResult(result);
+                          }}
+                        >
+                          <CheckCheck size={16} />
+                          <span>{isImportingWix ? 'Importing Packages...' : `Import ${parsedWixPackages.length} Packages Now`}</span>
+                        </button>
+                      </div>
+
+                      {/* Success Results Banner */}
+                      {wixImportResult && (
+                        <div className="import-success-alert mb-3">
+                          <CheckCircle size={18} className="text-emerald inline mr-2" />
+                          <span>Successfully imported <strong>{wixImportResult.count} Tour Packages</strong> into local storage & Directus!</span>
+                        </div>
+                      )}
+
+                      <div className="wix-table-responsive">
+                        <table className="wix-preview-table">
+                          <thead>
+                            <tr>
+                              <th>Cover Photo (Curated HD)</th>
+                              <th>Package Name & Slug</th>
+                              <th>Destination</th>
+                              <th>Duration</th>
+                              <th>Pricing</th>
+                              <th>Itinerary Days</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {parsedWixPackages.map((pkg, idx) => (
+                              <tr key={idx}>
+                                <td>
+                                  <div className="table-thumb-box">
+                                    <img src={pkg.image} alt={pkg.name} />
+                                    <span className="media-status-pill">HD Curated</span>
+                                  </div>
+                                </td>
+                                <td>
+                                  <strong className="pkg-table-name">{pkg.name}</strong>
+                                  <span className="pkg-table-slug">#/{pkg.slug}</span>
+                                </td>
+                                <td>
+                                  <span className="table-loc-pill">{pkg.location}</span>
+                                </td>
+                                <td>{pkg.duration}</td>
+                                <td>
+                                  <strong className="text-amber">₹{pkg.price.toLocaleString('en-IN')}</strong>
+                                  {pkg.origPrice && <span className="table-orig-price">₹{pkg.origPrice.toLocaleString('en-IN')}</span>}
+                                </td>
+                                <td>
+                                  <span className="itinerary-count-pill">{pkg.itinerary.length} Days</span>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -1550,11 +1732,280 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
           margin: 0.35rem 0 0 0;
         }
 
+        /* Wix Migration Tab Styles */
+        .wix-migration-pane {
+          display: flex;
+          flex-direction: column;
+          gap: 1.25rem;
+        }
+
+        .wix-migration-header {
+          display: flex;
+          align-items: flex-start;
+          gap: 1.25rem;
+          padding: 1.5rem;
+          background: rgba(0, 18, 51, 0.8);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: var(--radius-md);
+        }
+
+        .wix-header-icon-box {
+          width: 52px;
+          height: 52px;
+          border-radius: 12px;
+          background: rgba(255, 137, 47, 0.15);
+          border: 1px solid rgba(255, 137, 47, 0.3);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+
+        .wix-title {
+          font-size: 1.25rem;
+          color: #FFFFFF;
+          margin: 0 0 0.4rem 0;
+        }
+
+        .wix-desc {
+          font-size: 0.86rem;
+          color: #94A3B8;
+          line-height: 1.55;
+          margin: 0;
+        }
+
+        .wix-controls-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1.25rem;
+        }
+
+        .wix-upload-card, .wix-sample-card {
+          padding: 1.5rem;
+          border-radius: var(--radius-md);
+          background: rgba(0, 18, 51, 0.6);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          display: flex;
+          flex-direction: column;
+        }
+
+        .card-sub-title {
+          font-size: 0.95rem;
+          color: #FFFFFF;
+          margin: 0 0 1rem 0;
+          font-weight: 700;
+        }
+
+        .wix-dropzone {
+          border: 2px dashed rgba(111, 230, 252, 0.3);
+          border-radius: var(--radius-sm);
+          padding: 1.75rem 1rem;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background: rgba(111, 230, 252, 0.03);
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .wix-dropzone:hover {
+          border-color: #6FE6FC;
+          background: rgba(111, 230, 252, 0.08);
+        }
+
+        .drop-title {
+          font-size: 0.85rem;
+          color: #E2E8F0;
+          font-weight: 700;
+          margin: 0 0 0.25rem 0;
+        }
+
+        .drop-or {
+          font-size: 0.72rem;
+          color: #64748B;
+          margin-bottom: 0.5rem;
+        }
+
+        .btn-file-select {
+          padding: 0.4rem 1rem;
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 9999px;
+          font-size: 0.78rem;
+          font-weight: 700;
+          color: #FFFFFF;
+          cursor: pointer;
+        }
+
+        .sample-desc {
+          font-size: 0.84rem;
+          color: #94A3B8;
+          line-height: 1.5;
+          margin-bottom: 1.5rem;
+          flex-grow: 1;
+        }
+
+        .btn-load-sample {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          padding: 0.75rem 1.25rem;
+          border-radius: var(--radius-sm);
+          background: linear-gradient(135deg, rgba(255, 137, 47, 0.2), rgba(255, 107, 0, 0.3));
+          border: 1px solid #FF892F;
+          color: #FF892F;
+          font-size: 0.85rem;
+          font-weight: 800;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .btn-load-sample:hover {
+          background: #FF892F;
+          color: #FFFFFF;
+        }
+
+        .media-rule-alert {
+          padding: 1rem 1.25rem;
+          border-radius: var(--radius-sm);
+          background: rgba(16, 185, 129, 0.1);
+          border: 1px solid rgba(16, 185, 129, 0.35);
+        }
+
+        .parsed-packages-card {
+          padding: 1.5rem;
+          border-radius: var(--radius-md);
+          background: rgba(0, 18, 51, 0.8);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .table-title {
+          font-size: 1.05rem;
+          color: #FFFFFF;
+          margin: 0;
+          font-weight: 700;
+        }
+
+        .btn-import-now {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.45rem;
+          padding: 0.6rem 1.25rem;
+          font-size: 0.85rem;
+        }
+
+        .import-success-alert {
+          background: rgba(16, 185, 129, 0.15);
+          border: 1px solid #10B981;
+          color: #10B981;
+          padding: 0.75rem 1rem;
+          border-radius: var(--radius-sm);
+          font-size: 0.85rem;
+        }
+
+        .wix-table-responsive {
+          overflow-x: auto;
+          margin-top: 0.75rem;
+        }
+
+        .wix-preview-table {
+          width: 100%;
+          border-collapse: collapse;
+          font-size: 0.82rem;
+          text-align: left;
+        }
+
+        .wix-preview-table th {
+          background: rgba(255, 255, 255, 0.04);
+          color: #94A3B8;
+          font-weight: 700;
+          padding: 0.75rem 0.6rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          text-transform: uppercase;
+          font-size: 0.7rem;
+        }
+
+        .wix-preview-table td {
+          padding: 0.75rem 0.6rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          color: #CBD5E1;
+          vertical-align: middle;
+        }
+
+        .table-thumb-box {
+          position: relative;
+          width: 80px;
+          height: 54px;
+          border-radius: 6px;
+          overflow: hidden;
+        }
+
+        .table-thumb-box img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .media-status-pill {
+          position: absolute;
+          bottom: 2px;
+          left: 2px;
+          right: 2px;
+          background: rgba(16, 185, 129, 0.9);
+          color: #FFFFFF;
+          font-size: 0.55rem;
+          font-weight: 800;
+          text-align: center;
+          border-radius: 2px;
+          padding: 1px 0;
+        }
+
+        .pkg-table-name {
+          display: block;
+          color: #FFFFFF;
+          font-size: 0.86rem;
+          margin-bottom: 0.2rem;
+        }
+
+        .pkg-table-slug {
+          font-family: monospace;
+          color: #6FE6FC;
+          font-size: 0.72rem;
+        }
+
+        .table-loc-pill {
+          display: inline-block;
+          background: rgba(255, 255, 255, 0.06);
+          padding: 0.2rem 0.5rem;
+          border-radius: 4px;
+          font-size: 0.74rem;
+        }
+
+        .table-orig-price {
+          display: block;
+          font-size: 0.72rem;
+          color: #64748B;
+          text-decoration: line-through;
+        }
+
+        .itinerary-count-pill {
+          display: inline-block;
+          background: rgba(111, 230, 252, 0.12);
+          color: #6FE6FC;
+          border: 1px solid rgba(111, 230, 252, 0.3);
+          padding: 0.2rem 0.5rem;
+          border-radius: 9999px;
+          font-size: 0.72rem;
+          font-weight: 700;
+        }
+
         @media (max-width: 860px) {
           .cms-editor-grid {
             grid-template-columns: 1fr;
           }
-          .form-two-cols, .directus-form-grid {
+          .form-two-cols, .directus-form-grid, .wix-controls-grid {
             grid-template-columns: 1fr;
           }
         }
