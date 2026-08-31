@@ -1,11 +1,20 @@
-import React, { useState, useRef } from 'react';
-import { X, Sparkles, CheckCircle, AlertCircle, FileText, Globe, Search, Share2, Plus, Trash2, Eye, Lock, RefreshCw, LayoutDashboard } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { X, Sparkles, CheckCircle, AlertCircle, FileText, Globe, Search, Share2, Plus, Trash2, Eye, Lock, RefreshCw, LayoutDashboard, Server, Database, ExternalLink } from 'lucide-react';
+import { directusService } from '../services/directusClient';
 
 export default function AdminCMSModal({ isOpen, onClose }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passwordInput, setPasswordInput] = useState('');
   const [authError, setAuthError] = useState('');
-  const [activeTab, setActiveTab] = useState('blog'); // 'blog', 'tour', 'seo-preview'
+  const [activeTab, setActiveTab] = useState('blog'); // 'blog', 'tour', 'seo-preview', 'directus-config'
+
+  // Directus Connection State
+  const [directusUrl, setDirectusUrl] = useState(directusService.getBaseUrl());
+  const [directusToken, setDirectusToken] = useState(directusService.getToken());
+  const [directusStatus, setDirectusStatus] = useState({ isOnline: false, message: 'Checking...' });
+  const [isTestingConnection, setIsTestingConnection] = useState(false);
+  const [publishedBlogSlug, setPublishedBlogSlug] = useState(null);
+  const [publishedTourSlug, setPublishedTourSlug] = useState(null);
 
   // Blog Post State
   const [blogTitle, setBlogTitle] = useState('Top 7 Luxury Stays in Kashmir You Must Experience in 2026');
@@ -29,6 +38,25 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
   const [tourDays, setTourDays] = useState([
     { day: 1, title: 'Arrival & Welcome Dinner', desc: 'VIP airport transfer and hotel check-in.' }
   ]);
+
+  useEffect(() => {
+    if (isOpen) {
+      testDirectusConnection();
+    }
+  }, [isOpen]);
+
+  const testDirectusConnection = async () => {
+    setIsTestingConnection(true);
+    const res = await directusService.checkHealth();
+    setDirectusStatus(res);
+    setIsTestingConnection(false);
+  };
+
+  const handleSaveDirectusConfig = () => {
+    directusService.setBaseUrl(directusUrl);
+    directusService.setToken(directusToken);
+    testDirectusConnection();
+  };
 
   if (!isOpen) return null;
 
@@ -159,6 +187,8 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
     setMetaDescription('Plan your dream Kashmir luxury tour with Comfort Journey. Handpicked 5-star Dal Lake houseboats, Gondola VIP passes, and 24/7 personal concierge since 1992.');
   };
 
+  const autoOptimizeSeo = handleAiAutoGenerateSeo;
+
   const addItineraryDay = () => {
     setTourDays([
       ...tourDays,
@@ -231,6 +261,13 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
               >
                 <Search size={16} />
                 <span>Live Google & Social Preview</span>
+              </button>
+              <button
+                className={`cms-tab-btn ${activeTab === 'directus-config' ? 'active' : ''}`}
+                onClick={() => setActiveTab('directus-config')}
+              >
+                <Database size={16} />
+                <span>Directus & AWS Bridge</span>
               </button>
             </div>
 
@@ -322,9 +359,11 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
                       onChange={(e) => setPostCategory(e.target.value)}
                     >
                       <option value="Destination Guides">Destination Guides</option>
-                      <option value="Luxury Travel Tips">Luxury Travel Tips</option>
-                      <option value="Honeymoon Special">Honeymoon Special</option>
-                      <option value="Char Dham Spiritual">Char Dham Spiritual</option>
+                      <option value="Luxury Stays">Luxury Stays</option>
+                      <option value="Honeymoon & Romance">Honeymoon & Romance</option>
+                      <option value="Solo & Safety">Solo & Safety</option>
+                      <option value="Corporate & Offsites">Corporate & Offsites</option>
+                      <option value="Seasonal Tips">Seasonal Tips</option>
                     </select>
                   </div>
                 </div>
@@ -350,33 +389,27 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
                   {/* AI 1-Click Auto Optimize Button */}
                   <button
                     type="button"
-                    className="btn-ai-glow w-full ai-auto-btn"
-                    onClick={handleAiAutoGenerateSeo}
+                    className="btn-ai-optimize"
+                    onClick={autoOptimizeSeo}
                   >
                     <Sparkles size={16} />
-                    <span>1-Click AI SEO Auto-Tune</span>
+                    <span>AI 1-Click SEO & Geo Rank Fix</span>
                   </button>
 
                   {/* Focus Keyword */}
                   <div className="field-group">
-                    <label>Focus Target Keyword</label>
+                    <label>Focus SEO Keyword</label>
                     <input
                       type="text"
                       className="cms-input"
                       value={focusKeyword}
                       onChange={(e) => setFocusKeyword(e.target.value)}
-                      placeholder="e.g. luxury stays in kashmir"
                     />
                   </div>
 
                   {/* Meta Description */}
                   <div className="field-group">
-                    <div className="label-with-count">
-                      <label>Meta Description (Search Snippet)</label>
-                      <span className={metaDescription.length >= 120 && metaDescription.length <= 165 ? 'text-emerald' : 'text-amber'}>
-                        {metaDescription.length}/160 chars
-                      </span>
-                    </div>
+                    <label>Google Meta Description ({metaDescription.length}/160)</label>
                     <textarea
                       rows={3}
                       className="cms-textarea small"
@@ -393,7 +426,7 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
                       ) : (
                         <AlertCircle size={15} className="text-amber" />
                       )}
-                      <span>Meta Title length is optimal ({blogTitle.length}/60)</span>
+                      <span>H1 Title length is optimal ({blogTitle.length}/60)</span>
                     </div>
 
                     <div className="check-item">
@@ -428,13 +461,39 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
                   <div className="cms-publish-actions">
                     <button
                       className="btn-primary w-full"
-                      onClick={() => {
+                      onClick={async () => {
+                        const newBlog = await directusService.createBlog({
+                          title: blogTitle,
+                          content: blogContent,
+                          category: postCategory,
+                          excerpt: metaDescription,
+                          seo: {
+                            metaTitle: blogTitle,
+                            metaDescription,
+                            focusKeyword
+                          }
+                        });
+                        setPublishedBlogSlug(newBlog.slug);
                         setIsSaved(true);
-                        setTimeout(() => setIsSaved(false), 3000);
                       }}
                     >
-                      {isSaved ? '✅ Published Live!' : '🚀 Publish Article Live'}
+                      {isSaved ? '✅ Published to Directus!' : '🚀 Publish Article Live'}
                     </button>
+
+                    {publishedBlogSlug && (
+                      <div className="published-success-box animate-fade-in">
+                        <div className="success-tag">🎉 Article Live on Website</div>
+                        <a 
+                          href={`#/blog/${publishedBlogSlug}`} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="view-live-btn"
+                        >
+                          <span>Open #/blog/{publishedBlogSlug}</span>
+                          <ExternalLink size={13} />
+                        </a>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -535,10 +594,38 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
                 <button
                   type="button"
                   className="btn-primary"
-                  onClick={() => alert(`Package "${tourName || 'New Package'}" created successfully in catalog!`)}
+                  onClick={async () => {
+                    if (!tourName) {
+                      alert('Please enter a tour package name');
+                      return;
+                    }
+                    const newTour = await directusService.createTourPackage({
+                      name: tourName,
+                      continent: tourRegion,
+                      duration: tourDuration,
+                      price: tourPrice,
+                      itinerary: tourDays
+                    });
+                    setPublishedTourSlug(newTour.slug);
+                  }}
                 >
                   Save & Publish Tour Package
                 </button>
+
+                {publishedTourSlug && (
+                  <div className="published-success-box animate-fade-in mt-3">
+                    <div className="success-tag">🎉 Tour Package Published</div>
+                    <a 
+                      href={`#/tour/${publishedTourSlug}`} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="view-live-btn"
+                    >
+                      <span>Preview #/tour/{publishedTourSlug}</span>
+                      <ExternalLink size={13} />
+                    </a>
+                  </div>
+                )}
               </div>
             )}
 
@@ -562,6 +649,91 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
                     <h4 className="social-title">{blogTitle}</h4>
                     <p className="social-desc">{metaDescription}</p>
                   </div>
+                </div>
+              </div>
+            )}
+
+            {/* TAB 4: Directus Headless CMS & AWS Cloud Bridge */}
+            {activeTab === 'directus-config' && (
+              <div className="directus-config-pane">
+                <div className="directus-status-card glass-card">
+                  <div className="status-header-row">
+                    <div className="flex items-center gap-2">
+                      <Server size={20} className="text-amber" />
+                      <h4 className="status-heading font-editorial">Directus CMS Connection Status</h4>
+                    </div>
+                    <span className={`status-pill ${directusStatus.isOnline ? 'online' : 'fallback'}`}>
+                      {directusStatus.isOnline ? '🟢 Connected (200 OK)' : '🟡 Local Fallback Mode Active'}
+                    </span>
+                  </div>
+
+                  <p className="status-desc">
+                    {directusStatus.isOnline 
+                      ? `Directus Headless CMS is running and synced with your frontend at ${directusStatus.url}. All blogs and tour packages are fetching dynamically.`
+                      : `Directus is currently offline at ${directusUrl}. The website is operating with 100% functionality using local cached fallback data.`
+                    }
+                  </p>
+
+                  <div className="directus-form-grid">
+                    <div className="field-group">
+                      <label>Directus API Endpoint URL</label>
+                      <input 
+                        type="text" 
+                        className="cms-input"
+                        value={directusUrl}
+                        onChange={(e) => setDirectusUrl(e.target.value)}
+                        placeholder="http://localhost:8055 or https://cms.comfortjourneyy.com"
+                      />
+                    </div>
+
+                    <div className="field-group">
+                      <label>Static Access Token (Optional for public reads)</label>
+                      <input 
+                        type="password" 
+                        className="cms-input"
+                        value={directusToken}
+                        onChange={(e) => setDirectusToken(e.target.value)}
+                        placeholder="Enter Directus User API Token"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="config-actions-row">
+                    <button 
+                      type="button" 
+                      className="btn-primary"
+                      onClick={handleSaveDirectusConfig}
+                    >
+                      Save Configuration & Test
+                    </button>
+                    <button 
+                      type="button" 
+                      className="btn-secondary"
+                      onClick={testDirectusConnection}
+                      disabled={isTestingConnection}
+                    >
+                      <RefreshCw size={14} className={isTestingConnection ? 'animate-spin' : ''} />
+                      <span>{isTestingConnection ? 'Testing...' : 'Ping Server'}</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Directus Quickstart Instructions */}
+                <div className="directus-guide-card glass-card mt-4">
+                  <h4 className="guide-title font-editorial">🚀 How to Run Directus Locally in 1 Minute</h4>
+                  <ol className="guide-steps">
+                    <li>
+                      <strong>Docker Compose:</strong> Navigate to the <code>cms/</code> folder and run:
+                      <pre className="code-block">docker compose up -d</pre>
+                    </li>
+                    <li>
+                      <strong>Directus Dashboard:</strong> Open <code>http://localhost:8055</code> and log in with:
+                      <pre className="code-block">Email: admin@comfortjourney.com | Password: comfort1992</pre>
+                    </li>
+                    <li>
+                      <strong>AWS Production Deployment:</strong> When ready to move from local to AWS, see <code>cms/AWS_DEPLOYMENT_GUIDE.md</code>.
+                    </li>
+                  </ol>
                 </div>
               </div>
             )}
@@ -1060,15 +1232,162 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
           color: #B0B3B8;
         }
 
-        .mt-6 {
-          margin-top: 1.5rem;
+        .published-success-box {
+          background: rgba(16, 185, 129, 0.12);
+          border: 1px solid rgba(16, 185, 129, 0.35);
+          border-radius: var(--radius-sm);
+          padding: 0.75rem 1rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 0.5rem;
+          margin-top: 0.75rem;
+        }
+
+        .success-tag {
+          font-size: 0.76rem;
+          font-weight: 800;
+          color: #10B981;
+        }
+
+        .view-live-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          font-size: 0.76rem;
+          font-weight: 700;
+          color: #6FE6FC;
+          text-decoration: underline;
+        }
+
+        .view-live-btn:hover {
+          color: #FF892F;
+        }
+
+        /* Directus Config Styles */
+        .directus-config-pane {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .directus-status-card {
+          padding: 1.5rem;
+          background: rgba(0, 18, 51, 0.8);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: var(--radius-md);
+        }
+
+        .status-header-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 0.75rem;
+          gap: 0.75rem;
+        }
+
+        .status-heading {
+          font-size: 1.15rem;
+          color: #FFFFFF;
+          margin: 0;
+        }
+
+        .status-pill {
+          font-size: 0.75rem;
+          font-weight: 800;
+          padding: 0.25rem 0.75rem;
+          border-radius: 9999px;
+        }
+
+        .status-pill.online {
+          background: rgba(16, 185, 129, 0.15);
+          color: #10B981;
+          border: 1px solid #10B981;
+        }
+
+        .status-pill.fallback {
+          background: rgba(245, 158, 11, 0.15);
+          color: #F59E0B;
+          border: 1px solid #F59E0B;
+        }
+
+        .status-desc {
+          font-size: 0.86rem;
+          color: #94A3B8;
+          line-height: 1.55;
+          margin-bottom: 1.25rem;
+        }
+
+        .directus-form-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+          margin-bottom: 1.25rem;
+        }
+
+        .config-actions-row {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+        }
+
+        .btn-secondary {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.45rem;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          color: #FFFFFF;
+          padding: 0.65rem 1.25rem;
+          border-radius: var(--radius-sm);
+          font-size: 0.85rem;
+          font-weight: 700;
+          cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+          background: rgba(255, 255, 255, 0.15);
+        }
+
+        .directus-guide-card {
+          padding: 1.5rem;
+          background: rgba(0, 18, 51, 0.6);
+          border: 1px dashed rgba(255, 137, 47, 0.3);
+          border-radius: var(--radius-md);
+        }
+
+        .guide-title {
+          font-size: 1.1rem;
+          color: #FF892F;
+          margin: 0 0 0.85rem 0;
+        }
+
+        .guide-steps {
+          margin: 0;
+          padding-left: 1.25rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          font-size: 0.84rem;
+          color: #CBD5E1;
+        }
+
+        .code-block {
+          background: rgba(0, 0, 0, 0.5);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          padding: 0.4rem 0.75rem;
+          border-radius: 6px;
+          color: #6FE6FC;
+          font-family: monospace;
+          margin: 0.35rem 0 0 0;
+          font-size: 0.8rem;
         }
 
         @media (max-width: 860px) {
           .cms-editor-grid {
             grid-template-columns: 1fr;
           }
-          .form-two-cols {
+          .form-two-cols, .directus-form-grid {
             grid-template-columns: 1fr;
           }
         }

@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:16-alpine
+    container_name: comfort_journey_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: 'directus'
+      POSTGRES_PASSWORD: 'comfort_journey_db_password_1992'
+      POSTGRES_DB: 'directus_comfort_journey'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U directus -d directus_comfort_journey"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cj_network
+
+  cache:
+    image: redis:7-alpine
+    container_name: comfort_journey_redis
+    restart: unless-stopped
+    networks:
+      - cj_network
+
+  directus:
+    image: directus/directus:10.13.1
+    container_name: comfort_journey_directus
+    restart: unless-stopped
+    ports:
+      - '8055:8055'
+    environment:
+      KEY: 'comfort-journey-secret-key-30-years-excellence'
+      SECRET: 'comfort-journey-secret-token-bhopal-vip'
+      ADMIN_EMAIL: 'admin@comfortjourney.com'
+      ADMIN_PASSWORD: 'comfort_admin_pass_1992!'
+      
+      # Database Connection
+      DB_CLIENT: 'pg'
+      DB_HOST: 'database'
+      DB_PORT: '5432'
+      DB_DATABASE: 'directus_comfort_journey'
+      DB_USER: 'directus'
+      DB_PASSWORD: 'comfort_journey_db_password_1992'
+      
+      # Redis Cache
+      CACHE_ENABLED: 'true'
+      CACHE_STORE: 'redis'
+      REDIS: 'redis://cache:6379'
+      
+      # CORS (Allow Frontend Website access)
+      CORS_ENABLED: 'true'
+      CORS_ORIGIN: 'true'
+      
+      # Public URL (Change to your AWS domain in production)
+      PUBLIC_URL: 'http://localhost:8055'
+      
+      # Media Storage (Local by default, switch to S3 on AWS)
+      STORAGE_LOCATIONS: 'local'
+      STORAGE_LOCAL_DRIVER: 'local'
+      STORAGE_LOCAL_ROOT: './uploads'
+      
+      # AWS S3 Storage (Uncomment when deploying to AWS)
+      # STORAGE_LOCATIONS: 's3'
+      # STORAGE_S3_DRIVER: 's3'
+      # STORAGE_S3_KEY: '${AWS_ACCESS_KEY_ID}'
+      # STORAGE_S3_SECRET: '${AWS_SECRET_ACCESS_KEY}'
+      # STORAGE_S3_BUCKET: 'comfort-journey-media-storage'
+      # STORAGE_S3_REGION: 'ap-south-1'
+    volumes:
+      - directus_uploads:/directus/uploads
+      - directus_extensions:/directus/extensions
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - cj_network
+
+volumes:
+  postgres_data:
+  directus_uploads:
+  directus_extensions:
+
+networks:
+  cj_network:
+    driver: bridge

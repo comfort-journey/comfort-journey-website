@@ -19,7 +19,10 @@ import FaqSection from './components/FaqSection';
 import Footer from './components/Footer';
 import LandingPageTemplate from './components/LandingPageTemplate';
 import LandingPagesHubModal from './components/LandingPagesHubModal';
+import BlogMagazinePage from './components/BlogMagazinePage';
+import BlogPostReader from './components/BlogPostReader';
 import { getLandingPageBySlug, LANDING_PAGES_DATA } from './data/landingPagesData';
+import { directusService } from './services/directusClient';
 import ItineraryModal from './components/ItineraryModal';
 import QuickBookingModal from './components/QuickBookingModal';
 import AITripPlannerModal from './components/AITripPlannerModal';
@@ -45,13 +48,15 @@ export default function App() {
   const [isAdminCMSOpen, setIsAdminCMSOpen] = useState(false);
   const [isLPHubOpen, setIsLPHubOpen] = useState(false);
   const [policyModalType, setPolicyModalType] = useState(null); // 'cancellation' | 'privacy' | 'terms' | null
-  const [currentView, setCurrentView] = useState('home'); // 'home' | 'about' | 'landing'
+  const [currentView, setCurrentView] = useState('home'); // 'home' | 'about' | 'landing' | 'magazine' | 'blog-reader'
   const [activeLandingPage, setActiveLandingPage] = useState(null);
+  const [activeBlogSlug, setActiveBlogSlug] = useState(null);
 
-  // Hash-based URL routing: auto-open Admin CMS, switch to About Us page, or load dedicated Campaign Landing Pages
+  // Hash-based URL routing: Directus Blogs, Admin CMS, About Us, Landing Pages, or Tour Details
   useEffect(() => {
     const handleRouteChange = () => {
-      const hash = window.location.hash.toLowerCase();
+      const rawHash = window.location.hash;
+      const hash = rawHash.toLowerCase();
       
       if (hash === '#/admin' || hash === '#admin') {
         setIsAdminCMSOpen(true);
@@ -60,17 +65,38 @@ export default function App() {
       } else if (hash === '#/about' || hash === '#/who-we-are' || hash === '#/about-us' || hash === '#about') {
         setCurrentView('about');
         setActiveLandingPage(null);
+        setActiveBlogSlug(null);
         window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (hash === '#/blog' || hash === '#/blogs' || hash === '#blog' || hash === '#blogs') {
+        setCurrentView('magazine');
+        setActiveLandingPage(null);
+        setActiveBlogSlug(null);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (hash.startsWith('#/blog/') || hash.startsWith('#blog/')) {
+        const slug = rawHash.replace(/^#\/?blog\//, '').trim();
+        setActiveBlogSlug(slug);
+        setCurrentView('blog-reader');
+        setActiveLandingPage(null);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (hash.startsWith('#/tour/') || hash.startsWith('#tour/') || hash.startsWith('#/package/')) {
+        const tourSlug = rawHash.replace(/^#\/?(tour|package)\//, '').trim();
+        directusService.fetchTourBySlug(tourSlug).then(matchedTour => {
+          if (matchedTour) {
+            setSelectedItineraryTour(matchedTour);
+          }
+        });
       } else {
         // Check if hash matches any of our 15 dedicated Campaign Landing Pages
         const matchedPage = getLandingPageBySlug(hash);
         if (matchedPage) {
           setActiveLandingPage(matchedPage);
           setCurrentView('landing');
+          setActiveBlogSlug(null);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
           setCurrentView('home');
           setActiveLandingPage(null);
+          setActiveBlogSlug(null);
         }
       }
     };
@@ -86,10 +112,19 @@ export default function App() {
     window.location.hash = `#/landing/${slug}`;
   };
 
+  const navigateToBlog = (slug) => {
+    window.location.hash = `#/blog/${slug}`;
+  };
+
+  const navigateToMagazine = () => {
+    window.location.hash = `#/blog`;
+  };
+
   const navigateToHome = () => {
     history.pushState(null, '', window.location.pathname);
     setCurrentView('home');
     setActiveLandingPage(null);
+    setActiveBlogSlug(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -110,9 +145,27 @@ export default function App() {
               onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
               onOpenAdmin={() => setIsAdminCMSOpen(true)}
               onOpenLandingHub={() => setIsLPHubOpen(true)}
+              onNavigateMagazine={navigateToMagazine}
             />
 
-            {currentView === 'landing' && activeLandingPage ? (
+            {currentView === 'magazine' ? (
+              /* DEDICATED BLOG MAGAZINE / JOURNAL VIEW */
+              <BlogMagazinePage 
+                onNavigateHome={navigateToHome}
+                onSelectBlog={navigateToBlog}
+                onOpenQuote={() => setIsQuickQuoteOpen(true)}
+              />
+            ) : currentView === 'blog-reader' && activeBlogSlug ? (
+              /* DEDICATED SINGLE BLOG POST READER VIEW */
+              <BlogPostReader 
+                slug={activeBlogSlug}
+                onNavigateHome={navigateToHome}
+                onNavigateMagazine={navigateToMagazine}
+                onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
+                onBookNow={(tour) => setSelectedBookingTour(tour)}
+                onOpenQuote={() => setIsQuickQuoteOpen(true)}
+              />
+            ) : currentView === 'landing' && activeLandingPage ? (
               /* DEDICATED CAMPAIGN / SEO LANDING PAGE VIEW */
               <LandingPageTemplate 
                 pageData={activeLandingPage}

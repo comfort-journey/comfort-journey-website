@@ -23,10 +23,10 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
     { label: 'Destinations', href: '#tours' },
     { label: 'Specialty Trips', href: '#/landing-hub', isHub: true },
     { label: 'Trip Studio', href: '#custom-builder' },
+    { label: 'Journal', href: '#/blog' },
     { label: 'Reviews', href: '#google-reviews' },
     { label: 'Reels', href: '#stories' },
     { label: 'Why Us', href: '#why-us' },
-    { label: 'Services', href: '#services' },
     { label: 'Who We Are', href: '#/about' },
   ];
 

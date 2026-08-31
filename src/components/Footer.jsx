@@ -91,6 +91,12 @@ export default function Footer({ onOpenPolicy, onOpenAdmin, onOpenLandingHub, on
                 </button>
               </li>
               <li>
+                <a href="#/blog" className="footer-link-btn" style={{ color: '#6FE6FC', fontWeight: 700 }}>
+                  <FileText size={14} className="text-cyan" />
+                  <span>Editorial Journal & Guides</span>
+                </a>
+              </li>
+              <li>
                 <button type="button" className="footer-link-btn admin-link-subtle" onClick={onOpenAdmin}>
                   <Lock size={13} />
                   <span>Team CMS & SEO Studio</span>

@@ -1,0 +1,212 @@
+{
+  "version": 1,
+  "directus": "10.13.1",
+  "collections": [
+    {
+      "collection": "tour_packages",
+      "meta": {
+        "icon": "luggage",
+        "note": "Comfort Journey Handcrafted VIP Tour Packages",
+        "display_template": "{{title}} - ₹{{price}} ({{duration}})",
+        "sort_field": "sort"
+      },
+      "schema": {
+        "name": "tour_packages"
+      }
+    },
+    {
+      "collection": "blogs",
+      "meta": {
+        "icon": "article",
+        "note": "Editorial Travel Guides, Stays Reviews & Magazines",
+        "display_template": "{{title}} [{{category}}]",
+        "sort_field": "published_date"
+      },
+      "schema": {
+        "name": "blogs"
+      }
+    },
+    {
+      "collection": "destinations",
+      "meta": {
+        "icon": "public",
+        "note": "Continents, Countries and Travel Circuits",
+        "display_template": "{{name}} ({{country}}, {{continent}})"
+      },
+      "schema": {
+        "name": "destinations"
+      }
+    },
+    {
+      "collection": "global_settings",
+      "meta": {
+        "icon": "settings",
+        "singleton": true,
+        "note": "Agency Phone, WhatsApp Desk, Address & Global Announcements"
+      },
+      "schema": {
+        "name": "global_settings"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "collection": "tour_packages",
+      "field": "id",
+      "type": "string",
+      "meta": { "interface": "input", "hidden": true },
+      "schema": { "is_primary_key": true }
+    },
+    {
+      "collection": "tour_packages",
+      "field": "status",
+      "type": "string",
+      "meta": { "interface": "select-dropdown", "options": { "choices": [{ "text": "Published", "value": "published" }, { "text": "Draft", "value": "draft" }] } }
+    },
+    {
+      "collection": "tour_packages",
+      "field": "title",
+      "type": "string",
+      "meta": { "interface": "input", "required": true }
+    },
+    {
+      "collection": "tour_packages",
+      "field": "slug",
+      "type": "string",
+      "meta": { "interface": "input", "required": true, "note": "Unique SEO URL identifier (e.g. kashmir-luxury-paradise)" }
+    },
+    {
+      "collection": "tour_packages",
+      "field": "price",
+      "type": "integer",
+      "meta": { "interface": "input", "required": true }
+    },
+    {
+      "collection": "tour_packages",
+      "field": "orig_price",
+      "type": "integer",
+      "meta": { "interface": "input" }
+    },
+    {
+      "collection": "tour_packages",
+      "field": "duration",
+      "type": "string",
+      "meta": { "interface": "input", "placeholder": "5 Nights / 6 Days" }
+    },
+    {
+      "collection": "tour_packages",
+      "field": "category",
+      "type": "string",
+      "meta": { "interface": "select-dropdown" }
+    },
+    {
+      "collection": "tour_packages",
+      "field": "featured_image",
+      "type": "uuid",
+      "meta": { "interface": "file-image" }
+    },
+    {
+      "collection": "tour_packages",
+      "field": "inclusions",
+      "type": "json",
+      "meta": { "interface": "tags" }
+    },
+    {
+      "collection": "tour_packages",
+      "field": "itinerary",
+      "type": "json",
+      "meta": { "interface": "list", "note": "Day-by-day itinerary objects with title, description, stay, and meals" }
+    },
+    {
+      "collection": "blogs",
+      "field": "id",
+      "type": "string",
+      "meta": { "interface": "input", "hidden": true },
+      "schema": { "is_primary_key": true }
+    },
+    {
+      "collection": "blogs",
+      "field": "status",
+      "type": "string",
+      "meta": { "interface": "select-dropdown" }
+    },
+    {
+      "collection": "blogs",
+      "field": "title",
+      "type": "string",
+      "meta": { "interface": "input", "required": true }
+    },
+    {
+      "collection": "blogs",
+      "field": "slug",
+      "type": "string",
+      "meta": { "interface": "input", "required": true }
+    },
+    {
+      "collection": "blogs",
+      "field": "excerpt",
+      "type": "text",
+      "meta": { "interface": "textarea" }
+    },
+    {
+      "collection": "blogs",
+      "field": "content",
+      "type": "text",
+      "meta": { "interface": "input-rich-text-html" }
+    },
+    {
+      "collection": "blogs",
+      "field": "cover_image",
+      "type": "uuid",
+      "meta": { "interface": "file-image" }
+    },
+    {
+      "collection": "blogs",
+      "field": "category",
+      "type": "string",
+      "meta": { "interface": "select-dropdown" }
+    },
+    {
+      "collection": "blogs",
+      "field": "author_name",
+      "type": "string",
+      "meta": { "interface": "input" }
+    },
+    {
+      "collection": "blogs",
+      "field": "published_date",
+      "type": "date",
+      "meta": { "interface": "datetime" }
+    },
+    {
+      "collection": "blogs",
+      "field": "read_time",
+      "type": "string",
+      "meta": { "interface": "input", "placeholder": "6 min read" }
+    },
+    {
+      "collection": "blogs",
+      "field": "tags",
+      "type": "json",
+      "meta": { "interface": "tags" }
+    },
+    {
+      "collection": "blogs",
+      "field": "seo_meta_title",
+      "type": "string",
+      "meta": { "interface": "input" }
+    },
+    {
+      "collection": "blogs",
+      "field": "seo_meta_description",
+      "type": "text",
+      "meta": { "interface": "textarea" }
+    },
+    {
+      "collection": "blogs",
+      "field": "focus_keywords",
+      "type": "string",
+      "meta": { "interface": "input" }
+    }
+  ]
+}
