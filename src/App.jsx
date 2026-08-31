@@ -34,6 +34,9 @@ import AdminCMSModal from './components/AdminCMSModal';
 import FloatingQuickDock from './components/FloatingQuickDock';
 import LiveBookingToast from './components/LiveBookingToast';
 
+import { seoHeadManager } from './utils/seoHeadManager';
+import { jsonLdSchemaGenerator } from './utils/jsonLdSchemaGenerator';
+
 export default function App() {
   // Activate high-performance scroll reveals
   useScrollAnimation();
@@ -51,6 +54,21 @@ export default function App() {
   const [currentView, setCurrentView] = useState('home'); // 'home' | 'about' | 'landing' | 'magazine' | 'blog-reader'
   const [activeLandingPage, setActiveLandingPage] = useState(null);
   const [activeBlogSlug, setActiveBlogSlug] = useState(null);
+
+  // Inject TouristTrip schema whenever an itinerary is viewed
+  useEffect(() => {
+    if (selectedItineraryTour) {
+      const tourSchema = jsonLdSchemaGenerator.getTouristTripSchema(selectedItineraryTour);
+      seoHeadManager.updateMetadata({
+        title: `${selectedItineraryTour.name} | Comfort Journey Tour Packages`,
+        description: selectedItineraryTour.tagline || `Handcrafted ${selectedItineraryTour.duration} tour to ${selectedItineraryTour.location}.`,
+        image: selectedItineraryTour.image,
+        url: `/#/tour/${selectedItineraryTour.slug || selectedItineraryTour.id}`,
+        type: "product",
+        schema: tourSchema
+      });
+    }
+  }, [selectedItineraryTour]);
 
   // Hash-based URL routing: Directus Blogs, Admin CMS, About Us, Landing Pages, or Tour Details
   useEffect(() => {
@@ -72,6 +90,12 @@ export default function App() {
         setActiveLandingPage(null);
         setActiveBlogSlug(null);
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        seoHeadManager.updateMetadata({
+          title: "Editorial Travel Journal & Luxury Guides | Comfort Journey",
+          description: "Explore handcrafted destination guides, luxury stay reviews, and honeymoon tips curated by Comfort Journey since 1992.",
+          url: "/#/blog",
+          type: "website"
+        });
       } else if (hash.startsWith('#/blog/') || hash.startsWith('#blog/')) {
         const slug = rawHash.replace(/^#\/?blog\//, '').trim();
         setActiveBlogSlug(slug);
@@ -97,6 +121,10 @@ export default function App() {
           setCurrentView('home');
           setActiveLandingPage(null);
           setActiveBlogSlug(null);
+          // Inject site-wide TravelAgency schema on homepage
+          seoHeadManager.updateMetadata({
+            schema: jsonLdSchemaGenerator.getTravelAgencySchema()
+          });
         }
       }
     };

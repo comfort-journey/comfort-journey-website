@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   ArrowLeft, 
   MessageCircle, 
@@ -28,6 +28,8 @@ import {
   Quote
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
+import { seoHeadManager } from '../utils/seoHeadManager';
+import { jsonLdSchemaGenerator } from '../utils/jsonLdSchemaGenerator';
 
 export default function LandingPageTemplate({ 
   pageData, 
@@ -41,6 +43,24 @@ export default function LandingPageTemplate({
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
   const [activeVibeFilter, setActiveVibeFilter] = useState('all');
   const { formatPrice } = useCurrency();
+
+  useEffect(() => {
+    if (pageData) {
+      const faqSchema = jsonLdSchemaGenerator.getFaqPageSchema(pageData.faqs);
+      seoHeadManager.updateMetadata({
+        title: `${pageData.heroHeadline} | Comfort Journey`,
+        description: pageData.heroSubline || pageData.realityCheck?.bad,
+        image: pageData.theme?.heroImage || 'https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1600&q=85',
+        url: `/#/${pageData.slug}`,
+        type: "website",
+        schema: faqSchema
+      });
+    }
+
+    return () => {
+      seoHeadManager.resetToDefault();
+    };
+  }, [pageData]);
 
   if (!pageData) return null;
 

@@ -3,6 +3,9 @@ import { ArrowLeft, Clock, Calendar, Share2, MessageCircle, Sparkles, MapPin, Ch
 import { directusService } from '../services/directusClient';
 import { TOURS_DATA } from '../data/toursData';
 import { useCurrency } from '../context/CurrencyContext';
+import { seoHeadManager } from '../utils/seoHeadManager';
+import { jsonLdSchemaGenerator } from '../utils/jsonLdSchemaGenerator';
+import { RenderRichArticleContent } from '../utils/contentParser';
 
 export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazine, onSelectItinerary, onBookNow, onOpenQuote }) {
   const [blog, setBlog] = useState(null);
@@ -18,22 +21,23 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
       setBlog(data);
       setLoading(false);
 
-      // Inject dynamic SEO meta tags
+      // Inject dynamic SEO meta tags, OpenGraph & JSON-LD BlogPosting Schema
       if (data) {
-        document.title = data.seo?.metaTitle || `${data.title} | Comfort Journey`;
-        
-        let metaDesc = document.querySelector('meta[name="description"]');
-        if (!metaDesc) {
-          metaDesc = document.createElement('meta');
-          metaDesc.name = 'description';
-          document.head.appendChild(metaDesc);
-        }
-        metaDesc.content = data.seo?.metaDescription || data.excerpt;
+        const schema = jsonLdSchemaGenerator.getBlogPostingSchema(data);
+        seoHeadManager.updateMetadata({
+          title: data.seo?.metaTitle || `${data.title} | Comfort Journey`,
+          description: data.seo?.metaDescription || data.excerpt,
+          image: data.coverImage,
+          url: `/#/blog/${data.slug}`,
+          type: "article",
+          keywords: Array.isArray(data.tags) ? data.tags.join(', ') : (data.tags || "Travel, Luxury Stays"),
+          schema
+        });
       }
     });
 
     return () => {
-      document.title = "Comfort Journey | Handcrafted Royal Luxury Travel Packages";
+      seoHeadManager.resetToDefault();
     };
   }, [slug]);
 
@@ -69,67 +73,6 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
 
   // Find related tour package
   const relatedTour = TOURS_DATA.find(t => t.id === blog.relatedTourId) || TOURS_DATA[0];
-
-  // Render markdown/HTML content
-  const renderFormattedContent = (content) => {
-    if (!content) return null;
-
-    const sections = content.split('\n\n');
-    return sections.map((sec, idx) => {
-      if (sec.startsWith('## ')) {
-        return (
-          <h2 key={idx} className="reader-h2 font-editorial">
-            {sec.replace('## ', '')}
-          </h2>
-        );
-      }
-      if (sec.startsWith('### ')) {
-        return (
-          <h3 key={idx} className="reader-h3 font-editorial">
-            {sec.replace('### ', '')}
-          </h3>
-        );
-      }
-      if (sec.startsWith('> ')) {
-        return (
-          <blockquote key={idx} className="reader-blockquote">
-            <p>{sec.replace('> ', '')}</p>
-          </blockquote>
-        );
-      }
-      if (sec.startsWith('- ')) {
-        const items = sec.split('\n').map(item => item.replace(/^- /, ''));
-        return (
-          <ul key={idx} className="reader-list">
-            {items.map((it, iIdx) => (
-              <li key={iIdx}>
-                <span className="list-dot">•</span>
-                <span>{it}</span>
-              </li>
-            ))}
-          </ul>
-        );
-      }
-      if (sec.startsWith('1. ') || sec.startsWith('2. ') || sec.startsWith('3. ')) {
-        const items = sec.split('\n');
-        return (
-          <ol key={idx} className="reader-ordered-list">
-            {items.map((it, iIdx) => (
-              <li key={iIdx}>{it.replace(/^\d+\.\s*/, '')}</li>
-            ))}
-          </ol>
-        );
-      }
-      if (sec === '---') {
-        return <hr key={idx} className="reader-divider" />;
-      }
-      return (
-        <p key={idx} className="reader-paragraph">
-          {sec}
-        </p>
-      );
-    });
-  };
 
   const whatsappInquiryUrl = `https://wa.me/918770403315?text=${encodeURIComponent(`Hi Comfort Journey! I just read your article "${blog.title}". I would like to plan a trip like this!`)}`;
 
@@ -210,7 +153,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
         <div className="reader-grid">
           {/* Main Article Content */}
           <article className="reader-main-content glass-card">
-            {renderFormattedContent(blog.content)}
+            <RenderRichArticleContent content={blog.content} imageAlt={blog.title} />
 
             {/* Tags Strip */}
             {blog.tags && blog.tags.length > 0 && (

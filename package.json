@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/build.js",
+    "generate:sitemap": "node scripts/generate-sitemap.js",
+    "generate:ssg": "node scripts/generate-ssg.js",
     "preview": "vite preview"
   },
   "dependencies": {
