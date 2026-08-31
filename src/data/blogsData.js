@@ -30,6 +30,7 @@ export const BLOGS_DATA = [
     readTime: "6 min read",
     featured: true,
     tags: ["Kashmir", "Luxury Stays", "Dal Lake", "Gulmarg", "Houseboats"],
+    suggestedTourIds: ["kashmir-paradise", "himachal-wonderland", "leh-ladakh-odyssey"],
     seo: {
       metaTitle: "Top 7 Luxury Stays in Kashmir 2026 | 5-Star Houseboats & Chalets | Comfort Journey",
       metaDescription: "Explore Kashmir's most exclusive luxury boutique houseboats, alpine heated chalets, and private shikara experiences. Curated by Comfort Journey since 1992.",
@@ -91,6 +92,7 @@ Ready to experience Kashmir in royal comfort? Click below to explore our signatu
     readTime: "7 min read",
     featured: true,
     tags: ["Bali", "Honeymoon", "Private Pool Villa", "Ubud", "Seminyak"],
+    suggestedTourIds: ["bali-bliss", "maldives-lagoon-paradise", "andaman-exotic-islands"],
     seo: {
       metaTitle: "Bali Honeymoon Guide 2026 | Private Pool Villas & Itinerary | Comfort Journey",
       metaDescription: "Planning your Bali honeymoon? Discover our top-rated split-stay luxury itineraries with floating breakfasts, sunset beach clubs, and 24/7 concierge support.",

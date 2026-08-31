@@ -13,6 +13,16 @@ const STORAGE_KEY_TOKEN = 'cj_directus_token';
 const STORAGE_KEY_LOCAL_BLOGS = 'cj_local_custom_blogs';
 const STORAGE_KEY_LOCAL_TOURS = 'cj_local_custom_tours';
 
+// Helper function to slugify text
+export function slugify(text) {
+  return (text || '')
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/[\s\W-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 export const directusService = {
   // Get active Directus base URL
   getBaseUrl() {
@@ -140,7 +150,7 @@ export const directusService = {
 
     const newBlog = {
       id: blogPayload.id || `blog-${Date.now()}`,
-      slug: blogPayload.slug || blogPayload.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+      slug: blogPayload.slug || slugify(blogPayload.title),
       title: blogPayload.title,
       excerpt: blogPayload.excerpt || blogPayload.content.slice(0, 160) + '...',
       content: blogPayload.content,
@@ -155,6 +165,7 @@ export const directusService = {
       readTime: blogPayload.readTime || `${Math.max(3, Math.round(blogPayload.content.split(' ').length / 200))} min read`,
       featured: Boolean(blogPayload.featured),
       tags: blogPayload.tags || ['Travel', 'Luxury', 'Guides'],
+      suggestedTourIds: blogPayload.suggestedTourIds || [],
       seo: {
         metaTitle: blogPayload.seo?.metaTitle || `${blogPayload.title} | Comfort Journey`,
         metaDescription: blogPayload.seo?.metaDescription || blogPayload.excerpt,
@@ -183,6 +194,7 @@ export const directusService = {
           published_date: new Date().toISOString(),
           read_time: newBlog.readTime,
           tags: newBlog.tags,
+          suggested_packages: newBlog.suggestedTourIds,
           seo_meta_title: newBlog.seo.metaTitle,
           seo_meta_description: newBlog.seo.metaDescription,
           focus_keywords: newBlog.seo.focusKeyword
@@ -252,7 +264,7 @@ export const directusService = {
   async createTourPackage(tourPayload) {
     const newTour = {
       id: tourPayload.id || `tour-${Date.now()}`,
-      slug: tourPayload.slug || tourPayload.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+      slug: tourPayload.slug || slugify(tourPayload.name),
       name: tourPayload.name,
       tagline: tourPayload.tagline || 'Custom VIP Handcrafted Tour Experience',
       location: tourPayload.location || 'India',
@@ -280,6 +292,74 @@ export const directusService = {
   },
 
   // ─────────────────────────────────────────────────────────────────
+  // HYBRID SUGGESTED TOUR PACKAGES ENGINE (M2M + AUTOMATED FALLBACK)
+  // ─────────────────────────────────────────────────────────────────
+  getSuggestedToursForBlog(blog, allTours = TOURS_DATA) {
+    if (!blog || !Array.isArray(allTours) || allTours.length === 0) return [];
+
+    // 1. Manual Selection Check (M2M)
+    const manualIds = blog.suggestedTourIds || (Array.isArray(blog.suggested_packages) ? blog.suggested_packages.map(p => typeof p === 'object' ? p.id : p) : []);
+    
+    if (manualIds && manualIds.length > 0) {
+      const selected = allTours.filter(t => manualIds.includes(t.id) || manualIds.includes(t.slug));
+      if (selected.length >= 3) {
+        return selected.slice(0, 3);
+      }
+    }
+
+    // 2. Automated Fallback Logic (Tag & Category Relevance Scoring)
+    const blogTags = (Array.isArray(blog.tags) ? blog.tags : []).map(t => t.toLowerCase());
+    const blogCategory = (blog.category || '').toLowerCase();
+    const blogTitle = (blog.title || '').toLowerCase();
+
+    const scoredTours = allTours.map(tour => {
+      let score = 0;
+      const tourName = (tour.name || '').toLowerCase();
+      const tourLoc = (tour.location || '').toLowerCase();
+      const tourTagline = (tour.tagline || '').toLowerCase();
+      const tourCat = (tour.category || '').toLowerCase();
+
+      // Check tag matches (High weight for destination words)
+      for (const tag of blogTags) {
+        if (tourName.includes(tag)) score += 5;
+        if (tourLoc.includes(tag)) score += 5;
+        if (tourTagline.includes(tag)) score += 3;
+        if (tourCat.includes(tag)) score += 2;
+      }
+
+      // Check category match
+      if (tourCat.includes(blogCategory) || blogCategory.includes(tourCat)) {
+        score += 4;
+      }
+
+      // Check title keywords
+      if (blogTitle.includes(tourLoc) || blogTitle.includes(tourName)) {
+        score += 6;
+      }
+
+      return { tour, score };
+    });
+
+    // Sort by score descending
+    scoredTours.sort((a, b) => b.score - a.score);
+
+    // Pick top 3 unique tours
+    const topTours = scoredTours.slice(0, 3).map(item => item.tour);
+
+    // Fallback safeguard: if less than 3, pad with top catalog tours
+    if (topTours.length < 3) {
+      for (const tour of allTours) {
+        if (!topTours.some(t => t.id === tour.id)) {
+          topTours.push(tour);
+          if (topTours.length === 3) break;
+        }
+      }
+    }
+
+    return topTours;
+  },
+
+  // ─────────────────────────────────────────────────────────────────
   // NORMALIZATION HELPERS
   // ─────────────────────────────────────────────────────────────────
   normalizeBlog(item) {
@@ -304,6 +384,7 @@ export const directusService = {
       readTime: item.read_time || '5 min read',
       featured: Boolean(item.featured),
       tags: Array.isArray(item.tags) ? item.tags : ['Travel', 'Comfort Journey'],
+      suggestedTourIds: Array.isArray(item.suggested_packages) ? item.suggested_packages : (item.suggestedTourIds || []),
       seo: {
         metaTitle: item.seo_meta_title || item.title,
         metaDescription: item.seo_meta_description || item.excerpt,

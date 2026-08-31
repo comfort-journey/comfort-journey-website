@@ -71,8 +71,9 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
     );
   }
 
-  // Find related tour package
+  // Find related tour package and hybrid suggested tours (M2M or Automated Tag Fallback)
   const relatedTour = TOURS_DATA.find(t => t.id === blog.relatedTourId) || TOURS_DATA[0];
+  const suggestedTours = directusService.getSuggestedToursForBlog(blog, TOURS_DATA);
 
   const whatsappInquiryUrl = `https://wa.me/918770403315?text=${encodeURIComponent(`Hi Comfort Journey! I just read your article "${blog.title}". I would like to plan a trip like this!`)}`;
 
@@ -167,56 +168,61 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
               </div>
             )}
 
-            {/* Author Signature Box */}
-            <div className="author-signature-card">
-              <img src={blog.author.avatar} alt={blog.author.name} className="sig-avatar" />
-              <div>
-                <h4 className="sig-name font-editorial">{blog.author.name}</h4>
-                <p className="sig-desc">
-                  Curating luxury vacations and bespoke VIP journeys for over 30 years at Comfort Journey (Est. 1992).
+            {/* Author Footer Bio */}
+            <div className="reader-author-bio-card">
+              <img src={blog.author.avatar} alt={blog.author.name} className="bio-avatar" />
+              <div className="bio-info">
+                <h4 className="bio-name">{blog.author.name}</h4>
+                <p className="bio-role">{blog.author.role} • Comfort Journey</p>
+                <p className="bio-desc">
+                  Curating luxury, bespoke, and transparent journeys since 1992. Specializing in off-beat stays, royal heritage houseboats, and seamless mountain expeditions.
                 </p>
               </div>
             </div>
           </article>
 
-          {/* Sticky Related Tour & Concierge Sidebar */}
+          {/* Sidebar */}
           <aside className="reader-sidebar">
-            {/* Related Tour Package Card */}
+            {/* Recommended Tour Widget */}
             {relatedTour && (
               <div className="sidebar-tour-card glass-card">
-                <div className="sidebar-kicker">
-                  <Sparkles size={13} className="text-amber inline mr-1" />
-                  <span>RECOMMENDED TOUR PACKAGE</span>
+                <div className="tour-card-header">
+                  <span className="tour-badge-pill">Recommended Package</span>
+                  <span className="tour-duration-pill">{relatedTour.duration}</span>
                 </div>
 
-                <div className="tour-thumb">
+                <div className="tour-card-media">
                   <img src={relatedTour.image} alt={relatedTour.name} />
-                  <span className="tour-badge">{relatedTour.duration}</span>
+                  <div className="tour-media-scrim"></div>
+                  <div className="tour-media-loc">
+                    <MapPin size={13} className="inline mr-1 text-amber" />
+                    {relatedTour.location}
+                  </div>
                 </div>
 
-                <h4 className="tour-title font-editorial">{relatedTour.name}</h4>
-                <p className="tour-tagline">{relatedTour.tagline}</p>
+                <h4 className="tour-card-title font-editorial">{relatedTour.name}</h4>
+                <p className="tour-card-tagline">{relatedTour.tagline}</p>
 
-                <div className="compact-inclusions-icon-bar">
-                  <div className="inc-icon-item" title="Verified Luxury Stay">
+                <div className="tour-inclusions-grid">
+                  <div className="inc-item">
                     <div className="inc-svg-badge">
                       <Hotel size={13} className="text-amber" />
                     </div>
-                    <span className="inc-text">Stay</span>
+                    <span className="inc-text">5-Star</span>
                   </div>
-                  <div className="inc-icon-item" title="Private Sanitized Cabs">
+                  <div className="inc-item">
                     <div className="inc-svg-badge">
-                      <Car size={13} className="text-amber" />
+                      <Car size={13} className="text-cyan" />
                     </div>
-                    <span className="inc-text">Transfers</span>
+                    <span className="inc-text">Cab</span>
                   </div>
-                  <div className="inc-icon-item" title="Meals Included">
+                  <div className="inc-item">
                     <div className="inc-svg-badge">
-                      <Utensils size={13} className="text-amber" />
+                      <Utensils size={13} className="text-emerald" />
                     </div>
                     <span className="inc-text">Meals</span>
                   </div>
-                  <div className="inc-icon-item" title="Sightseeing Passes">
+                  <div className="inc-item">
                     <div className="inc-svg-badge">
                       <Ticket size={13} className="text-amber" />
                     </div>
@@ -272,6 +278,92 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
           </aside>
         </div>
       </div>
+
+      {/* Suggested Tour Packages Section (Hybrid M2M + Automated Tag Matching) */}
+      {suggestedTours && suggestedTours.length > 0 && (
+        <section className="suggested-tours-section">
+          <div className="container">
+            <div className="suggested-header">
+              <div className="suggested-pill">
+                <Sparkles size={14} className="text-amber" />
+                <span>Handcrafted Trips Inspired by This Guide</span>
+              </div>
+              <h2 className="suggested-title font-editorial">
+                Curated Experiences You Can Book Today
+              </h2>
+              <p className="suggested-sub">
+                Seamlessly transition from reading to experiencing. Hand-picked stays, verified private chauffeurs, and 24/7 dedicated support.
+              </p>
+            </div>
+
+            <div className="suggested-cards-grid">
+              {suggestedTours.map((tour) => (
+                <div key={tour.id} className="suggested-tour-card glass-card">
+                  <div className="suggested-card-media">
+                    <img src={tour.image} alt={tour.name} loading="lazy" />
+                    <span className="suggested-duration-badge">
+                      <Clock size={12} className="inline mr-1" />
+                      {tour.duration}
+                    </span>
+                    {tour.badge && (
+                      <span className="suggested-vibe-badge">{tour.badge}</span>
+                    )}
+                  </div>
+
+                  <div className="suggested-card-body">
+                    <div className="suggested-loc-row">
+                      <MapPin size={13} className="text-amber" />
+                      <span>{tour.location}</span>
+                      <span className="loc-dot">•</span>
+                      <span className="text-cyan">{tour.category}</span>
+                    </div>
+
+                    <h3 className="suggested-card-name font-editorial">{tour.name}</h3>
+                    <p className="suggested-card-tagline">{tour.tagline}</p>
+
+                    {/* Micro Inclusions Strip */}
+                    <div className="suggested-inclusions-strip">
+                      <span className="inc-pill"><Hotel size={12} /> Stay</span>
+                      <span className="inc-pill"><Car size={12} /> Transfers</span>
+                      <span className="inc-pill"><Utensils size={12} /> Meals</span>
+                      <span className="inc-pill"><ShieldCheck size={12} /> 24/7 VIP</span>
+                    </div>
+
+                    <div className="suggested-card-footer">
+                      <div className="suggested-pricing">
+                        <span className="price-label">Starting From</span>
+                        <div className="price-val-row">
+                          <span className="price-current">{formatPrice(tour.price)}</span>
+                          {tour.origPrice && tour.origPrice > tour.price && (
+                            <span className="price-strikethrough">{formatPrice(tour.origPrice)}</span>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="suggested-actions">
+                        <button 
+                          type="button" 
+                          className="btn-suggested-itinerary"
+                          onClick={() => onSelectItinerary(tour)}
+                        >
+                          Itinerary
+                        </button>
+                        <button 
+                          type="button" 
+                          className="btn-suggested-book"
+                          onClick={() => onBookNow(tour)}
+                        >
+                          Book Now
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* STYLES */}
       <style>{`
@@ -801,6 +893,240 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
           text-decoration: none;
         }
 
+        /* ── Suggested Tour Packages Section ── */
+        .suggested-tours-section {
+          margin-top: 5rem;
+          padding-top: 4rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .suggested-header {
+          text-align: center;
+          max-width: 750px;
+          margin: 0 auto 3rem auto;
+        }
+
+        .suggested-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          background: rgba(255, 137, 47, 0.12);
+          border: 1px solid rgba(255, 137, 47, 0.3);
+          border-radius: 9999px;
+          padding: 0.35rem 1rem;
+          font-size: 0.8rem;
+          font-weight: 800;
+          color: #FF892F;
+          margin-bottom: 0.75rem;
+        }
+
+        .suggested-title {
+          font-size: 2.25rem;
+          color: #FFFFFF;
+          margin: 0 0 0.75rem 0;
+        }
+
+        .suggested-sub {
+          font-size: 0.95rem;
+          color: #94A3B8;
+          line-height: 1.6;
+          margin: 0;
+        }
+
+        .suggested-cards-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1.75rem;
+        }
+
+        .suggested-tour-card {
+          border-radius: 18px;
+          overflow: hidden;
+          background: rgba(0, 18, 51, 0.7);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          display: flex;
+          flex-direction: column;
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .suggested-tour-card:hover {
+          transform: translateY(-8px);
+          border-color: rgba(255, 137, 47, 0.4);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 137, 47, 0.15);
+        }
+
+        .suggested-card-media {
+          position: relative;
+          height: 200px;
+          overflow: hidden;
+        }
+
+        .suggested-card-media img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .suggested-tour-card:hover .suggested-card-media img {
+          transform: scale(1.06);
+        }
+
+        .suggested-duration-badge {
+          position: absolute;
+          bottom: 12px;
+          left: 12px;
+          background: rgba(0, 11, 29, 0.85);
+          backdrop-filter: blur(8px);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          padding: 0.25rem 0.65rem;
+          border-radius: 9999px;
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: #FFFFFF;
+        }
+
+        .suggested-vibe-badge {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          background: linear-gradient(135deg, #FF892F, #E65100);
+          color: #FFFFFF;
+          padding: 0.25rem 0.65rem;
+          border-radius: 9999px;
+          font-size: 0.72rem;
+          font-weight: 800;
+          text-transform: uppercase;
+        }
+
+        .suggested-card-body {
+          padding: 1.5rem;
+          display: flex;
+          flex-direction: column;
+          flex-grow: 1;
+        }
+
+        .suggested-loc-row {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+          font-size: 0.78rem;
+          color: #CBD5E1;
+          margin-bottom: 0.5rem;
+        }
+
+        .suggested-card-name {
+          font-size: 1.35rem;
+          color: #FFFFFF;
+          margin: 0 0 0.5rem 0;
+          line-height: 1.25;
+        }
+
+        .suggested-card-tagline {
+          font-size: 0.84rem;
+          color: #94A3B8;
+          line-height: 1.5;
+          margin: 0 0 1rem 0;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        .suggested-inclusions-strip {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+          flex-wrap: wrap;
+          margin-bottom: 1.25rem;
+        }
+
+        .inc-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.3rem;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 6px;
+          padding: 0.2rem 0.5rem;
+          font-size: 0.72rem;
+          color: #CBD5E1;
+        }
+
+        .suggested-card-footer {
+          margin-top: auto;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-top: 1rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          gap: 0.75rem;
+        }
+
+        .price-label {
+          display: block;
+          font-size: 0.68rem;
+          color: #94A3B8;
+          text-transform: uppercase;
+        }
+
+        .price-val-row {
+          display: flex;
+          align-items: baseline;
+          gap: 0.4rem;
+        }
+
+        .price-current {
+          font-size: 1.25rem;
+          font-weight: 900;
+          color: #FF892F;
+        }
+
+        .price-strikethrough {
+          font-size: 0.82rem;
+          color: #64748B;
+          text-decoration: line-through;
+        }
+
+        .suggested-actions {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+        }
+
+        .btn-suggested-itinerary {
+          padding: 0.45rem 0.85rem;
+          border-radius: 9999px;
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          color: #FFFFFF;
+          font-size: 0.76rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .btn-suggested-itinerary:hover {
+          background: rgba(255, 255, 255, 0.14);
+        }
+
+        .btn-suggested-book {
+          padding: 0.45rem 0.95rem;
+          border-radius: 9999px;
+          background: linear-gradient(135deg, #FF892F, #E65100);
+          border: none;
+          color: #FFFFFF;
+          font-size: 0.76rem;
+          font-weight: 800;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .btn-suggested-book:hover {
+          box-shadow: 0 4px 14px rgba(255, 137, 47, 0.4);
+          transform: scale(1.03);
+        }
+
         @media (max-width: 968px) {
           .reader-grid {
             grid-template-columns: 1fr;
@@ -810,6 +1136,9 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
           }
           .reader-title {
             font-size: 2.1rem;
+          }
+          .suggested-cards-grid {
+            grid-template-columns: 1fr;
           }
         }
       `}</style>

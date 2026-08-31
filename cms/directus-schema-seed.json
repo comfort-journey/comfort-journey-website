@@ -27,6 +27,17 @@
       }
     },
     {
+      "collection": "blogs_tour_packages",
+      "meta": {
+        "icon": "import_export",
+        "hidden": true,
+        "note": "M2M Junction collection linking Blogs to Suggested Tour Packages"
+      },
+      "schema": {
+        "name": "blogs_tour_packages"
+      }
+    },
+    {
       "collection": "destinations",
       "meta": {
         "icon": "public",
@@ -73,7 +84,12 @@
       "collection": "tour_packages",
       "field": "slug",
       "type": "string",
-      "meta": { "interface": "input", "required": true, "note": "Unique SEO URL identifier (e.g. kashmir-luxury-paradise)" }
+      "meta": { 
+        "interface": "slug", 
+        "required": true, 
+        "options": { "field": "title", "slugify": true, "allowManual": true },
+        "note": "Auto-generates from Title with manual override support for SEO" 
+      }
     },
     {
       "collection": "tour_packages",
@@ -140,7 +156,12 @@
       "collection": "blogs",
       "field": "slug",
       "type": "string",
-      "meta": { "interface": "input", "required": true }
+      "meta": { 
+        "interface": "slug", 
+        "required": true, 
+        "options": { "field": "title", "slugify": true, "allowManual": true },
+        "note": "Auto-generates as user types the Title with full manual override" 
+      }
     },
     {
       "collection": "blogs",
@@ -189,6 +210,16 @@
       "field": "tags",
       "type": "json",
       "meta": { "interface": "tags" }
+    },
+    {
+      "collection": "blogs",
+      "field": "suggested_packages",
+      "type": "alias",
+      "meta": {
+        "interface": "list-m2m",
+        "special": ["m2m"],
+        "note": "Manual selection of specific Tour Packages to display at bottom of blog. If left empty, automated tag matching will be used."
+      }
     },
     {
       "collection": "blogs",

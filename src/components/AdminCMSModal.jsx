@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { X, Sparkles, CheckCircle, AlertCircle, FileText, Globe, Search, Share2, Plus, Trash2, Eye, Lock, RefreshCw, LayoutDashboard, Server, Database, ExternalLink } from 'lucide-react';
-import { directusService } from '../services/directusClient';
+import { X, Sparkles, CheckCircle, AlertCircle, FileText, Globe, Search, Share2, Plus, Trash2, Eye, Lock, Unlock, RefreshCw, LayoutDashboard, Server, Database, ExternalLink, Link2 } from 'lucide-react';
+import { directusService, slugify } from '../services/directusClient';
+import { TOURS_DATA } from '../data/toursData';
 
 export default function AdminCMSModal({ isOpen, onClose }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -18,6 +19,9 @@ export default function AdminCMSModal({ isOpen, onClose }) {
 
   // Blog Post State
   const [blogTitle, setBlogTitle] = useState('Top 7 Luxury Stays in Kashmir You Must Experience in 2026');
+  const [blogSlug, setBlogSlug] = useState(slugify('Top 7 Luxury Stays in Kashmir You Must Experience in 2026'));
+  const [isSlugAuto, setIsSlugAuto] = useState(true);
+  const [selectedSuggestedTours, setSelectedSuggestedTours] = useState(['kashmir-paradise', 'himachal-wonderland']);
   const [focusKeyword, setFocusKeyword] = useState('luxury stays in kashmir');
   const [metaDescription, setMetaDescription] = useState('Discover the finest 5-star carved wooden houseboats on Dal Lake and pine chalets in Gulmarg. Complete luxury travel guide by Comfort Journey.');
   const [blogContent, setBlogContent] = useState(`Kashmir has long been celebrated as paradise on earth. But for discerning luxury travelers, the experience elevates to royal grandeur when combined with private shikara cruises, 5-star heritage houseboats on Dal Lake, and heated alpine chalets overlooking snow-draped Gulmarg peaks.
@@ -282,9 +286,52 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
                       type="text"
                       className="cms-input title-input"
                       value={blogTitle}
-                      onChange={(e) => setBlogTitle(e.target.value)}
+                      onChange={(e) => {
+                        setBlogTitle(e.target.value);
+                        if (isSlugAuto) {
+                          setBlogSlug(slugify(e.target.value));
+                        }
+                      }}
                       placeholder="e.g. 10 Best Places to Visit in Bali for Couples in 2026"
                     />
+                  </div>
+
+                  {/* Auto-Generating URL Slug with Manual Override */}
+                  <div className="field-group">
+                    <div className="flex items-center justify-between mb-1">
+                      <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#CBD5E1' }}>
+                        URL Slug (Directus Slug Interface)
+                      </label>
+                      <button 
+                        type="button" 
+                        className="slug-lock-btn"
+                        onClick={() => {
+                          if (!isSlugAuto) {
+                            setBlogSlug(slugify(blogTitle));
+                          }
+                          setIsSlugAuto(!isSlugAuto);
+                        }}
+                        title={isSlugAuto ? "Click to unlock and edit slug manually" : "Click to auto-sync with title"}
+                      >
+                        {isSlugAuto ? <Lock size={12} className="text-emerald" /> : <Unlock size={12} className="text-amber" />}
+                        <span style={{ fontSize: '0.72rem', fontWeight: 700, color: isSlugAuto ? '#10B981' : '#FF892F' }}>
+                          {isSlugAuto ? "Auto-Syncing" : "Manual Override"}
+                        </span>
+                      </button>
+                    </div>
+                    <div className="slug-input-container">
+                      <span className="slug-prefix">#/blog/</span>
+                      <input
+                        type="text"
+                        className="cms-input slug-input"
+                        value={blogSlug}
+                        onChange={(e) => {
+                          setIsSlugAuto(false);
+                          setBlogSlug(slugify(e.target.value));
+                        }}
+                        placeholder="url-friendly-slug"
+                      />
+                    </div>
                   </div>
 
                   {/* ── Functional Formatting Toolbar ── */}
@@ -365,6 +412,42 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
                       <option value="Corporate & Offsites">Corporate & Offsites</option>
                       <option value="Seasonal Tips">Seasonal Tips</option>
                     </select>
+                  </div>
+
+                  {/* Suggested Tour Packages (M2M Selection) */}
+                  <div className="field-group">
+                    <div className="flex items-center justify-between mb-1">
+                      <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#CBD5E1' }}>
+                        Suggested Tour Packages (M2M Relational Field)
+                      </label>
+                      <span style={{ fontSize: '0.72rem', color: '#94A3B8' }}>{selectedSuggestedTours.length}/3 Selected</span>
+                    </div>
+                    <div className="suggested-tours-picker">
+                      {TOURS_DATA.slice(0, 6).map(tour => {
+                        const isChecked = selectedSuggestedTours.includes(tour.id);
+                        return (
+                          <label key={tour.id} className={`tour-check-item ${isChecked ? 'active' : ''}`}>
+                            <input 
+                              type="checkbox"
+                              checked={isChecked}
+                              onChange={() => {
+                                if (isChecked) {
+                                  setSelectedSuggestedTours(selectedSuggestedTours.filter(id => id !== tour.id));
+                                } else {
+                                  if (selectedSuggestedTours.length < 3) {
+                                    setSelectedSuggestedTours([...selectedSuggestedTours, tour.id]);
+                                  } else {
+                                    alert('You can select up to 3 suggested tour packages.');
+                                  }
+                                }
+                              }}
+                            />
+                            <span className="tour-name-text">{tour.name}</span>
+                          </label>
+                        );
+                      })}
+                    </div>
+                    <p className="suggested-hint">💡 <em>If left unselected, the automated recommendation engine will dynamically match tags & categories!</em></p>
                   </div>
                 </div>
 
@@ -464,9 +547,11 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
                       onClick={async () => {
                         const newBlog = await directusService.createBlog({
                           title: blogTitle,
+                          slug: blogSlug,
                           content: blogContent,
                           category: postCategory,
                           excerpt: metaDescription,
+                          suggestedTourIds: selectedSuggestedTours,
                           seo: {
                             metaTitle: blogTitle,
                             metaDescription,
@@ -1381,6 +1466,88 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
           font-family: monospace;
           margin: 0.35rem 0 0 0;
           font-size: 0.8rem;
+        }
+
+        /* Slug & M2M Styles */
+        .slug-lock-btn {
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 4px;
+          padding: 0.15rem 0.5rem;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .slug-lock-btn:hover {
+          background: rgba(255, 255, 255, 0.12);
+        }
+
+        .slug-input-container {
+          display: flex;
+          align-items: center;
+          background: rgba(0, 18, 51, 0.6);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: var(--radius-sm);
+          overflow: hidden;
+        }
+
+        .slug-prefix {
+          padding: 0.6rem 0.75rem;
+          background: rgba(255, 255, 255, 0.05);
+          color: #94A3B8;
+          font-family: monospace;
+          font-size: 0.82rem;
+          border-right: 1px solid rgba(255, 255, 255, 0.1);
+          user-select: none;
+        }
+
+        .slug-input {
+          border: none !important;
+          background: transparent !important;
+          font-family: monospace;
+          font-size: 0.85rem;
+          color: #6FE6FC !important;
+        }
+
+        .suggested-tours-picker {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          gap: 0.5rem;
+          max-height: 150px;
+          overflow-y: auto;
+          padding: 0.5rem;
+          background: rgba(0, 18, 51, 0.5);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: var(--radius-sm);
+        }
+
+        .tour-check-item {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.4rem 0.6rem;
+          border-radius: 4px;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          font-size: 0.78rem;
+          color: #CBD5E1;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .tour-check-item.active {
+          background: rgba(255, 137, 47, 0.15);
+          border-color: #FF892F;
+          color: #FFFFFF;
+        }
+
+        .suggested-hint {
+          font-size: 0.74rem;
+          color: #94A3B8;
+          margin: 0.35rem 0 0 0;
         }
 
         @media (max-width: 860px) {
