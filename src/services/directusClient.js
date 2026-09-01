@@ -6,7 +6,7 @@
 
 import { TOURS_DATA } from '../data/toursData';
 import { BLOGS_DATA, getBlogBySlug } from '../data/blogsData';
-import { resolveDestinationImage, isWixOrLegacyUrl } from '../utils/destinationImageResolver';
+export { resolveDestinationImage, isWixOrLegacyUrl } from '../utils/destinationImageResolver';
 
 const DEFAULT_DIRECTUS_URL = import.meta.env.VITE_DIRECTUS_URL || 'http://localhost:8055';
 const STORAGE_KEY_URL = 'cj_directus_url';
@@ -687,6 +687,11 @@ export const directusService = {
   // Local storage cache readers
   getLocalCustomBlogs() {
     try {
+      const storedV2 = localStorage.getItem('cj_custom_blogs_v2');
+      if (storedV2) {
+        const parsed = JSON.parse(storedV2);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
       const stored = localStorage.getItem(STORAGE_KEY_LOCAL_BLOGS);
       return stored ? JSON.parse(stored) : [];
     } catch {
@@ -696,6 +701,11 @@ export const directusService = {
 
   getLocalCustomTours() {
     try {
+      const storedMaster = localStorage.getItem('cj_custom_tours_dataset');
+      if (storedMaster) {
+        const parsed = JSON.parse(storedMaster);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
       const stored = localStorage.getItem(STORAGE_KEY_LOCAL_TOURS);
       return stored ? JSON.parse(stored) : [];
     } catch {

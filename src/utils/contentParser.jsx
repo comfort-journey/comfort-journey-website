@@ -84,6 +84,89 @@ export function injectContextualBacklinks(text, linkedSet = new Set()) {
 export function RenderRichArticleContent({ content, imageAlt = "Comfort Journey Luxury Travel" }) {
   if (!content) return null;
 
+  // If content is already HTML (from WYSIWYG RichTextEditor or Directus)
+  const isHtml = /<[a-z][\s\S]*>/i.test(content);
+  if (isHtml) {
+    return (
+      <div className="rich-article-body rich-article-html">
+        <div dangerouslySetInnerHTML={{ __html: content }} />
+        <style>{`
+          .rich-article-html {
+            color: #CBD5E1;
+            font-size: 1.05rem;
+            line-height: 1.85;
+          }
+          .rich-article-html h1, .rich-article-html h2, .rich-article-html h3, .rich-article-html h4 {
+            color: #FFFFFF;
+            font-family: var(--font-serif, 'Playfair Display', serif);
+            margin: 1.75rem 0 0.75rem 0;
+            line-height: 1.35;
+          }
+          .rich-article-html h1 { font-size: 2rem; color: #FFFFFF; }
+          .rich-article-html h2 { font-size: 1.6rem; color: #6FE6FC; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.5rem; }
+          .rich-article-html h3 { font-size: 1.3rem; color: #FF892F; }
+          .rich-article-html h4 { font-size: 1.15rem; color: #F59E0B; }
+          .rich-article-html p { margin-bottom: 1.25rem; }
+          .rich-article-html a { color: #6FE6FC; text-decoration: underline; text-underline-offset: 3px; }
+          .rich-article-html a:hover { color: #FF892F; }
+          .rich-article-html strong, .rich-article-html b { color: #FFFFFF; font-weight: 700; }
+          .rich-article-html ul, .rich-article-html ol { margin: 1rem 0 1.5rem 1.5rem; }
+          .rich-article-html li { margin-bottom: 0.5rem; }
+          .rich-article-html blockquote {
+            border-left: 4px solid #FF892F;
+            background: rgba(255, 137, 47, 0.08);
+            border-radius: 0 8px 8px 0;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            color: #E2E8F0;
+            font-style: italic;
+          }
+          .rich-article-html table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            overflow: hidden;
+          }
+          .rich-article-html th {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            color: #6FE6FC;
+            font-weight: 700;
+          }
+          .rich-article-html td {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 1rem;
+          }
+          .rich-article-html img {
+            max-width: 100%;
+            border-radius: 12px;
+            margin: 1rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+          }
+          .rich-article-html figure {
+            margin: 1.5rem 0;
+            text-align: center;
+          }
+          .rich-article-html figcaption {
+            font-size: 0.8rem;
+            color: #94A3B8;
+            margin-top: 0.4rem;
+            font-style: italic;
+          }
+          .rich-article-html hr {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            margin: 2rem 0;
+          }
+        `}</style>
+      </div>
+    );
+  }
+
   const linkedKeywords = new Set();
   const sections = content.split('\n\n');
 
