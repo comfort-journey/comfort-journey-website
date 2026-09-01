@@ -44,51 +44,187 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
     setStep(5); // Loading screen
 
     setTimeout(() => {
-      let matchedTour = TOURS_DATA[0];
-      const lowerPrompt = customPrompt.toLowerCase();
+      const lowerPrompt = customPrompt.toLowerCase().trim();
+      let matchedTour = null;
+      let isExactMatch = false;
 
+      // 1. Semantic Destination Matching across all 89 real packages
       if (lowerPrompt) {
-        const found = TOURS_DATA.find(t => 
-          t.name.toLowerCase().includes(lowerPrompt) ||
-          (t.location && t.location.toLowerCase().includes(lowerPrompt)) ||
-          (t.country && t.country.toLowerCase().includes(lowerPrompt)) ||
-          (t.categories && t.categories.some(c => c.toLowerCase().includes(lowerPrompt))) ||
-          (t.tags && t.tags.some(tg => tg.toLowerCase().includes(lowerPrompt))) ||
-          (t.tagline && t.tagline.toLowerCase().includes(lowerPrompt))
-        );
-        if (found) matchedTour = found;
+        // Direct title/country/city/state/location/tag matching
+        const found = TOURS_DATA.find(t => {
+          const name = (t.name || '').toLowerCase();
+          const country = (t.country || '').toLowerCase();
+          const location = (t.location || '').toLowerCase();
+          const city = (t.city || '').toLowerCase();
+          const state = (t.state || '').toLowerCase();
+          const cats = (t.categories || []).map(c => c.toLowerCase());
+          const tags = (t.tags || []).map(tg => tg.toLowerCase());
+
+          return country.includes(lowerPrompt) ||
+                 location.includes(lowerPrompt) ||
+                 city.includes(lowerPrompt) ||
+                 state.includes(lowerPrompt) ||
+                 name.includes(lowerPrompt) ||
+                 lowerPrompt.includes(country) ||
+                 lowerPrompt.includes(city) ||
+                 lowerPrompt.includes(state) ||
+                 cats.some(c => lowerPrompt.includes(c) || c.includes(lowerPrompt)) ||
+                 tags.some(tg => lowerPrompt.includes(tg) || tg.includes(lowerPrompt));
+        });
+
+        if (found) {
+          matchedTour = found;
+          isExactMatch = true;
+        } else {
+          // Specific international & domestic destination keywords
+          if (lowerPrompt.includes('dubai') || lowerPrompt.includes('uae') || lowerPrompt.includes('abu dhabi') || lowerPrompt.includes('desert')) {
+            matchedTour = TOURS_DATA.find(t => t.id.includes('dubai') || t.name.toLowerCase().includes('dubai'));
+            isExactMatch = Boolean(matchedTour);
+          } else if (lowerPrompt.includes('bali') || lowerPrompt.includes('indonesia')) {
+            matchedTour = TOURS_DATA.find(t => t.id.includes('bali') || t.name.toLowerCase().includes('bali'));
+            isExactMatch = Boolean(matchedTour);
+          } else if (lowerPrompt.includes('phuket') || lowerPrompt.includes('thailand') || lowerPrompt.includes('krabi') || lowerPrompt.includes('bangkok') || lowerPrompt.includes('phi phi')) {
+            matchedTour = TOURS_DATA.find(t => t.id.includes('phuket') || t.name.toLowerCase().includes('phuket') || t.name.toLowerCase().includes('asian'));
+            isExactMatch = Boolean(matchedTour);
+          } else if (lowerPrompt.includes('japan') || lowerPrompt.includes('tokyo') || lowerPrompt.includes('kyoto') || lowerPrompt.includes('sakura') || lowerPrompt.includes('cherry blossom')) {
+            matchedTour = TOURS_DATA.find(t => t.id.includes('sakura') || t.name.toLowerCase().includes('cherry'));
+            isExactMatch = Boolean(matchedTour);
+          } else if (lowerPrompt.includes('europe') || lowerPrompt.includes('swiss') || lowerPrompt.includes('switzerland') || lowerPrompt.includes('italy') || lowerPrompt.includes('rome') || lowerPrompt.includes('zurich')) {
+            matchedTour = TOURS_DATA.find(t => t.id.includes('europe') || t.name.toLowerCase().includes('essence of europe'));
+            isExactMatch = Boolean(matchedTour);
+          } else if (lowerPrompt.includes('singapore') || lowerPrompt.includes('malaysia') || lowerPrompt.includes('kuala lumpur')) {
+            matchedTour = TOURS_DATA.find(t => t.id.includes('singapore') || t.name.toLowerCase().includes('singapore'));
+            isExactMatch = Boolean(matchedTour);
+          } else if (lowerPrompt.includes('vietnam') || lowerPrompt.includes('hanoi') || lowerPrompt.includes('da nang') || lowerPrompt.includes('ha long')) {
+            matchedTour = TOURS_DATA.find(t => t.id.includes('vietnam') || t.name.toLowerCase().includes('vietnam'));
+            isExactMatch = Boolean(matchedTour);
+          } else if (lowerPrompt.includes('sri lanka') || lowerPrompt.includes('colombo') || lowerPrompt.includes('kandy')) {
+            matchedTour = TOURS_DATA.find(t => t.id.includes('colombo') || t.name.toLowerCase().includes('colombo'));
+            isExactMatch = Boolean(matchedTour);
+          } else if (lowerPrompt.includes('kashmir') || lowerPrompt.includes('srinagar') || lowerPrompt.includes('gulmarg') || lowerPrompt.includes('pahalgam') || lowerPrompt.includes('sonmarg')) {
+            matchedTour = TOURS_DATA.find(t => t.id.includes('kashmir') || t.name.toLowerCase().includes('kashmir'));
+            isExactMatch = Boolean(matchedTour);
+          } else if (lowerPrompt.includes('manali') || lowerPrompt.includes('shimla') || lowerPrompt.includes('himachal') || lowerPrompt.includes('dharamshala') || lowerPrompt.includes('dalhousie')) {
+            matchedTour = TOURS_DATA.find(t => t.name.toLowerCase().includes('shimla') || t.id.includes('peace-in-the-pines'));
+            isExactMatch = Boolean(matchedTour);
+          } else if (lowerPrompt.includes('goa') || lowerPrompt.includes('beach') || lowerPrompt.includes('coastal')) {
+            matchedTour = TOURS_DATA.find(t => t.id.includes('goa') || t.name.toLowerCase().includes('goa'));
+            isExactMatch = Boolean(matchedTour);
+          } else if (lowerPrompt.includes('rajasthan') || lowerPrompt.includes('jaipur') || lowerPrompt.includes('udaipur') || lowerPrompt.includes('jodhpur') || lowerPrompt.includes('jaisalmer')) {
+            matchedTour = TOURS_DATA.find(t => t.name.toLowerCase().includes('rajasthan'));
+            isExactMatch = Boolean(matchedTour);
+          } else if (lowerPrompt.includes('kerala') || lowerPrompt.includes('munnar') || lowerPrompt.includes('alleppey') || lowerPrompt.includes('thekkady')) {
+            matchedTour = TOURS_DATA.find(t => t.name.toLowerCase().includes('pachmarhi') || t.location?.toLowerCase().includes('kerala'));
+            isExactMatch = Boolean(matchedTour);
+          } else if (lowerPrompt.includes('uttarakhand') || lowerPrompt.includes('haridwar') || lowerPrompt.includes('mussoorie') || lowerPrompt.includes('rishikesh') || lowerPrompt.includes('kedarnath')) {
+            matchedTour = TOURS_DATA.find(t => t.id.includes('ganga') || t.id.includes('uttarakhand'));
+            isExactMatch = Boolean(matchedTour);
+          } else if (lowerPrompt.includes('bhopal') || lowerPrompt.includes('ujjain') || lowerPrompt.includes('madhya pradesh') || lowerPrompt.includes('pachmarhi') || lowerPrompt.includes('orchha')) {
+            matchedTour = TOURS_DATA.find(t => t.id.includes('royal-mp') || t.id.includes('narmada') || t.id.includes('bhopal'));
+            isExactMatch = Boolean(matchedTour);
+          } else if (lowerPrompt.includes('gujarat') || lowerPrompt.includes('dwarka') || lowerPrompt.includes('somnath')) {
+            matchedTour = TOURS_DATA.find(t => t.id.includes('gujarat'));
+            isExactMatch = Boolean(matchedTour);
+          } else if (lowerPrompt.includes('karnataka') || lowerPrompt.includes('coorg') || lowerPrompt.includes('mysore')) {
+            matchedTour = TOURS_DATA.find(t => t.id.includes('karnataka'));
+            isExactMatch = Boolean(matchedTour);
+          }
+        }
       } else {
-        if (landscape === 'Tropical Islands') matchedTour = TOURS_DATA.find(t => t.name.toLowerCase().includes('bali') || t.name.toLowerCase().includes('phuket') || t.name.toLowerCase().includes('goa')) || TOURS_DATA[0];
-        else if (landscape === 'European Fairytale') matchedTour = TOURS_DATA.find(t => t.name.toLowerCase().includes('europe') || t.location.toLowerCase().includes('rome') || t.continent === 'Europe') || TOURS_DATA[0];
-        else if (landscape === 'Snow & Glaciers') matchedTour = TOURS_DATA.find(t => t.name.toLowerCase().includes('pines') || t.name.toLowerCase().includes('hills') || t.location.toLowerCase().includes('dharamshala')) || TOURS_DATA[0];
-        else if (landscape === 'Desert Oasis') matchedTour = TOURS_DATA.find(t => t.name.toLowerCase().includes('dubai') || t.name.toLowerCase().includes('rajasthan')) || TOURS_DATA[0];
-        else if (landscape === 'African Safari' || landscape === 'Japanese Zen') matchedTour = TOURS_DATA.find(t => t.name.toLowerCase().includes('cherry blossom') || t.name.toLowerCase().includes('sakura') || t.category === 'International Tours') || TOURS_DATA[0];
-        else if (vibe === 'Sacred Heritage') matchedTour = TOURS_DATA.find(t => t.name.toLowerCase().includes('ganga') || t.name.toLowerCase().includes('heritage') || t.name.toLowerCase().includes('bhopal')) || TOURS_DATA[0];
+        // Step selection matching (Landscape & Vibe)
+        if (landscape === 'Tropical Islands') {
+          matchedTour = TOURS_DATA.find(t => t.id.includes('bali') || t.id.includes('phuket') || t.id.includes('goa'));
+          isExactMatch = true;
+        } else if (landscape === 'European Fairytale') {
+          matchedTour = TOURS_DATA.find(t => t.id.includes('europe') || t.continent === 'Europe');
+          isExactMatch = true;
+        } else if (landscape === 'Desert Oasis') {
+          matchedTour = TOURS_DATA.find(t => t.id.includes('dubai') || t.name.toLowerCase().includes('desert'));
+          isExactMatch = true;
+        } else if (landscape === 'Japanese Zen') {
+          matchedTour = TOURS_DATA.find(t => t.id.includes('sakura'));
+          isExactMatch = true;
+        } else if (landscape === 'Snow & Glaciers') {
+          matchedTour = TOURS_DATA.find(t => t.name.toLowerCase().includes('kashmir') || t.id.includes('peace-in-the-pines'));
+          isExactMatch = true;
+        } else if (vibe === 'Sacred Heritage') {
+          matchedTour = TOURS_DATA.find(t => t.id.includes('ganga') || t.name.toLowerCase().includes('heritage'));
+          isExactMatch = true;
+        } else if (vibe === 'Romantic Honeymoon') {
+          matchedTour = TOURS_DATA.find(t => t.id.includes('bali') || t.name.toLowerCase().includes('kashmir'));
+          isExactMatch = true;
+        }
       }
 
-      setGeneratedResult({
-        matchedTour,
-        customDays: matchedTour.itinerary ? matchedTour.itinerary.slice(0, 5) : [],
-        estimatedCost: matchedTour.price,
-        summary: customPrompt 
-          ? `Bespoke AI Itinerary generated for "${customPrompt}" featuring 5-star properties, private transfers & dedicated 24/7 concierge.`
-          : `Tailor-made ${durationGroup} VIP itinerary for ${guestsCount} traveler(s) combining ${vibe} with ${landscape} scenery and ${hotelTier}.`
-      });
+      // Relevant similar packages for suggestions
+      const similarTours = TOURS_DATA.filter(t => 
+        t.id.includes('dubai') || 
+        t.id.includes('bali') || 
+        t.id.includes('phuket') || 
+        t.id.includes('europe') || 
+        t.id.includes('sakura') ||
+        t.id.includes('kashmir')
+      ).slice(0, 3);
+
+      if (!matchedTour) {
+        // No exact pre-packaged tour exists -> generate bespoke custom plan and display similar options
+        setGeneratedResult({
+          isExactMatch: false,
+          customDestination: customPrompt || landscape,
+          matchedTour: null,
+          similarTours,
+          customDays: [
+            { day: 1, title: `Day 1: VIP Arrival & Private Luxury Transfer in ${customPrompt || landscape}`, desc: `Chauffeur greeting at the airport with VIP luggage handling and transfer to 5-star property in ${customPrompt || landscape}. Evening welcome orientation dinner.`, stayTier: hotelTier, transport: 'Dedicated Private AC Chauffeur', meals: 'Welcome Dinner' },
+            { day: 2, title: `Day 2: Guided Signature Sightseeing & Historic Highlights`, desc: `Private curated day tour covering iconic landmarks, cultural heritage, and panoramic viewpoints with personal English-speaking escort.`, stayTier: hotelTier, transport: 'Dedicated Private AC Chauffeur', meals: 'Breakfast & Dinner' },
+            { day: 3, title: `Day 3: Scenic Excursions & Experiential Indulgence`, desc: `Bespoke day trip into scenic outskirts, experiential fine-dining lunch, and private evening sunset cruise or viewpoint lounge.`, stayTier: hotelTier, transport: 'Dedicated Private AC Chauffeur', meals: 'Breakfast & Dinner' },
+            { day: 4, title: `Day 4: Leisure, Curated Shopping & Chauffeur Departure`, desc: `Morning breakfast, souvenir shopping in verified artisanal districts, and timely airport chauffeur transfer for return flight.`, stayTier: 'Check-out', transport: 'Dedicated Private AC Chauffeur', meals: 'Breakfast' }
+          ],
+          estimatedCost: hotelTier.includes('5-Star') ? 48999 : 28999,
+          summary: `No exact pre-packaged tour is currently listed for "${customPrompt || landscape}". Comfort Journey handcrafts 100% tailor-made VIP private tours to ${customPrompt || landscape} since 1992!`
+        });
+      } else {
+        setGeneratedResult({
+          isExactMatch: true,
+          customDestination: matchedTour.name,
+          matchedTour,
+          similarTours: TOURS_DATA.filter(t => t.id !== matchedTour.id && (t.continent === matchedTour.continent || t.category === matchedTour.category)).slice(0, 3),
+          customDays: (matchedTour.itinerary && matchedTour.itinerary.length > 0) ? matchedTour.itinerary.slice(0, 5).map(d => ({
+            day: d.day,
+            title: d.title,
+            desc: d.desc || `Scenic exploration and private VIP transfers in ${matchedTour.location}.`,
+            stayTier: d.stayTier || hotelTier,
+            transport: d.transport || 'Dedicated Private AC Cab & Chauffeur',
+            meals: d.meals || 'Daily Breakfast & Dinner'
+          })) : [
+            { day: 1, title: `Day 1: Arrival & Check-In in ${matchedTour.location}`, desc: `Private airport transfer and welcome to verified 4★/5★ luxury stay.`, stayTier: hotelTier, transport: 'Private Cab', meals: 'Dinner' },
+            { day: 2, title: `Day 2: Full Day Signature Sightseeing`, desc: `Guided tour of top attractions and cultural highlights.`, stayTier: hotelTier, transport: 'Private Cab', meals: 'Breakfast & Dinner' }
+          ],
+          estimatedCost: matchedTour.price,
+          summary: customPrompt 
+            ? `Exact verified match found: "${matchedTour.name}" (${matchedTour.duration}) featuring 5-star properties, private transfers & 24/7 VIP concierge.`
+            : `Tailor-made ${durationGroup} VIP itinerary combining ${vibe} with ${landscape} scenery: ${matchedTour.name}.`
+        });
+      }
+
       setIsGenerating(false);
-    }, 1200);
+    }, 1000);
   };
 
   const handleWhatsAppBooking = () => {
     if (!generatedResult) return;
-    const msg = encodeURIComponent(`Hi Comfort Journey! I generated a custom trip on your AI Dream Planner:
-✨ Custom Request: ${customPrompt || `${vibe} in ${landscape}`}
+    const destName = generatedResult.isExactMatch && generatedResult.matchedTour 
+      ? generatedResult.matchedTour.name 
+      : (generatedResult.customDestination || customPrompt || `${vibe} in ${landscape}`);
+
+    const msg = encodeURIComponent(`Hi Comfort Journey! I planned a trip on your AI Dream Planner:
+✨ Destination / Request: ${destName}
 ⏱️ Duration: ${durationGroup}
 👥 Travelers: ${guestsCount} Person(s)
 🏨 Hotel Tier: ${hotelTier}
-🎯 Matched Package: ${generatedResult.matchedTour.name}
 💰 Estimated Budget: ${formatPrice(generatedResult.estimatedCost)} / person
+${generatedResult.isExactMatch && generatedResult.matchedTour ? `🎯 Matched Tour Package: ${generatedResult.matchedTour.name} (₹${generatedResult.matchedTour.price})` : '📝 Custom Tailor-Made Request'}
 
-Please connect me with a Senior Trip Designer to finalize this trip!`);
+Please connect me with a Senior Trip Designer to finalize our custom itinerary!`);
 
     window.open(`https://wa.me/918770403315?text=${msg}`, '_blank');
   };
@@ -334,10 +470,19 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
               </div>
             ) : generatedResult ? (
               <div className="ai-result-box">
+                {/* Result Top Card */}
                 <div className="result-top-card glass-panel">
                   <div className="result-meta">
-                    <span className="badge badge-ai">✨ AI Custom Match</span>
-                    <h3 className="result-title">{generatedResult.matchedTour.name}</h3>
+                    {generatedResult.isExactMatch && generatedResult.matchedTour ? (
+                      <span className="badge badge-emerald">✅ Exact Verified Match Found</span>
+                    ) : (
+                      <span className="badge badge-amber">✨ Bespoke AI Custom Blueprint</span>
+                    )}
+                    <h3 className="result-title">
+                      {generatedResult.isExactMatch && generatedResult.matchedTour 
+                        ? generatedResult.matchedTour.name 
+                        : `Bespoke VIP Experience: ${generatedResult.customDestination}`}
+                    </h3>
                     <p className="result-summary">{generatedResult.summary}</p>
                   </div>
 
@@ -346,6 +491,21 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
                     <strong className="result-price">{formatPrice(generatedResult.estimatedCost)}</strong>
                   </div>
                 </div>
+
+                {/* Notice when no exact off-the-shelf package exists */}
+                {!generatedResult.isExactMatch && (
+                  <div className="ai-no-match-notice glass-card">
+                    <Sparkles size={18} className="text-amber flex-shrink-0 mt-1" />
+                    <div>
+                      <strong style={{ color: '#FF892F', display: 'block', fontSize: '0.94rem' }}>
+                        No off-the-shelf package listed for "{generatedResult.customDestination}"
+                      </strong>
+                      <span style={{ fontSize: '0.85rem', color: '#94A3B8' }}>
+                        Comfort Journey specializes in 100% tailor-made private VIP holidays worldwide. Below is your AI blueprint, along with similar popular packages from our catalog.
+                      </span>
+                    </div>
+                  </div>
+                )}
 
                 {/* Day by Day Outline */}
                 <h4 className="itinerary-preview-title">Day-by-Day Customized Blueprint</h4>
@@ -358,16 +518,42 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
                       <div className="day-info-col">
                         <h5 className="day-name">{d.title}</h5>
                         <p className="day-desc">
-                          <strong>Morning:</strong> {d.morning} • <strong>Evening:</strong> {d.evening}
+                          {d.desc || (d.morning ? `${d.morning} • ${d.evening}` : 'Scenic exploration & private VIP transfers.')}
                         </p>
                         <div className="day-meta-tags">
                           <span>🏨 {d.stayTier}</span>
                           <span>🚗 {d.transport}</span>
+                          {d.meals && <span>🍽️ {d.meals}</span>}
                         </div>
                       </div>
                     </div>
                   ))}
                 </div>
+
+                {/* Similar Packages Strip */}
+                {generatedResult.similarTours && generatedResult.similarTours.length > 0 && (
+                  <div className="ai-similar-block">
+                    <h4 className="similar-headline">
+                      {generatedResult.isExactMatch ? 'Other Recommended Packages:' : 'Similar Signature Packages You Might Love:'}
+                    </h4>
+                    <div className="ai-similar-grid">
+                      {generatedResult.similarTours.map((simTour) => (
+                        <div 
+                          key={simTour.id} 
+                          className="ai-similar-card glass-card"
+                          onClick={() => onSelectTour && onSelectTour(simTour)}
+                        >
+                          <img src={simTour.image} alt={simTour.name} className="sim-img" />
+                          <div className="sim-content">
+                            <strong className="sim-title">{simTour.name}</strong>
+                            <span className="sim-sub">{simTour.location || simTour.country} • {simTour.duration}</span>
+                            <span className="sim-price">{formatPrice(simTour.price)}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {/* Direct Action Hub */}
                 <div className="ai-result-actions-hub">
@@ -377,10 +563,12 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
                     onClick={handleWhatsAppBooking}
                   >
                     <MessageCircle size={18} />
-                    <span>Lock Itinerary via WhatsApp</span>
+                    <span>
+                      {generatedResult.isExactMatch ? 'Lock Itinerary via WhatsApp' : `Request Custom ${generatedResult.customDestination} Quote`}
+                    </span>
                   </button>
 
-                  {onSelectTour && (
+                  {generatedResult.isExactMatch && generatedResult.matchedTour && onSelectTour && (
                     <button 
                       type="button" 
                       className="btn-primary ai-hub-btn"
@@ -943,6 +1131,88 @@ Please connect me with a Senior Trip Designer to finalize this trip!`);
           font-size: 1.65rem;
           color: #FFFFFF;
           line-height: 1.25;
+        }
+
+        .ai-no-match-notice {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.85rem;
+          padding: 1rem 1.25rem;
+          background: rgba(255, 137, 47, 0.08);
+          border: 1px solid rgba(255, 137, 47, 0.25);
+          border-radius: var(--radius-md, 14px);
+        }
+
+        .ai-similar-block {
+          margin-top: 1rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+        }
+
+        .similar-headline {
+          font-size: 0.92rem;
+          font-weight: 800;
+          color: #E2E8F0;
+          letter-spacing: 0.02em;
+        }
+
+        .ai-similar-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+          gap: 0.75rem;
+        }
+
+        .ai-similar-card {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.65rem;
+          border-radius: var(--radius-md, 12px);
+          cursor: pointer;
+          transition: transform 0.2s ease, border-color 0.2s ease;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .ai-similar-card:hover {
+          transform: translateY(-2px);
+          border-color: rgba(255, 137, 47, 0.4);
+        }
+
+        .sim-img {
+          width: 58px;
+          height: 58px;
+          border-radius: 8px;
+          object-fit: cover;
+          flex-shrink: 0;
+        }
+
+        .sim-content {
+          display: flex;
+          flex-direction: column;
+          gap: 0.2rem;
+          overflow: hidden;
+        }
+
+        .sim-title {
+          font-size: 0.82rem;
+          font-weight: 800;
+          color: #FFFFFF;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .sim-sub {
+          font-size: 0.72rem;
+          color: #94A3B8;
+        }
+
+        .sim-price {
+          font-size: 0.82rem;
+          font-weight: 900;
+          color: #FF892F;
         }
 
         .handoff-text strong {

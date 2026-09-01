@@ -187,23 +187,23 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         </div>
 
         {/* Dynamic Destination Filter Status Banner */}
-        {searchFilters?.destination && (
+        {(searchFilters?.destination || (searchKeyword && isExactCityNotFound)) && (
           <div className={`destination-status-banner ${isExactCityNotFound ? 'fallback-notice' : 'match-notice'}`}>
             {!isExactCityNotFound ? (
               <div className="status-banner-content">
                 <MapPin size={16} className="text-amber" />
                 <span>
-                  Showing packages matching <strong>"{searchFilters.destination}"</strong> ({filteredTours.length} luxury {filteredTours.length === 1 ? 'itinerary' : 'itineraries'} found)
+                  Showing packages matching <strong>"{searchFilters?.destination || searchKeyword}"</strong> ({filteredTours.length} luxury {filteredTours.length === 1 ? 'itinerary' : 'itineraries'} found)
                 </span>
               </div>
             ) : (
               <div className="status-banner-content">
                 <Sparkles size={16} className="text-amber" />
                 <span>
-                  No pre-built package for <strong>"{searchFilters.destination}"</strong> yet — showing all <strong>{TOURS_DATA.length} luxury packages</strong>. We craft 100% bespoke VIP tours worldwide!
+                  No exact match found for <strong>"{searchFilters?.destination || searchKeyword}"</strong>, but here are similar tour packages from our catalog:
                 </span>
                 <button type="button" className="btn-ai-pill" onClick={onOpenAIPlanner}>
-                  <span>Plan {searchFilters.destination} with AI</span>
+                  <span>Plan {searchFilters?.destination || searchKeyword} with AI</span>
                   <ArrowRight size={13} />
                 </button>
               </div>

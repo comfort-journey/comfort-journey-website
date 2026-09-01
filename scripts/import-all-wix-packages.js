@@ -337,6 +337,50 @@ function extractRichItineraryFromWixJson(rawStr, defaultLocation) {
   }));
 }
 
+function determineCountry(location, name, isInternational) {
+  if (!isInternational) return 'India';
+  const combined = `${location} ${name}`.toLowerCase();
+  if (combined.includes('dubai') || combined.includes('uae') || combined.includes('abu dhabi') || combined.includes('emirates')) return 'United Arab Emirates';
+  if (combined.includes('bali') || combined.includes('indonesia')) return 'Indonesia';
+  if (combined.includes('phuket') || combined.includes('krabi') || combined.includes('bangkok') || combined.includes('thailand') || combined.includes('phi phi')) return 'Thailand';
+  if (combined.includes('tokyo') || combined.includes('kyoto') || combined.includes('kanazawa') || combined.includes('japan') || combined.includes('sakura')) return 'Japan';
+  if (combined.includes('vietnam') || combined.includes('hanoi') || combined.includes('da nang') || combined.includes('ha long')) return 'Vietnam';
+  if (combined.includes('colombo') || combined.includes('sri lanka') || combined.includes('kandy') || combined.includes('clouds')) return 'Sri Lanka';
+  if (combined.includes('singapore') || combined.includes('kuala lumpur') || combined.includes('malaysia') || combined.includes('asian extravaganza')) return 'Singapore & Malaysia';
+  if (combined.includes('europe') || combined.includes('rome') || combined.includes('milan') || combined.includes('zurich') || combined.includes('switzerland') || combined.includes('swiss') || combined.includes('italy')) return 'Switzerland & Italy';
+  return 'International';
+}
+
+function determineContinent(location, name, isInternational) {
+  if (!isInternational) return 'Asia';
+  const combined = `${location} ${name}`.toLowerCase();
+  if (combined.includes('europe') || combined.includes('rome') || combined.includes('milan') || combined.includes('zurich') || combined.includes('switzerland') || combined.includes('swiss') || combined.includes('paris') || combined.includes('italy') || combined.includes('london')) {
+    return 'Europe';
+  }
+  return 'Asia';
+}
+
+function determineState(location, name, rawState, isInternational) {
+  if (isInternational) {
+    return determineCountry(location, name, true);
+  }
+  const combined = `${location} ${name} ${rawState || ''}`.toLowerCase();
+  if (combined.includes('kashmir') || combined.includes('srinagar') || combined.includes('gulmarg') || combined.includes('pahalgam') || combined.includes('sonmarg') || combined.includes('jammu')) return 'Jammu & Kashmir';
+  if (combined.includes('himachal') || combined.includes('manali') || combined.includes('shimla') || combined.includes('dharamshala') || combined.includes('dalhousie') || combined.includes('spiti') || combined.includes('pines')) return 'Himachal Pradesh';
+  if (combined.includes('uttarakhand') || combined.includes('rishikesh') || combined.includes('haridwar') || combined.includes('mussoorie') || combined.includes('nainital') || combined.includes('kedarnath') || combined.includes('chardham') || combined.includes('ganga')) return 'Uttarakhand';
+  if (combined.includes('goa')) return 'Goa';
+  if (combined.includes('rajasthan') || combined.includes('jaipur') || combined.includes('udaipur') || combined.includes('jodhpur') || combined.includes('jaisalmer') || combined.includes('pushkar') || combined.includes('ajmer')) return 'Rajasthan';
+  if (combined.includes('madhya pradesh') || combined.includes('bhopal') || combined.includes('pachmarhi') || combined.includes('madhai') || combined.includes('gwalior') || combined.includes('orchha') || combined.includes('ujjain') || combined.includes('indore') || combined.includes('khajuraho')) return 'Madhya Pradesh';
+  if (combined.includes('karnataka') || combined.includes('coorg') || combined.includes('mysore') || combined.includes('bandipur') || combined.includes('bangalore') || combined.includes('hampi')) return 'Karnataka';
+  if (combined.includes('kerala') || combined.includes('munnar') || combined.includes('alleppey') || combined.includes('thekkady') || combined.includes('kochi')) return 'Kerala';
+  if (combined.includes('gujarat') || combined.includes('dwarka') || combined.includes('somnath') || combined.includes('gir') || combined.includes('statue of unity')) return 'Gujarat';
+  if (combined.includes('uttar pradesh') || combined.includes('varanasi') || combined.includes('ayodhya') || combined.includes('agra') || combined.includes('kashi')) return 'Uttar Pradesh';
+  if (combined.includes('andaman') || combined.includes('havelock') || combined.includes('port blair')) return 'Andaman & Nicobar';
+  if (combined.includes('ladakh') || combined.includes('leh') || combined.includes('nubra') || combined.includes('pangong')) return 'Ladakh';
+  if (combined.includes('maharashtra') || combined.includes('mumbai') || combined.includes('lonavala')) return 'Maharashtra';
+  return rawState || 'India';
+}
+
 // Convert single row into tour package
 function transformWixTourRow(wixRow, isInternational = false) {
   const rawTitle = wixRow.Title || wixRow.Name || wixRow.PackageTitle || '';
@@ -353,6 +397,10 @@ function transformWixTourRow(wixRow, isInternational = false) {
   
   const rawLocation = wixRow.Destination || wixRow.City || wixRow.Location || wixRow.State || (isInternational ? 'International' : 'India');
   const location = cleanWixField(rawLocation, isInternational ? 'International' : 'India');
+
+  const country = determineCountry(location, name, isInternational);
+  const continent = determineContinent(location, name, isInternational);
+  const state = determineState(location, name, cleanWixField(wixRow.State), isInternational);
 
   const rawDuration = wixRow.Days || wixRow.Duration || '5 Nights & 6 Days';
   const duration = cleanWixField(rawDuration, '5 Nights & 6 Days');
@@ -424,9 +472,9 @@ function transformWixTourRow(wixRow, isInternational = false) {
     slug,
     location,
     city: cleanWixField(wixRow.City || location),
-    state: cleanWixField(wixRow.State || (isInternational ? 'International' : 'India')),
-    continent: isInternational ? (location.toLowerCase().includes('switz') || location.toLowerCase().includes('europe') || location.toLowerCase().includes('rome') ? 'Europe' : 'Asia') : 'Asia',
-    country: location.includes(',') ? location.split(',')[1].trim() : (isInternational ? (location.toLowerCase().includes('bali') ? 'Indonesia' : (location.toLowerCase().includes('phuket') || location.toLowerCase().includes('thailand') ? 'Thailand' : (location.toLowerCase().includes('dubai') ? 'UAE' : (location.toLowerCase().includes('japan') || location.toLowerCase().includes('tokyo') ? 'Japan' : 'International')))) : 'India'),
+    state,
+    continent,
+    country,
     category: isInternational ? 'International Tours' : 'National Tours',
     categories,
     tags: categories,

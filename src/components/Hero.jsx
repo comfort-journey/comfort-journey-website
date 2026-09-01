@@ -27,11 +27,11 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
   const [countrySearchQuery, setCountrySearchQuery] = useState('');
   const [countryRegionFilter, setCountryRegionFilter] = useState('All');
 
-  // Helper to retrieve all packages for a country (e.g. all 80 National Packages for India)
+  // Helper to retrieve all packages for a country (e.g. all 80 National Packages for India, exact matches for UAE, Thailand, Bali, Japan, etc.)
   const getCountryTours = (countryId, countryName) => {
     if (!countryId) return [];
-    const cId = countryId.toLowerCase();
-    const cName = (countryName || '').toLowerCase();
+    const cId = countryId.toLowerCase().trim();
+    const cName = (countryName || '').toLowerCase().trim();
 
     if (cId === 'india' || cName.includes('india')) {
       return TOURS_DATA.filter(t => 
@@ -46,14 +46,37 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
     return TOURS_DATA.filter(t => {
       const loc = (t.location || '').toLowerCase();
       const country = (t.country || '').toLowerCase();
-      const cats = (t.categories || []).map(c => c.toLowerCase());
+      const state = (t.state || '').toLowerCase();
+      const city = (t.city || '').toLowerCase();
       const name = (t.name || '').toLowerCase();
+      const cats = (t.categories || []).map(c => c.toLowerCase());
       
-      return country.includes(cName) || 
-             loc.includes(cName) || 
-             loc.includes(cId) ||
-             cats.some(c => c.includes(cName) || c.includes(cId)) ||
-             name.includes(cName);
+      if (cId === 'uae' || cName.includes('emirates') || cName.includes('dubai')) {
+        return country.includes('emirates') || country.includes('uae') || loc.includes('dubai') || name.includes('dubai');
+      }
+      if (cId === 'indonesia' || cName.includes('indonesia') || cName.includes('bali')) {
+        return country.includes('indonesia') || loc.includes('bali') || name.includes('bali');
+      }
+      if (cId === 'thailand' || cName.includes('thailand') || cName.includes('phuket')) {
+        return country.includes('thailand') || loc.includes('phuket') || loc.includes('thailand') || name.includes('phuket') || name.includes('asian');
+      }
+      if (cId === 'japan' || cName.includes('japan') || cName.includes('tokyo')) {
+        return country.includes('japan') || loc.includes('tokyo') || name.includes('sakura') || name.includes('cherry');
+      }
+      if (cId === 'vietnam' || cName.includes('vietnam')) {
+        return country.includes('vietnam') || loc.includes('vietnam') || name.includes('vietnam');
+      }
+      if (cId === 'srilanka' || cName.includes('sri lanka') || cName.includes('colombo')) {
+        return country.includes('sri lanka') || loc.includes('colombo') || name.includes('colombo');
+      }
+      if (cId === 'singapore' || cName.includes('singapore') || cName.includes('malaysia')) {
+        return country.includes('singapore') || loc.includes('singapore') || name.includes('singapore') || name.includes('asian');
+      }
+      if (cId === 'switzerland' || cName.includes('switzerland') || cId === 'italy' || cName.includes('europe')) {
+        return country.includes('switzerland') || country.includes('italy') || loc.includes('rome') || loc.includes('zurich') || name.includes('europe');
+      }
+      
+      return country.includes(cName) || loc.includes(cName) || city.includes(cName) || name.includes(cName) || cats.some(c => c.includes(cName));
     });
   };
 
@@ -284,7 +307,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                 <div className="pills-scroll-row">
                   {activeContinent.countries.map((country) => {
                     const countryPkgs = getCountryTours(country.id, country.name);
-                    const count = countryPkgs.length > 0 ? countryPkgs.length : country.cities.length;
+                    const count = countryPkgs.length;
                     return (
                       <button
                         key={country.id}
@@ -299,7 +322,9 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                       >
                         <span className="country-code-badge">{country.code}</span>
                         <span>{country.name}</span>
-                        <span className="badge-count">{count}</span>
+                        <span className={`badge-count ${count === 0 ? 'badge-custom' : ''}`}>
+                          {count > 0 ? count : 'Custom'}
+                        </span>
                       </button>
                     );
                   })}
@@ -309,9 +334,118 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               {/* Level 3: Dynamic In-Place Real Tour Packages Grid */}
               {(() => {
                 const countryPkgs = getCountryTours(activeCountry.id, activeCountry.name);
-                const baseList = countryPkgs.length > 0 
-                  ? countryPkgs 
-                  : activeCountry.cities.map(c => getTourObject(c.tourId));
+
+                // If no exact pre-packaged tour exists for this country
+                if (countryPkgs.length === 0) {
+                  const similarInternationalTours = TOURS_DATA.filter(t => t.category === 'International Tours' || t.country !== 'India').slice(0, 4);
+
+                  return (
+                    <div className="no-exact-country-container animate-fade-in">
+                      <div className="no-exact-country-card glass-panel">
+                        <div className="no-exact-badge-row">
+                          <span className="badge badge-amber"><Sparkles size={13} /> 100% Bespoke VIP Travel</span>
+                          <span className="badge badge-cyan">Private Chauffeurs & 5★ Stays</span>
+                        </div>
+                        <h3 className="no-exact-country-title font-editorial">
+                          No Pre-Packaged Group Tours for <span className="gradient-text-gold">{activeCountry.name}</span>
+                        </h3>
+                        <p className="no-exact-country-desc">
+                          Comfort Journey handcrafts 100% tailor-made private VIP itineraries to <strong>{activeCountry.name}</strong> since 1992. Our senior luxury curators arrange private chauffeur transfers, verified luxury boutique stays, and 24/7 dedicated concierge assistance.
+                        </p>
+                        <div className="no-exact-action-buttons">
+                          <a 
+                            href={`https://wa.me/918770403315?text=${encodeURIComponent(`Hi Comfort Journey! I would like to plan a custom tailor-made luxury vacation to ${activeCountry.name}. Please connect me with a Senior Trip Designer.`)}`}
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="btn-whatsapp-custom"
+                          >
+                            <MessageCircle size={16} />
+                            <span>Request Custom {activeCountry.name} Itinerary</span>
+                          </a>
+                          <button 
+                            type="button" 
+                            className="btn-ai-pill-large"
+                            onClick={onOpenAIPlanner}
+                          >
+                            <Sparkles size={15} />
+                            <span>Design with AI Concierge</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Similar Handpicked Signature Packages Strip */}
+                      <div className="similar-country-packages-block">
+                        <div className="similar-packages-header">
+                          <span className="badge badge-ai">Explore Similar Signature Destinations:</span>
+                          <span className="similar-subline">Popular international packages curated in our live portfolio:</span>
+                        </div>
+                        <div className="stage-cities-grid mt-3">
+                          {similarInternationalTours.map((tour) => {
+                            const origPrice = tour.originalPrice || Math.round(tour.price * 1.25);
+                            const discountPct = Math.round(((origPrice - tour.price) / origPrice) * 100) || 20;
+
+                            return (
+                              <div key={tour.id} className="city-in-place-card glass-card">
+                                <div className="c-card-top-header">
+                                  <div className="c-city-name-lockup">
+                                    <MapPin size={15} className="text-amber flex-shrink-0 mt-1" />
+                                    <div>
+                                      <h4 className="city-headline">{tour.name}</h4>
+                                      <span className="city-state-sub">{tour.location || tour.country}</span>
+                                    </div>
+                                  </div>
+                                  <span className="weather-pill-tag">{tour.duration}</span>
+                                </div>
+
+                                <div className="compact-inclusions-icon-bar">
+                                  <div className="inc-icon-item" title="4★/5★ Luxury Stay"><div className="inc-svg-badge"><Hotel size={13} className="text-amber" /></div><span className="inc-text">Stay</span></div>
+                                  <div className="inc-icon-item" title="Private Cab & Transfers"><div className="inc-svg-badge"><Car size={13} className="text-cyan" /></div><span className="inc-text">Transfers</span></div>
+                                  <div className="inc-icon-item" title="Daily Breakfast & Dining"><div className="inc-svg-badge"><Utensils size={13} className="text-emerald" /></div><span className="inc-text">Meals</span></div>
+                                  <div className="inc-icon-item" title="VIP Passes & Sightseeing"><div className="inc-svg-badge"><Ticket size={13} className="text-amber" /></div><span className="inc-text">Sightseeing</span></div>
+                                  <div className="inc-icon-item" title="24/7 VIP Concierge"><div className="inc-svg-badge"><ShieldCheck size={13} className="text-emerald" /></div><span className="inc-text">24/7 VIP</span></div>
+                                </div>
+
+                                <div className="c-card-footer-action">
+                                  <div className="compact-price-box">
+                                    <div className="price-strike-row">
+                                      <span className="orig-price-strike">{formatPrice(origPrice)}</span>
+                                      <span className="price-save-badge">{discountPct}% OFF</span>
+                                    </div>
+                                    <div className="price-main-row">
+                                      <strong className="current-offer-price font-editorial">{formatPrice(tour.price)}</strong>
+                                      <span className="price-per-person">/ person</span>
+                                    </div>
+                                  </div>
+
+                                  <div className="action-buttons-inline">
+                                    <button
+                                      type="button"
+                                      className="btn-itinerary-inline"
+                                      onClick={() => onSelectItinerary(tour)}
+                                    >
+                                      <span>Itinerary</span>
+                                    </button>
+
+                                    <button
+                                      type="button"
+                                      className="btn-book-inline"
+                                      onClick={() => onBookNow(tour)}
+                                    >
+                                      <span>Book</span>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
+                // If exact packages exist for this country
+                const baseList = countryPkgs;
 
                 // Regional sub-filters for India
                 const indiaRegions = [
@@ -458,7 +592,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                       })}
                     </div>
 
-                    {/* View All 80 Packages button */}
+                    {/* View All Packages button */}
                     {filteredTours.length > 8 && (
                       <div className="country-expand-cta-row text-center mt-3">
                         <button
@@ -1523,6 +1657,120 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
         .country-search-input::placeholder {
           color: #64748B;
+        }
+
+        .badge-custom {
+          background: rgba(111, 230, 252, 0.15) !important;
+          color: #6FE6FC !important;
+          border-color: rgba(111, 230, 252, 0.3) !important;
+        }
+
+        .no-exact-country-container {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+          margin-top: 0.5rem;
+        }
+
+        .no-exact-country-card {
+          padding: 2rem;
+          text-align: center;
+          border-radius: 20px;
+          border: 1px solid rgba(255, 137, 47, 0.25);
+          background: rgba(0, 29, 81, 0.5);
+          max-width: 820px;
+          margin: 0 auto;
+        }
+
+        .no-exact-badge-row {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.75rem;
+          margin-bottom: 1rem;
+          flex-wrap: wrap;
+        }
+
+        .no-exact-country-title {
+          font-size: 1.6rem;
+          color: #FFFFFF;
+          margin-bottom: 0.75rem;
+        }
+
+        .no-exact-country-desc {
+          font-size: 0.92rem;
+          color: #CBD5E1;
+          line-height: 1.6;
+          max-width: 680px;
+          margin: 0 auto 1.5rem auto;
+        }
+
+        .no-exact-action-buttons {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1rem;
+          flex-wrap: wrap;
+        }
+
+        .btn-whatsapp-custom {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: #25D366;
+          color: #001233;
+          font-weight: 800;
+          font-size: 0.88rem;
+          padding: 0.75rem 1.35rem;
+          border-radius: 9999px;
+          text-decoration: none;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp-custom:hover {
+          background: #1EBE5D;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+        }
+
+        .btn-ai-pill-large {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: rgba(255, 137, 47, 0.15);
+          border: 1px solid rgba(255, 137, 47, 0.4);
+          color: #FF892F;
+          font-weight: 800;
+          font-size: 0.88rem;
+          padding: 0.75rem 1.35rem;
+          border-radius: 9999px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .btn-ai-pill-large:hover {
+          background: rgba(255, 137, 47, 0.3);
+          color: #FFFFFF;
+          border-color: #FF892F;
+          transform: translateY(-2px);
+        }
+
+        .similar-country-packages-block {
+          margin-top: 1rem;
+        }
+
+        .similar-packages-header {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          flex-wrap: wrap;
+          margin-bottom: 0.75rem;
+        }
+
+        .similar-subline {
+          font-size: 0.84rem;
+          color: #94A3B8;
         }
 
         .country-expand-cta-row {
