@@ -1,28 +1,29 @@
 import React, { useState } from 'react';
 import { Sliders, Calendar, Hotel, Car, Check, Sparkles, MessageCircle, ShieldCheck, ArrowRight, DollarSign } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
+import { TOURS_DATA } from '../data/toursData';
 
 export default function TripCustomizerSection() {
   const { formatPrice } = useCurrency();
 
-  const [destination, setDestination] = useState('Kashmir Paradise');
+  const destinationsList = (TOURS_DATA && TOURS_DATA.length > 0)
+    ? TOURS_DATA.slice(0, 15).map(t => ({
+        name: t.name,
+        basePricePerDay: Math.max(2500, Math.round(t.price / (t.durationDays || 5))),
+        country: t.location || t.country
+      }))
+    : [
+        { name: 'Peace In The Pines', basePricePerDay: 4500, country: 'Dharamshala, Dalhousie' },
+        { name: 'Phuket Paradise Getaway', basePricePerDay: 8500, country: 'Phuket, Thailand' },
+        { name: 'Bali Tropical Escape', basePricePerDay: 7500, country: 'Bali, Indonesia' }
+      ];
+
+  const [destination, setDestination] = useState(destinationsList[0]?.name || 'Peace In The Pines');
   const [durationDays, setDurationDays] = useState(6);
   const [hotelTier, setHotelTier] = useState('4-star'); // '3-star', '4-star', '5-star'
   const [vehicleType, setVehicleType] = useState('suv'); // 'sedan', 'suv', 'tempo'
   const [travelersCount, setTravelersCount] = useState(2);
   const [selectedAddons, setSelectedAddons] = useState(['candlelight', 'vip-pass']);
-
-  const destinationsList = [
-    { name: 'Kashmir Paradise', basePricePerDay: 3200, country: 'India' },
-    { name: 'Exotic Bali & Nusa Penida', basePricePerDay: 5100, country: 'Indonesia' },
-    { name: 'Swiss Alps & Titlis', basePricePerDay: 19500, country: 'Switzerland' },
-    { name: 'Dubai & Red Dunes', basePricePerDay: 7200, country: 'UAE' },
-    { name: 'Iceland Aurora & Glaciers', basePricePerDay: 26000, country: 'Iceland' },
-    { name: 'Kenya Maasai Mara Safari', basePricePerDay: 24000, country: 'Kenya' },
-    { name: 'Andaman Coral Islands', basePricePerDay: 3800, country: 'India' },
-    { name: 'Amalfi Coast & Rome', basePricePerDay: 23500, country: 'Italy' },
-    { name: 'Sacred Char Dham Yatra', basePricePerDay: 3500, country: 'India' }
-  ];
 
   const hotelTiers = [
     { id: '3-star', label: '3-Star Comfort', mult: 1.0, desc: 'Clean, verified boutique hotels & cozy stays' },

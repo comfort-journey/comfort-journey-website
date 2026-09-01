@@ -30,13 +30,13 @@ export const BLOGS_DATA = [
     readTime: "6 min read",
     featured: true,
     tags: ["Kashmir", "Luxury Stays", "Dal Lake", "Gulmarg", "Houseboats"],
-    suggestedTourIds: ["kashmir-paradise", "himachal-wonderland", "leh-ladakh-odyssey"],
+    suggestedTourIds: ["tour-wix-peace-in-the-pines", "tour-wix-ganga-to-the-hills", "tour-wix-uttarakhand-explorer"],
     seo: {
       metaTitle: "Top 7 Luxury Stays in Kashmir 2026 | 5-Star Houseboats & Chalets | Comfort Journey",
       metaDescription: "Explore Kashmir's most exclusive luxury boutique houseboats, alpine heated chalets, and private shikara experiences. Curated by Comfort Journey since 1992.",
       focusKeyword: "luxury stays in kashmir"
     },
-    relatedTourId: "kashmir-paradise",
+    relatedTourId: "tour-wix-peace-in-the-pines",
     content: `Kashmir has long been celebrated as paradise on earth. But for discerning luxury travelers, the experience elevates to royal grandeur when combined with private shikara cruises, 5-star heritage houseboats on Dal Lake, and heated alpine chalets overlooking snow-draped Gulmarg peaks.
 
 In this guide, Comfort Journey's senior trip curators review the top luxury stays in Kashmir for 2026, complete with private butler services and authentic Wazwan gourmet dining.
@@ -92,13 +92,13 @@ Ready to experience Kashmir in royal comfort? Click below to explore our signatu
     readTime: "7 min read",
     featured: true,
     tags: ["Bali", "Honeymoon", "Private Pool Villa", "Ubud", "Seminyak"],
-    suggestedTourIds: ["bali-bliss", "maldives-lagoon-paradise", "andaman-exotic-islands"],
+    suggestedTourIds: ["tour-wix-bali-tropical-escape", "tour-wix-phuket-paradise-getaway", "tour-wix-goa-weekend-vibe"],
     seo: {
       metaTitle: "Bali Honeymoon Guide 2026 | Private Pool Villas & Itinerary | Comfort Journey",
       metaDescription: "Planning your Bali honeymoon? Discover our top-rated split-stay luxury itineraries with floating breakfasts, sunset beach clubs, and 24/7 concierge support.",
       focusKeyword: "bali honeymoon guide"
     },
-    relatedTourId: "bali-bliss",
+    relatedTourId: "tour-wix-bali-tropical-escape",
     content: `Bali is consistently ranked the world's most romantic island for good reason. From lush mist-shrouded jungle valleys in Ubud to turquoise cliffside beaches in Uluwatu, the island offers an intoxicating mix of spiritual calm, barefoot luxury, and vibrant nightlife.
 
 If you are planning your honeymoon or romantic anniversary in 2026, here is our battle-tested guide to getting it 100% right.
@@ -146,7 +146,7 @@ Instead, we recommend the **Comfort Journey 3+3 Formula**:
       metaDescription: "Thinking about your first solo trip? Learn our safety protocols, zero single-supplement boutique stays, and top destinations for solo travelers in India.",
       focusKeyword: "solo travel in india safe"
     },
-    relatedTourId: "rishikesh-wellness",
+    relatedTourId: "tour-wix-ganga-to-the-hills",
     content: `Taking your first solo trip is the single greatest gift you can give yourself. It is about waking up and deciding your day with zero compromises—eating gelato for breakfast, spending 3 hours reading in a cliffside cafe, or conquering a mountain peak at sunrise.
 
 Yet for many, anxiety around safety, table-for-one awkwardness, and unfair "single supplement" pricing holds them back.
@@ -188,7 +188,7 @@ Here is how Comfort Journey has redefined solo travel since 1992.
       metaDescription: "Plan memorable corporate retreats with conference facilities, luxury team bonding, and itemized GST invoicing with 24h quotation turnaround.",
       focusKeyword: "corporate offsite planning"
     },
-    relatedTourId: "goa-beach-escape",
+    relatedTourId: "tour-wix-goa-weekend-vibe",
     content: `Planning a corporate offsite for 30 to 200 employees is one of the highest-pressure tasks an HR leader or CEO can undertake. Flight cancellations, dietary conflicts, room allocation errors, and delayed expense approvals can quickly turn an inspiring retreat into a logistics nightmare.
 
 When done right, a well-curated offsite delivers huge ROI in team bonding, cross-functional collaboration, and employee retention.
@@ -221,7 +221,7 @@ When done right, a well-curated offsite delivers huge ROI in team bonding, cross
       metaDescription: "Make the most of a weekend in Dubai. Private yacht cruises, 124th floor Burj Khalifa fast-track, and VIP desert safaris.",
       focusKeyword: "dubai luxury weekend itinerary"
     },
-    relatedTourId: "dubai-extravaganza",
+    relatedTourId: "tour-wix-dubai-city-sands",
     content: `Just 3.5 hours from most major Indian airports, Dubai is the ultimate playground for an ultra-luxury 48-hour weekend reset.
 
 Here is how our VIP travelers maximize every minute:

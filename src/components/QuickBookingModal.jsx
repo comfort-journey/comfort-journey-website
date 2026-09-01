@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { X, Send, MessageCircle, PhoneCall, CheckCircle2, ArrowRight, ArrowLeft, Calendar, Users, Hotel, Car, MapPin, Sparkles } from 'lucide-react';
+import { TOURS_DATA } from '../data/toursData';
 
 export default function QuickBookingModal({ selectedTour, onClose }) {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
-    destination: selectedTour ? (selectedTour.name || selectedTour.title) : 'Kashmir Paradise',
+    destination: selectedTour ? (selectedTour.name || selectedTour.title) : (TOURS_DATA[0]?.name || 'Peace In The Pines'),
     travelMonth: 'Next 30 Days (Immediate)',
     exactDate: '',
     duration: '5–7 Days',
@@ -55,6 +56,10 @@ Please share a detailed day-wise itinerary & quote!`;
     }, 600);
   };
 
+  const quickDestinations = (TOURS_DATA && TOURS_DATA.length > 0)
+    ? TOURS_DATA.slice(0, 8).map(t => t.name)
+    : ['Peace In The Pines', 'Karnataka Heritage & Hills', 'Goa Weekend Vibe', 'Phuket Paradise Getaway', 'Bali Tropical Escape', 'Dubai City & Sands'];
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content booking-modal-5step luxury-scale-in" onClick={(e) => e.stopPropagation()}>
@@ -102,7 +107,7 @@ Please share a detailed day-wise itinerary & quote!`;
                   </div>
 
                   <div className="quick-dest-buttons">
-                    {['Kashmir Paradise', 'Exotic Bali & Nusa Penida', 'Swiss Alps & Titlis', 'Dubai & Red Dunes', 'Andaman Coral Islands', 'Rajasthan Royal Palaces', 'Maldives Overwater Bliss', 'Sacred Char Dham'].map((d) => (
+                    {quickDestinations.map((d) => (
                       <button
                         key={d}
                         type="button"

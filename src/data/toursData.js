@@ -7789,11 +7789,11 @@ export const FAQS = [
 ];
 
 export const LIVE_BOOKINGS_FEED = [
-  { name: "Priya & Rahul", from: "Mumbai", tour: "Kashmir Honeymoon Package", time: "3 mins ago" },
-  { name: "Amit Sharma", from: "Bhopal", tour: "Bali 7-Day Private Pool Villa", time: "8 mins ago" },
-  { name: "Dr. Sanjeev Kapoor", from: "Indore", tour: "Swiss Alps & Titlis Glacier Pass", time: "14 mins ago" },
-  { name: "Ananya & Group", from: "Delhi", tour: "Andaman Coral Island Escape", time: "22 mins ago" },
-  { name: "Sunil Gupta & Family", from: "Jabalpur", tour: "Sacred Kedarnath & Badrinath", time: "31 mins ago" }
+  { name: "Priya & Rahul", from: "Mumbai", tour: "Peace In The Pines: Dharamshala & Dalhousie", time: "3 mins ago" },
+  { name: "Amit Sharma", from: "Bhopal", tour: "Bali Tropical Escape", time: "8 mins ago" },
+  { name: "Dr. Sanjeev Kapoor", from: "Indore", tour: "Essence of Europe: Rome, Milan & Zurich", time: "14 mins ago" },
+  { name: "Ananya & Group", from: "Delhi", tour: "Goa Weekend Vibe", time: "22 mins ago" },
+  { name: "Sunil Gupta & Family", from: "Jabalpur", tour: "Karnataka Heritage & Hills", time: "31 mins ago" }
 ];
 
 // =======================================================
@@ -7827,10 +7827,10 @@ export const TRAVEL_STYLE_DNA_QUESTIONS = [
     title: "Which scenery calls to your soul right now?",
     subtitle: "Select the climate and landscape you long to wake up to.",
     options: [
-      { id: "snow", label: "Snow Peaks & Alpine Meadows", desc: "Crisp pine air, snowy valleys, cozy mountain chalets & gondolas.", icon: "🏔️", match: ["kashmir-paradise", "swiss-alps", "himachal-wonderland"] },
-      { id: "tropical", label: "Tropical Coastlines & Coral Islands", desc: "Warm turquoise waters, private plunge pools, palm-fringed sands.", icon: "🌴", match: ["bali-paradise", "maldives-luxury", "andaman-escape"] },
-      { id: "desert_city", label: "Golden Dunes & Ultra-Luxury Skylines", desc: "Sunset desert safaris, iconic architecture, rooftop dining & VIP malls.", icon: "🌆", match: ["dubai-luxury", "singapore-malaysia"] },
-      { id: "royalty", label: "Historic Forts & Royal Lake Palaces", desc: "Centuries-old heritage suites, peacock courtyards, majestic ramparts.", icon: "🏰", match: ["rajasthan-royals", "kerala-backwaters"] }
+      { id: "snow", label: "Snow Peaks & Alpine Meadows", desc: "Crisp pine air, snowy valleys, cozy mountain chalets & gondolas.", icon: "🏔️", match: ["tour-wix-peace-in-the-pines", "tour-wix-essence-of-europe"] },
+      { id: "tropical", label: "Tropical Coastlines & Coral Islands", desc: "Warm turquoise waters, private plunge pools, palm-fringed sands.", icon: "🌴", match: ["tour-wix-bali-tropical-escape", "tour-wix-phuket-paradise-getaway"] },
+      { id: "desert_city", label: "Golden Dunes & Ultra-Luxury Skylines", desc: "Sunset desert safaris, iconic architecture, rooftop dining & VIP malls.", icon: "🌆", match: ["tour-wix-dubai-city-sands", "tour-wix-singapore-city-gardens"] },
+      { id: "royalty", label: "Historic Forts & Royal Lake Palaces", desc: "Centuries-old heritage suites, peacock courtyards, majestic ramparts.", icon: "🏰", match: ["tour-wix-rajasthan-royal-affair", "tour-wix-karnataka-heritage-hills"] }
     ]
   },
   {

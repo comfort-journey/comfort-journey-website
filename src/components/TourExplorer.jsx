@@ -395,7 +395,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
                     <div className="card-body">
                       <div className="compact-location-tag">
                         <MapPin size={12} className="text-amber" />
-                        <span>{tour.country} • {tour.region}</span>
+                        <span>{tour.location || (tour.region ? `${tour.country} • ${tour.region}` : tour.country)}</span>
                       </div>
 
                       <h3 className="compact-tour-title">{tour.name}</h3>
