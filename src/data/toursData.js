@@ -70,975 +70,4425 @@ export const HERO_SLIDES = [
   }
 ];
 
+
 export const TOURS_DATA = [
-  // ==========================================
-  // 1. INDIA NATIONAL LUXURY & SPIRITUAL
-  // ==========================================
   {
-    id: "kashmir-paradise",
-    name: "Kashmir Paradise: Srinagar, Gulmarg & Pahalgam",
-    tagline: "Houseboat stays on Dal Lake, Gondola cable car & saffron valleys",
-    region: "India",
-    country: "India",
-    category: "Honeymoon & Couple",
-    vibeTags: ["Snow & Alpine", "Royal Luxury"],
-    type: ["Honeymoon", "Mountains", "Heritage"],
-    durationDays: 6,
-    duration: "5 Nights / 6 Days",
-    price: 18999,
-    originalPrice: 24999,
-    currency: "INR",
-    rating: 4.96,
-    reviews: 184,
-    groupSize: "Private Couple / Family",
-    difficulty: "Easy",
-    badge: "Bestseller",
-    featured: true,
-    image: "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "Sunset Shikara ride on serene Dal Lake",
-      "Gulmarg Gondola Phase 1 & 2 tickets to snow peaks",
-      "Pahalgam Betaab Valley & Aru Valley excursion",
-      "Horse trek to Baisaran Meadow (Mini Switzerland)",
-      "Traditional Kashmiri Wazwan gourmet dinner"
+    "id": "tour-wix-peace-in-the-pines",
+    "wixId": "033fe900-f95f-4744-80db-5a2984c1357b",
+    "name": "Peace In The Pines",
+    "slug": "peace-in-the-pines",
+    "location": "Dharamshala, Dalhousie",
+    "continent": "Asia",
+    "country": "Dalhousie",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Mountain & Snow",
+      "Hills & Mountains",
+      "Winter Wonderland",
+      "Winter",
+      "Summer",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
     ],
-    inclusionChips: ["Private AC Cab", "5-Star Houseboat", "Breakfast & Dinner", "VIP Passes", "24/7 Concierge"],
-    itinerary: [
-      { day: 1, title: "Srinagar Arrival & Dal Lake Houseboat", morning: "VIP airport pickup by private chauffeur", afternoon: "Check-in to carved luxury wooden houseboat with welcome Kahwa", evening: "Sunset golden hour Shikara cruise on Dal Lake", stayTier: "5-Star Deluxe Houseboat", transport: "Private AC Sedan", meals: "Dinner" },
-      { day: 2, title: "Gulmarg Gondola Ride & Snow Adventure", morning: "Scenic alpine drive through pine forests to Gulmarg", afternoon: "Ascend to 13,800ft on world-famous Gondola Phase 2", evening: "Snow sports and hot Kashmiri tea overlooking Apharwat", stayTier: "4-Star Mountain Resort", transport: "Private AC Cab", meals: "Breakfast & Dinner" },
-      { day: 3, title: "Mughal Terraced Gardens & Old Town", morning: "Visit Nishat Bagh & Shalimar Bagh terraced fountains", afternoon: "Heritage walk through historic Jamia Masjid & Hazratbal", evening: "Artisanal Kashmiri pashmina & walnut craft shopping", stayTier: "5-Star Srinagar Palace", transport: "Private AC Cab", meals: "Breakfast & Dinner" },
-      { day: 4, title: "Pahalgam Valley & Betaab Excursion", morning: "Drive past Pampore saffron fields to scenic Pahalgam", afternoon: "Explore Betaab Valley and Chandanwari river rapids", evening: "Riverside stroll along Lidder River with bonfire", stayTier: "4-Star Pine Forest Resort", transport: "Private AC Cab", meals: "Breakfast & Dinner" },
-      { day: 5, title: "Baisaran (Mini Switzerland) Meadow Trek", morning: "Scenic pony trek to alpine meadows of Baisaran", afternoon: "Picnic lunch in rolling green meadows surrounded by pine peaks", evening: "Return to Srinagar for farewell dinner party", stayTier: "5-Star Srinagar Palace", transport: "Private AC Cab", meals: "Breakfast & Dinner" },
-      { day: 6, title: "Departure with Lifetime Memories", morning: "Buffet breakfast overlooking mountain peaks", afternoon: "Chauffeur transfer to Srinagar Airport with souvenir gift", evening: "Flight departure", stayTier: "Departure", transport: "Private AC Cab", meals: "Breakfast" }
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Mountain & Snow",
+      "Hills & Mountains",
+      "Winter Wonderland",
+      "Winter",
+      "Summer",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
     ],
-    inclusions: ["5 Nights accommodation in pre-verified 4/5-star properties", "Daily buffet breakfast and multi-course dinners", "Dedicated private AC vehicle with professional driver", "Shikara boat ride on Dal Lake", "24/7 personal tour concierge"],
-    exclusions: ["Airfare / Train tickets (available on request)", "Personal laundry, telephone calls, tips", "Gondola Phase 2 tickets if opted extra on spot"],
-    bestSeason: "All Year (Snow: Dec-Mar, Lush: Apr-Oct)"
+    "duration": "4 Nights & 5 Days",
+    "price": 940115,
+    "origPrice": 188023,
+    "tagline": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
+    "image": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_18260b7e106d4955a021492dfabe9e9a~mv2.jpg/Image%20by%20Mountain%20Mysteries.jpg#originWidth=5464&originHeight=3640",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Driver Allowance",
+      "Night Allowance",
+      "Transportation"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival in Chandigarh & Scenic Transfer to Dharamshala",
+        "desc": "Arrive in Chandigarh. Transfer to Dharamshala (7–8 hours). Visit Dharamshala Cricket Stadium, McLeod Ganj (Tibetan market), and enjoy local views. Overnight in Dharamshala."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: Dharamshala Sightseeing",
+        "desc": "Visit Bhagsunath Temple, Bhagsu Waterfall, Namgyal Monastery, Dal Lake, and Norbulingka Institute. Overnight in Dharamshala."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: Dharamshala to Dalhousie (4 hours)",
+        "desc": "Drive to Dalhousie. Explore St. John’s Church, Gandhi Chowk, and Subhash Baoli. Evening stroll. Overnight in Dalhousie."
+      },
+      {
+        "day": 4,
+        "title": "Day 4: Dalhousie – Khajjiar Excursion",
+        "desc": "Drive to Khajjiar (Mini Switzerland of India, 1 hour). Visit Khajjiar Lake, enjoy zorbing, and explore Kalatop Wildlife Sanctuary. Return to Dalhousie. Overnight in Dalhousie."
+      },
+      {
+        "day": 5,
+        "title": "Day 5: Dalhousie to Chandigarh (8–9 hours)",
+        "desc": "Check out and drive back to Chandigarh (8–9 hours). Tour concludes."
+      }
+    ]
   },
   {
-    id: "char-dham-yatra",
-    name: "Sacred Char Dham Yatra: Kedarnath, Badrinath & Yamunotri",
-    tagline: "Divine Himalayan pilgrimage with VIP Darshan and optional Kedarnath Helicopter Shuttle",
-    region: "India",
-    country: "India",
-    category: "Sacred Pilgrimage",
-    vibeTags: ["Sacred Char Dham", "Snow & Alpine"],
-    type: ["Pilgrimage", "Spiritual", "Himalayas"],
-    durationDays: 10,
-    duration: "9 Nights / 10 Days",
-    price: 32500,
-    originalPrice: 42000,
-    currency: "INR",
-    rating: 4.97,
-    reviews: 210,
-    groupSize: "Family / Pilgrim Group",
-    difficulty: "Moderate",
-    badge: "Divine Blessing",
-    featured: true,
-    image: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "VIP Priority Darshan pass for Kedarnath Temple & Evening Aarti",
-      "Badrinath Temple visit with Mana Village (last Indian village)",
-      "Helicopter shuttle booking coordination for Kedarnath trek",
-      "Holy dips at Devprayag & Rudraprayag sacred confluences",
-      "Pre-booked heated deluxe hotel rooms throughout high-altitude route"
+    "id": "tour-wix-karnataka-heritage-hills",
+    "wixId": "08fe887f-203f-42e5-8e4d-741d6235f30f",
+    "name": "Karnataka Heritage & Hills",
+    "slug": "karnataka-heritage-hills",
+    "location": "India",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Karnataka",
+      "Luxury Signature"
     ],
-    inclusionChips: ["VIP Darshan Passes", "Heated Deluxe Hotels", "Breakfast & Dinner", "24/7 Medical Care", "Dedicated Driver"],
-    itinerary: [
-      { day: 1, title: "Haridwar / Rishikesh to Barkot", morning: "Pickup from Haridwar and drive along Yamuna valley", afternoon: "Arrive in Barkot with view of Bandarpoonch peak", evening: "Evening leisure & briefing for Yamunotri trek", stayTier: "Deluxe Himalayan Camp / Hotel", transport: "Private AC Coach / Innova", meals: "Dinner" },
-      { day: 2, title: "Yamunotri Dham Darshan & Holy Thermal Spring", morning: "Drive to Janki Chatti and 6km trek to Yamunotri Temple", afternoon: "Holy bath in Surya Kund and Divya Shila worship", evening: "Return to Barkot for dinner", stayTier: "Deluxe Himalayan Camp", transport: "Innova Crysta", meals: "Breakfast & Dinner" },
-      { day: 3, title: "Barkot to Uttarkashi (Kashi Vishwanath)", morning: "Scenic drive along Bhagirathi river to Uttarkashi", afternoon: "Visit ancient Kashi Vishwanath & Shakti Temple", evening: "Riverbank meditation by the Ganges", stayTier: "3-Star Deluxe Hotel", transport: "Innova Crysta", meals: "Breakfast & Dinner" },
-      { day: 4, title: "Gangotri Dham Darshan & Bhagirathi Source", morning: "Drive through Harsil Apple Valley to Gangotri Temple", afternoon: "Holy Snan in Bhagirathi river and Special Temple Puja", evening: "Drive back to Uttarkashi", stayTier: "3-Star Deluxe Hotel", transport: "Innova Crysta", meals: "Breakfast & Dinner" },
-      { day: 5, title: "Uttarkashi to Guptkashi / Phata", morning: "Long scenic drive via Mandakini river to Kedarnath base", afternoon: "Check-in to hotel in Guptkashi", evening: "Visit historic Kashi Vishwanath temple Guptkashi", stayTier: "Deluxe Resort Guptkashi", transport: "Innova Crysta", meals: "Breakfast & Dinner" },
-      { day: 6, title: "Kedarnath Dham Darshan (Heli / Trek)", morning: "Helicopter shuttle / Trek to Kedarnath Temple (3,584m)", afternoon: "VIP Darshan of Lord Shiva Jyotirlinga", evening: "Witness divine evening musical aarti and overnight stay", stayTier: "Kedarnath Temple Lodge / Deluxe Camp", transport: "Helicopter / Trek", meals: "Breakfast & Dinner" },
-      { day: 7, title: "Kedarnath to Guptkashi / Chopta", morning: "Morning temple darshan at sunrise with snow backdrop", afternoon: "Descend to Phata / Guptkashi base", evening: "Relaxation and ayurvedic herbal tea", stayTier: "Deluxe Resort Guptkashi", transport: "Helicopter / Chauffeur", meals: "Breakfast & Dinner" },
-      { day: 8, title: "Guptkashi to Badrinath via Joshimath", morning: "Drive through high mountain passes to holy Badrinath", afternoon: "Holy dip in Tapt Kund thermal springs", evening: "Evening Swarna Aarti at Badrinath Temple", stayTier: "Deluxe Hotel Badrinath", transport: "Innova Crysta", meals: "Breakfast & Dinner" },
-      { day: 9, title: "Mana Village Excursion & Rudraprayag", morning: "Explore Mana Village, Vyas Gufa, Bheem Pul & Saraswati River", afternoon: "Scenic drive to Rudraprayag confluence", evening: "Relax along Alaknanda river", stayTier: "Riverside Resort Rudraprayag", transport: "Innova Crysta", meals: "Breakfast & Dinner" },
-      { day: 10, title: "Rishikesh Ram Jhula & Haridwar Drop", morning: "Drive to Rishikesh, visit iconic Ram Jhula & Laxman Jhula", afternoon: "Farewell Ganga aarti and drop at Haridwar station", evening: "Departure", stayTier: "Departure", transport: "Innova Crysta", meals: "Breakfast" }
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Karnataka",
+      "Luxury Signature"
     ],
-    inclusions: ["9 Nights pre-audited hotel and deluxe camp stays", "Pure vegetarian breakfast and multi-course dinners", "Dedicated private vehicle with experienced mountain driver", "All tolls, parking, driver allowances, and passenger permits", "VIP temple darshan coordination"],
-    exclusions: ["Helicopter shuttle ticket (booked at cost upon request)", "Pony / Palki charges if opted on trek", "Personal pooja donations"],
-    bestSeason: "May - June (Pre-Monsoon) & Sep - Oct (Autumn Clear Skies)"
+    "duration": "5 Nights & 6 Days",
+    "price": 141360,
+    "origPrice": 157067,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/7f7d02_5917155a1dd44faa840ae5a3e31b9e90~mv2.jpg/a%20view%20of%20a%20city%20from%20a%20distance%20through%20the%20trees%20(1).jpg#originWidth=6000&originHeight=4000",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast    ",
+      "Sightseeing",
+      "Driver allowance ",
+      "Night allowance ",
+      "Transportation "
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "DAY 1: ARRIVAL IN BANGALORE",
+        "desc": "Upon arrival, meet our representative and proceed with your journey to explore Bangalore's sightseeing places such as Bangalore Palace, Vidhana Soudha, Lalbagh Botanical Garden, ISKCON Temple, and Tipu Sultan's Summer Palace. Overnight stay at a hotel in Bangalore."
+      },
+      {
+        "day": 2,
+        "title": "DAY 2: BANGALORE TO MYSORE  (150 KMS / 3 HRS)",
+        "desc": "After breakfast, check out from the hotel and drive to Mysore. Upon arrival, begin local sightseeing by visiting Mysore Palace, Chamundeshwari Temple, St. Philomena's Church, and Brindavan Gardens. Check in at the hotel and enjoy an overnight stay in Mysore."
+      },
+      {
+        "day": 3,
+        "title": "DAY 3: MYSORE TO COORG  (140 KMS / 3 HRS)",
+        "desc": "After breakfast, check out from the hotel and drive to Coorg. Upon arrival in Coorg, explore the stunning Abbey Falls, surrounded by lush greenery. Then, take a tour of a coffee plantation to learn about the region's famous coffee production while enjoying a fresh cup of locally brewed coffee."
+      },
+      {
+        "day": 4,
+        "title": "DAY 4: COORG SIGHTSEEING",
+        "desc": "After breakfast, enjoy a full day of local sightseeing. Visit Talacauvery, the origin of the River Cauvery, located amidst scenic hills, and Omkareshwar Temple. Then, visit the Dubare Elephant Camp to interact with elephants and enjoy the natural surroundings. Return to the hotel for an overnight stay in Coorg."
+      },
+      {
+        "day": 5,
+        "title": "DAY 5: COORG TO BANDIPUR   (270KMS / 6HRS)",
+        "desc": "After breakfast, check out from the hotel and drive to Bandipur. Upon arrival, Check in hotel than fresh and relax than drive to Bandipur national park and explore the evening juggle safari. back to the hotel and overnight stay at hotel."
+      },
+      {
+        "day": 6,
+        "title": "DAY 6: DEPARTURE",
+        "desc": "Early morning drive to morning juggle safari. Back to the hotel and take your breakfast, check out from the hotel and return to your destination with beautiful memories."
+      }
+    ]
   },
   {
-    id: "andaman-islands",
-    name: "Andaman Tropical Coral Paradise: Port Blair & Havelock",
-    tagline: "Makruzz catamaran cruises, Radhanagar Beach sunsets & coral reef snorkeling",
-    region: "India",
-    country: "India",
-    category: "Family Expedition",
-    vibeTags: ["Tropical Islands", "Serene Backwaters"],
-    type: ["Beach", "Family", "Island"],
-    durationDays: 6,
-    duration: "5 Nights / 6 Days",
-    price: 22499,
-    originalPrice: 28999,
-    currency: "INR",
-    rating: 4.94,
-    reviews: 142,
-    groupSize: "Family / Couple",
-    difficulty: "Easy",
-    badge: "Trending 2026",
-    featured: true,
-    image: "https://images.unsplash.com/photo-1589136777351-fdc9c9cab193?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "High-speed luxury Makruzz catamaran island transfers",
-      "Sunset at Radhanagar Beach (Asia's Best Beach voted by Time)",
-      "Elephant Beach speedboat ride with complimentary snorkeling",
-      "Cellular Jail Light & Sound emotional historical show",
-      "Neil Island Natural Bridge & coral formation walk"
+    "id": "tour-wix-karnataka-peaks-palaces",
+    "wixId": "0ab9247a-4d9a-4401-b638-2641bcd7e866",
+    "name": "Karnataka Peaks & Palaces",
+    "slug": "karnataka-peaks-palaces",
+    "location": "India",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Karnataka",
+      "Luxury Signature"
     ],
-    inclusionChips: ["Makruzz Luxury Cruise", "Beachfront Resorts", "Snorkeling Included", "Private AC Cab", "Island Concierge"],
-    itinerary: [
-      { day: 1, title: "Port Blair Arrival & Cellular Jail Light Show", morning: "VIP arrival at Veer Savarkar Airport Port Blair", afternoon: "Check-in to oceanfront resort and relax by the pool", evening: "Visit historic Cellular Jail and watch evening sound & light show", stayTier: "4-Star Port Blair Ocean Resort", transport: "Private AC Cab", meals: "Dinner" },
-      { day: 2, title: "Makruzz Cruise to Havelock Island & Radhanagar", morning: "Board luxury Makruzz AC catamaran to Havelock Island", afternoon: "Check-in to barefoot tropical beach resort", evening: "Spectacular golden sunset at world-famous Radhanagar Beach", stayTier: "4-Star Havelock Beach Resort", transport: "Makruzz Cruise + Cab", meals: "Breakfast" },
-      { day: 3, title: "Elephant Beach Coral Reefs & Water Sports", morning: "Speedboat ride to Elephant Beach", afternoon: "Explore vibrant live coral reefs with snorkeling and sea walking", evening: "Beachfront candlelight dinner with fresh seafood barbecue", stayTier: "4-Star Havelock Beach Resort", transport: "Speedboat", meals: "Breakfast & Dinner" },
-      { day: 4, title: "Cruise to Neil Island & Natural Rock Bridge", morning: "Ferry cruise to tranquil Neil Island", afternoon: "Visit Bharatpur Beach and Laxmanpur Beach sunset point", evening: "Stroll along unique living Natural Coral Bridge", stayTier: "4-Star Neil Island Resort", transport: "Catamaran + Cab", meals: "Breakfast" },
-      { day: 5, title: "Return to Port Blair & Sagarika Artisanal Souks", morning: "Morning cruise back to Port Blair", afternoon: "Visit Sagarika government emporium for pearl & shell crafts", evening: "Farewell dinner overlooking illuminated Ross Island", stayTier: "4-Star Port Blair Ocean Resort", transport: "AC Cab", meals: "Breakfast & Dinner" },
-      { day: 6, title: "Departure", morning: "Breakfast by the sea", afternoon: "Private chauffeur transfer to airport", evening: "Departure flight", stayTier: "Departure", transport: "AC Cab", meals: "Breakfast" }
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Karnataka",
+      "Luxury Signature"
     ],
-    inclusions: ["5 Nights in beachfront 4-star luxury resorts", "Daily buffet breakfast", "All island transfers via high-speed Makruzz AC catamaran", "Complimentary snorkeling session at Elephant Beach", "Private AC cab for all sightseeings"],
-    exclusions: ["Airfare to Port Blair", "Scuba dive / Sea Kart extra sessions", "Personal expenses"],
-    bestSeason: "Oct - May (Crystal Clear Waters & Sunny Skies)"
+    "duration": "4 Nights & 5 Days",
+    "price": 90640,
+    "origPrice": 95410,
+    "tagline": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_2bcc540b61484381ae1d34ce478d4cc6~mv2.jpg/Image%20by%20Sam%20Benstan.jpg#originWidth=4032&originHeight=3024",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast    ",
+      "Sightseeing",
+      "Driver allowance ",
+      "Night allowance ",
+      "Transportation "
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "DAY 1: ARRIVAL IN BANGALORE",
+        "desc": "Upon arrival, meet our representative and proceed with your journey to explore Bangalore's sightseeing places such as Bangalore Palace, Vidhana Soudha, Lalbagh Botanical Garden, ISKCON Temple, and Tipu Sultan's Summer Palace. Overnight stay at a hotel in Bangalore."
+      },
+      {
+        "day": 2,
+        "title": "DAY 2: BANGALORE TO MYSORE  (150 KMS / 3 HRS)",
+        "desc": "After breakfast, check out from the hotel and drive to Mysore. Upon arrival, begin local sightseeing by visiting Mysore Palace, Chamundeshwari Temple, St. Philomena's Church, and Brindavan Gardens. Check in at the hotel and enjoy an overnight stay in Mysore."
+      },
+      {
+        "day": 3,
+        "title": "DAY 3: MYSORE TO COORG  (140 KMS / 3 HRS)",
+        "desc": "After breakfast, check out from the hotel and drive to Coorg. Upon arrival in Coorg, explore the stunning Abbey Falls, surrounded by lush greenery. Then, take a tour of a coffee plantation to learn about the region's famous coffee production while enjoying a fresh cup of locally brewed coffee."
+      },
+      {
+        "day": 4,
+        "title": "DAY 4: COORG SIGHTSEEING",
+        "desc": "After breakfast, enjoy a full day of local sightseeing. Visit Talacauvery, the origin of the River Cauvery, located amidst scenic hills, and Omkareshwar Temple. Then, visit the Dubare Elephant Camp to interact with elephants and enjoy the natural surroundings. Return to the hotel for an overnight stay in Coorg."
+      },
+      {
+        "day": 5,
+        "title": "DAY 5: COORG TO OOTY  (270KMS / 6HRS)",
+        "desc": "After breakfast, check out from the hotel and drive to Ooty. Upon arrival, explore the Rose Garden, Ooty Lake and Botanical Garden, Ooty Boat House, Madumalai Tiger Reserve, Government Musueum, Overnight stay at Ooty Hotel."
+      },
+      {
+        "day": 6,
+        "title": "DAY 6: DEPARTURE",
+        "desc": "After breakfast, check out from the hotel and return to your destination with beautiful memories."
+      }
+    ]
   },
   {
-    id: "rajasthan-royals",
-    name: "Royal Rajasthan Palaces: Jaipur, Udaipur & Jodhpur",
-    tagline: "Live like kings in royal heritage palaces, desert glamping & private fort tours",
-    region: "India",
-    country: "India",
-    category: "Honeymoon & Couple",
-    vibeTags: ["Royal Luxury", "Adrenaline & Adventure"],
-    type: ["Heritage", "Luxury", "Culture"],
-    durationDays: 7,
-    duration: "6 Nights / 7 Days",
-    price: 26999,
-    originalPrice: 34999,
-    currency: "INR",
-    rating: 4.95,
-    reviews: 165,
-    groupSize: "Couple / Family",
-    difficulty: "Easy",
-    badge: "Royal Signature",
-    featured: false,
-    image: "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "Stay in authentic heritage Haveli and Lake Palace suites",
-      "Private boat cruise on Lake Pichola overlooking Jag Mandir",
-      "Amber Fort elephant/jeep ride & Sheesh Mahal mirrored hall",
-      "Mehrangarh Fort private tour in the Blue City of Jodhpur",
-      "Traditional Rajasthani Royal Thali dinner with live folk dance"
+    "id": "tour-wix-goa-weekend-vibe",
+    "wixId": "0b042255-7f55-414f-8317-9efe7d8c1869",
+    "name": "Goa Weekend Vibe",
+    "slug": "goa-weekend-vibe",
+    "location": "Goa",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Beach & Coastal",
+      "Island Explorer",
+      "Summer Escapes",
+      "Summer",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Goa",
+      "Luxury Signature"
     ],
-    inclusionChips: ["Heritage Palace Stays", "Lake Pichola Cruise", "Private Chauffeur", "VIP Fort Passes", "Royal Dinners"],
-    itinerary: [
-      { day: 1, title: "Pink City Jaipur Arrival & Chokhi Dhani", morning: "Private pickup from Jaipur Airport / Railway Station", afternoon: "Check-in to royal heritage palace hotel", evening: "Cultural evening at Chokhi Dhani with folk dance and royal dining", stayTier: "5-Star Heritage Palace Jaipur", transport: "Private AC SUV", meals: "Dinner" },
-      { day: 2, title: "Amer Fort, Hawa Mahal & City Palace", morning: "Jeep ascent to monumental Amer Fort", afternoon: "Visit Jal Mahal, Hawa Mahal and Royal City Palace Museum", evening: "Bespoke jewelry & blue pottery shopping in Johari Bazaar", stayTier: "5-Star Heritage Palace Jaipur", transport: "Private AC SUV", meals: "Breakfast" },
-      { day: 3, title: "Drive to Jodhpur via Pushkar Brahma Temple", morning: "Scenic highway drive to holy town of Pushkar", afternoon: "Visit world's only Lord Brahma Temple and sacred lake", evening: "Arrive in Blue City Jodhpur and relax at palace hotel", stayTier: "4-Star Heritage Haveli Jodhpur", transport: "Private AC SUV", meals: "Breakfast & Dinner" },
-      { day: 4, title: "Mehrangarh Fort & Jaswant Thada", morning: "Explore imposing Mehrangarh Fort towering over blue houses", afternoon: "Visit marble cenotaph Jaswant Thada and Umaid Bhawan Palace", evening: "Spice market walk around historic Clock Tower", stayTier: "4-Star Heritage Haveli Jodhpur", transport: "Private AC SUV", meals: "Breakfast" },
-      { day: 5, title: "Drive to Udaipur via Ranakpur Marble Temples", morning: "Drive through Aravalli hills to Ranakpur", afternoon: "Marvel at 1,444 uniquely carved marble pillars at Jain Temple", evening: "Arrive in City of Lakes Udaipur and check in", stayTier: "5-Star Lake View Palace Udaipur", transport: "Private AC SUV", meals: "Breakfast & Dinner" },
-      { day: 6, title: "City Palace & Lake Pichola Sunset Cruise", morning: "Tour Rajasthan's largest royal palace complex: Udaipur City Palace", afternoon: "Stroll in Saheliyon-ki-Bari royal garden of maidens", evening: "Romantic private sunset boat cruise across Lake Pichola", stayTier: "5-Star Lake View Palace Udaipur", transport: "Private AC SUV + Boat", meals: "Breakfast" },
-      { day: 7, title: "Departure", morning: "Royal breakfast overlooking lake waters", afternoon: "Transfer to Udaipur Airport", evening: "Flight departure", stayTier: "Departure", transport: "Private AC SUV", meals: "Breakfast" }
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Beach & Coastal",
+      "Island Explorer",
+      "Summer Escapes",
+      "Summer",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Goa",
+      "Luxury Signature"
     ],
-    inclusions: ["6 Nights in verified royal heritage palaces", "Daily lavish buffet breakfast", "Dedicated Innova Crysta private chauffeur", "Private Lake Pichola sunset boat ride", "All monument entry passes"],
-    exclusions: ["Airfare / Train tickets", "Camera fees at monuments", "Personal shopping"],
-    bestSeason: "Oct - March (Pleasant Royal Winter)"
+    "duration": "2 Nights and 3 Days",
+    "price": 99360,
+    "origPrice": 116894,
+    "tagline": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
+    "image": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_464675436b336a51373451~mv2_d_2100_4448_s_2.jpg/Image%20by%20Mayank%20Kanvalli.jpg#originWidth=2100&originHeight=4448",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast, Sightseeing",
+      "Driver Allowance",
+      "Night Allowance",
+      "Transportation",
+      "Taxes"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival in Goa",
+        "desc": "Arrive at Goa Airport (GOI) from Bhopal. Transfer to 5-star hotel. Relax and explore nearby beaches. Dinner at a beach shack. Overnight stay."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: North Goa Sightseeing",
+        "desc": "Visit Fort Aguada, Sinquerim Beach, Anjuna Beach (Wednesday Flea Market if available), Vagator Beach, and Chapora Fort. Evening at Baga/Calangute. Overnight stay."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: South Goa Churches & Departure",
+        "desc": "Explore Old Goa Churches (Basilica of Bom Jesus, Sé Catedral), Mangeshi Temple, Shantadurga Temple, and Dona Paula Viewpoint. Check out and transfer to airport."
+      }
+    ]
   },
   {
-    id: "kerala-backwaters",
-    name: "Kerala God's Own Country: Munnar, Thekkady & Alleppey",
-    tagline: "Emerald tea plantations, spice wildlife sanctuaries & luxury private houseboat cruises",
-    region: "India",
-    country: "India",
-    category: "Family Expedition",
-    vibeTags: ["Serene Backwaters", "Tropical Islands"],
-    type: ["Nature", "Backwaters", "Ayurveda"],
-    durationDays: 6,
-    duration: "5 Nights / 6 Days",
-    price: 21999,
-    originalPrice: 27999,
-    currency: "INR",
-    rating: 4.93,
-    reviews: 138,
-    groupSize: "Family / Couple",
-    difficulty: "Easy",
-    badge: "Serene Nature",
-    featured: false,
-    image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "Overnight stay on private traditional AC luxury houseboat in Alleppey",
-      "Munnar sprawling mist-covered tea gardens & Mattupetty Dam",
-      "Periyar Wildlife Sanctuary boat safari to spot wild elephants",
-      "Authentic Kalaripayattu martial arts & Kathakali dance performance",
-      "Rejuvenating traditional Kerala Ayurvedic herbal massage session"
+    "id": "tour-wix-ganga-to-the-hills",
+    "wixId": "0dc93347-aa7d-4679-abfb-bf40832e5088",
+    "name": "Ganga To The Hills",
+    "slug": "ganga-to-the-hills",
+    "location": "Haridwar, Mussoorie",
+    "continent": "Asia",
+    "country": "Mussoorie",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Mountain & Snow",
+      "Hills & Mountains",
+      "Winter Wonderland",
+      "Winter",
+      "Summer",
+      "Family & Group",
+      "Family Tours",
+      "Luxury Signature"
     ],
-    inclusionChips: ["Private AC Houseboat", "Munnar Tea Hills", "Ayurveda Massage", "Private Chauffeur", "All Meals on Boat"],
-    itinerary: [
-      { day: 1, title: "Cochin Arrival & Scenic Drive to Munnar", morning: "Pickup from Cochin Airport / Ernakulam Station", afternoon: "Drive past Cheeyappara and Valara waterfalls to Munnar", evening: "Check-in to luxury mountain view resort among tea gardens", stayTier: "4-Star Mountain View Resort", transport: "Private AC Cab", meals: "Dinner" },
-      { day: 2, title: "Munnar Tea Gardens & Eravikulam National Park", morning: "Visit Eravikulam National Park (home to endangered Nilgiri Tahr)", afternoon: "Explore Tata Tea Museum and Mattupetty Dam eco-point", evening: "Stroll in local aromatic spice markets", stayTier: "4-Star Mountain View Resort", transport: "Private AC Cab", meals: "Breakfast & Dinner" },
-      { day: 3, title: "Scenic Drive to Thekkady Spice Plantations", morning: "Drive through cardamon and pepper hill tracts to Thekkady", afternoon: "Guided walk through aromatic organic spice plantations", evening: "Watch live Kalaripayattu martial arts and Kathakali show", stayTier: "4-Star Jungle Lodge Thekkady", transport: "Private AC Cab", meals: "Breakfast" },
-      { day: 4, title: "Periyar Lake Safari & Drive to Alleppey", morning: "Boat safari in Periyar Lake watching herds of wild elephants", afternoon: "Drive to backwaters capital Alleppey", evening: "Check-in to luxury private AC Houseboat with welcome coconut water", stayTier: "5-Star Luxury Private Houseboat", transport: "Private AC Cab + Houseboat", meals: "Breakfast, Lunch & Dinner" },
-      { day: 5, title: "Backwaters Cruise & Cochin Heritage Walk", morning: "Cruise past tranquil backwater canals and village paddy fields", afternoon: "Disembark and drive to Fort Kochi heritage precinct", evening: "See Chinese Fishing Nets and Jewish Synagogue at sunset", stayTier: "4-Star Fort Kochi Heritage Hotel", transport: "Private AC Cab", meals: "Breakfast" },
-      { day: 6, title: "Departure", morning: "Buffet breakfast", afternoon: "Souvenir shopping for banana chips and airport transfer", evening: "Flight departure", stayTier: "Departure", transport: "Private AC Cab", meals: "Breakfast" }
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Mountain & Snow",
+      "Hills & Mountains",
+      "Winter Wonderland",
+      "Winter",
+      "Summer",
+      "Family & Group",
+      "Family Tours",
+      "Luxury Signature"
     ],
-    inclusions: ["4 Nights 4-Star resort stays + 1 Night Private Houseboat", "All meals on houseboat (Kerala Sadhya style)", "Daily buffet breakfast at hotels", "Dedicated private AC vehicle", "Spice plantation tour & boat safari"],
-    exclusions: ["Airfare / Train tickets", "Ayurvedic treatments not mentioned", "Personal laundry"],
-    bestSeason: "Sep - March (Cool & Lush Green)"
+    "duration": "3 Nights & 4 Days",
+    "price": 45885,
+    "origPrice": 48300,
+    "tagline": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
+    "image": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_51746b2d31634e31454a59~mv2_d_6000_4000_s_4_2.jpg/Image%20by%20Jyotirmoy%20Gupta.jpg#originWidth=6000&originHeight=4000",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Night Allowance",
+      "Transportation",
+      "Taxes"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival in Haridwar",
+        "desc": "Arrive at Delhi/Rohilla Station. Transfer to 3-star hotel in Haridwar (5-hour drive, 230 km). Check-in and relax. Visit Hari Ki Pauri and Ganga Aarti in the evening. Overnight in Haridwar."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: Rishikesh Sightseeing",
+        "desc": "After breakfast, full-day Rishikesh tour (25 km, 40 mins). Visit Lakshman Jhula, Ram Jhula, Triveni Ghat, Janki Setu, and Beatles Ashram. Return to Haridwar. Overnight in Haridwar."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: Haridwar to Mussoorie",
+        "desc": "Check out and drive to Mussoorie (2.5 hours, 84 km). Check into hotel. Visit Kempty Falls, Gun Hill, Camel’s Back Road, Company Garden, and Lal Tibba Scenic Point. Evening free for shopping. Overnight in Mussoorie."
+      },
+      {
+        "day": 4,
+        "title": "Day 4: Departure",
+        "desc": "Check out and drive back to Delhi/Nizamuddin Station (8-hour drive, 310 km). Tour concludes."
+      }
+    ]
   },
   {
-    id: "ladakh-adventure",
-    name: "Ladakh High-Pass Odyssey: Leh, Nubra & Pangong Tso",
-    tagline: "Cross Khardung La at 17,982ft, double-humped camel rides & azure Pangong Lake camps",
-    region: "India",
-    country: "India",
-    category: "Adrenaline & Adventure",
-    vibeTags: ["Snow & Alpine", "Adrenaline & Adventure"],
-    type: ["Adventure", "High Altitude", "Mountains"],
-    durationDays: 7,
-    duration: "6 Nights / 7 Days",
-    price: 28500,
-    originalPrice: 36000,
-    currency: "INR",
-    rating: 4.97,
-    reviews: 156,
-    groupSize: "Small Group / Couple",
-    difficulty: "Challenging",
-    badge: "Adrenaline Pure",
-    featured: false,
-    image: "https://images.unsplash.com/photo-1581793745862-99fde7fa73d2?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "Drive across Khardung La pass (highest motorable road in world)",
-      "Overnight luxury glamping right on the shores of Pangong Lake",
-      "Bactrian double-humped camel safari on Hunder sand dunes",
-      "Diskit Monastery 106ft Maitreya Buddha statue blessing",
-      "Magnetic Hill gravity-defying phenomenon & Sangam confluence"
+    "id": "tour-wix-uttarakhand-explorer",
+    "wixId": "0f068705-b22d-4587-b00b-2db1b48adc01",
+    "name": "Uttarakhand Explorer",
+    "slug": "uttarakhand-explorer",
+    "location": "Rishikesh, Mussoorie",
+    "continent": "Asia",
+    "country": "Mussoorie",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Mountain & Snow",
+      "Hills & Mountains",
+      "Winter Wonderland",
+      "Winter",
+      "Summer",
+      "Family & Group",
+      "Family Tours",
+      "Luxury Signature"
     ],
-    inclusionChips: ["Oxygen Fitted SUVs", "Luxury Swiss Camps", "Inner Line Permits", "Breakfast & Dinner", "Doctor on Call"],
-    itinerary: [
-      { day: 1, title: "Leh Arrival & Complete Acclimatization", morning: "Arrival at Leh Kushok Bakula Airport (11,500ft)", afternoon: "Mandatory rest in heated luxury hotel room to acclimatize", evening: "Gentle evening stroll in Leh Main Bazaar and Shanti Stupa", stayTier: "4-Star Deluxe Leh Hotel", transport: "Private AC SUV", meals: "Dinner" },
-      { day: 2, title: "Indus Valley Monasteries & Magnetic Hill", morning: "Visit Shey Palace and Thiksey 12-storey Gompa", afternoon: "Experience Magnetic Hill gravity pull & Indus-Zanskar Sangam", evening: "Visit Hall of Fame military museum", stayTier: "4-Star Deluxe Leh Hotel", transport: "Private AC SUV", meals: "Breakfast & Dinner" },
-      { day: 3, title: "Cross Khardung La Pass to Nubra Valley", morning: "Ascend world-famous Khardung La pass at 17,982 feet", afternoon: "Descend into lush Nubra Valley and visit Diskit Monastery", evening: "Ride double-humped Bactrian camels on Hunder white sand dunes", stayTier: "Luxury Deluxe Camp Nubra", transport: "Private AC SUV", meals: "Breakfast & Dinner" },
-      { day: 4, title: "Nubra to Pangong Tso Lake via Shyok River", morning: "Drive along rugged Shyok river route towards Changthang", afternoon: "First breathtaking view of color-changing Pangong Lake", evening: "Sunset photography and starlight stargazing by the lake", stayTier: "Lakefront Luxury Swiss Tents", transport: "Private AC SUV", meals: "Breakfast & Dinner" },
-      { day: 5, title: "Sunrise at Pangong Lake & Return to Leh", morning: "Mesmerizing sunrise over Pangong Lake mirror waters", afternoon: "Drive back over Chang La pass (17,590ft) to Leh", evening: "Free time for Ladakhi turquoise and apricot souvenir shopping", stayTier: "4-Star Deluxe Leh Hotel", transport: "Private AC SUV", meals: "Breakfast & Dinner" },
-      { day: 6, title: "Sham Valley Heritage & Rancho School", morning: "Visit Spituk Gompa and iconic 3-Idiots school", afternoon: "Leisure lunch at German Bakery in Leh", evening: "Farewell Ladakhi traditional dinner", stayTier: "4-Star Deluxe Leh Hotel", transport: "Private AC SUV", meals: "Breakfast & Dinner" },
-      { day: 7, title: "Departure", morning: "Buffet breakfast with mountain views", afternoon: "Airport drop for flight over snow Himalayas", evening: "Arrival home", stayTier: "Departure", transport: "Private AC SUV", meals: "Breakfast" }
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Mountain & Snow",
+      "Hills & Mountains",
+      "Winter Wonderland",
+      "Winter",
+      "Summer",
+      "Family & Group",
+      "Family Tours",
+      "Luxury Signature"
     ],
-    inclusions: ["6 Nights accommodation with heating and oxygen support", "All Inner Line Permits and Wildlife environmental fees", "Private 4x4 / Innova Crysta throughout with oxygen cylinder", "Daily nutritious breakfast and hot dinners", "Ladakh experienced local driver guide"],
-    exclusions: ["Airfare to/from Leh", "Camel ride & rafting charges", "Personal medical medicines"],
-    bestSeason: "May - Oct (Open Mountain Passes)"
-  },
-
-  // ==========================================
-  // 2. ASIA & MIDDLE EAST LUXURY
-  // ==========================================
-  {
-    id: "exotic-bali",
-    name: "Exotic Bali Escape: Ubud Pool Villa & Nusa Penida",
-    tagline: "Private pool villas, T-Rex ocean cliffs & jungle swing adventures",
-    region: "Asia",
-    country: "Indonesia",
-    category: "Honeymoon & Couple",
-    vibeTags: ["Tropical Islands", "Royal Luxury"],
-    type: ["Honeymoon", "Beach", "Culture"],
-    durationDays: 7,
-    duration: "6 Nights / 7 Days",
-    price: 34999,
-    originalPrice: 46999,
-    currency: "INR",
-    rating: 4.98,
-    reviews: 240,
-    groupSize: "Private Couple",
-    difficulty: "Easy",
-    badge: "Trending 2026",
-    featured: true,
-    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "Overnight stay in Ubud luxury private pool villa",
-      "VIP Fast boat to Nusa Penida (Kelingking T-Rex Beach)",
-      "Iconic jungle swing over Tegalalang rice terraces",
-      "Clifftop Uluwatu Temple & sunset Kecak fire dance",
-      "2-Hour couple Balinese aromatherapy massage"
+    "duration": "2 Nights and 3 Days",
+    "price": 69575,
+    "origPrice": 77305,
+    "tagline": "A luxurious 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
+    "image": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_02026a43896246acaf9ff67e59d0ed94~mv2.jpg/Image%20by%20Dilip%20Poddar.jpg#originWidth=3236&originHeight=2983",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Driver Allowance",
+      "Night Allowance",
+      "Transportation, Taxes"
     ],
-    inclusionChips: ["Private Pool Villa", "Fast Boat Passes", "Daily Breakfast", "English Chauffeur", "24/7 Concierge"],
-    itinerary: [
-      { day: 1, title: "Denpasar Arrival & Seminyak Resort Check-in", morning: "Arrival at Ngurah Rai Airport with flower garland welcome", afternoon: "Check-in to luxury Seminyak beachfront suite", evening: "Sunset cocktails at iconic Ku De Ta beach club", stayTier: "5-Star Beach Resort", transport: "Private AC Transport", meals: "Dinner" },
-      { day: 2, title: "Tanjung Benoa Watersports & Uluwatu Temple", morning: "Banana boat & parasailing adventure at Benoa", afternoon: "Drive along southern cliffs to ancient Uluwatu temple", evening: "Watch sunset Kecak dance overlooking Indian Ocean", stayTier: "5-Star Beach Resort", transport: "Private AC Transport", meals: "Breakfast" },
-      { day: 3, title: "Nusa Penida Island VIP Speedboat Tour", morning: "Speedboat to Nusa Penida island", afternoon: "Visit Kelingking T-Rex cliff, Broken Beach & Angel's Billabong", evening: "Snorkeling at Crystal Bay and return cruise", stayTier: "5-Star Beach Resort", transport: "Speedboat + SUV", meals: "Breakfast & Lunch" },
-      { day: 4, title: "Transfer to Ubud & Famous Jungle Swing", morning: "Scenic transfer to cultural heartland of Ubud", afternoon: "Experience Bali giant jungle swing & Sacred Monkey Forest", evening: "Check-in to private jungle pool villa with floating dinner", stayTier: "5-Star Private Pool Villa", transport: "Private AC Transport", meals: "Breakfast & Dinner" },
-      { day: 5, title: "Kintamani Volcano & Holy Water Temple", morning: "Panoramic breakfast overlooking Mount Batur volcano", afternoon: "Sacred purification bath at Tirta Empul holy spring temple", evening: "Luwak coffee plantation tasting and artisanal woodcraft market", stayTier: "5-Star Private Pool Villa", transport: "Private AC Transport", meals: "Breakfast" },
-      { day: 6, title: "Tanah Lot Ocean Temple & Couple Spa", morning: "Leisure morning with floating pool breakfast", afternoon: "2-Hour traditional Balinese aromatherapy spa treatment", evening: "Sunset photos at offshore rock temple of Tanah Lot", stayTier: "5-Star Private Pool Villa", transport: "Private AC Transport", meals: "Breakfast" },
-      { day: 7, title: "Departure with Relaxed Mind", morning: "Buffet breakfast in villa pavilion", afternoon: "Souvenir shopping in Kuta and airport transfer", evening: "Departure flight", stayTier: "Departure", transport: "Private AC Transport", meals: "Breakfast" }
-    ],
-    inclusions: ["3 Nights in 5-Star Seminyak Resort + 3 Nights in Ubud Private Pool Villa", "Daily gourmet breakfast", "Nusa Penida speedboat tickets with private island tour", "English-speaking private chauffeur", "All entry monument tickets"],
-    exclusions: ["International flights", "Personal visa on arrival fee", "Personal expenses and alcoholic drinks"],
-    bestSeason: "All Year (Dry: Apr-Oct, Lush: Nov-Mar)"
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival in Rishikesh",
+        "desc": "Arrive at Rohilla Railway Station. Transfer to 5-star hotel in Rishikesh. After check-in, visit Lakshman Jhula, Ram Jhula, Triveni Ghat, Janki Setu, and Beatles Ashram. Overnight in Rishikesh."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: Mussoorie Excursion",
+        "desc": "After breakfast, drive to Mussoorie (3 hours). Visit Kempty Falls, Gun Hill, Camel’s Back Road, Company Garden, and Lal Tibba Scenic Point. Evening free for shopping or cafes. Return to Rishikesh. Overnight in Rishikesh."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: Departure",
+        "desc": "Check out and transfer to Nizamuddin Railway Station (5-hour drive). Tour concludes."
+      }
+    ]
   },
   {
-    id: "dubai-extravaganza",
-    name: "Dubai Extravaganza: Burj Khalifa, Marina & Desert Safari",
-    tagline: "Burj Khalifa 124th floor, VIP desert dune bashing & luxury Marina yacht",
-    region: "Asia",
-    country: "UAE",
-    category: "Family Expedition",
-    vibeTags: ["Royal Luxury", "Adrenaline & Adventure"],
-    type: ["Family", "Luxury", "Desert"],
-    durationDays: 6,
-    duration: "5 Nights / 6 Days",
-    price: 42999,
-    originalPrice: 54999,
-    currency: "INR",
-    rating: 4.93,
-    reviews: 195,
-    groupSize: "Family / Couple",
-    difficulty: "Easy",
-    badge: "Top Rated",
-    featured: true,
-    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "VIP At The Top Burj Khalifa 124th & 125th Floor passes",
-      "Private 4x4 Land Cruiser Red Dunes Desert Safari with BBQ Buffet",
-      "Luxury 2-hour Dhow Dinner Cruise across illuminated Dubai Marina",
-      "Full day Abu Dhabi tour with Sheikh Zayed Grand Mosque entry",
-      "Miracle Garden flower sculptures & Gold/Spice Souk shopping"
+    "id": "tour-wix-rajasthan-royal-affair",
+    "wixId": "1b953d63-664c-4bb2-81fa-8226b2b4656b",
+    "name": "Rajasthan Royal Affair",
+    "slug": "rajasthan-royal-affair",
+    "location": "Rajasthan",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Honeymoon & Romantic",
+      "Couple Trips",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Rajasthan",
+      "Luxury Signature"
     ],
-    inclusionChips: ["4-Star Deluxe Hotel", "UAE Visa Included", "Burj Khalifa Tickets", "Desert Safari BBQ", "Private Transfers"],
-    itinerary: [
-      { day: 1, title: "Dubai Arrival & Marina Dhow Dinner Cruise", morning: "VIP airport assistance and private transfer to luxury hotel", afternoon: "Relax at hotel rooftop pool", evening: "2-hour illuminated skyscraper yacht dinner cruise along Dubai Marina", stayTier: "4-Star Deluxe Dubai Marina Hotel", transport: "Private AC SUV", meals: "Dinner" },
-      { day: 2, title: "Dubai City Highlights & Burj Khalifa At The Top", morning: "Panoramic tour covering Palm Jumeirah, Atlantis & Burj Al Arab", afternoon: "Visit Dubai Mall and ascending to 124th floor of Burj Khalifa", evening: "Watch world-famous dancing fountain spectacle", stayTier: "4-Star Deluxe Dubai Marina Hotel", transport: "Private AC SUV", meals: "Breakfast" },
-      { day: 3, title: "4x4 Red Dunes Desert Safari & Bedouin Camp", morning: "Free morning for luxury mall shopping", afternoon: "High-adrenaline 4x4 dune bashing in Lahbab Red Dunes", evening: "Camel rides, sandboarding, live Tanoura fire dance & 5-star BBQ", stayTier: "4-Star Deluxe Dubai Marina Hotel", transport: "4x4 Land Cruiser", meals: "Breakfast & Dinner" },
-      { day: 4, title: "Abu Dhabi Full Day & Sheikh Zayed Grand Mosque", morning: "Drive to UAE capital Abu Dhabi", afternoon: "Marvel at pristine white marble Sheikh Zayed Grand Mosque", evening: "Ferrari World photo stop and return drive to Dubai", stayTier: "4-Star Deluxe Dubai Marina Hotel", transport: "Private AC SUV", meals: "Breakfast" },
-      { day: 5, title: "Miracle Garden & Heritage Gold Souks", morning: "Stroll through world's largest natural flower garden", afternoon: "Cross Dubai Creek on traditional Abra boat to Gold & Spice Souks", evening: "Leisure evening at La Mer beachfront district", stayTier: "4-Star Deluxe Dubai Marina Hotel", transport: "Private AC SUV", meals: "Breakfast" },
-      { day: 6, title: "Departure", morning: "Buffet breakfast at hotel", afternoon: "Private chauffeur transfer to Dubai International Airport", evening: "Flight departure", stayTier: "Departure", transport: "Private AC SUV", meals: "Breakfast" }
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Honeymoon & Romantic",
+      "Couple Trips",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Rajasthan",
+      "Luxury Signature"
     ],
-    inclusions: ["5 Nights in 4-Star Deluxe Hotel", "UAE 30-Day Tourist Visa + Insurance", "Burj Khalifa 124th/125th Floor Fast-Track Tickets", "Red Dunes Desert Safari with BBQ dinner", "Private transfers for all itineraries"],
-    exclusions: ["International flights", "Dubai Tourism Dirham fee paid at check-in", "Personal shopping expenses"],
-    bestSeason: "Oct - Apr (Pleasant Winter & Spring)"
+    "duration": "3 Nights & 4 Days",
+    "price": 34272,
+    "origPrice": 42840,
+    "tagline": "Immerse yourself in the royal heritage of Rajasthan with a vibrant journey through Jodhpur’s blue streets and Udaipur’s serene lakes. This budget-friendly package blends cultural landmarks, shopping, and scenic beauty.",
+    "image": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_d4712cfb765d40b6b59a064fe192f29b~mv2.jpg/Image%20by%20Siddhesh%20Mangela.jpg#originWidth=9425&originHeight=3858",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "3-star hotel accommodation",
+      "Daily breakfast",
+      "Guided sightseeing as per itinerary",
+      "Driver allowance & night charges",
+      "Transportation (Sedan)",
+      "Taxes"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1 - Arrival in Jodhpur & Local Sightseeing",
+        "desc": "Arrive in Jodhpur, check-in at a 3-star hotel. Visit Mehrangarh Fort , Jaswant Thada , Umaid Bhawan Palace , Clock Tower , and Sardar Market . Evening -  Explore bustling markets for local shopping."
+      },
+      {
+        "day": 2,
+        "title": "Day 2 - Jodhpur Exploration & Transfer to Udaipur",
+        "desc": "Morning -  Explore Rao Jodha Desert Rock Park and Mandore Gardens . Afternoon -  Shop for handicrafts in Jodhpur. Drive to Udaipur (250 km / 5 hours), check-in at a 3-star hotel."
+      },
+      {
+        "day": 3,
+        "title": "Day 3 - Full-Day Udaipur Sightseeing",
+        "desc": "Morning -  Visit City Palace , Jagdish Temple , Lake Pichola , Saheliyon Ki Bari , and Monsoon Palace . Evening -  Return to the hotel."
+      },
+      {
+        "day": 4,
+        "title": "Day 4 - Half-Day Udaipur & Departure",
+        "desc": "Morning -  Visit Fateh Sagar Lake . Afternoon -  Shop for miniature paintings, silver jewelry, and crafts. Transfer to Jodhpur and depart via pre-booked flight/train."
+      }
+    ]
   },
   {
-    id: "vietnam-dragon",
-    name: "Vietnam Dragon & Lanterns: Hanoi, Halong Cruise & Da Nang",
-    tagline: "5-Star Halong Bay overnight cruise, Golden Hands Bridge & Hoi An ancient town",
-    region: "Asia",
-    country: "Vietnam",
-    category: "International Signature",
-    vibeTags: ["Tropical Islands", "Serene Backwaters"],
-    type: ["Cruise", "Culture", "Scenic"],
-    durationDays: 7,
-    duration: "6 Nights / 7 Days",
-    price: 46999,
-    originalPrice: 58999,
-    currency: "INR",
-    rating: 4.95,
-    reviews: 112,
-    groupSize: "Couple / Family",
-    difficulty: "Easy",
-    badge: "Trending 2026",
-    featured: true,
-    image: "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "Overnight stay on luxury 5-star Halong Bay Cruise with private balcony",
-      "Walk the giant Golden Bridge held by stone hands in Ba Na Hills",
-      "Magical lantern boat ride along Hoi An UNESCO river canals",
-      "Explore Sung Sot Surprising Cave & kayak in emerald limestone lagoons",
-      "Traditional Vietnamese egg coffee tasting in Hanoi French Quarter"
+    "id": "tour-wix-pachmarhi-madhai",
+    "wixId": "1c2601c0-9b33-4d61-a1d4-63285b8fd809",
+    "name": "Pachmarhi-Madhai",
+    "slug": "pachmarhi-madhai",
+    "location": "Pachmarhi, Madhai",
+    "continent": "Asia",
+    "country": "Madhai",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Wildlife & Nature",
+      "Backwaters & Nature",
+      "Monsoon",
+      "Luxury Signature"
     ],
-    inclusionChips: ["5-Star Halong Cruise", "Ba Na Hills Cable Car", "Domestic Flights", "E-Visa Assistance", "English Guide"],
-    itinerary: [
-      { day: 1, title: "Hanoi Capital Arrival & Old Quarter Walk", morning: "VIP greeting at Noi Bai Airport Hanoi", afternoon: "Check-in to luxury French boutique hotel", evening: "Cyclo ride through 36 Guilds Old Quarter and water puppet show", stayTier: "4-Star Hanoi Boutique Hotel", transport: "Private AC Van", meals: "Dinner" },
-      { day: 2, title: "Halong Bay Luxury Cruise Check-in", morning: "Scenic expressway drive past emerald rice fields to Halong marina", afternoon: "Board 5-star cruise, feast on fresh seafood buffet among karst isles", evening: "Sunset party on sun deck, night squid fishing & cooking class", stayTier: "5-Star Luxury Halong Cruise Ship", transport: "Cruise Ship", meals: "Breakfast, Lunch & Dinner" },
-      { day: 3, title: "Sung Sot Cave, Kayaking & Flight to Da Nang", morning: "Sunrise Tai Chi on sundeck and explore Sung Sot Cave", afternoon: "Disembark cruise and fly to coastal resort city of Da Nang", evening: "Marvel at fire-breathing Dragon Bridge at night", stayTier: "5-Star Da Nang Beach Resort", transport: "Flight + Cab", meals: "Breakfast & Brunch" },
-      { day: 4, title: "Ba Na Hills & Iconic Golden Hands Bridge", morning: "Ride world's longest single-rope cable car to Ba Na Hills", afternoon: "Walk across iconic Golden Hands Bridge in the clouds", evening: "French Village fairytale castle stroll", stayTier: "5-Star Da Nang Beach Resort", transport: "Cable Car + Van", meals: "Breakfast" },
-      { day: 5, title: "Hoi An Ancient Lantern Town & Coconut Forest", morning: "Visit Marble Mountains and stone carving village", afternoon: "Basket boat ride through Cam Thanh water coconut forest", evening: "Release glowing flower lanterns on Hoai River in Hoi An ancient town", stayTier: "5-Star Da Nang Beach Resort", transport: "Private Van", meals: "Breakfast & Dinner" },
-      { day: 6, title: "My Khe Beach Leisure & Han Market", morning: "Relax on white sands of My Khe Beach", afternoon: "Souvenir shopping for silk and coffee at Han Market", evening: "Farewell Vietnamese gourmet banquet", stayTier: "5-Star Da Nang Beach Resort", transport: "Private Van", meals: "Breakfast & Dinner" },
-      { day: 7, title: "Departure", morning: "Buffet breakfast", afternoon: "Chauffeur transfer to Da Nang International Airport", evening: "Flight departure", stayTier: "Departure", transport: "Private Van", meals: "Breakfast" }
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Wildlife & Nature",
+      "Backwaters & Nature",
+      "Monsoon",
+      "Luxury Signature"
     ],
-    inclusions: ["1 Night 5-Star Halong Cruise + 4 Nights 5-Star Da Nang Resort + 1 Night Hanoi Hotel", "Domestic flight Hanoi to Da Nang included", "All meals on cruise + daily breakfasts", "Ba Na Hills cable car & Golden Bridge passes", "Vietnam E-Visa processing assistance"],
-    exclusions: ["International flights", "Personal beverages on cruise", "Tips for tour guides"],
-    bestSeason: "Sep - April (Pleasant Temperatures & Sunny Coast)"
+    "duration": "4 Nights & 5 Days",
+    "price": 962136,
+    "origPrice": 113192,
+    "tagline": "Experience the natural beauty of Pachmarhi and the wilderness of Madhai National Park in this 4-night, 5-day deluxe tour. Ideal for nature lovers and adventure enthusiasts, this tour offers an immersive experience with local sightseeing and jungle safaris.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_379b79b514c5437b8226410a411beabe~mv2.jpg/Image%20by%20vidhyasagar%20Dixit.jpg#originWidth=3072&originHeight=1728",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Driver allowance",
+      "Night allowance",
+      "Transportation"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "DAY 01: ARRIVE PACHMARHI (5 HRS/210 KMS)",
+        "desc": "Upon arrival at Pachmarhi, transfer to the hotel. Complete the check-in formalities, and enjoy an overnight stay at Pachmarhi."
+      },
+      {
+        "day": 2,
+        "title": "DAY 02: PACHMARHI LOCAL SIGHTSEEING",
+        "desc": "After breakfast, visit the local sightseeing spots of Pachmarhi, including Jata Shankar, Handi Kho, Priyadarshini, Mahadev, Gupt Mahadev, Amba Mai, and Begum Palace. Stay overnight at the Pachmarhi hotel."
+      },
+      {
+        "day": 3,
+        "title": "DAY 03: PACHMARHI LOCAL SIGHTSEEING",
+        "desc": "After breakfast, continue exploring Pachmarhi. Visit Pandav Gufa, Museum, Apsara Vihar, Silver Fall, Panchali Kund, Bee Fall, Reechgarh, and Rajendra Giri. Stay overnight at the Pachmarhi hotel."
+      },
+      {
+        "day": 4,
+        "title": "DAY 04: PACHMARHI—MADHAI NATIONAL PARK (3 hrs/100 km)",
+        "desc": "After breakfast at the hotel, check out and transfer to Madhai. Upon arrival, check in at the hotel. In the evening, take a drive to Madhai National Park and enjoy an evening jungle safari. Return to the hotel for an overnight stay."
+      },
+      {
+        "day": 5,
+        "title": "DAY 05: MORNING JUNGLE SAFARI – DEPARTURE (3 hrs/125 km)",
+        "desc": "Early in the morning, drive to Madhai National Park for a jungle safari. Afterward, return to the hotel, check out, and drive back home with beautiful memories."
+      }
+    ]
   },
   {
-    id: "japan-cherry-blossom",
-    name: "Japan Imperial Sakura: Tokyo, Mt. Fuji & Kyoto",
-    tagline: "Shinkansen bullet trains, Mt. Fuji 5th station & Kyoto geisha bamboo groves",
-    region: "Asia",
-    country: "Japan",
-    category: "International Signature",
-    vibeTags: ["Royal Luxury", "Snow & Alpine"],
-    type: ["Culture", "Bullet Train", "Scenic"],
-    durationDays: 8,
-    duration: "7 Nights / 8 Days",
-    price: 155000,
-    originalPrice: 189000,
-    currency: "INR",
-    rating: 4.99,
-    reviews: 76,
-    groupSize: "Couple / Small Group",
-    difficulty: "Easy",
-    badge: "Bucketlist",
-    featured: false,
-    image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "7-Day 1st Class Japan Rail Pass for high-speed Shinkansen Bullet Trains",
-      "Mt. Fuji 5th Station & Lake Ashi pirate ship cruise with ropeway views",
-      "Kyoto Arashiyama Bamboo Grove & golden Fushimi Inari 10,000 torii gates",
-      "Traditional Ryokan hot spring onsen stay with multi-course Kaiseki dinner",
-      "Tokyo Shibuya crossing, teamLab Planets digital art & Asakusa temple"
+    "id": "tour-wix-bhopal-tour",
+    "wixId": "21be2b3e-c010-4aca-9385-cea7804f630b",
+    "name": "Bhopal Tour",
+    "slug": "bhopal-tour",
+    "location": "Bhopal",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
     ],
-    inclusionChips: ["JR Bullet Train Pass", "Ryokan Onsen Stay", "Kaiseki Dinners", "Mt. Fuji Passes", "Japan Visa Concierge"],
-    itinerary: [
-      { day: 1, title: "Tokyo Arrival & Shinjuku Neon Night", morning: "Arrival at Tokyo Haneda/Narita Airport with VIP escort", afternoon: "Check-in to luxury skyscraper hotel in Shinjuku", evening: "Stroll through illuminated neon alleys of Omoide Yokocho", stayTier: "5-Star Tokyo Hotel", transport: "Private AC Van", meals: "Dinner" },
-      { day: 2, title: "Tokyo Highlights & teamLab Planets Art", morning: "Visit ancient Senso-ji temple in Asakusa and Nakamise market", afternoon: "Immerse in world-famous teamLab Planets sensory digital art museum", evening: "Walk across Shibuya crossing and see Hachiko statue", stayTier: "5-Star Tokyo Hotel", transport: "Tokyo Metro Pass", meals: "Breakfast" },
-      { day: 3, title: "Hakone, Mt. Fuji 5th Station & Lake Ashi", morning: "Drive towards iconic snow-capped Mount Fuji 5th Station", afternoon: "Cruise Lake Ashi on pirate ship and ride Hakone Ropeway", evening: "Check-in to authentic hot spring Ryokan with Kaiseki banquet", stayTier: "Luxury Hakone Onsen Ryokan", transport: "Private Van + Cruise", meals: "Breakfast & Kaiseki Dinner" },
-      { day: 4, title: "Shinkansen Bullet Train to Ancient Kyoto", morning: "Board high-speed 300km/h Shinkansen train to imperial Kyoto", afternoon: "Visit UNESCO Kinkaku-ji (Golden Pavilion)", evening: "Evening walk through historic Gion geisha district", stayTier: "5-Star Kyoto Heritage Hotel", transport: "Shinkansen 1st Class", meals: "Breakfast" },
-      { day: 5, title: "Fushimi Inari Torii Gates & Arashiyama Bamboo", morning: "Hike through 10,000 crimson torii gates at Fushimi Inari Shrine", afternoon: "Walk through mystical Arashiyama Bamboo Forest and Tenryu-ji", evening: "Traditional matcha green tea ceremony", stayTier: "5-Star Kyoto Heritage Hotel", transport: "Private Van", meals: "Breakfast" },
-      { day: 6, title: "Nara Deer Park & Osaka Dotonbori Street", morning: "Short train to Nara: feed sacred free-roaming deer at Todai-ji", afternoon: "Transfer to vibrant culinary capital Osaka", evening: "Street food feast at Dotonbori under Glico running man sign", stayTier: "5-Star Osaka Hotel", transport: "JR Train", meals: "Breakfast" },
-      { day: 7, title: "Osaka Castle & Bullet Train Return to Tokyo", morning: "Explore historic Osaka Castle and surrounding gardens", afternoon: "Shinkansen bullet train back to Tokyo for Ginza luxury shopping", evening: "Farewell Wagyu beef dinner", stayTier: "5-Star Tokyo Hotel", transport: "Shinkansen 1st Class", meals: "Breakfast & Dinner" },
-      { day: 8, title: "Departure", morning: "Gourmet buffet breakfast", afternoon: "Airport express transfer", evening: "Departure flight", stayTier: "Departure", transport: "Narita Express", meals: "Breakfast" }
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
     ],
-    inclusions: ["7 Nights in 5-star properties including luxury Onsen Ryokan", "7-Day Japan Rail Pass for unlimited bullet trains", "Authentic multi-course Kaiseki dinner and Wagyu banquet", "All admission tickets (teamLab, temples, Mt. Fuji ropeway)", "Japan tourist visa filing assistance"],
-    exclusions: ["International flights", "Personal shopping", "City tourist taxes"],
-    bestSeason: "March - May (Sakura Cherry Blossom) & Oct - Nov (Autumn Red Maples)"
+    "duration": "3 Nights & 4 Days",
+    "price": 42336,
+    "origPrice": 44564,
+    "tagline": "4-star comfort with Bhopal’s lakes, Van Vihar Park, and Sanchi Stupa exploration.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_d2d5ac2c8baa4f37a3ea4232d5a75daf~mv2.jpg/Image%20by%20Akshat%20Agrawal.jpg#originWidth=3399&originHeight=2296",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Driver Allowance",
+      "Night Allowance",
+      "Transportation"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival in Bhopal",
+        "desc": "Arrive at Bhopal Railway Station or Airport. Transfer to the hotel and check in. Freshen up and explore local sightseeing: · Upper Lake · Lower Lake · VIP Road Overnight stay at the hotel."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: Bhopal Sightseeing",
+        "desc": "After breakfast, visit Van Vihar National Park for wildlife spotting. Return to the hotel for lunch. In the afternoon, travel to Sher Sapata for scenic views. Overnight stay."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: Bhopal Excursion to Sanchi Stupa",
+        "desc": "Visit Sanchi Stupa, a Buddhist monument built by Emperor Ashoka. Explore surrounding monasteries. Return to Bhopal and visit Manuabhan Tekri for panoramic views. Also, visit the Jain Temple. Overnight stay."
+      },
+      {
+        "day": 4,
+        "title": "Day 4: Departure",
+        "desc": "Check out after breakfast. Transfer to Bhopal Railway Station or Airport for flight/train departure."
+      }
+    ]
   },
   {
-    id: "maldives-overwater",
-    name: "Maldives Ultra-Luxury: Private Overwater Pool Villa",
-    tagline: "Seaplane transfers, private infinity pool villas & sunset dolphin catamaran",
-    region: "Asia",
-    country: "Maldives",
-    category: "Honeymoon & Couple",
-    vibeTags: ["Tropical Islands", "Royal Luxury"],
-    type: ["Honeymoon", "Overwater Villa", "Ultra Luxury"],
-    durationDays: 5,
-    duration: "4 Nights / 5 Days",
-    price: 110000,
-    originalPrice: 145000,
-    currency: "INR",
-    rating: 5.0,
-    reviews: 94,
-    groupSize: "Couple Only",
-    difficulty: "Easy",
-    badge: "Ultra Luxury",
-    featured: false,
-    image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "Roundtrip scenic seaplane flight over turquoise coral atolls",
-      "Overnight stay in overwater villa with private glass-floor lagoon slide",
-      "All-Inclusive Premium dining with unlimited fine wines & cocktails",
-      "Sunset dolphin safari cruise on luxury traditional Dhoni",
-      "Complimentary couple 60-minute overwater spa massage"
+    "id": "tour-wix-gujarat-sacred-trails",
+    "wixId": "24c066d5-17f3-4de8-9991-b156391572b1",
+    "name": "Gujarat Sacred Trails",
+    "slug": "gujarat-sacred-trails",
+    "location": "Dwarka, Somnath",
+    "continent": "Asia",
+    "country": "Somnath",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Luxury Signature"
     ],
-    inclusionChips: ["Seaplane Transfers", "All-Inclusive Dining", "Lagoon Pool Villa", "Dolphin Cruise", "Free Spa Massage"],
-    itinerary: [
-      { day: 1, title: "Male Arrival & Scenic Seaplane Flight", morning: "VIP arrival at Velana International Airport Male", afternoon: "Board scenic seaplane flight over blue atolls to private island", evening: "Check-in to Overwater Pool Villa with chilled Champagne", stayTier: "5-Star Luxury Overwater Villa", transport: "Seaplane", meals: "All Inclusive Dining" },
-      { day: 2, title: "Lagoon Snorkeling & Floating Breakfast", morning: "Wake up to floating breakfast in your private infinity pool", afternoon: "Snorkel with gentle reef sharks, turtles and manta rays", evening: "Sunset cocktails on overwater hammock net", stayTier: "5-Star Luxury Overwater Villa", transport: "Resort Buggy", meals: "All Inclusive Dining" },
-      { day: 3, title: "Sunset Dolphin Safari & Beach Cinema", morning: "Paddleboarding and crystal kayak photography session", afternoon: "Couple 60-minute aromatherapy massage at Overwater Spa", evening: "Private luxury Dhoni cruise chasing playful spinner dolphins", stayTier: "5-Star Luxury Overwater Villa", transport: "Private Yacht", meals: "All Inclusive Dining" },
-      { day: 4, title: "Sandbank Picnic & Candlelight Dinner", morning: "Private speedboat excursion to uninhabited white sandbank", afternoon: "Chef-curated gourmet picnic lunch surrounded by pure ocean", evening: "Private 5-course candlelight dinner under starlit sky", stayTier: "5-Star Luxury Overwater Villa", transport: "Speedboat", meals: "All Inclusive Dining" },
-      { day: 5, title: "Seaplane Transfer & Departure", morning: "Leisure buffet breakfast overlooking ocean horizon", afternoon: "Seaplane flight back to Male Airport", evening: "Departure flight", stayTier: "Departure", transport: "Seaplane", meals: "Breakfast" }
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Luxury Signature"
     ],
-    inclusions: ["4 Nights in 5-Star Private Overwater Pool Villa", "Roundtrip scenic seaplane airport transfers", "All-Inclusive gourmet dining, beverages, and minibar refill", "Sunset dolphin cruise and non-motorized water sports", "Complimentary 30-minute photoshoot"],
-    exclusions: ["International flights", "Motorized water sports (Jet Ski / Flyboard)", "Green Tax ($6/night/person)"],
-    bestSeason: "Nov - April (Calm Blue Waters & Perfect Sunshine)"
+    "duration": "3 Nights & 4 Days",
+    "price": 65520,
+    "origPrice": 68968,
+    "tagline": "A premium 4-day tour covering Dwarka’s temples, Somnath’s spirituality, and Porbandar’s historical sites. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_10c1079d968d4d01a748c6c9228fd77e~mv2.jpg/Image%20by%20Alpesh%20Jogia.jpg#originWidth=5940&originHeight=3220",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Driver Allowance",
+      "Night Allowance",
+      "Transportation"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival in Ahmedabad & Transfer to Dwarka (8 hours, 450 km",
+        "desc": "Arrive in Ahmedabad. Drive to Dwarka. Check into 4-star resort. Overnight in Dwarka."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: Dwarka Sightseeing",
+        "desc": "Visit Bet Dwarka Island, Nageshwar Temple (Jyotirlinga), and Dwarkadhish Temple. Overnight in Dwarka."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: Dwarka to Somnath via Porbandar (4 hours, 235 km)",
+        "desc": "Drive to Porbandar. Visit Tara Mandir Planetarium, Kirti Mandir, and Chowpaty. Proceed to Somnath. Visit Somnath Temple and Bhalka Tirth. Overnight in Somnath."
+      },
+      {
+        "day": 4,
+        "title": "Day 4: Somnath to Ahmedabad (8 hours, 500 km)",
+        "desc": "Check out and drive back to Ahmedabad with unforgettable memories."
+      }
+    ]
   },
   {
-    id: "grand-asia-combo",
-    name: "Grand Asia 4-Country VIP Tour: Singapore, Malaysia, Bali & Dubai",
-    tagline: "Marina Bay Sands, Petronas Towers, Ubud Villas & Burj Khalifa Mega Combo",
-    region: "Asia",
-    country: "Singapore, Malaysia, Indonesia, UAE",
-    category: "International Signature",
-    vibeTags: ["Royal Luxury", "Tropical Islands"],
-    type: ["Multi-Country", "Mega Tour", "Luxury"],
-    durationDays: 14,
-    duration: "13 Nights / 14 Days",
-    price: 175000,
-    originalPrice: 220000,
-    currency: "INR",
-    rating: 4.98,
-    reviews: 62,
-    groupSize: "Family / Couple",
-    difficulty: "Easy",
-    badge: "Signature Combo",
-    featured: true,
-    image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "4 Countries in 1 Seamless VIP Itinerary with all flights coordinated",
-      "Singapore Gardens by the Bay, Marina Bay Sands SkyPark & Sentosa",
-      "Kuala Lumpur Petronas Twin Towers, Batu Caves & Genting cable car",
-      "Bali private jungle pool villa, Nusa Penida & Uluwatu Kecak dance",
-      "Dubai Burj Khalifa 124th floor, VIP desert safari & Marina yacht dinner"
+    "id": "tour-wix-taj-braj-tales",
+    "wixId": "25f17a28-f1d3-433f-9846-b58e50bac5d0",
+    "name": "Taj & Braj Tales",
+    "slug": "taj-braj-tales",
+    "location": "Agra",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Luxury Signature"
     ],
-    inclusionChips: ["All 4 Country Visas", "All Inter-City Flights", "5-Star Hotels", "Private Chauffeurs", "VIP Fast Track"],
-    itinerary: [
-      { day: 1, title: "Singapore Arrival & Night Safari", morning: "Arrival at Changi Airport, world's best airport", afternoon: "Check-in to luxury hotel near Marina Bay", evening: "VIP tram tour at world's first Night Safari with wild animals", stayTier: "5-Star Singapore Hotel", transport: "Private AC Van", meals: "Dinner" },
-      { day: 2, title: "Gardens by the Bay & Marina Bay Sands", morning: "Marvel at Cloud Forest glass dome & Supertree Observatory", afternoon: "Ride Singapore Flyer and visit Chinatown temples", evening: "Spectra light and water show at Marina Bay Sands", stayTier: "5-Star Singapore Hotel", transport: "Private AC Van", meals: "Breakfast" },
-      { day: 3, title: "Sentosa Island & Universal Studios VIP", morning: "Cable car to Sentosa Island", afternoon: "VIP access to Universal Studios Hollywood & Sci-Fi zones", evening: "Wings of Time fireworks ocean spectacle", stayTier: "5-Star Singapore Hotel", transport: "Cable Car + Van", meals: "Breakfast" },
-      { day: 4, title: "Scenic Coach / Flight to Kuala Lumpur", morning: "Cross border into Malaysia and drive to Kuala Lumpur", afternoon: "Check-in to luxury skyscraper suite overlooking skyline", evening: "Photo stop at illuminated 88-storey Petronas Twin Towers", stayTier: "5-Star KL Luxury Hotel", transport: "Luxury Coach", meals: "Breakfast & Dinner" },
-      { day: 5, title: "Batu Caves & Genting Highlands Cable Car", morning: "Climb colorful 272 steps at limestone Batu Caves", afternoon: "Ride Awana SkyWay glass-bottom cable car to Genting Highlands", evening: "Indoor theme park and casino visit", stayTier: "5-Star KL Luxury Hotel", transport: "Private AC Van", meals: "Breakfast" },
-      { day: 6, title: "Flight to Tropical Bali (Indonesia)", morning: "Fly from Kuala Lumpur to Bali Ngurah Rai Airport", afternoon: "Flower garland welcome and transfer to Seminyak beachfront suite", evening: "Sunset dinner at Jimbaran Bay on the beach", stayTier: "5-Star Seminyak Resort", transport: "Flight + Cab", meals: "Breakfast & Dinner" },
-      { day: 7, title: "Nusa Penida Island Speedboat Day Tour", morning: "Fast boat to Nusa Penida island", afternoon: "Visit Kelingking T-Rex cliff and Broken Beach", evening: "Return to Bali and relax at beach club", stayTier: "5-Star Seminyak Resort", transport: "Speedboat + SUV", meals: "Breakfast & Lunch" },
-      { day: 8, title: "Ubud Private Pool Villa & Giant Swing", morning: "Transfer to cultural Ubud and experience famous giant swing", afternoon: "Check in to private jungle pool villa with floating afternoon tea", evening: "Stroll in Ubud Royal Palace and art market", stayTier: "5-Star Ubud Pool Villa", transport: "Private AC Van", meals: "Breakfast & Dinner" },
-      { day: 9, title: "Kintamani Volcano & Couple Spa", morning: "Breakfast overlooking Mount Batur volcanic caldera", afternoon: "2-Hour traditional Balinese aromatherapy spa treatment", evening: "Farewell Balinese dinner with fire dance", stayTier: "5-Star Ubud Pool Villa", transport: "Private AC Van", meals: "Breakfast" },
-      { day: 10, title: "Flight to Futuristic Dubai (UAE)", morning: "Flight from Bali to Dubai International Airport", afternoon: "Check-in to 5-star Dubai Marina luxury hotel", evening: "Illuminated 2-hour Dhow Dinner Cruise across Marina skyscrapers", stayTier: "5-Star Dubai Marina Hotel", transport: "Flight + SUV", meals: "Breakfast & Dinner" },
-      { day: 11, title: "Burj Khalifa 124th Floor & Dubai Mall", morning: "City tour of Palm Jumeirah, Atlantis and Burj Al Arab", afternoon: "VIP At The Top Burj Khalifa 124th/125th floor tickets", evening: "Watch world-famous dancing fountain show", stayTier: "5-Star Dubai Marina Hotel", transport: "Private AC SUV", meals: "Breakfast" },
-      { day: 12, title: "4x4 Red Dunes Desert Safari & Bedouin Camp", morning: "Free time for shopping in Gold Souk and Mall of the Emirates", afternoon: "High-octane 4x4 dune bashing in Lahbab Red Dunes", evening: "Camel rides, belly dance, Tanoura fire show & 5-star BBQ dinner", stayTier: "5-Star Dubai Marina Hotel", transport: "4x4 Land Cruiser", meals: "Breakfast & Dinner" },
-      { day: 13, title: "Abu Dhabi Sheikh Zayed Mosque Day Tour", morning: "Drive to UAE capital Abu Dhabi", afternoon: "Marvel at pristine white marble Sheikh Zayed Grand Mosque", evening: "Ferrari World photo stop and return to Dubai", stayTier: "5-Star Dubai Marina Hotel", transport: "Private AC SUV", meals: "Breakfast" },
-      { day: 14, title: "Grand Tour Departure", morning: "Buffet breakfast", afternoon: "Private chauffeur transfer to airport", evening: "Departure flight home with unforgettable memories", stayTier: "Departure", transport: "Private AC SUV", meals: "Breakfast" }
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Luxury Signature"
     ],
-    inclusions: ["13 Nights in handpicked 5-star hotels & private villas", "All 3 connecting international flights between countries included", "All visas processed with full documentation concierge", "All monument tickets, cruises, cable cars, and desert safari", "Private chauffeur transfers in all 4 destinations"],
-    exclusions: ["International flights from hometown to start/end cities", "Personal shopping", "Tourist taxes"],
-    bestSeason: "Oct - April (Ideal Weather Across All 4 Countries)"
-  },
-
-  // ==========================================
-  // 3. EUROPE LUXURY & ADVENTURE
-  // ==========================================
-  {
-    id: "swiss-alps-dream",
-    name: "Swiss Alpine Wonderland: Zurich, Lucerne & Interlaken",
-    tagline: "Glacier Express, Mt. Titlis rotating cable car & Lake Lucerne yacht",
-    region: "Europe",
-    country: "Switzerland",
-    category: "International Signature",
-    vibeTags: ["Snow & Alpine", "Royal Luxury"],
-    type: ["Luxury", "Mountains", "Scenic Rail"],
-    durationDays: 7,
-    duration: "6 Nights / 7 Days",
-    price: 129999,
-    originalPrice: 159999,
-    currency: "INR",
-    rating: 4.99,
-    reviews: 88,
-    groupSize: "Private / Small Group",
-    difficulty: "Easy",
-    badge: "Luxury Signature",
-    featured: true,
-    image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "1st Class Swiss Travel Pass for scenic rail and lake steamboats",
-      "Mt. Titlis Rotair revolving cable car & Glacier Cliff Walk",
-      "Jungfraujoch 'Top of Europe' cogwheel train at 11,333 feet",
-      "Private 1-hour panoramic yacht cruise on Lake Lucerne",
-      "Chalet stays overlooking Eiger and Lauterbrunnen waterfalls"
+    "duration": "3 Nights & 4 Days",
+    "price": 58080,
+    "origPrice": 64533,
+    "tagline": "A luxurious 4-day spiritual tour covering Agra’s Taj Mahal, Mathura’s Krishna temples, and Vrindavan’s iconic sites. Includes 5-star hotels, Crysta transportation, and curated sightseeing. Note: Vrindavan Parikrama not included.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/7f7d02_23738d8be9de42cba9cd081510abffbf~mv2.jpg/A%20Girl%20standing%20in%20front%20of%20the%20Taj%20Mahal_Picture%20By%20Navdeep%20Panwar%20(1).jpg#originWidth=3615&originHeight=3181",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Driver Allowance",
+      "Night Allowance",
+      "Transportation"
     ],
-    inclusionChips: ["Swiss Travel Pass 1st Cl.", "Chalet Hotels", "Titlis Rotair", "Lake Cruise", "Schengen Concierge"],
-    itinerary: [
-      { day: 1, title: "Zurich Arrival & Bahnhofstrasse Stroll", morning: "Arrival at Zurich International Airport", afternoon: "Activate 1st Class Swiss Travel Pass and check in to hotel", evening: "Stroll along historic Limmat river and Lake Zurich promenade", stayTier: "5-Star Zurich Grand Hotel", transport: "1st Class Swiss Rail", meals: "Dinner" },
-      { day: 2, title: "Scenic Rail to Lucerne & Lake Cruise", morning: "Panoramic rail journey through alpine foothills to Lucerne", afternoon: "Visit Chapel Bridge, Lion Monument & Swiss transport museum", evening: "Private 1-hour scenic lake cruise across Lake Lucerne", stayTier: "4-Star Lucerne Lake Hotel", transport: "1st Class Swiss Rail + Yacht", meals: "Breakfast" },
-      { day: 3, title: "Mt. Titlis Glacier & Rotair Cable Car", morning: "Ascend Mt. Titlis on world's first revolving cable car", afternoon: "Walk Europe's highest suspension bridge and explore Ice Grotto", evening: "Swiss cheese fondue dinner in alpine chalet", stayTier: "4-Star Lucerne Lake Hotel", transport: "Cable Car + Rail", meals: "Breakfast & Dinner" },
-      { day: 4, title: "Interlaken: Gateway to Alpine Peaks", morning: "Scenic train along Lake Brienz to picturesque Interlaken", afternoon: "Stroll through Hohematte park with paraglider vistas", evening: "Chocolate tasting boutique in historic Old Town", stayTier: "5-Star Interlaken Alpine Resort", transport: "1st Class Swiss Rail", meals: "Breakfast" },
-      { day: 5, title: "Jungfraujoch: Top of Europe (3,454m)", morning: "Cogwheel train through Eiger mountain to Jungfraujoch", afternoon: "Marvel at Aletsch Glacier, Ice Palace sculpture galleries", evening: "Descend past scenic Grindelwald valley", stayTier: "5-Star Interlaken Alpine Resort", transport: "Jungfrau Cogwheel Train", meals: "Breakfast" },
-      { day: 6, title: "Lauterbrunnen Valley of 72 Waterfalls", morning: "Excursion to Lauterbrunnen postcard valley and Staubbach Falls", afternoon: "Cable car up to car-free village of Murren with Jungfrau views", evening: "Farewell Swiss dinner overlooking Lake Thun", stayTier: "5-Star Interlaken Alpine Resort", transport: "Swiss Rail + Funicular", meals: "Breakfast & Dinner" },
-      { day: 7, title: "Zurich Return & Departure", morning: "Scenic train return to Zurich Airport", afternoon: "Duty free shopping and departure flight", evening: "Arrival back home", stayTier: "Departure", transport: "1st Class Swiss Rail", meals: "Breakfast" }
-    ],
-    inclusions: ["6 Nights in handpicked 4 & 5-star Swiss chalets", "Swiss Travel Pass 1st Class unlimited train, bus & boat access", "Mt. Titlis Rotair and Glacier Cave passes", "Jungfraujoch Top of Europe rail tickets", "Full Schengen visa concierge assistance"],
-    exclusions: ["International airfare", "Personal insurance and city tourist tax", "Lunch meals unless specified"],
-    bestSeason: "May - Oct (Lush Alpine), Dec - Apr (Snow Wonderland)"
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival in Agra",
+        "desc": "Arrive in Agra and check into 5-star hotel. Visit Taj Mahal (UNESCO site), Agra Fort, and optional Mehtab Bagh for sunset view. Overnight in Agra."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: Agra to Mathura (1.5 hours, 60 km)",
+        "desc": "After breakfast, drive to Mathura. Visit Krishna Janmabhoomi Temple, Dwarkadhish Temple, Vishram Ghat, and Government Museum. Evening Ganga Aarti at Vishram Ghat. Overnight in Mathura."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: Vrindavan Excursion",
+        "desc": "Full-day trip to Vrindavan: Visit Banke Bihari Temple, Prem Mandir (light show), ISKCON Temple, Radha Raman Temple, and Nidhivan. Return to Mathura. Overnight in Mathura."
+      },
+      {
+        "day": 4,
+        "title": "Day 4: Departure",
+        "desc": "Check out and transfer to onward destination with unforgettable memories."
+      }
+    ]
   },
   {
-    id: "amalfi-rome-italy",
-    name: "Amalfi Coast & Rome Dolce Vita: Positano & Capri Yacht",
-    tagline: "Cliffside Positano luxury, private yacht to Capri & VIP Colosseum passes",
-    region: "Europe",
-    country: "Italy",
-    category: "Honeymoon & Couple",
-    vibeTags: ["Royal Luxury", "Tropical Islands"],
-    type: ["Honeymoon", "Coast", "Luxury Yacht"],
-    durationDays: 7,
-    duration: "6 Nights / 7 Days",
-    price: 165000,
-    originalPrice: 199000,
-    currency: "INR",
-    rating: 4.97,
-    reviews: 79,
-    groupSize: "Private Couple",
-    difficulty: "Easy",
-    badge: "Italian Romance",
-    featured: true,
-    image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "Stay in cliffside sea-view hotel overlooking Positano pastel houses",
-      "Private 1-day Riva yacht cruise around Capri Island & Blue Grotto",
-      "VIP Fast-Track skip-the-line Colosseum & Roman Forum tour",
-      "Tuscan wine tasting and handmade pasta culinary masterclass",
-      "Trevi Fountain private early morning photoshoot session"
+    "id": "tour-wix-rajasthan-grand-getaway",
+    "wixId": "265643ae-6682-4063-b76b-875636082dbd",
+    "name": "Rajasthan Grand Getaway",
+    "slug": "rajasthan-grand-getaway",
+    "location": "Rajasthan",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Rajasthan",
+      "Luxury Signature"
     ],
-    inclusionChips: ["Cliffside Stays", "Capri Private Yacht", "High-Speed Rail", "VIP Colosseum Pass", "Schengen Visa"],
-    itinerary: [
-      { day: 1, title: "Eternal City Rome Arrival & Piazza Navona", morning: "Arrival at Rome Fiumicino Airport with private Mercedes transfer", afternoon: "Check-in to luxury boutique hotel near Spanish Steps", evening: "Stroll to illuminated Trevi Fountain and Piazza Navona with gelato", stayTier: "5-Star Rome Boutique Hotel", transport: "Private Mercedes Chauffeur", meals: "Dinner" },
-      { day: 2, title: "VIP Colosseum, Roman Forum & Vatican City", morning: "VIP skip-the-line access inside Colosseum Arena floor", afternoon: "Private guided tour of Vatican Museums & Sistine Chapel", evening: "Trastevere neighborhood romantic candlelit dinner", stayTier: "5-Star Rome Boutique Hotel", transport: "Private Chauffeur", meals: "Breakfast & Dinner" },
-      { day: 3, title: "Frecciarossa High-Speed Train to Naples & Sorrento", morning: "High-speed Frecciarossa train to Naples", afternoon: "Private cliffside scenic drive along Amalfi Drive to Sorrento", evening: "Limoncello tasting overlooking Bay of Naples and Mt. Vesuvius", stayTier: "5-Star Sorrento Sea View Resort", transport: "1st Class Rail + Mercedes", meals: "Breakfast" },
-      { day: 4, title: "Private Yacht Charter to Capri Island", morning: "Board private luxury motor yacht from Sorrento marina", afternoon: "Cruise past Faraglioni rocks and swim in Blue & Green Grottoes", evening: "Stroll through designer boutiques in Capri town and return", stayTier: "5-Star Sorrento Sea View Resort", transport: "Private Motor Yacht", meals: "Breakfast & Champagne Lunch" },
-      { day: 5, title: "Positano & Amalfi Cliffside Villages", morning: "Scenic coastal drive to postcard village of Positano", afternoon: "Relax on Spiaggia Grande beach and browse linen boutiques", evening: "Sunset dinner on cliffside terrace in Amalfi town", stayTier: "5-Star Positano Cliff Resort", transport: "Private Mercedes", meals: "Breakfast & Dinner" },
-      { day: 6, title: "Ravello Villa Rufolo Gardens & Wine Tasting", morning: "Drive up to cliff-perched town of Ravello", afternoon: "Marvel at infinite sea vistas from Villa Rufolo gardens", evening: "Farewell gourmet seafood dining under lemon groves", stayTier: "5-Star Positano Cliff Resort", transport: "Private Mercedes", meals: "Breakfast & Dinner" },
-      { day: 7, title: "Naples Airport Transfer & Departure", morning: "Buffet breakfast on terrace", afternoon: "Private transfer to Naples / Rome International Airport", evening: "Flight departure", stayTier: "Departure", transport: "Private Mercedes", meals: "Breakfast" }
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Rajasthan",
+      "Luxury Signature"
     ],
-    inclusions: ["6 Nights in handpicked 5-star Italian luxury sea-view properties", "Private full-day Capri motor yacht charter with skipper & drinks", "1st Class high-speed Frecciarossa rail tickets", "VIP skip-the-line Colosseum and Vatican passes", "Full Schengen visa concierge assistance"],
-    exclusions: ["International flights", "Local city hotel tax (paid at checkout)", "Personal shopping"],
-    bestSeason: "April - Oct (Warm Mediterranean Sunshine)"
+    "duration": "4 Nights & 5 Days",
+    "price": 5178625,
+    "origPrice": 69048,
+    "tagline": "Journey through Rajasthan’s vibrant heritage—Jaipur’s culture, Khatushyam Ji’s spirituality, and Ranthambore’s wildlife—all in one unforgettable package.",
+    "image": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/43df74_56b08e3434b943c5985276b30f247975~mv2.jpg/beautiful-shot-udaipur-from-window-city-palace.jpg#originWidth=5746&originHeight=3831",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Morning & Evening Safari",
+      "Driver Allowance",
+      "Night Allowance"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1  Arrival at Jaipur and Khatushyam Ji Darshan",
+        "desc": "Arrive at Jaipur airport in the afternoon and transfer to the hotel for check-in. In the evening, perform darshan and pooja at Khatushyam Ji. Return to Jaipur and overnight stay at the hotel."
+      },
+      {
+        "day": 2,
+        "title": "Day 2  Jaipur Local Sightseeing",
+        "desc": "After breakfast, drive for a local sightseeing tour to visit Amber Fort, Jal Mahal, Hawa Mahal, City Palace, Jantar Mantar, and Albert Hall Museum. In the evening, explore local markets like Johari Bazaar and Bapu Bazaar. Return to the hotel and overnight stay."
+      },
+      {
+        "day": 3,
+        "title": "Day 3 - Jaipur to Ranthambore National Park",
+        "desc": "After breakfast, check out from the hotel and drive to Ranthambore. Upon reaching, complete the check-in process, then drive to Ranthambore National Park for the evening jungle safari. Return to the hotel and overnight stay."
+      },
+      {
+        "day": 4,
+        "title": "Day 4 - Ranthambore to Jaipur – Sightseeing",
+        "desc": "After breakfast, check out from the hotel and drive back to Jaipur. Upon arrival, complete the check-in process and visit Birla Mandir. Explore Nahargarh Fort for sunset views. Return to the hotel and overnight stay in Jaipur."
+      },
+      {
+        "day": 5,
+        "title": "Day 5 - Departure",
+        "desc": "Complete check-out in the early morning and drive to Jaipur airport to board your pre-booked flight, taking home beautiful memories."
+      }
+    ]
   },
   {
-    id: "iceland-aurora",
-    name: "Iceland Aurora & Glaciers: Blue Lagoon & Ice Caves",
-    tagline: "Northern lights hunts, Blue Lagoon geothermal spa & glacier snowmobiling",
-    region: "Europe",
-    country: "Iceland",
-    category: "Adrenaline & Adventure",
-    vibeTags: ["Northern Lights", "Snow & Alpine"],
-    type: ["Northern Lights", "Adventure", "Glaciers"],
-    durationDays: 7,
-    duration: "6 Nights / 7 Days",
-    price: 185000,
-    originalPrice: 225000,
-    currency: "INR",
-    rating: 4.98,
-    reviews: 68,
-    groupSize: "Small Group / Couple",
-    difficulty: "Moderate",
-    badge: "Bucketlist",
-    featured: true,
-    image: "https://images.unsplash.com/photo-1504893524553-b855bce32c67?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "Guided Super Jeep Northern Lights hunts with professional night photography",
-      "VIP Premium entry to Blue Lagoon geothermal mineral spa & silica mask",
-      "Glacier snowmobiling on Langjokull Ice Cap & natural Blue Ice Cave entry",
-      "Golden Circle: Gullfoss waterfall, Geysir eruptions & Thingvellir Rift",
-      "Black Sand Beach of Reynisfjara with basalt columns and Jokulsarlon iceberg lagoon"
+    "id": "tour-wix-royal-mp-route",
+    "wixId": "28a57efc-64c2-468d-b105-cae1c871564a",
+    "name": "Royal MP Route",
+    "slug": "royal-mp-route",
+    "location": "Gwalior, Orchha",
+    "continent": "Asia",
+    "country": "Orchha",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
     ],
-    inclusionChips: ["Super Jeep Aurora Hunts", "Blue Lagoon VIP", "Ice Cave Entry", "Snowmobile Pass", "Schengen Visa"],
-    itinerary: [
-      { day: 1, title: "Reykjavik Arrival & Blue Lagoon Geothermal Spa", morning: "Arrival at Keflavik International Airport", afternoon: "Immerse in warm 38°C mineral waters of world-famous Blue Lagoon", evening: "Check-in to luxury hotel in Reykjavik and northern lights briefing", stayTier: "5-Star Reykjavik Hotel", transport: "Private 4x4 Super Jeep", meals: "Dinner" },
-      { day: 2, title: "Golden Circle Geysers & Thingvellir Rift", morning: "Walk between North American and Eurasian tectonic plates at Thingvellir", afternoon: "Watch Strokkur geysir shoot boiling water 30 meters high", evening: "Marvel at two-tiered roaring Gullfoss waterfall", stayTier: "5-Star Reykjavik Hotel", transport: "Super Jeep", meals: "Breakfast" },
-      { day: 3, title: "Langjokull Glacier Snowmobiling Adventure", morning: "Drive deep into highlands to base of Langjokull glacier", afternoon: "Exciting 1-hour snowmobile expedition across vast ice sheet", evening: "Nighttime Super Jeep hunt chasing dancing Aurora Borealis", stayTier: "4-Star South Coast Country Lodge", transport: "Snowmobile + Super Jeep", meals: "Breakfast & Dinner" },
-      { day: 4, title: "South Coast Waterfalls & Reynisfjara Black Sand", morning: "Walk behind roaring 60-meter curtain of Seljalandsfoss waterfall", afternoon: "Visit powerful Skogafoss waterfall and Reynisfjara black beach", evening: "Stay near Vik village with views of sea stacks", stayTier: "4-Star South Coast Country Lodge", transport: "Super Jeep", meals: "Breakfast & Dinner" },
-      { day: 5, title: "Jokulsarlon Glacier Lagoon & Crystal Ice Cave", morning: "Marvel at floating blue icebergs in Jokulsarlon glacier lagoon", afternoon: "Put on crampons and explore natural shimmering Crystal Blue Ice Cave", evening: "Diamond Beach photo stop with crystal icebergs on black sand", stayTier: "4-Star Glacier View Hotel", transport: "Super Jeep", meals: "Breakfast & Dinner" },
-      { day: 6, title: "Reykjavik City Culture & Farewell Aurora Chase", morning: "Scenic return drive along South Coast to Reykjavik", afternoon: "Explore Hallgrimskirkja church and Harpa concert hall", evening: "Farewell Nordic gourmet dinner and final Northern Lights cruise", stayTier: "5-Star Reykjavik Hotel", transport: "Super Jeep + Boat", meals: "Breakfast & Dinner" },
-      { day: 7, title: "Departure", morning: "Nordic buffet breakfast", afternoon: "Chauffeur transfer to Keflavik Airport", evening: "Flight departure", stayTier: "Departure", transport: "Private 4x4 SUV", meals: "Breakfast" }
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
     ],
-    inclusions: ["6 Nights in verified 4 & 5-star Icelandic properties", "Private 4x4 Super Jeep with expert driver-glaciologist guide", "Blue Lagoon VIP Premium ticket (towel, robe, silica mask & drink)", "Snowmobile gear, helmet, crampons, and ice cave entrance", "Nightly Aurora Borealis hunting forecasts and photo coaching"],
-    exclusions: ["International flights", "Personal winter thermals", "Lunches"],
-    bestSeason: "Sep - April (Optimal Northern Lights Darkness)"
+    "duration": "3 Nights & 4 Days",
+    "price": 339864,
+    "origPrice": 35774,
+    "tagline": "A budget-friendly 4-day tour covering Gwalior’s historic forts, Orchha’s royal palaces, and Khajuraho’s UNESCO-listed temples. Includes 3-star hotels, Sedan transportation, and curated sightseeing.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/7f7d02_1d5c3165611d4fa8a890527a83faad7c~mv2.jpg/Ancient%20Temples%20(1).jpg#originWidth=5361&originHeight=3911",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Driver Allowance",
+      "Night Allowance",
+      "Transportation"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival in Gwalior",
+        "desc": "Arrive in Gwalior and check into 3-star hotel. Visit Gwalior Fort (one of India’s largest forts), Man Singh Palace (exquisite architecture), Gurudwara Data Bandi Chhod, Sashi Garden, and Teli Ka Mandir. Optional Sound & Light Show at Gwalior Fort. Overnight in Gwalior."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: Gwalior to Orchha (3 hours, 118 km)",
+        "desc": "After breakfast, drive to Orchha. Check into 3-star hotel. Explore Orchha Fort (Raja Mahal, Jahangir Mahal), Chaturbhuj Temple, Rama Raja Temple, and Betwa River. Overnight in Orchha."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: Orchha to Khajuraho (3 hours, 172 km)",
+        "desc": "After breakfast, drive to Khajuraho. Check into 3-star hotel. Visit Kandariya Mahadev Temple, Lakshmana Temple, and Vishwanath Temple (famous for intricate carvings). Optional Sound & Light Show at Western Group of Temples. Overnight in Khajuraho."
+      },
+      {
+        "day": 4,
+        "title": "Day 4: Departure",
+        "desc": "Check out and drive back home with unforgettable memories."
+      }
+    ]
   },
   {
-    id: "ultimate-europe-combo",
-    name: "Ultimate Europe 7-Country Rail & Cruise Grand Tour",
-    tagline: "France, Switzerland, Italy, Austria, Germany, Netherlands & Belgium Mega Odyssey",
-    region: "Europe",
-    country: "France, Switzerland, Italy, Austria, Germany, Netherlands, Belgium",
-    category: "International Signature",
-    vibeTags: ["Royal Luxury", "Snow & Alpine"],
-    type: ["Multi-Country", "Mega Tour", "Scenic Rail"],
-    durationDays: 15,
-    duration: "14 Nights / 15 Days",
-    price: 245000,
-    originalPrice: 295000,
-    currency: "INR",
-    rating: 4.99,
-    reviews: 51,
-    groupSize: "Family / Small Group",
-    difficulty: "Easy",
-    badge: "Grand Masterpiece",
-    featured: true,
-    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "7 Iconic European Nations in 1 Seamless luxury rail journey",
-      "Paris Eiffel Tower 2nd floor, Louvre Museum & Seine River cruise",
-      "Swiss Mt. Titlis rotating cable car & Lucerne Lake cruise",
-      "Venice Gondola ride, Rome Colosseum & Florence Renaissance art",
-      "Amsterdam Canal cruise, Keukenhof tulip fields & Brussels Grand Place"
+    "id": "tour-wix-madhya-pradesh-wildside",
+    "wixId": "2993d415-a0e9-4b15-9d0e-4d58075631fc",
+    "name": "Madhya Pradesh Wildside",
+    "slug": "madhya-pradesh-wildside",
+    "location": "Jabalpur",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Wildlife & Nature",
+      "Backwaters & Nature",
+      "Monsoon",
+      "Luxury Signature"
     ],
-    inclusionChips: ["1st Cl. Eurail Global Pass", "5-Star City Hotels", "All Sightseeing Tickets", "Schengen Visa Concierge", "24/7 Tour Lead"],
-    itinerary: [
-      { day: 1, title: "Paris Arrival & Illuminations Seine Cruise", morning: "Arrival at Paris Charles de Gaulle Airport", afternoon: "Check-in to luxury hotel near Champs-Elysees", evening: "Illuminated Seine river cruise past glittering Eiffel Tower", stayTier: "5-Star Paris Hotel", transport: "Private AC Coach", meals: "Dinner" },
-      { day: 2, title: "Eiffel Tower 2nd Floor & Louvre Museum", morning: "Ascend to 2nd level of Eiffel Tower with panoramic Paris vistas", afternoon: "Skip-the-line tour of Louvre Museum (Mona Lisa & Venus de Milo)", evening: "Stroll in Montmartre artist square overlooking Sacre-Coeur", stayTier: "5-Star Paris Hotel", transport: "Private AC Coach", meals: "Breakfast" },
-      { day: 3, title: "TGV High-Speed Train to Swiss Alps (Interlaken)", morning: "Board high-speed TGV train across French countryside into Switzerland", afternoon: "Scenic train along Lake Thun to alpine resort Interlaken", evening: "Swiss fondue dinner surrounded by Eiger and Jungfrau peaks", stayTier: "5-Star Swiss Alpine Resort", transport: "TGV 1st Class", meals: "Breakfast & Dinner" },
-      { day: 4, title: "Mt. Titlis Glacier & Rotair Revolving Cable Car", morning: "Ascend Mt. Titlis on world's first revolving cable car to 10,000ft", afternoon: "Explore Ice Grotto, Glacier Cliff Walk & snow fun park", evening: "Stroll across historic Chapel Bridge in Lucerne", stayTier: "5-Star Swiss Alpine Resort", transport: "Cable Car + Rail", meals: "Breakfast" },
-      { day: 5, title: "Scenic Swiss Rail into Venice (Italy)", morning: "Panoramic train through Gotthard pass into Italy", afternoon: "Arrive in floating city of Venice and board private water taxi", evening: "Romantic private Gondola ride along Grand Canal", stayTier: "5-Star Venice Island Hotel", transport: "1st Class Rail + Gondola", meals: "Breakfast & Dinner" },
-      { day: 6, title: "St. Mark's Basilica & Train to Florence", morning: "Tour St. Mark's Square, Doge's Palace and Bridge of Sighs", afternoon: "High-speed Frecciarossa train to Florence, birthplace of Renaissance", evening: "Sunset views over terracotta roofs from Piazzale Michelangelo", stayTier: "5-Star Florence Hotel", transport: "Frecciarossa 1st Class", meals: "Breakfast" },
-      { day: 7, title: "Florence Duomo, Pisa Leaning Tower & Rome", morning: "Visit Florence Duomo, Ponte Vecchio & leather markets", afternoon: "Photo stop at famous Leaning Tower of Pisa", evening: "Arrive in Eternal City Rome and check in", stayTier: "5-Star Rome Hotel", transport: "Private AC Coach", meals: "Breakfast & Dinner" },
-      { day: 8, title: "VIP Colosseum & Vatican City (Rome)", morning: "VIP skip-the-line access inside ancient Colosseum & Roman Forum", afternoon: "Visit Vatican Museums, Sistine Chapel & St. Peter's Basilica", evening: "Toss coin into Trevi Fountain and enjoy gelato", stayTier: "5-Star Rome Hotel", transport: "Private AC Coach", meals: "Breakfast" },
-      { day: 9, title: "Flight / Scenic Rail to Vienna (Austria)", morning: "Journey across Alps to imperial capital of Vienna", afternoon: "Check-in to luxury hotel on Ringstrasse boulevard", evening: "Classical Mozart & Strauss musical concert performance", stayTier: "5-Star Vienna Hotel", transport: "1st Class Rail / Flight", meals: "Breakfast & Dinner" },
-      { day: 10, title: "Schonbrunn Palace & Munich (Germany)", morning: "Tour lavish imperial Schonbrunn Palace state apartments", afternoon: "Cross into Germany and drive to Bavarian capital Munich", evening: "Traditional Bavarian dinner at historic Hofbrauhaus beer hall", stayTier: "5-Star Munich Hotel", transport: "Private AC Coach", meals: "Breakfast & Dinner" },
-      { day: 11, title: "BMW Welt & High-Speed ICE to Amsterdam", morning: "Visit futuristic BMW Welt museum and Olympic Park", afternoon: "Board German high-speed ICE train to Amsterdam", evening: "Evening stroll in lively Dam Square and canals", stayTier: "5-Star Amsterdam Hotel", transport: "ICE Bullet Train", meals: "Breakfast" },
-      { day: 12, title: "Amsterdam Glass-Topped Canal Cruise & Windmills", morning: "Cruise UNESCO canal ring on glass-topped boat", afternoon: "Excursion to Zaanse Schans historic windmills & wooden clog workshop", evening: "Visit Van Gogh Museum / Heineken Experience", stayTier: "5-Star Amsterdam Hotel", transport: "Canal Boat + Coach", meals: "Breakfast" },
-      { day: 13, title: "Brussels Grand Place & Atomium (Belgium)", morning: "Drive across border into Belgian capital Brussels", afternoon: "Visit UNESCO Grand Place, Manneken Pis and Atomium", evening: "Belgian waffle & gourmet chocolate tasting tour", stayTier: "5-Star Brussels Hotel", transport: "Private AC Coach", meals: "Breakfast" },
-      { day: 14, title: "Return to Paris & Gala Farewell Dinner", morning: "High-speed Eurostar train back to Paris", afternoon: "Free time for shopping in Galeries Lafayette and Champs-Elysees", evening: "Gala 5-course farewell dinner cruise on the Seine", stayTier: "5-Star Paris Hotel", transport: "Eurostar 1st Class", meals: "Breakfast & Gala Dinner" },
-      { day: 15, title: "Departure from Paris", morning: "Gourmet French breakfast", afternoon: "Private chauffeur transfer to Charles de Gaulle Airport", evening: "Departure flight home with life-changing memories", stayTier: "Departure", transport: "Private Chauffeur", meals: "Breakfast" }
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Wildlife & Nature",
+      "Backwaters & Nature",
+      "Monsoon",
+      "Luxury Signature"
     ],
-    inclusions: ["14 Nights in verified 5-star city-center luxury hotels", "1st Class Eurail Global Pass & Eurostar high-speed rail tickets", "All skip-the-line admissions (Eiffel, Louvre, Colosseum, Vatican, Titlis)", "Daily gourmet buffet breakfasts + 8 multi-course regional dinners", "Full Schengen Visa preparation and filing concierge"],
-    exclusions: ["International flights from India to Paris", "Personal shopping", "City tourist taxes"],
-    bestSeason: "April - Oct (Spring Blooms, Long Summer Days & Autumn Colors)"
-  },
-
-  // ==========================================
-  // 4. AFRICA & INDIAN OCEAN EXPEDITIONS
-  // ==========================================
-  {
-    id: "kenya-safari",
-    name: "Kenya Maasai Mara Safari: Big Five & Balloon Flight",
-    tagline: "Big Five game drives, luxury tented glamping & sunrise hot air balloon safari",
-    region: "Africa",
-    country: "Kenya",
-    category: "Adrenaline & Adventure",
-    vibeTags: ["Wildlife Safari", "Adrenaline & Adventure"],
-    type: ["Safari", "Wildlife", "Glamping"],
-    durationDays: 7,
-    duration: "6 Nights / 7 Days",
-    price: 145000,
-    originalPrice: 178000,
-    currency: "INR",
-    rating: 4.97,
-    reviews: 82,
-    groupSize: "Small Group / Family",
-    difficulty: "Easy",
-    badge: "Big Five Safari",
-    featured: true,
-    image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "Custom 4x4 Land Cruiser with pop-up roof and expert safari tracker",
-      "Overnight luxury tented camp inside Maasai Mara Game Reserve",
-      "Sunrise Hot Air Balloon flight over savannah with Champagne bush breakfast",
-      "Encounter the Big Five: Lions, Leopards, Elephants, Rhinos & Buffalos",
-      "Authentic Maasai tribal village cultural dance and fire ceremony"
+    "duration": "4 Nights & 5 Days",
+    "price": 148512,
+    "origPrice": 185640,
+    "tagline": "A luxurious 5-day wildlife tour covering Bandhavgarh, Kanha, and Pench National Parks. Includes 5-star hotels, Crysta transportation, and curated safaris.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/7f7d02_dd043f10d3954b119b3f9e643bc7e433~mv2.jpg/spotted%20deer%20and%20wild%20dog,%20Kanha%20nat.%20park,%20India%20(1).jpg#originWidth=5426&originHeight=3052",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Driver Allowance",
+      "Night Allowance",
+      "Transportation"
     ],
-    inclusionChips: ["4x4 Land Cruiser", "Tented Glamping", "Balloon Safari", "Park Fees Included", "All Meals"],
-    itinerary: [
-      { day: 1, title: "Nairobi Arrival & Giraffe Centre", morning: "Arrival at Jomo Kenyatta Airport Nairobi with VIP greeting", afternoon: "Check-in to luxury hotel and visit historic Giraffe Centre", evening: "Welcome dinner at world-famous Carnivore restaurant", stayTier: "5-Star Nairobi Luxury Hotel", transport: "4x4 Safari Cruiser", meals: "Dinner" },
-      { day: 2, title: "Great Rift Valley Drive to Maasai Mara", morning: "Scenic drive via Great Rift Valley viewpoint to Maasai Mara", afternoon: "Arrive at luxury tented camp and enjoy buffet lunch", evening: "First afternoon game drive spotting lions and cheetahs", stayTier: "5-Star Mara Tented Luxury Camp", transport: "4x4 Safari Cruiser", meals: "Breakfast, Lunch & Dinner" },
-      { day: 3, title: "Full Day Big Five Game Drive in Maasai Mara", morning: "Early morning game drive tracking lion prides on the hunt", afternoon: "Picnic lunch under acacia tree overlooking Mara river", evening: "Spot hippos, Nile crocodiles, and herds of zebras", stayTier: "5-Star Mara Tented Luxury Camp", transport: "4x4 Safari Cruiser", meals: "Breakfast, Lunch & Dinner" },
-      { day: 4, title: "Sunrise Hot Air Balloon Safari & Maasai Village", morning: "Dawn hot air balloon flight over awakening savannah", afternoon: "Champagne bush breakfast where you land", evening: "Visit traditional Maasai Manyatta village for tribal jump dance", stayTier: "5-Star Mara Tented Luxury Camp", transport: "Hot Air Balloon + 4x4", meals: "Breakfast, Lunch & Dinner" },
-      { day: 5, title: "Lake Naivasha Boat Safari & Crescent Island", morning: "Drive to scenic freshwater Lake Naivasha", afternoon: "Boat safari among hundreds of hippos to Crescent Island", evening: "Walking safari alongside giraffes and zebras on foot", stayTier: "5-Star Lake Naivasha Sopa Resort", transport: "4x4 Safari Cruiser + Boat", meals: "Breakfast, Lunch & Dinner" },
-      { day: 6, title: "Lake Nakuru National Park (Rhino & Flamingo)", morning: "Drive to Lake Nakuru National Park", afternoon: "Game drive spotting endangered Black & White Rhinos and leopards", evening: "Sunset views over pink flamingo-fringed lake", stayTier: "5-Star Nakuru Lodge", transport: "4x4 Safari Cruiser", meals: "Breakfast, Lunch & Dinner" },
-      { day: 7, title: "Nairobi Return & Departure", morning: "Morning breakfast overlooking savannah", afternoon: "Drive back to Nairobi and souvenir craft shopping", evening: "Transfer to airport for departure flight", stayTier: "Departure", transport: "4x4 Safari Cruiser", meals: "Breakfast" }
-    ],
-    inclusions: ["6 Nights in verified 5-star luxury safari lodges and tented camps", "Exclusive 4x4 Safari Land Cruiser with pop-up roof and binoculars", "All National Park and Game Reserve entry fees included", "Sunrise Hot Air Balloon flight with Champagne bush breakfast", "All meals during safari (Breakfast, Lunch & Dinner)"],
-    exclusions: ["International flights", "Kenya Tourist eTA fee ($35)", "Tips for safari guide"],
-    bestSeason: "July - Oct (Great Wildebeest Migration) & Dec - March (Pleasant Sunny Game Drives)"
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival in Jabalpur",
+        "desc": "Arrive at Jabalpur Railway Station/Airport. Transfer to 5-star hotel. Explore Bhedaghat (Marble Rocks, Dhuandhar Waterfall) or Rani Durgavati Mahal. Overnight in Jabalpur."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: Jabalpur to Bandhavgarh (4 hours, 202 km)",
+        "desc": "Drive to Bandhavgarh. Check into 5-star resort. Afternoon safari in Bandhavgarh (tiger sightings, wildlife). Overnight in Bandhavgarh."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: Bandhavgarh to Kanha (5 hours, 215 km)",
+        "desc": "Early morning safari in Bandhavgarh. After breakfast, visit Bandhavgarh Fort. Drive to Kanha. Check into 5-star resort. Evening safari (tigers, barasinghas). Overnight in Kanha."
+      },
+      {
+        "day": 4,
+        "title": "Day 4: Kanha to Pench (5 hours, 200 km)",
+        "desc": "Morning safari in Kanha (tigers, leopards). After breakfast, drive to Pench. Check into 5-star hotel. Evening safari in Pench. Overnight in Pench."
+      },
+      {
+        "day": 5,
+        "title": "Day 5: Morning Safari & Departure",
+        "desc": "Early morning safari in Pench. Return to hotel, check out, and drive back home with unforgettable memories."
+      }
+    ]
   },
   {
-    id: "egypt-pyramids",
-    name: "Egypt Pharaonic Wonders: Pyramids & Luxury Nile Cruise",
-    tagline: "Giza Great Pyramids, King Tut treasures & 5-Star Nile River Cruise",
-    region: "Africa",
-    country: "Egypt",
-    category: "International Signature",
-    vibeTags: ["Royal Luxury", "Adrenaline & Adventure"],
-    type: ["Heritage", "Nile Cruise", "Ancient Wonders"],
-    durationDays: 8,
-    duration: "7 Nights / 8 Days",
-    price: 115000,
-    originalPrice: 142000,
-    currency: "INR",
-    rating: 4.95,
-    reviews: 64,
-    groupSize: "Couple / Family",
-    difficulty: "Easy",
-    badge: "Ancient Wonders",
-    featured: false,
-    image: "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "Private guided tour inside Great Pyramid of Giza & Sphinx",
-      "4 Nights aboard 5-Star Luxury Nile River Cruise with sundeck pool",
-      "Valley of the Kings in Luxor & Tutankhamun's gold tomb",
-      "Abu Simbel colossal rock temples of Ramses II & Nefertari",
-      "Karnak Temple hypostyle hall & Kom Ombo crocodile temple"
+    "id": "tour-wix-kashmir-snow-stories",
+    "wixId": "31c38ca2-b181-43cf-9d67-a58e0c27ab27",
+    "name": "Kashmir Snow Stories",
+    "slug": "kashmir-snow-stories",
+    "location": "Kashmir, Jammu &  Kashmir, Jammu, Srinagar, Gulmarg, Pahalgam, Son Marg",
+    "continent": "Asia",
+    "country": "Jammu &  Kashmir",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Mountain & Snow",
+      "Hills & Mountains",
+      "Winter Wonderland",
+      "Winter",
+      "Summer",
+      "Honeymoon & Romantic",
+      "Couple Trips",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Kashmir",
+      "Luxury Signature"
     ],
-    inclusionChips: ["5-Star Nile Cruise", "Domestic Flights", "All Temple Passes", "Egyptologist Guide", "Egypt Visa Included"],
-    itinerary: [
-      { day: 1, title: "Cairo Arrival & Nile View Check-in", morning: "VIP arrival at Cairo International Airport with fast-track visa", afternoon: "Check-in to luxury 5-star hotel overlooking River Nile", evening: "Dinner cruise on Nile with oriental music and Tanoura show", stayTier: "5-Star Cairo Nile Hotel", transport: "Private AC Van", meals: "Dinner" },
-      { day: 2, title: "Giza Pyramids, Great Sphinx & Grand Egyptian Museum", morning: "Private tour of Great Pyramids of Cheops, Chephren & Mykerinos", afternoon: "Camel ride with panoramic view of 9 pyramids and Sphinx", evening: "Tour Grand Egyptian Museum containing King Tutankhamun golden mask", stayTier: "5-Star Cairo Nile Hotel", transport: "Private AC Van + Camel", meals: "Breakfast & Lunch" },
-      { day: 3, title: "Fly to Aswan & Board 5-Star Nile Cruise", morning: "Flight from Cairo to Aswan and board 5-star luxury Nile cruise", afternoon: "Visit Aswan High Dam and Philae Temple of Goddess Isis on island", evening: "Traditional Felucca sailboat ride around Elephantine Island", stayTier: "5-Star Luxury Nile Cruise Ship", transport: "Flight + Cruise", meals: "Breakfast, Lunch & Dinner" },
-      { day: 4, title: "Abu Simbel Temples & Sail to Kom Ombo", morning: "Excursion to magnificent rock-hewn Abu Simbel Temples", afternoon: "Sail towards Kom Ombo temple dedicated to crocodile god Sobek", evening: "Egyptian Galabeya party on cruise sundeck", stayTier: "5-Star Luxury Nile Cruise Ship", transport: "Cruise Ship", meals: "Breakfast, Lunch & Dinner" },
-      { day: 5, title: "Edfu Temple of Horus & Sail to Luxor", morning: "Horse carriage ride to Edfu Temple of falcon god Horus", afternoon: "Cross Esna lock while enjoying high tea on sundeck", evening: "Arrive in Luxor and visit illuminated Luxor Temple at night", stayTier: "5-Star Luxury Nile Cruise Ship", transport: "Cruise Ship", meals: "Breakfast, Lunch & Dinner" },
-      { day: 6, title: "Valley of the Kings, Hatshepsut & Karnak", morning: "Explore underground tombs in Valley of the Kings", afternoon: "Visit Temple of Queen Hatshepsut and Colossi of Memnon", evening: "Tour vast Karnak Temple complex with 134 stone pillars", stayTier: "5-Star Luxury Nile Cruise Ship", transport: "Cruise Ship", meals: "Breakfast, Lunch & Dinner" },
-      { day: 7, title: "Fly to Cairo & Khan el-Khalili Bazaar", morning: "Disembark cruise and fly back to Cairo", afternoon: "Explore historic Citadel of Saladin and Mohamed Ali Alabaster Mosque", evening: "Treasure hunt in 14th-century Khan el-Khalili bazaar for perfumes and lamps", stayTier: "5-Star Cairo Nile Hotel", transport: "Flight + Van", meals: "Breakfast & Dinner" },
-      { day: 8, title: "Departure", morning: "Buffet breakfast", afternoon: "Chauffeur transfer to Cairo Airport", evening: "Departure flight", stayTier: "Departure", transport: "Private AC Van", meals: "Breakfast" }
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Mountain & Snow",
+      "Hills & Mountains",
+      "Winter Wonderland",
+      "Winter",
+      "Summer",
+      "Honeymoon & Romantic",
+      "Couple Trips",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Kashmir",
+      "Luxury Signature"
     ],
-    inclusions: ["3 Nights 5-Star Cairo Hotel + 4 Nights 5-Star Luxury Nile Cruise", "Domestic flights Cairo-Aswan and Luxor-Cairo included", "All temple passes and monuments entry fees", "Licensed English-speaking Egyptologist guide throughout", "All meals during Nile cruise + daily breakfasts in Cairo"],
-    exclusions: ["International flights", "Entry inside Great Pyramid burial chamber (opted extra)", "Tips for cruise crew"],
-    bestSeason: "Oct - April (Pleasant Winter Temperatures Along Nile)"
-  },
-
-  // ==========================================
-  // 5. AMERICAS LUXURY & WONDERS
-  // ==========================================
-  {
-    id: "usa-grand-trio",
-    name: "USA Grand Trio: New York, Grand Canyon & Las Vegas",
-    tagline: "Empire State views, Grand Canyon helicopter flight & Las Vegas Strip luxury",
-    region: "Americas",
-    country: "USA",
-    category: "International Signature",
-    vibeTags: ["Royal Luxury", "Adrenaline & Adventure"],
-    type: ["Mega City", "Helicopter", "Desert Wonders"],
-    durationDays: 8,
-    duration: "7 Nights / 8 Days",
-    price: 185000,
-    originalPrice: 225000,
-    currency: "INR",
-    rating: 4.96,
-    reviews: 58,
-    groupSize: "Family / Couple",
-    difficulty: "Easy",
-    badge: "American Signature",
-    featured: false,
-    image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "VIP Statue of Liberty Cruise & Summit One Vanderbilt glass skydeck",
-      "Helicopter flight descending 4,000ft into floor of Grand Canyon",
-      "Stay on world-famous Las Vegas Strip luxury resort with fountain view",
-      "High Roller observation wheel & Cirque du Soleil show passes",
-      "Central Park private horse carriage & Times Square VIP nightlife"
+    "duration": "5 Nights & 6 Days",
+    "price": 313040,
+    "origPrice": 417386,
+    "tagline": "5-star luxury with J&K’s serene lakes and adventure in premium vehicles.",
+    "image": "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_0fe269d8253f402e88764604d159dea2~mv2.jpg/Image%20by%20Mathan%20Kumar.jpg#originWidth=3480&originHeight=4640",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation ",
+      "Breakfast ",
+      "Sightseeing ",
+      "Driver Allowance ",
+      "Night Allowance ",
+      "Transportation "
     ],
-    inclusionChips: ["Grand Canyon Helicopter", "Domestic Flights", "5-Star Strip Resorts", "Summit One Pass", "US Visa Concierge"],
-    itinerary: [
-      { day: 1, title: "New York City Arrival & Times Square", morning: "Arrival at JFK International Airport with private limousine transfer", afternoon: "Check-in to luxury Manhattan hotel near Central Park", evening: "Experience electric energy of Times Square and Broadway theater district", stayTier: "5-Star Manhattan Hotel", transport: "Private Chauffeur", meals: "Dinner" },
-      { day: 2, title: "Statue of Liberty, Wall Street & Summit Vanderbilt", morning: "VIP boat cruise around Statue of Liberty & Ellis Island", afternoon: "Walk Wall Street, 9/11 Memorial and Brooklyn Bridge", evening: "Panoramic sunset from Summit One Vanderbilt multi-sensory glass skydeck", stayTier: "5-Star Manhattan Hotel", transport: "Private AC Coach", meals: "Breakfast" },
-      { day: 3, title: "Central Park & Flight to Las Vegas", morning: "Horse carriage ride through Central Park and 5th Avenue shopping", afternoon: "Fly from New York to Las Vegas Harry Reid Airport", evening: "Check-in to 5-star Bellagio / Venetian Resort on the Strip", stayTier: "5-Star Las Vegas Strip Resort", transport: "Flight + Limo", meals: "Breakfast" },
-      { day: 4, title: "Grand Canyon VIP Helicopter Expedition", morning: "Board luxury VIP helicopter flight to Grand Canyon West Rim", afternoon: "Descend 4,000 feet below rim and land for Champagne toast", evening: "Walk transparent glass Grand Canyon Skywalk overlooking canyon floor", stayTier: "5-Star Las Vegas Strip Resort", transport: "VIP Helicopter", meals: "Breakfast & Champagne Lunch" },
-      { day: 5, title: "Las Vegas Strip Highlights & Cirque du Soleil", morning: "Relax by world-class resort pool and luxury spa", afternoon: "Ride High Roller 550ft observation wheel with 360° desert views", evening: "Witness world-famous Cirque du Soleil 'O' aquatic spectacle", stayTier: "5-Star Las Vegas Strip Resort", transport: "Monorail / Limo", meals: "Breakfast" },
-      { day: 6, title: "Hoover Dam & Red Rock Canyon Excursion", morning: "Drive to engineering marvel Hoover Dam on Colorado River", afternoon: "Scenic drive through vibrant Red Rock Canyon desert landscapes", evening: "Fine dining dinner at Michelin-starred restaurant on the Strip", stayTier: "5-Star Las Vegas Strip Resort", transport: "Private AC SUV", meals: "Breakfast & Dinner" },
-      { day: 7, title: "Luxury Shopping & Fremont Street Light Show", morning: "Designer outlet shopping at premium shopping pavilions", afternoon: "Visit nostalgic Fremont Street vintage Vegas & zip-line", evening: "Watch Bellagio dancing fountains farewell show", stayTier: "5-Star Las Vegas Strip Resort", transport: "Private AC SUV", meals: "Breakfast" },
-      { day: 8, title: "Departure", morning: "Buffet breakfast", afternoon: "Limousine transfer to airport", evening: "Flight departure", stayTier: "Departure", transport: "Private Limo", meals: "Breakfast" }
-    ],
-    inclusions: ["7 Nights in verified 5-star hotels (Manhattan & Las Vegas Strip)", "Domestic flight NYC to Las Vegas included", "Grand Canyon VIP helicopter flight with landing and Champagne", "Summit One Vanderbilt & Statue of Liberty VIP passes", "Complete US B1/B2 visa appointment and documentation concierge"],
-    exclusions: ["International airfare", "Resort fees paid at hotel checkout", "Personal casino expenses"],
-    bestSeason: "All Year (Spring: March-May, Autumn: Sep-Nov)"
-  },
-  {
-    id: "peru-machu-picchu",
-    name: "Peru Incan Empire: Cusco, Sacred Valley & Machu Picchu",
-    tagline: "Hiram Bingham luxury train, lost Incan citadel & Rainbow Mountain",
-    region: "Americas",
-    country: "Peru",
-    category: "Adrenaline & Adventure",
-    vibeTags: ["Adrenaline & Adventure", "Snow & Alpine"],
-    type: ["Heritage", "Adventure", "Ancient Citadel"],
-    durationDays: 7,
-    duration: "6 Nights / 7 Days",
-    price: 165000,
-    originalPrice: 198000,
-    currency: "INR",
-    rating: 4.98,
-    reviews: 49,
-    groupSize: "Small Group / Couple",
-    difficulty: "Moderate",
-    badge: "World Wonder",
-    featured: false,
-    image: "https://images.unsplash.com/photo-1526392060635-9d6019884377?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "Ride 1920s-style luxury Belmond Hiram Bingham train to Machu Picchu",
-      "Private guided sunrise exploration of Machu Picchu Lost City of Incas",
-      "Sacred Valley Pisac ruins, Maras Salt Mines & Moray agricultural terraces",
-      "Trek to breathtaking multi-colored mineral Vinicunca Rainbow Mountain (5,200m)",
-      "Traditional Andean culinary feast with Ceviche & Pisco Sour masterclass"
-    ],
-    inclusionChips: ["Hiram Bingham Train", "Machu Picchu Passes", "Sacred Valley Stays", "Rainbow Mt Trek", "Peru Visa Help"],
-    itinerary: [
-      { day: 1, title: "Lima Arrival & Pacific Coast Highlights", morning: "Arrival at Jorge Chavez Airport Lima with VIP escort", afternoon: "Check-in to oceanfront Miraflores luxury hotel", evening: "Gourmet Peruvian dinner at world top-ranked restaurant", stayTier: "5-Star Lima Oceanfront Hotel", transport: "Private AC Van", meals: "Dinner" },
-      { day: 2, title: "Fly to Imperial Cusco & Acclimatization", morning: "Fly to high-altitude Incan capital Cusco (3,400m)", afternoon: "Check-in to historic monastery hotel with oxygenated suites", evening: "Stroll in Plaza de Armas and San Pedro artisanal market", stayTier: "5-Star Luxury Monasterio Hotel", transport: "Flight + Van", meals: "Breakfast" },
-      { day: 3, title: "Sacred Valley of Incas & Maras Salt Pans", morning: "Descend into lush Sacred Valley and visit Pisac fortress", afternoon: "Explore thousands of cascading white Maras Salt Mines", evening: "Check-in to luxury riverside hacienda resort in Urubamba", stayTier: "5-Star Sacred Valley Hacienda", transport: "Private AC Van", meals: "Breakfast & Lunch" },
-      { day: 4, title: "Belmond Hiram Bingham Train to Machu Picchu", morning: "Board luxury 1920s Belmond Hiram Bingham train with live music & brunch", afternoon: "Ascend to Machu Picchu Lost City of Incas with private archaeologist", evening: "Sunset views over Incan stone terraces and Huayna Picchu peak", stayTier: "5-Star Sanctuary Lodge / Aguas Calientes", transport: "Belmond Train", meals: "Breakfast, Brunch & Dinner" },
-      { day: 5, title: "Second Sunrise at Citadel & Return to Cusco", morning: "Option for sunrise photography over Sun Gate at Machu Picchu", afternoon: "Panoramic Vistadome train return along Urubamba river", evening: "Farewell Andean banquet in historic Cusco", stayTier: "5-Star Luxury Monasterio Hotel", transport: "Vistadome Train", meals: "Breakfast & Dinner" },
-      { day: 6, title: "Vinicunca Rainbow Mountain Trek (5,200m)", morning: "Early morning expedition to multi-hued Rainbow Mountain", afternoon: "Hike past herds of alpacas and snow-capped Ausangate peaks", evening: "Return to Cusco for restorative hot stone massage", stayTier: "5-Star Luxury Monasterio Hotel", transport: "Private 4x4 SUV", meals: "Breakfast & Box Lunch" },
-      { day: 7, title: "Flight to Lima & Departure", morning: "Buffet breakfast", afternoon: "Fly back to Lima for international departure", evening: "Flight home", stayTier: "Departure", transport: "Private AC Van", meals: "Breakfast" }
-    ],
-    inclusions: ["6 Nights in luxury 5-star properties (including Belmond & oxygenated suites)", "Domestic flights Lima-Cusco-Lima included", "Belmond Hiram Bingham luxury train passes with gourmet dining", "All Machu Picchu permits and archaeological guide fees", "Rainbow Mountain private expedition with oxygen and trek leader"],
-    exclusions: ["International airfare", "Personal trekking gear", "Huayna Picchu hike permit (available on request)"],
-    bestSeason: "May - Oct (Dry Season with Clear Mountain Skies)"
-  },
-
-  // ==========================================
-  // 6. OCEANIA & POLAR EXPEDITIONS
-  // ==========================================
-  {
-    id: "australia-highlights",
-    name: "Australia Icons: Sydney, Great Barrier Reef & Melbourne",
-    tagline: "Sydney Opera House yacht cruise, Great Barrier Reef helicopter & Great Ocean Road",
-    region: "Oceania",
-    country: "Australia",
-    category: "International Signature",
-    vibeTags: ["Tropical Islands", "Royal Luxury"],
-    type: ["Coast", "Reef", "Iconic Cities"],
-    durationDays: 8,
-    duration: "7 Nights / 8 Days",
-    price: 175000,
-    originalPrice: 210000,
-    currency: "INR",
-    rating: 4.97,
-    reviews: 67,
-    groupSize: "Family / Couple",
-    difficulty: "Easy",
-    badge: "Oceania Icon",
-    featured: false,
-    image: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "Private luxury sunset catamaran cruise across Sydney Harbour",
-      "Outer Great Barrier Reef pontoon with semi-submersible & snorkeling",
-      "Scenic helicopter flight over world-famous Heart Reef",
-      "Great Ocean Road scenic drive to 12 Apostles limestone stacks",
-      "Cuddle koalas & feed kangaroos at wildlife sanctuary"
-    ],
-    inclusionChips: ["Reef Catamaran", "Helicopter Flight", "Domestic Flights", "Opera House Tour", "Australia Visa Help"],
-    itinerary: [
-      { day: 1, title: "Sydney Arrival & Harbour Sunset Cruise", morning: "Arrival at Sydney Kingsford Smith Airport with private transfer", afternoon: "Check-in to 5-star hotel with Sydney Harbour views", evening: "Private luxury sunset catamaran cruise past Opera House and Bridge", stayTier: "5-Star Sydney Harbour Hotel", transport: "Private AC Van + Yacht", meals: "Dinner" },
-      { day: 2, title: "Sydney Opera House VIP Tour & Bondi Beach", morning: "Private architectural tour inside Sydney Opera House concert halls", afternoon: "Coastal cliff walk from Bondi Beach to Bronte Beach", evening: "Seafood dinner at iconic Darling Harbour waterfront", stayTier: "5-Star Sydney Harbour Hotel", transport: "Private AC Van", meals: "Breakfast" },
-      { day: 3, title: "Fly to Tropical Cairns (Great Barrier Reef)", morning: "Fly north to tropical paradise Cairns", afternoon: "Check-in to luxury beachfront resort in Palm Cove", evening: "Stroll along Kuranda rainforest village markets", stayTier: "5-Star Cairns Beach Resort", transport: "Flight + SUV", meals: "Breakfast" },
-      { day: 4, title: "Outer Great Barrier Reef Luxury Cruise", morning: "High-speed catamaran to Outer Barrier Reef pontoon", afternoon: "Snorkel in turquoise waters with sea turtles and coral fish", evening: "Scenic helicopter joyride over Great Barrier Reef", stayTier: "5-Star Cairns Beach Resort", transport: "Catamaran + Helicopter", meals: "Breakfast & Buffet Lunch" },
-      { day: 5, title: "Fly to Cultural Capital Melbourne", morning: "Flight from Cairns to Melbourne Tullamarine Airport", afternoon: "Check-in to 5-star hotel near Yarra River", evening: "Explore famous street art graffiti laneways and boutique cafes", stayTier: "5-Star Melbourne Hotel", transport: "Flight + Van", meals: "Breakfast" },
-      { day: 6, title: "Great Ocean Road & 12 Apostles Day Tour", morning: "Epic coastal drive along winding Great Ocean Road", afternoon: "Marvel at monumental 12 Apostles limestone stacks rising from Southern Ocean", evening: "Spot wild koalas in eucalyptus trees at Kennett River", stayTier: "5-Star Melbourne Hotel", transport: "Private AC Coach", meals: "Breakfast & Lunch" },
-      { day: 7, title: "Yarra Valley Wine Tasting & Phillip Island Penguins", morning: "Wine tasting in picturesque rolling hills of Yarra Valley", afternoon: "Visit Phillip Island to see thousands of Little Fairy Penguins parade on beach", evening: "Farewell Australian gourmet dinner", stayTier: "5-Star Melbourne Hotel", transport: "Private AC Coach", meals: "Breakfast & Dinner" },
-      { day: 8, title: "Departure", morning: "Buffet breakfast", afternoon: "Chauffeur transfer to Melbourne Airport", evening: "Flight departure", stayTier: "Departure", transport: "Private AC Van", meals: "Breakfast" }
-    ],
-    inclusions: ["7 Nights in verified 5-star Australian properties", "Domestic flights Sydney-Cairns and Cairns-Melbourne included", "Great Barrier Reef luxury catamaran cruise with snorkeling & lunch", "Sydney Opera House VIP private tour", "Australia tourist visa (subclass 600) filing assistance"],
-    exclusions: ["International airfare", "Scuba dive introductory sessions", "Personal expenses"],
-    bestSeason: "Sep - April (Australian Spring & Summer Sunshine)"
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1 - Arrival at Katra",
+        "desc": "Visit Maa Vaishno Devi Temple. Overnight stay."
+      },
+      {
+        "day": 2,
+        "title": "Day 2 - Katra to Srinagar",
+        "desc": "Shikara ride on Dal Lake and Mall Road visit. Overnight stay."
+      },
+      {
+        "day": 3,
+        "title": "Day 3 - Srinagar to Son Marg",
+        "desc": "Explore Son Marg’s natural beauty. Return to Srinagar."
+      },
+      {
+        "day": 4,
+        "title": "Day 4 - Srinagar to Gulmarg",
+        "desc": "Visit Baba Rishi Shrine, Gondola, St. Mary’s Church, and Alpather Lake. Overnight stay."
+      },
+      {
+        "day": 5,
+        "title": "Day 5 - Gulmarg to Pahalgam",
+        "desc": "Explore Pahalgam’s meadows and Amarnath Yatra trail. Overnight stay."
+      },
+      {
+        "day": 6,
+        "title": "Day 6 - Departure",
+        "desc": "Drive to airport for flight departure."
+      }
+    ]
   },
   {
-    id: "antarctica-expedition",
-    name: "Antarctica White Continent: Luxury Polar Expedition",
-    tagline: "Icebreaker cruise, zodiac landings with penguin colonies & ice kayaking",
-    region: "Polar & Middle East",
-    country: "Antarctica",
-    category: "Adrenaline & Adventure",
-    vibeTags: ["Snow & Alpine", "Northern Lights"],
-    type: ["Polar", "Expedition", "Icebreaker"],
-    durationDays: 11,
-    duration: "10 Nights / 11 Days",
-    price: 495000,
-    originalPrice: 580000,
-    currency: "INR",
-    rating: 5.0,
-    reviews: 32,
-    groupSize: "Expedition Ship",
-    difficulty: "Moderate",
-    badge: "Ultimate Bucketlist",
-    featured: false,
-    image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1000&q=80",
-    highlights: [
-      "10 Nights aboard luxury Polar-Class Icebreaker Ship with private balcony suite",
-      "Daily Zodiac boat landings among massive blue icebergs and penguin rookeries",
-      "Encounter Gentoo, Chinstrap & Adelie penguins, leopard seals & humpback whales",
-      "Optional polar plunge in sub-zero waters with safety tether & certificate",
-      "Expert glaciologist, marine biologist and polar historian daily lectures"
+    "id": "tour-wix-mp-narmada-temples",
+    "wixId": "3a8ab727-89e2-4bbe-a8a5-0c16777a32e1",
+    "name": "MP Narmada & Temples",
+    "slug": "mp-narmada-temples",
+    "location": "Bhopal, Ujjain",
+    "continent": "Asia",
+    "country": "Ujjain",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
     ],
-    inclusionChips: ["Polar Icebreaker", "Zodiac Landings", "Expedition Parka", "All Gourmet Meals", "Doctor on Board"],
-    itinerary: [
-      { day: 1, title: "Ushuaia (End of the World) Arrival", morning: "Arrival at Ushuaia, southernmost city on Earth in Tierra del Fuego", afternoon: "Check-in to luxury mountain lodge overlooking Beagle Channel", evening: "Welcome briefing with expedition team and equipment fitting", stayTier: "5-Star Ushuaia Luxury Lodge", transport: "Private AC Van", meals: "Dinner" },
-      { day: 2, title: "Embarkation on Luxury Polar Icebreaker", morning: "Free morning to explore Beagle Channel and Tierra del Fuego park", afternoon: "Embark on state-of-the-art luxury polar expedition vessel", evening: "Sail through scenic Beagle Channel towards open ocean", stayTier: "5-Star Polar Balcony Suite", transport: "Icebreaker Ship", meals: "Breakfast & Dinner" },
-      { day: 3, title: "Crossing the Legendary Drake Passage", morning: "Cross Drake Passage with wandering albatrosses soaring beside ship", afternoon: "Marine biology and penguin behavior lectures in ship theater", evening: "Multi-course dinner prepared by European master chefs", stayTier: "5-Star Polar Balcony Suite", transport: "Icebreaker Ship", meals: "Breakfast, Lunch & Dinner" },
-      { day: 4, title: "First Icebergs & South Shetland Islands", morning: "Spot first giant cathedral tabular icebergs drifting north", afternoon: "First Zodiac landing at Aitcho Island among Gentoo penguin colonies", evening: "Watch humpback whales breach right outside your stateroom balcony", stayTier: "5-Star Polar Balcony Suite", transport: "Zodiac + Ship", meals: "Breakfast, Lunch & Dinner" },
-      { day: 5, title: "Antarctic Peninsula: Neko Harbour Landfall", morning: "Step foot on the actual continental mainland of Antarctica at Neko Harbour", afternoon: "Hike up snowy ridge for panoramic vistas of glaciated bays", evening: "Glacier calving soundscapes echoing across the fjord", stayTier: "5-Star Polar Balcony Suite", transport: "Zodiac + Ship", meals: "Breakfast, Lunch & Dinner" },
-      { day: 6, title: "Paradise Bay & Polar Plunge", morning: "Zodiac cruise through mirror-still waters of Paradise Bay", afternoon: "Optional Polar Plunge into freezing Antarctic waters with warm sauna follow-up", evening: "Champagne barbecue celebration on ship sundeck among glaciers", stayTier: "5-Star Polar Balcony Suite", transport: "Zodiac + Ship", meals: "Breakfast, Lunch & Dinner" },
-      { day: 7, title: "Lemaire Channel & Port Lockroy Historic Post Office", morning: "Navigate narrow dramatic Lemaire Channel flanked by 1,000m sheer cliffs", afternoon: "Visit historic British base Port Lockroy and mail postcard from Antarctica", evening: "Spot leopard seals resting on floating ice floes", stayTier: "5-Star Polar Balcony Suite", transport: "Zodiac + Ship", meals: "Breakfast, Lunch & Dinner" },
-      { day: 8, title: "Deception Island Volcanic Caldera", morning: "Ship sails through Neptune's Bellows into flooded volcanic caldera", afternoon: "Walk on steaming black volcanic ash beach at Whalers Bay", evening: "Begin northbound return journey", stayTier: "5-Star Polar Balcony Suite", transport: "Zodiac + Ship", meals: "Breakfast, Lunch & Dinner" },
-      { day: 9, title: "Drake Passage Return & Stargazing", morning: "Sail north across Drake Passage reflecting on lifelong memories", afternoon: "Expedition photography showcase and debrief", evening: "Captain's Farewell Gala Dinner and toast", stayTier: "5-Star Polar Balcony Suite", transport: "Icebreaker Ship", meals: "Breakfast, Lunch & Dinner" },
-      { day: 10, title: "Arrival in Ushuaia & Disembarkation", morning: "Ship arrives back in Ushuaia harbour", afternoon: "Disembark and transfer to hotel / airport", evening: "Celebratory farewell dinner in Ushuaia", stayTier: "5-Star Ushuaia Luxury Lodge", transport: "Private Van", meals: "Breakfast & Dinner" },
-      { day: 11, title: "Departure", morning: "Buffet breakfast", afternoon: "Transfer to airport for return flight", evening: "Flight home", stayTier: "Departure", transport: "Private Van", meals: "Breakfast" }
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
     ],
-    inclusions: ["10 Nights aboard luxury Polar-Class Icebreaker vessel in private balcony suite", "All gourmet meals, afternoon teas, and beverages on board", "Daily Zodiac boat excursions and shore landings with polar guides", "Complimentary custom waterproof expedition parka (yours to keep)", "Loan of high-grade insulated rubber muck boots during voyage"],
-    exclusions: ["International airfare to Ushuaia", "Optional sea kayaking and snowshoeing add-ons", "Personal travel insurance"],
-    bestSeason: "Dec - Feb (Peak Austral Summer, 24-Hour Daylight & Whale Sightings)"
+    "duration": "4 Nights & 5 Days",
+    "price": 530992,
+    "origPrice": 58999,
+    "tagline": "A premium 5-day spiritual and cultural tour covering Bhopal’s lakes, Ujjain’s temples, Omkareshwar’s sacred sites, and Maheshwar’s heritage. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "[REPLACED WIX CDN ASSET]",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Driver Allowance",
+      "Night Allowance",
+      "Transportation"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival at Bhopal",
+        "desc": "Arrive at Bhopal Railway Station. Check into 4-star hotel. Explore Upper Lake, Lower Lake, VIP Road, Birla Mandir, Gufa Mandir, and Sher Sapata. Overnight in Bhopal."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: Bhopal to Ujjain (4 hours, 200 km)",
+        "desc": "After breakfast, drive to Ujjain. Check into hotel. Visit Mahakaleshwara Temple (Bhasm Aarti in evening), Kal Bhairav Temple, and local attractions. Overnight in Ujjain."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: Ujjain to Omkareshwar to Maheshwar (4 hours, 150 km)",
+        "desc": "Early morning visit to Mahakaleshwara Temple for Bhasm Aarti. Drive to Omkareshwar. Explore Omkareshwar Temple, Om Mandhata Temple, and complete Parikrama. Proceed to Maheshwar. Overnight in Maheshwar."
+      },
+      {
+        "day": 4,
+        "title": "Day 4: Maheshwar Sightseeing",
+        "desc": "Visit Narmada Ghat, Maheshwar Fort, Ahilya Devi Temple, Rajwada Maheshwar, and local markets. Evening free for shopping. Overnight in Maheshwar."
+      },
+      {
+        "day": 5,
+        "title": "Day 5: Maheshwar to Bhopal (4 hours, 290 km)",
+        "desc": "Check out and drive back to Bhopal. Tour concludes with unforgettable memories."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-nainital-jim-corbett",
+    "wixId": "4084f019-0c25-44f0-84d2-a9af785fd75c",
+    "name": "Nainital-Jim Corbett",
+    "slug": "nainital-jim-corbett",
+    "location": "Nanital",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Mountain & Snow",
+      "Hills & Mountains",
+      "Winter Wonderland",
+      "Winter",
+      "Summer",
+      "Family & Group",
+      "Family Tours",
+      "Wildlife & Nature",
+      "Backwaters & Nature",
+      "Monsoon",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Mountain & Snow",
+      "Hills & Mountains",
+      "Winter Wonderland",
+      "Winter",
+      "Summer",
+      "Family & Group",
+      "Family Tours",
+      "Wildlife & Nature",
+      "Backwaters & Nature",
+      "Monsoon",
+      "Luxury Signature"
+    ],
+    "duration": "3 Nights & 4 Days",
+    "price": 24999,
+    "origPrice": 31249,
+    "tagline": "A premium 4-day tour covering Nainital’s lakes and Jim Corbett’s wildlife.",
+    "image": "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_11ffd58df92c4ca492b8d02c26527c21~mv2.jpg/Image%20by%20Priyadarshi%20Kinth.jpg#originWidth=4656&originHeight=2328",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Morning Safari",
+      "Driver Allowance",
+      "Night Allowance"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival in Nainital",
+        "desc": "Arrive in Nainital. Check into 4-star hotel. Visit Mall Road, Naini Lake (boat ride), and Naina Devi Temple. Overnight in Nainital."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: Nainital – Bhimtal Excursion",
+        "desc": "Full-day trip to Bhimtal (lake & island aquarium), Sattal (cluster of seven lakes), and Naukuchiatal (9-cornered lake). Evening stroll in Nainital. Overnight in Nainital."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: Nainital to Jim Corbett (2–3 hours)",
+        "desc": "Drive to Jim Corbett National Park. Check into 4-star resort. Explore Garjia Temple or Corbett Museum. Overnight in Corbett."
+      },
+      {
+        "day": 4,
+        "title": "Day 4: Morning Safari & Departure",
+        "desc": "Early morning jeep safari in Corbett (Bijrani/Jhirna/Dhikala zone). Return to resort, freshen up, and drive back to Nainital or Chandigarh with unforgettable memories."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-andaman-coastal-retreat",
+    "wixId": "46af588d-9291-45b9-b19b-d212c4e2d480",
+    "name": "Andaman Coastal Retreat",
+    "slug": "andaman-coastal-retreat",
+    "location": "India",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Beach & Coastal",
+      "Island Explorer",
+      "Summer Escapes",
+      "Summer",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Andaman",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Beach & Coastal",
+      "Island Explorer",
+      "Summer Escapes",
+      "Summer",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Andaman",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 134936,
+    "origPrice": 161923,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_1f513ac692a446338db855517f1edfc2~mv2.jpg/Image%20by%20tatonomusic.jpg#originWidth=2998&originHeight=2000",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Accommodation",
+      "Port Blair",
+      "2 Nights Stay at Symphony Samudra Beachside Jungle Resort And Spa",
+      "Aqua Villa",
+      "Breakfast Included",
+      "Havelock Island"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1 – Arrive in Port Blair – Excursion to Cellular Jail – Light & Sound Show at Cellular Jail",
+        "desc": "Arrival at Port Blair Airport. Meet and assistance at Veer Savarkar Airport followed by transfer to the hotel. Visit: Cellular Jail Light & Sound Show at Cellular Jail Overnight stay at Symphony Samudra Beachside Jungle Resort And Spa. Meals Breakfast: Not Included Lunch: Not Included Dinner: Not Included"
+      },
+      {
+        "day": 2,
+        "title": "Day 2 – Ross Island Excursion – Chidiya Tapu Beach",
+        "desc": "Visit: Ross Island Japanese Bunker Ross Island Lighthouse Chidiya Tapu Chidiya Tapu Biological Park Munda Pahar Beaches Sylvan Sands Chidiya Tapu Beach Overnight stay at Symphony Samudra Beachside Jungle Resort And Spa. Meals Breakfast Included Lunch Not Included Dinner Not Included"
+      },
+      {
+        "day": 3,
+        "title": "Day 3 – Port Blair to Havelock Island – Ferry Transfer by Makruz / Nautica or Similar",
+        "desc": "Check out from Port Blair hotel and transfer to jetty. Board ferry to Havelock Island. Arrival and transfer to hotel. Overnight stay at Seashell Havelock. Meals Breakfast Included Lunch Not Included Dinner Not Included"
+      },
+      {
+        "day": 4,
+        "title": "Day 4 – Elephant Island Beach Excursion – Kalapathar Beach Visit – Visit Radhanagar Beach",
+        "desc": "Visit: Elephant Beach Kalapathar Beach Radhanagar Beach Activities available at additional cost: Snorkelling Scuba Diving Overnight stay at Seashell Havelock. Meals Breakfast Included Lunch Not Included Dinner Not Included"
+      },
+      {
+        "day": 5,
+        "title": "Day 5 – Transfer to Port Blair – Port Blair Half Day City Tour – Corbyn's Cove Beach",
+        "desc": "Transfer from Havelock to Port Blair by ferry. Visit: Chatham Island Chatham Saw Mill Samudrika Naval Maritime Museum Anthropological Museum Corbyn's Cove Beach Evening free to explore local market. Overnight stay at Silver Sand Sea Princess Beach Resort. Meals Breakfast Included Lunch Not Included Dinner Not Included"
+      },
+      {
+        "day": 6,
+        "title": "Day 6 – Departure from Port Blair",
+        "desc": "Breakfast at hotel. Transfer to Port Blair Airport for onward journey. Meals Breakfast Included Lunch Not Included Dinner Not Included"
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-up-ganga-grace",
+    "wixId": "4f0889b6-071e-4ea6-bbc3-919f068b19ad",
+    "name": "UP Ganga & Grace",
+    "slug": "up-ganga-grace",
+    "location": "Ayodhya, Varanasi",
+    "continent": "Asia",
+    "country": "Varanasi",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Luxury Signature"
+    ],
+    "duration": "3 Nights & 4 Days",
+    "price": 47300,
+    "origPrice": 52555,
+    "tagline": "A premium 4-day spiritual tour covering Prayagraj’s sacred sites, Ayodhya’s Ram temples, and Varanasi’s Ganga Aarti. Includes 4-star hotels, Ertica transportation, and curated sightseeing. Note: Dress code (Dhoti-kurta/Saree) required for temple entry.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/7f7d02_e240d8e32ff748deaba3bb72a04d6091~mv2.jpg/Pilgrimage%20(1).jpg#originWidth=6000&originHeight=4000",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Driver Allowance",
+      "Night Allowance",
+      "Transportation"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival in Prayagraj",
+        "desc": "Arrive at Prayagraj Railway Station. Transfer to 4-star hotel. Visit Triveni Sangam (Ganga, Yamuna, Saraswati confluence), Kumbh Mela Area (if applicable), Anand Bhavan, Allahabad Fort, and Kali Mandir. Optional evening rituals/sunset at Sangam. Overnight in Prayagraj."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: Prayagraj to Ayodhya (4 hours, 165 km)",
+        "desc": "After breakfast, drive to Ayodhya. Check into 4-star hotel. Visit Ram Janmabhoomi Temple (birthplace of Lord Ram), Hanuman Garhi Temple, Kanak Bhavan, Sita Rasoi, and Surya Kund. Overnight in Ayodhya."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: Ayodhya to Varanasi (5 hours, 220 km)",
+        "desc": "After breakfast, drive to Varanasi. Check into 4-star hotel. Visit Kashi Vishwanath Temple, Manikarnika Ghat, and Dashashwamedh Ghat. Evening Ganga Aarti (vibrant ritual with lamps and chanting). Overnight in Varanasi."
+      },
+      {
+        "day": 4,
+        "title": "Day 4: Departure",
+        "desc": "Check out and transfer to Varanasi Railway Station with unforgettable memories."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-rajasthan-color-route",
+    "wixId": "571d06d9-295b-46d6-b1f3-0cccf307cdd3",
+    "name": "Rajasthan Color Route",
+    "slug": "rajasthan-color-route",
+    "location": "Jaipur, Ajmer, Pushkar",
+    "continent": "Asia",
+    "country": "Ajmer",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Rajasthan",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Rajasthan",
+      "Luxury Signature"
+    ],
+    "duration": "2 Nights and 3 Days",
+    "price": 673624,
+    "origPrice": 79250,
+    "tagline": "Experience luxury with 5-star stays and premium transportation while exploring the Pink City and sacred Pushkar",
+    "image": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_3350314736377a4e794349~mv2.jpg/Image%20by%20Aditya%20Siva.jpg#originWidth=5760&originHeight=3840",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Driver Allowance",
+      "Night Allowance",
+      "Transportation,Taxes"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1 - Arrival in Jaipur",
+        "desc": "Arrive at Jaipur Railway Station or Airport. Transfer to the hotel and check in. Freshen up and relax. In the evening, visit Albert Hall Museum and take a walk around Johari Bazaar. Overnight stay at the hotel."
+      },
+      {
+        "day": 2,
+        "title": "Day 2 - Jaipur Sightseeing",
+        "desc": "After breakfast, visit Amber Fort, Jal Mahal, Hawa Mahal, City Palace, and Jantar Mantar. In the evening, enjoy the local markets or explore Nahargarh Fort for panoramic views. Overnight stay in Jaipur."
+      },
+      {
+        "day": 3,
+        "title": "Day 3 - Jaipur to Ajmer & Pushkar (130 Kms / 3 Hrs)",
+        "desc": "After breakfast, drive to Ajmer to visit Ajmer Sharif Dargah. Then proceed to Pushkar and check into the hotel. Overnight stay in Pushkar."
+      },
+      {
+        "day": 4,
+        "title": "Day 4 - Sightseeing in Pushkar and Departure",
+        "desc": "After breakfast, complete the check-out process and drive to local sightseeing points · Brahma Temple · Pushkar Lake Return to your destination with beautiful memories."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-shimla-to-manali-story",
+    "wixId": "5fd2178c-0ecd-451c-abf1-9bc6bf835602",
+    "name": "Shimla To Manali Story",
+    "slug": "shimla-to-manali-story",
+    "location": "Manali, Shimla",
+    "continent": "Asia",
+    "country": "Shimla",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Mountain & Snow",
+      "Hills & Mountains",
+      "Winter Wonderland",
+      "Winter",
+      "Summer",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Himachal",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Mountain & Snow",
+      "Hills & Mountains",
+      "Winter Wonderland",
+      "Winter",
+      "Summer",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Himachal",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 142324,
+    "origPrice": 167440,
+    "tagline": "A luxurious winter tour through Himachal Pradesh’s iconic destinations – Shimla, Kufri, Kullu Valley, and Manali. Includes 5-star accommodations, Crysta transportation, and curated sightseeing. Excludes entry tickets and personal expenses.",
+    "image": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_654dea76a0d44c36af8fc90a8f40eb31~mv2.jpg/Image%20by%20Raj%20Mathur.jpg#originWidth=2176&originHeight=4203",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Driver Allowance",
+      "Night Allowance",
+      "Transportation"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival in Chandigarh & Scenic Transfer to Shimla",
+        "desc": "Arrive in Chandigarh. Transfer to Shimla via scenic routes (4-5 hours). Explore Mall Road (shops/cafes), The Ridge (panoramic views), and Jakhoo Temple. Overnight in Chandigarh."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: Shimla Sightseeing – Kufri & Colonial Heritage",
+        "desc": "Visit Kufri (horse riding/skiing), Viceregal Lodge (colonial history), Christ Church, and Scandal Point. Evening at Mall Road. Overnight in Shimla."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: Scenic Drive to Manali via Kullu Valley",
+        "desc": "Drive to Manali through Kullu Valley (7-8 hours). Check into 5-star hotel and relax. Overnight in Manali."
+      },
+      {
+        "day": 4,
+        "title": "Day 4: Manali Temples & Hot Springs Exploration",
+        "desc": "Explore Hadimba Temple (wooden architecture), Manu Temple, Vashisht Baths (hot springs), and Manali Mall Road. Optional Old Manali visit. Overnight in Manali."
+      },
+      {
+        "day": 5,
+        "title": "Day 5: Kullu Valley Excursion – Culture & Natural Beauty",
+        "desc": "Drive to Kullu (40 km): Visit Raghunath Temple, Shawl Factory (local handicrafts), and Beas River. Return to Manali. Overnight in Manali."
+      },
+      {
+        "day": 6,
+        "title": "Day 6: Return Journey to Chandigarh",
+        "desc": "Check out and drive back to Chandigarh (8-9 hours)."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-gujarat-divine-wild",
+    "wixId": "68315297-7a50-4d8d-917c-89e21c037120",
+    "name": "Gujarat Divine & Wild",
+    "slug": "gujarat-divine-wild",
+    "location": "Dwarka, Somnath",
+    "continent": "Asia",
+    "country": "Somnath",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 83160,
+    "origPrice": 92400,
+    "tagline": "A luxurious 6-day tour covering Dwarka’s temples, Somnath’s spirituality, Diu’s colonial charm, and Gir’s wildlife. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_10c1079d968d4d01a748c6c9228fd77e~mv2.jpg/Image%20by%20Alpesh%20Jogia.jpg#originWidth=5940&originHeight=3220",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Driver Allowance",
+      "Night Allowance",
+      "Transportation"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival in Ahmedabad & Transfer to Dwarka (8 hours, 450 km)",
+        "desc": "Arrive in Ahmedabad. Drive to Dwarka. Check into 5-star resort. Overnight in Dwarka."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: Dwarka Sightseeing",
+        "desc": "Visit Bet Dwarka Island, Nageshwar Temple (Jyotirlinga), and Dwarkadhish Temple. Overnight in Dwarka."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: Dwarka to Somnath (4 hours, 235 km)",
+        "desc": "Drive to Somnath. Visit Somnath Temple and Bhalka Tirth (Krishna’s final resting place). Overnight in Somnath."
+      },
+      {
+        "day": 4,
+        "title": "Day 4: Somnath to Diu (4 hours, 235 km)",
+        "desc": "Drive to Diu. Explore Diu Fort, St. Paul’s Church, Naida Caves, and Nagoa Beach. Overnight in Diu."
+      },
+      {
+        "day": 5,
+        "title": "Day 5: Diu to Gir (4 hours, 230 km)",
+        "desc": "Drive to Gir. Evening jungle safari in Gir National Park (subject to availability). Overnight in Gir."
+      },
+      {
+        "day": 6,
+        "title": "Day 6: Gir Departure (7 hours, 325 km)",
+        "desc": "Check out and drive back to Ahmedabad with unforgettable memories."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-meghalaya-highland-holiday",
+    "wixId": "6cb84647-aced-4960-a486-bdce2e64a450",
+    "name": "Meghalaya Highland Holiday",
+    "slug": "meghalaya-highland-holiday",
+    "location": "Guwahati",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "duration": "6 Nights & 7 Days",
+    "price": 153120,
+    "origPrice": 161179,
+    "tagline": "Handcrafted 6 Nights & 7 Days tour to Guwahati curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/7f7d02_e8edaf30f59145689b130e66f4618132~mv2.jpg/This%20surreal%20lake%20was%20formed%20by%20the%20devastating%201897%20Assam%20earthquake.%20Today%20it%20is%20a%20very%20#originWidth=4624&originHeight=3472",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast    ",
+      "Sightseeing",
+      "Driver allowance ",
+      "Night allowance ",
+      "Transportation "
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival in Guwahati & Transfer to Shillong (2.5hrs/100kms)",
+        "desc": "Arrive in Guwahati, the gateway to Northeast India. After your arrival, transfer to Shillong, which is about a 3-4 hour drive (approximately 100 km). Check-in to your hotel upon arrival in Shillong, freshen up, and relax. In the evening, explore Police Bazar, a lively market area, and enjoy a stroll around Ward’s Lake. You can also enjoy some local delicacies for dinner."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: Shillong Sightseeing",
+        "desc": "In the morning, visit Shillong Peak for panoramic views of the city and the surrounding Khasi Hills. Explore Elephant Falls, a beautiful waterfall located on the outskirts of Shillong. Visit the Don Bosco Museum to learn about the culture and traditions of Northeast India. Head to Mawphlang Sacred Forest, a lush green forest with significant cultural importance for the Khasi tribe. Explore Laitlum Canyons for breathtaking views and great photo opportunities. In the evening, enjoy the peaceful atmosphere of Umiam Lake (also called Barapani), a stunning reservoir just outside Shillong."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: Shillong to Cherrapunji (2hrs/60kms)",
+        "desc": "After breakfast, drive to Cherrapunji (approximately 2-3 hours). In the afternoon, visit Nohkalikai Falls, one of the tallest waterfalls in India. Explore Mawsmai Cave, an impressive limestone cave that is well-lit and easy to explore. Visit the Seven Sisters Waterfalls, a series of waterfalls located in the area. Stay overnight in Cherrapunji and enjoy the cool, misty environment of this serene hill station."
+      },
+      {
+        "day": 4,
+        "title": "Day 4: Cherrapunji Sightseeing",
+        "desc": "Visit the Living Root Bridges in Nongriat Village, one of the unique natural wonders of Meghalaya. You can take a short trek to reach the famous double-decker root bridge. Explore Dainthlen Waterfall and Thangkharang Park, which offers stunning views of Bangladesh’s plains. Relax and enjoy the evening in the tranquility of Cherrapunji."
+      },
+      {
+        "day": 5,
+        "title": "Day 5: Cherrapunji to Mawlynnong & Dawki – Shillong (2hrs/60kms)",
+        "desc": "In the morning, drive to Mawlynnong village (2-3 hours), known as the cleanest village in Asia. Enjoy a walk around the village and admire its cleanliness and beautiful surroundings. Visit the Sky View in Mawlynnong, a bamboo structure offering panoramic views of the region and Bangladesh. Continue your journey to Dawki (about 1-1.5 hours), famous for its crystal-clear river Umngot. Enjoy a boat ride in the river, known for its transparent waters. Return to Shillong for the night."
+      },
+      {
+        "day": 6,
+        "title": "Day 6: Shillong to Guwahati (2.5hrs/100kms)",
+        "desc": "After breakfast, check out from your Shillong hotel and drive to Guwahati (around 3-4 hours). Check in to your hotel in Guwahati. After freshening up, visit the Kamakhya Temple, one of the most important Shakti Peeths in India, situated atop Nilachal Hill. In the evening, enjoy a Brahmaputra River Cruise, which offers beautiful views of the river, especially at sunset."
+      },
+      {
+        "day": 7,
+        "title": "Day 7: Guwahati Sightseeing & Departure",
+        "desc": "After breakfast, transfer to the Guwahati Airport or Railway Station for your onward journey."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-up-ganga-grace-pp",
+    "wixId": "7725b21b-2f5a-4435-93a7-c8c8ba1c6921",
+    "name": "UP Ganga & Grace PP",
+    "slug": "up-ganga-grace-pp",
+    "location": "Agra",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Luxury Signature"
+    ],
+    "duration": "3 Nights & 4 Days",
+    "price": 63360,
+    "origPrice": 79200,
+    "tagline": "A luxurious 4-day spiritual tour covering Agra’s Taj Mahal, Mathura’s Krishna temples, and Vrindavan’s iconic sites. Includes 5-star hotels, Crysta transportation, and curated sightseeing. Note: Vrindavan Parikrama not included.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/7f7d02_0f3c574a716a4e00a4413047d1c945ba~mv2.jpg/Mosque%20alongside%20the%20Taj%20Mahal%20(1).jpg#originWidth=5960&originHeight=3973",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Driver Allowance",
+      "Night Allowance",
+      "Transportation"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival in Agra",
+        "desc": "Arrive in Agra and check into 5-star hotel. Visit Taj Mahal (UNESCO site), Agra Fort, and optional Mehtab Bagh for sunset view. Overnight in Agra."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: Agra to Mathura (1.5 hours, 60 km)",
+        "desc": "After breakfast, drive to Mathura. Visit Krishna Janmabhoomi Temple, Dwarkadhish Temple, Vishram Ghat, and Government Museum. Evening Ganga Aarti at Vishram Ghat. Overnight in Mathura."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: Vrindavan Excursion",
+        "desc": "Full-day trip to Vrindavan: Visit Banke Bihari Temple, Prem Mandir (light show), ISKCON Temple, Radha Raman Temple, and Nidhivan. Return to Mathura. Overnight in Mathura."
+      },
+      {
+        "day": 4,
+        "title": "Day 4: Departure",
+        "desc": "Check out and transfer to onward destination with unforgettable memories."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-heart-of-madhya-pradesh",
+    "wixId": "77dc0055-ea81-474a-bdf4-33ec69489925",
+    "name": "Heart of Madhya Pradesh",
+    "slug": "heart-of-madhya-pradesh",
+    "location": "Bhopal",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Luxury Signature"
+    ],
+    "duration": "3 Nights & 4 Days",
+    "price": 34776,
+    "origPrice": 40912,
+    "tagline": "A budget-friendly 4-day tour covering Bhopal’s lakes, Sanchi Stupa, Jain Temple, and wildlife. Includes 3-star hotel, Sedan transportation, and breakfast.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_070346d33bf24d3dbd6bde5c1be6cb8f~mv2.jpg/Image%20by%20Neerav%20Khare.jpg#originWidth=2918&originHeight=3890",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Night Allowance",
+      "Transportation",
+      "Taxes"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival in Bhopal",
+        "desc": "Arrive at Bhopal Railway Station/Airport. Transfer to 3-star hotel. Visit Upper Lake, Lower Lake, and VIP Road. Overnight in Bhopal."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: Bhopal Sightseeing",
+        "desc": "After breakfast, visit Van Vihar National Park (wildlife), Sher Sapata (scenic views), and local attractions. Lunch at own expense. Overnight in Bhopal."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: Sanchi Stupa Excursion",
+        "desc": "Drive to Sanchi (1.5 hours, 50 km). Explore Sanchi Stupa (Buddhist monument by Emperor Ashoka), monasteries, and Manuabhan Tekri (Jain Temple, panoramic views). Return to Bhopal. Overnight in Bhopal."
+      },
+      {
+        "day": 4,
+        "title": "Day 4: Departure",
+        "desc": "Check out and transfer to Railway Station/Airport."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-kashmir-valley-calling",
+    "wixId": "788b4a50-d154-4838-967f-52f1a2defdc4",
+    "name": "Kashmir Valley Calling",
+    "slug": "kashmir-valley-calling",
+    "location": "Jammu & Kashmir",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Mountain & Snow",
+      "Hills & Mountains",
+      "Winter Wonderland",
+      "Winter",
+      "Summer",
+      "Honeymoon & Romantic",
+      "Couple Trips",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Kashmir",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Mountain & Snow",
+      "Hills & Mountains",
+      "Winter Wonderland",
+      "Winter",
+      "Summer",
+      "Honeymoon & Romantic",
+      "Couple Trips",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Kashmir",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 71225,
+    "origPrice": 94967,
+    "tagline": "4-star comfort with J&K’s natural beauty and cultural highlights.",
+    "image": "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_379ecdd7c2804ef7b18dcceaa40b78aa~mv2.jpg/Image%20by%20Renzo%20D'souza.jpg#originWidth=4608&originHeight=3073",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Driver Allowance",
+      "Night Allowance",
+      "Transportation"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1 - Arrival at Srinagar",
+        "desc": "Shikara ride on Dal Lake and Mall Road visit. Overnight stay."
+      },
+      {
+        "day": 2,
+        "title": "Day 2 - Srinagar to Son Marg",
+        "desc": "Explore Son Marg’s natural beauty. Return to Srinagar."
+      },
+      {
+        "day": 3,
+        "title": "Day 3 - Srinagar to Gulmarg",
+        "desc": "Visit Gulmarg’s ski slopes, Gondola, and Alpather Lake. Overnight stay."
+      },
+      {
+        "day": 4,
+        "title": "Day 4 - Departure",
+        "desc": "Return to Srinagar and drive to airport."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-madhya-pradesh-nature-retreat",
+    "wixId": "7b291d94-2a0c-4113-9362-d3733baa3cf7",
+    "name": "Madhya Pradesh Nature Retreat",
+    "slug": "madhya-pradesh-nature-retreat",
+    "location": "Pachmarhi",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Wildlife & Nature",
+      "Backwaters & Nature",
+      "Monsoon",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Wildlife & Nature",
+      "Backwaters & Nature",
+      "Monsoon",
+      "Luxury Signature"
+    ],
+    "duration": "4 Nights & 5 Days",
+    "price": 122500,
+    "origPrice": 163333,
+    "tagline": "A luxurious 5-day tour covering Pachmarhi’s caves, waterfalls, and Madhai National Park’s jungle safaris. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/7f7d02_4a2a5ac3daa842248dcc07f71844599d~mv2.jpg/It%20isn't%20a%20fear%20of%20somepower%20you%20haven't%20encountered,%20it%20is%20just%20a%20fear%20of%20death,%20and%20so%20i.jpg#originWidth=4624&originHeight=3117",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Driver Allowance",
+      "Night Allowance",
+      "Transportation"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival in Pachmarhi",
+        "desc": "Arrive in Pachmarhi and check into 5-star hotel. Evening free for relaxation. Overnight stay."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: Pachmarhi Local Sightseeing",
+        "desc": "Visit Jata Shankar, Handi Kho, Priyadarshini, Mahadev, Gupt Mahadev, Amba Mai, and Begum Palace. Overnight stay."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: Pachmarhi Continued",
+        "desc": "Explore Pandav Gufa, Museum, Apsara Vihar, Silver Fall, Panchali Kund, Bee Fall, Reechgarh, and Rajendra Giri. Overnight stay."
+      },
+      {
+        "day": 4,
+        "title": "Day 4: Pachmarhi to Madhai National Park",
+        "desc": "Drive to Madhai (3 hours). Check into 5-star hotel. Evening jungle safari in Madhai. Overnight stay."
+      },
+      {
+        "day": 5,
+        "title": "Day 5: Morning Safari & Departure",
+        "desc": "Early morning jungle safari in Madhai. Return to hotel, freshen up, and drive back home with unforgettable memories."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-rajasthan-desert-diaries",
+    "wixId": "7c061a33-ffdf-47f4-b3f8-b61183326205",
+    "name": "Rajasthan Desert Diaries",
+    "slug": "rajasthan-desert-diaries",
+    "location": "Jaisalmer, Jodhpur",
+    "continent": "Asia",
+    "country": "Jodhpur",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Desert Safari & Dunes",
+      "Ultra Luxury",
+      "Rajasthan",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Desert Safari & Dunes",
+      "Ultra Luxury",
+      "Rajasthan",
+      "Luxury Signature"
+    ],
+    "duration": "4 Nights & 5 Days",
+    "price": 51100,
+    "origPrice": 68133,
+    "tagline": "Discover the Blue City and golden dunes of Jaisalmer with upgraded 4-star comfort.",
+    "image": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/7f7d02_8e4a5b29a6f646ed9ddd0b0a3ea391a4~mv2.jpg/Night%20under%20the%20stars.%20%20(1).jpg#originWidth=4000&originHeight=6000",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Driver Allowance",
+      "Night Allowance",
+      "Transportation"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1 - Arrival in Jodhpur",
+        "desc": "Arrive at Jodhpur airport, then transfer to the hotel. Check in to your hotel and freshen up. In the afternoon, visit Mehrangarh Fort, one of India’s largest forts. Explore the museum and take in the stunning views of the 'Blue City.' In the evening, take a stroll through the Clock Tower and Sardar Market for local handicrafts and snacks. Return to the hotel for an overnight stay in Jodhpur."
+      },
+      {
+        "day": 2,
+        "title": "Day 2 - Full Day Sightseeing in Jodhpur",
+        "desc": "After breakfast, drive to visit Umaid Bhawan Palace, a royal palace that’s also a luxury hotel and museum. Explore Jaswant Thada, a white marble cenotaph offering serene views. Visit Rao Jodha Desert Rock Park and Mandore Gardens. Enjoy some local handicraft shopping as Jodhpur is famous for its handicrafts—take time to explore local shops and artisans. Return to the hotel for an overnight stay."
+      },
+      {
+        "day": 3,
+        "title": "Day 3 - Jodhpur to Jaisalmer (5 Hrs / 270 Kms)",
+        "desc": "After breakfast, check out from the hotel and transfer to Jaisalmer. Upon arrival in Jaisalmer, complete the check-in process and relax. Visit Gandisar Lake for boating and enjoy the sunset views. Walk through the local markets for unique handicrafts. Overnight stay at the hotel in Jaisalmer."
+      },
+      {
+        "day": 4,
+        "title": "Day 4 - Full Day Sightseeing in Jaisalmer",
+        "desc": "After breakfast, check out from the hotel and drive to local sightseeing points - · Jaisalmer Fort (Sonar Quila) · Patwon Ki Haveli · Salim Singh Ki Haveli Experience a desert safari at Sam Sand Dunes, including a camel ride. Check in for your tent stay and enjoy an overnight stay in Jaisalmer."
+      },
+      {
+        "day": 5,
+        "title": "Day 5 - Departure",
+        "desc": "After breakfast, check out from the camp and drive to the airport. Board your pre-booked flight with beautiful memories."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-transfer-to-shillong",
+    "wixId": "wix-1788212225285",
+    "name": "transfer to Shillong",
+    "slug": "transfer-to-shillong",
+    "location": "India",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 24999,
+    "origPrice": 31249,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "a lively market area",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "and take a peaceful stroll around Ward’s Lake. Enjoy some local delicacies for dinner and stay overnight at the hotel."
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & VIP Check-In",
+        "desc": "VIP airport greeting and transfer to 5-star hotel in India."
+      },
+      {
+        "day": 2,
+        "title": "Signature Sightseeing & Excursions",
+        "desc": "Guided full-day tour covering major attractions and viewpoints."
+      },
+      {
+        "day": 3,
+        "title": "Leisure, Cultural Highlights & Departure",
+        "desc": "Morning breakfast, souvenir shopping, and chauffeur airport transfer."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-where-you-can-enjoy-panoramic-views-of-the-city-and-the",
+    "wixId": "wix-1788212225285",
+    "name": "where you can enjoy panoramic views of the city and the surrounding Khasi Hills. Next",
+    "slug": "where-you-can-enjoy-panoramic-views-of-the-city-and-the",
+    "location": "India",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 24999,
+    "origPrice": 31249,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "enjoy the peaceful atmosphere of Umiam Lake",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "also known as Barapani"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & VIP Check-In",
+        "desc": "VIP airport greeting and transfer to 5-star hotel in India."
+      },
+      {
+        "day": 2,
+        "title": "Signature Sightseeing & Excursions",
+        "desc": "Guided full-day tour covering major attractions and viewpoints."
+      },
+      {
+        "day": 3,
+        "title": "Leisure, Cultural Highlights & Departure",
+        "desc": "Morning breakfast, souvenir shopping, and chauffeur airport transfer."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-embark-on-a-drive-to-cherrapunji-approximately-2-3-hour",
+    "wixId": "wix-1788212225285",
+    "name": "embark on a drive to Cherrapunji (approximately 2-3 hours). Once you arrive",
+    "slug": "embark-on-a-drive-to-cherrapunji-approximately-2-3-hour",
+    "location": "India",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 24999,
+    "origPrice": 31249,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "enjoy the cool",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "misty atmosphere of this hill station and stay overnight in Cherrapunji at a hotel or homestay."
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & VIP Check-In",
+        "desc": "VIP airport greeting and transfer to 5-star hotel in India."
+      },
+      {
+        "day": 2,
+        "title": "Signature Sightseeing & Excursions",
+        "desc": "Guided full-day tour covering major attractions and viewpoints."
+      },
+      {
+        "day": 3,
+        "title": "Leisure, Cultural Highlights & Departure",
+        "desc": "Morning breakfast, souvenir shopping, and chauffeur airport transfer."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-a-rewarding-sight-continue-to-dainthlen-waterfall",
+    "wixId": "wix-1788212225285",
+    "name": "a rewarding sight. Continue  to Dainthlen Waterfall",
+    "slug": "a-rewarding-sight-continue-to-dainthlen-waterfall",
+    "location": "India",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 24999,
+    "origPrice": 31249,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "[REPLACED WIX CDN ASSET]",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Verified 5-Star Stay",
+      "Private AC Transfers",
+      "Daily Breakfast & Dinner",
+      "24/7 VIP Concierge"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & VIP Check-In",
+        "desc": "VIP airport greeting and transfer to 5-star hotel in India."
+      },
+      {
+        "day": 2,
+        "title": "Signature Sightseeing & Excursions",
+        "desc": "Guided full-day tour covering major attractions and viewpoints."
+      },
+      {
+        "day": 3,
+        "title": "Leisure, Cultural Highlights & Departure",
+        "desc": "Morning breakfast, souvenir shopping, and chauffeur airport transfer."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-drive-to-mawlynnong-village-approx-2-hours",
+    "wixId": "wix-1788212225285",
+    "name": "drive to Mawlynnong Village (approx. 2 hours)",
+    "slug": "drive-to-mawlynnong-village-approx-2-hours",
+    "location": "India",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Honeymoon & Romantic",
+      "Couple Trips",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Honeymoon & Romantic",
+      "Couple Trips",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 24999,
+    "origPrice": 31249,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "return to Shillong by evening and enjoy an overnight stay there.",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Verified 5-Star Stay",
+      "Private AC Transfers",
+      "Daily Breakfast & Dinner",
+      "24/7 VIP Concierge"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & VIP Check-In",
+        "desc": "VIP airport greeting and transfer to 5-star hotel in India."
+      },
+      {
+        "day": 2,
+        "title": "Signature Sightseeing & Excursions",
+        "desc": "Guided full-day tour covering major attractions and viewpoints."
+      },
+      {
+        "day": 3,
+        "title": "Leisure, Cultural Highlights & Departure",
+        "desc": "Morning breakfast, souvenir shopping, and chauffeur airport transfer."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-check-out-from-your-shillong-hotel-and-drive-to-kaziran",
+    "wixId": "wix-1788212225285",
+    "name": "check out from your Shillong hotel and drive to Kaziranga National Park",
+    "slug": "check-out-from-your-shillong-hotel-and-drive-to-kaziran",
+    "location": "India",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Wildlife & Nature",
+      "Backwaters & Nature",
+      "Monsoon",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Wildlife & Nature",
+      "Backwaters & Nature",
+      "Monsoon",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 24999,
+    "origPrice": 31249,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "[REPLACED WIX CDN ASSET]",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Verified 5-Star Stay",
+      "Private AC Transfers",
+      "Daily Breakfast & Dinner",
+      "24/7 VIP Concierge"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & VIP Check-In",
+        "desc": "VIP airport greeting and transfer to 5-star hotel in India."
+      },
+      {
+        "day": 2,
+        "title": "Signature Sightseeing & Excursions",
+        "desc": "Guided full-day tour covering major attractions and viewpoints."
+      },
+      {
+        "day": 3,
+        "title": "Leisure, Cultural Highlights & Departure",
+        "desc": "Morning breakfast, souvenir shopping, and chauffeur airport transfer."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-followed-by-a-jeep-safari-in-the-park-to-spot-the-famou",
+    "wixId": "wix-1788212225286",
+    "name": "followed by a jeep safari in the park to spot the famous one-horned rhinoceros",
+    "slug": "followed-by-a-jeep-safari-in-the-park-to-spot-the-famou",
+    "location": "India",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Wildlife & Nature",
+      "Backwaters & Nature",
+      "Monsoon",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Wildlife & Nature",
+      "Backwaters & Nature",
+      "Monsoon",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 24999,
+    "origPrice": 31249,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "664*,10%,,,34",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "832*",
+      "₹77"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & VIP Check-In",
+        "desc": "VIP airport greeting and transfer to 5-star hotel in India."
+      },
+      {
+        "day": 2,
+        "title": "Signature Sightseeing & Excursions",
+        "desc": "Guided full-day tour covering major attractions and viewpoints."
+      },
+      {
+        "day": 3,
+        "title": "Leisure, Cultural Highlights & Departure",
+        "desc": "Morning breakfast, souvenir shopping, and chauffeur airport transfer."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-bhopal-ujjain-indore-4n-5d",
+    "wixId": "b1f07615-8860-4b5f-b99d-a8c0656302b3",
+    "name": "Bhopal-Ujjain-Indore 4N-5D",
+    "slug": "bhopal-ujjain-indore-4n-5d",
+    "location": "Bhopal, Indore, Ujjain",
+    "continent": "Asia",
+    "country": "Indore",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "duration": "4 Nights & 5 Days",
+    "price": 40040,
+    "origPrice": 44488,
+    "tagline": "A budget-friendly 5-day spiritual and cultural tour covering Bhopal’s lakes, Ujjain’s temples, Omkareshwar’s sacred sites, and Indore’s heritage. Includes 3-star hotels, Sedan transportation, and breakfast. Note: Dress code required for temple entry (Dhoti-kurta/Saree).",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/7f7d02_e38e197773a749a3af395de4dafe36b4~mv2.jpg/It%E2%80%99s%20the%20power%20of%20love%20that%20creates%20history%20of%20happiness%20for%20life%20and%20beyond.%20(1).jpg#originWidth=3147&originHeight=3932",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Driver Allowance",
+      "Night Allowance",
+      "Transportation"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival in Bhopal",
+        "desc": "Arrive at Bhopal Railway Station. Check into 3-star hotel. Visit Upper Lake, Lower Lake, Birla Mandir, Gufa Mandir, Sher Sapata, and VIP Road evening drive. Overnight in Bhopal."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: Bhopal to Ujjain (4 hours, 200 km)",
+        "desc": "After breakfast, drive to Ujjain. Check into hotel. Evening visit to Mahakaleshwara Temple (Bhasm Aarti) and Kal Bhairav Temple. Overnight in Ujjain."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: Ujjain to Omkareshwar to Indore (4 hours, 140 km)",
+        "desc": "Early morning Bhasm Aarti at Mahakaleshwara Temple. Drive to Omkareshwar. Explore Omkareshwar Temple, Omkareshwar Manhattan Temple, and Parikrama. Proceed to Indore. Overnight in Indore."
+      },
+      {
+        "day": 4,
+        "title": "Day 4: Indore Sightseeing",
+        "desc": "Visit Lal Bagh Palace, Khajrana Ganesh Temple, Kanch Mahal, ISKCON Temple, Rajwada, and Sarafa Bazaar. Evening free for shopping. Overnight in Indore."
+      },
+      {
+        "day": 5,
+        "title": "Day 5: Departure",
+        "desc": "Check out and drive back to Bhopal Railway Station."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-taj-temples-tales",
+    "wixId": "d2838f3c-a79f-48d7-aa6d-0dd70f097810",
+    "name": "Taj, Temples & Tales",
+    "slug": "taj-temples-tales",
+    "location": "Agra",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Family & Group",
+      "Family Tours",
+      "Luxury Signature"
+    ],
+    "duration": "3 Nights & 4 Days",
+    "price": 25245,
+    "origPrice": 28050,
+    "tagline": "A budget-friendly 4-day spiritual tour covering Agra’s Taj Mahal, Mathura’s Krishna temples, and Vrindavan’s iconic sites. Includes 3-star hotels, Sedan transportation, and breakfast. Note: Vrindavan Parikrama not included.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/7f7d02_944791d4380d4fdfbd38dae35bd5de2c~mv2.jpg/Taj%20Mahal%20%20(1).jpg#originWidth=5927&originHeight=3951",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hotel Accommodation",
+      "Breakfast",
+      "Sightseeing",
+      "Night Allowance",
+      "Transportation",
+      "Taxes"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival in Agra",
+        "desc": "Arrive in Agra and check into 3-star hotel. Visit Taj Mahal (UNESCO site), Agra Fort, and optional Mehtab Bagh for sunset view. Overnight in Agra."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: Agra to Mathura (1.5 hours, 60 km)",
+        "desc": "After breakfast, drive to Mathura. Visit Krishna Janmabhoomi Temple, Dwarkadhish Temple, Vishram Ghat, and Government Museum. Evening Ganga Aarti at Vishram Ghat. Overnight in Mathura."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: Vrindavan Excursion",
+        "desc": "Full-day trip to Vrindavan: Visit Banke Bihari Temple, Prem Mandir (light show), ISKCON Temple, Radha Raman Temple, and Nidhivan. Return to Mathura. Overnight in Mathura."
+      },
+      {
+        "day": 4,
+        "title": "Day 4: Departure",
+        "desc": "Check out and transfer to onward destination with unforgettable memories."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-leh-beyond-the-passes",
+    "wixId": "e4215518-8690-491e-b1a8-aa595ac1855f",
+    "name": "Leh Beyond the Passes",
+    "slug": "leh-beyond-the-passes",
+    "location": "Ladakh",
+    "continent": "Asia",
+    "country": "India",
+    "category": "National Tours",
+    "categories": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Mountain & Snow",
+      "Hills & Mountains",
+      "Winter Wonderland",
+      "Winter",
+      "Summer",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "National",
+      "Domestic",
+      "India Tours",
+      "Mountain & Snow",
+      "Hills & Mountains",
+      "Winter Wonderland",
+      "Winter",
+      "Summer",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 45040,
+    "origPrice": 54048,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to Ladakh curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_960596b644aa41ffb65ef341e0360424~mv2.jpg/Image%20by%20Darshan%20Chudasama.jpg#originWidth=6000&originHeight=4000",
+    "badge": "National Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Inner Line Permit - Wildlife & Environment Fees",
+      "Transfer from Airport to Hotel - Non A/C Innova",
+      "Full Day Sighseeing Tour of Stok, Matho, Stakna & Mahabodhi - Non A/C Innova",
+      "Full Day Excursion to Pangong Lake - Non A/C Xylo / Scorpio",
+      "Full Day Excursion to Nubra Valley - Non A/C Xylo/ Scorpio",
+      "Half Day Excursion to Sham Valley - Non A/C Innova"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1 - Arrival at Leh",
+        "desc": "Arrive at Leh Kushok Bakula Airport. (This must be one of the Most Sensational Flights in the World. On a clear day from one side of the aircraft can be seen in the distance the peaks of K2, Nanga Parbat, Gasherbrum and on the other side of the aircraft, so close that you feel you could reach out and touch it, is the Nun Kun massif). Upon arrival you will be met by our representative and transfer to Hotel for check-in. Complete day for rest and leisure to acclimatize to the higher altitude."
+      },
+      {
+        "day": 2,
+        "title": "Day 2 - Day Excursion to Matho, Stakna, Stok & Mahabodhi",
+        "desc": "After breakfast, we start on a sightseeing tour visiting Matho Monastery, Stakna Monastery, Stok Palace and Mahabodhi. Matho Monastery: Located around 26 kilometers away from Leh, on the picturesque Indus Valley, Matho Monastery is a Tibetan Buddhist monastery built under the Saskya Monastic Establishment. It was constructed around 500 years ago. Notes :"
+      },
+      {
+        "day": 3,
+        "title": "Day 3 - Excursion to Pangong Lake",
+        "desc": "After an early breakfast, we leave for Pangong Lake through Changla pass (5486 Mtrs). The long easy ascent takes you to Changla pass through its winding roads passing through Sakti Village. Stop at the Changla Pass for a quick photograph session. The Chang La (also known as Changla) is one of the highest mountain roads of the country. The pass, guarded and maintained by the Indian Army (due its proximity to Chinese border), is covered with snow throughout the year. This road is usually open all year, but it can be closed anytime when the access is not cleared of snow. The Changla Pass is the main gateway for the Changthang Plateau situated in the Himalayas. The pass is located on the 134 km-long (83 mi) road between the Pangong Lake and Leh. Road closures can be frequent."
+      },
+      {
+        "day": 4,
+        "title": "Day 4 -  Excursion to Nubra Valley",
+        "desc": "After breakfast, we proceed to Nubra Valley. The road journey from Leh to Nubra Valley passes over Khardung La (The Highest Motorable Road In The World). Khardung La: The Highest Motor able Road in The World at 5,602 Mtrs. / 18,390 Ft, around 39 km from Leh. From the pass, one can see all the way south over the Indus valley to seemingly endless peaks and ridges of the Zanskar range, and north to the giants of the Saser massif. The views from the top of the pass are amazing."
+      },
+      {
+        "day": 5,
+        "title": "Day 5 - Half Day Excursion to Sham Valley",
+        "desc": "After breakfast drive downstream along the River Indus on Leh - Kargil Highway and start sightseeing with: Hall of Fame: The Hall of Fame, located near the Leh Airfield, is a museum constructed as well as maintained by the Indian Army in the memory of the soldiers who had lost their lives during the Indo-Pak wars. It is also termed as a memorial for the war heros. This building consists of two floors. While on the ground floor, there is information about the brave soldiers and a souvenir shop but on the first floor, there are artifacts of various wars (mainly Kargil war) such as the weapons used during the war and some important documents, related to the same. There is another section dedicated to the Siachen glacier."
+      },
+      {
+        "day": 6,
+        "title": "Day 6 - Departure from Leh",
+        "desc": "We thank you for your patronage and ensures a punctual transfer to Domestic Airport to catch the flight for your onward Destination with a lifetime memory."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-phuket-paradise-getaway",
+    "wixId": "0cad7a97-43ff-42b1-acea-8c35acc1ec32",
+    "name": "Phuket Paradise Getaway",
+    "slug": "phuket-paradise-getaway",
+    "location": "Phuket",
+    "continent": "Asia",
+    "country": "Thailand",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Beach & Coastal",
+      "Island Explorer",
+      "Summer Escapes",
+      "Summer",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Thailand",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Beach & Coastal",
+      "Island Explorer",
+      "Summer Escapes",
+      "Summer",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Thailand",
+      "Luxury Signature"
+    ],
+    "duration": "5N/6D",
+    "price": 142095,
+    "origPrice": 170514,
+    "tagline": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_67754e496a497555636759~mv2_d_2992_3992_s_4_2.jpg/Image%20by%20Denys%20Nevozhai.jpg#originWidth=2992&originHeight=3992",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Phuket 2 nights - ",
+      "Stay for 2 nights at Patong Bay Residence",
+      "1 x Grand Deluxe Sunset View",
+      "1 Double Bed",
+      "Free breakfast, Free WiFi, Free self parking",
+      "Save:54%"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1 - Arrival in Phuket",
+        "desc": "Upon arrival at Phuket Airport, meet our local tour coordinator who will meet and greet you at the specified area and transfer you to the hotel. Check-in at the hotel and relax. Flight arriving on - Phuket Intl Airport, Phuket Overnight stay at Patong Bay Residence Dinner - Not Included"
+      },
+      {
+        "day": 2,
+        "title": "Day 2 - James Bond Island by Longtail Boat",
+        "desc": "The world’s most famous international spy and visit a stunning Thai Island - Khao Ping Khan, also known as James Bond Island. Once the location for \"The Man With The Golden Gun\", the island jutting out of the surrounding emerald-green water is a great place to take some snaps as you remember some of James Bond’s best moments. The trip begins with an early morning hotel pick up and takes you to Royal"
+      },
+      {
+        "day": 3,
+        "title": "Day 3 - Transfer from Phuket to Phi Phi Islands",
+        "desc": "Take your fill at breakfast early this morning, pack your bags and check out from the hotel. Today we bid goodbye to Phuket and further our vacation to a much more exotic and beautiful  destination- Phi Phi Islands. On arrival at Phi Phi, check in to your hotel (Standard Check in time: 1400 - 1500 hours) and relax. Rest of the day is free at your own leisure."
+      },
+      {
+        "day": 4,
+        "title": "Day 4 - Transfer from Phi Phi Island to Krabi",
+        "desc": "Take your fill at breakfast early this morning, pack your bags and check out from the hotel. Today we bid goodbye to Phi Phi and further our vacation to a much more exotic and beautiful destination- Krabi by Ferry. On arrival at Krabi, check in to your hotel (Standard Check in time: 1400 - 1500 hours) and relax. Rest of the day is free at your own leisure. In the evening you can go out and get acquainted to your nearby areas and relish some freshly made cuisines at local seaside restaurants. Later return to hotel and sleep relaxed."
+      },
+      {
+        "day": 5,
+        "title": "Day 5 - Full Day Krabi Four Island Tour by Long Tail Boat",
+        "desc": "After breakfast, proceed for Krabi Four Island Day Trip. Explore the islands of Koh Tup, Koh Gai, Koh Poda and Phra Nang Cave Beach via boat on this day trip from Krabi. Start your day trip in the morning by first going to the scenic Koh Tup Island, famed for its tidal sandbank. Wonder at the unique formation of shoals and picturesque coastline. Next, head over to Koh Gai Island, also known as Chicken Island for its similar appearance to the head of a chicken. Here dive into the exquisite, azure water for a swim or go snorkelling to closely observe the variety of sea creatures. Break for a delicious picnic lunch at Koh Poda Island and take time to relax on the white sandy beach, snooze in the sun, and observe the stunning scenery. Your last stop is at the breathtaking Phra Nang Cave Beach. Explore the grotto caves, watch as daring climbers ascend the rocks, and swim in the warm waters inside the caves."
+      },
+      {
+        "day": 6,
+        "title": "Day 6 - Departure from Krabi",
+        "desc": "After breakfast, check-out from your hotel. You will be picked up and transfered to Krabi Airport to catch your return flight back home. Your trip ends with sweet memories. Flight departing on - Krabi Airport, Krabi Breakfast - Included at Hotel"
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-unbeatable-vietnam-premium",
+    "wixId": "2b41572c-c33f-4f00-b5ae-89a7b388aac3",
+    "name": "Unbeatable Vietnam Premium",
+    "slug": "unbeatable-vietnam-premium",
+    "location": "International",
+    "continent": "Asia",
+    "country": "International",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Vietnam",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Vietnam",
+      "Luxury Signature"
+    ],
+    "duration": "7N/8D",
+    "price": 218554,
+    "origPrice": 273193,
+    "tagline": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.",
+    "image": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_65316a695557786a475f77~mv2.jpg/Image%20by%20Sandip%20Roy.jpg#originWidth=6000&originHeight=4000",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Hanoi – 2 Nights",
+      "Stay for 2 nights at Pullman Hanoi Hotel or similar",
+      "Superior Room",
+      "Breakfast",
+      "Daily Continental Breakfast at Hotel",
+      "Half-Day Hanoi City Tour (Shared Basis)"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1 – Arrival at Hanoi - Half Day Hanoi City Tour",
+        "desc": "On arrival at Noi Bai International Airport, our local representative will wait outside the customs area to welcome you and take you to your hotel. In the afternoon get ready for Hanoi City Tour Half Day. Visit Hoan Kiem Lake, Ngoc Son Temple, One Pillar Pagoda, Ho Chi Minh Mausoleum (outside view), and Dong Xuan Market. Dinner at an Indian Restaurant."
+      },
+      {
+        "day": 2,
+        "title": "Day 2 – Full Day Ninh Binh (Tam Coc - Hoa Lu with Sampan Boat Ride)",
+        "desc": "Drive south of Hanoi to Ninh Binh Visit: Tam Coc Hoa Lu Ancient Capital King Dinh Temple King Le Temple Enjoy a Sampan Boat Ride through limestone karsts and paddy fields. Return to Hanoi in the evening. Overnight Stay - Pullman Hanoi Hotel Meals - Breakfast, Local Lunch, Indian Dinner"
+      },
+      {
+        "day": 3,
+        "title": "Day 3 – Transfer from Hanoi to Halong Bay – Overnight Stay on Cruise",
+        "desc": "Travel to Halong Bay and board a traditional sailing junk cruise. Highlights: Cruise through Halong Bay Visit natural grottos Explore limestone formations Swimming opportunities Overnight stay onboard Overnight Stay - Hera Cruise Meals - Breakfast, Lunch on Cruise, Dinner on Cruise"
+      },
+      {
+        "day": 4,
+        "title": "Day 4 – Transfer from Halong Bay to Hanoi - Fly to Da Nang",
+        "desc": "Breakfast on cruise followed by disembarkation. Transfer to Hanoi Airport for flight to Da Nang. Upon arrival check into hotel. Remaining day at leisure. Overnight Stay - Grand Mercure Danang Meals - Brunch, Indian Dinner"
+      },
+      {
+        "day": 5,
+        "title": "Day 5 – Full Day Ba Na Hills Tour with Golden Bridge",
+        "desc": "Visit: Ba Na Hills Golden Bridge Linh Ung Pagoda Cable Car Ride Fantasy Park Nghinh Phong Peak Optional direct payment visit: Debay Wine Cellar Overnight Stay - Grand Mercure Danang Meals - Breakfast, Lunch, Dinner"
+      },
+      {
+        "day": 6,
+        "title": "Day 6 – Half Day Hoi An Ancient Town - Transfer from Da Nang to Ho Chi Minh",
+        "desc": "Visit: Coconut Forest Bamboo Basket Boat Experience Hoi An Old Town Phuc Kien Assembly Hall Tan Ky Ancient House Japanese Covered Bridge Hoi An Traditional Performing Arts House Transfer to airport for flight to Ho Chi Minh City. Check in at hotel upon arrival. Overnight Stay - Sofitel Saigon Plaza Meals - Breakfast, Lunch, Indian Dinner"
+      },
+      {
+        "day": 7,
+        "title": "Day 7 – Full Day Ho Chi Minh City Tour with Cu Chi Tunnels",
+        "desc": "Visit: Post Office Notre Dame Cathedral Thien Hau Pagoda China Town Cho Lon Market Cu Chi Tunnels Return to Saigon in the evening. Overnight Stay - Sofitel Saigon Plaza Meals - Breakfast, Local Lunch, Indian Dinner"
+      },
+      {
+        "day": 8,
+        "title": "Day 8 – Morning Free for Shopping - Departure from Ho Chi Minh City",
+        "desc": "Free time for shopping at Ben Thanh Market or nearby malls. Transfer to airport for onward flight. Meals - Breakfast, Indian Lunch"
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-on-day-two",
+    "wixId": "wix-1788212225348",
+    "name": "On day two",
+    "slug": "on-day-two",
+    "location": "International",
+    "continent": "Asia",
+    "country": "International",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 24999,
+    "origPrice": 31249,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to International curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "[REPLACED WIX CDN ASSET]",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Verified 5-Star Stay",
+      "Private AC Transfers",
+      "Daily Breakfast & Dinner",
+      "24/7 VIP Concierge"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & VIP Check-In",
+        "desc": "VIP airport greeting and transfer to 5-star hotel in International."
+      },
+      {
+        "day": 2,
+        "title": "Signature Sightseeing & Excursions",
+        "desc": "Guided full-day tour covering major attractions and viewpoints."
+      },
+      {
+        "day": 3,
+        "title": "Leisure, Cultural Highlights & Departure",
+        "desc": "Morning breakfast, souvenir shopping, and chauffeur airport transfer."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-continue-your-journey-in-da-nang-with-a-visit-to-the-sp",
+    "wixId": "wix-1788212225348",
+    "name": "Continue your journey in Da Nang with a visit to the spectacular Ba Na Hills",
+    "slug": "continue-your-journey-in-da-nang-with-a-visit-to-the-sp",
+    "location": "International",
+    "continent": "Asia",
+    "country": "International",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 24999,
+    "origPrice": 31249,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to International curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "[REPLACED WIX CDN ASSET]",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Verified 5-Star Stay",
+      "Private AC Transfers",
+      "Daily Breakfast & Dinner",
+      "24/7 VIP Concierge"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & VIP Check-In",
+        "desc": "VIP airport greeting and transfer to 5-star hotel in International."
+      },
+      {
+        "day": 2,
+        "title": "Signature Sightseeing & Excursions",
+        "desc": "Guided full-day tour covering major attractions and viewpoints."
+      },
+      {
+        "day": 3,
+        "title": "Leisure, Cultural Highlights & Departure",
+        "desc": "Morning breakfast, souvenir shopping, and chauffeur airport transfer."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-the-package-includes-domestic-flights",
+    "wixId": "wix-1788212225348",
+    "name": "The package includes domestic flights",
+    "slug": "the-package-includes-domestic-flights",
+    "location": "International",
+    "continent": "Asia",
+    "country": "International",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 24999,
+    "origPrice": 31249,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to International curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "554*,,<p class=font_8><strong>Taxes:</strong> 5% GST Extra</p>",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Verified 5-Star Stay",
+      "Private AC Transfers",
+      "Daily Breakfast & Dinner",
+      "24/7 VIP Concierge"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & VIP Check-In",
+        "desc": "VIP airport greeting and transfer to 5-star hotel in International."
+      },
+      {
+        "day": 2,
+        "title": "Signature Sightseeing & Excursions",
+        "desc": "Guided full-day tour covering major attractions and viewpoints."
+      },
+      {
+        "day": 3,
+        "title": "Leisure, Cultural Highlights & Departure",
+        "desc": "Morning breakfast, souvenir shopping, and chauffeur airport transfer."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-bali-tropical-escape",
+    "wixId": "684e1b1a-235b-4d84-9def-a94295ebd813",
+    "name": "Bali Tropical Escape",
+    "slug": "bali-tropical-escape",
+    "location": "Bali",
+    "continent": "Asia",
+    "country": "Indonesia",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Beach & Coastal",
+      "Island Explorer",
+      "Summer Escapes",
+      "Summer",
+      "Honeymoon & Romantic",
+      "Couple Trips",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Bali",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Beach & Coastal",
+      "Island Explorer",
+      "Summer Escapes",
+      "Summer",
+      "Honeymoon & Romantic",
+      "Couple Trips",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Bali",
+      "Luxury Signature"
+    ],
+    "duration": "4N/5D",
+    "price": 62710,
+    "origPrice": 69870,
+    "tagline": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_08cc77b975e84072bbcea36aba72a65e~mv2.jpg/Image%20by%20Bao%20Menglong.jpg#originWidth=5653&originHeight=3768",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Accommodation",
+      "4 Nights stay at Anathera Resort Kuta",
+      "Deluxe Room",
+      "Daily Breakfast",
+      "Transfers",
+      "Private Airport to Hotel Transfer"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1: Arrival at Bali",
+        "desc": "Upon your arrival at Ngurah Rai Airport in Denpasar, Bali, our representative will meet and welcome you. You will then be taken to the hotel for your refreshment."
+      },
+      {
+        "day": 2,
+        "title": "Day 2: Nusa Penida Island Day Trip",
+        "desc": "Experience the magic of Nusa Penida Island on our Full Day West Penida Tour. Begin your day with convenient private transfers to the pier, where you'll board a shared fastboat to this enchanting destination. Explore the island’s breathtaking landscapes, including the iconic Broken Beach and the majestic Kelingking Cliff. Swim in crystalclear waters and relax on pristine beaches, immersing yourself in the natural beauty that surrounds you. Indulge in a delicious local lunch, savoring the unique flavors of the island. With knowledgeable guides ensuring a seamless experience, this tour offers the perfect mix of adventure and leisure in one of Bali's hidden gems."
+      },
+      {
+        "day": 3,
+        "title": "Day 3: Full Day North Bali Tour",
+        "desc": "Proceed for a full-day North Bali sightseeing tour. Places Covered Bedugul Fruit and Vegetable Market Ulun Danu Temple Lovina Beach Area Aling-Aling Waterfalls Banjar Hot Springs The tour includes visits to cultural and natural attractions across North Bali while crossing the scenic central mountain range. Stay - Overnight stay at Anathera Resort Kuta."
+      },
+      {
+        "day": 4,
+        "title": "Day 4: Tanah Lot Temple & Uluwatu Temple Tour with Kecak Dance",
+        "desc": "Visit the iconic Tanah Lot Temple located on a rock formation in the ocean. Enjoy free time for shopping and purchasing Balinese handicrafts and souvenirs. In the evening, proceed to Uluwatu Temple, situated on a cliff approximately 100 metres above the ocean. Witness the famous Kecak Dance performance by around 50 dancers. Stay - Overnight stay at Anathera Resort Kuta."
+      },
+      {
+        "day": 5,
+        "title": "Day 5: Bali Swing at Tegallalang Village & Departure",
+        "desc": "Visit Aloha Ubud Theme Park and enjoy the Bali Swing experience in the Tegallalang area, known for its spectacular views. After breakfast, transfer to the airport for your onward flight. Meals - Breakfast: Included Lunch: Not Included Dinner: Not Included"
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-sakura-moments-the-ultimate-cherry-blossom",
+    "wixId": "6f47c168-a43f-4177-8062-7cc3d417e849",
+    "name": "Sakura Moments - The Ultimate Cherry Blossom",
+    "slug": "sakura-moments-the-ultimate-cherry-blossom",
+    "location": "Tokyo, Kanazawa, Kyoto",
+    "continent": "Asia",
+    "country": "Kanazawa",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "duration": "7N/6D",
+    "price": 755156,
+    "origPrice": 9061872,
+    "tagline": "Handcrafted 7N/6D tour to Tokyo, Kanazawa, Kyoto curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_3832344f776b503773676b~mv2_d_6240_4160_s_4_2.jpg/Image%20by%20Yu%20Kato.jpg#originWidth=6240&originHeight=4160",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Daily Breakfast and Dinner Included",
+      "Train Transfer from Kanazawa to Kyoto",
+      "Visit to Fushimi Inari Taisha Shrine (Torii",
+      "Gates walk)",
+      "Visit to Kiyomizu-dera Temple (City",
+      "viewpoint)"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1 : Welcome to Tokyo - The Land of Rising Sun",
+        "desc": "The moment you land in Tokyo, you feel it — this place is different. Bright lights, quiet corners, polite smiles, and a sense of excitement in the air. After settling into your hotel, you have your first evening to soak it all in. Your Japan story begins. (Dinner) Overnight stay at Asakusa View Hotel"
+      },
+      {
+        "day": 2,
+        "title": "Day 2 :  Feeling Tokyo: From Peaceful Shrines to Shibuya Lights",
+        "desc": "Your day begins with the peaceful gardens of the Imperial Palace, the official residence of Japan’s Emperor. As you stroll along green pathways and admire the graceful Nijubashi Bridge from a distance — beautifully curved and uniquely shaped — you’ll feel a quiet calm in the heart of this busy city. Next, you head to the charming Asakusa area, walking past the lively Nakamise shopping street before reaching the beautiful Senso-ji Temple, Tokyo’s oldest Buddhist temple. The sound of prayers, glowing lanterns, and the gentle smell of incense make this moment truly special. Enjoy some free time for lunch before continuing your journey. Later, experience serenity at Meiji Jingu, a Shinto shrine hidden inside a peaceful forest. From here, step into the playful energy of Harajuku — known as a hub of youth culture, fashion experimentation, street style and pop culture. Your day ends at the iconic Shibuya Crossing, the world-famous pedestrian scramble where thousands cross from all directions at once under towering neon lights and digital billboards — a true symbol of Tokyo’s modern spirit. As the evening settles in, you return with quiet smiles, full hearts, and beautiful first memories of Japan. Overnight in Tokyo. (Breakfast and Dinner)."
+      },
+      {
+        "day": 3,
+        "title": "Day 3 -  Mount Fuji & Lake Kawaguchi Experience",
+        "desc": "Today feels like stepping into a postcard. You leave the city behind and travel toward majestic Mount Fuji, Japan’s most loved natural icon. Your first stop is Oishi Park, where gentle breezes and flower-lined paths open up to stunning views of Lake Kawaguchi — part of the Fuji Five Lakes region, famous for its calm waters and mirror-like reflections of the mountain. Next, you visit Arakurayama Sengen Park, home to the iconic Chureito Pagoda and Arakura Fuji Sengen Shrine. From here, the views feel truly magical — one of Japan’s most photographed scenes. In Fujiyoshida, enjoy relaxed free time for lunch and browse traditional shops for local souvenirs. Later, discover the peaceful village of Oshino Hakkai, known for its crystal-clear ponds, thatched houses, and quiet countryside charm. Your journey continues up to Mount Fuji’s 5th Station (weather permitting), where fresh mountain air and panoramic views surround you. Standing here, you understand why Fuji is seen as sacred — its perfect shape and quiet presence leave a deep impression. It’s a day filled with scenery, silence, and simple joy — a beautiful contrast to the busy  cities."
+      },
+      {
+        "day": 4,
+        "title": "Day 4 -  Tokyo to Kanazawa - From City Lights to Old Streets",
+        "desc": "Today is a travel day as you move from Tokyo to Kanazawa. After breakfast, you start your journey by Bullet Train. Roughly about 3.5 Hrs, but comfortable, and you’ll notice how the scenery slowly changes from the busy city to quieter towns and open landscapes. Once you reach Kanazawa, the vibe feels different — calmer and more traditional. You first visit the Higashi Chaya District. This area is known for its old wooden houses and traditional tea houses. The streets are narrow and charming, and it really feels like stepping into old Japan. It’s a nice place to walk around, click pictures, and just soak in the atmosphere. Next, you head to Kanazawa Castle. The castle grounds are wide and open, with strong stone walls and beautiful surroundings. It gives you a good sense of the city’s history and its samurai past. In the evening, enjoy dinner at an Indian restaurant and then transfer to your hotel. Overnight in Kanazawa."
+      },
+      {
+        "day": 5,
+        "title": "Day 5 - Finding Your Calm: Torii Gates, Temples & Quiet Kyoto Moments",
+        "desc": "After breakfast, you board the train toward Kyoto. Outside your window, the scenery slowly changes — quiet towns, green landscapes, and soft glimpses of Lake Biwa drifting past like a moving painting. By the time you arrive, Kyoto feels different. Slower. Softer. Older. This is where Japan’s soul quietly lives. Your afternoon begins at Fushimi Inari Taisha, walking through endless red torii gates that wind gently up the hillside. With every step, the world feels quieter — almost meditative — as if time itself has slowed down. Next, you visit Sanjusangen-do, A buddhist temple & home to 1,001 golden statues standing silently in perfect harmony. It’s a powerful, peaceful moment that stays with you long after you leave. Your day ends at Kiyomizu-dera - Pure Water Temple, where you stand on a wooden terrace overlooking Kyoto. As the city stretches out below and the light softens, you simply pause — taking it all in. Kyoto doesn’t rush you. It gently teaches you to slow down. You return to your hotel feeling lighter, calmer, and deeply connected to Japan’s timeless beauty. Overnight in Kyoto. (Breakfast and Dinner)"
+      },
+      {
+        "day": 6,
+        "title": "Day 6 -  Osaka City Experience: Neon Streets & Everyday Life",
+        "desc": "Today, the mood changes. After breakfast, you travel from Kyoto into Osaka — and almost immediately, you feel the difference. This city is louder, brighter, warmer and full of life. You begin in Namba and Dotonbori, where neon lights glow even in daylight and the streets buzz with life. The smell of street food drifts through the air, laughter echoes from small cafés, and everywhere you look, something is happening. Osaka doesn’t try to impress — it simply invites you in. Tucked quietly between busy lanes, you step into Hozenji Temple, a small 17th-century temple where moss covered statues and gentle prayers offer a peaceful calm before the city buzz pulls you back in. Then comes Kuromon Ichiba Market, where locals shop, eat, and laugh. This is where you truly see everyday Osaka — real, friendly, raw and real, and full of flavour and it’s impossible not to love it. Explore the retro neighbourhood of Shinsekai, that feels playful and nostalgic, then admire the grandeur of Osaka Castle, rising proudly above green gardens — a beautiful reminder of Japan’s powerful past. Before leaving, you stroll through the famous shopping streets Shinsaibashi and Nipponbashi, perfect for souvenirs, fashion, and last-minute finds. As evening settles in, you return to Kyoto — carrying Osaka’s colours, flavours, and energy with  you.   It ’s a day that makes you feel alive. Overnight in Kyoto. (Breakfast and Dinner)"
+      },
+      {
+        "day": 7,
+        "title": "Day 7 -  Departure: Taking Japan Home in Your Heart",
+        "desc": "After breakfast, it’s time to say goodbye. You complete your check-out and transfer to the airport, carrying more than just souvenirs — you carry memories of glowing streets, quiet temples, mountain breezes, and moments that touched your heart. You didn’t just travel through Japan — you felt it. From quiet temples to glowing streets, this journey becomes a beautiful memory you’ll carry long after you return home. (Breakfast)"
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-colombo-to-the-clouds",
+    "wixId": "82ef9be5-fd26-44e6-9046-cdd6be11a40c",
+    "name": "Colombo to the Clouds",
+    "slug": "colombo-to-the-clouds",
+    "location": "Colombo",
+    "continent": "Asia",
+    "country": "International",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "duration": "5N/6D",
+    "price": 144904,
+    "origPrice": 1666396,
+    "tagline": "Handcrafted 5N/6D tour to Colombo curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/beda25_3a7af49cc5e44cb9a3d3c3d7c88abf49~mv2.jpeg/WhatsApp%20Image%202026-07-16%20at%204.58.57%20PM.jpeg#originWidth=960&originHeight=1280",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Verified 5-Star Stay",
+      "Private AC Transfers",
+      "Daily Breakfast & Dinner",
+      "24/7 VIP Concierge"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1 - Arrival in Colombo and transfer to hotel",
+        "desc": "After arriving at the Colombo Airport, our representatives will be waiting for you. The team will transfer you to the hotel for check-in in Colombo. You’ll have the rest of the day to relax and explore the city on your own before we spend the night at the hotel in Colombo. Overnight stay at Courtyard By Marriott Colombo"
+      },
+      {
+        "day": 2,
+        "title": "Day 2 - Galle and Bentota Day-Tour",
+        "desc": "Breakfast at hotel. This is a Galle and Bentota Day Tour that includes pick-up from your hotel. The Boat Safari at Madu River is a major attraction that will show you the view of the wide Madu Ganga. It’s a healing journey through the mangrove forest and observe the biodiversity of Madu River that includes 19 endemic species. There are 64 islands and is such an attractive destination for nature lovers and bird watchers. Catch sights of the rare bird species and reptiles that made their home here. There are also traditional fishermen here who make a living through Stilt Fishing. It is a method that uses a crossbar with a vertical pole attached to the sea floor and they wait by the crossbar for the fish to bite."
+      },
+      {
+        "day": 3,
+        "title": "Day 3 - Colombo City Tour",
+        "desc": "Colombo is the business and commercial center and the new capital is Sri Jayawardhanapura Kotte, only a few miles away. Colombo was only a small seaport, which came into prominence in the 16th Century with the arrival of the Portuguese in 1505 and the development of it as a major Harbor took place during the British period. Colombo became the capital of Sri Lanka in 1815 after Kandyan Kingdom was ceded to the British. The remains of the buildings during the period of the Portuguese, Dutch and British rule are found in every area of the city. None of the Portuguese & Dutch fortifications are found today but some of their buildings and churches could be seen in the Fort & Pettah areas. Visit Fort, the former British administrative center and military garrison, Sea Street - the Goldsmith’s quarters in the heart of Pettah, the Bazaar area where there is also a Hindu Temple with elaborate stone carvings, the Kayman’s Gate with the Belfry at the original gate to enter the Fort, the Dutch Church of Wolfendhaal dating back to 1749, Kelaniya Buddhist Temple dating to 6th C.B.C., Davatagaha Mosque, Colombo Museum and the Natural History Museum are some of the sites to be visited. Also visit the BMICH (Bandaranaike Memorial International Conference Hall), see the replica of Avukana Buddha in front and the Independence Memorial. Take out time for some shopping before returning back to your hotel."
+      },
+      {
+        "day": 4,
+        "title": "Day 4 - Transfer from Colombo to Nuwara Eliya Via Gampola Ambuluwawa Tower",
+        "desc": "After breakfast, depart from Colombo and travel towards Gampola to visit the iconic Ambuluwawa Tower, known for its unique spiral tower and breathtaking panoramic views of the surrounding mountains and valleys. After exploring the hilltop complex, continue your scenic drive through tea plantations and misty landscapes to the charming hill station of Nuwara Eliya, often referred to as “Little England,” then Check in at the hotel."
+      },
+      {
+        "day": 5,
+        "title": "Day 5 - Sita Amman Temple & Bahirawakanda Temple Tour",
+        "desc": "Enjoy your breakfast today before we set off on our tour of the day. We’re going to Sita Amman Temple as our first destination, a Hindu Temple dedicated to Princess Sita that was also mentioned in the epic of Ramayana. The story goes that Sita was rescued by Rama 5000 years ago and to commemorate her, the temple was built here. Many devotees visit the temple to worship Sita Mata. Visitors are advised to wear modestly when they visit the temple."
+      },
+      {
+        "day": 6,
+        "title": "Day 6 - Transfer from Nuwara Eliya to Colombo for Departure",
+        "desc": "After breakfast, we’ll check-out of Nuwara Eliya and head to Colombo. After 5 hours of ride, we’ll bring you to the Colombo Airport in time for your departure flight."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-singapore-city-gardens",
+    "wixId": "b9caf2fa-c516-4ba3-bd70-2db26f961890",
+    "name": "Singapore City & Gardens",
+    "slug": "singapore-city-gardens",
+    "location": "Singapore",
+    "continent": "Asia",
+    "country": "International",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Singapore",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Singapore",
+      "Luxury Signature"
+    ],
+    "duration": "5N/6D",
+    "price": 282452,
+    "origPrice": 389783,
+    "tagline": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_48539ea723294d3bb48324e23d9731c6~mv2.jpg/Image%20by%20Joshua%20Ang.jpg#originWidth=5768&originHeight=3845",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Verified 5-Star Stay",
+      "Private AC Transfers",
+      "Daily Breakfast & Dinner",
+      "24/7 VIP Concierge"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1 - Arrival in Singapore",
+        "desc": "On arrival at Singapore Airport, meet our representative and get transferred to hotel. (Check in time 2pm). In the night if you have time, you can visit the Clarke Quay, its a area bustling with eateries and lights. You can have dinner there and return back to your hotel for stay. Notes: As Jewel Changi Airport is a popular attraction we kindly request that any changes or delays to your airport pick-up be communicated to us at least 72 hours prior to your travel date or once the flight details are updated.  This advance notice allows us to make the necessary arrangements and ensure a smooth experience for you upon arrival.  Porter services for luggage handling are not included and will be chargeable directly if availed."
+      },
+      {
+        "day": 2,
+        "title": "Day 2 - Full day Universal Studios Tour",
+        "desc": "Live The Movies at the many exclusive attractions found only at the region’s first Hollywood movie theme park, Universal Studios Singapore. Featuring movie-themed rides and attractions, which are unique to Singapore, thrill seekers and families will be the first to experience many new rides and shows based on blockbuster hits. The young and young at heart will be entertained by Shrek and gang on an incredible 4-D adventure in the world’s first Far Far Away Castle. Thrill seekers can face warrior mummies on Revenge of the Mummy a psychological thrill ride in total darkness."
+      },
+      {
+        "day": 3,
+        "title": "Day 3 - Singapore Flyer + Time Capsule + Gardens by the Bay Flower Dome & Cloud Forest - Jurassic World: The Exhibition + Marina Bay Sands",
+        "desc": "The Singapore Flyer, a giant observation wheel that features brilliant engineering breakthroughs a world apart from the traditional ferries wheel, is set to be Asia's most visible iconic visitor attraction. It provides breathtaking, panoramic views of Singapore and beyond. The Singapore Flyer will transform the visual landscape of the surrounding Marina Bay area."
+      },
+      {
+        "day": 4,
+        "title": "Day 4 - Full Day Sentosa Island Tour",
+        "desc": "Enjoy your day at Sentosa Island. Enjoy Go Green Segway - One Ride. After Go Green Segway step in Merlion , standing at 37-metre-tall half Lion and half Fish structure has a Mouth Gallery Viewing Deck .Sit through a short animation that tells you the story of the origin of the Merlion.. At the viewing decks enjoy the bird eye view of Sentosa. There's no better way to complete a fabulous day at Sentosa than to take in a spectacular night show set outdoors against the backdrop of an open sea. Come, discover an awe-inspiring display of water, laser and fire effects, set to majestic music and a panorama of breathtaking vistas - Wings of Time. Weaved together by a tale of friendship and courage that will linger with you long after you leave the magical isle."
+      },
+      {
+        "day": 5,
+        "title": "Day 5 - Departure from Singapore",
+        "desc": "After check out, please meet our representative who will transfer you to the airport. Note: Porter services for luggage handling are not included and will be chargeable directly if availed."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-asian-extravaganza",
+    "wixId": "c3827d9b-0a67-4c27-9d56-fd7587163ff5",
+    "name": "Asian Extravaganza",
+    "slug": "asian-extravaganza",
+    "location": "International",
+    "continent": "Asia",
+    "country": "International",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Beach & Coastal",
+      "Island Explorer",
+      "Summer Escapes",
+      "Summer",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Thailand",
+      "Singapore",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Beach & Coastal",
+      "Island Explorer",
+      "Summer Escapes",
+      "Summer",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Thailand",
+      "Singapore",
+      "Luxury Signature"
+    ],
+    "duration": "10N/11D",
+    "price": 294705,
+    "origPrice": 368381,
+    "tagline": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_077016ef20a9464b9420b016dc8d2a8f~mv2.jpg/Image%20by%20Anh%20Tuan%20To.jpg#originWidth=4032&originHeight=3024",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Flights",
+      "To and Fro Flights included (into Singapore out of Bangkok)",
+      "Internal Flight from Kuala Lumpur to Bangkok",
+      "Singapore",
+      "Stay for 3 Nights at Aqueen Prestige Hotel Jalan Besar or Similar",
+      "Standard Room"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1 – Arrival In Singapore  \n (City Tour, Marina Bay, Gardens By The Bay)",
+        "desc": "Arrival at Singapore International Airport followed by Singapore City Tour covering Little India, Merlion Statue, Singapore River, Chinatown, Sri Mariamman Temple and Esplanade. Visit Marina Bay Sands Sky Park Observation Deck and Gardens By The Bay including Cloud Forest and Super Trees. Overnight stay at Aqueen Prestige Hotel Jalan Besar. Meals -"
+      },
+      {
+        "day": 2,
+        "title": "Day 2 – Afternoon Sentosa Island Tour",
+        "desc": "Visit Sentosa Island including Cable Car Ride, Madame Tussauds and Wings Of Time. High Tea & Snacks in Sentosa. Overnight stay at Aqueen Prestige Hotel Jalan Besar. Meals - Breakfast, Lunch and Dinner"
+      },
+      {
+        "day": 3,
+        "title": "Day 3 – Full Day Universal Studios, Singapore River Cruise",
+        "desc": "Full Day Universal Studios Singapore with SGD 20 Lunch Coupon. Enjoy Singapore River Cruise and Bum Boat Ride. Overnight stay at Aqueen Prestige Hotel Jalan Besar. Meals - Breakfast, Lunch and Dinner"
+      },
+      {
+        "day": 4,
+        "title": "Day 4 – Transfer From Singapore To Kuala Lumpur – En-route Putrajaya Tour",
+        "desc": "Transfer from Singapore to Kuala Lumpur. En-route Putrajaya Tour. Overnight stay at Regalia Upper View Hotel. Meals - Breakfast, Lunch and Dinner"
+      },
+      {
+        "day": 5,
+        "title": "Day 5 – Full-Day Genting Highlands Tour With Batu Caves",
+        "desc": "Visit Batu Caves and Genting Highlands including Genting Skyway Cable Car. Overnight stay at Regalia Upper View Hotel. Meals - Breakfast, Lunch and Dinner"
+      },
+      {
+        "day": 6,
+        "title": "Day 6 – Kuala Lumpur City Tour With KL Tower",
+        "desc": "Visit KL Tower Observation Deck, National Mosque, Sultan Abdul Samad Building, Merdeka Square, National Monument, Art Gallery, KL Museum, Railway Station, Railway Administration Building, Cocoa House and Kings Place. Overnight stay at Regalia Upper View Hotel. Meals - Breakfast, Lunch and Dinner"
+      },
+      {
+        "day": 7,
+        "title": "Day 7 – Fly From Kuala Lumpur To Bangkok And Transfer To Pattaya With Alcazar Show",
+        "desc": "Flight from Kuala Lumpur to Bangkok. Transfer to Pattaya and enjoy Alcazar Show. Overnight stay at Centara Pattaya Hotel. Meals - Breakfast, Lunch and Dinner"
+      },
+      {
+        "day": 8,
+        "title": "Day 8 – Excursion To Coral Island With Lunch",
+        "desc": "Visit Coral Island (Koh Larn) by Speedboat and enjoy lunch. Overnight stay at Centara Pattaya Hotel. Meals - Breakfast, Lunch and Dinner"
+      },
+      {
+        "day": 9,
+        "title": "Day 9 – Nong Nooch Village With Bus Ride And Transfer To Bangkok With Chao Phraya Dinner Cruise",
+        "desc": "Visit Nong Nooch Village with Bus / Tram Ride. Transfer to Bangkok and enjoy Chao Phraya Dinner Cruise. Overnight stay at A-One Bangkok Hotel. Meals - Breakfast, Lunch and Dinner"
+      },
+      {
+        "day": 10,
+        "title": "Day 10 – Full-Day Safari World With Marine Park",
+        "desc": "Visit Safari World and Marine Park including wildlife attractions and shows. Overnight stay at A-One Bangkok Hotel. Meals - Breakfast, Lunch and Dinner"
+      },
+      {
+        "day": 11,
+        "title": "Day 11 – City And Temple Tour Of Bangkok And Departure",
+        "desc": "Visit Golden Buddha, Marble Buddha and Mini Reclining Buddha. Shopping time subject to flight schedule. Transfer to airport for departure. Meals - Breakfast and Lunch"
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-in-kuala-lumpur",
+    "wixId": "wix-1788212225353",
+    "name": "In Kuala Lumpur",
+    "slug": "in-kuala-lumpur",
+    "location": "International",
+    "continent": "Asia",
+    "country": "International",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 24999,
+    "origPrice": 31249,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to International curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "[REPLACED WIX CDN ASSET]",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Verified 5-Star Stay",
+      "Private AC Transfers",
+      "Daily Breakfast & Dinner",
+      "24/7 VIP Concierge"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & VIP Check-In",
+        "desc": "VIP airport greeting and transfer to 5-star hotel in International."
+      },
+      {
+        "day": 2,
+        "title": "Signature Sightseeing & Excursions",
+        "desc": "Guided full-day tour covering major attractions and viewpoints."
+      },
+      {
+        "day": 3,
+        "title": "Leisure, Cultural Highlights & Departure",
+        "desc": "Morning breakfast, souvenir shopping, and chauffeur airport transfer."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-the-itinerary-culminates-in-safari-world",
+    "wixId": "wix-1788212225353",
+    "name": "The itinerary culminates in Safari World",
+    "slug": "the-itinerary-culminates-in-safari-world",
+    "location": "International",
+    "continent": "Asia",
+    "country": "International",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Wildlife & Nature",
+      "Backwaters & Nature",
+      "Monsoon",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Wildlife & Nature",
+      "Backwaters & Nature",
+      "Monsoon",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 49999,
+    "origPrice": 62499,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to International curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "ensuring a memorable and fulfilling experience.,[Singapore",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Phuket"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & VIP Check-In",
+        "desc": "VIP airport greeting and transfer to 5-star hotel in International."
+      },
+      {
+        "day": 2,
+        "title": "Signature Sightseeing & Excursions",
+        "desc": "Guided full-day tour covering major attractions and viewpoints."
+      },
+      {
+        "day": 3,
+        "title": "Leisure, Cultural Highlights & Departure",
+        "desc": "Morning breakfast, souvenir shopping, and chauffeur airport transfer."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-essence-of-europe",
+    "wixId": "wix-1788212225355",
+    "name": "Essence of Europe",
+    "slug": "essence-of-europe",
+    "location": "International",
+    "continent": "Asia",
+    "country": "International",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Switzerland",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Switzerland",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 387104,
+    "origPrice": 483880,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to International curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_f24526f1c4dd4c7b9e2ba8aac3dc6b4e~mv2.jpg/Image%20by%20Luis%20Javier%20Tello%20Cendal.jpg#originWidth=4608&originHeight=2592",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Rome",
+      "Stay for 2 nights at Hampton By Hilton Rome North Fiano Romano or similar",
+      "Standard Room",
+      "Breakfast",
+      "Guided city tour of Rome covering iconic sights like the Colosseum & Roman Forum",
+      "Visit the magnificent St. Peter’s Basilica"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1 – Rome Awaits – A Grand Beginning to Your European Journey",
+        "desc": "Arrival in Rome. Meet and greet at the airport and transfer to the hotel. Leisure time after check-in. Overnight Stay - Hampton By Hilton Rome North Fiano Romano Meals - Dinner"
+      },
+      {
+        "day": 2,
+        "title": "Day 2 – Rome Guided City Tour with Vatican City and St. Peter’s Basilica",
+        "desc": "Visit: Vatican City St. Peter’s Basilica Colosseum (Exterior) Piazza Venezia Victor Emmanuel II Monument Trevi Fountain Overnight Stay - Hampton By Hilton Rome North Fiano Romano Meals - Breakfast, Lunch, Dinner"
+      },
+      {
+        "day": 3,
+        "title": "Day 3 – Visit Leaning Tower of Pisa – Florence City Tour & Piazzale Michelangelo",
+        "desc": "Visit: Piazza dei Miracoli Leaning Tower of Pisa Florence Piazzale Michelangelo Florence Duomo Baptistery Giotto’s Campanile Piazza della Signoria Palazzo Vecchio Ponte Vecchio Overnight Stay - Raddison Hotel Ferrara Meals - Breakfast, Dinner"
+      },
+      {
+        "day": 4,
+        "title": "Day 4 – Transfer To Venice – The Floating City Of Italy With Gondola Ride",
+        "desc": "Visit: Venice Private Boat Ride St. Mark’s Square St. Mark’s Basilica Clock Tower Bell Tower Bridge of Sighs Gondola Ride Transfer to Milan. Overnight Stay - Zeus Essence Dolce by Wyndham Milan Malpensa Meals - Breakfast, Lunch, Dinner"
+      },
+      {
+        "day": 5,
+        "title": "Day 5 – Discover Milan’s Elegance & Experience the Serenity of Lake Como – Drive to Zurich",
+        "desc": "Visit: Milan Cathedral (Duomo di Milano) Galleria Vittorio Emanuele II Lake Como Bellagio (subject to road/weather conditions) Transfer to Zurich Overnight Stay - Radisson Hotel & Suites Zurich Meals - Breakfast, Dinner"
+      },
+      {
+        "day": 6,
+        "title": "Day 6 – World’s First Rotating Cable Car Rotair Up Mt. Titlis Peak At 3,020m - Orientation Tour of Lucerne",
+        "desc": "Visit: Engelberg Mt. Titlis Rotair Cable Car Cliff Walk Lucerne Chapel Bridge Lion Monument Overnight Stay - Radisson Hotel & Suites Zurich Meals - Breakfast, Lunch, Dinner"
+      },
+      {
+        "day": 7,
+        "title": "Day 7 – Magical Alpine Excursion To The Top Of Europe – The Amazing Jungfraujoch And Scenic Interlaken (Extra Cost)",
+        "desc": "Optional excursion: Jungfraujoch – Top of Europe Eiger Express Gondola Ice Palace Sphinx Observatory Alternative: Interlaken Overnight Stay - Radisson Hotel & Suites Zurich Meals - Breakfast, Dinner"
+      },
+      {
+        "day": 8,
+        "title": "Day 8 – Adieu Europe – A Grand Journey Concludes",
+        "desc": "Check-out and transfer to Zurich Airport for departure. Meals - Breakfast"
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-2-luxury-air-conditioned-coach",
+    "wixId": "wix-1788212225355",
+    "name": "2. Luxury Air-Conditioned Coach",
+    "slug": "2-luxury-air-conditioned-coach",
+    "location": "International",
+    "continent": "Asia",
+    "country": "International",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 24999,
+    "origPrice": 31249,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to International curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "[REPLACED WIX CDN ASSET]",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Verified 5-Star Stay",
+      "Private AC Transfers",
+      "Daily Breakfast & Dinner",
+      "24/7 VIP Concierge"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & VIP Check-In",
+        "desc": "VIP airport greeting and transfer to 5-star hotel in International."
+      },
+      {
+        "day": 2,
+        "title": "Signature Sightseeing & Excursions",
+        "desc": "Guided full-day tour covering major attractions and viewpoints."
+      },
+      {
+        "day": 3,
+        "title": "Leisure, Cultural Highlights & Departure",
+        "desc": "Morning breakfast, souvenir shopping, and chauffeur airport transfer."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-3-private-boat-in-venice",
+    "wixId": "wix-1788212225355",
+    "name": "3. Private Boat in Venice",
+    "slug": "3-private-boat-in-venice",
+    "location": "International",
+    "continent": "Asia",
+    "country": "International",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 24999,
+    "origPrice": 31249,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to International curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "[REPLACED WIX CDN ASSET]",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Verified 5-Star Stay",
+      "Private AC Transfers",
+      "Daily Breakfast & Dinner",
+      "24/7 VIP Concierge"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & VIP Check-In",
+        "desc": "VIP airport greeting and transfer to 5-star hotel in International."
+      },
+      {
+        "day": 2,
+        "title": "Signature Sightseeing & Excursions",
+        "desc": "Guided full-day tour covering major attractions and viewpoints."
+      },
+      {
+        "day": 3,
+        "title": "Leisure, Cultural Highlights & Departure",
+        "desc": "Morning breakfast, souvenir shopping, and chauffeur airport transfer."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-4-gondola-ride-in-venice",
+    "wixId": "wix-1788212225355",
+    "name": "4. Gondola Ride in Venice",
+    "slug": "4-gondola-ride-in-venice",
+    "location": "International",
+    "continent": "Asia",
+    "country": "International",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 24999,
+    "origPrice": 31249,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to International curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "[REPLACED WIX CDN ASSET]",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Verified 5-Star Stay",
+      "Private AC Transfers",
+      "Daily Breakfast & Dinner",
+      "24/7 VIP Concierge"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & VIP Check-In",
+        "desc": "VIP airport greeting and transfer to 5-star hotel in International."
+      },
+      {
+        "day": 2,
+        "title": "Signature Sightseeing & Excursions",
+        "desc": "Guided full-day tour covering major attractions and viewpoints."
+      },
+      {
+        "day": 3,
+        "title": "Leisure, Cultural Highlights & Departure",
+        "desc": "Morning breakfast, souvenir shopping, and chauffeur airport transfer."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-5-rotair-revolving-cable-car-at-mt-titlis",
+    "wixId": "wix-1788212225355",
+    "name": "5. Rotair Revolving Cable Car at Mt. Titlis",
+    "slug": "5-rotair-revolving-cable-car-at-mt-titlis",
+    "location": "International",
+    "continent": "Asia",
+    "country": "International",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 24999,
+    "origPrice": 31249,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to International curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "[REPLACED WIX CDN ASSET]",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Verified 5-Star Stay",
+      "Private AC Transfers",
+      "Daily Breakfast & Dinner",
+      "24/7 VIP Concierge"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & VIP Check-In",
+        "desc": "VIP airport greeting and transfer to 5-star hotel in International."
+      },
+      {
+        "day": 2,
+        "title": "Signature Sightseeing & Excursions",
+        "desc": "Guided full-day tour covering major attractions and viewpoints."
+      },
+      {
+        "day": 3,
+        "title": "Leisure, Cultural Highlights & Departure",
+        "desc": "Morning breakfast, souvenir shopping, and chauffeur airport transfer."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-6-cable-car-transfers-at-mt-titlis",
+    "wixId": "wix-1788212225355",
+    "name": "6. Cable Car Transfers at Mt. Titlis",
+    "slug": "6-cable-car-transfers-at-mt-titlis",
+    "location": "International",
+    "continent": "Asia",
+    "country": "International",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 24999,
+    "origPrice": 31249,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to International curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "[REPLACED WIX CDN ASSET]",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Verified 5-Star Stay",
+      "Private AC Transfers",
+      "Daily Breakfast & Dinner",
+      "24/7 VIP Concierge"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & VIP Check-In",
+        "desc": "VIP airport greeting and transfer to 5-star hotel in International."
+      },
+      {
+        "day": 2,
+        "title": "Signature Sightseeing & Excursions",
+        "desc": "Guided full-day tour covering major attractions and viewpoints."
+      },
+      {
+        "day": 3,
+        "title": "Leisure, Cultural Highlights & Departure",
+        "desc": "Morning breakfast, souvenir shopping, and chauffeur airport transfer."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-7-airport-transfers-rishabh-mishra-91-8770403315-d1a653",
+    "wixId": "paragraphData:{}",
+    "name": "7. Airport Transfers,,Rishabh Mishra,,'+91 8770403315,d1a6535d-d223-45a2-aef0-e682dcf08fc3,2026-06-23T09:20:21Z,2026-08-08T13:29:22Z,beda257e-be6e-4365-9ca5-118c6f76d890,{documentStyle:{}",
+    "slug": "7-airport-transfers-rishabh-mishra-91-8770403315-d1a653",
+    "location": "textData:{decorations:[]",
+    "continent": "Asia",
+    "country": "International",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Luxury Signature"
+    ],
+    "duration": "nodes:[{id:\"",
+    "price": 49999,
+    "origPrice": null,
+    "tagline": "nodes:[]",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "[REPLACED WIX CDN ASSET]",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "textData:{decorations:[]"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & VIP Check-In",
+        "desc": "VIP airport greeting and transfer to 5-star hotel in textData:{decorations:[]."
+      },
+      {
+        "day": 2,
+        "title": "Signature Sightseeing & Excursions",
+        "desc": "Guided full-day tour covering major attractions and viewpoints."
+      },
+      {
+        "day": 3,
+        "title": "Leisure, Cultural Highlights & Departure",
+        "desc": "Morning breakfast, souvenir shopping, and chauffeur airport transfer."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-experience-the-romance-of-venice-with-a-private-boat-ri",
+    "wixId": "wix-1788212225356",
+    "name": "Experience the romance of Venice with a private boat ride through the canals",
+    "slug": "experience-the-romance-of-venice-with-a-private-boat-ri",
+    "location": "International",
+    "continent": "Asia",
+    "country": "International",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 24999,
+    "origPrice": 31249,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to International curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "and picturesque Lake Como’s Bellagio village before crossing into Zurich",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Switzerland."
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & VIP Check-In",
+        "desc": "VIP airport greeting and transfer to 5-star hotel in International."
+      },
+      {
+        "day": 2,
+        "title": "Signature Sightseeing & Excursions",
+        "desc": "Guided full-day tour covering major attractions and viewpoints."
+      },
+      {
+        "day": 3,
+        "title": "Leisure, Cultural Highlights & Departure",
+        "desc": "Morning breakfast, souvenir shopping, and chauffeur airport transfer."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-switzerland-offers-alpine-thrills-and-scenic-beauty-wit",
+    "wixId": "wix-1788212225356",
+    "name": "Switzerland offers alpine thrills and scenic beauty with excursions to Mt. Titlis’ Rotair cable car",
+    "slug": "switzerland-offers-alpine-thrills-and-scenic-beauty-wit",
+    "location": "International",
+    "continent": "Asia",
+    "country": "International",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Switzerland",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Switzerland",
+      "Luxury Signature"
+    ],
+    "duration": "5 Nights & 6 Days",
+    "price": 15227,
+    "origPrice": 19034,
+    "tagline": "Handcrafted 5 Nights & 6 Days tour to International curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "[REPLACED WIX CDN ASSET]",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Ferrara"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & VIP Check-In",
+        "desc": "VIP airport greeting and transfer to 5-star hotel in International."
+      },
+      {
+        "day": 2,
+        "title": "Signature Sightseeing & Excursions",
+        "desc": "Guided full-day tour covering major attractions and viewpoints."
+      },
+      {
+        "day": 3,
+        "title": "Leisure, Cultural Highlights & Departure",
+        "desc": "Morning breakfast, souvenir shopping, and chauffeur airport transfer."
+      }
+    ]
+  },
+  {
+    "id": "tour-wix-dubai-city-sands",
+    "wixId": "d68ba319-a6c3-4e3f-aa7b-7786bc631d45",
+    "name": "Dubai City & Sands",
+    "slug": "dubai-city-sands",
+    "location": "Dubai",
+    "continent": "Asia",
+    "country": "UAE",
+    "category": "International Tours",
+    "categories": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Desert Safari & Dunes",
+      "Ultra Luxury",
+      "Dubai",
+      "Luxury Signature"
+    ],
+    "tags": [
+      "International",
+      "International Tours",
+      "Family & Group",
+      "Family Tours",
+      "Friends Travel",
+      "Solo Trips",
+      "Adventure & Trekking",
+      "Heritage & Palaces",
+      "Culture & Heritage",
+      "Desert Safari & Dunes",
+      "Ultra Luxury",
+      "Dubai",
+      "Luxury Signature"
+    ],
+    "duration": "4N/5D",
+    "price": 113503,
+    "origPrice": 136204,
+    "tagline": "Handcrafted 4N/5D tour to Dubai curated by Comfort Journey since 1992.",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85",
+    "legacyWixUrl": "wix:image://v1/nsplsh_e496840aa3cf4737b3764a4f74693877~mv2.jpg/Image%20by%20ZQ%20Lee.jpg#originWidth=3200&originHeight=2133",
+    "badge": "International Signature",
+    "rating": 4.95,
+    "reviewsCount": 94,
+    "inclusions": [
+      "Dubai 4 nights ",
+      "DAY 1 -> Stay for 4 nights at Fortune Pearl Hotel, Deira",
+      "1 x Standard Room",
+      "Bed and Breakfast, Non-refundable",
+      "One-way Transfer from Airport to Dubai Hotel - Private from Dubai International Airport Day 1",
+      "Private Transfers"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Day 1 Arrival into Dubai - Check-in - Marina Dhow Cruise",
+        "desc": "You will be met by our representative at the Airport Arrival Terminal. Our representative will be holding a signage card with your Name written on it. You will then be escorted to waiting vehicle for transfer to hotel. A daily evening two hour cruise along the man made Dubai Marina for sightseeing of luxurious and modern landmarks which have soured Dubai in the shape of sky"
+      },
+      {
+        "day": 2,
+        "title": "Day 2 - Dubai Frame - Desert Safari",
+        "desc": "Proceed for a visit to the Dubai Frame. The frame measures 150 metres high and 93 metres wide is the latest attraction. The two towers are connected by a 100-squaremetre bridge, which has a 25-square-metre glass panel in the middle offering a great 360 degree view. You can visit a museum on the ground floor that will showcase Dubai’s transformation from fishing village to metropolis."
+      },
+      {
+        "day": 3,
+        "title": "Day 3 - Dubai Mall + Burj Khalifa + Aquarium",
+        "desc": "Transfer to Dubai Mall, one of the largest malls in the world and home to over 1200 stores. Discover Dubai Aquarium and visit the underwater zoo. Rising to the third floor of The Dubai Mall, the aquarium is home to 140 species of sea life and has several ways to experience underwater life, starting with a stroll through a 48-metre walk-through tunnel. It's a complete fish-eye view, with sand tiger sharks and"
+      },
+      {
+        "day": 4,
+        "title": "Day 4 - Full Day Abu Dhabi Tour With Ferrari World",
+        "desc": "Proceed for full day tour of Abu Dhabi with Ferrari Theme Park. We start our Abu Dhbai City tour in the morning and our journey will start from Dubai will take you past the Jebel Ali Port, the largest man-made port in the entire world on the road to Abu Dhabi. In the afternoon visit Ferrari World. Ferrari World is Situated on the Yas island, FWAD has a surface area of 200,000 square meters, all under cover, which makes it"
+      },
+      {
+        "day": 5,
+        "title": "day (tickets run out very fast once the theme park open).",
+        "desc": "Overnight stay at Fortune Pearl Hotel, Deira Breakfast - Included at Hotel"
+      },
+      {
+        "day": 6,
+        "title": "Day 5 - Departure from Dubai",
+        "desc": "You will be picked up from Hotel's lobby at the time confirmed. Please be available at the lobby 15 minutes before the time given and you will be transferred to the airport for your flight. Breakfast Included at Hotel"
+      }
+    ]
   }
 ];
+
+export default TOURS_DATA;
 
 export const REELS_DATA = [
   {
@@ -1573,4 +5023,5 @@ export const SEASONAL_RADAR_DATA = [
     color: "#93EEFD"
   }
 ];
+
 

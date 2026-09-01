@@ -62,22 +62,45 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
   // Filter and sort tours
   const filteredTours = TOURS_DATA.filter((tour) => {
-    const categoryMatch = activeCategory === 'All' || 
-      tour.category === activeCategory || 
-      (tour.categories && tour.categories.includes(activeCategory));
+    const tourCats = (tour.categories || []).map(c => c.toLowerCase());
+    const tourTags = (tour.tags || []).map(t => t.toLowerCase());
+    const actCatLower = activeCategory.toLowerCase();
 
+    const categoryMatch = activeCategory === 'All' || 
+      (tour.category && tour.category.toLowerCase().includes(actCatLower)) ||
+      tourCats.some(c => c.includes(actCatLower) || actCatLower.includes(c)) ||
+      tourTags.some(t => t.includes(actCatLower) || actCatLower.includes(t)) ||
+      (activeCategory === 'Honeymoon & Couple' && (tourCats.includes('honeymoon & romantic') || tourCats.includes('couple trips'))) ||
+      (activeCategory === 'Family Expedition' && (tourCats.includes('family & group') || tourCats.includes('family tours'))) ||
+      (activeCategory === 'Adrenaline & Adventure' && (tourCats.includes('adventure & trekking') || tourCats.includes('friends travel'))) ||
+      (activeCategory === 'International Signature' && (tour.category === 'International Tours' || tourCats.includes('international'))) ||
+      (activeCategory === 'Sacred Pilgrimage' && (tourCats.includes('heritage & palaces') || tourCats.includes('culture & heritage')));
+
+    const actVibeLower = activeVibe.toLowerCase();
     const vibeMatch = activeVibe === 'All' || 
-      (tour.vibeTags && tour.vibeTags.includes(activeVibe));
+      (tour.vibeTags && tour.vibeTags.some(v => v.toLowerCase().includes(actVibeLower))) ||
+      tourCats.some(c => c.includes(actVibeLower)) ||
+      (activeVibe === 'Snow & Alpine' && (tourCats.includes('mountain & snow') || tourCats.includes('winter wonderland'))) ||
+      (activeVibe === 'Tropical Islands' && (tourCats.includes('beach & coastal') || tourCats.includes('island explorer'))) ||
+      (activeVibe === 'Royal Luxury' && (tourCats.includes('heritage & palaces') || tourCats.includes('desert safari & dunes'))) ||
+      (activeVibe === 'Wildlife Safari' && (tourCats.includes('wildlife & nature') || tourCats.includes('backwaters & nature'))) ||
+      (activeVibe === 'Northern Lights' && (tourCats.includes('iceland') || tourCats.includes('winter wonderland'))) ||
+      (activeVibe === 'Serene Backwaters' && (tourCats.includes('kerala') || tourCats.includes('backwaters & nature'))) ||
+      (activeVibe === 'Sacred Char Dham' && (tourCats.includes('uttarakhand') || tourCats.includes('culture & heritage')));
 
     const regionMatch = activeRegion === 'All' || 
       tour.region === activeRegion || 
-      (activeRegion === 'India' && tour.country === 'India');
+      tour.continent === activeRegion ||
+      (activeRegion === 'India' && (tour.country === 'India' || tour.category === 'National Tours' || tourCats.includes('national'))) ||
+      (activeRegion === 'Asia' && (tour.continent === 'Asia' || tourCats.includes('thailand') || tourCats.includes('bali') || tourCats.includes('dubai'))) ||
+      (activeRegion === 'Europe' && (tour.continent === 'Europe' || tourCats.includes('switzerland') || tour.location?.toLowerCase().includes('switz')));
 
+    const parsedDays = tour.durationDays || parseInt((tour.duration || '').replace(/[^0-9]/g, '').slice(0, 2), 10) || 5;
     let durationMatch = true;
-    if (activeDuration === '3-5') durationMatch = tour.durationDays >= 3 && tour.durationDays <= 5;
-    if (activeDuration === '6-9') durationMatch = tour.durationDays >= 6 && tour.durationDays <= 9;
-    if (activeDuration === '10-14') durationMatch = tour.durationDays >= 10 && tour.durationDays <= 14;
-    if (activeDuration === '15+') durationMatch = tour.durationDays >= 15;
+    if (activeDuration === '3-5') durationMatch = parsedDays >= 3 && parsedDays <= 5;
+    if (activeDuration === '6-9') durationMatch = parsedDays >= 6 && parsedDays <= 9;
+    if (activeDuration === '10-14') durationMatch = parsedDays >= 10 && parsedDays <= 14;
+    if (activeDuration === '15+') durationMatch = parsedDays >= 15;
 
     let seasonMatch = true;
     if (activeSeason !== 'All') {
@@ -86,7 +109,9 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         seasonMatch = s.match.some(keyword => 
           tour.id.includes(keyword) || 
           tour.name.toLowerCase().includes(keyword) ||
-          tour.country.toLowerCase().includes(keyword)
+          (tour.location && tour.location.toLowerCase().includes(keyword)) ||
+          (tour.country && tour.country.toLowerCase().includes(keyword)) ||
+          tourCats.some(c => c.includes(keyword))
         );
       }
     }
@@ -94,20 +119,25 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
     const keywordQuery = (searchKeyword || searchFilters?.destination || '').toLowerCase();
     const destMatch = !keywordQuery || 
       tour.name.toLowerCase().includes(keywordQuery) || 
-      tour.country.toLowerCase().includes(keywordQuery) ||
-      tour.region.toLowerCase().includes(keywordQuery) ||
+      (tour.location && tour.location.toLowerCase().includes(keywordQuery)) ||
+      (tour.country && tour.country.toLowerCase().includes(keywordQuery)) ||
+      (tour.region && tour.region.toLowerCase().includes(keywordQuery)) ||
       (tour.tagline && tour.tagline.toLowerCase().includes(keywordQuery)) ||
-      (tour.vibeTags && tour.vibeTags.some(v => v.toLowerCase().includes(keywordQuery)));
+      tourCats.some(c => c.includes(keywordQuery)) ||
+      tourTags.some(t => t.includes(keywordQuery));
     
     const searchCat = searchFilters?.category || 'All';
-    const searchCatMatch = searchCat === 'All' || tour.category === searchCat;
+    const searchCatLower = searchCat.toLowerCase();
+    const searchCatMatch = searchCat === 'All' || 
+      (tour.category && tour.category.toLowerCase().includes(searchCatLower)) ||
+      tourCats.some(c => c.includes(searchCatLower));
     
     const searchDur = searchFilters?.duration || 'All';
     let searchDurMatch = true;
-    if (searchDur === '3-5') searchDurMatch = tour.durationDays >= 3 && tour.durationDays <= 5;
-    if (searchDur === '6-9') searchDurMatch = tour.durationDays >= 6 && tour.durationDays <= 9;
-    if (searchDur === '10-14') searchDurMatch = tour.durationDays >= 10 && tour.durationDays <= 14;
-    if (searchDur === '15+') searchDurMatch = tour.durationDays >= 15;
+    if (searchDur === '3-5') searchDurMatch = parsedDays >= 3 && parsedDays <= 5;
+    if (searchDur === '6-9') searchDurMatch = parsedDays >= 6 && parsedDays <= 9;
+    if (searchDur === '10-14') searchDurMatch = parsedDays >= 10 && parsedDays <= 14;
+    if (searchDur === '15+') searchDurMatch = parsedDays >= 15;
 
     return categoryMatch && vibeMatch && regionMatch && durationMatch && seasonMatch && destMatch && searchCatMatch && searchDurMatch;
   }).sort((a, b) => {
