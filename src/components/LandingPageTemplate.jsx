@@ -30,6 +30,7 @@ import {
 import { useCurrency } from '../context/CurrencyContext';
 import { seoHeadManager } from '../utils/seoHeadManager';
 import { jsonLdSchemaGenerator } from '../utils/jsonLdSchemaGenerator';
+import { TOURS_DATA } from '../data/toursData';
 
 export default function LandingPageTemplate({ 
   pageData, 
@@ -43,6 +44,43 @@ export default function LandingPageTemplate({
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
   const [activeVibeFilter, setActiveVibeFilter] = useState('all');
   const { formatPrice } = useCurrency();
+
+  const resolveTourObject = (destItem) => {
+    const query = (destItem.name || destItem.tag || '').toLowerCase();
+    const matched = TOURS_DATA.find(t => 
+      t.id === destItem.tourId || 
+      t.slug === destItem.tourId ||
+      t.name.toLowerCase().includes(query) ||
+      (t.location && t.location.toLowerCase().includes(query)) ||
+      (t.categories && t.categories.some(c => c.toLowerCase().includes(query)))
+    );
+
+    if (matched) {
+      return matched;
+    }
+
+    return {
+      id: destItem.tourId || `tour-${destItem.name.toLowerCase().replace(/\s+/g, '-')}`,
+      name: destItem.name,
+      title: destItem.name,
+      category: pageData.categoryBadge || 'Luxury Signature',
+      duration: destItem.duration || '5 Nights & 6 Days',
+      price: destItem.price || 24999,
+      origPrice: destItem.origPrice || 32000,
+      originalPrice: destItem.origPrice || 32000,
+      image: destItem.img,
+      rating: 4.95,
+      reviewsCount: 88,
+      tagline: destItem.tag || `Curated luxury journey by Comfort Journey.`,
+      inclusions: ['Verified 5-Star Stay', 'Private AC Transfers', 'Daily Breakfast & Dinner', '24/7 VIP Concierge'],
+      itinerary: [
+        { day: 1, title: 'Arrival & Private Chauffeur Greeting', desc: `VIP arrival in ${destItem.name} and transfer to 5-star verified stay.` },
+        { day: 2, title: 'Signature Sightseeing & Highlights', desc: `Guided exploration of major attractions and scenic panoramic viewpoints.` },
+        { day: 3, title: 'Cultural Immersion & Gourmet Dining', desc: `Local cultural heritage experience with evening multi-course feast.` },
+        { day: 4, title: 'Leisure & Chauffeur Airport Departure', desc: `Morning breakfast, souvenir shopping, and private transfer to airport.` }
+      ]
+    };
+  };
 
   useEffect(() => {
     if (pageData) {
@@ -424,18 +462,7 @@ export default function LandingPageTemplate({
                         <button 
                           type="button" 
                           className="btn-lp-itinerary"
-                          onClick={() => onSelectItinerary({
-                            id: tour.tourId || `tour-${tour.name.toLowerCase().replace(/\s+/g, '-')}`,
-                            title: tour.name,
-                            category: pageData.categoryBadge,
-                            duration: tour.duration,
-                            price: tour.price,
-                            origPrice: tour.origPrice,
-                            image: tour.img,
-                            rating: 4.95,
-                            reviewsCount: 88,
-                            overview: tour.tag
-                          })}
+                          onClick={() => onSelectItinerary(resolveTourObject(tour))}
                         >
                           Itinerary
                         </button>
@@ -445,15 +472,7 @@ export default function LandingPageTemplate({
                           style={{
                             background: `linear-gradient(135deg, ${theme.accentColor}, #E65100)`
                           }}
-                          onClick={() => onBookNow({
-                            id: tour.tourId || `tour-${tour.name.toLowerCase().replace(/\s+/g, '-')}`,
-                            title: tour.name,
-                            category: pageData.categoryBadge,
-                            duration: tour.duration,
-                            price: tour.price,
-                            origPrice: tour.origPrice,
-                            image: tour.img
-                          })}
+                          onClick={() => onBookNow(resolveTourObject(tour))}
                         >
                           Book
                         </button>

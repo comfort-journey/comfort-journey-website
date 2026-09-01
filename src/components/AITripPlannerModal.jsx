@@ -50,19 +50,20 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
       if (lowerPrompt) {
         const found = TOURS_DATA.find(t => 
           t.name.toLowerCase().includes(lowerPrompt) ||
-          t.country.toLowerCase().includes(lowerPrompt) ||
-          t.region.toLowerCase().includes(lowerPrompt) ||
-          (t.vibeTags && t.vibeTags.some(v => lowerPrompt.includes(v.toLowerCase()))) ||
+          (t.location && t.location.toLowerCase().includes(lowerPrompt)) ||
+          (t.country && t.country.toLowerCase().includes(lowerPrompt)) ||
+          (t.categories && t.categories.some(c => c.toLowerCase().includes(lowerPrompt))) ||
+          (t.tags && t.tags.some(tg => tg.toLowerCase().includes(lowerPrompt))) ||
           (t.tagline && t.tagline.toLowerCase().includes(lowerPrompt))
         );
         if (found) matchedTour = found;
       } else {
-        if (landscape === 'Tropical Islands') matchedTour = TOURS_DATA.find(t => t.country.includes('Indonesia') || t.name.includes('Bali')) || TOURS_DATA[1];
-        else if (landscape === 'European Fairytale') matchedTour = TOURS_DATA.find(t => t.region === 'Europe' || t.name.includes('Swiss')) || TOURS_DATA[2];
-        else if (landscape === 'Snow & Glaciers') matchedTour = TOURS_DATA.find(t => t.name.includes('Kashmir') || t.name.includes('Iceland')) || TOURS_DATA[0];
-        else if (landscape === 'Desert Oasis') matchedTour = TOURS_DATA.find(t => t.name.includes('Dubai') || t.name.includes('Rajasthan')) || TOURS_DATA[3];
-        else if (landscape === 'African Safari') matchedTour = TOURS_DATA.find(t => t.region === 'Africa' || t.name.includes('Kenya')) || TOURS_DATA[7] || TOURS_DATA[0];
-        else if (vibe === 'Sacred Heritage') matchedTour = TOURS_DATA.find(t => t.category.includes('Pilgrimage') || t.name.includes('Kedarnath')) || TOURS_DATA[8] || TOURS_DATA[0];
+        if (landscape === 'Tropical Islands') matchedTour = TOURS_DATA.find(t => t.name.toLowerCase().includes('bali') || t.name.toLowerCase().includes('phuket') || t.name.toLowerCase().includes('goa')) || TOURS_DATA[0];
+        else if (landscape === 'European Fairytale') matchedTour = TOURS_DATA.find(t => t.name.toLowerCase().includes('europe') || t.location.toLowerCase().includes('rome') || t.continent === 'Europe') || TOURS_DATA[0];
+        else if (landscape === 'Snow & Glaciers') matchedTour = TOURS_DATA.find(t => t.name.toLowerCase().includes('pines') || t.name.toLowerCase().includes('hills') || t.location.toLowerCase().includes('dharamshala')) || TOURS_DATA[0];
+        else if (landscape === 'Desert Oasis') matchedTour = TOURS_DATA.find(t => t.name.toLowerCase().includes('dubai') || t.name.toLowerCase().includes('rajasthan')) || TOURS_DATA[0];
+        else if (landscape === 'African Safari' || landscape === 'Japanese Zen') matchedTour = TOURS_DATA.find(t => t.name.toLowerCase().includes('cherry blossom') || t.name.toLowerCase().includes('sakura') || t.category === 'International Tours') || TOURS_DATA[0];
+        else if (vibe === 'Sacred Heritage') matchedTour = TOURS_DATA.find(t => t.name.toLowerCase().includes('ganga') || t.name.toLowerCase().includes('heritage') || t.name.toLowerCase().includes('bhopal')) || TOURS_DATA[0];
       }
 
       setGeneratedResult({

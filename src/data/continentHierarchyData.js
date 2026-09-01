@@ -29,7 +29,7 @@ export const CONTINENTS_TREE_DATA = [
             weatherTag: "Winter / Spring",
             startingPrice: 18999,
             duration: "5N / 6D",
-            tourId: "kashmir-paradise",
+            tourId: "tour-wix-peace-in-the-pines",
             highlights: ["Dal Lake Houseboat", "Gulmarg Gondola 13,800ft", "Pahalgam Betaab Valley"]
           },
           {
@@ -40,7 +40,7 @@ export const CONTINENTS_TREE_DATA = [
             weatherTag: "Summer / Autumn",
             startingPrice: 32500,
             duration: "9N / 10D",
-            tourId: "char-dham-yatra",
+            tourId: "tour-wix-ganga-to-the-hills",
             highlights: ["VIP Kedarnath Darshan", "Kedarnath Helicopter Shuttle", "Badrinath Aarti"]
           },
           {
@@ -51,7 +51,7 @@ export const CONTINENTS_TREE_DATA = [
             weatherTag: "Winter / Autumn",
             startingPrice: 26999,
             duration: "6N / 7D",
-            tourId: "rajasthan-royals",
+            tourId: "tour-wix-rajasthan-royal-affair",
             highlights: ["Heritage Haveli Stays", "Lake Pichola Sunset Cruise", "Amer Fort Jeep Safari"]
           },
           {
@@ -62,7 +62,7 @@ export const CONTINENTS_TREE_DATA = [
             weatherTag: "Monsoon / Winter",
             startingPrice: 21999,
             duration: "5N / 6D",
-            tourId: "kerala-backwaters",
+            tourId: "tour-wix-pachmarhi-madhai",
             highlights: ["Private Houseboat Cruise", "Munnar Tea Estates", "Ayurvedic Spa Rejuvenation"]
           },
           {
@@ -73,7 +73,7 @@ export const CONTINENTS_TREE_DATA = [
             weatherTag: "Winter / Summer",
             startingPrice: 22499,
             duration: "5N / 6D",
-            tourId: "andaman-islands",
+            tourId: "tour-wix-goa-weekend-vibe",
             highlights: ["Radhanagar Best Beach", "Makruzz Catamaran Cruise", "Elephant Beach Snorkeling"]
           },
           {
@@ -84,7 +84,7 @@ export const CONTINENTS_TREE_DATA = [
             weatherTag: "Winter / Summer",
             startingPrice: 19499,
             duration: "5N / 6D",
-            tourId: "himachal-shimla-manali",
+            tourId: "tour-wix-peace-in-the-pines",
             highlights: ["Atal Tunnel Snow Excursion", "Solang Valley Paragliding", "Manali Mall Road & Chalets"]
           },
           {
@@ -95,7 +95,7 @@ export const CONTINENTS_TREE_DATA = [
             weatherTag: "Summer (Jun–Sep)",
             startingPrice: 28999,
             duration: "6N / 7D",
-            tourId: "ladakh-adventure",
+            tourId: "tour-wix-uttarakhand-explorer",
             highlights: ["Khardung La 18,380ft", "Pangong Tso Blue Lake", "Hunder Double-Hump Camel Safari"]
           },
           {
@@ -106,7 +106,7 @@ export const CONTINENTS_TREE_DATA = [
             weatherTag: "Winter / Monsoon",
             startingPrice: 16999,
             duration: "4N / 5D",
-            tourId: "goa-luxury-villas",
+            tourId: "tour-wix-goa-weekend-vibe",
             highlights: ["Private Pool Villa Stays", "Mandovi Sunset Luxury Cruise", "Candolim & Palolem Sunsets"]
           }
         ]
@@ -190,7 +190,7 @@ export const CONTINENTS_TREE_DATA = [
             weatherTag: "Spring (Sakura) / Autumn",
             startingPrice: 165000,
             duration: "7N / 8D",
-            tourId: "japan-cherry-blossom",
+            tourId: "tour-wix-sakura-moments-the-ultimate-cherry-blossom",
             highlights: ["Shinkansen Bullet Train", "Mt. Fuji 5th Station Cable Car", "Kyoto Fushimi Inari Torii Gates"]
           }
         ]
@@ -306,7 +306,7 @@ export const CONTINENTS_TREE_DATA = [
             weatherTag: "Summer / Winter",
             startingPrice: 129999,
             duration: "6N / 7D",
-            tourId: "swiss-alps-glacier",
+            tourId: "tour-wix-essence-of-europe",
             highlights: ["Mt. Titlis Rotating Rotair Gondola", "Lake Lucerne Private Yacht Cruise", "Swiss Pass Scenic Trains Included"]
           }
         ]
@@ -348,7 +348,7 @@ export const CONTINENTS_TREE_DATA = [
             weatherTag: "Spring / Summer",
             startingPrice: 155000,
             duration: "6N / 7D",
-            tourId: "paris-french-riviera",
+            tourId: "tour-wix-essence-of-europe",
             highlights: ["Eiffel Tower 2nd Floor & Seine Dinner", "Louvre Museum Guided VIP Tour", "Monte Carlo Casino & Promenade des Anglais"]
           }
         ]
@@ -810,7 +810,7 @@ export const TRAVELER_STYLES_DATA = [
     icon: "💑",
     tagline: "Romantic getaways with private villas, candlelight dining & sunset cruises",
     perks: ["Private Pool Villas", "Candlelight Dinners", "Couples Spa Sessions", "VIP Chauffeurs"],
-    topMatches: ["kashmir-paradise", "bali-tropical-escape", "maldives-overwater-bliss", "amalfi-coast-rome", "greece-santorini-athens"]
+    topMatches: ["tour-wix-peace-in-the-pines", "bali-tropical-escape", "maldives-overwater-bliss", "amalfi-coast-rome", "greece-santorini-athens"]
   },
   {
     id: "family",
@@ -818,7 +818,7 @@ export const TRAVELER_STYLES_DATA = [
     icon: "👨‍👩‍👧‍👦",
     tagline: "Multi-generational vacations with spacious suites, theme parks & zero stress",
     perks: ["Connected Family Suites", "Kid-Friendly Activities", "Pre-Booked Passes", "24/7 Support"],
-    topMatches: ["andaman-islands", "singapore-malaysia-combo", "thailand-island-hopper", "himachal-shimla-manali", "dubai-extravaganza"]
+    topMatches: ["tour-wix-goa-weekend-vibe", "singapore-malaysia-combo", "thailand-island-hopper", "tour-wix-peace-in-the-pines", "dubai-extravaganza"]
   },
   {
     id: "solo",
@@ -826,7 +826,7 @@ export const TRAVELER_STYLES_DATA = [
     icon: "🧗",
     tagline: "Safe, immersive adventures with verified boutique stays & local guide mastery",
     perks: ["Verified Safe Stays", "Curated Local Experiences", "Flexible Dates", "Dedicated Concierge"],
-    topMatches: ["iceland-aurora-wonders", "ladakh-adventure", "japan-cherry-blossom", "vietnam-heritage-bays"]
+    topMatches: ["iceland-aurora-wonders", "tour-wix-uttarakhand-explorer", "tour-wix-sakura-moments-the-ultimate-cherry-blossom", "vietnam-heritage-bays"]
   },
   {
     id: "group",
@@ -834,6 +834,6 @@ export const TRAVELER_STYLES_DATA = [
     icon: "🏢",
     tagline: "Seamless executive retreats, large family reunions & VIP group departures",
     perks: ["VIP Coaches & Transfers", "Conference Facilities", "Gala Banquet Dinners", "Dedicated Trip Lead"],
-    topMatches: ["rajasthan-royals", "dubai-extravaganza", "kenya-safari-savannah", "char-dham-yatra"]
+    topMatches: ["tour-wix-rajasthan-royal-affair", "dubai-extravaganza", "kenya-safari-savannah", "tour-wix-ganga-to-the-hills"]
   }
 ];

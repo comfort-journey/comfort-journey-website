@@ -70,21 +70,117 @@ That's where we come in. We've got your back while you go find yourself (or just
       }
     ],
     destinationsIndia: [
-      { name: "Rishikesh", tag: "Yoga, Rafting & Pure Peace", price: 14999, origPrice: 18999, duration: "4N / 5D", tourId: "rishikesh-wellness", img: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80" },
-      { name: "Varkala Cliff", tag: "Cliffside Chilling & Surfing", price: 17999, origPrice: 22999, duration: "4N / 5D", tourId: "kerala-backwaters", img: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=80" },
-      { name: "Spiti Valley", tag: "Raw, Rugged & Mountain Stars", price: 24999, origPrice: 32000, duration: "7N / 8D", tourId: "ladakh-high-passes", img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" },
-      { name: "Gokarna", tag: "Quiet Beaches & Cafe Reading", price: 12499, origPrice: 16000, duration: "3N / 4D", tourId: "goa-beach-escape", img: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600&q=80" },
-      { name: "Meghalaya", tag: "Living Root Bridges & Waterfalls", price: 21999, origPrice: 28000, duration: "5N / 6D", tourId: "meghalaya-clouds", img: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80" },
-      { name: "Udaipur", tag: "Palace Dates & Solo Royalty", price: 19999, origPrice: 26000, duration: "4N / 5D", tourId: "rajasthan-royals", img: "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Peace In The Pines",
+                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
+                "price": 94012,
+                "origPrice": 188023,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-peace-in-the-pines",
+                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Heritage & Hills",
+                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 141360,
+                "origPrice": 157067,
+                "duration": "5 Nights & 6 Days",
+                "tourId": "tour-wix-karnataka-heritage-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Goa Weekend Vibe",
+                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
+                "price": 99360,
+                "origPrice": 116894,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-goa-weekend-vibe",
+                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
+                "price": 45885,
+                "origPrice": 48300,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Uttarakhand Explorer",
+                "tag": "A luxurious 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
+                "price": 69575,
+                "origPrice": 77305,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-uttarakhand-explorer",
+                "img": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A premium 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 4-star hotels, Innova transportation, and curated sightseeing.",
+                "price": 64515,
+                "origPrice": 71683,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills-2",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     destinationsIntl: [
-      { name: "Bali, Indonesia", tag: "Surf, Yoga & Smoothie Bowls", price: 34999, origPrice: 46999, duration: "6N / 7D", tourId: "bali-bliss", img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80" },
-      { name: "Vietnam", tag: "Street Food, Coffee & Halong Bay", price: 42999, origPrice: 55000, duration: "6N / 7D", tourId: "vietnam-heritage", img: "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=80" },
-      { name: "Thailand", tag: "Island Hopping & Night Markets", price: 38999, origPrice: 49000, duration: "5N / 6D", tourId: "thailand-discovery", img: "https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?auto=format&fit=crop&w=600&q=80" },
-      { name: "Sri Lanka", tag: "Scenic Mountain Trains & Coast", price: 34999, origPrice: 45000, duration: "5N / 6D", tourId: "sri-lanka-paradise", img: "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?auto=format&fit=crop&w=600&q=80" },
-      { name: "Japan", tag: "Ultra-Safe, Solo Ramen & Kyoto", price: 84999, origPrice: 110000, duration: "7N / 8D", tourId: "japan-golden-route", img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=600&q=80" },
-      { name: "Turkey", tag: "Hot Air Balloons & Bosphorus", price: 74999, origPrice: 95000, duration: "6N / 7D", tourId: "turkey-wonders", img: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Phuket Paradise Getaway",
+                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
+                "price": 71047,
+                "origPrice": 170514,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-phuket-paradise-getaway",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Unbeatable Vietnam Premium",
+                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
+                "price": 218554,
+                "origPrice": 218554,
+                "duration": "7N/8D",
+                "tourId": "tour-wix-unbeatable-vietnam-premium",
+                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Bali Tropical Escape",
+                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
+                "price": 62710,
+                "origPrice": 69870,
+                "duration": "4N/5D",
+                "tourId": "tour-wix-bali-tropical-escape",
+                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Singapore City & Gardens",
+                "tag": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
+                "price": 282452,
+                "origPrice": 389783,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-singapore-city-gardens",
+                "img": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Asian Extravaganza",
+                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
+                "price": 294705,
+                "origPrice": 368382,
+                "duration": "10N/11D",
+                "tourId": "tour-wix-asian-extravaganza",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Sakura Moments - The Ultimate Cherry Blossom",
+                "tag": "Handcrafted 7N/6D tour to Tokyo, Kanazawa, Kyoto curated by Comfort Journey since 1992.",
+                "price": 755156,
+                "origPrice": 906187,
+                "duration": "7N/6D",
+                "tourId": "tour-wix-sakura-moments-the-ultimate-cherry-blossom",
+                "img": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     whatYouGet: [
       { title: "Safe & Vetted Stays", desc: "Female-safe verified boutique hotels, chic private rooms, and social villas with stellar security." },
       { title: "Pre-Booked Transfers", desc: "Private airport pickups and verified cabs so you never haggle with taxi stands." },
@@ -163,20 +259,117 @@ We handle the chaos. You just show up and make the memories.`,
       }
     ],
     destinationsIndia: [
-      { name: "Kerala Backwaters", tag: "Private Houseboat & Munnar Tea Hills", price: 21999, origPrice: 27499, duration: "5N / 6D", tourId: "kerala-backwaters", img: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=80" },
-      { name: "Kashmir Paradise", tag: "Snow Fights & Dal Lake Shikaras", price: 18999, origPrice: 24999, duration: "5N / 6D", tourId: "kashmir-paradise", img: "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=600&q=80" },
-      { name: "Rajasthan Palaces", tag: "Grand Forts, Camel Safaris & Royal Stays", price: 26999, origPrice: 33749, duration: "6N / 7D", tourId: "rajasthan-royals", img: "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=600&q=80" },
-      { name: "Andaman Islands", tag: "Coral Reefs, Glass Boats & Beaches", price: 22499, origPrice: 28124, duration: "5N / 6D", tourId: "andaman-islands", img: "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=600&q=80" },
-      { name: "Shimla & Manali", tag: "Solang Valley Snow & Pinewood Resorts", price: 19499, origPrice: 24374, duration: "5N / 6D", tourId: "himachal-wonderland", img: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=600&q=80" },
-      { name: "South Goa Resorts", tag: "Quiet Beaches & Kids Clubs", price: 16999, origPrice: 21249, duration: "4N / 5D", tourId: "goa-beach-escape", img: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Peace In The Pines",
+                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
+                "price": 94012,
+                "origPrice": 188023,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-peace-in-the-pines",
+                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Heritage & Hills",
+                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 141360,
+                "origPrice": 157067,
+                "duration": "5 Nights & 6 Days",
+                "tourId": "tour-wix-karnataka-heritage-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Peaks & Palaces",
+                "tag": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 90640,
+                "origPrice": 95410,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-karnataka-peaks-palaces",
+                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Goa Weekend Vibe",
+                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
+                "price": 99360,
+                "origPrice": 116894,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-goa-weekend-vibe",
+                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
+                "price": 45885,
+                "origPrice": 48300,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Uttarakhand Explorer",
+                "tag": "A luxurious 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
+                "price": 69575,
+                "origPrice": 77305,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-uttarakhand-explorer",
+                "img": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     destinationsIntl: [
-      { name: "Dubai Extravaganza", tag: "Burj Khalifa, Theme Parks & Desert Safari", price: 42999, origPrice: 54999, duration: "5N / 6D", tourId: "dubai-extravaganza", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" },
-      { name: "Singapore & Sentosa", tag: "Universal Studios & Night Safari", price: 48999, origPrice: 62000, duration: "5N / 6D", tourId: "singapore-sentosa", img: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=600&q=80" },
-      { name: "Bali Family Villa", tag: "Private Pool Villa, Waterbom & Safaris", price: 34999, origPrice: 46999, duration: "6N / 7D", tourId: "bali-bliss", img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80" },
-      { name: "Thailand & Phuket", tag: "Phi Phi Islands, Elephants & Beaches", price: 38999, origPrice: 49000, duration: "5N / 6D", tourId: "thailand-discovery", img: "https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?auto=format&fit=crop&w=600&q=80" },
-      { name: "Swiss Alps & Paris", tag: "Mount Titlis Snow, Chocolate & Eiffel Tower", price: 125000, origPrice: 160000, duration: "7N / 8D", tourId: "swiss-alps-magic", img: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Phuket Paradise Getaway",
+                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
+                "price": 71047,
+                "origPrice": 170514,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-phuket-paradise-getaway",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Singapore City & Gardens",
+                "tag": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
+                "price": 282452,
+                "origPrice": 389783,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-singapore-city-gardens",
+                "img": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Asian Extravaganza",
+                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
+                "price": 294705,
+                "origPrice": 368382,
+                "duration": "10N/11D",
+                "tourId": "tour-wix-asian-extravaganza",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Dubai City & Sands",
+                "tag": "Handcrafted 4N/5D tour to Dubai curated by Comfort Journey since 1992.",
+                "price": 113503,
+                "origPrice": 136204,
+                "duration": "4N/5D",
+                "tourId": "tour-wix-dubai-city-sands",
+                "img": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Unbeatable Vietnam Premium",
+                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
+                "price": 218554,
+                "origPrice": 218554,
+                "duration": "7N/8D",
+                "tourId": "tour-wix-unbeatable-vietnam-premium",
+                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Bali Tropical Escape",
+                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
+                "price": 62710,
+                "origPrice": 69870,
+                "duration": "4N/5D",
+                "tourId": "tour-wix-bali-tropical-escape",
+                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     whatYouGet: [
       { title: "Spacious Multi-Room Stays", desc: "Interconnected rooms, 2-bedroom private villas, and family luxury suites." },
       { title: "Dedicated Private Chauffeur & Vehicle", desc: "Private Innova Crysta / Luxury Van exclusively for your family—no sharing with strangers." },
@@ -253,18 +446,117 @@ We get it. You want the dreamy moments without the logistical nightmares.`,
       }
     ],
     destinationsIndia: [
-      { name: "Kashmir Romance", tag: "Private Luxury Houseboat & Snow Gondola", price: 18999, origPrice: 24999, duration: "5N / 6D", tourId: "kashmir-paradise", img: "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=600&q=80" },
-      { name: "Kerala Pool Villa", tag: "Private Plunge Pool & Backwater Serenade", price: 21999, origPrice: 27499, duration: "5N / 6D", tourId: "kerala-backwaters", img: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=80" },
-      { name: "Udaipur Royal Suites", tag: "Lake Pichola Sunset Boat & Palace Dinners", price: 26999, origPrice: 33749, duration: "6N / 7D", tourId: "rajasthan-royals", img: "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=600&q=80" },
-      { name: "Havelock Island, Andaman", tag: "Private Beach Cabana & Bioluminescence", price: 22499, origPrice: 28124, duration: "5N / 6D", tourId: "andaman-islands", img: "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=600&q=80" },
-      { name: "South Goa Boutique", tag: "Secret Beaches & Sunset Beach Dinners", price: 16999, origPrice: 21249, duration: "4N / 5D", tourId: "goa-beach-escape", img: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Peace In The Pines",
+                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
+                "price": 94012,
+                "origPrice": 188023,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-peace-in-the-pines",
+                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Heritage & Hills",
+                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 141360,
+                "origPrice": 157067,
+                "duration": "5 Nights & 6 Days",
+                "tourId": "tour-wix-karnataka-heritage-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Peaks & Palaces",
+                "tag": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 90640,
+                "origPrice": 95410,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-karnataka-peaks-palaces",
+                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Goa Weekend Vibe",
+                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
+                "price": 99360,
+                "origPrice": 116894,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-goa-weekend-vibe",
+                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
+                "price": 45885,
+                "origPrice": 48300,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Uttarakhand Explorer",
+                "tag": "A luxurious 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
+                "price": 69575,
+                "origPrice": 77305,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-uttarakhand-explorer",
+                "img": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     destinationsIntl: [
-      { name: "Bali Private Pool Villa", tag: "Floating Breakfast & Jungle Swing in Ubud", price: 34999, origPrice: 46999, duration: "6N / 7D", tourId: "bali-bliss", img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80" },
-      { name: "Maldives Overwater Villa", tag: "Direct Lagoon Access & All-Inclusive Dining", price: 79999, origPrice: 105000, duration: "4N / 5D", tourId: "maldives-luxury", img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=600&q=80" },
-      { name: "Swiss Alps & Paris", tag: "Alps Glacier Express & Eiffel Tower Romance", price: 125000, origPrice: 160000, duration: "7N / 8D", tourId: "swiss-alps-magic", img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=600&q=80" },
-      { name: "Dubai Luxury & Desert Stargazing", tag: "Private Marina Yacht & Desert Camp", price: 42999, origPrice: 54999, duration: "5N / 6D", tourId: "dubai-extravaganza", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Phuket Paradise Getaway",
+                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
+                "price": 71047,
+                "origPrice": 170514,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-phuket-paradise-getaway",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Unbeatable Vietnam Premium",
+                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
+                "price": 218554,
+                "origPrice": 218554,
+                "duration": "7N/8D",
+                "tourId": "tour-wix-unbeatable-vietnam-premium",
+                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Bali Tropical Escape",
+                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
+                "price": 62710,
+                "origPrice": 69870,
+                "duration": "4N/5D",
+                "tourId": "tour-wix-bali-tropical-escape",
+                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Colombo to the Clouds",
+                "tag": "Handcrafted 5N/6D tour to Colombo curated by Comfort Journey since 1992.",
+                "price": 144904,
+                "origPrice": 166640,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-colombo-to-the-clouds",
+                "img": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Asian Extravaganza",
+                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
+                "price": 294705,
+                "origPrice": 368382,
+                "duration": "10N/11D",
+                "tourId": "tour-wix-asian-extravaganza",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Sakura Moments - The Ultimate Cherry Blossom",
+                "tag": "Handcrafted 7N/6D tour to Tokyo, Kanazawa, Kyoto curated by Comfort Journey since 1992.",
+                "price": 755156,
+                "origPrice": 906187,
+                "duration": "7N/6D",
+                "tourId": "tour-wix-sakura-moments-the-ultimate-cherry-blossom",
+                "img": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     whatYouGet: [
       { title: "Honeymoon Inclusions & Decor", desc: "Complimentary room flower decor, honeymoon cake, and candlelit dinner on arrival." },
       { title: "Boutique Private Stays", desc: "Handpicked properties featuring private plunge pools, scenic balconies, and king beds." },
@@ -341,18 +633,117 @@ Since 1992, we've been turning "maybe next year" into "remember that night?" for
       }
     ],
     destinationsIndia: [
-      { name: "Goa Squad Villa", tag: "Private Pool Villa & Sunset Yacht", price: 16999, origPrice: 21249, duration: "4N / 5D", tourId: "goa-beach-escape", img: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600&q=80" },
-      { name: "Manali & Solang Valley", tag: "Snow, River Rafting & Mountain Cabins", price: 19499, origPrice: 24374, duration: "5N / 6D", tourId: "himachal-wonderland", img: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=600&q=80" },
-      { name: "Rishikesh Adventure", tag: "White Water Rafting, Cliff Jumping & Bonfires", price: 14999, origPrice: 18999, duration: "4N / 5D", tourId: "rishikesh-wellness", img: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80" },
-      { name: "Ladakh High Passes", tag: "Pangong Lake Tents & Khardung La Bike Rides", price: 28500, origPrice: 36000, duration: "6N / 7D", tourId: "ladakh-high-passes", img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" },
-      { name: "Andaman Islands", tag: "Scuba Diving & Island Hopping", price: 22499, origPrice: 28124, duration: "5N / 6D", tourId: "andaman-islands", img: "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Peace In The Pines",
+                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
+                "price": 94012,
+                "origPrice": 188023,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-peace-in-the-pines",
+                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Heritage & Hills",
+                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 141360,
+                "origPrice": 157067,
+                "duration": "5 Nights & 6 Days",
+                "tourId": "tour-wix-karnataka-heritage-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Peaks & Palaces",
+                "tag": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 90640,
+                "origPrice": 95410,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-karnataka-peaks-palaces",
+                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Goa Weekend Vibe",
+                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
+                "price": 99360,
+                "origPrice": 116894,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-goa-weekend-vibe",
+                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
+                "price": 45885,
+                "origPrice": 48300,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Uttarakhand Explorer",
+                "tag": "A luxurious 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
+                "price": 69575,
+                "origPrice": 77305,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-uttarakhand-explorer",
+                "img": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     destinationsIntl: [
-      { name: "Bali Villa Party", tag: "Private 4-Bedroom Villa & Nusa Penida Cruise", price: 34999, origPrice: 46999, duration: "6N / 7D", tourId: "bali-bliss", img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80" },
-      { name: "Dubai Crew Odyssey", tag: "Desert Safari, Dune Buggies & Marina Cruise", price: 42999, origPrice: 54999, duration: "5N / 6D", tourId: "dubai-extravaganza", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" },
-      { name: "Thailand & Bangkok", tag: "Full Moon Vibe, Speedboats & Nightlife", price: 38999, origPrice: 49000, duration: "5N / 6D", tourId: "thailand-discovery", img: "https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?auto=format&fit=crop&w=600&q=80" },
-      { name: "Vietnam Backpacking", tag: "Ha Long Bay Party Cruise & Street Food", price: 42999, origPrice: 55000, duration: "6N / 7D", tourId: "vietnam-heritage", img: "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Phuket Paradise Getaway",
+                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
+                "price": 71047,
+                "origPrice": 170514,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-phuket-paradise-getaway",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Singapore City & Gardens",
+                "tag": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
+                "price": 282452,
+                "origPrice": 389783,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-singapore-city-gardens",
+                "img": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Asian Extravaganza",
+                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
+                "price": 294705,
+                "origPrice": 368382,
+                "duration": "10N/11D",
+                "tourId": "tour-wix-asian-extravaganza",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Dubai City & Sands",
+                "tag": "Handcrafted 4N/5D tour to Dubai curated by Comfort Journey since 1992.",
+                "price": 113503,
+                "origPrice": 136204,
+                "duration": "4N/5D",
+                "tourId": "tour-wix-dubai-city-sands",
+                "img": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Unbeatable Vietnam Premium",
+                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
+                "price": 218554,
+                "origPrice": 218554,
+                "duration": "7N/8D",
+                "tourId": "tour-wix-unbeatable-vietnam-premium",
+                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Bali Tropical Escape",
+                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
+                "price": 62710,
+                "origPrice": 69870,
+                "duration": "4N/5D",
+                "tourId": "tour-wix-bali-tropical-escape",
+                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     whatYouGet: [
       { title: "Exclusive Private Villas & Group Stays", desc: "Private pool villas and multi-bedroom chalets so your whole squad stays together." },
       { title: "Private Tempo Traveler / SUV", desc: "Exclusive air-conditioned transport with AUX/Bluetooth for your road trip playlist." },
@@ -428,16 +819,117 @@ Let us handle the headache. You just take the credit.`,
       }
     ],
     destinationsIndia: [
-      { name: "Goa Beachfront Resort", tag: "Private Beach Conference & Sundowner Gala", price: 24999, origPrice: 32000, duration: "3N / 4D", tourId: "goa-beach-escape", img: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600&q=80" },
-      { name: "Rishikesh Riverside Retreat", tag: "Team Rafting, Leadership Camp & Bonfires", price: 18999, origPrice: 24000, duration: "3N / 4D", tourId: "rishikesh-wellness", img: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80" },
-      { name: "Udaipur Heritage Palaces", tag: "Royal Recognition Gala for Top Performers", price: 28999, origPrice: 36000, duration: "3N / 4D", tourId: "rajasthan-royals", img: "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=600&q=80" },
-      { name: "Coorg Coffee Plantation", tag: "Cool Mountain Air & Hackathon Retreat", price: 19999, origPrice: 25000, duration: "3N / 4D", tourId: "kerala-backwaters", img: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Peace In The Pines",
+                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
+                "price": 94012,
+                "origPrice": 188023,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-peace-in-the-pines",
+                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Heritage & Hills",
+                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 141360,
+                "origPrice": 157067,
+                "duration": "5 Nights & 6 Days",
+                "tourId": "tour-wix-karnataka-heritage-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Peaks & Palaces",
+                "tag": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 90640,
+                "origPrice": 95410,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-karnataka-peaks-palaces",
+                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Goa Weekend Vibe",
+                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
+                "price": 99360,
+                "origPrice": 116894,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-goa-weekend-vibe",
+                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
+                "price": 45885,
+                "origPrice": 48300,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Uttarakhand Explorer",
+                "tag": "A luxurious 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
+                "price": 69575,
+                "origPrice": 77305,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-uttarakhand-explorer",
+                "img": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     destinationsIntl: [
-      { name: "Dubai Corporate Summit", tag: "Marina Luxury Yacht & Desert Gala Dinner", price: 54999, origPrice: 68000, duration: "4N / 5D", tourId: "dubai-extravaganza", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" },
-      { name: "Thailand & Phuket", tag: "Island Beach Olympics & Gala Night", price: 44999, origPrice: 56000, duration: "4N / 5D", tourId: "thailand-discovery", img: "https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?auto=format&fit=crop&w=600&q=80" },
-      { name: "Bali Executive Escape", tag: "Beachfront Villa Conferencing & Team Treks", price: 48999, origPrice: 62000, duration: "5N / 6D", tourId: "bali-bliss", img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Unbeatable Vietnam Premium",
+                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
+                "price": 218554,
+                "origPrice": 218554,
+                "duration": "7N/8D",
+                "tourId": "tour-wix-unbeatable-vietnam-premium",
+                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Singapore City & Gardens",
+                "tag": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
+                "price": 282452,
+                "origPrice": 389783,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-singapore-city-gardens",
+                "img": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Asian Extravaganza",
+                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
+                "price": 294705,
+                "origPrice": 368382,
+                "duration": "10N/11D",
+                "tourId": "tour-wix-asian-extravaganza",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Dubai City & Sands",
+                "tag": "Handcrafted 4N/5D tour to Dubai curated by Comfort Journey since 1992.",
+                "price": 113503,
+                "origPrice": 136204,
+                "duration": "4N/5D",
+                "tourId": "tour-wix-dubai-city-sands",
+                "img": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Phuket Paradise Getaway",
+                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
+                "price": 71047,
+                "origPrice": 170514,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-phuket-paradise-getaway",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Bali Tropical Escape",
+                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
+                "price": 62710,
+                "origPrice": 69870,
+                "duration": "4N/5D",
+                "tourId": "tour-wix-bali-tropical-escape",
+                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     whatYouGet: [
       { title: "GST Compliant Invoicing & PO Support", desc: "Transparent accounting with formal corporate invoices, GST credit, and purchase order processing." },
       { title: "Conference Hall & AV Facilities", desc: "Pre-checked conference halls, high-speed Wi-Fi, projectors, and stage setups." },
@@ -513,15 +1005,117 @@ We handle the headaches. You get the credit for being the cool teacher.`,
       }
     ],
     destinationsIndia: [
-      { name: "Jaipur & Agra Golden Triangle", tag: "Mughal Architecture & UNESCO Heritage", price: 11999, origPrice: 15000, duration: "3N / 4D", tourId: "rajasthan-royals", img: "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=600&q=80" },
-      { name: "Rishikesh Leadership Camp", tag: "River Rafting, Jungle Survival & Team Spirit", price: 9999, origPrice: 13000, duration: "3N / 4D", tourId: "rishikesh-wellness", img: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80" },
-      { name: "Jim Corbett Wildlife Expedition", tag: "Jeep Safaris & Biodiversity Conservation", price: 10999, origPrice: 14000, duration: "2N / 3D", tourId: "corbett-safari", img: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80" },
-      { name: "Himachal Science & Nature Camp", tag: "Geology, Snow Exploration & High Altitude Trek", price: 14999, origPrice: 19000, duration: "4N / 5D", tourId: "himachal-wonderland", img: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Peace In The Pines",
+                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
+                "price": 94012,
+                "origPrice": 188023,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-peace-in-the-pines",
+                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Heritage & Hills",
+                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 141360,
+                "origPrice": 157067,
+                "duration": "5 Nights & 6 Days",
+                "tourId": "tour-wix-karnataka-heritage-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Peaks & Palaces",
+                "tag": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 90640,
+                "origPrice": 95410,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-karnataka-peaks-palaces",
+                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Goa Weekend Vibe",
+                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
+                "price": 99360,
+                "origPrice": 116894,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-goa-weekend-vibe",
+                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
+                "price": 45885,
+                "origPrice": 48300,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A premium 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 4-star hotels, Innova transportation, and curated sightseeing.",
+                "price": 64515,
+                "origPrice": 71683,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills-2",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     destinationsIntl: [
-      { name: "Singapore Space & Science Tour", tag: "Science Centre, Universal Studios & NEWater", price: 49999, origPrice: 65000, duration: "4N / 5D", tourId: "singapore-sentosa", img: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=600&q=80" },
-      { name: "Dubai Innovation & Robotics", tag: "Museum of the Future, Green Planet & Expo City", price: 44999, origPrice: 58000, duration: "4N / 5D", tourId: "dubai-extravaganza", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Singapore City & Gardens",
+                "tag": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
+                "price": 282452,
+                "origPrice": 389783,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-singapore-city-gardens",
+                "img": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Asian Extravaganza",
+                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
+                "price": 294705,
+                "origPrice": 368382,
+                "duration": "10N/11D",
+                "tourId": "tour-wix-asian-extravaganza",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Dubai City & Sands",
+                "tag": "Handcrafted 4N/5D tour to Dubai curated by Comfort Journey since 1992.",
+                "price": 113503,
+                "origPrice": 136204,
+                "duration": "4N/5D",
+                "tourId": "tour-wix-dubai-city-sands",
+                "img": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Phuket Paradise Getaway",
+                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
+                "price": 71047,
+                "origPrice": 170514,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-phuket-paradise-getaway",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Unbeatable Vietnam Premium",
+                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
+                "price": 218554,
+                "origPrice": 218554,
+                "duration": "7N/8D",
+                "tourId": "tour-wix-unbeatable-vietnam-premium",
+                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Bali Tropical Escape",
+                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
+                "price": 62710,
+                "origPrice": 69870,
+                "duration": "4N/5D",
+                "tourId": "tour-wix-bali-tropical-escape",
+                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     whatYouGet: [
       { title: "24/7 Security & Female Tour Marshals", desc: "Dedicated security escorts and female managers on every student trip." },
       { title: "Nutritious Hygienic Meals", desc: "Pre-inspected buffet dining with fresh, hygienic Indian food." },
@@ -597,15 +1191,117 @@ We've been doing this for 30 years. You just show up.`,
       }
     ],
     destinationsIndia: [
-      { name: "Coorg Coffee Estates", tag: "Misty Hills, Coffee Plantations & Bonfires", price: 14999, origPrice: 19000, duration: "2N / 3D", tourId: "kerala-backwaters", img: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=80" },
-      { name: "Rishikesh Riverside", tag: "Luxury Swiss Tents & White Water Rapids", price: 12499, origPrice: 16000, duration: "2N / 3D", tourId: "rishikesh-wellness", img: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80" },
-      { name: "Jaipur Boutique Heritage", tag: "Palace High Tea & Sunset Fort Views", price: 13999, origPrice: 18000, duration: "2N / 3D", tourId: "rajasthan-royals", img: "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=600&q=80" },
-      { name: "Kasauli & Shimla Pine Hills", tag: "Quiet Pine Forests & Colonial Walks", price: 14499, origPrice: 18500, duration: "2N / 3D", tourId: "himachal-wonderland", img: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Peace In The Pines",
+                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
+                "price": 94012,
+                "origPrice": 188023,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-peace-in-the-pines",
+                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Heritage & Hills",
+                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 141360,
+                "origPrice": 157067,
+                "duration": "5 Nights & 6 Days",
+                "tourId": "tour-wix-karnataka-heritage-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Goa Weekend Vibe",
+                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
+                "price": 99360,
+                "origPrice": 116894,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-goa-weekend-vibe",
+                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
+                "price": 45885,
+                "origPrice": 48300,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Uttarakhand Explorer",
+                "tag": "A luxurious 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
+                "price": 69575,
+                "origPrice": 77305,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-uttarakhand-explorer",
+                "img": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A premium 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 4-star hotels, Innova transportation, and curated sightseeing.",
+                "price": 64515,
+                "origPrice": 71683,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills-2",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     destinationsIntl: [
-      { name: "Dubai Quick Blitz", tag: "Burj Khalifa, Desert Safari & Weekend Shopping", price: 34999, origPrice: 45000, duration: "3N / 4D", tourId: "dubai-extravaganza", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" },
-      { name: "Sri Lanka Coastal Escape", tag: "Galle Fort, Tropical Beaches & Surfing", price: 29999, origPrice: 38000, duration: "3N / 4D", tourId: "sri-lanka-paradise", img: "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Phuket Paradise Getaway",
+                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
+                "price": 71047,
+                "origPrice": 170514,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-phuket-paradise-getaway",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Colombo to the Clouds",
+                "tag": "Handcrafted 5N/6D tour to Colombo curated by Comfort Journey since 1992.",
+                "price": 144904,
+                "origPrice": 166640,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-colombo-to-the-clouds",
+                "img": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Asian Extravaganza",
+                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
+                "price": 294705,
+                "origPrice": 368382,
+                "duration": "10N/11D",
+                "tourId": "tour-wix-asian-extravaganza",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Dubai City & Sands",
+                "tag": "Handcrafted 4N/5D tour to Dubai curated by Comfort Journey since 1992.",
+                "price": 113503,
+                "origPrice": 136204,
+                "duration": "4N/5D",
+                "tourId": "tour-wix-dubai-city-sands",
+                "img": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Unbeatable Vietnam Premium",
+                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
+                "price": 218554,
+                "origPrice": 218554,
+                "duration": "7N/8D",
+                "tourId": "tour-wix-unbeatable-vietnam-premium",
+                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Bali Tropical Escape",
+                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
+                "price": 62710,
+                "origPrice": 69870,
+                "duration": "4N/5D",
+                "tourId": "tour-wix-bali-tropical-escape",
+                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     whatYouGet: [
       { title: "Instant Weekend Turnaround", desc: "Book on Thursday, check in by Friday evening with zero logistical hassle." },
       { title: "Curated Boutique Resorts", desc: "Properties hand-picked for maximum tranquility, plush beds, and scenic views." },
@@ -680,16 +1376,117 @@ Just bring your energy. We'll handle the logistics.`,
       }
     ],
     destinationsIndia: [
-      { name: "Kashmir Snow Expedition", tag: "Departures Every Friday | Srinagar & Gulmarg", price: 18999, origPrice: 24999, duration: "5N / 6D", tourId: "kashmir-paradise", img: "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=600&q=80" },
-      { name: "Char Dham Yatra Fixed Batch", tag: "VIP Helicopter & Darshan Batch | Kedarnath", price: 32500, origPrice: 42000, duration: "9N / 10D", tourId: "char-dham-yatra", img: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80" },
-      { name: "Ladakh High Passes Group", tag: "Departures May–Sep | Leh, Nubra & Pangong", price: 28500, origPrice: 36000, duration: "6N / 7D", tourId: "ladakh-high-passes", img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" },
-      { name: "Kerala Grand Circuit", tag: "Departures Every 1st & 3rd Saturday", price: 21999, origPrice: 27499, duration: "5N / 6D", tourId: "kerala-backwaters", img: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Peace In The Pines",
+                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
+                "price": 94012,
+                "origPrice": 188023,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-peace-in-the-pines",
+                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Heritage & Hills",
+                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 141360,
+                "origPrice": 157067,
+                "duration": "5 Nights & 6 Days",
+                "tourId": "tour-wix-karnataka-heritage-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Peaks & Palaces",
+                "tag": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 90640,
+                "origPrice": 95410,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-karnataka-peaks-palaces",
+                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
+                "price": 45885,
+                "origPrice": 48300,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A premium 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 4-star hotels, Innova transportation, and curated sightseeing.",
+                "price": 64515,
+                "origPrice": 71683,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills-2",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Rajasthan Royal Affair",
+                "tag": "Immerse yourself in the royal heritage of Rajasthan with a vibrant journey through Jodhpur’s blue streets and Udaipur’s serene lakes. This budget-friendly package blends cultural landmarks, shopping, and scenic beauty.",
+                "price": 34272,
+                "origPrice": 42840,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-rajasthan-royal-affair",
+                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     destinationsIntl: [
-      { name: "Bali Tropical Tribe", tag: "Fixed Departures Monthly | Ubud & Seminyak", price: 34999, origPrice: 46999, duration: "6N / 7D", tourId: "bali-bliss", img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80" },
-      { name: "Dubai Mega Group", tag: "Departures Every Thursday | Full City + Desert", price: 42999, origPrice: 54999, duration: "5N / 6D", tourId: "dubai-extravaganza", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" },
-      { name: "Vietnam North-to-South", tag: "Fixed Group | Hanoi, Halong & Da Nang", price: 42999, origPrice: 55000, duration: "6N / 7D", tourId: "vietnam-heritage", img: "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Bali Tropical Escape",
+                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
+                "price": 62710,
+                "origPrice": 69870,
+                "duration": "4N/5D",
+                "tourId": "tour-wix-bali-tropical-escape",
+                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Singapore City & Gardens",
+                "tag": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
+                "price": 282452,
+                "origPrice": 389783,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-singapore-city-gardens",
+                "img": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Asian Extravaganza",
+                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
+                "price": 294705,
+                "origPrice": 368382,
+                "duration": "10N/11D",
+                "tourId": "tour-wix-asian-extravaganza",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Dubai City & Sands",
+                "tag": "Handcrafted 4N/5D tour to Dubai curated by Comfort Journey since 1992.",
+                "price": 113503,
+                "origPrice": 136204,
+                "duration": "4N/5D",
+                "tourId": "tour-wix-dubai-city-sands",
+                "img": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Phuket Paradise Getaway",
+                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
+                "price": 71047,
+                "origPrice": 170514,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-phuket-paradise-getaway",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Unbeatable Vietnam Premium",
+                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
+                "price": 218554,
+                "origPrice": 218554,
+                "duration": "7N/8D",
+                "tourId": "tour-wix-unbeatable-vietnam-premium",
+                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     whatYouGet: [
       { title: "Guaranteed Departure Dates", desc: "No last-minute cancellations. Once booked, your departure date is locked in." },
       { title: "Experienced Trip Leader", desc: "A friendly, experienced tour captain traveling with the group to ensure 100% smooth coordination." },
@@ -761,17 +1558,117 @@ From snow-capped peaks in the north to beaches that rival Bali in the south. It 
       }
     ],
     destinationsIndia: [
-      { name: "Kashmir Paradise", tag: "Srinagar, Gulmarg & Pahalgam", price: 18999, origPrice: 24999, duration: "5N / 6D", tourId: "kashmir-paradise", img: "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=600&q=80" },
-      { name: "Sacred Char Dham", tag: "Kedarnath Helicopter & Badrinath Darshan", price: 32500, origPrice: 42000, duration: "9N / 10D", tourId: "char-dham-yatra", img: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80" },
-      { name: "Royal Rajasthan", tag: "Jaipur, Udaipur & Jodhpur Heritage", price: 26999, origPrice: 33749, duration: "6N / 7D", tourId: "rajasthan-royals", img: "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=600&q=80" },
-      { name: "Kerala Serenity", tag: "Munnar, Thekkady & Alleppey Houseboat", price: 21999, origPrice: 27499, duration: "5N / 6D", tourId: "kerala-backwaters", img: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=80" },
-      { name: "Ladakh High Passes", tag: "Leh, Nubra Valley & Pangong Lake", price: 28500, origPrice: 36000, duration: "6N / 7D", tourId: "ladakh-high-passes", img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" },
-      { name: "Andaman Coral Island", tag: "Port Blair & Havelock Radhanagar Beach", price: 22499, origPrice: 28124, duration: "5N / 6D", tourId: "andaman-islands", img: "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Peace In The Pines",
+                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
+                "price": 94012,
+                "origPrice": 188023,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-peace-in-the-pines",
+                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Heritage & Hills",
+                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 141360,
+                "origPrice": 157067,
+                "duration": "5 Nights & 6 Days",
+                "tourId": "tour-wix-karnataka-heritage-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Peaks & Palaces",
+                "tag": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 90640,
+                "origPrice": 95410,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-karnataka-peaks-palaces",
+                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Goa Weekend Vibe",
+                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
+                "price": 99360,
+                "origPrice": 116894,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-goa-weekend-vibe",
+                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
+                "price": 45885,
+                "origPrice": 48300,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A premium 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 4-star hotels, Innova transportation, and curated sightseeing.",
+                "price": 64515,
+                "origPrice": 71683,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills-2",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     destinationsIntl: [
-      { name: "Dubai", tag: "Burj Khalifa & Desert Safari", price: 42999, origPrice: 54999, duration: "5N / 6D", tourId: "dubai-extravaganza", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" },
-      { name: "Bali", tag: "Private Pool Villa & Nusa Penida", price: 34999, origPrice: 46999, duration: "6N / 7D", tourId: "bali-bliss", img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Phuket Paradise Getaway",
+                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
+                "price": 71047,
+                "origPrice": 170514,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-phuket-paradise-getaway",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Unbeatable Vietnam Premium",
+                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
+                "price": 218554,
+                "origPrice": 218554,
+                "duration": "7N/8D",
+                "tourId": "tour-wix-unbeatable-vietnam-premium",
+                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Bali Tropical Escape",
+                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
+                "price": 62710,
+                "origPrice": 69870,
+                "duration": "4N/5D",
+                "tourId": "tour-wix-bali-tropical-escape",
+                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Sakura Moments - The Ultimate Cherry Blossom",
+                "tag": "Handcrafted 7N/6D tour to Tokyo, Kanazawa, Kyoto curated by Comfort Journey since 1992.",
+                "price": 755156,
+                "origPrice": 906187,
+                "duration": "7N/6D",
+                "tourId": "tour-wix-sakura-moments-the-ultimate-cherry-blossom",
+                "img": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Colombo to the Clouds",
+                "tag": "Handcrafted 5N/6D tour to Colombo curated by Comfort Journey since 1992.",
+                "price": 144904,
+                "origPrice": 166640,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-colombo-to-the-clouds",
+                "img": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Singapore City & Gardens",
+                "tag": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
+                "price": 282452,
+                "origPrice": 389783,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-singapore-city-gardens",
+                "img": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     whatYouGet: [
       { title: "Verified 4★ / 5★ Heritage & Resort Stays", desc: "Properties vetted personally for clean linen, scenic views, and hospitality." },
       { title: "Dedicated AC Cab & Chauffeur", desc: "Private vehicle throughout your trip with seasoned local chauffeurs." },
@@ -853,68 +1750,117 @@ You just pack your bags. We handle the rest.`,
       { name: "Thailand & Phuket", tag: "Phi Phi Islands, Krabi & Bangkok Temples", price: 38999, origPrice: 49000, duration: "5N / 6D", tourId: "thailand-discovery", img: "https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?auto=format&fit=crop&w=600&q=80" }
     ],
     destinationsIndia: [
-      { name: "Kashmir Paradise", tag: "Srinagar & Gulmarg", price: 18999, origPrice: 24999, duration: "5N / 6D", tourId: "kashmir-paradise", img: "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=600&q=80" },
-      { name: "Kerala Backwaters", tag: "Houseboats & Munnar", price: 21999, origPrice: 27499, duration: "5N / 6D", tourId: "kerala-backwaters", img: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=80" }
-    ],
-    whatYouGet: [
-      { title: "Complete Visa Assistance & Processing", desc: "Expert guidance on documentation, appointment scheduling, and submission." },
-      { title: "International 4★/5★ Verified Hotels", desc: "Centrally located luxury accommodations with daily international breakfast." },
-      { title: "Airport & Intercity Private Transfers", desc: "Private cabs waiting at the airport upon arrival—no foreign language haggling." },
-      { title: "24/7 Overseas Emergency Concierge", desc: "Instant WhatsApp assistance anywhere across global time zones." }
-    ],
-    faqs: [
-      { q: "Do you assist with international visas and documentation?", a: "Yes! Our specialized visa processing team handles document checking, appointment bookings, cover letter drafting, and tracking for all destinations." },
-      { q: "Are international airport transfers private?", a: "Yes, all our international packages include private airport transfers with a chauffeur holding your name placard at the arrival terminal." }
-    ]
-  },
-
-  // 11. ADVENTURE & HIKING EXPEDITIONS
-  "adventure-tours": {
-    id: "adventure-tours",
-    slug: "adventure-tours",
-    aliases: ["adventure", "hiking", "treks", "adrenaline"],
-    metaTitle: "Adventure & Hiking Tour Packages 2026 | Adrenaline Expeditions | Comfort Journey",
-    metaDesc: "Chase the thrill. High-altitude Himalayan passes, white-water rapids, desert dune buggies, and scuba reefs. Fully insured and certified guides since 1992.",
-    categoryBadge: "Adrenaline & Adventure Edition",
-    theme: {
-      accentColor: "#F97316",
-      glowColor: "rgba(249, 115, 22, 0.28)",
-      bgGradient: "radial-gradient(circle at 50% 15%, rgba(154, 52, 18, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
-      heroImage: "https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=1600&q=85",
-      personaMood: "Adrenaline Rush & Peak Conquering",
-      vibePills: [
-        { label: "🧗 IMF & Certified Mountain Guides", icon: "compass" },
-        { label: "🏕️ Heated Alpine Glamping Domes", icon: "hotel" },
-        { label: "🫁 Emergency O2 & Medical Backup", icon: "shield" },
-        { label: "⚡ High-Pass Motorbiking & Rapids", icon: "sparkles" }
+        {
+                "name": "Peace In The Pines",
+                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
+                "price": 94012,
+                "origPrice": 188023,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-peace-in-the-pines",
+                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Heritage & Hills",
+                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 141360,
+                "origPrice": 157067,
+                "duration": "5 Nights & 6 Days",
+                "tourId": "tour-wix-karnataka-heritage-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Peaks & Palaces",
+                "tag": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 90640,
+                "origPrice": 95410,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-karnataka-peaks-palaces",
+                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Goa Weekend Vibe",
+                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
+                "price": 99360,
+                "origPrice": 116894,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-goa-weekend-vibe",
+                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
+                "price": 45885,
+                "origPrice": 48300,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Uttarakhand Explorer",
+                "tag": "A luxurious 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
+                "price": 69575,
+                "origPrice": 77305,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-uttarakhand-explorer",
+                "img": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85"
+        }
       ],
-      personaQuote: {
-        author: "Rohit Verma, Trekker from Chandigarh • Ladakh Khardung La Expedition",
-        text: "The bike route was exhilarating and the support backup truck gave our entire crew total peace of mind. Truly the trip of a lifetime."
-      }
-    },
-    heroHeadline: "Feel Alive Again. Push Past The Horizon.",
-    heroSubline: "Say goodbye to boring routine. High-altitude mountain passes, raging river rapids, and uncharted wilderness expeditions.",
-    ctaText: "Unlock Adventure Expeditions",
-    whatsAppMsg: "Hi Comfort Journey! I'm looking for high-adrenaline adventure and trekking tours.",
-    openingHeading: "Real Thrills with Zero Safety Compromise",
-    openingParagraph: `Comfort doesn't mean boring. True luxury in adventure is having elite certified guides, premium wilderness camping equipment, satellite backup, and private transport waiting at the finish line.
-Whether it's conquering the world's highest motorable pass in Ladakh or white-water rafting in Rishikesh, we make epic adventures seamless.`,
-    whyHitsDifferent: [
-      { title: "Certified Adventure Guides", desc: "Government-licensed expedition leaders and mountaineers on every trek.", iconType: "compass" },
-      { title: "Safety & Medical Backup", desc: "Portable oxygen cylinders, first aid kits, and emergency vehicle support.", iconType: "shield" },
-      { title: "High-End Camps & Glamping", desc: "Heated alpine dome tents, plush sleeping bags, and warm gourmet meals.", iconType: "hotel" },
-      { title: "All Permits Handled", desc: "Inner Line Permits, forest clearances, and wildlife passes pre-cleared.", iconType: "wallet" }
-    ],
-    destinationsIndia: [
-      { name: "Ladakh High Passes", tag: "Khardung La, Pangong & Nubra Valley", price: 28500, origPrice: 36000, duration: "6N / 7D", tourId: "ladakh-high-passes", img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" },
-      { name: "Rishikesh Adrenaline", tag: "Grade IV Rapids, Bungee & Cliff Jump", price: 14999, origPrice: 18999, duration: "4N / 5D", tourId: "rishikesh-wellness", img: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80" },
-      { name: "Spiti 4x4 Expedition", tag: "Chicham Bridge & Chandratal Lake", price: 24999, origPrice: 32000, duration: "7N / 8D", tourId: "ladakh-high-passes", img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" }
-    ],
     destinationsIntl: [
-      { name: "Bali Volcano & Rafting", tag: "Mount Batur Sunrise & Ayung River Rapids", price: 34999, origPrice: 46999, duration: "6N / 7D", tourId: "bali-bliss", img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80" },
-      { name: "Dubai Desert 4x4 & Buggies", tag: "Red Dune Bashing & Quad Bike Safaris", price: 42999, origPrice: 54999, duration: "5N / 6D", tourId: "dubai-extravaganza", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Phuket Paradise Getaway",
+                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
+                "price": 71047,
+                "origPrice": 170514,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-phuket-paradise-getaway",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Unbeatable Vietnam Premium",
+                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
+                "price": 218554,
+                "origPrice": 218554,
+                "duration": "7N/8D",
+                "tourId": "tour-wix-unbeatable-vietnam-premium",
+                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Bali Tropical Escape",
+                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
+                "price": 62710,
+                "origPrice": 69870,
+                "duration": "4N/5D",
+                "tourId": "tour-wix-bali-tropical-escape",
+                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Sakura Moments - The Ultimate Cherry Blossom",
+                "tag": "Handcrafted 7N/6D tour to Tokyo, Kanazawa, Kyoto curated by Comfort Journey since 1992.",
+                "price": 755156,
+                "origPrice": 906187,
+                "duration": "7N/6D",
+                "tourId": "tour-wix-sakura-moments-the-ultimate-cherry-blossom",
+                "img": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Colombo to the Clouds",
+                "tag": "Handcrafted 5N/6D tour to Colombo curated by Comfort Journey since 1992.",
+                "price": 144904,
+                "origPrice": 166640,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-colombo-to-the-clouds",
+                "img": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Singapore City & Gardens",
+                "tag": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
+                "price": 282452,
+                "origPrice": 389783,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-singapore-city-gardens",
+                "img": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     faqs: [
       { q: "Are adventure activities suitable for beginners?", a: "Yes! All activities are tiered with beginner, intermediate, and expert routes. Complete safety briefings and equipment are provided." }
     ]
@@ -957,14 +1903,117 @@ Whether it's conquering the world's highest motorable pass in Ladakh or white-wa
       { title: "Oceanview Candlelit Dining", desc: "Private seafood and vegetarian dinners right on the seashore.", iconType: "utensils" }
     ],
     destinationsIndia: [
-      { name: "Havelock Island, Andaman", tag: "Radhanagar Beach & Scuba Reefs", price: 22499, origPrice: 28124, duration: "5N / 6D", tourId: "andaman-islands", img: "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=600&q=80" },
-      { name: "South Goa Luxury Beach", tag: "Palolem & Agonda Beachfront Resorts", price: 16999, origPrice: 21249, duration: "4N / 5D", tourId: "goa-beach-escape", img: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Goa Weekend Vibe",
+                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
+                "price": 99360,
+                "origPrice": 116894,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-goa-weekend-vibe",
+                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Goa Weekend Vibe",
+                "tag": "A budget-friendly 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 3-star hotel, Sedan transportation, and breakfast.",
+                "price": 26460,
+                "origPrice": 27852,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-goa-weekend-vibe-2",
+                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Goa Weekend Vibe",
+                "tag": "A comfortable 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 4-star hotel, Ertiga transportation, and breakfast.",
+                "price": 45408,
+                "origPrice": 50453,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-goa-weekend-vibe-3",
+                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Peace In The Pines",
+                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
+                "price": 94012,
+                "origPrice": 188023,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-peace-in-the-pines",
+                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Heritage & Hills",
+                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 141360,
+                "origPrice": 157067,
+                "duration": "5 Nights & 6 Days",
+                "tourId": "tour-wix-karnataka-heritage-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Peaks & Palaces",
+                "tag": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 90640,
+                "origPrice": 95410,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-karnataka-peaks-palaces",
+                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     destinationsIntl: [
-      { name: "Maldives Overwater Luxury", tag: "Overwater Lagoon Villas & All-Inclusive", price: 79999, origPrice: 105000, duration: "4N / 5D", tourId: "maldives-luxury", img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=600&q=80" },
-      { name: "Bali Beach & Nusa Penida", tag: "Kelingking Beach & Beachfront Villas", price: 34999, origPrice: 46999, duration: "6N / 7D", tourId: "bali-bliss", img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80" },
-      { name: "Phuket & Krabi, Thailand", tag: "Phi Phi Island Speedboat & Coral Bays", price: 38999, origPrice: 49000, duration: "5N / 6D", tourId: "thailand-discovery", img: "https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Phuket Paradise Getaway",
+                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
+                "price": 71047,
+                "origPrice": 170514,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-phuket-paradise-getaway",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Bali Tropical Escape",
+                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
+                "price": 62710,
+                "origPrice": 69870,
+                "duration": "4N/5D",
+                "tourId": "tour-wix-bali-tropical-escape",
+                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Colombo to the Clouds",
+                "tag": "Handcrafted 5N/6D tour to Colombo curated by Comfort Journey since 1992.",
+                "price": 144904,
+                "origPrice": 166640,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-colombo-to-the-clouds",
+                "img": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Asian Extravaganza",
+                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
+                "price": 294705,
+                "origPrice": 368382,
+                "duration": "10N/11D",
+                "tourId": "tour-wix-asian-extravaganza",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Unbeatable Vietnam Premium",
+                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
+                "price": 218554,
+                "origPrice": 218554,
+                "duration": "7N/8D",
+                "tourId": "tour-wix-unbeatable-vietnam-premium",
+                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Sakura Moments - The Ultimate Cherry Blossom",
+                "tag": "Handcrafted 7N/6D tour to Tokyo, Kanazawa, Kyoto curated by Comfort Journey since 1992.",
+                "price": 755156,
+                "origPrice": 906187,
+                "duration": "7N/6D",
+                "tourId": "tour-wix-sakura-moments-the-ultimate-cherry-blossom",
+                "img": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     faqs: [
       { q: "Are water sports and scuba sessions certified?", a: "Yes! All dive sessions are with PADI-certified instructors including complete safety gear and underwater photography." }
     ]
@@ -1007,13 +2056,117 @@ Whether it's conquering the world's highest motorable pass in Ladakh or white-wa
       { title: "Cable Car & Ski Passes Included", desc: "Pre-booked Gondola Phase 1 & 2 passes so you skip 3-hour ticket lines.", iconType: "ticket" }
     ],
     destinationsIndia: [
-      { name: "Kashmir Snow Wonderland", tag: "Gulmarg Gondola & Pahalgam Valleys", price: 18999, origPrice: 24999, duration: "5N / 6D", tourId: "kashmir-paradise", img: "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=600&q=80" },
-      { name: "Shimla & Manali Solang", tag: "Snow Slopes, Rohtang Pass & Pinewood Stays", price: 19499, origPrice: 24374, duration: "5N / 6D", tourId: "himachal-wonderland", img: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=600&q=80" },
-      { name: "Munnar Tea Hills", tag: "Misty Tea Plantations & Eravikulam", price: 21999, origPrice: 27499, duration: "5N / 6D", tourId: "kerala-backwaters", img: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Peace In The Pines",
+                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
+                "price": 94012,
+                "origPrice": 188023,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-peace-in-the-pines",
+                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Heritage & Hills",
+                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 141360,
+                "origPrice": 157067,
+                "duration": "5 Nights & 6 Days",
+                "tourId": "tour-wix-karnataka-heritage-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
+                "price": 45885,
+                "origPrice": 48300,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Uttarakhand Explorer",
+                "tag": "A luxurious 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
+                "price": 69575,
+                "origPrice": 77305,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-uttarakhand-explorer",
+                "img": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A premium 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 4-star hotels, Innova transportation, and curated sightseeing.",
+                "price": 64515,
+                "origPrice": 71683,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills-2",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Peace In The Pines",
+                "tag": "A luxurious 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
+                "price": 148680,
+                "origPrice": 198240,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-peace-in-the-pines-2",
+                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     destinationsIntl: [
-      { name: "Swiss Alps & Mount Titlis", tag: "Glacier 3000, Interlaken & Scenic Train", price: 125000, origPrice: 160000, duration: "7N / 8D", tourId: "swiss-alps-magic", img: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Colombo to the Clouds",
+                "tag": "Handcrafted 5N/6D tour to Colombo curated by Comfort Journey since 1992.",
+                "price": 144904,
+                "origPrice": 166640,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-colombo-to-the-clouds",
+                "img": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Essence of Europe",
+                "tag": "Embark on a captivating European adventure, exploring iconic cities, cultural landmarks, and breathtaking landscapes. Your journey begins in Rome, the Eternal City, where ancient history, timeless architecture, and vibrant culture await. Day two immerses you in the grandeur of Rome and the spiritual majesty of Vatican City. Traveling north, visit Pisa to witness the Leaning Tower and the architectural wonders of Piazza dei Miracoli. Continue to Florence, the cradle of the Renaissance.\n\nExperience the romance of Venice with a private boat ride through the canals, St. Mark’s Square, St. Mark’s Basilica, and a memorable Gondola ride. Later, journey to Milan to explore the Duomo, Galleria Vittorio Emanuele II, and picturesque Lake Como’s Bellagio village before crossing into Zurich, Switzerland.\n\nSwitzerland offers alpine thrills and scenic beauty with excursions to Mt. Titlis’ Rotair cable car, the Cliff Walk, Lucerne city tour, and an optional trip to Jungfraujoch – the Top of Europe. Interlaken’s lakeside charm provides a serene escape before returning to Zurich. Conclude your journey with memories of stunning architecture, picturesque landscapes, and cultural treasures.",
+                "price": 387104,
+                "origPrice": 455417,
+                "duration": "7N/8D",
+                "tourId": "tour-wix-essence-of-europe",
+                "img": "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Phuket Paradise Getaway",
+                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
+                "price": 71047,
+                "origPrice": 170514,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-phuket-paradise-getaway",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Unbeatable Vietnam Premium",
+                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
+                "price": 218554,
+                "origPrice": 218554,
+                "duration": "7N/8D",
+                "tourId": "tour-wix-unbeatable-vietnam-premium",
+                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Bali Tropical Escape",
+                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
+                "price": 62710,
+                "origPrice": 69870,
+                "duration": "4N/5D",
+                "tourId": "tour-wix-bali-tropical-escape",
+                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Sakura Moments - The Ultimate Cherry Blossom",
+                "tag": "Handcrafted 7N/6D tour to Tokyo, Kanazawa, Kyoto curated by Comfort Journey since 1992.",
+                "price": 755156,
+                "origPrice": 906187,
+                "duration": "7N/6D",
+                "tourId": "tour-wix-sakura-moments-the-ultimate-cherry-blossom",
+                "img": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     faqs: [
       { q: "Is snow guaranteed in winter trips to Kashmir and Himachal?", a: "December through March offers thick snow cover across Gulmarg, Solang Valley, and Rohtang Pass." }
     ]
@@ -1055,13 +2208,117 @@ Whether it's conquering the world's highest motorable pass in Ladakh or white-wa
       { title: "Family & Kids Summer Camps", desc: "Engaging activities for school holiday breaks.", iconType: "users" }
     ],
     destinationsIndia: [
-      { name: "Kashmir Spring & Summer", tag: "Lidder River & Strawberry Valleys", price: 18999, origPrice: 24999, duration: "5N / 6D", tourId: "kashmir-paradise", img: "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=600&q=80" },
-      { name: "Himachal Pine Valleys", tag: "Manali, Dharamshala & Dalhousie", price: 19499, origPrice: 24374, duration: "5N / 6D", tourId: "himachal-wonderland", img: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Peace In The Pines",
+                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
+                "price": 94012,
+                "origPrice": 188023,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-peace-in-the-pines",
+                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Heritage & Hills",
+                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 141360,
+                "origPrice": 157067,
+                "duration": "5 Nights & 6 Days",
+                "tourId": "tour-wix-karnataka-heritage-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Goa Weekend Vibe",
+                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
+                "price": 99360,
+                "origPrice": 116894,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-goa-weekend-vibe",
+                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
+                "price": 45885,
+                "origPrice": 48300,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Uttarakhand Explorer",
+                "tag": "A luxurious 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
+                "price": 69575,
+                "origPrice": 77305,
+                "duration": "2 Nights and 3 Days",
+                "tourId": "tour-wix-uttarakhand-explorer",
+                "img": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A premium 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 4-star hotels, Innova transportation, and curated sightseeing.",
+                "price": 64515,
+                "origPrice": 71683,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills-2",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     destinationsIntl: [
-      { name: "Swiss Alps & Europe", tag: "Alpine Meadows & Lake Geneva", price: 125000, origPrice: 160000, duration: "7N / 8D", tourId: "swiss-alps-magic", img: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=600&q=80" },
-      { name: "Bali & Singapore Summer", tag: "Waterbom, Sentosa & Rainforests", price: 48999, origPrice: 62000, duration: "5N / 6D", tourId: "singapore-sentosa", img: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Phuket Paradise Getaway",
+                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
+                "price": 71047,
+                "origPrice": 170514,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-phuket-paradise-getaway",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Bali Tropical Escape",
+                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
+                "price": 62710,
+                "origPrice": 69870,
+                "duration": "4N/5D",
+                "tourId": "tour-wix-bali-tropical-escape",
+                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Sakura Moments - The Ultimate Cherry Blossom",
+                "tag": "Handcrafted 7N/6D tour to Tokyo, Kanazawa, Kyoto curated by Comfort Journey since 1992.",
+                "price": 755156,
+                "origPrice": 906187,
+                "duration": "7N/6D",
+                "tourId": "tour-wix-sakura-moments-the-ultimate-cherry-blossom",
+                "img": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Asian Extravaganza",
+                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
+                "price": 294705,
+                "origPrice": 368382,
+                "duration": "10N/11D",
+                "tourId": "tour-wix-asian-extravaganza",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Essence of Europe",
+                "tag": "Embark on a captivating European adventure, exploring iconic cities, cultural landmarks, and breathtaking landscapes. Your journey begins in Rome, the Eternal City, where ancient history, timeless architecture, and vibrant culture await. Day two immerses you in the grandeur of Rome and the spiritual majesty of Vatican City. Traveling north, visit Pisa to witness the Leaning Tower and the architectural wonders of Piazza dei Miracoli. Continue to Florence, the cradle of the Renaissance.\n\nExperience the romance of Venice with a private boat ride through the canals, St. Mark’s Square, St. Mark’s Basilica, and a memorable Gondola ride. Later, journey to Milan to explore the Duomo, Galleria Vittorio Emanuele II, and picturesque Lake Como’s Bellagio village before crossing into Zurich, Switzerland.\n\nSwitzerland offers alpine thrills and scenic beauty with excursions to Mt. Titlis’ Rotair cable car, the Cliff Walk, Lucerne city tour, and an optional trip to Jungfraujoch – the Top of Europe. Interlaken’s lakeside charm provides a serene escape before returning to Zurich. Conclude your journey with memories of stunning architecture, picturesque landscapes, and cultural treasures.",
+                "price": 387104,
+                "origPrice": 455417,
+                "duration": "7N/8D",
+                "tourId": "tour-wix-essence-of-europe",
+                "img": "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Unbeatable Vietnam Premium",
+                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
+                "price": 218554,
+                "origPrice": 218554,
+                "duration": "7N/8D",
+                "tourId": "tour-wix-unbeatable-vietnam-premium",
+                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     faqs: [
       { q: "When should we book our summer holiday packages?", a: "Due to high peak summer demand, we recommend booking at least 30–45 days in advance to secure top flight rates and preferred resort suites." }
     ]
@@ -1103,13 +2360,117 @@ Whether it's conquering the world's highest motorable pass in Ladakh or white-wa
       { title: "Heated Transport & Rooms", desc: "Warm comfort throughout your winter trip.", iconType: "car" }
     ],
     destinationsIndia: [
-      { name: "Gulmarg Snow & Skiing", tag: "Gondola Phase 2 & Snowmobiles", price: 18999, origPrice: 24999, duration: "5N / 6D", tourId: "kashmir-paradise", img: "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=600&q=80" },
-      { name: "Jaisalmer Desert Winter Camp", tag: "Sam Sand Dunes & Camel Safaris", price: 26999, origPrice: 33749, duration: "6N / 7D", tourId: "rajasthan-royals", img: "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Peace In The Pines",
+                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
+                "price": 94012,
+                "origPrice": 188023,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-peace-in-the-pines",
+                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Heritage & Hills",
+                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 141360,
+                "origPrice": 157067,
+                "duration": "5 Nights & 6 Days",
+                "tourId": "tour-wix-karnataka-heritage-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Karnataka Peaks & Palaces",
+                "tag": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
+                "price": 90640,
+                "origPrice": 95410,
+                "duration": "4 Nights & 5 Days",
+                "tourId": "tour-wix-karnataka-peaks-palaces",
+                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
+                "price": 45885,
+                "origPrice": 48300,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Ganga To The Hills",
+                "tag": "A premium 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 4-star hotels, Innova transportation, and curated sightseeing.",
+                "price": 64515,
+                "origPrice": 71683,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-ganga-to-the-hills-2",
+                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Rajasthan Royal Affair",
+                "tag": "Immerse yourself in the royal heritage of Rajasthan with a vibrant journey through Jodhpur’s blue streets and Udaipur’s serene lakes. This budget-friendly package blends cultural landmarks, shopping, and scenic beauty.",
+                "price": 34272,
+                "origPrice": 42840,
+                "duration": "3 Nights & 4 Days",
+                "tourId": "tour-wix-rajasthan-royal-affair",
+                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     destinationsIntl: [
-      { name: "Swiss Winter Alps", tag: "Glacier Express & Christmas Markets", price: 125000, origPrice: 160000, duration: "7N / 8D", tourId: "swiss-alps-magic", img: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=600&q=80" },
-      { name: "Dubai Winter Shopping & Desert", tag: "Pleasant 24°C Sunshine & Global Village", price: 42999, origPrice: 54999, duration: "5N / 6D", tourId: "dubai-extravaganza", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" }
-    ],
+        {
+                "name": "Unbeatable Vietnam Premium",
+                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
+                "price": 218554,
+                "origPrice": 218554,
+                "duration": "7N/8D",
+                "tourId": "tour-wix-unbeatable-vietnam-premium",
+                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Colombo to the Clouds",
+                "tag": "Handcrafted 5N/6D tour to Colombo curated by Comfort Journey since 1992.",
+                "price": 144904,
+                "origPrice": 166640,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-colombo-to-the-clouds",
+                "img": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Singapore City & Gardens",
+                "tag": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
+                "price": 282452,
+                "origPrice": 389783,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-singapore-city-gardens",
+                "img": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Asian Extravaganza",
+                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
+                "price": 294705,
+                "origPrice": 368382,
+                "duration": "10N/11D",
+                "tourId": "tour-wix-asian-extravaganza",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Dubai City & Sands",
+                "tag": "Handcrafted 4N/5D tour to Dubai curated by Comfort Journey since 1992.",
+                "price": 113503,
+                "origPrice": 136204,
+                "duration": "4N/5D",
+                "tourId": "tour-wix-dubai-city-sands",
+                "img": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85"
+        },
+        {
+                "name": "Phuket Paradise Getaway",
+                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
+                "price": 71047,
+                "origPrice": 170514,
+                "duration": "5N/6D",
+                "tourId": "tour-wix-phuket-paradise-getaway",
+                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
+        }
+      ],
     faqs: [
       { q: "What clothing should we pack for winter snow trips?", a: "We provide all travelers with a comprehensive winter packing checklist including thermal layers, waterproof boots, and glove recommendations." }
     ]

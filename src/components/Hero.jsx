@@ -47,8 +47,27 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
     }
   };
 
-  const getTourObject = (tourId) => {
-    return TOURS_DATA.find(t => t.id === tourId) || TOURS_DATA[0];
+  const getTourObject = (cityOrId) => {
+    if (!cityOrId) return TOURS_DATA[0];
+    if (typeof cityOrId === 'object') {
+      const query = (cityOrId.name || cityOrId.id || '').toLowerCase();
+      return TOURS_DATA.find(t => 
+        t.id === cityOrId.tourId || 
+        t.slug === cityOrId.tourId ||
+        t.name.toLowerCase().includes(query) ||
+        (t.location && t.location.toLowerCase().includes(query)) ||
+        (t.categories && t.categories.some(c => c.toLowerCase().includes(query)))
+      ) || TOURS_DATA[0];
+    }
+    const tourId = String(cityOrId).toLowerCase();
+    return TOURS_DATA.find(t => 
+      t.id === tourId || 
+      t.slug === tourId || 
+      t.id.toLowerCase().includes(tourId) || 
+      t.slug.toLowerCase().includes(tourId) ||
+      t.name.toLowerCase().includes(tourId) ||
+      (t.location && t.location.toLowerCase().includes(tourId))
+    ) || TOURS_DATA[0];
   };
 
   const getContinentIcon = (id) => {
@@ -87,36 +106,42 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
   // Weather seasonal tours
   const getSeasonalTours = () => {
-    switch (activeSeasonId) {
-      case 'summer':
-        return TOURS_DATA.filter(t => t.id.includes('swiss') || t.id.includes('bali') || t.id.includes('amalfi') || t.id.includes('ladakh'));
-      case 'winter':
-        return TOURS_DATA.filter(t => t.id.includes('kashmir') || t.id.includes('iceland') || t.id.includes('dubai') || t.id.includes('rajasthan'));
-      case 'monsoon':
-        return TOURS_DATA.filter(t => t.id.includes('kerala') || t.id.includes('andaman') || t.vibeTags?.includes('Serene Backwaters'));
-      case 'autumn':
-        return TOURS_DATA.filter(t => t.id.includes('rajasthan') || t.id.includes('char-dham') || t.id.includes('dubai'));
-      case 'spring':
-        return TOURS_DATA.filter(t => t.id.includes('kashmir') || t.id.includes('swiss') || t.id.includes('andaman'));
-      default:
-        return TOURS_DATA.slice(0, 3);
-    }
+    const seasonKeywords = {
+      summer: ['summer', 'beach', 'mountain', 'bali', 'phuket', 'pines', 'hills', 'tropical'],
+      winter: ['winter', 'snow', 'kashmir', 'dubai', 'rajasthan', 'himachal', 'pines'],
+      monsoon: ['monsoon', 'kerala', 'nature', 'backwaters', 'coorg', 'pachmarhi', 'madhai'],
+      autumn: ['autumn', 'rajasthan', 'heritage', 'culture', 'dubai', 'karnataka', 'palaces'],
+      spring: ['spring', 'kashmir', 'japan', 'pines', 'flower', 'hills', 'ganga']
+    };
+    const keys = seasonKeywords[activeSeasonId] || ['summer'];
+    const matched = TOURS_DATA.filter(t => 
+      keys.some(k => 
+        (t.name && t.name.toLowerCase().includes(k)) ||
+        (t.location && t.location.toLowerCase().includes(k)) ||
+        (t.categories && t.categories.some(c => c.toLowerCase().includes(k))) ||
+        (t.tags && t.tags.some(tg => tg.toLowerCase().includes(k)))
+      )
+    );
+    return matched.length > 0 ? matched.slice(0, 4) : TOURS_DATA.slice(0, 4);
   };
 
   // Traveler style tours
   const getStyleTours = () => {
-    switch (activeStyleId) {
-      case 'couple':
-        return TOURS_DATA.filter(t => t.category?.includes('Honeymoon') || t.id.includes('kashmir') || t.id.includes('bali') || t.id.includes('amalfi'));
-      case 'family':
-        return TOURS_DATA.filter(t => t.category?.includes('Family') || t.id.includes('andaman') || t.id.includes('char-dham') || t.id.includes('dubai'));
-      case 'solo':
-        return TOURS_DATA.filter(t => t.category?.includes('Adventure') || t.id.includes('iceland') || t.id.includes('kashmir'));
-      case 'group':
-        return TOURS_DATA.filter(t => t.id.includes('rajasthan') || t.id.includes('char-dham') || t.id.includes('dubai'));
-      default:
-        return TOURS_DATA.slice(0, 3);
-    }
+    const styleKeywords = {
+      couple: ['honeymoon', 'romantic', 'couple', 'escape', 'affair', 'bali', 'goa', 'phuket', 'tropical'],
+      family: ['family', 'group', 'heritage', 'hills', 'karnataka', 'pachmarhi', 'bhopal', 'colombo', 'palaces'],
+      solo: ['solo', 'friends', 'vibe', 'adventure', 'trekking', 'goa', 'vietnam', 'explorer', 'hills'],
+      group: ['group', 'friends', 'heritage', 'rajasthan', 'dubai', 'singapore', 'asia', 'affair']
+    };
+    const keys = styleKeywords[activeStyleId] || ['couple'];
+    const matched = TOURS_DATA.filter(t => 
+      keys.some(k => 
+        (t.name && t.name.toLowerCase().includes(k)) ||
+        (t.location && t.location.toLowerCase().includes(k)) ||
+        (t.categories && t.categories.some(c => c.toLowerCase().includes(k)))
+      )
+    );
+    return matched.length > 0 ? matched.slice(0, 4) : TOURS_DATA.slice(0, 4);
   };
 
   return (

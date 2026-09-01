@@ -1,8 +1,7 @@
 // =========================================================================
 // COMFORT JOURNEY - MASTER WIX DATA MIGRATION & MULTI-CATEGORY ENGINE
-// Ingests real National and International Tour Packages from WIX CMS Old Data
-// Normalizes rich JSON itineraries, converts Wix CDN images to curated HD photos,
-// Generates multi-category tags, and replaces dummy data in src/data/toursData.js
+// Robust State-Machine CSV Parser handling multi-line quoted fields,
+// Clean decimal prices, Wix JSON Itineraries, and Multi-Category Tagging.
 // =========================================================================
 
 import fs from 'fs';
@@ -29,7 +28,16 @@ function cleanWixField(val, fallback = '') {
       return trimmed.replace(/[\[\]"']/g, '').trim();
     }
   }
-  return trimmed;
+  return trimmed.replace(/<[^>]*>?/gm, '').trim();
+}
+
+// Clean price with decimal awareness (e.g. " ₹94,011.5*" -> 94012)
+function parseCleanPrice(val, fallback = 24999) {
+  if (!val) return fallback;
+  const str = String(val).replace(/,/g, '').replace(/[^0-9.]/g, '');
+  const num = parseFloat(str);
+  if (isNaN(num) || num <= 0) return fallback;
+  return Math.round(num);
 }
 
 // Extract rich Wix Itinerary JSON
@@ -54,7 +62,7 @@ function extractWixItineraryFromField(raw, location) {
 
       for (const node of (obj.nodes || [])) {
         const text = extractTextFromNodes([node]).join(' ').trim();
-        if (text.toLowerCase().startsWith('day ') || text.toLowerCase().startsWith('day:') || text.toLowerCase().startsWith('day -')) {
+        if (text.toLowerCase().startsWith('day ') || text.toLowerCase().startsWith('day:') || text.toLowerCase().startsWith('day -') || text.toLowerCase().startsWith('day: ')) {
           itinerary.push({ day: currentDay++, title: text, desc: '' });
         } else if (itinerary.length > 0 && text) {
           if (!itinerary[itinerary.length - 1].desc) {
@@ -72,51 +80,63 @@ function extractWixItineraryFromField(raw, location) {
   return [];
 }
 
-// Robust CSV Line Parser
-function parseCsvLine(line) {
-  const result = [];
-  let current = '';
+// State Machine CSV Parser (Supports Multi-line Quoted Fields)
+function parseFullCsv(csvText) {
+  const rows = [];
+  let currentRow = [];
+  let currentVal = '';
   let inQuotes = false;
 
-  for (let i = 0; i < line.length; i++) {
-    const char = line[i];
+  for (let i = 0; i < csvText.length; i++) {
+    const char = csvText[i];
+    const nextChar = csvText[i + 1];
+
     if (char === '"') {
-      if (inQuotes && line[i + 1] === '"') {
-        current += '"';
-        i++;
+      if (inQuotes && nextChar === '"') {
+        currentVal += '"';
+        i++; // skip escaped quote
       } else {
         inQuotes = !inQuotes;
       }
     } else if (char === ',' && !inQuotes) {
-      result.push(current);
-      current = '';
+      currentRow.push(currentVal);
+      currentVal = '';
+    } else if ((char === '\r' || char === '\n') && !inQuotes) {
+      if (char === '\r' && nextChar === '\n') {
+        i++; // skip \n in CRLF
+      }
+      currentRow.push(currentVal);
+      currentVal = '';
+      if (currentRow.some(c => c.trim().length > 0)) {
+        rows.push(currentRow);
+      }
+      currentRow = [];
     } else {
-      current += char;
+      currentVal += char;
     }
   }
-  result.push(current);
-  return result;
-}
 
-// Robust CSV Document Parser
-function parseCsv(csvText) {
-  const lines = csvText.trim().split('\n');
-  if (lines.length < 2) return [];
-
-  const headers = parseCsvLine(lines[0]);
-  const rows = [];
-
-  for (let i = 1; i < lines.length; i++) {
-    const line = lines[i].trim();
-    if (!line) continue;
-    const values = parseCsvLine(line);
-    const row = {};
-    headers.forEach((h, idx) => {
-      row[h.trim()] = values[idx] ? values[idx].trim() : '';
-    });
-    rows.push(row);
+  if (currentVal.length > 0 || currentRow.length > 0) {
+    currentRow.push(currentVal);
+    if (currentRow.some(c => c.trim().length > 0)) {
+      rows.push(currentRow);
+    }
   }
-  return rows;
+
+  if (rows.length < 2) return [];
+  const headers = rows[0].map(h => h.trim());
+  const parsedObjects = [];
+
+  for (let r = 1; r < rows.length; r++) {
+    const row = rows[r];
+    const obj = {};
+    headers.forEach((h, idx) => {
+      obj[h] = row[idx] !== undefined ? row[idx] : '';
+    });
+    parsedObjects.push(obj);
+  }
+
+  return parsedObjects;
 }
 
 function slugify(text) {
@@ -128,9 +148,7 @@ function slugify(text) {
     .replace(/^-+|-+$/g, '');
 }
 
-// ─────────────────────────────────────────────────────────────────
-// SMART MULTI-CATEGORY ASSIGNMENT ENGINE
-// ─────────────────────────────────────────────────────────────────
+// Multi-category tag generator
 function generateMultiCategories(location, title, description, isInternational = false) {
   const combined = `${location} ${title} ${description}`.toLowerCase();
   const categories = new Set();
@@ -150,7 +168,8 @@ function generateMultiCategories(location, title, description, isInternational =
       combined.includes('dharamshala') || combined.includes('dalhousie') || combined.includes('spiti') ||
       combined.includes('ladakh') || combined.includes('leh') || combined.includes('uttarakhand') ||
       combined.includes('mussoorie') || combined.includes('nainital') || combined.includes('swiss') ||
-      combined.includes('alps') || combined.includes('snow') || combined.includes('mountain')) {
+      combined.includes('alps') || combined.includes('snow') || combined.includes('mountain') ||
+      combined.includes('pines') || combined.includes('hills')) {
     categories.add('Mountain & Snow');
     categories.add('Hills & Mountains');
     categories.add('Winter Wonderland');
@@ -173,7 +192,7 @@ function generateMultiCategories(location, title, description, isInternational =
   if (combined.includes('honeymoon') || combined.includes('couple') || combined.includes('romantic') ||
       combined.includes('kashmir') || combined.includes('bali') || combined.includes('maldives') ||
       combined.includes('swiss') || combined.includes('paris') || combined.includes('udaipur') ||
-      combined.includes('villa') || combined.includes('candlelight')) {
+      combined.includes('villa') || combined.includes('escape') || combined.includes('affair')) {
     categories.add('Honeymoon & Romantic');
     categories.add('Couple Trips');
   }
@@ -186,7 +205,8 @@ function generateMultiCategories(location, title, description, isInternational =
   if (combined.includes('goa') || combined.includes('ladakh') || combined.includes('spiti') ||
       combined.includes('manali') || combined.includes('kasol') || combined.includes('thailand') ||
       combined.includes('phuket') || combined.includes('vietnam') || combined.includes('dubai') ||
-      combined.includes('adventure') || combined.includes('trekking') || combined.includes('safari')) {
+      combined.includes('adventure') || combined.includes('trekking') || combined.includes('safari') ||
+      combined.includes('vibe') || combined.includes('explorer')) {
     categories.add('Friends Travel');
     categories.add('Solo Trips');
     categories.add('Adventure & Trekking');
@@ -196,7 +216,8 @@ function generateMultiCategories(location, title, description, isInternational =
   if (combined.includes('rajasthan') || combined.includes('jaipur') || combined.includes('udaipur') ||
       combined.includes('jodhpur') || combined.includes('jaisalmer') || combined.includes('mysore') ||
       combined.includes('hampi') || combined.includes('fort') || combined.includes('palace') ||
-      combined.includes('heritage') || combined.includes('culture') || combined.includes('vietnam')) {
+      combined.includes('heritage') || combined.includes('culture') || combined.includes('vietnam') ||
+      combined.includes('ganga') || combined.includes('haridwar') || combined.includes('kashi')) {
     categories.add('Heritage & Palaces');
     categories.add('Culture & Heritage');
   }
@@ -204,7 +225,8 @@ function generateMultiCategories(location, title, description, isInternational =
   // Wildlife, Backwaters & Nature
   if (combined.includes('kerala') || combined.includes('munnar') || combined.includes('alleppey') ||
       combined.includes('thekkady') || combined.includes('coorg') || combined.includes('bandipur') ||
-      combined.includes('safari') || combined.includes('national park') || combined.includes('corbett')) {
+      combined.includes('pachmarhi') || combined.includes('madhai') || combined.includes('safari') ||
+      combined.includes('national park') || combined.includes('corbett')) {
     categories.add('Wildlife & Nature');
     categories.add('Backwaters & Nature');
     categories.add('Monsoon');
@@ -219,20 +241,20 @@ function generateMultiCategories(location, title, description, isInternational =
 
   // Destination Specific Tags
   if (combined.includes('kashmir') || combined.includes('srinagar')) categories.add('Kashmir');
-  if (combined.includes('himachal') || combined.includes('manali')) categories.add('Himachal');
+  if (combined.includes('himachal') || combined.includes('manali') || combined.includes('dharamshala') || combined.includes('dalhousie')) categories.add('Himachal');
   if (combined.includes('goa')) categories.add('Goa');
-  if (combined.includes('kerala') || combined.includes('alleppey')) categories.add('Kerala');
-  if (combined.includes('rajasthan') || combined.includes('jaipur')) categories.add('Rajasthan');
+  if (combined.includes('kerala') || combined.includes('alleppey') || combined.includes('munnar')) categories.add('Kerala');
+  if (combined.includes('rajasthan') || combined.includes('jaipur') || combined.includes('udaipur')) categories.add('Rajasthan');
   if (combined.includes('andaman')) categories.add('Andaman');
-  if (combined.includes('karnataka') || combined.includes('coorg')) categories.add('Karnataka');
+  if (combined.includes('karnataka') || combined.includes('coorg') || combined.includes('mysore') || combined.includes('bangalore')) categories.add('Karnataka');
+  if (combined.includes('uttarakhand') || combined.includes('rishikesh') || combined.includes('haridwar') || combined.includes('mussoorie')) categories.add('Uttarakhand');
   if (combined.includes('thailand') || combined.includes('phuket') || combined.includes('krabi') || combined.includes('bangkok')) categories.add('Thailand');
   if (combined.includes('bali') || combined.includes('indonesia')) categories.add('Bali');
   if (combined.includes('dubai') || combined.includes('uae')) categories.add('Dubai');
-  if (combined.includes('maldives')) categories.add('Maldives');
   if (combined.includes('singapore')) categories.add('Singapore');
-  if (combined.includes('malaysia')) categories.add('Malaysia');
   if (combined.includes('vietnam')) categories.add('Vietnam');
-  if (combined.includes('swiss') || combined.includes('switzerland') || combined.includes('europe')) categories.add('Switzerland');
+  if (combined.includes('japan') || combined.includes('tokyo') || combined.includes('kyoto')) categories.add('Japan');
+  if (combined.includes('europe') || combined.includes('rome') || combined.includes('zurich') || combined.includes('swiss')) categories.add('Europe');
 
   // Always add luxury signature tag
   categories.add('Luxury Signature');
@@ -243,12 +265,11 @@ function generateMultiCategories(location, title, description, isInternational =
 // Convert single row into tour package
 function transformWixTourRow(wixRow, isInternational = false) {
   const rawTitle = wixRow.Title || wixRow.Name || wixRow.PackageTitle || '';
-  // Skip invalid/disclaimer rows
   if (!rawTitle || rawTitle.includes('font_8') || rawTitle.includes('disposal') || rawTitle.startsWith('<') || rawTitle.startsWith('{')) {
     return null;
   }
 
-  const cleanName = cleanWixField(rawTitle).replace(/<[^>]*>?/gm, '').trim();
+  const cleanName = cleanWixField(rawTitle);
   if (!cleanName || cleanName.length < 3) return null;
 
   const rawSlug = slugify(cleanName);
@@ -256,17 +277,17 @@ function transformWixTourRow(wixRow, isInternational = false) {
   const name = cleanName;
   
   const rawLocation = wixRow.Destination || wixRow.City || wixRow.Location || wixRow.State || (isInternational ? 'International' : 'India');
-  const location = cleanWixField(rawLocation, isInternational ? 'International' : 'India').replace(/<[^>]*>?/gm, '').trim();
+  const location = cleanWixField(rawLocation, isInternational ? 'International' : 'India');
 
   const rawDuration = wixRow.Days || wixRow.Duration || '5 Nights & 6 Days';
   const duration = cleanWixField(rawDuration, '5 Nights & 6 Days');
 
-  // Price calculation
-  const rawDiscountedPrice = wixRow['Discounted Total Price'] || wixRow['Offer Price'] || wixRow.Price || wixRow.SalePrice || wixRow['Pricing Per Person'] || '24999';
-  const price = parseInt(rawDiscountedPrice.toString().replace(/[^0-9]/g, ''), 10) || (isInternational ? 49999 : 24999);
+  // Parse clean numerical price
+  const rawDiscountedPrice = wixRow['Discounted Total Price'] || wixRow['Offer Price'] || wixRow.Price || wixRow.SalePrice || wixRow['Pricing Per Person'] || '';
+  const price = parseCleanPrice(rawDiscountedPrice, isInternational ? 49999 : 24999);
   
   const rawTotalPrice = wixRow['Total Price'] || wixRow.ComparePrice || wixRow.OriginalPrice || '';
-  const origPrice = rawTotalPrice ? parseInt(rawTotalPrice.toString().replace(/[^0-9]/g, ''), 10) : Math.round(price * 1.25);
+  const origPrice = rawTotalPrice ? parseCleanPrice(rawTotalPrice, Math.round(price * 1.25)) : Math.round(price * 1.25);
 
   const rawDescription = wixRow.Description || wixRow.Overview || `Handcrafted ${duration} tour to ${location} curated by Comfort Journey since 1992.`;
   const tagline = cleanWixField(rawDescription);
@@ -311,8 +332,8 @@ function transformWixTourRow(wixRow, isInternational = false) {
       if (dayTitle || dayDesc) {
         itinerary.push({
           day: d,
-          title: dayTitle || `Day ${d} - Highlights & Exploration`,
-          desc: dayDesc || `Explore the scenic beauty and historical heritage of ${location} with private chauffeur assistance.`
+          title: cleanWixField(dayTitle, `Day ${d} - Highlights & Exploration`),
+          desc: cleanWixField(dayDesc, `Explore the scenic beauty and historical heritage of ${location} with private chauffeur assistance.`)
         });
       }
     }
@@ -327,26 +348,31 @@ function transformWixTourRow(wixRow, isInternational = false) {
     );
   }
 
+  const durationDays = parseInt(duration.replace(/[^0-9]/g, '').slice(0, 2), 10) || itinerary.length || 5;
+
   return {
     id: `tour-wix-${slug}`,
     wixId: wixRow.ID || wixRow.HandleId || `wix-${Date.now()}`,
     name,
     slug,
     location,
-    continent: isInternational ? (location.toLowerCase().includes('switz') || location.toLowerCase().includes('europe') || location.toLowerCase().includes('paris') ? 'Europe' : 'Asia') : 'Asia',
-    country: location.includes(',') ? location.split(',')[1].trim() : (isInternational ? (location.toLowerCase().includes('bali') ? 'Indonesia' : (location.toLowerCase().includes('phuket') || location.toLowerCase().includes('thailand') ? 'Thailand' : (location.toLowerCase().includes('dubai') ? 'UAE' : 'International'))) : 'India'),
+    continent: isInternational ? (location.toLowerCase().includes('switz') || location.toLowerCase().includes('europe') || location.toLowerCase().includes('rome') ? 'Europe' : 'Asia') : 'Asia',
+    country: location.includes(',') ? location.split(',')[1].trim() : (isInternational ? (location.toLowerCase().includes('bali') ? 'Indonesia' : (location.toLowerCase().includes('phuket') || location.toLowerCase().includes('thailand') ? 'Thailand' : (location.toLowerCase().includes('dubai') ? 'UAE' : (location.toLowerCase().includes('japan') || location.toLowerCase().includes('tokyo') ? 'Japan' : 'International')))) : 'India'),
     category: isInternational ? 'International Tours' : 'National Tours',
     categories,
     tags: categories,
     duration,
+    durationDays,
     price,
     origPrice,
+    originalPrice: origPrice,
     tagline,
     image: cleanImage,
     legacyWixUrl: isWixOrLegacyUrl(legacyWixUrl) ? '[REPLACED WIX CDN ASSET]' : legacyWixUrl,
     badge: isInternational ? 'International Signature' : 'National Signature',
     rating: 4.95,
-    reviewsCount: 94,
+    reviews: 96,
+    reviewsCount: 96,
     inclusions,
     itinerary
   };
@@ -365,14 +391,22 @@ async function runFullMigration() {
   if (fs.existsSync(nationalCsvPath)) {
     console.log(`📂 [National] Reading: ${nationalCsvPath}`);
     const natCsv = fs.readFileSync(nationalCsvPath, 'utf8');
-    const natRows = parseCsv(natCsv);
-    console.log(`🔍 [National] Detected ${natRows.length} rows.`);
+    const natRows = parseFullCsv(natCsv);
+    console.log(`🔍 [National] Detected ${natRows.length} real rows.`);
 
     for (const row of natRows) {
       if (!row.Title && !row.Name) continue;
       const pkg = transformWixTourRow(row, false);
-      if (pkg && pkg.slug && !seenSlugs.has(pkg.slug)) {
-        seenSlugs.add(pkg.slug);
+      if (pkg && pkg.slug) {
+        let finalSlug = pkg.slug;
+        let counter = 2;
+        while (seenSlugs.has(finalSlug)) {
+          finalSlug = `${pkg.slug}-${counter}`;
+          counter++;
+        }
+        seenSlugs.add(finalSlug);
+        pkg.slug = finalSlug;
+        pkg.id = `tour-wix-${finalSlug}`;
         allPackages.push(pkg);
       }
     }
@@ -382,14 +416,22 @@ async function runFullMigration() {
   if (fs.existsSync(internationalCsvPath)) {
     console.log(`📂 [International] Reading: ${internationalCsvPath}`);
     const intCsv = fs.readFileSync(internationalCsvPath, 'utf8');
-    const intRows = parseCsv(intCsv);
-    console.log(`🔍 [International] Detected ${intRows.length} rows.`);
+    const intRows = parseFullCsv(intCsv);
+    console.log(`🔍 [International] Detected ${intRows.length} real rows.`);
 
     for (const row of intRows) {
       if (!row.Title && !row.Name) continue;
       const pkg = transformWixTourRow(row, true);
-      if (pkg && pkg.slug && !seenSlugs.has(pkg.slug)) {
-        seenSlugs.add(pkg.slug);
+      if (pkg && pkg.slug) {
+        let finalSlug = pkg.slug;
+        let counter = 2;
+        while (seenSlugs.has(finalSlug)) {
+          finalSlug = `${pkg.slug}-${counter}`;
+          counter++;
+        }
+        seenSlugs.add(finalSlug);
+        pkg.slug = finalSlug;
+        pkg.id = `tour-wix-${finalSlug}`;
         allPackages.push(pkg);
       }
     }
@@ -397,13 +439,75 @@ async function runFullMigration() {
 
   console.log(`✨ [Total Migrated] Successfully processed ${allPackages.length} distinct Real Tour Packages!`);
 
-  // Write to src/data/toursData.js replacing all dummy data
-  const toursDataFilePath = path.resolve(__dirname, '../src/data/toursData.js');
+  // Extract static constants from git history
+  const { execSync } = await import('child_process');
+  const oldContent = execSync('git show 7367223:src/data/toursData.js', { maxBuffer: 10 * 1024 * 1024 }).toString();
   
-  const beforeTours = fs.readFileSync(path.resolve(__dirname, 'extracted_before_tours.js'), 'utf8');
-  const afterTours = fs.readFileSync(path.resolve(__dirname, 'extracted_after_tours.js'), 'utf8');
+  const weatherPart = oldContent.slice(0, oldContent.indexOf('export const HERO_SLIDES = ['));
+  const afterTours = oldContent.slice(oldContent.indexOf('export const REELS_DATA = ['));
 
-  const fileContent = `${beforeTours}
+  const realHeroSlides = `export const HERO_SLIDES = [
+  {
+    id: "peace-in-the-pines",
+    tag: "Himachal Mountain Royalty",
+    title: "Peace In The Pines: Dharamshala & Dalhousie",
+    subtitle: "Tibetan monasteries, Khajjiar alpine meadows & pine forest retreats with private chauffeur.",
+    image: "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1920&q=85",
+    location: "Dharamshala & Dalhousie, India",
+    startingPrice: 94012
+  },
+  {
+    id: "essence-of-europe",
+    tag: "European Signature",
+    title: "Essence of Europe: Rome, Milan & Zurich",
+    subtitle: "Swiss alpine lakes, Italian renaissance architecture & high-speed rail luxury.",
+    image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=1920&q=85",
+    location: "Rome, Milan, Ferrara & Zurich",
+    startingPrice: 387104
+  },
+  {
+    id: "bali-tropical-escape",
+    tag: "Tropical Paradise",
+    title: "Bali Tropical Escape: Ubud & Seminyak",
+    subtitle: "Private jungle pool villas, sacred temples & clifftop ocean sunset dinners.",
+    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1920&q=85",
+    location: "Ubud & Seminyak, Indonesia",
+    startingPrice: 62710
+  },
+  {
+    id: "dubai-city-sands",
+    tag: "Futuristic Luxury",
+    title: "Dubai City & Sands: Skyline & Red Dunes",
+    subtitle: "Burj Khalifa VIP decks, red dune safari & private yacht dinner cruise.",
+    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1920&q=85",
+    location: "Dubai & Abu Dhabi, UAE",
+    startingPrice: 113503
+  },
+  {
+    id: "phuket-paradise-getaway",
+    tag: "Island Odyssey",
+    title: "Phuket Paradise Getaway & Phi Phi",
+    subtitle: "Speedboat island hopping, Maya Bay snorkeling & luxury beachfront stays.",
+    image: "https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?auto=format&fit=crop&w=1920&q=85",
+    location: "Phuket & Krabi, Thailand",
+    startingPrice: 71047
+  },
+  {
+    id: "karnataka-heritage-hills",
+    tag: "South India Heritage",
+    title: "Karnataka Heritage & Hills: Coorg & Mysore",
+    subtitle: "Mysore Royal Palace, lush Coorg coffee plantations & Western Ghats retreats.",
+    image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1920&q=85",
+    location: "Coorg, Mysore & Bangalore",
+    startingPrice: 141360
+  }
+];
+
+`;
+
+  const toursDataFilePath = path.resolve(__dirname, '../src/data/toursData.js');
+
+  const fileContent = `${weatherPart}${realHeroSlides}
 export const TOURS_DATA = ${JSON.stringify(allPackages, null, 2)};
 
 export default TOURS_DATA;
