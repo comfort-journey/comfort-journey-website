@@ -262,6 +262,81 @@ function generateMultiCategories(location, title, description, isInternational =
   return Array.from(categories);
 }
 
+
+function extractTextListFromWixJson(rawStr) {
+  if (!rawStr) return [];
+  if (typeof rawStr !== 'string') return [];
+  const trimmed = rawStr.trim();
+  if (!trimmed.startsWith('{') && !trimmed.startsWith('[')) {
+    return trimmed.split(/\r?\n|;/).map(s => s.replace(/^[•\-\*\s]+/, '').trim()).filter(Boolean);
+  }
+  try {
+    const json = JSON.parse(trimmed);
+    const items = [];
+    function walk(node) {
+      if (!node) return;
+      if (node.textData && node.textData.text) {
+        const t = node.textData.text.replace(/^[•\-\*\s]+/, '').trim();
+        if (t && t.length > 1 && !t.includes('font_8') && !t.startsWith('<') && !t.startsWith('{')) {
+          items.push(t);
+        }
+      }
+      if (Array.isArray(node.nodes)) {
+        node.nodes.forEach(walk);
+      }
+    }
+    walk(json);
+    return items;
+  } catch {
+    return [trimmed.replace(/^[•\-\*\s]+/, '').trim()];
+  }
+}
+
+function extractRichItineraryFromWixJson(rawStr, defaultLocation) {
+  if (!rawStr) return [];
+  const list = extractTextListFromWixJson(rawStr);
+  if (list.length === 0) return [];
+
+  const days = [];
+  let currentDay = null;
+
+  for (const text of list) {
+    const dayMatch = text.match(/^(?:Day\s*(\d+)[:\s\-–—]*|(\d+)(?:st|nd|rd|th)\s*Day[:\s\-–—]*)(.*)/i);
+    if (dayMatch) {
+      const dayNum = parseInt(dayMatch[1] || dayMatch[2], 10);
+      const dayTitle = (dayMatch[3] || '').trim();
+      currentDay = {
+        day: dayNum || (days.length + 1),
+        title: dayTitle ? `Day ${dayNum || (days.length + 1)}: ${dayTitle}` : `Day ${dayNum || (days.length + 1)}: Exploration & Sightseeing`,
+        desc: ''
+      };
+      days.push(currentDay);
+    } else if (currentDay) {
+      if (currentDay.desc) {
+        currentDay.desc += ' ' + text;
+      } else {
+        currentDay.desc = text;
+      }
+    } else {
+      currentDay = {
+        day: 1,
+        title: `Day 1: ${text}`,
+        desc: text
+      };
+      days.push(currentDay);
+    }
+  }
+
+  return days.map(d => ({
+    day: d.day,
+    title: d.title,
+    desc: d.desc || `Scenic exploration and guided sightseeing in ${defaultLocation}.`,
+    stayTier: '4-Star / 5-Star Luxury Stay',
+    transport: 'Dedicated Private AC Cab & Chauffeur',
+    meals: 'Daily Breakfast & Dinner'
+  }));
+}
+
 // Convert single row into tour package
 function transformWixTourRow(wixRow, isInternational = false) {
   const rawTitle = wixRow.Title || wixRow.Name || wixRow.PackageTitle || '';
@@ -299,31 +374,20 @@ function transformWixTourRow(wixRow, isInternational = false) {
   const legacyWixUrl = wixRow.Image || wixRow.WixImageUrl || wixRow.CoverImage || '';
   const cleanImage = resolveDestinationImage(location, name, categories[0] || 'Luxury Signature', legacyWixUrl);
 
-  // Inclusions parsing
-  let inclusions = ['Verified 5-Star Stay', 'Private AC Transfers', 'Daily Breakfast & Dinner', '24/7 VIP Concierge'];
-  if (wixRow.Inclusions) {
-    if (typeof wixRow.Inclusions === 'string' && wixRow.Inclusions.startsWith('{')) {
-      try {
-        const parsed = JSON.parse(wixRow.Inclusions);
-        const listItems = [];
-        const extractList = (nodes) => {
-          for (const n of (nodes || [])) {
-            if (n.textData?.text) listItems.push(n.textData.text);
-            if (n.nodes) extractList(n.nodes);
-          }
-        };
-        extractList(parsed.nodes);
-        if (listItems.length > 0) inclusions = listItems.slice(0, 6);
-      } catch {
-        // Keep default
-      }
-    } else {
-      inclusions = wixRow.Inclusions.split(/[;,|]/).map(s => s.trim()).filter(Boolean);
-    }
+  // Exact Inclusions parsing from Wix Rich Text / JSON
+  let inclusions = extractTextListFromWixJson(wixRow.Inclusions);
+  if (!inclusions || inclusions.length === 0) {
+    inclusions = ['Hotel Accommodation', 'Daily Breakfast', 'Sightseeing & Transfers', 'Driver Allowance & Tolls', '24/7 VIP Concierge'];
   }
 
-  // Itinerary parsing
-  let itinerary = extractWixItineraryFromField(wixRow.Itinerary, location);
+  // Exact Exclusions parsing from Wix Rich Text / JSON
+  let exclusions = extractTextListFromWixJson(wixRow.Exclusions);
+  if (!exclusions || exclusions.length === 0) {
+    exclusions = ['Personal Expenses & Laundry', 'Monument Entry Tickets', 'Flight / Train Tickets (unless booked)', 'Anything not mentioned in Inclusions'];
+  }
+
+  // Exact Itinerary parsing
+  let itinerary = extractRichItineraryFromWixJson(wixRow.Itinerary, location);
 
   if (itinerary.length === 0) {
     for (let d = 1; d <= 10; d++) {
@@ -333,7 +397,10 @@ function transformWixTourRow(wixRow, isInternational = false) {
         itinerary.push({
           day: d,
           title: cleanWixField(dayTitle, `Day ${d} - Highlights & Exploration`),
-          desc: cleanWixField(dayDesc, `Explore the scenic beauty and historical heritage of ${location} with private chauffeur assistance.`)
+          desc: cleanWixField(dayDesc, `Explore the scenic beauty and historical heritage of ${location} with private chauffeur assistance.`),
+          stayTier: '4-Star / 5-Star Luxury Stay',
+          transport: 'Dedicated Private AC Cab & Chauffeur',
+          meals: 'Daily Breakfast & Dinner'
         });
       }
     }
@@ -342,9 +409,9 @@ function transformWixTourRow(wixRow, isInternational = false) {
   // Fallback itinerary if none provided in CSV
   if (itinerary.length === 0) {
     itinerary.push(
-      { day: 1, title: 'Arrival & VIP Check-In', desc: `VIP airport greeting and transfer to 5-star hotel in ${location}.` },
-      { day: 2, title: 'Signature Sightseeing & Excursions', desc: `Guided full-day tour covering major attractions and viewpoints.` },
-      { day: 3, title: 'Leisure, Cultural Highlights & Departure', desc: `Morning breakfast, souvenir shopping, and chauffeur airport transfer.` }
+      { day: 1, title: 'Day 1: Arrival & VIP Check-In', desc: `VIP airport greeting and transfer to verified hotel in ${location}.`, stayTier: 'Luxury Property', transport: 'Private AC Cab', meals: 'Dinner' },
+      { day: 2, title: 'Day 2: Signature Sightseeing & Excursions', desc: `Guided full-day tour covering major attractions and viewpoints.`, stayTier: 'Luxury Property', transport: 'Private AC Cab', meals: 'Breakfast & Dinner' },
+      { day: 3, title: 'Day 3: Leisure, Cultural Highlights & Departure', desc: `Morning breakfast, souvenir shopping, and chauffeur airport transfer.`, stayTier: 'Check-out', transport: 'Private AC Cab', meals: 'Breakfast' }
     );
   }
 
@@ -356,6 +423,8 @@ function transformWixTourRow(wixRow, isInternational = false) {
     name,
     slug,
     location,
+    city: cleanWixField(wixRow.City || location),
+    state: cleanWixField(wixRow.State || (isInternational ? 'International' : 'India')),
     continent: isInternational ? (location.toLowerCase().includes('switz') || location.toLowerCase().includes('europe') || location.toLowerCase().includes('rome') ? 'Europe' : 'Asia') : 'Asia',
     country: location.includes(',') ? location.split(',')[1].trim() : (isInternational ? (location.toLowerCase().includes('bali') ? 'Indonesia' : (location.toLowerCase().includes('phuket') || location.toLowerCase().includes('thailand') ? 'Thailand' : (location.toLowerCase().includes('dubai') ? 'UAE' : (location.toLowerCase().includes('japan') || location.toLowerCase().includes('tokyo') ? 'Japan' : 'International')))) : 'India'),
     category: isInternational ? 'International Tours' : 'National Tours',
@@ -367,6 +436,7 @@ function transformWixTourRow(wixRow, isInternational = false) {
     origPrice,
     originalPrice: origPrice,
     tagline,
+    description: tagline,
     image: cleanImage,
     legacyWixUrl: isWixOrLegacyUrl(legacyWixUrl) ? '[REPLACED WIX CDN ASSET]' : legacyWixUrl,
     badge: isInternational ? 'International Signature' : 'National Signature',
@@ -374,7 +444,10 @@ function transformWixTourRow(wixRow, isInternational = false) {
     reviews: 96,
     reviewsCount: 96,
     inclusions,
-    itinerary
+    exclusions,
+    itinerary,
+    status: 'published',
+    isVisible: true
   };
 }
 

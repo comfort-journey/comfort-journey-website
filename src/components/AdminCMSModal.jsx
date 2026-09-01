@@ -1,5 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { X, Sparkles, CheckCircle, AlertCircle, FileText, Globe, Search, Share2, Plus, Trash2, Eye, Lock, Unlock, RefreshCw, LayoutDashboard, Server, Database, ExternalLink, Link2, UploadCloud, FileSpreadsheet, ArrowRight, CheckCheck, Image as ImageIcon } from 'lucide-react';
+import { 
+  X, Sparkles, CheckCircle, AlertCircle, FileText, Globe, Search, 
+  Share2, Plus, Trash2, Eye, EyeOff, Edit3, Save, Download, Lock, Unlock, 
+  RefreshCw, LayoutDashboard, Server, Database, ExternalLink, Link2, 
+  UploadCloud, FileSpreadsheet, ArrowRight, CheckCheck, Image as ImageIcon,
+  MapPin, Clock, Tag, ChevronDown, Check, Sliders
+} from 'lucide-react';
 import { directusService, slugify, parseWixCsv, transformWixTourRow } from '../services/directusClient';
 import { TOURS_DATA } from '../data/toursData';
 
@@ -7,7 +13,120 @@ export default function AdminCMSModal({ isOpen, onClose }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passwordInput, setPasswordInput] = useState('');
   const [authError, setAuthError] = useState('');
-  const [activeTab, setActiveTab] = useState('blog'); // 'blog', 'tour', 'seo-preview', 'directus-config', 'wix-migration'
+  const [activeTab, setActiveTab] = useState('manage-tours'); // 'manage-tours', 'blog', 'tour', 'seo-preview', 'directus-config', 'wix-migration'
+
+  // Master Tour Packages State
+  const [toursList, setToursList] = useState(() => {
+    try {
+      const saved = localStorage.getItem('cj_custom_tours_dataset');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch {}
+    return TOURS_DATA;
+  });
+
+  const [tourSearchQuery, setTourSearchQuery] = useState('');
+  const [tourCategoryFilter, setTourCategoryFilter] = useState('All');
+  const [editingTour, setEditingTour] = useState(null);
+  const [isAddingNewTour, setIsAddingNewTour] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [newInclusionTag, setNewInclusionTag] = useState('');
+  const [newExclusionTag, setNewExclusionTag] = useState('');
+
+  // Toast notification helper
+  const showToast = (msg) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(''), 3500);
+  };
+
+  // Sync state to localStorage & in-memory TOURS_DATA
+  const persistTours = (updatedList) => {
+    setToursList(updatedList);
+    try {
+      localStorage.setItem('cj_custom_tours_dataset', JSON.stringify(updatedList));
+    } catch {}
+    TOURS_DATA.length = 0;
+    TOURS_DATA.push(...updatedList);
+  };
+
+  const handleSaveEditingTour = (e) => {
+    if (e) e.preventDefault();
+    if (!editingTour || !editingTour.name) {
+      alert('Package title / name is required');
+      return;
+    }
+
+    const updated = toursList.map(t => t.id === editingTour.id ? editingTour : t);
+    persistTours(updated);
+    showToast(`✅ Package "${editingTour.name}" updated successfully!`);
+    setEditingTour(null);
+  };
+
+  const handleCreateNewTour = (e) => {
+    if (e) e.preventDefault();
+    if (!editingTour || !editingTour.name) {
+      alert('Package title / name is required');
+      return;
+    }
+
+    const slug = slugify(editingTour.name);
+    const newPkg = {
+      ...editingTour,
+      id: `tour-wix-${slug}`,
+      slug,
+      rating: 4.95,
+      reviews: 96,
+      isVisible: true,
+      status: 'published'
+    };
+
+    const updated = [newPkg, ...toursList];
+    persistTours(updated);
+    showToast(`🎉 New package "${newPkg.name}" added to live catalog!`);
+    setEditingTour(null);
+    setIsAddingNewTour(false);
+  };
+
+  const handleToggleTourVisibility = (tourId) => {
+    const updated = toursList.map(t => {
+      if (t.id === tourId) {
+        const nextVis = t.isVisible === false ? true : false;
+        return { ...t, isVisible: nextVis, status: nextVis ? 'published' : 'hidden' };
+      }
+      return t;
+    });
+    persistTours(updated);
+    showToast(`Package visibility updated.`);
+  };
+
+  const handleDeleteTour = (tourId, tourName) => {
+    if (window.confirm(`Are you sure you want to delete "${tourName}" from the live website?`)) {
+      const updated = toursList.filter(t => t.id !== tourId);
+      persistTours(updated);
+      showToast(`🗑️ Package "${tourName}" deleted.`);
+    }
+  };
+
+  const handleResetToWixSeed = () => {
+    if (window.confirm('Reset all packages to the original Wix CSV dataset (89 packages)? Any custom changes in browser cache will be refreshed.')) {
+      try {
+        localStorage.removeItem('cj_custom_tours_dataset');
+      } catch {}
+      window.location.reload();
+    }
+  };
+
+  const handleExportJson = () => {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(toursList, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", "comfort_journey_all_tour_packages.json");
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  };
 
   // Directus Connection State
   const [directusUrl, setDirectusUrl] = useState(directusService.getBaseUrl());
@@ -252,6 +371,13 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
             {/* Tabs */}
             <div className="cms-nav-tabs">
               <button
+                className={`cms-tab-btn ${activeTab === 'manage-tours' ? 'active' : ''}`}
+                onClick={() => setActiveTab('manage-tours')}
+              >
+                <LayoutDashboard size={16} />
+                <span>Manage Tour Packages ({toursList.length})</span>
+              </button>
+              <button
                 className={`cms-tab-btn ${activeTab === 'blog' ? 'active' : ''}`}
                 onClick={() => setActiveTab('blog')}
               >
@@ -287,6 +413,584 @@ In this guide, Comfort Journey's senior trip curators review the top luxury stay
                 <span>Wix Data Migration</span>
               </button>
             </div>
+
+            {/* TAB 0: Master Tour Packages Catalog Manager */}
+            {activeTab === 'manage-tours' && (() => {
+              const filteredTours = toursList.filter(tour => {
+                if (tourSearchQuery) {
+                  const q = tourSearchQuery.toLowerCase();
+                  const matchName = tour.name?.toLowerCase().includes(q);
+                  const matchLoc = tour.location?.toLowerCase().includes(q);
+                  const matchCity = tour.city?.toLowerCase().includes(q);
+                  const matchState = tour.state?.toLowerCase().includes(q);
+                  const matchCat = tour.category?.toLowerCase().includes(q);
+                  if (!matchName && !matchLoc && !matchCity && !matchState && !matchCat) return false;
+                }
+                if (tourCategoryFilter === 'National') {
+                  return tour.category === 'National Tours' || tour.country === 'India';
+                }
+                if (tourCategoryFilter === 'International') {
+                  return tour.category === 'International Tours' || (tour.country && tour.country !== 'India');
+                }
+                if (tourCategoryFilter === 'Hidden') {
+                  return tour.isVisible === false || tour.status === 'hidden';
+                }
+                return true;
+              });
+
+              return (
+                <div className="manage-tours-pane">
+                  {/* Toast Notification */}
+                  {toastMessage && (
+                    <div className="admin-toast-banner animate-fade-in">
+                      <span>{toastMessage}</span>
+                    </div>
+                  )}
+
+                  {/* Summary Stats Strip */}
+                  <div className="admin-stats-strip">
+                    <div className="admin-stat-card">
+                      <span className="stat-label">Total Packages in CMS</span>
+                      <span className="stat-value">{toursList.length}</span>
+                    </div>
+                    <div className="admin-stat-card">
+                      <span className="stat-label">National (India Tours)</span>
+                      <span className="stat-value text-amber">{toursList.filter(t => t.category === 'National Tours' || t.country === 'India').length}</span>
+                    </div>
+                    <div className="admin-stat-card">
+                      <span className="stat-label">International Packages</span>
+                      <span className="stat-value text-emerald">{toursList.filter(t => t.category === 'International Tours').length}</span>
+                    </div>
+                    <div className="admin-stat-card">
+                      <span className="stat-label">Active / Live on Website</span>
+                      <span className="stat-value text-sky">{toursList.filter(t => t.isVisible !== false).length}</span>
+                    </div>
+                  </div>
+
+                  {/* Control Strip */}
+                  <div className="admin-toolbar-strip">
+                    <div className="admin-search-wrapper">
+                      <Search size={16} className="search-icon" />
+                      <input
+                        type="text"
+                        placeholder="Search packages by title, destination, city or duration..."
+                        value={tourSearchQuery}
+                        onChange={(e) => setTourSearchQuery(e.target.value)}
+                        className="admin-search-input"
+                      />
+                      {tourSearchQuery && (
+                        <button className="search-clear-btn" onClick={() => setTourSearchQuery('')}>
+                          <X size={14} />
+                        </button>
+                      )}
+                    </div>
+
+                    <div className="admin-filter-pills">
+                      <button 
+                        className={`admin-pill-btn ${tourCategoryFilter === 'All' ? 'active' : ''}`}
+                        onClick={() => setTourCategoryFilter('All')}
+                      >
+                        All ({toursList.length})
+                      </button>
+                      <button 
+                        className={`admin-pill-btn ${tourCategoryFilter === 'National' ? 'active' : ''}`}
+                        onClick={() => setTourCategoryFilter('National')}
+                      >
+                        National ({toursList.filter(t => t.category === 'National Tours' || t.country === 'India').length})
+                      </button>
+                      <button 
+                        className={`admin-pill-btn ${tourCategoryFilter === 'International' ? 'active' : ''}`}
+                        onClick={() => setTourCategoryFilter('International')}
+                      >
+                        International ({toursList.filter(t => t.category === 'International Tours').length})
+                      </button>
+                      <button 
+                        className={`admin-pill-btn ${tourCategoryFilter === 'Hidden' ? 'active' : ''}`}
+                        onClick={() => setTourCategoryFilter('Hidden')}
+                      >
+                        Hidden ({toursList.filter(t => t.isVisible === false).length})
+                      </button>
+                    </div>
+
+                    <div className="admin-actions-row">
+                      <button 
+                        type="button" 
+                        className="btn-admin-action btn-add-pkg"
+                        onClick={() => {
+                          setEditingTour({
+                            id: `tour-custom-${Date.now()}`,
+                            name: '',
+                            location: 'Goa, India',
+                            city: 'Goa',
+                            state: 'Goa',
+                            country: 'India',
+                            continent: 'Asia',
+                            duration: '3 Nights & 4 Days',
+                            price: 24999,
+                            originalPrice: 32999,
+                            category: 'National Tours',
+                            categories: ['National Tours', 'Beach & Coastal', 'Luxury Signature'],
+                            image: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=800&q=80',
+                            tagline: 'Handcrafted luxury tour package by Comfort Journey.',
+                            description: 'Experience authentic luxury hospitality and curated sightseeing.',
+                            inclusions: ['Hotel Accommodation', 'Daily Breakfast', 'Private AC Vehicle', 'Sightseeing & Transfers', 'Driver Allowance & Tolls'],
+                            exclusions: ['Personal Expenses', 'Monument Entry Tickets', 'Anything not mentioned in Inclusions'],
+                            itinerary: [
+                              { day: 1, title: 'Day 1: Arrival & Welcome', desc: 'VIP greeting at airport/station, transfer to hotel, check-in, and evening leisure.', stayTier: '4-Star / 5-Star Stay', transport: 'Private AC Cab', meals: 'Dinner' },
+                              { day: 2, title: 'Day 2: Full Day Guided Sightseeing', desc: 'Breakfast followed by full day local sightseeing covering prominent viewpoints and cultural spots.', stayTier: '4-Star / 5-Star Stay', transport: 'Private AC Cab', meals: 'Breakfast & Dinner' },
+                              { day: 3, title: 'Day 3: Scenic Excursion & Experiences', desc: 'Explore natural landscapes and vibrant markets with personal chauffeur.', stayTier: '4-Star / 5-Star Stay', transport: 'Private AC Cab', meals: 'Breakfast & Dinner' },
+                              { day: 4, title: 'Day 4: Leisure & Departure', desc: 'Breakfast, souvenir shopping, and timely transfer for return journey.', stayTier: 'Check-out', transport: 'Private AC Cab', meals: 'Breakfast' }
+                            ],
+                            isVisible: true,
+                            status: 'published'
+                          });
+                          setIsAddingNewTour(true);
+                        }}
+                      >
+                        <Plus size={15} />
+                        <span>Add Package</span>
+                      </button>
+
+                      <button type="button" className="btn-admin-action" onClick={handleExportJson} title="Export Clean JSON Seed">
+                        <Download size={14} />
+                        <span>Export JSON</span>
+                      </button>
+
+                      <button type="button" className="btn-admin-action text-muted" onClick={handleResetToWixSeed} title="Reset to Original Wix Export">
+                        <RefreshCw size={14} />
+                        <span>Reset Seed</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Catalog Table */}
+                  <div className="admin-table-container">
+                    <table className="admin-packages-table">
+                      <thead>
+                        <tr>
+                          <th>Preview</th>
+                          <th>Package Title & Destination</th>
+                          <th>Duration</th>
+                          <th>Price (Offer / Original)</th>
+                          <th>Inclusions / Exclusions</th>
+                          <th>Itinerary</th>
+                          <th>Visibility</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {filteredTours.map((tour) => {
+                          const isLive = tour.isVisible !== false && tour.status !== 'hidden';
+                          return (
+                            <tr key={tour.id} className={!isLive ? 'row-hidden' : ''}>
+                              <td className="cell-thumb">
+                                <div className="pkg-thumb-wrapper">
+                                  <img src={tour.image} alt={tour.name} />
+                                  <span className={`thumb-cat-badge ${tour.category === 'International Tours' ? 'cat-intl' : 'cat-nat'}`}>
+                                    {tour.category === 'International Tours' ? 'INTL' : 'NAT'}
+                                  </span>
+                                </div>
+                              </td>
+                              <td className="cell-info">
+                                <strong className="pkg-name-text">{tour.name}</strong>
+                                <div className="pkg-meta-sub">
+                                  <MapPin size={12} className="text-amber" />
+                                  <span>{tour.location || tour.city || tour.state}</span>
+                                  <span className="pkg-slug-tag">#{tour.slug}</span>
+                                </div>
+                              </td>
+                              <td className="cell-duration">
+                                <span className="duration-pill">
+                                  <Clock size={12} />
+                                  {tour.duration}
+                                </span>
+                              </td>
+                              <td className="cell-price">
+                                <div className="price-stack">
+                                  <strong className="current-price-val">₹{Number(tour.price).toLocaleString('en-IN')}</strong>
+                                  {tour.originalPrice > tour.price && (
+                                    <span className="strike-price-val">₹{Number(tour.originalPrice).toLocaleString('en-IN')}</span>
+                                  )}
+                                </div>
+                              </td>
+                              <td className="cell-inc-exc">
+                                <div className="inc-exc-pills">
+                                  <span className="badge-inc" title={tour.inclusions?.join('\n')}>
+                                    ✓ {tour.inclusions?.length || 0} Inclusions
+                                  </span>
+                                  <span className="badge-exc" title={tour.exclusions?.join('\n')}>
+                                    ✕ {tour.exclusions?.length || 0} Exclusions
+                                  </span>
+                                </div>
+                              </td>
+                              <td className="cell-itin">
+                                <span className="itin-days-badge">
+                                  📅 {tour.itinerary?.length || 0} Days
+                                </span>
+                              </td>
+                              <td className="cell-visibility">
+                                <button
+                                  type="button"
+                                  className={`visibility-toggle-btn ${isLive ? 'live' : 'hidden'}`}
+                                  onClick={() => handleToggleTourVisibility(tour.id)}
+                                  title={isLive ? 'Click to Hide on Website' : 'Click to Make Live on Website'}
+                                >
+                                  {isLive ? <Eye size={15} /> : <EyeOff size={15} />}
+                                  <span>{isLive ? 'Live' : 'Hidden'}</span>
+                                </button>
+                              </td>
+                              <td className="cell-actions">
+                                <div className="action-buttons-row">
+                                  <button
+                                    type="button"
+                                    className="btn-table-action edit"
+                                    onClick={() => {
+                                      setEditingTour(JSON.parse(JSON.stringify(tour)));
+                                      setIsAddingNewTour(false);
+                                    }}
+                                    title="Edit Title, Pricing, Itinerary, Inclusions"
+                                  >
+                                    <Edit3 size={15} />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="btn-table-action delete"
+                                    onClick={() => handleDeleteTour(tour.id, tour.name)}
+                                    title="Delete Package"
+                                  >
+                                    <Trash2 size={15} />
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Comprehensive Interactive Tour Editor Modal */}
+                  {editingTour && (
+                    <div className="tour-editor-modal-overlay" onClick={() => setEditingTour(null)}>
+                      <div className="tour-editor-modal-card" onClick={(e) => e.stopPropagation()}>
+                        <div className="tour-editor-header">
+                          <div>
+                            <h3>{isAddingNewTour ? '➕ Add New Tour Package' : `✏️ Edit Tour: ${editingTour.name || 'Untitled'}`}</h3>
+                            <p>Modify package title, pricing, exact inclusions, exclusions, and day-by-day itinerary.</p>
+                          </div>
+                          <button className="admin-close-btn" onClick={() => setEditingTour(null)}>
+                            <X size={20} />
+                          </button>
+                        </div>
+
+                        <form onSubmit={isAddingNewTour ? handleCreateNewTour : handleSaveEditingTour} className="tour-editor-body">
+                          {/* Row 1: Title & Category */}
+                          <div className="form-two-cols">
+                            <div className="field-group">
+                              <label>Package Title / Heading *</label>
+                              <input
+                                type="text"
+                                required
+                                className="cms-input"
+                                value={editingTour.name || ''}
+                                onChange={(e) => setEditingTour({ ...editingTour, name: e.target.value })}
+                                placeholder="e.g. Kashmir Valley Paradise"
+                              />
+                            </div>
+                            <div className="field-group">
+                              <label>Category (National / International)</label>
+                              <select
+                                className="cms-select"
+                                value={editingTour.category || 'National Tours'}
+                                onChange={(e) => setEditingTour({ ...editingTour, category: e.target.value })}
+                              >
+                                <option value="National Tours">National Tours (India)</option>
+                                <option value="International Tours">International Tours</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          {/* Row 2: Location, Duration & Prices */}
+                          <div className="form-four-cols">
+                            <div className="field-group">
+                              <label>Location / City</label>
+                              <input
+                                type="text"
+                                className="cms-input"
+                                value={editingTour.location || ''}
+                                onChange={(e) => setEditingTour({ ...editingTour, location: e.target.value, city: e.target.value })}
+                                placeholder="e.g. Manali, Himachal"
+                              />
+                            </div>
+                            <div className="field-group">
+                              <label>Duration</label>
+                              <input
+                                type="text"
+                                className="cms-input"
+                                value={editingTour.duration || ''}
+                                onChange={(e) => setEditingTour({ ...editingTour, duration: e.target.value })}
+                                placeholder="e.g. 4 Nights & 5 Days"
+                              />
+                            </div>
+                            <div className="field-group">
+                              <label>Offer Price (₹ INR) *</label>
+                              <input
+                                type="number"
+                                required
+                                className="cms-input"
+                                value={editingTour.price || ''}
+                                onChange={(e) => setEditingTour({ ...editingTour, price: Number(e.target.value) })}
+                              />
+                            </div>
+                            <div className="field-group">
+                              <label>Original Strike Price (₹ INR)</label>
+                              <input
+                                type="number"
+                                className="cms-input"
+                                value={editingTour.originalPrice || ''}
+                                onChange={(e) => setEditingTour({ ...editingTour, originalPrice: Number(e.target.value) })}
+                              />
+                            </div>
+                          </div>
+
+                          {/* Row 3: Image URL & Tagline */}
+                          <div className="form-two-cols">
+                            <div className="field-group">
+                              <label>Cover Image URL</label>
+                              <input
+                                type="text"
+                                className="cms-input"
+                                value={editingTour.image || ''}
+                                onChange={(e) => setEditingTour({ ...editingTour, image: e.target.value })}
+                                placeholder="https://..."
+                              />
+                            </div>
+                            <div className="field-group">
+                              <label>Overview / Tagline</label>
+                              <input
+                                type="text"
+                                className="cms-input"
+                                value={editingTour.tagline || editingTour.description || ''}
+                                onChange={(e) => setEditingTour({ ...editingTour, tagline: e.target.value, description: e.target.value })}
+                                placeholder="Brief summary of the experience..."
+                              />
+                            </div>
+                          </div>
+
+                          {/* Inclusions Editor */}
+                          <div className="field-group editor-list-box">
+                            <div className="list-box-header">
+                              <label className="text-emerald">✓ 100% Guaranteed Inclusions ({editingTour.inclusions?.length || 0})</label>
+                              <div className="add-item-inline">
+                                <input
+                                  type="text"
+                                  placeholder="Add inclusion (e.g. Daily Breakfast & Dinner)..."
+                                  value={newInclusionTag}
+                                  onChange={(e) => setNewInclusionTag(e.target.value)}
+                                  onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                      e.preventDefault();
+                                      if (newInclusionTag.trim()) {
+                                        const updated = [...(editingTour.inclusions || []), newInclusionTag.trim()];
+                                        setEditingTour({ ...editingTour, inclusions: updated });
+                                        setNewInclusionTag('');
+                                      }
+                                    }
+                                  }}
+                                />
+                                <button
+                                  type="button"
+                                  className="btn-add-tag"
+                                  onClick={() => {
+                                    if (newInclusionTag.trim()) {
+                                      const updated = [...(editingTour.inclusions || []), newInclusionTag.trim()];
+                                      setEditingTour({ ...editingTour, inclusions: updated });
+                                      setNewInclusionTag('');
+                                    }
+                                  }}
+                                >
+                                  + Add
+                                </button>
+                              </div>
+                            </div>
+                            <div className="tags-flex-wrap">
+                              {editingTour.inclusions?.map((inc, idx) => (
+                                <span key={idx} className="tag-chip inc-chip">
+                                  <span>✓ {inc}</span>
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      const updated = editingTour.inclusions.filter((_, i) => i !== idx);
+                                      setEditingTour({ ...editingTour, inclusions: updated });
+                                    }}
+                                  >
+                                    <X size={12} />
+                                  </button>
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Exclusions Editor */}
+                          <div className="field-group editor-list-box">
+                            <div className="list-box-header">
+                              <label className="text-muted">✕ Exclusions ({editingTour.exclusions?.length || 0})</label>
+                              <div className="add-item-inline">
+                                <input
+                                  type="text"
+                                  placeholder="Add exclusion (e.g. Monument Entry Fees)..."
+                                  value={newExclusionTag}
+                                  onChange={(e) => setNewExclusionTag(e.target.value)}
+                                  onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                      e.preventDefault();
+                                      if (newExclusionTag.trim()) {
+                                        const updated = [...(editingTour.exclusions || []), newExclusionTag.trim()];
+                                        setEditingTour({ ...editingTour, exclusions: updated });
+                                        setNewExclusionTag('');
+                                      }
+                                    }
+                                  }}
+                                />
+                                <button
+                                  type="button"
+                                  className="btn-add-tag"
+                                  onClick={() => {
+                                    if (newExclusionTag.trim()) {
+                                      const updated = [...(editingTour.exclusions || []), newExclusionTag.trim()];
+                                      setEditingTour({ ...editingTour, exclusions: updated });
+                                      setNewExclusionTag('');
+                                    }
+                                  }}
+                                >
+                                  + Add
+                                </button>
+                              </div>
+                            </div>
+                            <div className="tags-flex-wrap">
+                              {editingTour.exclusions?.map((exc, idx) => (
+                                <span key={idx} className="tag-chip exc-chip">
+                                  <span>✕ {exc}</span>
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      const updated = editingTour.exclusions.filter((_, i) => i !== idx);
+                                      setEditingTour({ ...editingTour, exclusions: updated });
+                                    }}
+                                  >
+                                    <X size={12} />
+                                  </button>
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Day-by-Day Itinerary Builder */}
+                          <div className="itinerary-builder-block">
+                            <div className="itinerary-header-row">
+                              <label>📅 Day-by-Day Detailed Itinerary ({editingTour.itinerary?.length || 0} Days)</label>
+                              <button
+                                type="button"
+                                className="add-day-btn"
+                                onClick={() => {
+                                  const nextDayNum = (editingTour.itinerary?.length || 0) + 1;
+                                  const newDay = {
+                                    day: nextDayNum,
+                                    title: `Day ${nextDayNum}: Sightseeing & Excursions`,
+                                    desc: 'Guided tour of prominent attractions with personal chauffeur.',
+                                    stayTier: '4-Star / 5-Star Stay',
+                                    transport: 'Private AC Cab',
+                                    meals: 'Breakfast & Dinner'
+                                  };
+                                  setEditingTour({
+                                    ...editingTour,
+                                    itinerary: [...(editingTour.itinerary || []), newDay]
+                                  });
+                                }}
+                              >
+                                <Plus size={14} /> Add Next Day
+                              </button>
+                            </div>
+
+                            <div className="itinerary-days-scroll-list">
+                              {editingTour.itinerary?.map((dayObj, dIdx) => (
+                                <div key={dIdx} className="day-edit-item-card glass-panel">
+                                  <div className="day-card-top-row">
+                                    <span className="day-pill-badge">Day {dayObj.day || dIdx + 1}</span>
+                                    <input
+                                      type="text"
+                                      className="cms-input day-title-input"
+                                      value={dayObj.title || ''}
+                                      onChange={(e) => {
+                                        const updatedItin = [...editingTour.itinerary];
+                                        updatedItin[dIdx].title = e.target.value;
+                                        setEditingTour({ ...editingTour, itinerary: updatedItin });
+                                      }}
+                                      placeholder={`Day ${dIdx + 1} Title`}
+                                    />
+                                    <button
+                                      type="button"
+                                      className="btn-del-day"
+                                      title="Delete this day"
+                                      onClick={() => {
+                                        const updatedItin = editingTour.itinerary.filter((_, i) => i !== dIdx).map((d, i) => ({ ...d, day: i + 1 }));
+                                        setEditingTour({ ...editingTour, itinerary: updatedItin });
+                                      }}
+                                    >
+                                      <Trash2 size={14} />
+                                    </button>
+                                  </div>
+                                  <textarea
+                                    rows={2}
+                                    className="cms-textarea small day-desc-textarea"
+                                    value={dayObj.desc || ''}
+                                    onChange={(e) => {
+                                      const updatedItin = [...editingTour.itinerary];
+                                      updatedItin[dIdx].desc = e.target.value;
+                                      setEditingTour({ ...editingTour, itinerary: updatedItin });
+                                    }}
+                                    placeholder="Schedule details for this day (sightseeing, transfer, leisure)..."
+                                  />
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Live Toggle & Save Actions */}
+                          <div className="tour-editor-footer-actions">
+                            <label className="live-checkbox-label">
+                              <input
+                                type="checkbox"
+                                checked={editingTour.isVisible !== false && editingTour.status !== 'hidden'}
+                                onChange={(e) => {
+                                  const checked = e.target.checked;
+                                  setEditingTour({
+                                    ...editingTour,
+                                    isVisible: checked,
+                                    status: checked ? 'published' : 'hidden'
+                                  });
+                                }}
+                              />
+                              <span>Make visible on live website</span>
+                            </label>
+
+                            <div className="footer-btn-group">
+                              <button type="button" className="btn-secondary" onClick={() => setEditingTour(null)}>
+                                Cancel
+                              </button>
+                              <button type="submit" className="btn-primary">
+                                <Save size={16} />
+                                <span>{isAddingNewTour ? 'Add Package to Website' : 'Save Changes Live'}</span>
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
 
             {/* TAB 1: Blog Post Editor with Live SEO Analyzer */}
             {activeTab === 'blog' && (
@@ -2001,11 +2705,609 @@ wix-pkg-105,"Swiss Alps & Glacier Express Fantasy",Product,129999,159999,"7 Days
           font-weight: 700;
         }
 
+        /* Manage Tours Catalog Styles */
+        .manage-tours-pane {
+          display: flex;
+          flex-direction: column;
+          gap: 1.25rem;
+        }
+
+        .admin-toast-banner {
+          background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9));
+          color: #FFFFFF;
+          padding: 0.65rem 1.25rem;
+          border-radius: var(--radius-sm);
+          font-weight: 700;
+          font-size: 0.88rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .admin-stats-strip {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+          gap: 1rem;
+        }
+
+        .admin-stat-card {
+          background: rgba(0, 18, 51, 0.8);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: var(--radius-sm);
+          padding: 1rem 1.25rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.3rem;
+        }
+
+        .stat-label {
+          font-size: 0.76rem;
+          color: #94A3B8;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+          font-size: 1.6rem;
+          font-weight: 800;
+          color: #FFFFFF;
+        }
+
+        .admin-toolbar-strip {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 1rem;
+          background: rgba(0, 18, 51, 0.6);
+          padding: 0.85rem 1rem;
+          border-radius: var(--radius-sm);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .admin-search-wrapper {
+          position: relative;
+          display: flex;
+          align-items: center;
+          min-width: 260px;
+          flex-grow: 1;
+        }
+
+        .admin-search-wrapper .search-icon {
+          position: absolute;
+          left: 12px;
+          color: #94A3B8;
+        }
+
+        .admin-search-input {
+          width: 100%;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 9999px;
+          padding: 0.45rem 2rem 0.45rem 2.25rem;
+          font-size: 0.82rem;
+          color: #FFFFFF;
+          outline: none;
+        }
+
+        .admin-search-input:focus {
+          border-color: #FF892F;
+          background: rgba(255, 255, 255, 0.08);
+        }
+
+        .search-clear-btn {
+          position: absolute;
+          right: 10px;
+          background: none;
+          border: none;
+          color: #94A3B8;
+          cursor: pointer;
+        }
+
+        .admin-filter-pills {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+        }
+
+        .admin-pill-btn {
+          padding: 0.35rem 0.75rem;
+          border-radius: 9999px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          color: #CBD5E1;
+          font-size: 0.76rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .admin-pill-btn:hover {
+          background: rgba(255, 255, 255, 0.1);
+          color: #FFFFFF;
+        }
+
+        .admin-pill-btn.active {
+          background: #FF892F;
+          border-color: #FF892F;
+          color: #FFFFFF;
+        }
+
+        .admin-actions-row {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .btn-admin-action {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          padding: 0.45rem 0.85rem;
+          border-radius: var(--radius-sm);
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          color: #FFFFFF;
+          font-size: 0.78rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .btn-admin-action:hover {
+          background: rgba(255, 255, 255, 0.12);
+        }
+
+        .btn-add-pkg {
+          background: linear-gradient(135deg, #FF892F, #FF6B00);
+          border-color: #FF892F;
+          color: #FFFFFF;
+        }
+
+        .btn-add-pkg:hover {
+          filter: brightness(1.1);
+        }
+
+        .admin-table-container {
+          background: rgba(0, 18, 51, 0.7);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: var(--radius-md);
+          overflow-x: auto;
+          max-height: 520px;
+        }
+
+        .admin-packages-table {
+          width: 100%;
+          border-collapse: collapse;
+          font-size: 0.82rem;
+          text-align: left;
+        }
+
+        .admin-packages-table th {
+          position: sticky;
+          top: 0;
+          z-index: 10;
+          background: #001233;
+          color: #94A3B8;
+          font-weight: 700;
+          padding: 0.8rem 0.75rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+          text-transform: uppercase;
+          font-size: 0.7rem;
+        }
+
+        .admin-packages-table td {
+          padding: 0.75rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          color: #CBD5E1;
+          vertical-align: middle;
+        }
+
+        .admin-packages-table tr:hover td {
+          background: rgba(255, 255, 255, 0.02);
+        }
+
+        .admin-packages-table tr.row-hidden td {
+          opacity: 0.45;
+          background: rgba(255, 0, 0, 0.02);
+        }
+
+        .pkg-thumb-wrapper {
+          position: relative;
+          width: 76px;
+          height: 52px;
+          border-radius: 6px;
+          overflow: hidden;
+          background: #000;
+        }
+
+        .pkg-thumb-wrapper img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .thumb-cat-badge {
+          position: absolute;
+          bottom: 2px;
+          left: 2px;
+          font-size: 0.55rem;
+          font-weight: 800;
+          padding: 1px 4px;
+          border-radius: 2px;
+          color: #fff;
+        }
+
+        .cat-nat { background: rgba(255, 137, 47, 0.9); }
+        .cat-intl { background: rgba(16, 185, 129, 0.9); }
+
+        .pkg-name-text {
+          display: block;
+          color: #FFFFFF;
+          font-size: 0.88rem;
+          margin-bottom: 0.2rem;
+          max-width: 260px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .pkg-meta-sub {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+          font-size: 0.74rem;
+          color: #94A3B8;
+        }
+
+        .pkg-slug-tag {
+          color: #6FE6FC;
+          font-family: monospace;
+          font-size: 0.68rem;
+        }
+
+        .duration-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.3rem;
+          background: rgba(255, 255, 255, 0.06);
+          padding: 0.25rem 0.55rem;
+          border-radius: 4px;
+          font-size: 0.74rem;
+          white-space: nowrap;
+        }
+
+        .price-stack {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .current-price-val {
+          color: #FF892F;
+          font-size: 0.92rem;
+          font-weight: 800;
+        }
+
+        .strike-price-val {
+          font-size: 0.72rem;
+          color: #64748B;
+          text-decoration: line-through;
+        }
+
+        .inc-exc-pills {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+        }
+
+        .badge-inc {
+          color: #10B981;
+          font-size: 0.72rem;
+          font-weight: 600;
+        }
+
+        .badge-exc {
+          color: #94A3B8;
+          font-size: 0.72rem;
+        }
+
+        .itin-days-badge {
+          display: inline-block;
+          background: rgba(111, 230, 252, 0.12);
+          color: #6FE6FC;
+          border: 1px solid rgba(111, 230, 252, 0.3);
+          padding: 0.25rem 0.55rem;
+          border-radius: 9999px;
+          font-size: 0.72rem;
+          font-weight: 700;
+          white-space: nowrap;
+        }
+
+        .visibility-toggle-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          padding: 0.3rem 0.65rem;
+          border-radius: 9999px;
+          border: none;
+          font-size: 0.72rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .visibility-toggle-btn.live {
+          background: rgba(16, 185, 129, 0.15);
+          color: #10B981;
+          border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .visibility-toggle-btn.hidden {
+          background: rgba(239, 68, 68, 0.15);
+          color: #EF4444;
+          border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .action-buttons-row {
+          display: flex;
+          align-items: center;
+          gap: 0.35rem;
+        }
+
+        .btn-table-action {
+          width: 30px;
+          height: 30px;
+          border-radius: 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.05);
+          color: #CBD5E1;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .btn-table-action.edit:hover {
+          background: #FF892F;
+          border-color: #FF892F;
+          color: #FFFFFF;
+        }
+
+        .btn-table-action.delete:hover {
+          background: #EF4444;
+          border-color: #EF4444;
+          color: #FFFFFF;
+        }
+
+        /* Interactive Tour Editor Modal */
+        .tour-editor-modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.85);
+          backdrop-filter: blur(8px);
+          z-index: 999999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 1.5rem;
+        }
+
+        .tour-editor-modal-card {
+          width: 100%;
+          max-width: 860px;
+          max-height: 90vh;
+          background: #001233;
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: var(--radius-md);
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+        }
+
+        .tour-editor-header {
+          padding: 1.25rem 1.5rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          background: rgba(255, 255, 255, 0.02);
+        }
+
+        .tour-editor-header h3 {
+          margin: 0 0 0.2rem 0;
+          color: #FFFFFF;
+          font-size: 1.15rem;
+        }
+
+        .tour-editor-header p {
+          margin: 0;
+          color: #94A3B8;
+          font-size: 0.78rem;
+        }
+
+        .tour-editor-body {
+          padding: 1.5rem;
+          overflow-y: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 1.25rem;
+        }
+
+        .form-four-cols {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr 1fr;
+          gap: 1rem;
+        }
+
+        .editor-list-box {
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: var(--radius-sm);
+          padding: 1rem;
+        }
+
+        .list-box-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+          margin-bottom: 0.75rem;
+        }
+
+        .add-item-inline {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+        }
+
+        .add-item-inline input {
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 4px;
+          padding: 0.35rem 0.65rem;
+          color: #FFFFFF;
+          font-size: 0.76rem;
+          min-width: 220px;
+        }
+
+        .btn-add-tag {
+          padding: 0.35rem 0.75rem;
+          border-radius: 4px;
+          background: #FF892F;
+          border: none;
+          color: #FFFFFF;
+          font-size: 0.74rem;
+          font-weight: 700;
+          cursor: pointer;
+        }
+
+        .tags-flex-wrap {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.4rem;
+          max-height: 120px;
+          overflow-y: auto;
+        }
+
+        .tag-chip {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          padding: 0.25rem 0.6rem;
+          border-radius: 9999px;
+          font-size: 0.74rem;
+        }
+
+        .tag-chip button {
+          background: none;
+          border: none;
+          color: inherit;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          padding: 0;
+        }
+
+        .inc-chip {
+          background: rgba(16, 185, 129, 0.15);
+          border: 1px solid rgba(16, 185, 129, 0.35);
+          color: #10B981;
+        }
+
+        .exc-chip {
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          color: #CBD5E1;
+        }
+
+        .itinerary-days-scroll-list {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          max-height: 240px;
+          overflow-y: auto;
+          margin-top: 0.75rem;
+        }
+
+        .day-edit-item-card {
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: var(--radius-sm);
+          padding: 0.85rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .day-card-top-row {
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+        }
+
+        .day-pill-badge {
+          background: #FF892F;
+          color: #FFFFFF;
+          font-size: 0.72rem;
+          font-weight: 800;
+          padding: 0.25rem 0.6rem;
+          border-radius: 4px;
+          white-space: nowrap;
+        }
+
+        .day-title-input {
+          flex-grow: 1;
+        }
+
+        .btn-del-day {
+          background: rgba(239, 68, 68, 0.15);
+          border: 1px solid rgba(239, 68, 68, 0.3);
+          color: #EF4444;
+          width: 32px;
+          height: 32px;
+          border-radius: 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        }
+
+        .tour-editor-footer-actions {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-top: 1rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .live-checkbox-label {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-size: 0.84rem;
+          color: #E2E8F0;
+          cursor: pointer;
+        }
+
+        .footer-btn-group {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+        }
+
         @media (max-width: 860px) {
           .cms-editor-grid {
             grid-template-columns: 1fr;
           }
-          .form-two-cols, .directus-form-grid, .wix-controls-grid {
+          .form-two-cols, .form-four-cols, .directus-form-grid, .wix-controls-grid {
             grid-template-columns: 1fr;
           }
         }
