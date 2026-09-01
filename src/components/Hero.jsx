@@ -4,7 +4,7 @@ import {
   ChevronRight, ArrowRight, CheckCircle2, Heart, ShieldCheck, 
   MessageCircle, ExternalLink, Flame, ArrowLeft, Landmark, 
   Building2, Palmtree, Waves, Snowflake, CloudRain, Leaf, Flower2,
-  Hotel, Car, Utensils, Ticket, Clock, Star, Briefcase
+  Hotel, Car, Utensils, Ticket, Clock, Star, Briefcase, Search
 } from 'lucide-react';
 import { CONTINENTS_TREE_DATA, SEASONS_DATA, TRAVELER_STYLES_DATA } from '../data/continentHierarchyData';
 import { TOURS_DATA, HERO_SLIDES } from '../data/toursData';
@@ -23,6 +23,39 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
   // Continents drill-down state (all in-place!)
   const [activeContinentId, setActiveContinentId] = useState('asia');
   const [activeCountryId, setActiveCountryId] = useState('india');
+  const [showAllCountryTours, setShowAllCountryTours] = useState(false);
+  const [countrySearchQuery, setCountrySearchQuery] = useState('');
+  const [countryRegionFilter, setCountryRegionFilter] = useState('All');
+
+  // Helper to retrieve all packages for a country (e.g. all 80 National Packages for India)
+  const getCountryTours = (countryId, countryName) => {
+    if (!countryId) return [];
+    const cId = countryId.toLowerCase();
+    const cName = (countryName || '').toLowerCase();
+
+    if (cId === 'india' || cName.includes('india')) {
+      return TOURS_DATA.filter(t => 
+        t.category === 'National Tours' || 
+        t.country === 'India' || 
+        (t.categories && t.categories.includes('National')) ||
+        !t.category?.toLowerCase().includes('international')
+      );
+    }
+
+    // International country matching
+    return TOURS_DATA.filter(t => {
+      const loc = (t.location || '').toLowerCase();
+      const country = (t.country || '').toLowerCase();
+      const cats = (t.categories || []).map(c => c.toLowerCase());
+      const name = (t.name || '').toLowerCase();
+      
+      return country.includes(cName) || 
+             loc.includes(cName) || 
+             loc.includes(cId) ||
+             cats.some(c => c.includes(cName) || c.includes(cId)) ||
+             name.includes(cName);
+    });
+  };
 
   // Weather & Style filter state
   const [activeSeasonId, setActiveSeasonId] = useState('summer');
@@ -249,109 +282,209 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               <div className="country-pills-bar">
                 <span className="pills-label">Countries in {activeContinent.name}:</span>
                 <div className="pills-scroll-row">
-                  {activeContinent.countries.map((country) => (
-                    <button
-                      key={country.id}
-                      type="button"
-                      className={`country-pill-btn ${activeCountryId === country.id ? 'active' : ''}`}
-                      onClick={() => setActiveCountryId(country.id)}
-                    >
-                      <span className="country-code-badge">{country.code}</span>
-                      <span>{country.name}</span>
-                      <span className="badge-count">{country.cities.length}</span>
-                    </button>
-                  ))}
+                  {activeContinent.countries.map((country) => {
+                    const countryPkgs = getCountryTours(country.id, country.name);
+                    const count = countryPkgs.length > 0 ? countryPkgs.length : country.cities.length;
+                    return (
+                      <button
+                        key={country.id}
+                        type="button"
+                        className={`country-pill-btn ${activeCountryId === country.id ? 'active' : ''}`}
+                        onClick={() => {
+                          setActiveCountryId(country.id);
+                          setShowAllCountryTours(false);
+                          setCountrySearchQuery('');
+                          setCountryRegionFilter('All');
+                        }}
+                      >
+                        <span className="country-code-badge">{country.code}</span>
+                        <span>{country.name}</span>
+                        <span className="badge-count">{count}</span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
-              {/* Level 3: In-Place Travel Cities Cards (Direct Results Right Here!) */}
-              <div className="stage-cities-grid">
-                {activeCountry.cities.map((city) => {
-                  const tour = getTourObject(city.tourId);
-                  const origPrice = Math.round(city.startingPrice * 1.25);
-                  const discountPct = 20;
+              {/* Level 3: Dynamic In-Place Real Tour Packages Grid */}
+              {(() => {
+                const countryPkgs = getCountryTours(activeCountry.id, activeCountry.name);
+                const baseList = countryPkgs.length > 0 
+                  ? countryPkgs 
+                  : activeCountry.cities.map(c => getTourObject(c.tourId));
 
-                  return (
-                    <div key={city.id} className="city-in-place-card glass-card">
-                      <div className="c-card-top-header">
-                        <div className="c-city-name-lockup">
-                          <MapPin size={15} className="text-amber flex-shrink-0 mt-1" />
-                          <div>
-                            <h4 className="city-headline">{city.name}</h4>
-                            <span className="city-state-sub">{city.state}</span>
-                          </div>
-                        </div>
-                        <span className="weather-pill-tag">{city.weatherTag}</span>
-                      </div>
+                // Regional sub-filters for India
+                const indiaRegions = [
+                  { id: 'All', label: `All (${baseList.length})`, match: null },
+                  { id: 'Himachal', label: 'Himachal & Kashmir', match: ['himachal', 'dharamshala', 'dalhousie', 'manali', 'shimla', 'kashmir', 'pines'] },
+                  { id: 'Uttarakhand', label: 'Uttarakhand', match: ['uttarakhand', 'haridwar', 'mussoorie', 'rishikesh', 'nanital', 'corbett', 'ganga'] },
+                  { id: 'Goa', label: 'Goa & Coastal', match: ['goa', 'beach', 'coastal'] },
+                  { id: 'Rajasthan', label: 'Rajasthan & Royal', match: ['rajasthan', 'jaipur', 'udaipur', 'jodhpur', 'jaisalmer'] },
+                  { id: 'MP', label: 'Madhya Pradesh', match: ['madhya pradesh', 'bhopal', 'pachmarhi', 'madhai', 'gwalior', 'orchha', 'jabalpur', 'ujjain'] },
+                  { id: 'South', label: 'South India', match: ['karnataka', 'coorg', 'mysore', 'kerala', 'munnar', 'alleppey', 'ooty', 'bangalore'] },
+                  { id: 'WestEast', label: 'Gujarat & Northeast', match: ['dwarka', 'somnath', 'gujarat', 'agra', 'varanasi', 'sikkim', 'darjeeling'] }
+                ];
 
-                      {/* Visual Inclusions Icon Bar */}
-                      <div className="compact-inclusions-icon-bar">
-                        <div className="inc-icon-item" title="4★/5★ Luxury Stay">
-                          <div className="inc-svg-badge">
-                            <Hotel size={13} className="text-amber" />
-                          </div>
-                          <span className="inc-text">Stay</span>
-                        </div>
-                        <div className="inc-icon-item" title="Private Cab & Transfers">
-                          <div className="inc-svg-badge">
-                            <Car size={13} className="text-cyan" />
-                          </div>
-                          <span className="inc-text">Transfers</span>
-                        </div>
-                        <div className="inc-icon-item" title="Daily Breakfast & Dining">
-                          <div className="inc-svg-badge">
-                            <Utensils size={13} className="text-emerald" />
-                          </div>
-                          <span className="inc-text">Meals</span>
-                        </div>
-                        <div className="inc-icon-item" title="VIP Passes & Sightseeing">
-                          <div className="inc-svg-badge">
-                            <Ticket size={13} className="text-amber" />
-                          </div>
-                          <span className="inc-text">Sightseeing</span>
-                        </div>
-                        <div className="inc-icon-item" title="24/7 VIP Concierge">
-                          <div className="inc-svg-badge">
-                            <ShieldCheck size={13} className="text-emerald" />
-                          </div>
-                          <span className="inc-text">24/7 VIP</span>
-                        </div>
-                      </div>
+                const filteredTours = baseList.filter(tour => {
+                  const loc = (tour.location || '').toLowerCase();
+                  const name = (tour.name || '').toLowerCase();
+                  const q = countrySearchQuery.toLowerCase().trim();
 
-                      <div className="c-card-footer-action">
-                        <div className="compact-price-box">
-                          <div className="price-strike-row">
-                            <span className="orig-price-strike">{formatPrice(origPrice)}</span>
-                            <span className="price-save-badge">{discountPct}% OFF</span>
-                          </div>
-                          <div className="price-main-row">
-                            <strong className="current-offer-price font-editorial">{formatPrice(city.startingPrice)}</strong>
-                            <span className="price-per-person">/ person • {city.duration}</span>
-                          </div>
+                  const matchesQuery = !q || name.includes(q) || loc.includes(q);
+
+                  let matchesRegion = true;
+                  if (activeCountry.id === 'india' && countryRegionFilter !== 'All') {
+                    const regObj = indiaRegions.find(r => r.id === countryRegionFilter);
+                    if (regObj && regObj.match) {
+                      matchesRegion = regObj.match.some(m => loc.includes(m) || name.includes(m));
+                    }
+                  }
+
+                  return matchesQuery && matchesRegion;
+                });
+
+                const displayedTours = showAllCountryTours ? filteredTours : filteredTours.slice(0, 8);
+
+                return (
+                  <div>
+                    {/* Sub-bar for India packages */}
+                    {activeCountry.id === 'india' && (
+                      <div className="country-subfilter-bar">
+                        <div className="subfilter-chips-row">
+                          {indiaRegions.map(r => (
+                            <button
+                              key={r.id}
+                              type="button"
+                              className={`subfilter-chip ${countryRegionFilter === r.id ? 'active' : ''}`}
+                              onClick={() => {
+                                setCountryRegionFilter(r.id);
+                                setShowAllCountryTours(true);
+                              }}
+                            >
+                              <span>{r.label}</span>
+                            </button>
+                          ))}
                         </div>
-
-                        <div className="action-buttons-inline">
-                          <button
-                            type="button"
-                            className="btn-itinerary-inline"
-                            onClick={() => onSelectItinerary(tour)}
-                          >
-                            <span>Itinerary</span>
-                          </button>
-
-                          <button
-                            type="button"
-                            className="btn-book-inline"
-                            onClick={() => onBookNow(tour)}
-                          >
-                            <span>Book</span>
-                          </button>
+                        <div className="country-search-box">
+                          <Search size={14} className="text-amber" />
+                          <input
+                            type="text"
+                            placeholder={`Search among all ${baseList.length} India packages...`}
+                            value={countrySearchQuery}
+                            onChange={(e) => {
+                              setCountrySearchQuery(e.target.value);
+                              if (e.target.value) setShowAllCountryTours(true);
+                            }}
+                            className="country-search-input"
+                          />
                         </div>
                       </div>
+                    )}
+
+                    <div className="stage-cities-grid">
+                      {displayedTours.map((tour) => {
+                        const origPrice = tour.originalPrice || Math.round(tour.price * 1.25);
+                        const discountPct = Math.round(((origPrice - tour.price) / origPrice) * 100) || 20;
+
+                        return (
+                          <div key={tour.id} className="city-in-place-card glass-card">
+                            <div className="c-card-top-header">
+                              <div className="c-city-name-lockup">
+                                <MapPin size={15} className="text-amber flex-shrink-0 mt-1" />
+                                <div>
+                                  <h4 className="city-headline">{tour.name}</h4>
+                                  <span className="city-state-sub">{tour.location || tour.country}</span>
+                                </div>
+                              </div>
+                              <span className="weather-pill-tag">{tour.duration}</span>
+                            </div>
+
+                            {/* Visual Inclusions Icon Bar */}
+                            <div className="compact-inclusions-icon-bar">
+                              <div className="inc-icon-item" title="4★/5★ Luxury Stay">
+                                <div className="inc-svg-badge"><Hotel size={13} className="text-amber" /></div>
+                                <span className="inc-text">Stay</span>
+                              </div>
+                              <div className="inc-icon-item" title="Private Cab & Transfers">
+                                <div className="inc-svg-badge"><Car size={13} className="text-cyan" /></div>
+                                <span className="inc-text">Transfers</span>
+                              </div>
+                              <div className="inc-icon-item" title="Daily Breakfast & Dining">
+                                <div className="inc-svg-badge"><Utensils size={13} className="text-emerald" /></div>
+                                <span className="inc-text">Meals</span>
+                              </div>
+                              <div className="inc-icon-item" title="VIP Passes & Sightseeing">
+                                <div className="inc-svg-badge"><Ticket size={13} className="text-amber" /></div>
+                                <span className="inc-text">Sightseeing</span>
+                              </div>
+                              <div className="inc-icon-item" title="24/7 VIP Concierge">
+                                <div className="inc-svg-badge"><ShieldCheck size={13} className="text-emerald" /></div>
+                                <span className="inc-text">24/7 VIP</span>
+                              </div>
+                            </div>
+
+                            <div className="c-card-footer-action">
+                              <div className="compact-price-box">
+                                <div className="price-strike-row">
+                                  <span className="orig-price-strike">{formatPrice(origPrice)}</span>
+                                  <span className="price-save-badge">{discountPct}% OFF</span>
+                                </div>
+                                <div className="price-main-row">
+                                  <strong className="current-offer-price font-editorial">{formatPrice(tour.price)}</strong>
+                                  <span className="price-per-person">/ person</span>
+                                </div>
+                              </div>
+
+                              <div className="action-buttons-inline">
+                                <button
+                                  type="button"
+                                  className="btn-itinerary-inline"
+                                  onClick={() => onSelectItinerary(tour)}
+                                >
+                                  <span>Itinerary</span>
+                                </button>
+
+                                <button
+                                  type="button"
+                                  className="btn-book-inline"
+                                  onClick={() => onBookNow(tour)}
+                                >
+                                  <span>Book</span>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
-                  );
-                })}
-              </div>
+
+                    {/* View All 80 Packages button */}
+                    {filteredTours.length > 8 && (
+                      <div className="country-expand-cta-row text-center mt-3">
+                        <button
+                          type="button"
+                          className="btn-expand-country-packages"
+                          onClick={() => setShowAllCountryTours(!showAllCountryTours)}
+                        >
+                          <Sparkles size={16} className="text-amber" />
+                          <span>
+                            {showAllCountryTours 
+                              ? `Show Less (Collapse to 8)` 
+                              : `View All ${filteredTours.length} National Tour Packages in ${activeCountry.name} (+${filteredTours.length - 8} More)`}
+                          </span>
+                          <ChevronRight 
+                            size={16} 
+                            style={{ 
+                              transform: showAllCountryTours ? 'rotate(-90deg)' : 'rotate(90deg)', 
+                              transition: 'transform 0.3s ease' 
+                            }} 
+                          />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
             </div>
           )}
 
@@ -1319,6 +1452,104 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           font-size: 0.78rem;
           font-weight: 800;
           text-decoration: none;
+        }
+
+        .country-subfilter-bar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+          margin-bottom: 1.25rem;
+          padding: 0.65rem 1rem;
+          background: rgba(0, 18, 51, 0.4);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 12px;
+        }
+
+        .subfilter-chips-row {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+          overflow-x: auto;
+          scrollbar-width: none;
+          max-width: 100%;
+        }
+
+        .subfilter-chip {
+          white-space: nowrap;
+          font-size: 0.75rem;
+          padding: 0.35rem 0.75rem;
+          border-radius: 9999px;
+          background: rgba(255, 255, 255, 0.05);
+          color: #94A3B8;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          cursor: pointer;
+          transition: all 0.25s ease;
+        }
+
+        .subfilter-chip:hover {
+          color: #FFFFFF;
+          border-color: rgba(255, 137, 47, 0.4);
+        }
+
+        .subfilter-chip.active {
+          background: linear-gradient(135deg, #FF892F 0%, #FFA000 100%);
+          color: #001233;
+          font-weight: 800;
+          border-color: transparent;
+          box-shadow: 0 2px 10px rgba(255, 137, 47, 0.3);
+        }
+
+        .country-search-box {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: rgba(0, 0, 0, 0.3);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 9999px;
+          padding: 0.3rem 0.85rem;
+          min-width: 240px;
+        }
+
+        .country-search-input {
+          background: transparent;
+          border: none;
+          outline: none;
+          color: #FFFFFF;
+          font-size: 0.78rem;
+          width: 100%;
+        }
+
+        .country-search-input::placeholder {
+          color: #64748B;
+        }
+
+        .country-expand-cta-row {
+          margin-top: 1.5rem;
+        }
+
+        .btn-expand-country-packages {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: rgba(255, 137, 47, 0.12);
+          border: 1px solid rgba(255, 137, 47, 0.4);
+          color: #FFA459;
+          font-size: 0.88rem;
+          font-weight: 700;
+          padding: 0.65rem 1.5rem;
+          border-radius: 9999px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .btn-expand-country-packages:hover {
+          background: rgba(255, 137, 47, 0.25);
+          color: #FFFFFF;
+          border-color: #FFA459;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px rgba(255, 137, 47, 0.25);
         }
 
         @media (max-width: 860px) {
