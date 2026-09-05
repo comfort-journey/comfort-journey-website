@@ -387,8 +387,9 @@ Please share the day-by-day customized itinerary proposal!`;
         .slider-marks {
           display: flex;
           justify-content: space-between;
-          font-size: 0.75rem;
-          color: #94A3B8;
+          font-size: 0.78rem;
+          color: #CBD5E1;
+          font-weight: 600;
         }
 
         .cards-selection-row {
@@ -412,8 +413,8 @@ Please share the day-by-day customized itinerary proposal!`;
         }
 
         .tier-card span {
-          font-size: 0.75rem;
-          color: #94A3B8;
+          font-size: 0.78rem;
+          color: #CBD5E1;
         }
 
         .tier-card:hover {
@@ -513,8 +514,9 @@ Please share the day-by-day customized itinerary proposal!`;
 
         .summary-dest-country {
           font-size: 0.88rem;
-          color: #94A3B8;
+          color: #CBD5E1;
           margin-top: -0.85rem;
+          font-weight: 500;
         }
 
         .summary-breakdown {
@@ -533,7 +535,7 @@ Please share the day-by-day customized itinerary proposal!`;
         }
 
         .breakdown-row span {
-          color: #94A3B8;
+          color: #CBD5E1;
         }
 
         .breakdown-row strong {

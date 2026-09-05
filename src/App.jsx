@@ -21,6 +21,11 @@ import LandingPageTemplate from './components/LandingPageTemplate';
 import LandingPagesHubModal from './components/LandingPagesHubModal';
 import BlogMagazinePage from './components/BlogMagazinePage';
 import BlogPostReader from './components/BlogPostReader';
+import CategoryGatewayStrip from './components/category-showcases/CategoryGatewayStrip';
+import IndiaTripsSection from './components/category-showcases/IndiaTripsSection';
+import InternationalTripsSection from './components/category-showcases/InternationalTripsSection';
+import WeekendGetawaysSection from './components/category-showcases/WeekendGetawaysSection';
+import FixedDeparturesSection from './components/category-showcases/FixedDeparturesSection';
 import { getLandingPageBySlug, LANDING_PAGES_DATA } from './data/landingPagesData';
 import { directusService } from './services/directusClient';
 import ItineraryModal from './components/ItineraryModal';
@@ -224,7 +229,44 @@ export default function App() {
                 {/* 3. Trust & Experience Stats Bar with Anime.js Elastic Counters */}
                 <StatsBar />
 
-                {/* 4. Handcrafted Luxury Tour Packages Catalog Explorer with 3D Card Tilt & Seasonal Radar */}
+                {/* 4. Category Gateway Strip: 4-Pillar Interactive Discovery Dock */}
+                <CategoryGatewayStrip 
+                  onNavigateLanding={navigateToLandingPage}
+                />
+
+                {/* 5. India Luxury & Heritage Showcase (Royal Desi Heritage) */}
+                <IndiaTripsSection 
+                  onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
+                  onBookNow={(tour) => setSelectedBookingTour(tour)}
+                  onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+                  onNavigateLanding={navigateToLandingPage}
+                />
+
+                {/* 6. World Passport Signature Collection (International Luxury Escapes) */}
+                <InternationalTripsSection 
+                  onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
+                  onBookNow={(tour) => setSelectedBookingTour(tour)}
+                  onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+                  onNavigateLanding={navigateToLandingPage}
+                />
+
+                {/* 7. 48-Hour Weekend Getaways (Quick Friday-to-Sunday Resets) */}
+                <WeekendGetawaysSection 
+                  onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
+                  onBookNow={(tour) => setSelectedBookingTour(tour)}
+                  onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+                  onNavigateLanding={navigateToLandingPage}
+                />
+
+                {/* 8. Fixed Departure Travel Tribe (Guaranteed Dates & Community Group Batches) */}
+                <FixedDeparturesSection 
+                  onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
+                  onBookNow={(tour) => setSelectedBookingTour(tour)}
+                  onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+                  onNavigateLanding={navigateToLandingPage}
+                />
+
+                {/* 9. Handcrafted Luxury Tour Packages Catalog Explorer with 3D Card Tilt & Seasonal Radar */}
                 <TourExplorer 
                   searchFilters={searchFilters} 
                   onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}

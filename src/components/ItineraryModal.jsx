@@ -167,7 +167,12 @@ Please share customized availability and booking details!`);
             <div className="footer-price-vals">
               <strong className="footer-current-price">{formatPrice(tour.price)}</strong>
               {tour.originalPrice > tour.price && (
-                <span className="footer-orig-price">{formatPrice(tour.originalPrice)}</span>
+                <>
+                  <span className="footer-orig-price">{formatPrice(tour.originalPrice)}</span>
+                  <span className="badge-discount-eye-catching">
+                    {Math.round(((tour.originalPrice - tour.price) / tour.originalPrice) * 100)}% OFF
+                  </span>
+                </>
               )}
               <span className="per-person-note">/ person</span>
             </div>
@@ -443,8 +448,8 @@ Please share customized availability and booking details!`);
           display: flex;
           align-items: center;
           gap: 0.4rem;
-          font-size: 0.8rem;
-          color: #94A3B8;
+          font-size: 0.82rem;
+          color: #CBD5E1;
         }
 
         .amenity-pill strong {
@@ -494,8 +499,8 @@ Please share customized availability and booking details!`);
         }
 
         .price-label {
-          font-size: 0.72rem;
-          color: #94A3B8;
+          font-size: 0.75rem;
+          color: #CBD5E1;
           text-transform: uppercase;
           font-weight: 700;
         }
@@ -503,7 +508,8 @@ Please share customized availability and booking details!`);
         .footer-price-vals {
           display: flex;
           align-items: baseline;
-          gap: 0.4rem;
+          gap: 0.5rem;
+          flex-wrap: wrap;
         }
 
         .footer-current-price {
@@ -514,14 +520,16 @@ Please share customized availability and booking details!`);
         }
 
         .footer-orig-price {
-          font-size: 0.85rem;
+          font-size: 0.88rem;
           text-decoration: line-through;
-          color: #64748B;
+          color: #94A3B8;
+          font-weight: 600;
         }
 
         .per-person-note {
-          font-size: 0.78rem;
-          color: #94A3B8;
+          font-size: 0.8rem;
+          color: #CBD5E1;
+          font-weight: 600;
         }
 
         .footer-cta-buttons {

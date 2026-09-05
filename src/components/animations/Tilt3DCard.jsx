@@ -14,6 +14,7 @@ export default function Tilt3DCard({
   scale = 1.025,
   glare = true,
   holographic = true,
+  borderRadius = '20px', // Exact sync with card rounded corners
   className = '',
   style = {},
   onClick,
@@ -60,23 +61,23 @@ export default function Tilt3DCard({
 
         // 1. Dynamic Refractive Specular Glare (Moves with cursor)
         if (glare && glareRef.current) {
-          glareRef.current.style.background = `radial-gradient(circle at ${(x * 100).toFixed(1)}% ${(y * 100).toFixed(1)}%, rgba(255, 255, 255, 0.38) 0%, rgba(255, 137, 47, 0.2) 30%, rgba(111, 230, 252, 0.1) 50%, transparent 70%)`;
-          glareRef.current.style.opacity = '0.45';
+          glareRef.current.style.background = `radial-gradient(circle at ${(x * 100).toFixed(1)}% ${(y * 100).toFixed(1)}%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 137, 47, 0.18) 30%, rgba(111, 230, 252, 0.1) 50%, transparent 70%)`;
+          glareRef.current.style.opacity = '0.4';
         }
 
         // 2. Holographic Chromatic Reflection
         if (holographic && holoRef.current) {
           const angle = Math.atan2(normY, normX) * (180 / Math.PI) + 180;
-          holoRef.current.style.background = `linear-gradient(${angle}deg, rgba(255, 137, 47, 0.5) 0%, rgba(218, 245, 97, 0.4) 50%, rgba(111, 230, 252, 0.4) 100%)`;
-          holoRef.current.style.opacity = '0.5';
+          holoRef.current.style.background = `linear-gradient(${angle}deg, rgba(255, 137, 47, 0.45) 0%, rgba(218, 245, 97, 0.35) 50%, rgba(111, 230, 252, 0.35) 100%)`;
+          holoRef.current.style.opacity = '0.45';
         }
       });
     };
 
     const handleMouseEnter = () => {
       card.style.transition = 'transform 0.08s ease-out, box-shadow 0.2s ease';
-      if (glare && glareRef.current) glareRef.current.style.opacity = '0.38';
-      if (holographic && holoRef.current) holoRef.current.style.opacity = '0.45';
+      if (glare && glareRef.current) glareRef.current.style.opacity = '0.35';
+      if (holographic && holoRef.current) holoRef.current.style.opacity = '0.4';
     };
 
     const handleMouseLeave = () => {
@@ -111,34 +112,44 @@ export default function Tilt3DCard({
         transformStyle: 'preserve-3d',
         willChange: 'transform',
         position: 'relative',
+        borderRadius: borderRadius,
         ...style,
       }}
       {...props}
     >
-      {/* Dynamic 21st.dev Holographic Rim Light Layer */}
+      {/* Dynamic Holographic Rim Light Layer - perfectly curved to match card corners */}
       {holographic && (
         <div
           ref={holoRef}
           className="tilt-holo-rim"
           style={{
             position: 'absolute',
-            inset: '-1px',
+            inset: 0,
             pointerEvents: 'none',
-            borderRadius: 'inherit',
+            borderRadius: borderRadius,
             opacity: 0,
             transition: 'opacity 0.35s ease',
             zIndex: 1,
-            filter: 'blur(2px)',
+            overflow: 'hidden',
           }}
         />
       )}
 
       {/* Main Card Children with 3D Depth */}
-      <div className="tilt-inner-content" style={{ transformStyle: 'preserve-3d', position: 'relative', zIndex: 2 }}>
+      <div 
+        className="tilt-inner-content" 
+        style={{ 
+          transformStyle: 'preserve-3d', 
+          position: 'relative', 
+          zIndex: 2, 
+          borderRadius: borderRadius,
+          height: '100%',
+        }}
+      >
         {children}
       </div>
 
-      {/* Dynamic Liquid Cursor Glare Layer */}
+      {/* Dynamic Liquid Cursor Glare Layer - perfectly curved to match card corners */}
       {glare && (
         <div
           ref={glareRef}
@@ -147,10 +158,11 @@ export default function Tilt3DCard({
             position: 'absolute',
             inset: 0,
             pointerEvents: 'none',
-            borderRadius: 'inherit',
+            borderRadius: borderRadius,
             opacity: 0,
             transition: 'opacity 0.35s ease',
             zIndex: 10,
+            overflow: 'hidden',
           }}
         />
       )}

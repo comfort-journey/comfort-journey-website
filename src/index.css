@@ -30,7 +30,8 @@
 
   --cj-text-heading: #F9FBE7;
   --cj-text-body: #EDF3D2;
-  --cj-text-muted: #93B2D2;
+  --cj-text-muted: #CBD5E1; /* High-contrast readable off-white/silver, replacing dull grey */
+  --cj-text-subtle: #E2E8F0;
 
   /* Vivid Tangerine Tokens (Primary Brand Action / Glow) */
   --cj-tangerine-400: #FFA459;
@@ -246,6 +247,8 @@ body {
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
 }
 
 .glass-card:hover::after,
@@ -499,15 +502,51 @@ img, svg {
 }
 
 .badge-emerald {
-  background: rgba(16, 185, 129, 0.15);
-  color: var(--cj-emerald-500);
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.2);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.45);
+}
+
+.badge-discount-eye-catching {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(5, 150, 105, 0.35) 100%);
+  border: 1.5px solid #10B981;
+  color: #34D399;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.35);
+  text-transform: uppercase;
+  animation: discountPulse 3s ease-in-out infinite;
+}
+
+@keyframes discountPulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(16, 185, 129, 0.35); }
+  50% { box-shadow: 0 0 20px rgba(52, 211, 153, 0.65); transform: scale(1.03); }
 }
 
 .badge-ai {
   background: rgba(139, 92, 246, 0.18);
   color: #C084FC;
   border: 1px solid rgba(139, 92, 246, 0.35);
+}
+
+/* Global High-Contrast Readability Overrides for Dark Backgrounds */
+.text-muted, .text-dim, .subtext {
+  color: #CBD5E1 !important;
+}
+
+.text-readable-silver {
+  color: #E2E8F0 !important;
+}
+
+.text-readable-white {
+  color: #F8FAFC !important;
 }
 
 /* Gradients */
@@ -724,11 +763,25 @@ img, svg {
 .tilt-3d-wrapper {
   transform-style: preserve-3d;
   backface-visibility: hidden;
+  border-radius: inherit;
+  overflow: hidden;
 }
 
 .tilt-glare-overlay {
   mix-blend-mode: overlay;
   pointer-events: none;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+.tilt-holo-rim {
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+.tour-tilt-container {
+  border-radius: 20px;
+  overflow: hidden;
 }
 
 /* 4. Smooth Fade Scale For Modals & Overlays */

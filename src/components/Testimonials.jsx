@@ -74,7 +74,8 @@ export default function Testimonials() {
 
         .rating-pill .reviews-text {
           font-size: 0.85rem;
-          color: #94A3B8;
+          color: #CBD5E1;
+          font-weight: 600;
         }
 
         .testimonials-grid {

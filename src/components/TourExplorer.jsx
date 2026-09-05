@@ -322,6 +322,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
                   scale={1.025}
                   glare={true}
                   holographic={true}
+                  borderRadius="20px"
                   className="tour-tilt-container"
                 >
                   <div className="tour-card glass-card liquid-glass-tour-card">
@@ -563,6 +564,72 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           line-height: 1.6;
         }
 
+        /* Inline Live Catalog Search Filter Dock */
+        .catalog-inline-search-dock {
+          max-width: 680px;
+          margin: 1.5rem auto 1rem auto;
+          background: rgba(0, 29, 81, 0.75);
+          backdrop-filter: blur(16px);
+          border: 1.5px solid rgba(111, 230, 252, 0.35);
+          border-radius: var(--radius-full, 9999px);
+          padding: 0.45rem 1rem 0.45rem 1.25rem;
+          box-shadow: 0 8px 30px rgba(0, 18, 51, 0.5), 0 0 15px rgba(111, 230, 252, 0.12);
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .catalog-inline-search-dock:focus-within {
+          border-color: #FF892F;
+          box-shadow: 0 10px 35px rgba(0, 18, 51, 0.7), 0 0 25px rgba(255, 137, 47, 0.35);
+          background: rgba(0, 29, 81, 0.95);
+        }
+
+        .search-field-input-box {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          width: 100%;
+        }
+
+        .catalog-search-input {
+          flex: 1;
+          width: 100%;
+          min-width: 0;
+          background: transparent;
+          border: none;
+          outline: none;
+          color: #FFFFFF;
+          font-family: var(--font-ui);
+          font-size: 0.95rem;
+          font-weight: 500;
+          padding: 0.35rem 0;
+        }
+
+        .catalog-search-input::placeholder {
+          color: #94A3B8;
+          font-size: 0.88rem;
+        }
+
+        .btn-clear-search {
+          background: rgba(255, 255, 255, 0.12);
+          border: none;
+          color: #CBD5E1;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.72rem;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          flex-shrink: 0;
+        }
+
+        .btn-clear-search:hover {
+          background: rgba(255, 137, 47, 0.4);
+          color: #FFFFFF;
+        }
+
         .destination-status-banner {
           max-width: 900px;
           margin: 0 auto 1.5rem auto;
@@ -667,14 +734,14 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 0.5rem;
+          gap: 0.65rem;
           flex-wrap: wrap;
-          margin-bottom: 0.75rem;
-          background: rgba(0, 18, 51, 0.6);
+          margin-bottom: 0.85rem;
+          background: rgba(0, 18, 51, 0.65);
           border: 1px solid rgba(111, 230, 252, 0.2);
-          border-radius: var(--radius-full);
-          padding: 0.3rem 0.75rem;
-          max-width: 920px;
+          border-radius: var(--radius-full, 9999px);
+          padding: 0.35rem 0.85rem;
+          max-width: 960px;
           margin-left: auto;
           margin-right: auto;
         }
@@ -682,65 +749,89 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         .radar-label {
           display: inline-flex;
           align-items: center;
-          gap: 0.35rem;
+          gap: 0.4rem;
           font-size: 0.78rem;
           font-weight: 800;
           color: #FF892F;
           text-transform: uppercase;
           letter-spacing: 0.05em;
+          white-space: nowrap;
         }
 
         .seasonal-chips-row {
           display: flex;
           align-items: center;
-          gap: 0.35rem;
+          gap: 0.45rem;
           flex-wrap: wrap;
         }
 
         .season-chip {
-          background: transparent;
-          border: 1px solid transparent;
-          color: #93B2D2;
-          font-size: 0.7rem;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.42rem;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: #CBD5E1;
+          font-family: var(--font-ui);
+          font-size: 0.76rem;
           font-weight: 700;
-          padding: 0.15rem 0.45rem;
-          border-radius: var(--radius-full);
+          line-height: 1.2;
+          padding: 0.32rem 0.75rem;
+          border-radius: var(--radius-full, 9999px);
           cursor: pointer;
-          transition: all 0.2s ease;
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
           white-space: nowrap;
+          box-sizing: border-box;
+        }
+
+        .season-chip svg {
+          flex-shrink: 0;
         }
 
         .season-chip:hover {
-          color: #F9FBE7;
-          border-color: rgba(111, 230, 252, 0.3);
+          color: #FFFFFF;
+          border-color: rgba(111, 230, 252, 0.4);
+          background: rgba(111, 230, 252, 0.12);
         }
 
         .season-chip.active {
-          background: rgba(255, 137, 47, 0.2);
+          background: rgba(255, 137, 47, 0.25);
           border-color: #FF892F;
-          color: #FF892F;
-          box-shadow: 0 0 10px rgba(255, 137, 47, 0.3);
+          color: #FFA459;
+          box-shadow: 0 0 12px rgba(255, 137, 47, 0.35);
         }
 
         .category-tabs {
           display: flex;
           justify-content: center;
-          gap: 0.45rem;
-          margin-bottom: 0.75rem;
+          gap: 0.5rem;
+          margin-bottom: 0.85rem;
           flex-wrap: wrap;
         }
 
         .tab-btn {
-          padding: 0.45rem 1.1rem;
-          border-radius: var(--radius-full);
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          padding: 0.48rem 1.2rem;
+          border-radius: var(--radius-full, 9999px);
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid var(--cj-glass-border);
           color: #E2E8F0;
           font-family: var(--font-ui);
           font-weight: 700;
-          font-size: 0.82rem;
-          transition: all 0.25s ease;
+          font-size: 0.84rem;
+          line-height: 1.2;
+          transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
           white-space: nowrap;
+          box-sizing: border-box;
+          cursor: pointer;
+        }
+
+        .tab-btn svg {
+          flex-shrink: 0;
         }
 
         .tab-btn:hover {
@@ -761,7 +852,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           align-items: center;
           justify-content: space-between;
           gap: 1rem;
-          margin-bottom: 0.75rem;
+          margin-bottom: 0.85rem;
           flex-wrap: wrap;
         }
 
@@ -772,15 +863,27 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         }
 
         .vibe-pill {
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          color: #CBD5E1;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.42rem;
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: #E2E8F0;
           font-family: var(--font-ui);
           font-size: 0.8rem;
-          font-weight: 600;
-          padding: 0.35rem 0.85rem;
-          border-radius: var(--radius-full);
-          transition: all 0.2s ease;
+          font-weight: 700;
+          line-height: 1.2;
+          padding: 0.38rem 0.85rem;
+          border-radius: var(--radius-full, 9999px);
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+          white-space: nowrap;
+          box-sizing: border-box;
+          cursor: pointer;
+        }
+
+        .vibe-pill svg {
+          flex-shrink: 0;
         }
 
         .vibe-pill:hover {
@@ -812,9 +915,9 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
         .select-pill label {
           font-family: var(--font-ui);
-          font-size: 0.75rem;
+          font-size: 0.78rem;
           font-weight: 800;
-          color: #94A3B8;
+          color: #CBD5E1;
           text-transform: uppercase;
         }
 
@@ -844,8 +947,8 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         }
 
         .count-text {
-          font-size: 0.88rem;
-          color: #94A3B8;
+          font-size: 0.9rem;
+          color: #CBD5E1;
         }
 
         .count-text strong {
@@ -870,77 +973,44 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
         .tours-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-          gap: 2.25rem;
+          grid-template-columns: repeat(auto-fill, minmax(305px, 1fr));
+          gap: 1.5rem;
+          margin-bottom: 2.5rem;
         }
 
-        .tour-card {
+        .tour-tilt-container {
+          border-radius: 20px;
           overflow: hidden;
+          height: 100%;
           display: flex;
           flex-direction: column;
-          background: rgba(0, 29, 81, 0.82);
-          border: 1.5px solid rgba(111, 230, 252, 0.22);
-          border-radius: var(--radius-xl, 22px);
-          backdrop-filter: blur(16px) saturate(160%);
-          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.55);
-          transition: border-color 0.3s ease, box-shadow 0.3s ease;
-          transform-style: preserve-3d;
-        }
-
-        .tour-card:hover {
-          border-color: rgba(255, 137, 47, 0.7);
-          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 25px rgba(255, 137, 47, 0.25);
-        }
-
-        .card-media {
-          position: relative;
-          height: 240px;
-          overflow: hidden;
-          background: #0F172A;
-          transform: translateZ(12px);
-        }
-
-        .card-media img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .tour-card:hover .card-media img {
-          transform: scale(1.08);
-        }
-
-        .tours-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));
-          gap: 1.35rem;
-          margin-bottom: 2.5rem;
         }
 
         .tour-card {
           border-radius: 20px;
           overflow: hidden;
-          background: rgba(0, 18, 51, 0.75);
+          background: rgba(0, 18, 51, 0.82);
           backdrop-filter: blur(16px);
-          border: 1.2px solid rgba(255, 255, 255, 0.09);
+          border: 1.2px solid rgba(255, 255, 255, 0.1);
           display: flex;
           flex-direction: column;
           height: 100%;
           transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
         }
 
         .tour-card:hover {
-          border-color: rgba(255, 137, 47, 0.5);
-          box-shadow: 0 15px 40px rgba(255, 137, 47, 0.22);
+          border-color: rgba(255, 137, 47, 0.55);
+          box-shadow: 0 16px 40px rgba(0, 18, 51, 0.8), 0 0 25px rgba(255, 137, 47, 0.25);
           transform: translateY(-4px);
         }
 
         .card-media {
           position: relative;
-          height: 175px;
+          height: 185px;
           overflow: hidden;
+          border-top-left-radius: 20px;
+          border-top-right-radius: 20px;
         }
 
         .card-media img {
@@ -984,14 +1054,16 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         }
 
         .discount-ribbon {
-          background: #10B981;
+          background: linear-gradient(135deg, rgba(16, 185, 129, 0.95), rgba(5, 150, 105, 0.95));
+          border: 1px solid #34D399;
           color: #FFFFFF;
           font-family: var(--font-ui);
-          font-size: 0.68rem;
-          font-weight: 800;
-          padding: 0.2rem 0.55rem;
+          font-size: 0.74rem;
+          font-weight: 900;
+          padding: 0.22rem 0.65rem;
           border-radius: 9999px;
-          box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);
+          box-shadow: 0 0 14px rgba(16, 185, 129, 0.45);
+          letter-spacing: 0.03em;
         }
 
         .media-action-buttons {
@@ -1066,10 +1138,10 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         .compact-location-tag {
           display: flex;
           align-items: center;
-          gap: 0.3rem;
-          font-size: 0.75rem;
+          gap: 0.35rem;
+          font-size: 0.78rem;
           font-weight: 700;
-          color: #94A3B8;
+          color: #CBD5E1;
         }
 
         .compact-tour-title {
@@ -1120,42 +1192,54 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         }
 
         .inc-text {
-          font-size: 0.62rem;
-          color: #CBD5E1;
-          font-weight: 600;
+          font-size: 0.68rem;
+          color: #F1F5F9;
+          font-weight: 700;
         }
 
-        /* Compact Card Footer */
+        /* Compact Card Footer: 2-Tier Structured Layout */
         .compact-card-footer {
           display: flex;
-          align-items: flex-end;
-          justify-content: space-between;
+          flex-direction: column;
+          gap: 0.75rem;
           padding-top: 0.75rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.06);
-          gap: 0.5rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          width: 100%;
+          box-sizing: border-box;
         }
 
         .compact-price-box {
           display: flex;
-          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          gap: 0.5rem;
         }
 
         .price-strike-row {
           display: flex;
           align-items: center;
-          gap: 0.4rem;
+          gap: 0.45rem;
         }
 
         .orig-price-strike {
-          font-size: 0.78rem;
+          font-size: 0.82rem;
           text-decoration: line-through;
-          color: #64748B;
+          color: #94A3B8;
+          font-weight: 600;
         }
 
         .price-save-badge {
-          font-size: 0.65rem;
-          font-weight: 800;
-          color: #10B981;
+          font-size: 0.72rem;
+          font-weight: 900;
+          color: #34D399;
+          background: linear-gradient(135deg, rgba(16, 185, 129, 0.22) 0%, rgba(5, 150, 105, 0.32) 100%);
+          border: 1.2px solid #10B981;
+          padding: 0.15rem 0.55rem;
+          border-radius: 9999px;
+          letter-spacing: 0.04em;
+          box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+          text-transform: uppercase;
         }
 
         .price-main-row {
@@ -1165,56 +1249,80 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         }
 
         .current-offer-price {
-          font-size: 1.35rem;
+          font-size: 1.4rem;
           font-weight: 900;
           color: #FF892F;
+          letter-spacing: -0.01em;
+          line-height: 1;
         }
 
         .price-per-person {
-          font-size: 0.68rem;
-          color: #94A3B8;
+          font-size: 0.75rem;
+          color: #CBD5E1;
+          font-weight: 600;
         }
 
+        /* Full-Width Dual CTA Grid (No Button Clipping or Line Wrapping) */
         .compact-cta-actions {
-          display: flex;
-          align-items: center;
-          gap: 0.35rem;
+          display: grid;
+          grid-template-columns: 1fr 1.15fr;
+          gap: 0.55rem;
+          width: 100%;
+          box-sizing: border-box;
         }
 
         .btn-itinerary-compact {
-          padding: 0.45rem 0.85rem;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          padding: 0.52rem 0.65rem;
           border-radius: 9999px;
           background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          border: 1.2px solid rgba(255, 255, 255, 0.2);
           color: #FFFFFF;
-          font-size: 0.76rem;
+          font-family: var(--font-ui);
+          font-size: 0.8rem;
           font-weight: 700;
           cursor: pointer;
-          transition: all 0.2s ease;
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+          white-space: nowrap;
+          box-sizing: border-box;
+          text-align: center;
         }
 
         .btn-itinerary-compact:hover {
           background: rgba(111, 230, 252, 0.2);
           border-color: #6FE6FC;
           color: #6FE6FC;
+          box-shadow: 0 0 12px rgba(111, 230, 252, 0.35);
         }
 
         .btn-book-compact {
-          padding: 0.45rem 0.95rem;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          padding: 0.52rem 0.75rem;
           border-radius: 9999px;
-          background: linear-gradient(135deg, #FF892F, #E65100);
+          background: linear-gradient(135deg, #FF892F 0%, #E65100 100%);
           border: none;
           color: #FFFFFF;
-          font-size: 0.78rem;
+          font-family: var(--font-ui);
+          font-size: 0.82rem;
           font-weight: 800;
           cursor: pointer;
-          transition: all 0.2s ease;
-          box-shadow: 0 4px 12px rgba(255, 137, 47, 0.35);
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+          white-space: nowrap;
+          box-sizing: border-box;
+          box-shadow: 0 4px 14px rgba(255, 137, 47, 0.4);
+          text-align: center;
         }
 
         .btn-book-compact:hover {
-          background: #E65100;
-          transform: scale(1.04);
+          background: linear-gradient(135deg, #FF9B49 0%, #FF5722 100%);
+          box-shadow: 0 6px 20px rgba(255, 137, 47, 0.6);
+          transform: translateY(-1px);
         }
 
         /* See All Packages Expansion Row */

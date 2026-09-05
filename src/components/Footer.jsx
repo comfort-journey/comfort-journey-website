@@ -235,8 +235,9 @@ export default function Footer({ onOpenPolicy, onOpenAdmin, onOpenLandingHub, on
         }
 
         .col-links a {
-          color: #94A3B8;
+          color: #CBD5E1;
           font-size: 0.88rem;
+          font-weight: 500;
           transition: color 0.2s ease;
           display: inline-block;
           padding: 0.2rem 0;
@@ -252,9 +253,10 @@ export default function Footer({ onOpenPolicy, onOpenAdmin, onOpenLandingHub, on
           gap: 0.45rem;
           background: none;
           border: none;
-          color: #94A3B8;
+          color: #CBD5E1;
           font-family: var(--font-ui);
           font-size: 0.88rem;
+          font-weight: 500;
           text-align: left;
           padding: 0.25rem 0;
           cursor: pointer;
@@ -268,7 +270,7 @@ export default function Footer({ onOpenPolicy, onOpenAdmin, onOpenLandingHub, on
         }
 
         .admin-link-subtle {
-          color: #64748B;
+          color: #94A3B8;
           margin-top: 0.4rem;
         }
 

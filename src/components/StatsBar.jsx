@@ -124,8 +124,9 @@ export default function StatsBar() {
 
         .stat-sub {
           font-family: var(--font-body);
-          font-size: 0.78rem;
-          color: #94A3B8;
+          font-size: 0.8rem;
+          color: #CBD5E1;
+          font-weight: 500;
         }
 
         @media (max-width: 768px) {

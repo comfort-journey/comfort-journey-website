@@ -868,12 +868,12 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
         }
 
         .dot-mid {
-          color: #64748B;
+          color: #94A3B8;
         }
 
         .trip-time-tag {
-          color: #94A3B8;
-          font-weight: 500;
+          color: #CBD5E1;
+          font-weight: 600;
         }
 
         .verified-shield-pill {

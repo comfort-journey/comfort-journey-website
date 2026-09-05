@@ -65,7 +65,7 @@ export default function ServicesSection({ onOpenAIPlanner }) {
         .section-subtitle {
           max-width: 680px;
           margin: 0 auto;
-          color: #94A3B8;
+          color: #CBD5E1;
           font-size: 1.05rem;
         }
 

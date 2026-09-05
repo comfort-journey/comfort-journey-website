@@ -1293,28 +1293,40 @@ export default function LandingPageTemplate({
 
         .lp-card-footer {
           display: flex;
-          align-items: flex-end;
-          justify-content: space-between;
+          flex-direction: column;
+          gap: 0.75rem;
           padding-top: 0.75rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.06);
-          gap: 0.5rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          width: 100%;
+          box-sizing: border-box;
         }
 
         .lp-card-btns {
-          display: flex;
-          align-items: center;
-          gap: 0.35rem;
+          display: grid;
+          grid-template-columns: 1fr 1.15fr;
+          gap: 0.55rem;
+          width: 100%;
+          box-sizing: border-box;
         }
 
         .btn-lp-itinerary {
-          padding: 0.45rem 0.85rem;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          padding: 0.52rem 0.65rem;
           border-radius: 9999px;
           background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          border: 1.2px solid rgba(255, 255, 255, 0.2);
           color: #FFFFFF;
-          font-size: 0.76rem;
+          font-family: var(--font-ui);
+          font-size: 0.8rem;
           font-weight: 700;
           cursor: pointer;
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+          white-space: nowrap;
+          box-sizing: border-box;
+          text-align: center;
         }
 
         .btn-lp-itinerary:hover {
@@ -1323,17 +1335,27 @@ export default function LandingPageTemplate({
         }
 
         .btn-lp-book {
-          padding: 0.45rem 0.95rem;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          padding: 0.52rem 0.75rem;
           border-radius: 9999px;
           border: none;
           color: #FFFFFF;
-          font-size: 0.78rem;
+          font-family: var(--font-ui);
+          font-size: 0.82rem;
           font-weight: 800;
           cursor: pointer;
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+          white-space: nowrap;
+          box-sizing: border-box;
+          text-align: center;
         }
 
         .btn-lp-book:hover {
           filter: brightness(1.1);
+          transform: translateY(-1px);
         }
 
         /* Pillars Section */
