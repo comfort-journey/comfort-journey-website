@@ -41,16 +41,6 @@ export default function Footer({ onOpenPolicy, onOpenAdmin, onOpenLandingHub, on
               <li><a href="#/school-college-trips">Educational Study Tours</a></li>
               <li><a href="#/weekend-getaways">48-Hour Weekend Escapes</a></li>
               <li><a href="#/fixed-departures">Fixed Departures Tribe</a></li>
-              <li>
-                <button 
-                  type="button" 
-                  className="footer-link-btn" 
-                  style={{ color: '#FF892F', fontWeight: 800, marginTop: '0.35rem' }}
-                  onClick={onOpenLandingHub}
-                >
-                  <span>View All 15 Landing Pages ➔</span>
-                </button>
-              </li>
             </ul>
           </div>
 

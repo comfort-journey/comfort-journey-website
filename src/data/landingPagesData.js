@@ -1862,6 +1862,96 @@ You just pack your bags. We handle the rest.`,
         }
       ],
     faqs: [
+      { q: "Do you assist with international visas and insurance?", a: "Yes! We provide complete end-to-end visa filing assistance, verified itinerary documentation, and international travel insurance options." }
+    ]
+  },
+
+  // 11. ADVENTURE & TREKKING EXPEDITIONS
+  "adventure-tours": {
+    id: "adventure-tours",
+    slug: "adventure-tours",
+    aliases: ["adventure", "trek", "treks", "hiking", "expeditions"],
+    metaTitle: "Adventure & Trekking Tour Packages 2026 | Comfort Journey",
+    metaDesc: "Conquer mountain passes, white water rapids, and jungle trails with certified mountain guides and luxury basecamp comfort since 1992.",
+    categoryBadge: "Adventure & Trekking Expeditions",
+    theme: {
+      accentColor: "#F97316",
+      glowColor: "rgba(249, 115, 22, 0.28)",
+      bgGradient: "radial-gradient(circle at 50% 15%, rgba(194, 65, 12, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
+      heroImage: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?auto=format&fit=crop&w=1600&q=85",
+      personaMood: "Adrenaline & Uncharted Summits",
+      vibePills: [
+        { label: "🧗 Certified Mountain Guides", icon: "compass" },
+        { label: "🏕️ Luxury Glamping Basecamps", icon: "hotel" },
+        { label: "🛡️ Satellite & Oxygen Safety Kit", icon: "shield" },
+        { label: "📸 Epic Summit Drone Shoots", icon: "camera" }
+      ],
+      personaQuote: {
+        author: "Devendra Verma, Pune • Spiti Valley & Hampta Pass",
+        text: "Comfort Journey proved you don't have to freeze or suffer bad food to experience raw mountain adventure. The tents were warm, our guide was a pro, and the views were life-changing."
+      }
+    },
+    heroHeadline: "Push Your Limits. Conquer the High Passes.",
+    heroSubline: "Himalayan treks, white water rafting in Rishikesh, high-altitude desert rides in Spiti, and glamping under the stars.",
+    ctaText: "Explore Adventure Expeditions",
+    whatsAppMsg: "Hi Comfort Journey! I'm looking for thrilling adventure & trekking packages.",
+    openingHeading: "Raw Adventure Meets Uncompromised Safety",
+    openingParagraph: `True adventure isn't about reckless risks; it's about pushing your boundaries with experts who have your back. Comfort Journey combines high-altitude Himalayan trekking, river rafting, and desert safaris with vetted safety protocols, oxygen support, and luxury warm basecamps.`,
+    whyHitsDifferent: [
+      { title: "Certified Mountain Leaders", desc: "Vetted guides with mountaineering certifications and first-aid training.", iconType: "compass" },
+      { title: "Luxury Basecamp Comfort", desc: "Warm sleeping bags, insulated tents, and piping hot mountain meals.", iconType: "hotel" },
+      { title: "24/7 Emergency Support", desc: "Oxygen cylinders, satellite communications, and evacuation backup vehicles.", iconType: "shield" }
+    ],
+    destinationsIndia: [
+      {
+        name: "Ganga To The Hills",
+        tag: "White water river rafting in Rishikesh, cliff jumps, and mountain camping in Mussoorie.",
+        price: 45885,
+        origPrice: 48300,
+        duration: "3 Nights & 4 Days",
+        tourId: "tour-wix-ganga-to-the-hills",
+        img: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+      },
+      {
+        name: "Uttarakhand Explorer",
+        tag: "Rishikesh spiritual adventure, bungee jumping, and Himalayan trails.",
+        price: 69575,
+        origPrice: 77305,
+        duration: "2 Nights and 3 Days",
+        tourId: "tour-wix-uttarakhand-explorer",
+        img: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85"
+      },
+      {
+        name: "Peace In The Pines",
+        tag: "High altitude trek across Khajjiar meadows and Dhauladhar pine ranges.",
+        price: 94012,
+        origPrice: 188023,
+        duration: "4 Nights & 5 Days",
+        tourId: "tour-wix-peace-in-the-pines",
+        img: "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
+      }
+    ],
+    destinationsIntl: [
+      {
+        name: "Dubai City & Sands",
+        tag: "High-octane red dune bashing, quad biking, and Arabian desert camping.",
+        price: 113503,
+        origPrice: 136204,
+        duration: "4N/5D",
+        tourId: "tour-wix-dubai-city-sands",
+        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85"
+      },
+      {
+        name: "Bali Tropical Escape",
+        tag: "Mount Batur sunrise volcano trek, Ayung river rafting, and ATV jungle trails.",
+        price: 62710,
+        origPrice: 69870,
+        duration: "4N/5D",
+        tourId: "tour-wix-bali-tropical-escape",
+        img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
+      }
+    ],
+    faqs: [
       { q: "Are adventure activities suitable for beginners?", a: "Yes! All activities are tiered with beginner, intermediate, and expert routes. Complete safety briefings and equipment are provided." }
     ]
   },

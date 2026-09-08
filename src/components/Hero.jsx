@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Globe, Sun, Users, Sparkles, MapPin, Calendar, Compass, 
   ChevronRight, ArrowRight, CheckCircle2, Heart, ShieldCheck, 
@@ -10,9 +10,11 @@ import { CONTINENTS_TREE_DATA, SEASONS_DATA, TRAVELER_STYLES_DATA } from '../dat
 import { TOURS_DATA, HERO_SLIDES } from '../data/toursData';
 import { useCurrency } from '../context/CurrencyContext';
 import VantaTravelSkyCanvas from './animations/VantaTravelSkyCanvas';
+import HeroMascot from './HeroMascot';
 
 export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, onOpenQuote }) {
   const { formatPrice } = useCurrency();
+  const heroRef = useRef(null);
 
   // Background slider index
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -201,7 +203,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
   };
 
   return (
-    <section id="hero" className="hero-root">
+    <section id="hero" ref={heroRef} className="hero-root">
       {/* Flocking Travel Birds & Sky Jet Streams */}
       <VantaTravelSkyCanvas birdCount={24} jetStreamCount={4} opacity={0.65} />
 
@@ -230,43 +232,27 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
       </div>
 
       <div className="container hero-content-container">
-        {/* Brand Wordmark */}
-        <div className="hero-brand-wordmark">
-          <span className="brand-plain-beige">COMFORT JOURNEY</span>
-          <span className="brand-dot">•</span>
-          <span className="brand-est">EST. 1992</span>
-        </div>
-
-        {/* Headline */}
+        {/* Unified Hero Headline & Question with Interactive Mascot */}
         <div className="hero-headline-block">
+          <HeroMascot heroRef={heroRef} />
           <h1 className="hero-title">
             Your Journey • <span className="text-orange-glow">Your Comfort</span>
           </h1>
-          <p className="hero-subline">
-            Handcrafted luxury vacations across 2,000+ destinations worldwide with verified 5-star stays, private chauffeurs, and 24/7 dedicated concierge.
-          </p>
-        </div>
 
-        {/* =========================================================================
-            PROMINENT QUESTION & 3 MASTER TRAVEL GATEWAYS (IN-PLACE EXPLORATION)
-            ========================================================================= */}
-        <div className="hero-question-container">
-          <div className="question-pill-prebadge">
-            <Sparkles size={14} className="text-amber" />
-            <span>CHOOSE YOUR BESPOKE EXPERIENCE</span>
-            <Sparkles size={14} className="text-cyan" />
-          </div>
+          {/* Description line placed between the two headings */}
+          <p className="hero-subline">
+            Explore 2,000+ handpicked journeys by Continents, Weather & Season, or Bespoke Style
+          </p>
 
           <div className="question-badge-row">
             <h2 className="question-text">
               How Do You Want to <span className="gradient-text-gold">Travel?</span>
             </h2>
           </div>
+        </div>
 
-          <p className="question-subtext">
-            Explore 2,000+ handpicked journeys by Continents, Weather & Season, or Bespoke Style
-          </p>
-
+        {/* Master Travel Gateways Tabs */}
+        <div className="hero-question-container">
           {/* 3 Master Modes */}
           <div className="master-mode-tabs">
             <button
@@ -925,7 +911,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          margin-bottom: 0.75rem;
+          margin-bottom: 1.6rem;
         }
 
         .brand-plain-beige {
@@ -948,15 +934,18 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         }
 
         .hero-headline-block {
-          max-width: 850px;
-          margin-bottom: 2rem;
+          max-width: 900px;
+          margin-bottom: 1.25rem;
+          position: relative;
         }
 
         .hero-title {
-          font-size: 3.6rem;
+          position: relative;
+          z-index: 5;
+          font-size: 3.4rem;
           font-weight: 900;
           color: #FFFFFF;
-          margin-bottom: 0.85rem;
+          margin-bottom: 0.65rem;
           line-height: 1.15;
           letter-spacing: -0.02em;
         }
@@ -967,11 +956,30 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         }
 
         .hero-subline {
-          font-size: 1.15rem;
+          font-size: 1.1rem;
           color: #E2E8F0;
           line-height: 1.6;
           max-width: 720px;
-          margin: 0 auto;
+          margin: 0 auto 1.15rem auto;
+        }
+
+        .question-badge-row {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.65rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+          font-size: clamp(1.85rem, 3.6vw, 2.6rem);
+          font-weight: 900;
+          color: #FFFFFF;
+          margin: 0;
+          font-family: var(--font-editorial, serif);
+          line-height: 1.15;
+          letter-spacing: -0.01em;
+          text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 137, 47, 0.35);
         }
 
         /* Question & Mode Tabs */
