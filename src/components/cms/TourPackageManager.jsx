@@ -349,7 +349,10 @@ export default function TourPackageManager() {
           {editorTab === 'itinerary' && (
             <div className="editor-section">
               <div className="itin-header-row">
-                <h4>📅 Day-by-Day Itinerary ({editingTour.itinerary?.length || 0} Days)</h4>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                  <h4>📅 Day-by-Day Itinerary ({editingTour.itinerary?.length || 0} Days)</h4>
+                  <span className="section-h2-tag" title="Main Itinerary section functions as H2 in page hierarchy">H2 Section</span>
+                </div>
                 <button type="button" className="add-day-btn" onClick={() => {
                   const nextDay = (editingTour.itinerary?.length || 0) + 1;
                   setEditingTour({
@@ -369,7 +372,7 @@ export default function TourPackageManager() {
                     <div className="day-card-header">
                       <span className="day-badge">Day {day.day || idx + 1}</span>
                       <div className="day-title-wrap">
-                        <span className="day-h3-tag" title="Treated as H3 Heading in SEO">H3 Subheading</span>
+                        <span className="day-h3-tag" title="Treated as H3 Heading in SEO">H3 Day Title</span>
                         <input type="text" className="cms-input day-title" value={day.title || ''} onChange={e => {
                           const upd = [...editingTour.itinerary]; upd[idx].title = e.target.value;
                           setEditingTour({ ...editingTour, itinerary: upd });
@@ -384,11 +387,8 @@ export default function TourPackageManager() {
                     {/* Rich Formatting Toolbar */}
                     <div className="day-rich-box">
                       <div className="day-rich-toolbar">
-                        <button type="button" className="day-tool-btn" onClick={() => insertDayFormatting(idx, '<h2>', '</h2>', 'Section Heading')} title="Insert H2 Heading">
-                          <strong>H2</strong>
-                        </button>
-                        <button type="button" className="day-tool-btn" onClick={() => insertDayFormatting(idx, '<h3>', '</h3>', 'Activities & Stops')} title="Insert H3 Subheading">
-                          <strong>H3</strong>
+                        <button type="button" className="day-tool-btn" onClick={() => insertDayFormatting(idx, '<h4>', '</h4>', 'Sightseeing / Activity Subheading')} title="Insert H4 Subheading (proper child of Day H3)">
+                          <strong>H4 Subheading</strong>
                         </button>
                         <button type="button" className="day-tool-btn" onClick={() => insertDayFormatting(idx, '<strong>', '</strong>', 'highlighted text')} title="Bold Text">
                           <strong>B</strong>

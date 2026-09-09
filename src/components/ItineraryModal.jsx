@@ -44,7 +44,7 @@ Please share customized availability and booking details!`);
               <span className="badge badge-gold">⭐ {tour.rating} ({tour.reviews} Reviews)</span>
             </div>
 
-            <h2 className="banner-title font-editorial">{tour.name}</h2>
+            <h1 className="banner-title font-editorial">{tour.name}</h1>
             <p className="banner-tagline">{tour.tagline}</p>
           </div>
         </div>
@@ -67,7 +67,7 @@ Please share customized availability and booking details!`);
 
           {/* Highlights & Inclusions Strip */}
           <div className="highlights-strip glass-card">
-            <h4 className="strip-title">⭐ Tour Highlights & VIP Inclusions</h4>
+            <h2 className="strip-title">⭐ Tour Highlights & VIP Inclusions</h2>
             <div className="highlights-grid">
               {tour.highlights?.map((h, idx) => (
                 <div key={idx} className="highlight-item">
@@ -80,7 +80,7 @@ Please share customized availability and booking details!`);
 
           {/* Day Selector Tabs */}
           <div className="itinerary-tabs-header">
-            <h3 className="section-label">Day-by-Day Detailed Schedule</h3>
+            <h2 className="section-label">Day-by-Day Detailed Schedule</h2>
             <div className="day-tabs-scroll">
               {tour.itinerary?.map((d) => (
                 <button
@@ -160,7 +160,7 @@ Please share customized availability and booking details!`);
           {/* Inclusions & Exclusions Accordion Grid */}
           <div className="inc-exc-grid">
             <div className="inc-box glass-card">
-              <h4 className="box-title text-emerald"><CheckCircle size={16} /> 100% Guaranteed Inclusions</h4>
+              <h2 className="box-title text-emerald"><CheckCircle size={16} /> 100% Guaranteed Inclusions</h2>
               <ul>
                 {tour.inclusions?.map((item, idx) => (
                   <li key={idx}>• {item}</li>
@@ -169,7 +169,7 @@ Please share customized availability and booking details!`);
             </div>
 
             <div className="exc-box glass-card">
-              <h4 className="box-title text-muted"><XCircle size={16} /> Exclusions</h4>
+              <h2 className="box-title text-muted"><XCircle size={16} /> Exclusions</h2>
               <ul>
                 {tour.exclusions?.map((item, idx) => (
                   <li key={idx}>• {item}</li>

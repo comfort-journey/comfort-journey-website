@@ -124,13 +124,26 @@ async function generateSSG() {
       "@context": "https://schema.org",
       "@type": ["TouristTrip", "Product"],
       "name": tour.name,
-      "description": tour.tagline,
-      "image": [tour.image],
+      "description": tour.description ? tour.description.replace(/<[^>]*>/g, '').slice(0, 280) : tour.tagline,
+      "image": [tour.image].filter(Boolean),
       "offers": {
         "@type": "Offer",
         "price": tour.price,
-        "priceCurrency": "INR"
-      }
+        "priceCurrency": "INR",
+        "availability": "https://schema.org/InStock"
+      },
+      ...(tour.itinerary && tour.itinerary.length > 0 ? {
+        "itinerary": {
+          "@type": "ItemList",
+          "numberOfItems": tour.itinerary.length,
+          "itemListElement": tour.itinerary.map((d, i) => ({
+            "@type": "ListItem",
+            "position": i + 1,
+            "name": d.title || `Day ${d.day || i + 1}`,
+            "description": (d.desc || '').replace(/<[^>]*>/g, '').slice(0, 250)
+          }))
+        }
+      } : {})
     };
 
     const tourHtml = injectHtmlMetadata(baseHtml, {

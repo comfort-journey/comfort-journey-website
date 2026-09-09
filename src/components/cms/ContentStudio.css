@@ -412,6 +412,17 @@
   letter-spacing: 0.5px;
   white-space: nowrap;
 }
+.section-h2-tag {
+  background: rgba(255, 179, 71, 0.15);
+  color: #FFB347;
+  border: 1px solid rgba(255, 179, 71, 0.35);
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.2rem 0.45rem;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
 
 /* Day Description Rich Formatting Toolbar */
 .day-rich-box { display: flex; flex-direction: column; }
