@@ -100,8 +100,27 @@ Please share customized availability and booking details!`);
             <div className="day-detail-card glass-panel">
               <div className="day-card-header">
                 <span className="day-tag-pill">Day {currentDayData.day}</span>
-                <h4 className="day-title-text">{currentDayData.title}</h4>
+                <h3 className="day-title-text">{currentDayData.title}</h3>
               </div>
+
+              {/* Day Image if provided */}
+              {currentDayData.image && (
+                <div className="day-featured-image-wrap">
+                  <img 
+                    src={currentDayData.image} 
+                    alt={currentDayData.title || `Day ${currentDayData.day}`} 
+                    className="day-featured-img" 
+                  />
+                </div>
+              )}
+
+              {/* Day Rich Narrative Description */}
+              {currentDayData.desc && (
+                <div 
+                  className="day-narrative-desc"
+                  dangerouslySetInnerHTML={{ __html: currentDayData.desc }}
+                />
+              )}
 
               <div className="day-schedule-timeline">
                 <div className="timeline-slot">
@@ -402,6 +421,61 @@ Please share customized availability and booking details!`);
           font-family: var(--font-ui);
           font-size: 1.15rem;
           color: #FFFFFF;
+        }
+
+        .day-featured-image-wrap {
+          width: 100%;
+          max-height: 240px;
+          border-radius: var(--radius-md);
+          overflow: hidden;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .day-featured-img {
+          width: 100%;
+          height: 240px;
+          object-fit: cover;
+          display: block;
+        }
+
+        .day-narrative-desc {
+          font-size: 0.92rem;
+          color: #CBD5E1;
+          line-height: 1.65;
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          border-radius: var(--radius-sm);
+          padding: 0.85rem 1.1rem;
+        }
+
+        .day-narrative-desc h2, .day-narrative-desc h3 {
+          font-family: var(--font-serif);
+          margin-top: 0.75rem;
+          margin-bottom: 0.35rem;
+        }
+
+        .day-narrative-desc h2 {
+          font-size: 1.15rem;
+          color: var(--cj-gold-400);
+        }
+
+        .day-narrative-desc h3 {
+          font-size: 1.02rem;
+          color: var(--cj-amber-400);
+        }
+
+        .day-narrative-desc strong {
+          color: #FFFFFF;
+          font-weight: 700;
+        }
+
+        .day-narrative-desc ul {
+          margin: 0.5rem 0;
+          padding-left: 1.25rem;
+        }
+
+        .day-narrative-desc li {
+          margin-bottom: 0.25rem;
         }
 
         .day-schedule-timeline {

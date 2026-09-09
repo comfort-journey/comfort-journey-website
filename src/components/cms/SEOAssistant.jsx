@@ -78,7 +78,9 @@ export default function SEOAssistant({
     checks.push({
       id: 'indexing',
       label: 'Allow this post to get indexed',
-      detail: allowIndexing ? 'Page is set to be indexed by search engines' : 'Page is set to noindex — search engines will NOT crawl it',
+      detail: allowIndexing 
+        ? 'Search engines (Google, Bing) are allowed to index this page (robots="index, follow" and included in sitemap)' 
+        : 'Search engines are blocked from indexing (robots="noindex, nofollow")',
       priority: 'CRITICAL',
       passed: allowIndexing
     });
@@ -112,7 +114,11 @@ export default function SEOAssistant({
     checks.push({
       id: 'kw-in-subheading',
       label: 'Add focus keyword to at least one H2 or H3 (subheading)',
-      detail: kw ? (subheadings.some(h => h.includes(kw)) ? 'Keyword found in subheading' : 'Keyword not found in any H2/H3') : 'Set a focus keyword first',
+      detail: kw 
+        ? (subheadings.some(h => h.includes(kw)) 
+            ? `Focus keyword "${focusKeyword}" found in subheadings (H2/H3)` 
+            : `Keyword not found in subheadings. Include it in an H3 Day Title or section heading`) 
+        : 'Set a focus keyword first',
       priority: 'MEDIUM',
       passed: kw ? subheadings.some(h => h.includes(kw)) : false
     });
@@ -136,7 +142,7 @@ export default function SEOAssistant({
     checks.push({
       id: 'content-length',
       label: 'Write at least 300 words of content',
-      detail: `Current word count: ${wordCount}`,
+      detail: `Current total word count: ${wordCount} words ${contentType === 'tour' ? '(calculated from overview, all daily itineraries & inclusions)' : ''}`,
       priority: 'MEDIUM',
       passed: wordCount >= 300
     });
@@ -460,8 +466,13 @@ export default function SEOAssistant({
                 checked={allowIndexing}
                 onChange={e => onAllowIndexingChange?.(e.target.checked)}
               />
-              <span>Allow search engines to index this page</span>
+              <span>Allow search engines to index this page (Recommended for published tours)</span>
             </label>
+            <div style={{ fontSize: '0.75rem', color: allowIndexing ? '#10B981' : '#F59E0B', marginTop: '0.4rem', paddingLeft: '1.75rem' }}>
+              {allowIndexing 
+                ? '✓ robots="index, follow" active — Google will crawl, index, and rank this page in search results.'
+                : '⚠ robots="noindex, nofollow" active — Page is hidden from Google and search results (useful for drafts).'}
+            </div>
           </div>
 
           {/* Canonical URL */}

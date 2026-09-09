@@ -58,6 +58,81 @@ export default function TourPackageManager() {
   const [newIncTag, setNewIncTag] = useState('');
   const [newExcTag, setNewExcTag] = useState('');
   const [editorTab, setEditorTab] = useState('details'); // details, itinerary, pricing, gallery, seo
+  const [previewDays, setPreviewDays] = useState({});
+
+  const toggleDayPreview = (idx) => {
+    setPreviewDays(prev => ({ ...prev, [idx]: !prev[idx] }));
+  };
+
+  const insertDayFormatting = (idx, tagOpen, tagClose, placeholderText = 'heading') => {
+    const textarea = document.getElementById(`day-desc-textarea-${idx}`);
+    const dayObj = editingTour?.itinerary?.[idx];
+    const currentDesc = dayObj?.desc || '';
+    let newDesc = '';
+
+    if (textarea && textarea.selectionStart !== undefined) {
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const selected = currentDesc.substring(start, end);
+      const textToWrap = selected || placeholderText;
+      newDesc = currentDesc.substring(0, start) + `${tagOpen}${textToWrap}${tagClose}` + currentDesc.substring(end);
+    } else {
+      newDesc = currentDesc ? `${currentDesc}\n${tagOpen}${placeholderText}${tagClose}` : `${tagOpen}${placeholderText}${tagClose}`;
+    }
+
+    const upd = [...editingTour.itinerary];
+    upd[idx].desc = newDesc;
+    setEditingTour({ ...editingTour, itinerary: upd });
+  };
+
+  // Aggregates full tour content for SEO analysis (Overview, Day-by-day H3s & descriptions, Inclusions H2, Exclusions H2)
+  const getFullTourContentForSEO = useCallback((tour) => {
+    if (!tour) return '';
+    const parts = [];
+
+    if (tour.description) {
+      parts.push(`<h2>Tour Overview & Experience</h2>`);
+      parts.push(tour.description);
+    }
+    if (tour.tagline) {
+      parts.push(`<p>${tour.tagline}</p>`);
+    }
+
+    if (tour.itinerary && tour.itinerary.length > 0) {
+      parts.push(`<h2>Day-by-Day Itinerary (${tour.itinerary.length} Days)</h2>`);
+      tour.itinerary.forEach((day, i) => {
+        const dayNum = day.day || i + 1;
+        const title = day.title || `Day ${dayNum}`;
+        parts.push(`<h3>${title}</h3>`);
+        if (day.desc) {
+          parts.push(day.desc);
+        }
+        const logistics = [
+          day.stayTier ? `Stay: ${day.stayTier}` : '',
+          day.transport ? `Transport: ${day.transport}` : '',
+          day.meals ? `Meals: ${day.meals}` : ''
+        ].filter(Boolean).join(' | ');
+        if (logistics) {
+          parts.push(`<p><em>${logistics}</em></p>`);
+        }
+        if (day.image) {
+          parts.push(`<img src="${day.image}" alt="${title}" />`);
+        }
+      });
+    }
+
+    if (tour.inclusions && tour.inclusions.length > 0) {
+      parts.push(`<h2>Package Inclusions & Privileges</h2>`);
+      parts.push(`<ul>` + tour.inclusions.map(inc => `<li>${inc}</li>`).join('') + `</ul>`);
+    }
+
+    if (tour.exclusions && tour.exclusions.length > 0) {
+      parts.push(`<h2>Package Exclusions</h2>`);
+      parts.push(`<ul>` + tour.exclusions.map(exc => `<li>${exc}</li>`).join('') + `</ul>`);
+    }
+
+    return parts.join('\n');
+  }, []);
 
   const showToast = (msg) => { setToastMessage(msg); setTimeout(() => setToastMessage(''), 3500); };
 
@@ -293,48 +368,116 @@ export default function TourPackageManager() {
                   <div key={idx} className="itin-day-card">
                     <div className="day-card-header">
                       <span className="day-badge">Day {day.day || idx + 1}</span>
-                      <input type="text" className="cms-input day-title" value={day.title || ''} onChange={e => {
-                        const upd = [...editingTour.itinerary]; upd[idx].title = e.target.value;
-                        setEditingTour({ ...editingTour, itinerary: upd });
-                      }} placeholder="Day title" />
+                      <div className="day-title-wrap">
+                        <span className="day-h3-tag" title="Treated as H3 Heading in SEO">H3 Subheading</span>
+                        <input type="text" className="cms-input day-title" value={day.title || ''} onChange={e => {
+                          const upd = [...editingTour.itinerary]; upd[idx].title = e.target.value;
+                          setEditingTour({ ...editingTour, itinerary: upd });
+                        }} placeholder="Day title (e.g. Day 1: Arrival & Bangalore City Palace)" />
+                      </div>
                       <button type="button" className="btn-del-day" onClick={() => {
                         const upd = editingTour.itinerary.filter((_, i) => i !== idx).map((d, i) => ({ ...d, day: i + 1 }));
                         setEditingTour({ ...editingTour, itinerary: upd });
                       }}><Trash2 size={14} /></button>
                     </div>
-                    <textarea rows={2} className="cms-textarea small" value={day.desc || ''} onChange={e => {
-                      const upd = [...editingTour.itinerary]; upd[idx].desc = e.target.value;
-                      setEditingTour({ ...editingTour, itinerary: upd });
-                    }} placeholder="Activities and schedule details..." />
+
+                    {/* Rich Formatting Toolbar */}
+                    <div className="day-rich-box">
+                      <div className="day-rich-toolbar">
+                        <button type="button" className="day-tool-btn" onClick={() => insertDayFormatting(idx, '<h2>', '</h2>', 'Section Heading')} title="Insert H2 Heading">
+                          <strong>H2</strong>
+                        </button>
+                        <button type="button" className="day-tool-btn" onClick={() => insertDayFormatting(idx, '<h3>', '</h3>', 'Activities & Stops')} title="Insert H3 Subheading">
+                          <strong>H3</strong>
+                        </button>
+                        <button type="button" className="day-tool-btn" onClick={() => insertDayFormatting(idx, '<strong>', '</strong>', 'highlighted text')} title="Bold Text">
+                          <strong>B</strong>
+                        </button>
+                        <button type="button" className="day-tool-btn" onClick={() => insertDayFormatting(idx, '<em>', '</em>', 'special note')} title="Italic Text">
+                          <em>I</em>
+                        </button>
+                        <button type="button" className="day-tool-btn" onClick={() => insertDayFormatting(idx, '<ul>\n  <li>', '</li>\n</ul>', 'Key attraction')} title="Bullet List">
+                          • List
+                        </button>
+                        <button type="button" className="day-tool-btn" onClick={() => insertDayFormatting(idx, '<p><strong>🌅 Morning:</strong> ', '</p>', 'Breakfast & departure for sightseeing')} title="Morning Slot">
+                          🌅 Morning
+                        </button>
+                        <button type="button" className="day-tool-btn" onClick={() => insertDayFormatting(idx, '<p><strong>☀️ Afternoon:</strong> ', '</p>', 'Guided monument tour & cultural visits')} title="Afternoon Slot">
+                          ☀️ Afternoon
+                        </button>
+                        <button type="button" className="day-tool-btn" onClick={() => insertDayFormatting(idx, '<p><strong>🌙 Evening:</strong> ', '</p>', 'Hotel check-in & dinner')} title="Evening Slot">
+                          🌙 Evening
+                        </button>
+                        <button 
+                          type="button" 
+                          className="day-tool-btn btn-preview-toggle" 
+                          onClick={() => toggleDayPreview(idx)}
+                          title="Toggle between editing HTML/text and previewing the rendered card"
+                        >
+                          {previewDays[idx] ? '✏️ Edit Mode' : '👁 Rendered Preview'}
+                        </button>
+                      </div>
+
+                      {previewDays[idx] ? (
+                        <div 
+                          className="day-rendered-preview"
+                          dangerouslySetInnerHTML={{ 
+                            __html: day.desc || '<em style="color:#64748b">No description written yet. Click "✏️ Edit Mode" to write schedule & activities.</em>' 
+                          }}
+                        />
+                      ) : (
+                        <textarea 
+                          id={`day-desc-textarea-${idx}`}
+                          rows={3} 
+                          className="cms-textarea small day-desc-textarea" 
+                          value={day.desc || ''} 
+                          onChange={e => {
+                            const upd = [...editingTour.itinerary]; upd[idx].desc = e.target.value;
+                            setEditingTour({ ...editingTour, itinerary: upd });
+                          }} 
+                          placeholder="Day schedule, activities, and highlights (supports H2, H3, Bold, and HTML formatting)..." 
+                        />
+                      )}
+                    </div>
+
+                    {/* Logistics Row */}
                     <div className="day-meta-row">
                       <div className="day-meta-field">
-                        <label>Stay</label>
+                        <label>Stay Tier</label>
                         <input type="text" className="cms-input small" value={day.stayTier || ''} onChange={e => {
                           const upd = [...editingTour.itinerary]; upd[idx].stayTier = e.target.value;
                           setEditingTour({ ...editingTour, itinerary: upd });
-                        }} placeholder="4-Star Stay" />
+                        }} placeholder="4-Star / 5-Star Stay" />
                       </div>
                       <div className="day-meta-field">
                         <label>Transport</label>
                         <input type="text" className="cms-input small" value={day.transport || ''} onChange={e => {
                           const upd = [...editingTour.itinerary]; upd[idx].transport = e.target.value;
                           setEditingTour({ ...editingTour, itinerary: upd });
-                        }} placeholder="Private AC Cab" />
+                        }} placeholder="Dedicated Private AC Cab" />
                       </div>
                       <div className="day-meta-field">
                         <label>Meals</label>
                         <input type="text" className="cms-input small" value={day.meals || ''} onChange={e => {
                           const upd = [...editingTour.itinerary]; upd[idx].meals = e.target.value;
                           setEditingTour({ ...editingTour, itinerary: upd });
-                        }} placeholder="Breakfast & Dinner" />
+                        }} placeholder="Daily Breakfast & Dinner" />
                       </div>
-                      <div className="day-meta-field">
-                        <label>Day Image URL</label>
-                        <input type="text" className="cms-input small" value={day.image || ''} onChange={e => {
-                          const upd = [...editingTour.itinerary]; upd[idx].image = e.target.value;
+                    </div>
+
+                    {/* Day Photo with Device Upload + URL */}
+                    <div className="day-photo-section">
+                      <ImageUploadField
+                        compact={true}
+                        label={`Day ${day.day || idx + 1} Featured Photo`}
+                        placeholder="Paste image URL or upload from device"
+                        value={day.image || ''}
+                        onChange={val => {
+                          const upd = [...editingTour.itinerary];
+                          upd[idx].image = val;
                           setEditingTour({ ...editingTour, itinerary: upd });
-                        }} placeholder="https://..." />
-                      </div>
+                        }}
+                      />
                     </div>
                   </div>
                 ))}
@@ -508,7 +651,7 @@ export default function TourPackageManager() {
               <SEOAssistant
                 title={editingTour.name}
                 slug={editingTour.slug}
-                content={editingTour.description || ''}
+                content={getFullTourContentForSEO(editingTour)}
                 metaTitle={editingTour.seo?.metaTitle || editingTour.name}
                 metaDescription={editingTour.seo?.metaDescription || editingTour.tagline}
                 focusKeyword={editingTour.seo?.focusKeyword || ''}
