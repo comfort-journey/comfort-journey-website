@@ -11,6 +11,7 @@ import { useWishlistCompare } from '../context/WishlistCompareContext';
 import Tilt3DCard from './animations/Tilt3DCard';
 import GoldSealStamp from './animations/GoldSealStamp';
 import { useParticleBurst } from '../hooks/useParticleBurst';
+import CardInclusionsStrip from './CardInclusionsStrip';
 
 export default function TourExplorer({ searchFilters, onSelectItinerary, onBookNow, onOpenAIPlanner, onOpenTierCompare }) {
   const { formatPrice } = useCurrency();
@@ -401,39 +402,8 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
                       <h3 className="compact-tour-title">{tour.name}</h3>
 
-                      {/* Visual Inclusions Icon Bar (Flaticon / Vector Badge Style) */}
-                      <div className="compact-inclusions-icon-bar">
-                        <div className="inc-icon-item" title="4-Star or 5-Star Luxury Stay">
-                          <div className="inc-svg-badge">
-                            <Hotel size={13} className="text-amber" />
-                          </div>
-                          <span className="inc-text">Stay</span>
-                        </div>
-                        <div className="inc-icon-item" title="Private Cab & Transfers">
-                          <div className="inc-svg-badge">
-                            <Car size={13} className="text-cyan" />
-                          </div>
-                          <span className="inc-text">Transfers</span>
-                        </div>
-                        <div className="inc-icon-item" title="Daily Breakfast & Meals">
-                          <div className="inc-svg-badge">
-                            <Utensils size={13} className="text-emerald" />
-                          </div>
-                          <span className="inc-text">Meals</span>
-                        </div>
-                        <div className="inc-icon-item" title="VIP Sightseeing & Entry Passes">
-                          <div className="inc-svg-badge">
-                            <Ticket size={13} className="text-amber" />
-                          </div>
-                          <span className="inc-text">Sightseeing</span>
-                        </div>
-                        <div className="inc-icon-item" title="24/7 Dedicated VIP Concierge">
-                          <div className="inc-svg-badge">
-                            <ShieldCheck size={13} className="text-emerald" />
-                          </div>
-                          <span className="inc-text">24/7 VIP</span>
-                        </div>
-                      </div>
+                      {/* Visual Inclusions Icon Bar (CMS-Customizable Card Features) */}
+                      <CardInclusionsStrip tour={tour} />
 
                       {/* Pricing & Footer Actions */}
                       <div className="compact-card-footer">
@@ -1225,8 +1195,9 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         .orig-price-strike {
           font-size: 0.82rem;
           text-decoration: line-through;
-          color: #94A3B8;
+          color: #F9FBE7;
           font-weight: 600;
+          opacity: 0.92;
         }
 
         .price-save-badge {

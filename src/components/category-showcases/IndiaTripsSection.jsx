@@ -7,6 +7,7 @@ import {
   Sparkles, MapPin, Clock, Star, Hotel, Car, Utensils, Ticket, 
   ShieldCheck, ChevronLeft, ChevronRight, ArrowRight, Compass, Shield
 } from 'lucide-react';
+import CardInclusionsStrip from '../CardInclusionsStrip';
 
 export default function IndiaTripsSection({ 
   onSelectItinerary, 
@@ -181,29 +182,8 @@ export default function IndiaTripsSection({
 
                       <h3 className="compact-tour-title">{tour.name}</h3>
 
-                      {/* Inclusions Row */}
-                      <div className="compact-inclusions-icon-bar">
-                        <div className="inc-icon-item" title="Palace / 5-Star Stay">
-                          <div className="inc-svg-badge"><Hotel size={13} className="text-amber" /></div>
-                          <span className="inc-text">Stay</span>
-                        </div>
-                        <div className="inc-icon-item" title="Private AC Chauffeur">
-                          <div className="inc-svg-badge"><Car size={13} className="text-cyan" /></div>
-                          <span className="inc-text">Cab</span>
-                        </div>
-                        <div className="inc-icon-item" title="Breakfast & Royal Dinners">
-                          <div className="inc-svg-badge"><Utensils size={13} className="text-emerald" /></div>
-                          <span className="inc-text">Meals</span>
-                        </div>
-                        <div className="inc-icon-item" title="VIP Monument Entry">
-                          <div className="inc-svg-badge"><Ticket size={13} className="text-amber" /></div>
-                          <span className="inc-text">Sightseeing</span>
-                        </div>
-                        <div className="inc-icon-item" title="24/7 Dedicated Concierge">
-                          <div className="inc-svg-badge"><ShieldCheck size={13} className="text-emerald" /></div>
-                          <span className="inc-text">24/7 VIP</span>
-                        </div>
-                      </div>
+                      {/* Inclusions Row (CMS-Customizable Card Features) */}
+                      <CardInclusionsStrip tour={tour} />
 
                       {/* 2-Tier Footer Actions */}
                       <div className="compact-card-footer">

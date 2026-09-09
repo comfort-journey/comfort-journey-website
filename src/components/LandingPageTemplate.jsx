@@ -24,9 +24,11 @@ import {
   Flame,
   Award,
   Zap,
+  Maximize2,
   Smile,
   Quote
 } from 'lucide-react';
+import CardInclusionsStrip from './CardInclusionsStrip';
 import { useCurrency } from '../context/CurrencyContext';
 import { seoHeadManager } from '../utils/seoHeadManager';
 import { jsonLdSchemaGenerator } from '../utils/jsonLdSchemaGenerator';
@@ -409,39 +411,8 @@ export default function LandingPageTemplate({
                       <p className="lp-card-tag">{tour.tag}</p>
                     </div>
 
-                    {/* Compact Inclusions Bar */}
-                    <div className="compact-inclusions-icon-bar">
-                      <div className="inc-icon-item" title="Verified Luxury Stay">
-                        <div className="inc-svg-badge">
-                          <Hotel size={13} style={{ color: theme.accentColor }} />
-                        </div>
-                        <span className="inc-text">Stay</span>
-                      </div>
-                      <div className="inc-icon-item" title="Private Sanitized Cabs">
-                        <div className="inc-svg-badge">
-                          <Car size={13} style={{ color: theme.accentColor }} />
-                        </div>
-                        <span className="inc-text">Transfers</span>
-                      </div>
-                      <div className="inc-icon-item" title="Breakfast & Meals Included">
-                        <div className="inc-svg-badge">
-                          <Utensils size={13} style={{ color: theme.accentColor }} />
-                        </div>
-                        <span className="inc-text">Meals</span>
-                      </div>
-                      <div className="inc-icon-item" title="Monument & Sightseeing Passes">
-                        <div className="inc-svg-badge">
-                          <Ticket size={13} style={{ color: theme.accentColor }} />
-                        </div>
-                        <span className="inc-text">Sightseeing</span>
-                      </div>
-                      <div className="inc-icon-item" title="24/7 VIP Concierge Support">
-                        <div className="inc-svg-badge">
-                          <ShieldCheck size={13} style={{ color: theme.accentColor }} />
-                        </div>
-                        <span className="inc-text">24/7 VIP</span>
-                      </div>
-                    </div>
+                    {/* Compact Inclusions Bar (CMS-Customizable Card Features) */}
+                    <CardInclusionsStrip tour={tour} />
 
                     {/* Card Price & Actions */}
                     <div className="lp-card-footer">

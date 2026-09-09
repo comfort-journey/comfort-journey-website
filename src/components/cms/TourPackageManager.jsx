@@ -10,6 +10,7 @@ import RichTextEditor from './RichTextEditor';
 import SEOAssistant from './SEOAssistant';
 import { TOURS_DATA } from '../../data/toursData';
 import { slugify } from '../../services/directusClient';
+import { CARD_FEATURE_OPTIONS, FEATURE_ICONS_MAP } from '../CardInclusionsStrip';
 
 // ═══════════════════════════════════════════════════════════════════
 // COMFORT JOURNEY — TOUR PACKAGE MANAGER & STUDIO
@@ -25,6 +26,7 @@ const EMPTY_TOUR = {
   tagline: '', description: '',
   inclusions: ['Hotel Accommodation', 'Daily Breakfast', 'Private AC Vehicle', 'Sightseeing & Transfers'],
   exclusions: ['Personal Expenses', 'Monument Entry Tickets', 'Anything not in Inclusions'],
+  cardFeatures: ['stay', 'cab', 'meals', 'sightseeing', 'vip'],
   itinerary: [
     { day: 1, title: 'Day 1: Arrival & Welcome', desc: 'VIP greeting and transfer to hotel.', image: '', stayTier: '4-Star Stay', transport: 'Private AC Cab', meals: 'Dinner' }
   ],
@@ -536,6 +538,71 @@ export default function TourPackageManager() {
           {/* ── Inclusions Tab ── */}
           {editorTab === 'inclusions' && (
             <div className="editor-section">
+              {/* Tour Card Inclusion Icons Selector */}
+              <div className="card-icons-selector-box">
+                <div className="card-icons-header">
+                  <div className="editor-sub-heading" style={{ margin: 0 }}>
+                    <Sparkles size={16} className="text-amber" /> Tour Card Inclusion Icons
+                  </div>
+                  <p style={{ fontSize: '0.78rem', color: '#94A3B8', margin: '0.25rem 0 0.65rem 0' }}>
+                    Select which feature icons appear on cards across the website (e.g. Stay, Hotel, Cab, Flight, Train, Meals, Sightseeing, 24/7 VIP, Guide, Cruise, Visa, Activities).
+                  </p>
+                </div>
+
+                {/* Live Card Icon Strip Preview */}
+                <div className="card-icons-live-preview">
+                  <span className="live-preview-tag">Card Preview:</span>
+                  <div className="compact-inclusions-icon-bar" style={{ margin: 0 }}>
+                    {(editingTour.cardFeatures || ['stay', 'cab', 'meals', 'sightseeing', 'vip']).map(featId => {
+                      const feat = CARD_FEATURE_OPTIONS.find(f => f.id === featId);
+                      if (!feat) return null;
+                      const IconComp = feat.icon;
+                      return (
+                        <div key={feat.id} className="inc-icon-item" title={feat.title}>
+                          <div className="inc-svg-badge">
+                            <IconComp size={13} className={`text-${feat.color}`} />
+                          </div>
+                          <span className="inc-text">{feat.label}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Available Icon Options Grid */}
+                <div className="card-icons-picker-grid">
+                  {CARD_FEATURE_OPTIONS.map(opt => {
+                    const isSelected = (editingTour.cardFeatures || ['stay', 'cab', 'meals', 'sightseeing', 'vip']).includes(opt.id);
+                    const IconComp = opt.icon;
+                    return (
+                      <button
+                        key={opt.id}
+                        type="button"
+                        className={`card-icon-toggle-chip ${isSelected ? 'active' : ''}`}
+                        onClick={() => {
+                          const current = editingTour.cardFeatures || ['stay', 'cab', 'meals', 'sightseeing', 'vip'];
+                          const next = isSelected 
+                            ? current.filter(id => id !== opt.id)
+                            : [...current, opt.id];
+                          setEditingTour({ ...editingTour, cardFeatures: next });
+                        }}
+                      >
+                        <div className="chip-icon-box">
+                          <IconComp size={15} className={`text-${opt.color}`} />
+                        </div>
+                        <div className="chip-info">
+                          <span className="chip-label">{opt.label}</span>
+                          <span className="chip-title">{opt.title}</span>
+                        </div>
+                        <span className="chip-status-check">
+                          {isSelected ? '✓' : '+'}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
               {/* Inclusions */}
               <div className="editor-sub-heading inc-heading">✓ Inclusions ({editingTour.inclusions?.length || 0})</div>
               <div className="tag-add-row">

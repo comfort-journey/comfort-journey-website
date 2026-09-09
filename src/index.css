@@ -874,3 +874,16 @@ img, svg {
     display: none !important;
   }
 }
+
+/* 10. Warm Luxury Beige (#F9FBE7) for Strikethrough Original Pricing Across All Cards & Modals */
+.orig-price-strike,
+.footer-orig-price,
+.strike-price-val,
+.strike-price,
+.price-strike-row span:first-child,
+del,
+s {
+  color: #F9FBE7 !important;
+  text-decoration: line-through !important;
+  opacity: 0.92;
+}

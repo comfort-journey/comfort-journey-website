@@ -11,6 +11,7 @@ import { TOURS_DATA, HERO_SLIDES } from '../data/toursData';
 import { useCurrency } from '../context/CurrencyContext';
 import VantaTravelSkyCanvas from './animations/VantaTravelSkyCanvas';
 import HeroMascot from './HeroMascot';
+import CardInclusionsStrip from './CardInclusionsStrip';
 
 export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, onOpenQuote }) {
   const { formatPrice } = useCurrency();
@@ -406,13 +407,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                                   <span className="weather-pill-tag">{tour.duration}</span>
                                 </div>
 
-                                <div className="compact-inclusions-icon-bar">
-                                  <div className="inc-icon-item" title="4★/5★ Luxury Stay"><div className="inc-svg-badge"><Hotel size={13} className="text-amber" /></div><span className="inc-text">Stay</span></div>
-                                  <div className="inc-icon-item" title="Private Cab & Transfers"><div className="inc-svg-badge"><Car size={13} className="text-cyan" /></div><span className="inc-text">Transfers</span></div>
-                                  <div className="inc-icon-item" title="Daily Breakfast & Dining"><div className="inc-svg-badge"><Utensils size={13} className="text-emerald" /></div><span className="inc-text">Meals</span></div>
-                                  <div className="inc-icon-item" title="VIP Passes & Sightseeing"><div className="inc-svg-badge"><Ticket size={13} className="text-amber" /></div><span className="inc-text">Sightseeing</span></div>
-                                  <div className="inc-icon-item" title="24/7 VIP Concierge"><div className="inc-svg-badge"><ShieldCheck size={13} className="text-emerald" /></div><span className="inc-text">24/7 VIP</span></div>
-                                </div>
+                                <CardInclusionsStrip tour={tour} />
 
                                 <div className="c-card-footer-action">
                                   <div className="compact-price-box">
@@ -542,29 +537,8 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                               <span className="weather-pill-tag">{tour.duration}</span>
                             </div>
 
-                            {/* Visual Inclusions Icon Bar */}
-                            <div className="compact-inclusions-icon-bar">
-                              <div className="inc-icon-item" title="4★/5★ Luxury Stay">
-                                <div className="inc-svg-badge"><Hotel size={13} className="text-amber" /></div>
-                                <span className="inc-text">Stay</span>
-                              </div>
-                              <div className="inc-icon-item" title="Private Cab & Transfers">
-                                <div className="inc-svg-badge"><Car size={13} className="text-cyan" /></div>
-                                <span className="inc-text">Transfers</span>
-                              </div>
-                              <div className="inc-icon-item" title="Daily Breakfast & Dining">
-                                <div className="inc-svg-badge"><Utensils size={13} className="text-emerald" /></div>
-                                <span className="inc-text">Meals</span>
-                              </div>
-                              <div className="inc-icon-item" title="VIP Passes & Sightseeing">
-                                <div className="inc-svg-badge"><Ticket size={13} className="text-amber" /></div>
-                                <span className="inc-text">Sightseeing</span>
-                              </div>
-                              <div className="inc-icon-item" title="24/7 VIP Concierge">
-                                <div className="inc-svg-badge"><ShieldCheck size={13} className="text-emerald" /></div>
-                                <span className="inc-text">24/7 VIP</span>
-                              </div>
-                            </div>
+                            {/* Visual Inclusions Icon Bar (CMS-Customizable Card Features) */}
+                            <CardInclusionsStrip tour={tour} />
 
                             <div className="c-card-footer-action">
                               <div className="compact-price-box">

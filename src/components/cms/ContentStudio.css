@@ -536,10 +536,120 @@
 .duration-pill { display: flex; align-items: center; gap: 0.25rem; font-size: 0.78rem; color: #94A3B8; white-space: nowrap; }
 .cell-price { white-space: nowrap; }
 .current-price-val { color: #10B981; font-weight: 800; }
-.strike-price-val { text-decoration: line-through; color: #64748B; font-size: 0.75rem; margin-left: 0.35rem; }
+.strike-price-val { text-decoration: line-through; color: #F9FBE7; font-size: 0.75rem; margin-left: 0.35rem; }
 .itin-days-badge { font-size: 0.78rem; color: #94A3B8; white-space: nowrap; }
 
 .admin-toast-banner { position: sticky; top: 0; z-index: 50; background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(111,230,252,0.15)); border: 1px solid rgba(16,185,129,0.3); border-radius: 8px; padding: 0.6rem 1rem; font-size: 0.85rem; color: #10B981; font-weight: 700; text-align: center; }
+
+/* ─── Tour Card Feature Icons Selector in CMS ─── */
+.card-icons-selector-box {
+  background: rgba(0, 18, 51, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-icons-live-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 0.5rem 0.85rem;
+  margin: 0.75rem 0 1rem 0;
+  flex-wrap: wrap;
+}
+
+.live-preview-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #FF892F;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-icons-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.65rem;
+}
+
+.card-icon-toggle-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 0.55rem 0.75rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.card-icon-toggle-chip:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+.card-icon-toggle-chip.active {
+  background: rgba(255, 137, 47, 0.12);
+  border-color: #FF892F;
+  box-shadow: 0 0 12px rgba(255, 137, 47, 0.18);
+}
+
+.chip-icon-box {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.card-icon-toggle-chip.active .chip-icon-box {
+  background: rgba(255, 137, 47, 0.2);
+  border-color: #FF892F;
+}
+
+.chip-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.chip-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.chip-title {
+  font-size: 0.68rem;
+  color: #94A3B8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chip-status-check {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #64748B;
+  flex-shrink: 0;
+}
+
+.card-icon-toggle-chip.active .chip-status-check {
+  color: #10B981;
+}
 
 /* ─── Responsive ─── */
 @media (max-width: 960px) {
