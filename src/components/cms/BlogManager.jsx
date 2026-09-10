@@ -2,11 +2,13 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   FileText, Plus, Search, Edit3, Trash2, Eye, EyeOff, Copy,
   ExternalLink, Clock, Tag, AlertCircle, CheckCircle, ArrowLeft,
-  Save, Sparkles, Calendar, X, ChevronDown, ImageIcon, Link2
+  Save, Sparkles, Calendar, X, ChevronDown, ImageIcon, Link2,
+  Undo2, Redo2
 } from 'lucide-react';
 import ImageUploadField from './ImageUploadField';
 import RichTextEditor from './RichTextEditor';
 import SEOAssistant from './SEOAssistant';
+import CMSFeedbackModal from './CMSFeedbackModal';
 import { BLOGS_DATA } from '../../data/blogsData';
 import { TOURS_DATA } from '../../data/toursData';
 import { slugify } from '../../services/directusClient';
@@ -18,7 +20,6 @@ import { slugify } from '../../services/directusClient';
 // ═══════════════════════════════════════════════════════════════════
 
 const STORAGE_KEY_BLOGS = 'cj_custom_blogs_v2';
-const STORAGE_KEY_DRAFTS = 'cj_blog_drafts';
 
 const BLOG_CATEGORIES = [
   'All Articles', 'Destination Guides', 'Honeymoon & Romance',
@@ -57,7 +58,90 @@ export default function BlogManager({ onViewBlog }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All Articles');
   const [toastMessage, setToastMessage] = useState('');
-  const autoSaveTimerRef = useRef(null);
+
+  // ─── Confirmation & Unsaved Warning Modal State ───
+  const [feedbackModal, setFeedbackModal] = useState({
+    isOpen: false,
+    type: 'saved', // 'saved' | 'published' | 'unsaved_warning'
+    title: '',
+    subtitle: '',
+    statusBadge: 'published',
+    metaDetails: []
+  });
+
+  // ─── Undo / Redo & Dirty Tracking ───
+  const initialBlogJsonRef = useRef(null);
+  const blogHistoryRef = useRef([]);
+  const blogHistoryIndexRef = useRef(0);
+  const [canUndoBlog, setCanUndoBlog] = useState(false);
+  const [canRedoBlog, setCanRedoBlog] = useState(false);
+  const isBlogHistoryActionRef = useRef(false);
+  const blogTypingTimerRef = useRef(null);
+
+  const updateBlogUndoRedoButtons = useCallback(() => {
+    setCanUndoBlog(blogHistoryIndexRef.current > 0);
+    setCanRedoBlog(blogHistoryIndexRef.current < blogHistoryRef.current.length - 1);
+  }, []);
+
+  const pushBlogSnapshot = useCallback((blogObj) => {
+    if (!blogObj || isBlogHistoryActionRef.current) return;
+    const currentJson = JSON.stringify(blogObj);
+    const lastJson = blogHistoryRef.current[blogHistoryIndexRef.current]
+      ? JSON.stringify(blogHistoryRef.current[blogHistoryIndexRef.current])
+      : '';
+    if (currentJson === lastJson) return;
+
+    const newHistory = blogHistoryRef.current.slice(0, blogHistoryIndexRef.current + 1);
+    newHistory.push(JSON.parse(currentJson));
+    if (newHistory.length > 40) newHistory.shift();
+    blogHistoryRef.current = newHistory;
+    blogHistoryIndexRef.current = newHistory.length - 1;
+    updateBlogUndoRedoButtons();
+  }, [updateBlogUndoRedoButtons]);
+
+  const handleBlogUndo = useCallback(() => {
+    if (blogHistoryIndexRef.current > 0) {
+      isBlogHistoryActionRef.current = true;
+      blogHistoryIndexRef.current -= 1;
+      const targetBlog = JSON.parse(JSON.stringify(blogHistoryRef.current[blogHistoryIndexRef.current]));
+      setEditingBlog(targetBlog);
+      setTimeout(() => {
+        isBlogHistoryActionRef.current = false;
+        updateBlogUndoRedoButtons();
+      }, 50);
+      showToast('↶ Undone last change');
+    }
+  }, [updateBlogUndoRedoButtons]);
+
+  const handleBlogRedo = useCallback(() => {
+    if (blogHistoryIndexRef.current < blogHistoryRef.current.length - 1) {
+      isBlogHistoryActionRef.current = true;
+      blogHistoryIndexRef.current += 1;
+      const targetBlog = JSON.parse(JSON.stringify(blogHistoryRef.current[blogHistoryIndexRef.current]));
+      setEditingBlog(targetBlog);
+      setTimeout(() => {
+        isBlogHistoryActionRef.current = false;
+        updateBlogUndoRedoButtons();
+      }, 50);
+      showToast('↷ Redone change');
+    }
+  }, [updateBlogUndoRedoButtons]);
+
+  // Track field changes and push snapshots with debouncing
+  useEffect(() => {
+    if (view === 'editor' && editingBlog) {
+      if (isBlogHistoryActionRef.current) return;
+      if (blogTypingTimerRef.current) clearTimeout(blogTypingTimerRef.current);
+      blogTypingTimerRef.current = setTimeout(() => {
+        pushBlogSnapshot(editingBlog);
+      }, 400);
+    }
+  }, [editingBlog, view, pushBlogSnapshot]);
+
+  const isBlogDirty = useCallback(() => {
+    if (!editingBlog || !initialBlogJsonRef.current) return false;
+    return JSON.stringify(editingBlog) !== initialBlogJsonRef.current;
+  }, [editingBlog]);
 
   // Persist blogs
   const persistBlogs = useCallback((updated) => {
@@ -97,12 +181,24 @@ export default function BlogManager({ onViewBlog }) {
       searchIntent: 'informational',
       revisions: []
     };
-    setEditingBlog(newBlog);
+    const cloned = JSON.parse(JSON.stringify(newBlog));
+    initialBlogJsonRef.current = JSON.stringify(cloned);
+    blogHistoryRef.current = [JSON.parse(JSON.stringify(cloned))];
+    blogHistoryIndexRef.current = 0;
+    setCanUndoBlog(false);
+    setCanRedoBlog(false);
+    setEditingBlog(cloned);
     setView('editor');
   };
 
   const handleEditBlog = (blog) => {
-    setEditingBlog(JSON.parse(JSON.stringify(blog)));
+    const cloned = JSON.parse(JSON.stringify(blog));
+    initialBlogJsonRef.current = JSON.stringify(cloned);
+    blogHistoryRef.current = [JSON.parse(JSON.stringify(cloned))];
+    blogHistoryIndexRef.current = 0;
+    setCanUndoBlog(false);
+    setCanRedoBlog(false);
+    setEditingBlog(cloned);
     setView('editor');
   };
 
@@ -140,59 +236,113 @@ export default function BlogManager({ onViewBlog }) {
     showToast('Blog status updated.');
   };
 
-  const handleSaveBlog = useCallback(() => {
-    if (!editingBlog) return;
-    if (!editingBlog.title) {
+  const handleSaveBlog = useCallback((overrideBlog = null, andExit = false) => {
+    const targetBlog = overrideBlog || editingBlog;
+    if (!targetBlog) return;
+    if (!targetBlog.title) {
       alert('Blog title is required.');
       return;
     }
 
     // Auto-generate slug if empty
-    if (!editingBlog.slug) {
-      editingBlog.slug = slugify(editingBlog.title);
+    if (!targetBlog.slug) {
+      targetBlog.slug = slugify(targetBlog.title);
     }
 
     // Update reading time
-    editingBlog.readTime = getReadingTime(editingBlog.content);
+    targetBlog.readTime = getReadingTime(targetBlog.content);
 
     // Save revision
     const revision = {
       timestamp: new Date().toISOString(),
-      content: editingBlog.content,
-      title: editingBlog.title
+      content: targetBlog.content,
+      title: targetBlog.title
     };
-    editingBlog.revisions = [...(editingBlog.revisions || []).slice(-10), revision];
+    targetBlog.revisions = [...(targetBlog.revisions || []).slice(-10), revision];
 
-    const existingIndex = blogs.findIndex(b => b.id === editingBlog.id);
+    const existingIndex = blogs.findIndex(b => b.id === targetBlog.id);
     let updated;
     if (existingIndex >= 0) {
-      updated = blogs.map(b => b.id === editingBlog.id ? editingBlog : b);
+      updated = blogs.map(b => b.id === targetBlog.id ? targetBlog : b);
     } else {
-      updated = [editingBlog, ...blogs];
+      updated = [targetBlog, ...blogs];
     }
 
     persistBlogs(updated);
-    showToast(`✅ Blog "${editingBlog.title}" saved successfully!`);
+    initialBlogJsonRef.current = JSON.stringify(targetBlog); // Mark clean
+
+    const quality = getContentQuality(targetBlog.content);
+
+    if (andExit) {
+      setFeedbackModal(prev => ({ ...prev, isOpen: false }));
+      setView('list');
+      setEditingBlog(null);
+      showToast(`✅ Blog "${targetBlog.title}" saved!`);
+    } else {
+      setFeedbackModal({
+        isOpen: true,
+        type: 'saved',
+        title: targetBlog.title,
+        statusBadge: targetBlog.status || 'draft',
+        metaDetails: [
+          { label: 'Category', value: targetBlog.category || 'Destination Guides' },
+          { label: 'Word Count', value: `${quality.words} words (${quality.label})` },
+          { label: 'Read Time', value: targetBlog.readTime || '1 min' },
+          { label: 'Slug URL', value: `/blog/${targetBlog.slug}` },
+        ]
+      });
+    }
   }, [editingBlog, blogs, persistBlogs]);
 
   const handlePublishBlog = useCallback(() => {
     if (!editingBlog) return;
-    editingBlog.status = 'published';
-    handleSaveBlog();
-    showToast(`🚀 Blog "${editingBlog.title}" published live!`);
-  }, [editingBlog, handleSaveBlog]);
+    const publishedBlog = { ...editingBlog, status: 'published' };
+    setEditingBlog(publishedBlog);
 
-  // Auto-save every 30 seconds
-  useEffect(() => {
-    if (view === 'editor' && editingBlog) {
-      autoSaveTimerRef.current = setInterval(() => {
-        try {
-          localStorage.setItem(STORAGE_KEY_DRAFTS, JSON.stringify(editingBlog));
-        } catch {}
-      }, 30000);
+    if (!publishedBlog.slug) {
+      publishedBlog.slug = slugify(publishedBlog.title);
     }
-    return () => { if (autoSaveTimerRef.current) clearInterval(autoSaveTimerRef.current); };
-  }, [view, editingBlog]);
+    publishedBlog.readTime = getReadingTime(publishedBlog.content);
+
+    const existingIndex = blogs.findIndex(b => b.id === publishedBlog.id);
+    let updated;
+    if (existingIndex >= 0) {
+      updated = blogs.map(b => b.id === publishedBlog.id ? publishedBlog : b);
+    } else {
+      updated = [publishedBlog, ...blogs];
+    }
+
+    persistBlogs(updated);
+    initialBlogJsonRef.current = JSON.stringify(publishedBlog);
+
+    const quality = getContentQuality(publishedBlog.content);
+
+    setFeedbackModal({
+      isOpen: true,
+      type: 'published',
+      title: publishedBlog.title,
+      statusBadge: 'published',
+      metaDetails: [
+        { label: 'Category', value: publishedBlog.category || 'Destination Guides' },
+        { label: 'Word Count', value: `${quality.words} words (${quality.label})` },
+        { label: 'Read Time', value: publishedBlog.readTime || '1 min' },
+        { label: 'Live Link', value: `/blog/${publishedBlog.slug}` },
+      ]
+    });
+  }, [editingBlog, blogs, persistBlogs]);
+
+  const handleBackClick = () => {
+    if (isBlogDirty()) {
+      setFeedbackModal({
+        isOpen: true,
+        type: 'unsaved_warning',
+        title: editingBlog?.title || 'Blog Post'
+      });
+    } else {
+      setView('list');
+      setEditingBlog(null);
+    }
+  };
 
   // Filter blogs
   const filteredBlogs = blogs.filter(b => {
@@ -215,11 +365,34 @@ export default function BlogManager({ onViewBlog }) {
       <div className="blog-editor-view">
         {/* Editor Header */}
         <div className="blog-editor-header">
-          <button type="button" className="btn-back" onClick={() => { handleSaveBlog(); setView('list'); }}>
+          <button type="button" className="btn-back" onClick={handleBackClick}>
             <ArrowLeft size={16} />
             <span>Back to Blogs</span>
           </button>
           <div className="editor-header-actions">
+            {/* Undo / Redo Group */}
+            <div className="btn-undo-redo-group" title="Undo / Redo blog edits">
+              <button
+                type="button"
+                className="btn-header-undo"
+                onClick={handleBlogUndo}
+                disabled={!canUndoBlog}
+                title="Undo last edit (Ctrl+Z)"
+              >
+                <Undo2 size={13} /> Undo
+              </button>
+              <div className="header-undo-sep" />
+              <button
+                type="button"
+                className="btn-header-undo"
+                onClick={handleBlogRedo}
+                disabled={!canRedoBlog}
+                title="Redo edit (Ctrl+Y)"
+              >
+                <Redo2 size={13} /> Redo
+              </button>
+            </div>
+
             <div className="content-quality-badge" style={{ background: `${quality.color}15`, border: `1px solid ${quality.color}40`, color: quality.color }}>
               <span>{quality.icon}</span>
               <span>{quality.words} words — {quality.label}</span>
@@ -227,10 +400,10 @@ export default function BlogManager({ onViewBlog }) {
             <span className={`status-pill-inline ${editingBlog.status}`}>
               {editingBlog.status === 'published' ? '● Published' : editingBlog.status === 'scheduled' ? '◐ Scheduled' : '○ Draft'}
             </span>
-            <button type="button" className="btn-secondary" onClick={handleSaveBlog}>
+            <button type="button" className="btn-secondary" onClick={() => handleSaveBlog()}>
               <Save size={14} /> Save Draft
             </button>
-            <button type="button" className="btn-primary" onClick={handlePublishBlog}>
+            <button type="button" className="btn-primary" onClick={() => handlePublishBlog()}>
               <Sparkles size={14} /> Publish Live
             </button>
           </div>
@@ -409,6 +582,31 @@ export default function BlogManager({ onViewBlog }) {
             />
           </div>
         </div>
+
+        {/* Confirmation & Unsaved Changes Modal */}
+        <CMSFeedbackModal
+          isOpen={feedbackModal.isOpen}
+          type={feedbackModal.type}
+          title={feedbackModal.title}
+          subtitle={feedbackModal.subtitle}
+          statusBadge={feedbackModal.statusBadge}
+          metaDetails={feedbackModal.metaDetails}
+          onClose={() => setFeedbackModal(prev => ({ ...prev, isOpen: false }))}
+          onKeepEditing={() => setFeedbackModal(prev => ({ ...prev, isOpen: false }))}
+          onBackToList={() => {
+            setFeedbackModal(prev => ({ ...prev, isOpen: false }));
+            setView('list');
+            setEditingBlog(null);
+          }}
+          onDiscardAndExit={() => {
+            setFeedbackModal(prev => ({ ...prev, isOpen: false }));
+            setView('list');
+            setEditingBlog(null);
+          }}
+          onSaveAndExit={() => {
+            handleSaveBlog(editingBlog, true);
+          }}
+        />
       </div>
     );
   }

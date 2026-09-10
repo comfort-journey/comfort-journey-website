@@ -106,14 +106,45 @@ export default function FixedDeparturesSection({
   const carouselRef = useRef(null);
   const [activeSubTab, setActiveSubTab] = useState('All');
 
+  // Dynamically merge CMS-configured Fixed Departure packages with static batches
+  const allBatches = useMemo(() => {
+    const customBatches = (TOURS_DATA || []).filter(t => {
+      const cats = Array.isArray(t.categories) ? t.categories : [];
+      return (
+        cats.some(c => typeof c === 'string' && c.toLowerCase().includes('fixed departure')) ||
+        Boolean(t.fixedDeparture?.dates) ||
+        (Boolean(t.dates) && t.seatsLeft !== undefined)
+      );
+    }).map(t => {
+      const origPrice = t.originalPrice || Math.round((t.price || 25000) * 1.25);
+      return {
+        id: t.id,
+        name: t.name,
+        location: t.location || t.city || 'India',
+        duration: t.duration || '5 Nights & 6 Days',
+        price: t.price,
+        originalPrice: origPrice,
+        image: t.image,
+        dates: t.fixedDeparture?.dates || t.dates || 'Every Friday Departure',
+        seatsLeft: Number(t.fixedDeparture?.seatsLeft ?? t.seatsLeft ?? 4),
+        totalSeats: Number(t.fixedDeparture?.totalSeats ?? t.totalSeats ?? 16),
+        badge: t.fixedDeparture?.badge || t.badge || '🔥 Filling Fast',
+        vibe: t.fixedDeparture?.vibe || t.vibe || 'Community Travel Tribe'
+      };
+    });
+
+    const customIds = new Set(customBatches.map(b => b.id));
+    return [...customBatches, ...FIXED_DEPARTURE_BATCHES.filter(b => !customIds.has(b.id))];
+  }, []);
+
   const filteredBatches = useMemo(() => {
-    if (activeSubTab === 'All') return FIXED_DEPARTURE_BATCHES;
-    if (activeSubTab === 'Spiti') return FIXED_DEPARTURE_BATCHES.filter(b => b.location.includes('Spiti') || b.location.includes('Himachal'));
-    if (activeSubTab === 'Ladakh') return FIXED_DEPARTURE_BATCHES.filter(b => b.location.includes('Leh') || b.location.includes('Pangong'));
-    if (activeSubTab === 'NorthEast') return FIXED_DEPARTURE_BATCHES.filter(b => b.location.includes('Shillong') || b.location.includes('Meghalaya'));
-    if (activeSubTab === 'Intl') return FIXED_DEPARTURE_BATCHES.filter(b => b.location.includes('Nusa') || b.location.includes('Bali'));
-    return FIXED_DEPARTURE_BATCHES;
-  }, [activeSubTab]);
+    if (activeSubTab === 'All') return allBatches;
+    if (activeSubTab === 'Spiti') return allBatches.filter(b => (b.location || '').includes('Spiti') || (b.location || '').includes('Himachal'));
+    if (activeSubTab === 'Ladakh') return allBatches.filter(b => (b.location || '').includes('Leh') || (b.location || '').includes('Pangong'));
+    if (activeSubTab === 'NorthEast') return allBatches.filter(b => (b.location || '').includes('Shillong') || (b.location || '').includes('Meghalaya'));
+    if (activeSubTab === 'Intl') return allBatches.filter(b => (b.location || '').includes('Nusa') || (b.location || '').includes('Bali'));
+    return allBatches;
+  }, [allBatches, activeSubTab]);
 
   const scrollCarousel = (direction) => {
     if (carouselRef.current) {

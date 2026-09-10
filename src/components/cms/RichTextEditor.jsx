@@ -50,13 +50,13 @@ export default function RichTextEditor({
   const [activeFormats, setActiveFormats] = useState({});
   const savedSelectionRef = useRef(null);
 
-  // Initialize content
-  useEffect(() => {
-    if (editorRef.current && initialContent && !editorRef.current.innerHTML) {
-      editorRef.current.innerHTML = initialContent;
-      updateStats();
-    }
-  }, [initialContent]);
+  // Undo / Redo History Stack (Microsoft Word-style)
+  const historyRef = useRef([initialContent || '']);
+  const historyIndexRef = useRef(0);
+  const isUndoRedoRef = useRef(false);
+  const typingTimerRef = useRef(null);
+  const [canUndo, setCanUndo] = useState(false);
+  const [canRedo, setCanRedo] = useState(false);
 
   // Update word count and reading time
   const updateStats = useCallback(() => {
@@ -66,6 +66,73 @@ export default function RichTextEditor({
     setWordCount(words);
     setReadingTime(`${Math.max(1, Math.ceil(words / 200))} min read`);
   }, []);
+
+  const updateUndoRedoState = useCallback(() => {
+    setCanUndo(historyIndexRef.current > 0);
+    setCanRedo(historyIndexRef.current < historyRef.current.length - 1);
+  }, []);
+
+  const pushSnapshot = useCallback((html) => {
+    if (isUndoRedoRef.current) return;
+    const currentHtml = html !== undefined ? html : (editorRef.current?.innerHTML || '');
+    const lastHtml = historyRef.current[historyIndexRef.current];
+    if (currentHtml === lastHtml) return;
+
+    // Truncate redo stack
+    const newHistory = historyRef.current.slice(0, historyIndexRef.current + 1);
+    newHistory.push(currentHtml);
+    if (newHistory.length > 50) newHistory.shift();
+    historyRef.current = newHistory;
+    historyIndexRef.current = newHistory.length - 1;
+    updateUndoRedoState();
+  }, [updateUndoRedoState]);
+
+  // Handle content changes
+  const handleContentChange = useCallback(() => {
+    updateStats();
+    if (onChange && editorRef.current) {
+      onChange(editorRef.current.innerHTML);
+    }
+  }, [onChange, updateStats]);
+
+  const handleUndo = useCallback(() => {
+    if (historyIndexRef.current > 0) {
+      isUndoRedoRef.current = true;
+      historyIndexRef.current -= 1;
+      const targetHtml = historyRef.current[historyIndexRef.current];
+      if (editorRef.current) {
+        editorRef.current.innerHTML = targetHtml;
+        handleContentChange();
+      }
+      isUndoRedoRef.current = false;
+      updateUndoRedoState();
+    }
+  }, [handleContentChange, updateUndoRedoState]);
+
+  const handleRedo = useCallback(() => {
+    if (historyIndexRef.current < historyRef.current.length - 1) {
+      isUndoRedoRef.current = true;
+      historyIndexRef.current += 1;
+      const targetHtml = historyRef.current[historyIndexRef.current];
+      if (editorRef.current) {
+        editorRef.current.innerHTML = targetHtml;
+        handleContentChange();
+      }
+      isUndoRedoRef.current = false;
+      updateUndoRedoState();
+    }
+  }, [handleContentChange, updateUndoRedoState]);
+
+  // Initialize content
+  useEffect(() => {
+    if (editorRef.current && initialContent && !editorRef.current.innerHTML) {
+      editorRef.current.innerHTML = initialContent;
+      historyRef.current = [initialContent];
+      historyIndexRef.current = 0;
+      updateUndoRedoState();
+      updateStats();
+    }
+  }, [initialContent, updateUndoRedoState, updateStats]);
 
   // Detect active formatting at cursor position
   const detectActiveFormats = useCallback(() => {
@@ -95,15 +162,17 @@ export default function RichTextEditor({
     document.execCommand(command, false, value);
     handleContentChange();
     detectActiveFormats();
-  }, []);
+    pushSnapshot(editorRef.current?.innerHTML || '');
+  }, [handleContentChange, detectActiveFormats, pushSnapshot]);
 
-  // Handle content changes
-  const handleContentChange = useCallback(() => {
-    updateStats();
-    if (onChange && editorRef.current) {
-      onChange(editorRef.current.innerHTML);
-    }
-  }, [onChange, updateStats]);
+  // Debounced input handler to capture word/typing snapshots
+  const handleInput = useCallback(() => {
+    handleContentChange();
+    if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
+    typingTimerRef.current = setTimeout(() => {
+      pushSnapshot(editorRef.current?.innerHTML || '');
+    }, 450);
+  }, [handleContentChange, pushSnapshot]);
 
   // Save current selection (for modals)
   const saveSelection = useCallback(() => {
@@ -141,12 +210,13 @@ export default function RichTextEditor({
       } else if (linkText) {
         document.execCommand('insertHTML', false, `<a href="${url}" target="_blank" rel="noopener noreferrer">${linkText}</a>`);
         handleContentChange();
+        pushSnapshot(editorRef.current?.innerHTML || '');
       }
     }
     setShowLinkModal(false);
     setLinkUrl('');
     setLinkText('');
-  }, [linkUrl, linkText, exec, restoreSelection, handleContentChange]);
+  }, [linkUrl, linkText, exec, restoreSelection, handleContentChange, pushSnapshot]);
 
   // Insert image
   const handleInsertImage = useCallback(() => {
@@ -155,36 +225,48 @@ export default function RichTextEditor({
       const html = `<figure style="margin:1rem 0;text-align:center;"><img src="${imageUrl}" alt="${imageAlt || 'Image'}" style="max-width:100%;border-radius:8px;" />${imageAlt ? `<figcaption style="font-size:0.8rem;color:#94A3B8;margin-top:0.4rem;">${imageAlt}</figcaption>` : ''}</figure>`;
       document.execCommand('insertHTML', false, html);
       handleContentChange();
+      pushSnapshot(editorRef.current?.innerHTML || '');
     }
     setShowImageModal(false);
     setImageUrl('');
     setImageAlt('');
-  }, [imageUrl, imageAlt, restoreSelection, handleContentChange]);
+  }, [imageUrl, imageAlt, restoreSelection, handleContentChange, pushSnapshot]);
 
-  // Keyboard shortcuts
+  // Keyboard shortcuts: Ctrl+Z (Undo), Ctrl+Y / Ctrl+Shift+Z (Redo), Ctrl+B, Ctrl+I, Ctrl+U, Ctrl+K
   const handleKeyDown = useCallback((e) => {
     if (e.ctrlKey || e.metaKey) {
-      switch (e.key.toLowerCase()) {
-        case 'b': e.preventDefault(); exec('bold'); break;
-        case 'i': e.preventDefault(); exec('italic'); break;
-        case 'u': e.preventDefault(); exec('underline'); break;
-        case 'k':
-          e.preventDefault();
-          const selectedText = saveSelection();
-          setLinkText(selectedText);
-          setShowLinkModal(true);
-          break;
-        case 'z':
-          if (e.shiftKey) { e.preventDefault(); exec('redo'); }
-          else { e.preventDefault(); exec('undo'); }
-          break;
+      const key = e.key.toLowerCase();
+      if (key === 'z') {
+        e.preventDefault();
+        if (e.shiftKey) {
+          handleRedo();
+        } else {
+          handleUndo();
+        }
+      } else if (key === 'y') {
+        e.preventDefault();
+        handleRedo();
+      } else if (key === 'b') {
+        e.preventDefault(); exec('bold');
+      } else if (key === 'i') {
+        e.preventDefault(); exec('italic');
+      } else if (key === 'u') {
+        e.preventDefault(); exec('underline');
+      } else if (key === 'k') {
+        e.preventDefault();
+        const selectedText = saveSelection();
+        setLinkText(selectedText);
+        setShowLinkModal(true);
       }
     }
-  }, [exec, saveSelection]);
+  }, [exec, saveSelection, handleUndo, handleRedo]);
 
-  // Handle paste - strip formatting for clean HTML
+  // Handle paste - strip formatting for clean HTML, and record snapshot immediately
   const handlePaste = useCallback((e) => {
     e.preventDefault();
+    // Snapshot current state BEFORE paste so user can undo back to it
+    pushSnapshot(editorRef.current?.innerHTML || '');
+
     const html = e.clipboardData.getData('text/html');
     const text = e.clipboardData.getData('text/plain');
     // Prefer HTML paste but sanitize it
@@ -200,7 +282,9 @@ export default function RichTextEditor({
       document.execCommand('insertText', false, text);
     }
     handleContentChange();
-  }, [handleContentChange]);
+    // Snapshot state AFTER paste so next undo will revert the paste
+    pushSnapshot(editorRef.current?.innerHTML || '');
+  }, [handleContentChange, pushSnapshot]);
 
   // Insert horizontal rule
   const insertHR = useCallback(() => {
@@ -243,11 +327,12 @@ export default function RichTextEditor({
   }, [exec]);
 
   // ToolbarButton helper
-  const ToolBtn = ({ icon: Icon, label, active, onClick, small }) => (
+  const ToolBtn = ({ icon: Icon, label, active, onClick, small, disabled }) => (
     <button
       type="button"
-      className={`rte-tool-btn ${active ? 'active' : ''} ${small ? 'small' : ''}`}
-      onClick={onClick}
+      className={`rte-tool-btn ${active ? 'active' : ''} ${small ? 'small' : ''} ${disabled ? 'disabled' : ''}`}
+      onClick={disabled ? undefined : onClick}
+      disabled={disabled}
       title={label}
       onMouseDown={(e) => e.preventDefault()} // Prevent focus loss
     >
@@ -263,8 +348,8 @@ export default function RichTextEditor({
       {/* ═══ Toolbar ═══ */}
       <div className="rte-toolbar">
         {/* Undo / Redo */}
-        <ToolBtn icon={Undo2} label="Undo (Ctrl+Z)" onClick={() => exec('undo')} />
-        <ToolBtn icon={Redo2} label="Redo (Ctrl+Shift+Z)" onClick={() => exec('redo')} />
+        <ToolBtn icon={Undo2} label="Undo (Ctrl+Z)" onClick={handleUndo} disabled={!canUndo} />
+        <ToolBtn icon={Redo2} label="Redo (Ctrl+Y)" onClick={handleRedo} disabled={!canRedo} />
         <Sep />
 
         {/* Block Type Dropdown */}
@@ -374,7 +459,7 @@ export default function RichTextEditor({
         className="rte-editor-area"
         contentEditable={!readOnly}
         suppressContentEditableWarning
-        onInput={handleContentChange}
+        onInput={handleInput}
         onKeyDown={handleKeyDown}
         onKeyUp={detectActiveFormats}
         onMouseUp={detectActiveFormats}
