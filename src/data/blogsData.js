@@ -232,6 +232,22 @@ Here is how our VIP travelers maximize every minute:
   }
 ];
 
+// Auto-hydrate active custom blogs from localStorage on initial browser load
+if (typeof window !== 'undefined' && window.localStorage) {
+  try {
+    const saved = localStorage.getItem('cj_custom_blogs_dataset') || localStorage.getItem('cj_custom_blogs_v2') || localStorage.getItem('cj_local_custom_blogs');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        BLOGS_DATA.length = 0;
+        BLOGS_DATA.push(...parsed);
+      }
+    }
+  } catch (e) {
+    console.warn('[blogsData] Could not auto-hydrate blogs from localStorage:', e);
+  }
+}
+
 // Helper to get a blog by slug
 export function getBlogBySlug(slug) {
   if (!slug) return null;

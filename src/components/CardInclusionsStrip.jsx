@@ -31,16 +31,19 @@ export default function CardInclusionsStrip({ tour, className = '' }) {
     ? tour.cardFeatures
     : ['stay', 'cab', 'meals', 'sightseeing', 'vip'];
 
+  // Limit to 5 features for the uniform 5-column grid layout
+  const displayFeatureIds = selectedFeatureIds.slice(0, 5);
+
   return (
     <div className={`compact-inclusions-icon-bar ${className}`}>
-      {selectedFeatureIds.map(featId => {
+      {displayFeatureIds.map(featId => {
         const feat = CARD_FEATURE_OPTIONS.find(f => f.id === featId);
         if (!feat) return null;
         const IconComponent = feat.icon;
         return (
           <div key={feat.id} className="inc-icon-item" title={feat.title}>
             <div className="inc-svg-badge">
-              <IconComponent size={13} className={`text-${feat.color}`} />
+              <IconComponent size={16} className={`text-${feat.color}`} />
             </div>
             <span className="inc-text">{feat.label}</span>
           </div>

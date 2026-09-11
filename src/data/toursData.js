@@ -10296,6 +10296,22 @@ export const TOURS_DATA = [
   }
 ];
 
+// Auto-hydrate active custom tours from localStorage on initial browser load
+if (typeof window !== 'undefined' && window.localStorage) {
+  try {
+    const saved = localStorage.getItem('cj_custom_tours_dataset');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        TOURS_DATA.length = 0;
+        TOURS_DATA.push(...parsed);
+      }
+    }
+  } catch (e) {
+    console.warn('[toursData] Could not auto-hydrate tours from localStorage:', e);
+  }
+}
+
 export default TOURS_DATA;
 
 export const REELS_DATA = [

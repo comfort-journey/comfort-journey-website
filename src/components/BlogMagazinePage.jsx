@@ -2,13 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Search, Sparkles, Clock, User, ArrowRight, ArrowLeft, Tag, Calendar, Globe, BookOpen, Share2 } from 'lucide-react';
 import { directusService } from '../services/directusClient';
 import { BLOG_CATEGORIES } from '../data/blogsData';
+import { useLiveBlogs } from '../hooks/useLiveContent';
 
 export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQuote }) {
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const liveBlogs = useLiveBlogs();
+  const [blogs, setBlogs] = useState(liveBlogs);
+  const [loading, setLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All Articles');
   const [searchQuery, setSearchQuery] = useState('');
   const [cmsStatus, setCmsStatus] = useState({ isOnline: false, url: '' });
+
+  useEffect(() => {
+    setBlogs(liveBlogs);
+  }, [liveBlogs]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -16,12 +22,6 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
     // Check Directus health
     directusService.checkHealth().then(status => {
       setCmsStatus(status);
-    });
-
-    // Fetch blogs
-    directusService.fetchBlogs().then(data => {
-      setBlogs(data);
-      setLoading(false);
     });
   }, []);
 

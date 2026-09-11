@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { TOURS_DATA } from '../../data/toursData';
 import { slugify } from '../../services/directusClient';
+import { contentService } from '../../services/contentService';
 import { resolveDestinationImage } from '../../utils/destinationImageResolver';
 
 // ═══════════════════════════════════════════════════════════════════
@@ -447,7 +448,7 @@ export default function DataHubManager() {
   };
 
   // ─── 4. Commit to Live Catalog ───
-  const handleCommitImport = () => {
+  const handleCommitImport = async () => {
     if (parsedTours.length === 0) return;
     setIsProcessing(true);
 
@@ -471,10 +472,8 @@ export default function DataHubManager() {
         finalDataset = [...newUnique, ...existing];
       }
 
-      // Persist
-      localStorage.setItem('cj_custom_tours_dataset', JSON.stringify(finalDataset));
-      TOURS_DATA.length = 0;
-      TOURS_DATA.push(...finalDataset);
+      // Persist to unified contentService & disk
+      await contentService.saveAllTours(finalDataset);
 
       showToast(`🎉 Successfully saved ${finalDataset.length} tour packages to the live catalog!`);
       setParsedTours([]);

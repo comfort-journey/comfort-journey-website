@@ -23,9 +23,18 @@ export default function Footer({ onOpenPolicy, onOpenAdmin, onOpenLandingHub, on
               Comfort Journey is a premier luxury travel agency with 30+ years of royal expertise (Est. 1992). Handcrafting custom VIP tour packages across 2,000+ destinations worldwide.
             </p>
             <div className="f-badges">
-              <span className="badge badge-amber">Est. 1992</span>
-              <span className="badge badge-emerald">Govt. Verified</span>
-              <span className="badge badge-purple">Bhopal, MP</span>
+              <span className="trust-stamp-tag stamp-amber">
+                <span style={{ fontSize: '0.82rem' }}>🏛️</span>
+                <span>Est. 1992</span>
+              </span>
+              <span className="trust-stamp-tag stamp-emerald">
+                <ShieldCheck size={13} className="text-emerald flex-shrink-0" />
+                <span>Govt. Verified</span>
+              </span>
+              <span className="trust-stamp-tag stamp-purple">
+                <MapPin size={12} className="text-purple flex-shrink-0" />
+                <span>Bhopal, MP</span>
+              </span>
             </div>
           </div>
 
@@ -64,31 +73,31 @@ export default function Footer({ onOpenPolicy, onOpenAdmin, onOpenLandingHub, on
             <ul className="col-links policy-links">
               <li>
                 <button type="button" className="footer-link-btn" onClick={() => onOpenPolicy && onOpenPolicy('cancellation')}>
-                  <ShieldCheck size={14} className="text-amber" />
+                  <ShieldCheck size={15} className="text-amber flex-shrink-0 f-link-icon" />
                   <span>100% Refund & Cancellation</span>
                 </button>
               </li>
               <li>
                 <button type="button" className="footer-link-btn" onClick={() => onOpenPolicy && onOpenPolicy('privacy')}>
-                  <FileText size={14} className="text-emerald" />
+                  <FileText size={15} className="text-emerald flex-shrink-0 f-link-icon" />
                   <span>Privacy & Traveler Safety</span>
                 </button>
               </li>
               <li>
                 <button type="button" className="footer-link-btn" onClick={() => onOpenPolicy && onOpenPolicy('terms')}>
-                  <FileText size={14} className="text-purple" />
+                  <FileText size={15} className="text-purple flex-shrink-0 f-link-icon" />
                   <span>Terms of VIP Booking</span>
                 </button>
               </li>
               <li>
                 <a href="#/blog" className="footer-link-btn" style={{ color: '#6FE6FC', fontWeight: 700 }}>
-                  <FileText size={14} className="text-cyan" />
+                  <FileText size={15} className="text-cyan flex-shrink-0 f-link-icon" />
                   <span>Editorial Journal & Guides</span>
                 </a>
               </li>
               <li>
                 <button type="button" className="footer-link-btn admin-link-subtle" onClick={onOpenAdmin}>
-                  <Lock size={13} />
+                  <Lock size={14} className="flex-shrink-0 f-link-icon" />
                   <span>Team CMS & SEO Studio</span>
                 </button>
               </li>
@@ -121,7 +130,7 @@ export default function Footer({ onOpenPolicy, onOpenAdmin, onOpenLandingHub, on
                   className="footer-google-btn"
                 >
                   <span className="google-star-gold">★ 4.8</span>
-                  <span>Google Business Profile (85+ Reviews)</span>
+                  <span className="google-btn-text">Google Business Profile (85+ Reviews)</span>
                 </a>
               </div>
             </div>
@@ -239,8 +248,8 @@ export default function Footer({ onOpenPolicy, onOpenAdmin, onOpenLandingHub, on
 
         .footer-link-btn {
           display: inline-flex;
-          align-items: center;
-          gap: 0.45rem;
+          align-items: flex-start;
+          gap: 0.6rem;
           background: none;
           border: none;
           color: #CBD5E1;
@@ -251,7 +260,11 @@ export default function Footer({ onOpenPolicy, onOpenAdmin, onOpenLandingHub, on
           padding: 0.25rem 0;
           cursor: pointer;
           transition: all 0.2s ease;
-          min-height: 38px;
+          line-height: 1.4;
+        }
+
+        .f-link-icon {
+          margin-top: 0.18rem;
         }
 
         .footer-link-btn:hover {
@@ -302,13 +315,13 @@ export default function Footer({ onOpenPolicy, onOpenAdmin, onOpenLandingHub, on
         .footer-google-btn {
           display: inline-flex;
           align-items: center;
-          gap: 0.4rem;
+          gap: 0.6rem;
           background: rgba(255, 255, 255, 0.06);
           border: 1px solid rgba(251, 188, 5, 0.4);
-          padding: 0.45rem 0.85rem;
+          padding: 0.5rem 0.95rem;
           border-radius: var(--radius-full);
           color: #FFFFFF !important;
-          font-size: 0.82rem !important;
+          font-size: 0.84rem !important;
           font-weight: 700 !important;
           margin-top: 0.35rem;
           transition: all 0.2s ease;
@@ -324,6 +337,12 @@ export default function Footer({ onOpenPolicy, onOpenAdmin, onOpenLandingHub, on
         .google-star-gold {
           color: #FBBC05;
           font-weight: 900;
+          margin-right: 0.25rem;
+          font-size: 0.88rem;
+        }
+
+        .google-btn-text {
+          white-space: nowrap;
         }
 
         .footer-bottom {

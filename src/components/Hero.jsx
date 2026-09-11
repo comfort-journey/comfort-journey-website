@@ -4,16 +4,18 @@ import {
   ChevronRight, ArrowRight, CheckCircle2, Heart, ShieldCheck, 
   MessageCircle, ExternalLink, Flame, ArrowLeft, Landmark, 
   Building2, Palmtree, Waves, Snowflake, CloudRain, Leaf, Flower2,
-  Hotel, Car, Utensils, Ticket, Clock, Star, Briefcase, Search
+  Hotel, Car, Utensils, Ticket, Clock, Star, Briefcase, Search, X
 } from 'lucide-react';
 import { CONTINENTS_TREE_DATA, SEASONS_DATA, TRAVELER_STYLES_DATA } from '../data/continentHierarchyData';
-import { TOURS_DATA, HERO_SLIDES } from '../data/toursData';
+import { HERO_SLIDES } from '../data/toursData';
+import { useLiveTours } from '../hooks/useLiveContent';
 import { useCurrency } from '../context/CurrencyContext';
 import VantaTravelSkyCanvas from './animations/VantaTravelSkyCanvas';
 import HeroMascot from './HeroMascot';
 import CardInclusionsStrip from './CardInclusionsStrip';
 
 export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, onOpenQuote }) {
+  const TOURS_DATA = useLiveTours();
   const { formatPrice } = useCurrency();
   const heroRef = useRef(null);
 
@@ -237,7 +239,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         <div className="hero-headline-block">
           <HeroMascot heroRef={heroRef} />
           <h1 className="hero-title">
-            Your Journey • <span className="text-orange-glow">Your Comfort</span>
+            Your Journey • <span className="text-orange-glow">Your Comfort!</span>
           </h1>
 
           {/* Description line placed between the two headings */}
@@ -396,47 +398,90 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
                             return (
                               <div key={tour.id} className="city-in-place-card glass-card">
-                                <div className="c-card-top-header">
-                                  <div className="c-city-name-lockup">
-                                    <MapPin size={15} className="text-amber flex-shrink-0 mt-1" />
-                                    <div>
-                                      <h4 className="city-headline">{tour.name}</h4>
-                                      <span className="city-state-sub">{tour.location || tour.country}</span>
-                                    </div>
+                                {/* Cover Image Banner with Badges */}
+                                <div className="c-card-media-pane">
+                                  <img 
+                                    src={tour.image || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80'} 
+                                    alt={tour.name} 
+                                    className="c-card-cover-img"
+                                    loading="lazy"
+                                    onError={(e) => {
+                                      e.currentTarget.src = 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=800&q=80';
+                                    }}
+                                  />
+                                  <div className="c-media-gradient-overlay" />
+
+                                  <div className="c-media-top-badges">
+                                    <span className="c-tag-pill c-tag-highlight">
+                                      <Flame size={12} className="text-amber-glow animate-pulse" />
+                                      <span>{tour.badge || 'Popular'}</span>
+                                    </span>
+                                    {discountPct > 0 && (
+                                      <span className="c-tag-pill c-tag-discount">
+                                        {discountPct}% OFF
+                                      </span>
+                                    )}
                                   </div>
-                                  <span className="weather-pill-tag">{tour.duration}</span>
+
+                                  <div className="c-media-bottom-badge">
+                                    <span className="c-dur-pill">
+                                      <Clock size={11} className="text-cyan flex-shrink-0" />
+                                      <span>{tour.duration}</span>
+                                    </span>
+                                  </div>
                                 </div>
 
-                                <CardInclusionsStrip tour={tour} />
-
-                                <div className="c-card-footer-action">
-                                  <div className="compact-price-box">
-                                    <div className="price-strike-row">
-                                      <span className="orig-price-strike">{formatPrice(origPrice)}</span>
-                                      <span className="price-save-badge">{discountPct}% OFF</span>
+                                {/* Content Body */}
+                                <div className="c-card-content-body">
+                                  <div className="c-card-title-row">
+                                    <div className="c-thumb-icon-box">
+                                      <img 
+                                        src={tour.image || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=120&q=80'} 
+                                        alt="" 
+                                        className="c-thumb-mini"
+                                        onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                                      />
                                     </div>
-                                    <div className="price-main-row">
-                                      <strong className="current-offer-price font-editorial">{formatPrice(tour.price)}</strong>
-                                      <span className="price-per-person">/ person</span>
+                                    <div className="c-title-text-group">
+                                      <h4 className="city-headline" title={tour.name}>{tour.name}</h4>
+                                      <span className="city-state-sub">
+                                        <MapPin size={11} className="text-amber flex-shrink-0" />
+                                        <span>{tour.location || tour.country}</span>
+                                      </span>
                                     </div>
                                   </div>
 
-                                  <div className="action-buttons-inline">
-                                    <button
-                                      type="button"
-                                      className="btn-itinerary-inline"
-                                      onClick={() => onSelectItinerary(tour)}
-                                    >
-                                      <span>Itinerary</span>
-                                    </button>
+                                  <CardInclusionsStrip tour={tour} />
 
-                                    <button
-                                      type="button"
-                                      className="btn-book-inline"
-                                      onClick={() => onBookNow(tour)}
-                                    >
-                                      <span>Book</span>
-                                    </button>
+                                  <div className="c-card-footer-action">
+                                    <div className="compact-price-box">
+                                      <div className="price-strike-row">
+                                        <span className="orig-price-strike">{formatPrice(origPrice)}</span>
+                                        <span className="price-save-badge">Save {formatPrice(origPrice - tour.price)}</span>
+                                      </div>
+                                      <div className="price-main-row">
+                                        <strong className="current-offer-price font-editorial">{formatPrice(tour.price)}</strong>
+                                        <span className="price-per-person">/ person</span>
+                                      </div>
+                                    </div>
+
+                                    <div className="action-buttons-inline">
+                                      <button
+                                        type="button"
+                                        className="btn-itinerary-inline btn-3d-tactile"
+                                        onClick={() => onSelectItinerary(tour)}
+                                      >
+                                        <span>Itinerary</span>
+                                      </button>
+
+                                      <button
+                                        type="button"
+                                        className="btn-book-inline btn-3d-tactile"
+                                        onClick={() => onBookNow(tour)}
+                                      >
+                                        <span>Book</span>
+                                      </button>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -451,73 +496,64 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                 // If exact packages exist for this country
                 const baseList = countryPkgs;
 
-                // Regional sub-filters for India
-                const indiaRegions = [
-                  { id: 'All', label: `All (${baseList.length})`, match: null },
-                  { id: 'Himachal', label: 'Himachal & Kashmir', match: ['himachal', 'dharamshala', 'dalhousie', 'manali', 'shimla', 'kashmir', 'pines'] },
-                  { id: 'Uttarakhand', label: 'Uttarakhand', match: ['uttarakhand', 'haridwar', 'mussoorie', 'rishikesh', 'nanital', 'corbett', 'ganga'] },
-                  { id: 'Goa', label: 'Goa & Coastal', match: ['goa', 'beach', 'coastal'] },
-                  { id: 'Rajasthan', label: 'Rajasthan & Royal', match: ['rajasthan', 'jaipur', 'udaipur', 'jodhpur', 'jaisalmer'] },
-                  { id: 'MP', label: 'Madhya Pradesh', match: ['madhya pradesh', 'bhopal', 'pachmarhi', 'madhai', 'gwalior', 'orchha', 'jabalpur', 'ujjain'] },
-                  { id: 'South', label: 'South India', match: ['karnataka', 'coorg', 'mysore', 'kerala', 'munnar', 'alleppey', 'ooty', 'bangalore'] },
-                  { id: 'WestEast', label: 'Gujarat & Northeast', match: ['dwarka', 'somnath', 'gujarat', 'agra', 'varanasi', 'sikkim', 'darjeeling'] }
-                ];
-
                 const filteredTours = baseList.filter(tour => {
                   const loc = (tour.location || '').toLowerCase();
                   const name = (tour.name || '').toLowerCase();
                   const q = countrySearchQuery.toLowerCase().trim();
 
-                  const matchesQuery = !q || name.includes(q) || loc.includes(q);
-
-                  let matchesRegion = true;
-                  if (activeCountry.id === 'india' && countryRegionFilter !== 'All') {
-                    const regObj = indiaRegions.find(r => r.id === countryRegionFilter);
-                    if (regObj && regObj.match) {
-                      matchesRegion = regObj.match.some(m => loc.includes(m) || name.includes(m));
-                    }
-                  }
-
-                  return matchesQuery && matchesRegion;
+                  return !q || name.includes(q) || loc.includes(q);
                 });
 
                 const displayedTours = showAllCountryTours ? filteredTours : filteredTours.slice(0, 8);
 
                 return (
-                  <div>
-                    {/* Sub-bar for India packages */}
-                    {activeCountry.id === 'india' && (
-                      <div className="country-subfilter-bar">
-                        <div className="subfilter-chips-row">
-                          {indiaRegions.map(r => (
-                            <button
-                              key={r.id}
-                              type="button"
-                              className={`subfilter-chip ${countryRegionFilter === r.id ? 'active' : ''}`}
-                              onClick={() => {
-                                setCountryRegionFilter(r.id);
-                                setShowAllCountryTours(true);
-                              }}
-                            >
-                              <span>{r.label}</span>
-                            </button>
-                          ))}
-                        </div>
-                        <div className="country-search-box">
-                          <Search size={14} className="text-amber" />
-                          <input
-                            type="text"
-                            placeholder={`Search among all ${baseList.length} India packages...`}
-                            value={countrySearchQuery}
-                            onChange={(e) => {
-                              setCountrySearchQuery(e.target.value);
-                              if (e.target.value) setShowAllCountryTours(true);
-                            }}
-                            className="country-search-input"
-                          />
-                        </div>
+                  <div className="country-packages-wrapper">
+                    {/* Universal Top Search Bar for Easy Search (Prompt & PDF #11) */}
+                    <div className="country-search-bar-unified">
+                      <div className="country-search-box">
+                        <Search size={16} className="text-amber flex-shrink-0" />
+                        <input
+                          type="text"
+                          placeholder={`Search ${baseList.length} tour packages in ${activeCountry.name} (e.g., city, beach, mountains, resort)...`}
+                          value={countrySearchQuery}
+                          onChange={(e) => {
+                            setCountrySearchQuery(e.target.value);
+                            if (e.target.value) setShowAllCountryTours(true);
+                          }}
+                          className="country-search-input"
+                        />
+                        {countrySearchQuery && (
+                          <button
+                            type="button"
+                            className="country-search-clear-btn"
+                            onClick={() => setCountrySearchQuery('')}
+                            title="Clear search"
+                          >
+                            <X size={14} />
+                          </button>
+                        )}
                       </div>
-                    )}
+
+                      {/* Search confirmation feedback per PDF item 11 */}
+                      {countrySearchQuery && (
+                        <div className="search-live-feedback-strip">
+                          <span className="feedback-text">
+                            {filteredTours.length > 0 
+                              ? `✨ Found ${filteredTours.length} tour package${filteredTours.length > 1 ? 's' : ''} matching "${countrySearchQuery}"` 
+                              : `No packages match "${countrySearchQuery}" in ${activeCountry.name}`}
+                          </span>
+                          {filteredTours.length === 0 && (
+                            <button
+                              type="button"
+                              className="btn-reset-country-search"
+                              onClick={() => setCountrySearchQuery('')}
+                            >
+                              Show All Packages
+                            </button>
+                          )}
+                        </div>
+                      )}
+                    </div>
 
                     <div className="stage-cities-grid">
                       {displayedTours.map((tour) => {
@@ -526,48 +562,93 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
                         return (
                           <div key={tour.id} className="city-in-place-card glass-card">
-                            <div className="c-card-top-header">
-                              <div className="c-city-name-lockup">
-                                <MapPin size={15} className="text-amber flex-shrink-0 mt-1" />
-                                <div>
-                                  <h4 className="city-headline">{tour.name}</h4>
-                                  <span className="city-state-sub">{tour.location || tour.country}</span>
-                                </div>
+                            {/* Cover Image Banner with Badges (Prompt & PDF #2) */}
+                            <div className="c-card-media-pane">
+                              <img 
+                                src={tour.image || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80'} 
+                                alt={tour.name} 
+                                className="c-card-cover-img"
+                                loading="lazy"
+                                onError={(e) => {
+                                  e.currentTarget.src = 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=800&q=80';
+                                }}
+                              />
+                              <div className="c-media-gradient-overlay" />
+
+                              {/* Overlaid Badges */}
+                              <div className="c-media-top-badges">
+                                  <span className="c-tag-pill c-tag-highlight">
+                                    <Flame size={12} className="text-amber-glow animate-pulse" />
+                                    <span>{tour.badge ? tour.badge.replace(/^[🔥✨👑🌟\s]+/, '').trim() || 'Filling Fast' : 'Filling Fast'}</span>
+                                  </span>
+                                {discountPct > 0 && (
+                                  <span className="c-tag-pill c-tag-discount">
+                                    {discountPct}% OFF
+                                  </span>
+                                )}
                               </div>
-                              <span className="weather-pill-tag">{tour.duration}</span>
+
+                              {/* Bottom Duration Badge on Image */}
+                              <div className="c-media-bottom-badge">
+                                <span className="c-dur-pill">
+                                  <Clock size={11} className="text-cyan flex-shrink-0" />
+                                  <span>{tour.duration}</span>
+                                </span>
+                              </div>
                             </div>
 
-                            {/* Visual Inclusions Icon Bar (CMS-Customizable Card Features) */}
-                            <CardInclusionsStrip tour={tour} />
-
-                            <div className="c-card-footer-action">
-                              <div className="compact-price-box">
-                                <div className="price-strike-row">
-                                  <span className="orig-price-strike">{formatPrice(origPrice)}</span>
-                                  <span className="price-save-badge">{discountPct}% OFF</span>
+                            {/* Content Body */}
+                            <div className="c-card-content-body">
+                              <div className="c-card-title-row">
+                                <div className="c-thumb-icon-box" title={tour.name}>
+                                  <img 
+                                    src={tour.image || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=120&q=80'} 
+                                    alt="" 
+                                    className="c-thumb-mini"
+                                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                                  />
                                 </div>
-                                <div className="price-main-row">
-                                  <strong className="current-offer-price font-editorial">{formatPrice(tour.price)}</strong>
-                                  <span className="price-per-person">/ person</span>
+                                <div className="c-title-text-group">
+                                  <h4 className="city-headline" title={tour.name}>{tour.name}</h4>
+                                  <span className="city-state-sub">
+                                    <MapPin size={11} className="text-amber flex-shrink-0" />
+                                    <span>{tour.location || tour.country}</span>
+                                  </span>
                                 </div>
                               </div>
 
-                              <div className="action-buttons-inline">
-                                <button
-                                  type="button"
-                                  className="btn-itinerary-inline"
-                                  onClick={() => onSelectItinerary(tour)}
-                                >
-                                  <span>Itinerary</span>
-                                </button>
+                              {/* Visual Inclusions Icon Bar (5 uniform centered slots) */}
+                              <CardInclusionsStrip tour={tour} />
 
-                                <button
-                                  type="button"
-                                  className="btn-book-inline"
-                                  onClick={() => onBookNow(tour)}
-                                >
-                                  <span>Book</span>
-                                </button>
+                              <div className="c-card-footer-action">
+                                <div className="compact-price-box">
+                                  <div className="price-strike-row">
+                                    <span className="orig-price-strike">{formatPrice(origPrice)}</span>
+                                    <span className="price-save-badge">Save {formatPrice(origPrice - tour.price)}</span>
+                                  </div>
+                                  <div className="price-main-row">
+                                    <strong className="current-offer-price font-editorial">{formatPrice(tour.price)}</strong>
+                                    <span className="price-per-person">/ person</span>
+                                  </div>
+                                </div>
+
+                                <div className="action-buttons-inline">
+                                  <button
+                                    type="button"
+                                    className="btn-itinerary-inline btn-3d-tactile"
+                                    onClick={() => onSelectItinerary(tour)}
+                                  >
+                                    <span>Itinerary</span>
+                                  </button>
+
+                                  <button
+                                    type="button"
+                                    className="btn-book-inline btn-3d-tactile"
+                                    onClick={() => onBookNow(tour)}
+                                  >
+                                    <span>Book</span>
+                                  </button>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -668,12 +749,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                         <h4 className="st-title font-editorial">{tour.name}</h4>
 
                         {/* Inclusions Row */}
-                        <div className="compact-inclusions-icon-bar mb-2">
-                          <div className="inc-icon-item"><div className="inc-svg-badge"><Hotel size={12} className="text-amber" /></div><span className="inc-text">Stay</span></div>
-                          <div className="inc-icon-item"><div className="inc-svg-badge"><Car size={12} className="text-cyan" /></div><span className="inc-text">Cabs</span></div>
-                          <div className="inc-icon-item"><div className="inc-svg-badge"><Utensils size={12} className="text-emerald" /></div><span className="inc-text">Meals</span></div>
-                          <div className="inc-icon-item"><div className="inc-svg-badge"><Ticket size={12} className="text-amber" /></div><span className="inc-text">Sightseeing</span></div>
-                        </div>
+                        <CardInclusionsStrip tour={tour} />
 
                         <div className="st-footer">
                           <div className="compact-price-box">
@@ -768,12 +844,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                         <h4 className="st-title font-editorial">{tour.name}</h4>
 
                         {/* Inclusions Row */}
-                        <div className="compact-inclusions-icon-bar mb-2">
-                          <div className="inc-icon-item"><div className="inc-svg-badge"><Hotel size={12} className="text-amber" /></div><span className="inc-text">Stay</span></div>
-                          <div className="inc-icon-item"><div className="inc-svg-badge"><Car size={12} className="text-cyan" /></div><span className="inc-text">Cabs</span></div>
-                          <div className="inc-icon-item"><div className="inc-svg-badge"><Utensils size={12} className="text-emerald" /></div><span className="inc-text">Meals</span></div>
-                          <div className="inc-icon-item"><div className="inc-svg-badge"><Ticket size={12} className="text-amber" /></div><span className="inc-text">Sightseeing</span></div>
-                        </div>
+                        <CardInclusionsStrip tour={tour} />
 
                         <div className="st-footer">
                           <div className="compact-price-box">
@@ -1232,71 +1303,179 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           border-radius: 9999px;
         }
 
-        /* Cities In-Place Grid */
+        /* Cities In-Place Grid - Modern Non-Widespread Proportions */
         .stage-cities-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 1.15rem;
+          grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+          gap: 1.25rem;
+          justify-content: center;
         }
 
         .city-in-place-card {
-          padding: 1.25rem;
           border-radius: 18px;
-          background: rgba(0, 29, 81, 0.65);
+          background: rgba(10, 24, 56, 0.78);
           border: 1px solid rgba(255, 255, 255, 0.12);
           display: flex;
           flex-direction: column;
-          justify-content: space-between;
-          gap: 0.85rem;
+          overflow: hidden;
           text-align: left;
-          transition: all 0.25s ease;
-          backdrop-filter: blur(10px);
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          backdrop-filter: blur(14px);
+          position: relative;
+          box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
         }
 
         .city-in-place-card:hover {
-          border-color: rgba(255, 137, 47, 0.6);
-          transform: translateY(-3px);
-          box-shadow: 0 14px 32px rgba(0, 0, 0, 0.55), 0 0 20px rgba(255, 137, 47, 0.2);
+          border-color: rgba(255, 137, 47, 0.7);
+          transform: translateY(-5px);
+          box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 24px rgba(255, 137, 47, 0.25);
         }
 
-        .c-card-top-header {
+        /* Card Media Header with Cover Image & Overlaid Badges (Prompt & PDF #2) */
+        .c-card-media-pane {
+          position: relative;
+          width: 100%;
+          height: 165px;
+          overflow: hidden;
+          background: #001233;
+        }
+
+        .c-card-cover-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .city-in-place-card:hover .c-card-cover-img {
+          transform: scale(1.07);
+        }
+
+        .c-media-gradient-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(10, 24, 56, 0.95) 0%, rgba(10, 24, 56, 0.15) 50%, rgba(0, 0, 0, 0.45) 100%);
+          pointer-events: none;
+        }
+
+        .c-media-top-badges {
+          position: absolute;
+          top: 0.65rem;
+          left: 0.65rem;
+          right: 0.65rem;
           display: flex;
-          align-items: flex-start;
           justify-content: space-between;
-          gap: 0.5rem;
+          align-items: center;
+          z-index: 2;
+          pointer-events: none;
         }
 
-        .c-city-name-lockup {
+        .c-tag-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.3rem;
+          padding: 0.22rem 0.6rem;
+          border-radius: 9999px;
+          font-family: var(--font-ui);
+          font-size: 0.68rem;
+          font-weight: 800;
+          letter-spacing: 0.03em;
+          backdrop-filter: blur(8px);
+        }
+
+        .c-tag-highlight {
+          background: rgba(20, 10, 5, 0.92);
+          color: #FFFFFF;
+          border: 1.2px solid #FF892F;
+          box-shadow: 0 4px 12px rgba(255, 107, 0, 0.35);
+        }
+
+        .c-tag-discount {
+          background: rgba(16, 185, 129, 0.92);
+          color: #FFFFFF;
+          border: 1.2px solid #34D399;
+          box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+          margin-left: auto;
+        }
+
+        .c-media-bottom-badge {
+          position: absolute;
+          bottom: 0.55rem;
+          left: 0.65rem;
+          z-index: 2;
+        }
+
+        .c-dur-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          padding: 0.2rem 0.6rem;
+          border-radius: 9999px;
+          background: rgba(0, 18, 51, 0.88);
+          border: 1px solid rgba(111, 230, 252, 0.45);
+          color: #6FE6FC;
+          font-size: 0.72rem;
+          font-weight: 800;
+          backdrop-filter: blur(6px);
+        }
+
+        /* Card Content Body */
+        .c-card-content-body {
+          padding: 1rem 1.15rem 1.15rem 1.15rem;
           display: flex;
-          gap: 0.45rem;
+          flex-direction: column;
+          gap: 0.75rem;
+          flex: 1;
         }
 
-        .city-marker {
-          font-size: 1.15rem;
+        .c-card-title-row {
+          display: flex;
+          align-items: center;
+          gap: 0.65rem;
+        }
+
+        .c-thumb-icon-box {
+          width: 44px;
+          height: 44px;
+          border-radius: 10px;
+          overflow: hidden;
+          flex-shrink: 0;
+          border: 1.5px solid rgba(255, 137, 47, 0.65);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+          background: #001233;
+        }
+
+        .c-thumb-mini {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .c-title-text-group {
+          min-width: 0;
+          flex: 1;
         }
 
         .city-headline {
           font-size: 1.05rem;
           font-weight: 800;
           color: #FFFFFF;
-          margin: 0;
+          margin: 0 0 0.15rem 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .city-state-sub {
           font-size: 0.78rem;
           color: #CBD5E1;
           font-weight: 600;
-        }
-
-        .weather-pill-tag {
-          font-size: 0.7rem;
-          font-weight: 800;
-          color: #6FE6FC;
-          background: rgba(111, 230, 252, 0.18);
-          border: 1px solid rgba(111, 230, 252, 0.35);
-          padding: 0.2rem 0.6rem;
-          border-radius: 9999px;
+          display: flex;
+          align-items: center;
+          gap: 0.25rem;
           white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .c-theme-badge {
@@ -1670,66 +1849,36 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           text-decoration: none;
         }
 
-        .country-subfilter-bar {
+        /* Universal Country Search Bar & Feedback (Prompt & PDF #11) */
+        .country-packages-wrapper {
           display: flex;
-          align-items: center;
-          justify-content: space-between;
-          flex-wrap: wrap;
-          gap: 0.75rem;
-          margin-bottom: 1.25rem;
-          padding: 0.75rem 1rem;
-          background: rgba(0, 18, 51, 0.6);
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          border-radius: 14px;
+          flex-direction: column;
+          gap: 1.15rem;
         }
 
-        .subfilter-chips-row {
+        .country-search-bar-unified {
           display: flex;
-          align-items: center;
-          gap: 0.45rem;
-          overflow-x: auto;
-          scrollbar-width: none;
-          max-width: 100%;
-        }
-
-        .subfilter-chip {
-          white-space: nowrap;
-          font-size: 0.8rem;
-          font-weight: 700;
-          padding: 0.42rem 0.95rem;
-          border-radius: 9999px;
-          background: rgba(255, 255, 255, 0.08);
-          color: #F8FAFC;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          cursor: pointer;
-          transition: all 0.25s ease;
-          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-        }
-
-        .subfilter-chip:hover {
-          color: #FFFFFF;
-          background: rgba(255, 137, 47, 0.22);
-          border-color: #FF892F;
-          transform: translateY(-1px);
-        }
-
-        .subfilter-chip.active {
-          background: linear-gradient(135deg, #FF892F 0%, #FFA000 100%);
-          color: #001233;
-          font-weight: 900;
-          border-color: #FFA459;
-          box-shadow: 0 3px 14px rgba(255, 137, 47, 0.45);
+          flex-direction: column;
+          gap: 0.5rem;
+          margin-bottom: 0.35rem;
         }
 
         .country-search-box {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
-          background: rgba(0, 0, 0, 0.4);
-          border: 1.2px solid rgba(255, 255, 255, 0.2);
+          gap: 0.65rem;
+          background: rgba(0, 18, 51, 0.75);
+          border: 1.5px solid rgba(255, 137, 47, 0.4);
           border-radius: 9999px;
-          padding: 0.35rem 0.9rem;
-          min-width: 240px;
+          padding: 0.55rem 1.15rem;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+          transition: all 0.25s ease;
+        }
+
+        .country-search-box:focus-within {
+          border-color: #FF892F;
+          box-shadow: 0 0 20px rgba(255, 137, 47, 0.35);
+          background: rgba(0, 18, 51, 0.9);
         }
 
         .country-search-input {
@@ -1737,13 +1886,55 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           border: none;
           outline: none;
           color: #FFFFFF;
-          font-size: 0.82rem;
+          font-size: 0.88rem;
           font-weight: 600;
           width: 100%;
         }
 
         .country-search-input::placeholder {
+          color: #94A3B8;
+        }
+
+        .country-search-clear-btn {
+          background: rgba(255, 255, 255, 0.1);
+          border: none;
           color: #CBD5E1;
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .country-search-clear-btn:hover {
+          background: rgba(239, 68, 68, 0.25);
+          color: #EF4444;
+        }
+
+        .search-live-feedback-strip {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0.35rem 0.85rem;
+          border-radius: 8px;
+          background: rgba(255, 137, 47, 0.1);
+          border: 1px solid rgba(255, 137, 47, 0.25);
+          font-size: 0.82rem;
+          color: #FFA459;
+          font-weight: 700;
+        }
+
+        .btn-reset-country-search {
+          background: none;
+          border: none;
+          color: #6FE6FC;
+          font-size: 0.8rem;
+          font-weight: 700;
+          cursor: pointer;
+          text-decoration: underline;
         }
 
         .badge-custom {

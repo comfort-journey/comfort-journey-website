@@ -32,9 +32,24 @@ async function generateSSG() {
   const toursDataPath = path.resolve(__dirname, '../src/data/toursData.js');
   const landingPagesDataPath = path.resolve(__dirname, '../src/data/landingPagesData.js');
 
-  const { BLOGS_DATA } = await import(`file://${blogsDataPath}`);
-  const { TOURS_DATA } = await import(`file://${toursDataPath}`);
+  const { BLOGS_DATA: seedBlogs } = await import(`file://${blogsDataPath}`);
+  const { TOURS_DATA: seedTours } = await import(`file://${toursDataPath}`);
   const { LANDING_PAGES_DATA } = await import(`file://${landingPagesDataPath}`);
+
+  // Check if live-content.json exists for CMS updates
+  const liveContentPath = path.resolve(__dirname, '../public/live-content.json');
+  let BLOGS_DATA = seedBlogs;
+  let TOURS_DATA = seedTours;
+
+  if (fs.existsSync(liveContentPath)) {
+    try {
+      const liveJson = JSON.parse(fs.readFileSync(liveContentPath, 'utf8'));
+      if (Array.isArray(liveJson.blogs) && liveJson.blogs.length > 0) BLOGS_DATA = liveJson.blogs;
+      if (Array.isArray(liveJson.tours) && liveJson.tours.length > 0) TOURS_DATA = liveJson.tours;
+    } catch (e) {
+      console.warn('Could not read live-content.json:', e);
+    }
+  }
 
   // Helper to inject metadata into static HTML
   const injectHtmlMetadata = (template, { title, description, image, url, schema, canonicalUrl }) => {

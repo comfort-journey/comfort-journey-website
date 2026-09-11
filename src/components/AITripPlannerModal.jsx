@@ -9,6 +9,10 @@ import { useCurrency } from '../context/CurrencyContext';
 import { TOURS_DATA } from '../data/toursData';
 import { askAIConcierge, QUICK_PROMPTS } from '../services/aiConciergeService';
 
+const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
+const mascotDefaultSrc = `${basePrefix}mascot-default.png`;
+const mascotReactionSrc = `${basePrefix}mascot-reaction.png`;
+
 export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTour, onBookCustomTrip }) {
   const { formatPrice } = useCurrency();
 
@@ -175,9 +179,10 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
           <div className="ai-mascot-badge-wrap">
             <div className="ai-mascot-avatar-circle">
               <img 
-                src="/mascot-default.png" 
+                src={mascotDefaultSrc} 
                 alt="Navi Comfort Wolf Mascot" 
                 className="ai-avatar-wolf-img"
+                onError={(e) => { e.currentTarget.src = './mascot-default.png'; }}
               />
               <span className="ai-online-beacon" />
             </div>
@@ -278,7 +283,11 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
                 <div key={msg.id} className={`chat-bubble-row ${msg.role === 'user' ? 'user-row' : 'assistant-row'}`}>
                   {msg.role === 'assistant' && (
                     <div className="assistant-avatar-small">
-                      <img src="/mascot-default.png" alt="Navi" />
+                      <img 
+                        src={mascotDefaultSrc} 
+                        alt="Navi" 
+                        onError={(e) => { e.currentTarget.src = './mascot-default.png'; }}
+                      />
                     </div>
                   )}
 
@@ -383,7 +392,11 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
               {isTyping && (
                 <div className="chat-bubble-row assistant-row">
                   <div className="assistant-avatar-small">
-                    <img src="/mascot-reaction.png" alt="Navi Typing" />
+                    <img 
+                      src={mascotReactionSrc} 
+                      alt="Navi Typing" 
+                      onError={(e) => { e.currentTarget.src = './mascot-reaction.png'; }}
+                    />
                   </div>
                   <div className="chat-bubble assistant-bubble typing-bubble">
                     <span className="typing-dot" />
@@ -624,7 +637,12 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
               <div className="wizard-result-card animate-fade-in">
                 {isGeneratingWizard ? (
                   <div className="wizard-loading-box">
-                    <img src="/mascot-reaction.png" alt="Navi" className="loading-mascot-img" />
+                    <img 
+                      src={mascotReactionSrc} 
+                      alt="Navi" 
+                      className="loading-mascot-img" 
+                      onError={(e) => { e.currentTarget.src = './mascot-reaction.png'; }}
+                    />
                     <h4>Navi is handcrafting your bespoke itinerary...</h4>
                     <p>Matching verified 5-star properties, dedicated chauffeurs & scenic routes</p>
                   </div>

@@ -13,6 +13,7 @@ import SEOAssistant from './SEOAssistant';
 import CMSFeedbackModal from './CMSFeedbackModal';
 import { TOURS_DATA } from '../../data/toursData';
 import { slugify } from '../../services/directusClient';
+import { contentService } from '../../services/contentService';
 import { CARD_FEATURE_OPTIONS, FEATURE_ICONS_MAP } from '../CardInclusionsStrip';
 
 // ═══════════════════════════════════════════════════════════════════
@@ -157,16 +158,7 @@ const EMPTY_TOUR = {
 
 export default function TourPackageManager() {
   const [view, setView] = useState('list');
-  const [toursList, setToursList] = useState(() => {
-    try {
-      const saved = localStorage.getItem('cj_custom_tours_dataset');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-      }
-    } catch {}
-    return TOURS_DATA;
-  });
+  const [toursList, setToursList] = useState(() => contentService.getTours());
   const [editingTour, setEditingTour] = useState(null);
   const [isAddingNew, setIsAddingNew] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -361,9 +353,7 @@ export default function TourPackageManager() {
 
   const persistTours = useCallback((updated) => {
     setToursList(updated);
-    try { localStorage.setItem('cj_custom_tours_dataset', JSON.stringify(updated)); } catch {}
-    TOURS_DATA.length = 0;
-    TOURS_DATA.push(...updated);
+    contentService.saveAllTours(updated);
   }, []);
 
   // ─── CRUD ───

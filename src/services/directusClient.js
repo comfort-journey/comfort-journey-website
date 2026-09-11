@@ -11,8 +11,8 @@ export { resolveDestinationImage, isWixOrLegacyUrl } from '../utils/destinationI
 const DEFAULT_DIRECTUS_URL = import.meta.env.VITE_DIRECTUS_URL || 'http://localhost:8055';
 const STORAGE_KEY_URL = 'cj_directus_url';
 const STORAGE_KEY_TOKEN = 'cj_directus_token';
-const STORAGE_KEY_LOCAL_BLOGS = 'cj_local_custom_blogs';
-const STORAGE_KEY_LOCAL_TOURS = 'cj_local_custom_tours';
+const STORAGE_KEY_LOCAL_BLOGS = 'cj_custom_blogs_dataset';
+const STORAGE_KEY_LOCAL_TOURS = 'cj_custom_tours_dataset';
 
 // Helper function to slugify text
 export function slugify(text) {

@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { directusService, slugify, parseWixCsv, transformWixTourRow } from '../services/directusClient';
 import { TOURS_DATA } from '../data/toursData';
+import { contentService, isLocalDev, STORAGE_KEY_GITHUB_TOKEN, STORAGE_KEY_GITHUB_REPO } from '../services/contentService';
 
 // ═══ New Content Studio Components ═══
 import TourPackageManager from './cms/TourPackageManager';
@@ -98,9 +99,7 @@ export default function AdminCMSModal({ isOpen, onClose }) {
       const existingIds = new Set(existing.map(t => t.id));
       const newPkgs = parsedWixPackages.filter(p => !existingIds.has(p.id));
       const updated = [...newPkgs, ...existing];
-      localStorage.setItem('cj_custom_tours_dataset', JSON.stringify(updated));
-      TOURS_DATA.length = 0;
-      TOURS_DATA.push(...updated);
+      contentService.saveAllTours(updated);
       setWixImportResult({ total: parsedWixPackages.length, added: newPkgs.length, skipped: parsedWixPackages.length - newPkgs.length });
       showToast(`✅ Imported ${newPkgs.length} packages!`);
     } catch (err) {
@@ -116,15 +115,79 @@ export default function AdminCMSModal({ isOpen, onClose }) {
     }
   };
 
+  // Global Sync States & Handlers
+  const [githubToken, setGithubToken] = useState(() => localStorage.getItem(STORAGE_KEY_GITHUB_TOKEN) || '');
+  const [githubRepo, setGithubRepo] = useState(() => localStorage.getItem(STORAGE_KEY_GITHUB_REPO) || 'comfort-journey/comfort-journey-website');
+  const [isPublishingGitHub, setIsPublishingGitHub] = useState(false);
+  const [syncFeedback, setSyncFeedback] = useState('');
+
+  const handleSaveGitHubConfig = () => {
+    localStorage.setItem(STORAGE_KEY_GITHUB_TOKEN, githubToken.trim());
+    localStorage.setItem(STORAGE_KEY_GITHUB_REPO, githubRepo.trim());
+    showToast('✅ GitHub Sync settings saved!');
+  };
+
+  const handlePublishToLiveGitHub = async () => {
+    if (!githubToken.trim()) {
+      showToast('⚠️ Please enter your GitHub Personal Access Token (PAT) first.');
+      return;
+    }
+    setIsPublishingGitHub(true);
+    setSyncFeedback('🚀 Pushing updated live content to GitHub repository...');
+    try {
+      const res = await contentService.publishToGitHub({
+        token: githubToken.trim(),
+        repo: githubRepo.trim(),
+        commitMessage: `Content Studio Publish: ${new Date().toLocaleString()}`
+      });
+      setSyncFeedback(`✅ Live Publish Successful! Commit SHA: ${res.commit?.sha?.slice(0, 7) || 'OK'}. GitHub Actions is building and deploying to all global users!`);
+      showToast('🎉 Published to GitHub! Live site is updating worldwide.');
+    } catch (err) {
+      setSyncFeedback(`❌ Publish failed: ${err.message}`);
+      showToast(`❌ Error: ${err.message}`);
+    } finally {
+      setIsPublishingGitHub(false);
+    }
+  };
+
+  const handleDownloadLiveContent = () => {
+    const data = {
+      lastUpdated: new Date().toISOString(),
+      updatedBy: 'Comfort Journey Content Studio Export',
+      tours: contentService.getTours(),
+      blogs: contentService.getBlogs()
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'live-content.json';
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('📥 Downloaded live-content.json!');
+  };
+
+  const handleCopyLiveContent = () => {
+    const data = {
+      lastUpdated: new Date().toISOString(),
+      updatedBy: 'Comfort Journey Content Studio Export',
+      tours: contentService.getTours(),
+      blogs: contentService.getBlogs()
+    };
+    navigator.clipboard.writeText(JSON.stringify(data, null, 2));
+    showToast('📋 Copied live dataset JSON to clipboard!');
+  };
+
   if (!isOpen) return null;
 
   // ─── Tab Definitions ───
   const tabs = [
     { id: 'manage-tours', label: 'Tour Packages', icon: LayoutDashboard },
     { id: 'manage-blogs', label: 'Blog & Magazine', icon: FileText },
+    { id: 'global-sync', label: 'Global Live Sync', icon: UploadCloud },
+    { id: 'data-hub', label: 'Data Hub (Import & Export)', icon: FileSpreadsheet },
     { id: 'analytics', label: 'Growth Hub', icon: TrendingUp },
     { id: 'directus-config', label: 'Directus & AWS', icon: Database },
-    { id: 'data-hub', label: 'Data Hub (Import & Export)', icon: FileSpreadsheet },
   ];
 
   return (
@@ -271,6 +334,93 @@ export default function AdminCMSModal({ isOpen, onClose }) {
                         <strong>Schema:</strong> Import <code>cms/directus-schema-seed.json</code> via Directus Settings → Schema → Import.
                       </li>
                     </ol>
+                  </div>
+                </div>
+              )}
+
+              {/* ── Global Live Sync Tab ── */}
+              {activeTab === 'global-sync' && (
+                <div className="admin-tab-pane animate-fade-in global-sync-pane">
+                  <div className="directus-status-card">
+                    <div className="status-header">
+                      <div className="status-indicator-col">
+                        <span className={`status-pill ${isLocalDev() ? 'online' : githubToken ? 'online' : 'fallback'}`}>
+                          {isLocalDev() ? 'Local Codebase Connected' : githubToken ? 'GitHub Sync Configured' : 'Local Browser Cache Active'}
+                        </span>
+                        <h3 className="status-title">Global Live Website Sync</h3>
+                      </div>
+                    </div>
+                    <p className="status-desc">
+                      {isLocalDev()
+                        ? '🟢 You are running in local development mode. Any changes saved in the CMS are automatically written to public/live-content.json on disk! Committing and pushing to Git will deploy them to all global visitors.'
+                        : '🌐 You are running on the live website. Use GitHub Personal Access Token (PAT) integration to publish changes directly to the live website for all users worldwide with 1 click.'}
+                    </p>
+                  </div>
+
+                  <div className="directus-config-form">
+                    <h4 className="config-heading">GitHub Live Deployment Configuration</h4>
+                    <p style={{ color: '#94A3B8', fontSize: '0.85rem', marginBottom: '1.25rem' }}>
+                      To enable 1-click publishing for all global users across all devices without touching terminal code, provide a GitHub Personal Access Token with <code>repo</code> or <code>contents:write</code> scope.
+                    </p>
+
+                    <div className="config-grid">
+                      <div className="field-group">
+                        <label>GitHub Repository</label>
+                        <input
+                          type="text"
+                          className="cms-input"
+                          value={githubRepo}
+                          onChange={(e) => setGithubRepo(e.target.value)}
+                          placeholder="owner/repo (e.g. comfort-journey/comfort-journey-website)"
+                        />
+                      </div>
+                      <div className="field-group">
+                        <label>GitHub Personal Access Token (PAT)</label>
+                        <input
+                          type="password"
+                          className="cms-input"
+                          value={githubToken}
+                          onChange={(e) => setGithubToken(e.target.value)}
+                          placeholder="ghp_... or github_pat_..."
+                        />
+                      </div>
+                    </div>
+
+                    <div className="config-actions-row" style={{ marginTop: '1rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                      <button type="button" className="btn-secondary" onClick={handleSaveGitHubConfig}>
+                        Save Token
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-primary"
+                        onClick={handlePublishToLiveGitHub}
+                        disabled={isPublishingGitHub}
+                      >
+                        <UploadCloud size={15} />
+                        {isPublishingGitHub ? 'Publishing to GitHub...' : '🚀 Publish All Tours & Blogs to Live GitHub Website Now'}
+                      </button>
+                    </div>
+
+                    {syncFeedback && (
+                      <div style={{ marginTop: '1rem', padding: '0.75rem 1rem', background: 'rgba(255, 137, 47, 0.1)', border: '1px solid rgba(255, 137, 47, 0.3)', borderRadius: '8px', fontSize: '0.85rem', color: '#FFF' }}>
+                        {syncFeedback}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="directus-guide-card" style={{ marginTop: '1.5rem' }}>
+                    <h4 className="guide-title">📦 Manual Code & JSON Export</h4>
+                    <p style={{ color: '#94A3B8', fontSize: '0.85rem', marginBottom: '1rem' }}>
+                      If you do not want to use GitHub API tokens, you can instantly export the master live data JSON to include in your repository manually:
+                    </p>
+                    <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                      <button type="button" className="btn-secondary" onClick={handleDownloadLiveContent}>
+                        📥 Download public/live-content.json
+                      </button>
+                      <button type="button" className="btn-secondary" onClick={handleCopyLiveContent}>
+                        📋 Copy JSON to Clipboard
+                      </button>
+                    </div>
                   </div>
                 </div>
               )}

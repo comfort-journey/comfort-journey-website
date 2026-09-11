@@ -360,21 +360,6 @@ img, svg {
   overflow: hidden;
 }
 
-.btn-primary::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-  transition: 0.5s;
-}
-
-.btn-primary:hover::after {
-  left: 140%;
-}
-
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 16px 40px rgba(255, 107, 0, 0.45);
@@ -887,3 +872,130 @@ s {
   text-decoration: line-through !important;
   opacity: 0.92;
 }
+
+/* 11. Universal Card Inclusions Bar - 5 Equal Columns & Perfectly Centered Icons */
+.compact-inclusions-icon-bar {
+  display: grid !important;
+  grid-template-columns: repeat(5, 1fr) !important;
+  gap: 0.25rem !important;
+  align-items: center !important;
+  justify-items: center !important;
+  padding: 0.45rem 0.5rem !important;
+  border-radius: 12px !important;
+  background: rgba(0, 24, 64, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  margin-bottom: 0.65rem !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.inc-icon-item {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  width: 100% !important;
+  gap: 0.22rem !important;
+}
+
+.inc-svg-badge {
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 8px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+  margin: 0 auto !important;
+}
+
+.inc-svg-badge svg {
+  width: 15px !important;
+  height: 15px !important;
+}
+
+.city-in-place-card:hover .inc-svg-badge,
+.seasonal-stage-card:hover .inc-svg-badge,
+.tour-card:hover .inc-svg-badge {
+  background: rgba(255, 137, 47, 0.22) !important;
+  border-color: rgba(255, 137, 47, 0.55) !important;
+}
+
+.inc-text {
+  font-size: 0.68rem !important;
+  color: #F1F5F9 !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  line-height: 1.1 !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* 12. High-Contrast Ribbon Badges (PDF #4) */
+.ribbon-badge {
+  background: linear-gradient(135deg, rgba(20, 10, 5, 0.94) 0%, rgba(35, 15, 5, 0.96) 100%) !important;
+  border: 1.5px solid #FF892F !important;
+  color: #FFFFFF !important;
+  font-family: var(--font-ui) !important;
+  font-size: 0.68rem !important;
+  font-weight: 800 !important;
+  padding: 0.22rem 0.65rem !important;
+  border-radius: 9999px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), 0 0 10px rgba(255, 137, 47, 0.35) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+}
+
+/* 13. Trust Certification Stamps (PDF #12 - Not Clickable Buttons) */
+.trust-stamp-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  font-family: var(--font-ui);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: default !important;
+  user-select: none;
+  transition: opacity 0.2s ease;
+}
+
+.stamp-amber {
+  background: rgba(255, 107, 0, 0.1);
+  color: #FFB37C;
+  border: 1px solid rgba(255, 107, 0, 0.3);
+}
+
+.stamp-emerald {
+  background: rgba(16, 185, 129, 0.1);
+  color: #6EE7B7;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.stamp-purple {
+  background: rgba(168, 85, 247, 0.1);
+  color: #D8B4FE;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+/* 14. Perfectly Centered Duration Badges (PDF #6) */
+.duration-pill,
+.weather-pill-tag,
+.compact-dur-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.35rem !important;
+  line-height: 1 !important;
+}
+

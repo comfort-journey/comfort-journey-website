@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TOURS_DATA } from '../data/toursData';
+import { useLiveTours } from '../hooks/useLiveContent';
 import { 
   Clock, MapPin, Star, CheckCircle, ArrowRight, MessageCircle, 
   Sparkles, Compass, Heart, Scale, ShieldCheck, Flame, Search, 
@@ -14,6 +14,7 @@ import { useParticleBurst } from '../hooks/useParticleBurst';
 import CardInclusionsStrip from './CardInclusionsStrip';
 
 export default function TourExplorer({ searchFilters, onSelectItinerary, onBookNow, onOpenAIPlanner, onOpenTierCompare }) {
+  const TOURS_DATA = useLiveTours();
   const { formatPrice } = useCurrency();
   const { toggleWishlist, isInWishlist, toggleCompare, isComparing } = useWishlistCompare();
   const { triggerBurst } = useParticleBurst();

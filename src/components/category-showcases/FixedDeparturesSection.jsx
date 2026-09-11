@@ -1,5 +1,5 @@
 import React, { useState, useRef, useMemo } from 'react';
-import { TOURS_DATA } from '../../data/toursData';
+import { useLiveTours } from '../../hooks/useLiveContent';
 import { useCurrency } from '../../context/CurrencyContext';
 import { useParticleBurst } from '../../hooks/useParticleBurst';
 import Tilt3DCard from '../animations/Tilt3DCard';
@@ -101,6 +101,7 @@ export default function FixedDeparturesSection({
   onOpenAIPlanner,
   onNavigateLanding 
 }) {
+  const TOURS_DATA = useLiveTours();
   const { formatPrice } = useCurrency();
   const { triggerBurst } = useParticleBurst();
   const carouselRef = useRef(null);
@@ -135,7 +136,7 @@ export default function FixedDeparturesSection({
 
     const customIds = new Set(customBatches.map(b => b.id));
     return [...customBatches, ...FIXED_DEPARTURE_BATCHES.filter(b => !customIds.has(b.id))];
-  }, []);
+  }, [TOURS_DATA]);
 
   const filteredBatches = useMemo(() => {
     if (activeSubTab === 'All') return allBatches;

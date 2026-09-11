@@ -15,7 +15,9 @@ import {
   X, 
   Quote,
   Shield,
-  Heart
+  Heart,
+  Clock,
+  Headphones
 } from 'lucide-react';
 import { GOOGLE_REVIEWS, GOOGLE_BUSINESS_PROFILE } from '../data/toursData';
 
@@ -323,18 +325,28 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
         <div className="trust-proof-banner glass-card">
           <div className="trust-badges-cluster">
             <div className="trust-badge-item">
-              <Award size={18} className="text-amber" />
+              <Award size={18} className="text-amber flex-shrink-0" />
               <span>Bhopal’s #1 Rated Luxury Agency</span>
             </div>
             <span className="trust-badge-divider">•</span>
             <div className="trust-badge-item">
-              <ShieldCheck size={18} className="text-emerald" />
+              <ShieldCheck size={18} className="text-emerald flex-shrink-0" />
               <span>100% Genuine Verified Traveler Reviews</span>
             </div>
             <span className="trust-badge-divider">•</span>
             <div className="trust-badge-item">
-              <Sparkles size={18} className="text-aqua" />
+              <Sparkles size={18} className="text-aqua flex-shrink-0" />
               <span>Zero Planning Fee Guarantee</span>
+            </div>
+            <span className="trust-badge-divider">•</span>
+            <div className="trust-badge-item">
+              <Headphones size={18} className="text-amber flex-shrink-0" />
+              <span>24/7 Dedicated On-Trip VIP Concierge</span>
+            </div>
+            <span className="trust-badge-divider">•</span>
+            <div className="trust-badge-item">
+              <CheckCircle2 size={18} className="text-emerald flex-shrink-0" />
+              <span>100% Transparent Pricing & Zero Hidden Charges</span>
             </div>
           </div>
 

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useMemo } from 'react';
-import { TOURS_DATA } from '../../data/toursData';
+import { useLiveTours } from '../../hooks/useLiveContent';
 import { useCurrency } from '../../context/CurrencyContext';
 import { useParticleBurst } from '../../hooks/useParticleBurst';
 import Tilt3DCard from '../animations/Tilt3DCard';
@@ -15,6 +15,7 @@ export default function WeekendGetawaysSection({
   onOpenAIPlanner,
   onNavigateLanding 
 }) {
+  const TOURS_DATA = useLiveTours();
   const { formatPrice } = useCurrency();
   const { triggerBurst } = useParticleBurst();
   const carouselRef = useRef(null);
@@ -28,7 +29,7 @@ export default function WeekendGetawaysSection({
       const isWeekendNamed = t.name && (t.name.toLowerCase().includes('weekend') || t.name.toLowerCase().includes('explorer') || t.name.toLowerCase().includes('quick') || t.name.toLowerCase().includes('affair'));
       return isShort || isWeekendNamed;
     });
-  }, []);
+  }, [TOURS_DATA]);
 
   // Filtered by sub-region tabs
   const filteredTours = useMemo(() => {

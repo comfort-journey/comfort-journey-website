@@ -1,5 +1,6 @@
 import React from 'react';
 import { CheckCircle2, Sparkles, AlertTriangle, ArrowLeft, Edit3, Eye, X, Save, Trash2 } from 'lucide-react';
+import { isLocalDev } from '../../services/contentService';
 
 // ═══════════════════════════════════════════════════════════════════
 // COMFORT JOURNEY CMS — CONFIRMATION & FEEDBACK POP-UP MODAL
@@ -93,10 +94,12 @@ export default function CMSFeedbackModal({
             )}
 
             <div className="cms-confirm-notice">
-              {isPublish ? (
-                <span>✨ This package/post is immediately live and visible to all visitors.</span>
+              {isLocalDev() ? (
+                <span>🟢 <strong>Connected to Codebase:</strong> Saved to active catalog and synchronized to local disk. Changes are immediately live across all website tabs.</span>
+              ) : isPublish ? (
+                <span>🌐 <strong>Published to Active Catalog:</strong> Changes are immediately live on this device. To publish globally for all visitors across all devices, open the <strong>Global Sync</strong> tab.</span>
               ) : (
-                <span>🔒 Your updates are saved in local storage and will persist across sessions.</span>
+                <span>💾 <strong>Draft Saved:</strong> Updates are saved to your active dataset and will persist across all sessions.</span>
               )}
             </div>
           </div>

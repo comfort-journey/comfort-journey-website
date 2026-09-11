@@ -19,13 +19,18 @@ export default function HeroMascot({ heroRef }) {
   const mouseStateRef = useRef({ rotX: 0, rotY: 0, targetRotX: 0, targetRotY: 0 });
   const rafRef = useRef(null);
 
+  // Dynamic asset URLs supporting GitHub Pages subdirectories
+  const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
+  const mascotDefaultSrc = `${basePrefix}mascot-default.png`;
+  const mascotReactionSrc = `${basePrefix}mascot-reaction.png`;
+
   // Preload images for instantaneous swapping
   useEffect(() => {
     const imgDefault = new Image();
-    imgDefault.src = '/mascot-default.png';
+    imgDefault.src = mascotDefaultSrc;
     const imgReaction = new Image();
-    imgReaction.src = '/mascot-reaction.png';
-  }, []);
+    imgReaction.src = mascotReactionSrc;
+  }, [mascotDefaultSrc, mascotReactionSrc]);
 
   // Detect mobile viewports (< 768px)
   useEffect(() => {
@@ -169,12 +174,18 @@ export default function HeroMascot({ heroRef }) {
         title="Hi! I'm your Comfort Journey guide!"
       >
         <img
-          src={isReacting ? '/mascot-reaction.png' : '/mascot-default.png'}
+          src={isReacting ? mascotReactionSrc : mascotDefaultSrc}
           alt="Comfort Journey Mascot Wolf"
           className="hero-mascot-image"
           draggable="false"
           width="160"
           height="140"
+          onError={(e) => {
+            const fb = isReacting ? './mascot-reaction.png' : './mascot-default.png';
+            if (!e.currentTarget.src.endsWith(fb.replace('./', ''))) {
+              e.currentTarget.src = fb;
+            }
+          }}
         />
         {/* Subtle shadow underneath paws anchoring to the text boundary */}
         <div className="hero-mascot-paw-shadow" />

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useMemo } from 'react';
-import { TOURS_DATA } from '../../data/toursData';
+import { useLiveTours } from '../../hooks/useLiveContent';
 import { useCurrency } from '../../context/CurrencyContext';
 import { useParticleBurst } from '../../hooks/useParticleBurst';
 import Tilt3DCard from '../animations/Tilt3DCard';
@@ -14,6 +14,7 @@ export default function InternationalTripsSection({
   onOpenAIPlanner,
   onNavigateLanding 
 }) {
+  const TOURS_DATA = useLiveTours();
   const { formatPrice } = useCurrency();
   const { triggerBurst } = useParticleBurst();
   const carouselRef = useRef(null);
@@ -22,7 +23,7 @@ export default function InternationalTripsSection({
   // Filter International packages from TOURS_DATA
   const intlTours = useMemo(() => {
     return TOURS_DATA.filter(t => t.country !== 'India' && t.category !== 'National Tours');
-  }, []);
+  }, [TOURS_DATA]);
 
   // Filtered by sub-region tabs
   const filteredTours = useMemo(() => {

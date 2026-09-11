@@ -43,8 +43,20 @@ async function generateSitemap() {
   const blogsDataPath = path.resolve(__dirname, '../src/data/blogsData.js');
   const toursDataPath = path.resolve(__dirname, '../src/data/toursData.js');
 
-  const { BLOGS_DATA } = await import(`file://${blogsDataPath}`);
-  const { TOURS_DATA } = await import(`file://${toursDataPath}`);
+  const { BLOGS_DATA: seedBlogs } = await import(`file://${blogsDataPath}`);
+  const { TOURS_DATA: seedTours } = await import(`file://${toursDataPath}`);
+
+  const liveContentPath = path.resolve(__dirname, '../public/live-content.json');
+  let BLOGS_DATA = seedBlogs;
+  let TOURS_DATA = seedTours;
+
+  if (fs.existsSync(liveContentPath)) {
+    try {
+      const liveJson = JSON.parse(fs.readFileSync(liveContentPath, 'utf8'));
+      if (Array.isArray(liveJson.blogs) && liveJson.blogs.length > 0) BLOGS_DATA = liveJson.blogs;
+      if (Array.isArray(liveJson.tours) && liveJson.tours.length > 0) TOURS_DATA = liveJson.tours;
+    } catch {}
+  }
 
   const today = new Date().toISOString().split('T')[0];
 

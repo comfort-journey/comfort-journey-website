@@ -1,5 +1,7 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
+import fs from 'fs';
+import path from 'path';
 
 const SYSTEM_INSTRUCTION = `You are "Navi", the Senior Luxury AI Travel Concierge for "Comfort Journey" (Est. 1992 · Luxury Travel).
 Your phone/WhatsApp concierge contact is +91 8770403315.
@@ -123,6 +125,63 @@ function geminiDevServerPlugin(env) {
   };
 }
 
+function cmsSyncDevServerPlugin() {
+  return {
+    name: 'cms-sync-dev-server',
+    configureServer(server) {
+      server.middlewares.use('/api/cms/sync', async (req, res) => {
+        if (req.method !== 'POST') {
+          res.statusCode = 405;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ error: 'Method Not Allowed' }));
+          return;
+        }
+
+        let body = '';
+        req.on('data', chunk => { body += chunk; });
+        req.on('end', async () => {
+          try {
+            const parsed = JSON.parse(body || '{}');
+            const { tours, blogs } = parsed;
+
+            const publicLiveJsonPath = path.resolve('public/live-content.json');
+            let liveData = { tours: [], blogs: [], lastUpdated: new Date().toISOString() };
+            if (fs.existsSync(publicLiveJsonPath)) {
+              try {
+                liveData = JSON.parse(fs.readFileSync(publicLiveJsonPath, 'utf8'));
+              } catch {}
+            }
+
+            if (tours && Array.isArray(tours)) {
+              liveData.tours = tours;
+            }
+            if (blogs && Array.isArray(blogs)) {
+              liveData.blogs = blogs;
+            }
+            liveData.lastUpdated = new Date().toISOString();
+            liveData.updatedBy = 'Comfort Journey Content Studio Dev Server';
+
+            // Write to public/live-content.json
+            fs.writeFileSync(publicLiveJsonPath, JSON.stringify(liveData, null, 2), 'utf8');
+
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({
+              success: true,
+              message: 'Saved directly to public/live-content.json on local disk!'
+            }));
+          } catch (err) {
+            console.error('[CMS Dev Server Sync Error]:', err);
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: false, error: err.message }));
+          }
+        });
+      });
+    }
+  };
+}
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
@@ -130,11 +189,30 @@ export default defineConfig(({ mode }) => {
     base: './',
     plugins: [
       react(),
-      geminiDevServerPlugin(env)
+      geminiDevServerPlugin(env),
+      cmsSyncDevServerPlugin()
     ],
     server: {
       port: 5173,
       host: true
+    },
+    build: {
+      chunkSizeWarningLimit: 1200,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
+              return 'vendor-react';
+            }
+            if (id.includes('node_modules/lucide-react')) {
+              return 'vendor-icons';
+            }
+            if (id.includes('src/data/')) {
+              return 'site-data';
+            }
+          }
+        }
+      }
     }
   };
 });

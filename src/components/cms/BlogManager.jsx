@@ -12,14 +12,13 @@ import CMSFeedbackModal from './CMSFeedbackModal';
 import { BLOGS_DATA } from '../../data/blogsData';
 import { TOURS_DATA } from '../../data/toursData';
 import { slugify } from '../../services/directusClient';
+import { contentService, STORAGE_KEY_BLOGS } from '../../services/contentService';
 
 // ═══════════════════════════════════════════════════════════════════
 // COMFORT JOURNEY — BLOG MANAGER & EDITOR
 // Full blog CRUD with WYSIWYG authoring, SEO Assistant, and
 // content quality indicators.
 // ═══════════════════════════════════════════════════════════════════
-
-const STORAGE_KEY_BLOGS = 'cj_custom_blogs_v2';
 
 const BLOG_CATEGORIES = [
   'All Articles', 'Destination Guides', 'Honeymoon & Romance',
@@ -44,16 +43,7 @@ function getReadingTime(content) {
 
 export default function BlogManager({ onViewBlog }) {
   const [view, setView] = useState('list'); // 'list' | 'editor'
-  const [blogs, setBlogs] = useState(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY_BLOGS);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-      }
-    } catch {}
-    return BLOGS_DATA.map(b => ({ ...b, status: b.status || 'published' }));
-  });
+  const [blogs, setBlogs] = useState(() => contentService.getBlogs().map(b => ({ ...b, status: b.status || 'published' })));
   const [editingBlog, setEditingBlog] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All Articles');
@@ -146,7 +136,7 @@ export default function BlogManager({ onViewBlog }) {
   // Persist blogs
   const persistBlogs = useCallback((updated) => {
     setBlogs(updated);
-    try { localStorage.setItem(STORAGE_KEY_BLOGS, JSON.stringify(updated)); } catch {}
+    contentService.saveAllBlogs(updated);
   }, []);
 
   // Show toast
