@@ -300,21 +300,28 @@ export default function TourPackageManager() {
     }
   };
 
-  // Aggregates full tour content for SEO analysis (Overview, Day-by-day H3s & descriptions, Inclusions H2, Exclusions H2)
+  // Aggregates full tour content for SEO analysis (Overview, Highlights, Day-by-day H3s & descriptions, Inclusions H2, Exclusions H2)
   const getFullTourContentForSEO = useCallback((tour) => {
     if (!tour) return '';
     const parts = [];
 
+    const overviewH2 = tour.name ? `${tour.name} — Overview & Experiences` : 'Tour Overview & Experience';
     if (tour.description) {
-      parts.push(`<h2>Tour Overview & Experience</h2>`);
+      parts.push(`<h2>${overviewH2}</h2>`);
       parts.push(tour.description);
     }
     if (tour.tagline) {
       parts.push(`<p>${tour.tagline}</p>`);
     }
 
+    if (tour.highlights && tour.highlights.length > 0) {
+      parts.push(`<h2>Tour Highlights & VIP Privileges</h2>`);
+      parts.push(`<ul>` + tour.highlights.map(h => `<li>${h}</li>`).join('') + `</ul>`);
+    }
+
     if (tour.itinerary && tour.itinerary.length > 0) {
-      parts.push(`<h2>Day-by-Day Itinerary (${tour.itinerary.length} Days)</h2>`);
+      const itinH2 = tour.itinerarySectionTitle || `${tour.name || tour.destination || 'Tour'} — Day-by-Day Detailed Itinerary (${tour.itinerary.length} Days)`;
+      parts.push(`<h2>${itinH2}</h2>`);
       tour.itinerary.forEach((day, i) => {
         const dayNum = day.day || i + 1;
         const title = day.title || `Day ${dayNum}`;
@@ -322,6 +329,10 @@ export default function TourPackageManager() {
         if (day.desc) {
           parts.push(day.desc);
         }
+        if (day.morning) parts.push(`<p><strong>Morning:</strong> ${day.morning}</p>`);
+        if (day.afternoon) parts.push(`<p><strong>Afternoon:</strong> ${day.afternoon}</p>`);
+        if (day.evening) parts.push(`<p><strong>Evening:</strong> ${day.evening}</p>`);
+
         const logistics = [
           day.stayTier ? `Stay: ${day.stayTier}` : '',
           day.transport ? `Transport: ${day.transport}` : '',
@@ -347,6 +358,23 @@ export default function TourPackageManager() {
     }
 
     return parts.join('\n');
+  }, []);
+
+  // Calculates accurate word breakdown across all tour content blocks
+  const getTourContentBreakdown = useCallback((tour) => {
+    if (!tour) return { totalWords: 0, overviewWords: 0, itinWords: 0, incWords: 0, highlightsWords: 0 };
+    const countWords = (str) => (str || '').replace(/<[^>]*>/g, ' ').split(/\s+/).filter(Boolean).length;
+
+    const overviewWords = countWords(tour.description) + countWords(tour.tagline);
+    let itinWords = 0;
+    (tour.itinerary || []).forEach(d => {
+      itinWords += countWords(d.title) + countWords(d.desc) + countWords(d.morning) + countWords(d.afternoon) + countWords(d.evening) + countWords(d.stayTier) + countWords(d.transport) + countWords(d.meals);
+    });
+    const incWords = (tour.inclusions || []).reduce((acc, inc) => acc + countWords(inc), 0) + (tour.exclusions || []).reduce((acc, exc) => acc + countWords(exc), 0);
+    const highlightsWords = (tour.highlights || []).reduce((acc, h) => acc + countWords(h), 0);
+    const totalWords = overviewWords + itinWords + incWords + highlightsWords;
+
+    return { totalWords, overviewWords, itinWords, incWords, highlightsWords };
   }, []);
 
   const showToast = (msg) => { setToastMessage(msg); setTimeout(() => setToastMessage(''), 3500); };
@@ -1056,10 +1084,33 @@ export default function TourPackageManager() {
           {/* ── Itinerary Tab ── */}
           {editorTab === 'itinerary' && (
             <div className="editor-section">
+              {/* Customizable H2 Itinerary Section Heading */}
+              <div className="itin-section-h2-box" style={{ background: 'rgba(255, 179, 71, 0.05)', border: '1px solid rgba(255, 179, 71, 0.22)', borderRadius: '10px', padding: '0.85rem 1rem', marginBottom: '0.9rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.4rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                    <span style={{ fontWeight: 700, fontSize: '0.88rem', color: '#FFF' }}>📅 Itinerary Section Heading</span>
+                    <span className="section-h2-tag" title="Rendered as H2 Heading on the live page and SEO outline">H2 Section Heading</span>
+                  </div>
+                  <span style={{ fontSize: '0.72rem', color: editingTour.itinerarySectionTitle ? '#10B981' : '#94A3B8' }}>
+                    {editingTour.itinerarySectionTitle ? '✓ Custom H2 Active' : 'Default: Auto-includes Tour Name & Schedule'}
+                  </span>
+                </div>
+                <input
+                  type="text"
+                  className="cms-input"
+                  style={{ fontSize: '0.85rem', padding: '0.5rem 0.75rem' }}
+                  value={editingTour.itinerarySectionTitle || ''}
+                  onChange={e => setEditingTour({ ...editingTour, itinerarySectionTitle: e.target.value })}
+                  placeholder={editingTour.name ? `${editingTour.name} — Detailed Day-by-Day Itinerary` : `Day-by-Day Itinerary (${editingTour.itinerary?.length || 0} Days)`}
+                />
+                <p style={{ margin: '0.35rem 0 0', fontSize: '0.73rem', color: '#94A3B8', lineHeight: 1.4 }}>
+                  💡 <strong>SEO Tip:</strong> Search engines look for your Focus Keyword in this H2 heading or in the Day Titles (H3) below.
+                </p>
+              </div>
+
               <div className="itin-header-row">
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                  <h4>📅 Day-by-Day Itinerary ({editingTour.itinerary?.length || 0} Days)</h4>
-                  <span className="section-h2-tag" title="Main Itinerary section functions as H2 in page hierarchy">H2 Section</span>
+                  <h4>Day-by-Day Schedule ({editingTour.itinerary?.length || 0} Days)</h4>
                 </div>
                 <button type="button" className="add-day-btn" onClick={() => {
                   const nextDay = (editingTour.itinerary?.length || 0) + 1;
@@ -1425,6 +1476,7 @@ export default function TourPackageManager() {
                 title={editingTour.name}
                 slug={editingTour.slug}
                 content={getFullTourContentForSEO(editingTour)}
+                contentBreakdown={getTourContentBreakdown(editingTour)}
                 metaTitle={editingTour.seo?.metaTitle || editingTour.name}
                 metaDescription={editingTour.seo?.metaDescription || editingTour.tagline}
                 focusKeyword={editingTour.seo?.focusKeyword || ''}

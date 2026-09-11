@@ -80,7 +80,7 @@ Please share customized availability and booking details!`);
 
           {/* Day Selector Tabs */}
           <div className="itinerary-tabs-header">
-            <h2 className="section-label">Day-by-Day Detailed Schedule</h2>
+            <h2 className="section-label">{tour.itinerarySectionTitle || 'Day-by-Day Detailed Schedule'}</h2>
             <div className="day-tabs-scroll">
               {tour.itinerary?.map((d) => (
                 <button

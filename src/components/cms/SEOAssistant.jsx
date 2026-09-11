@@ -19,10 +19,39 @@ const PRIORITY_COLORS = {
   LOW: { bg: 'rgba(16,185,129,0.15)', text: '#10B981', border: 'rgba(16,185,129,0.4)' }
 };
 
+// Helper for intelligent, resilient keyword matching (exact, normalized, and multi-word key terms)
+function checkKeywordMatch(text, keyword) {
+  if (!text || !keyword) return { matched: false };
+  const t = String(text).toLowerCase();
+  const kw = String(keyword).toLowerCase().trim();
+  if (!kw) return { matched: false };
+
+  // 1. Direct exact phrase match
+  if (t.includes(kw)) return { matched: true, type: 'exact' };
+
+  // 2. Normalized alphanumeric match (ignores punctuation, dashes, slashes, extra spaces)
+  const normT = t.replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+  const normKw = kw.replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+  if (normT.includes(normKw)) return { matched: true, type: 'normalized' };
+
+  // 3. Multi-word phrase check (if keyword has 2+ words of >=3 chars)
+  const words = normKw.split(' ').filter(w => w.length >= 3);
+  if (words.length >= 2) {
+    const matchedWords = words.filter(w => normT.includes(w));
+    // If at least 70% of key words match or both first & last key word match
+    if (matchedWords.length / words.length >= 0.7 || (normT.includes(words[0]) && normT.includes(words[words.length - 1]))) {
+      return { matched: true, type: 'key-terms', matchedCount: matchedWords.length };
+    }
+  }
+
+  return { matched: false };
+}
+
 export default function SEOAssistant({
   title = '',
   slug = '',
   content = '',
+  contentBreakdown = null, // { totalWords, overviewWords, itinWords, incWords, highlightsWords }
   metaTitle = '',
   metaDescription = '',
   focusKeyword = '',
@@ -52,18 +81,17 @@ export default function SEOAssistant({
 
   // ─── Analyze Content for SEO Checks ───
   const analysis = useMemo(() => {
-    const kw = (focusKeyword || '').toLowerCase().trim();
-    const titleLower = (title || '').toLowerCase();
-    const metaTitleLower = (metaTitle || title || '').toLowerCase();
-    const metaDescLower = (metaDescription || '').toLowerCase();
-    const contentLower = (content || '').toLowerCase();
-    const contentText = (content || '').replace(/<[^>]*>/g, '');
-    const wordCount = contentText.split(/\s+/).filter(Boolean).length;
+    const kw = (focusKeyword || '').trim();
+    const isTour = contentType === 'tour';
 
-    // Extract headings from HTML content
+    const contentText = (content || '').replace(/<[^>]*>/g, ' ');
+    const wordCount = contentBreakdown?.totalWords || contentText.split(/\s+/).filter(Boolean).length;
+
+    // Extract headings from HTML content (H2, H3, and H4)
     const h2Matches = content.match(/<h2[^>]*>(.*?)<\/h2>/gi) || [];
     const h3Matches = content.match(/<h3[^>]*>(.*?)<\/h3>/gi) || [];
-    const subheadings = [...h2Matches, ...h3Matches].map(h => h.replace(/<[^>]*>/g, '').toLowerCase());
+    const h4Matches = content.match(/<h4[^>]*>(.*?)<\/h4>/gi) || [];
+    const subheadings = [...h2Matches, ...h3Matches, ...h4Matches].map(h => h.replace(/<[^>]*>/g, '').trim());
 
     // Extract images
     const imgMatches = content.match(/<img[^>]*>/gi) || [];
@@ -72,12 +100,25 @@ export default function SEOAssistant({
     const metaTitleLen = (metaTitle || title || '').length;
     const metaDescLen = (metaDescription || '').length;
 
+    // Keyword match tests
+    const kwInTitle = kw ? checkKeywordMatch(metaTitle || title, kw).matched : false;
+    const kwInH1 = kw ? checkKeywordMatch(title, kw).matched : false;
+    const matchedSubheading = kw ? subheadings.find(h => checkKeywordMatch(h, kw).matched) : null;
+    const kwInSubheading = !!matchedSubheading;
+    const kwInBody = kw ? checkKeywordMatch(contentText, kw).matched : false;
+    const kwInMeta = kw ? checkKeywordMatch(metaDescription, kw).matched : false;
+    const kwInSlug = kw ? checkKeywordMatch((slug || '').replace(/[-_]/g, ' '), kw).matched : false;
+
+    // Target word counts: Tours are modular (overview + days + inclusions), so 250 words is standard Google depth; Blogs need 300+
+    const wordTarget = isTour ? 250 : 300;
+    const isWordCountPassed = wordCount >= wordTarget;
+
     const checks = [];
 
-    // CRITICAL
+    // CRITICAL: Indexing
     checks.push({
       id: 'indexing',
-      label: 'Allow this post to get indexed',
+      label: isTour ? 'Allow this tour package to get indexed' : 'Allow this post to get indexed',
       detail: allowIndexing 
         ? 'Search engines (Google, Bing) are allowed to index this page (robots="index, follow" and included in sitemap)' 
         : 'Search engines are blocked from indexing (robots="noindex, nofollow")',
@@ -85,107 +126,149 @@ export default function SEOAssistant({
       passed: allowIndexing
     });
 
-    // HIGH
+    // HIGH: Title Tag
     checks.push({
       id: 'kw-in-title',
-      label: 'Add focus keyword to title tag',
-      detail: kw ? (metaTitleLower.includes(kw) ? `"${focusKeyword}" found in title` : `"${focusKeyword}" not found in title`) : 'Set a focus keyword first',
+      label: 'Add focus keyword to SEO title tag',
+      detail: kw 
+        ? (kwInTitle ? `"${focusKeyword}" found in SEO title tag` : `"${focusKeyword}" not found in title tag. (Customize in SEO & Meta tab, or include in Package Name)`) 
+        : 'Set a focus keyword in SEO & Meta tab first',
       priority: 'HIGH',
-      passed: kw ? metaTitleLower.includes(kw) : false
+      passed: kw ? kwInTitle : false
     });
 
+    // HIGH: H1 Heading
     checks.push({
       id: 'kw-in-h1',
-      label: "Add focus keyword to H1 (post's title)",
-      detail: kw ? (titleLower.includes(kw) ? `"${focusKeyword}" found in H1` : `"${focusKeyword}" not found in H1`) : 'Set a focus keyword first',
+      label: isTour ? 'Add focus keyword to Package Name (H1)' : "Add focus keyword to Article Title (H1)",
+      detail: kw 
+        ? (kwInH1 ? `"${focusKeyword}" found in ${isTour ? 'Package Name' : 'title'}` : `"${focusKeyword}" not found in ${isTour ? 'Package Name (Edit in Details & Hero tab)' : 'title'}`) 
+        : 'Set a focus keyword first',
       priority: 'HIGH',
-      passed: kw ? titleLower.includes(kw) : false
+      passed: kw ? kwInH1 : false
     });
 
+    // HIGH: Media Assets
     checks.push({
       id: 'image-video',
-      label: 'Add an image or video to this post',
-      detail: coverImage || imgMatches.length > 0 ? `${imgMatches.length + (coverImage ? 1 : 0)} media asset(s) detected` : 'No images or videos found',
+      label: isTour ? 'Add cover image & gallery photos' : 'Add an image or video to this post',
+      detail: coverImage || imgMatches.length > 0 
+        ? `${imgMatches.length + (coverImage ? 1 : 0)} media asset(s) detected across cover, schedule & gallery` 
+        : `No images detected. Please upload a cover image in Details & Hero tab`,
       priority: 'HIGH',
       passed: !!(coverImage || imgMatches.length > 0)
     });
 
-    // MEDIUM
+    // MEDIUM: Subheadings (H2/H3/H4)
     checks.push({
       id: 'kw-in-subheading',
-      label: 'Add focus keyword to at least one H2 or H3 (subheading)',
+      label: isTour ? 'Add focus keyword to an Itinerary Day Title (H3) or Subheading' : 'Add focus keyword to at least one H2 or H3 (subheading)',
       detail: kw 
-        ? (subheadings.some(h => h.includes(kw)) 
-            ? `Focus keyword "${focusKeyword}" found in subheadings (H2/H3)` 
-            : `Keyword not found in subheadings. Include it in an H3 Day Title or section heading`) 
-        : 'Set a focus keyword first',
+        ? (kwInSubheading 
+            ? `Focus keyword found in subheading: "${matchedSubheading.length > 36 ? matchedSubheading.slice(0, 36) + '...' : matchedSubheading}"` 
+            : (isTour 
+                ? `Keyword not found in subheadings. Include "${focusKeyword}" in any Day Title (H3), an itinerary activity subheading (H4), or customize the Itinerary Section Title (H2).`
+                : `Keyword not found in subheadings. Include it in an H2 or H3 section heading.`)) 
+        : 'Set a focus keyword in SEO & Meta tab first',
       priority: 'MEDIUM',
-      passed: kw ? subheadings.some(h => h.includes(kw)) : false
+      passed: kw ? kwInSubheading : false
     });
 
+    // MEDIUM: Alt text
     checks.push({
       id: 'alt-text',
-      label: 'Write alt text for all images',
-      detail: imgMatches.length === 0 ? 'No images to check' : `${imgsWithAlt.length}/${imgMatches.length} images have alt text`,
+      label: isTour ? 'Image accessibility & descriptive alt text' : 'Write alt text for all images',
+      detail: isTour 
+        ? 'All images have accessible descriptive alt text auto-generated from tour & day schedule titles'
+        : (imgMatches.length === 0 ? 'No images to check' : `${imgsWithAlt.length}/${imgMatches.length} images have alt text`),
       priority: 'MEDIUM',
-      passed: imgMatches.length === 0 || imgsWithAlt.length === imgMatches.length
+      passed: isTour ? true : (imgMatches.length === 0 || imgsWithAlt.length === imgMatches.length)
     });
 
+    // MEDIUM: Body text
     checks.push({
       id: 'kw-in-body',
-      label: 'Add focus keyword to body text',
-      detail: kw ? (contentLower.includes(kw) ? 'Keyword found in body content' : 'Keyword not found in body') : 'Set a focus keyword first',
+      label: isTour ? 'Add focus keyword to Tour Overview or Day descriptions' : 'Add focus keyword to body text',
+      detail: kw 
+        ? (kwInBody 
+            ? `Focus keyword "${focusKeyword}" found in body content.` 
+            : (isTour 
+                ? `Keyword "${focusKeyword}" not found. Add it into your Tour Overview (Details & Hero tab) or in any Day description (Itinerary tab).`
+                : `Keyword "${focusKeyword}" not found in article body content.`)) 
+        : 'Set a focus keyword in SEO & Meta tab first',
       priority: 'MEDIUM',
-      passed: kw ? contentLower.includes(kw) : false
+      passed: kw ? kwInBody : false
     });
+
+    // MEDIUM: Content Length & Breakdown
+    let lengthDetail = '';
+    if (isTour) {
+      if (contentBreakdown) {
+        lengthDetail = `Total: ${wordCount} words (Overview: ${contentBreakdown.overviewWords || 0}w • Itinerary: ${contentBreakdown.itinWords || 0}w • Inclusions: ${contentBreakdown.incWords || 0}w • Highlights: ${contentBreakdown.highlightsWords || 0}w). ${isWordCountPassed ? '✓ Meets recommended depth for Google ranking!' : `Need ~${wordTarget - wordCount} more words. Add detail to your Tour Overview or Day descriptions.`}`;
+      } else {
+        lengthDetail = `Current: ${wordCount} words (calculated from Overview, Day-by-Day schedule & Inclusions). ${isWordCountPassed ? '✓ Meets recommended depth for Google ranking!' : `Need ~${wordTarget - wordCount} more words in your Overview or Day descriptions.`}`;
+      }
+    } else {
+      lengthDetail = `Current: ${wordCount} words (target: 300+ words for comprehensive editorial quality). ${isWordCountPassed ? '✓ Great editorial length!' : `Need ~${300 - wordCount} more words.`}`;
+    }
 
     checks.push({
       id: 'content-length',
-      label: 'Write at least 300 words of content',
-      detail: `Current total word count: ${wordCount} words ${contentType === 'tour' ? '(calculated from overview, all daily itineraries & inclusions)' : ''}`,
+      label: isTour ? `Write comprehensive tour content (${wordTarget}+ words)` : 'Write at least 300 words of content',
+      detail: lengthDetail,
       priority: 'MEDIUM',
-      passed: wordCount >= 300
+      passed: isWordCountPassed
     });
 
-    // LOW
+    // LOW: Meta Description Keyword
     checks.push({
       id: 'kw-in-meta',
       label: 'Write meta description with focus keyword',
-      detail: kw ? (metaDescLower.includes(kw) ? 'Keyword found in meta description' : 'Keyword not in meta description') : 'Set a focus keyword first',
+      detail: kw 
+        ? (kwInMeta ? `Keyword found in meta description` : `Keyword not found in meta description. (Add in SEO & Meta tab)`) 
+        : 'Set a focus keyword first',
       priority: 'LOW',
-      passed: kw ? metaDescLower.includes(kw) : false
+      passed: kw ? kwInMeta : false
     });
 
+    // LOW: URL Slug Keyword
     checks.push({
       id: 'kw-in-slug',
       label: 'Add focus keyword to URL slug',
-      detail: kw ? ((slug || '').toLowerCase().includes(kw.replace(/\s+/g, '-')) ? 'Keyword found in slug' : 'Keyword not in slug') : 'Set a focus keyword first',
+      detail: kw 
+        ? (kwInSlug ? `Keyword found in slug (/${isTour ? 'tour' : 'blog'}/${slug})` : `Keyword not found in slug. (Customize in SEO & Meta tab)`) 
+        : 'Set a focus keyword first',
       priority: 'LOW',
-      passed: kw ? (slug || '').toLowerCase().includes(kw.replace(/\s+/g, '-')) : false
+      passed: kw ? kwInSlug : false
     });
 
+    // LOW: Meta Title Length
     checks.push({
       id: 'meta-title-length',
-      label: 'Optimize title tag length (50-60 chars)',
-      detail: `Current: ${metaTitleLen} characters (target: 50-60)`,
+      label: 'Optimize title tag length (35-65 chars)',
+      detail: `Current: ${metaTitleLen} characters (target: 35-65 chars for search engine results)`,
       priority: 'LOW',
-      passed: metaTitleLen >= 40 && metaTitleLen <= 65
+      passed: metaTitleLen >= 35 && metaTitleLen <= 70
     });
 
+    // LOW: Meta Description Length
     checks.push({
       id: 'meta-desc-length',
-      label: 'Optimize meta description length (120-160 chars)',
-      detail: `Current: ${metaDescLen} characters (target: 120-160)`,
+      label: 'Optimize meta description length (80-165 chars)',
+      detail: `Current: ${metaDescLen} characters (target: 80-165 chars)`,
       priority: 'LOW',
-      passed: metaDescLen >= 100 && metaDescLen <= 165
+      passed: metaDescLen >= 80 && metaDescLen <= 175
     });
 
+    // LOW: Structured Data
     checks.push({
       id: 'structured-data',
       label: 'Include markup to be eligible for rich results',
-      detail: 'Structured data (JSON-LD) will be auto-generated from your content',
+      detail: isTour 
+        ? 'TouristTrip & Product JSON-LD structured data is auto-generated for Google Rich Snippets'
+        : 'BlogPosting JSON-LD structured data is auto-generated for Google Rich Snippets',
       priority: 'LOW',
-      passed: true // We auto-generate it
+      passed: true
     });
 
     // Sort by priority, then by passed status
@@ -197,7 +280,7 @@ export default function SEOAssistant({
     // Count by priority
     const counts = { critical: 0, high: 0, medium: 0, low: 0 };
     checks.forEach(c => {
-      if (c.passed) counts[c.priority.toLowerCase()] = (counts[c.priority.toLowerCase()] || 0);
+      if (c.passed) counts[c.priority.toLowerCase()] = (counts[c.priority.toLowerCase()] || 0) + 1;
     });
 
     const passedCount = checks.filter(c => c.passed).length;
@@ -205,7 +288,7 @@ export default function SEOAssistant({
     const score = Math.round((passedCount / totalCount) * 100);
 
     return { checks, passedCount, totalCount, score, wordCount };
-  }, [title, slug, content, metaTitle, metaDescription, focusKeyword, coverImage, allowIndexing]);
+  }, [title, slug, content, contentBreakdown, metaTitle, metaDescription, focusKeyword, coverImage, allowIndexing, contentType]);
 
   // ─── Generate JSON-LD Structured Data ───
   const generatedJsonLd = useMemo(() => {
@@ -281,7 +364,9 @@ export default function SEOAssistant({
               <Sparkles size={16} className="text-amber" />
               <span className="seo-score-title">SEO Assistant</span>
             </div>
-            <p className="seo-score-subtitle">Follow tasks to optimize this post for search engines and visitors</p>
+            <p className="seo-score-subtitle">
+              Follow tasks to optimize this {contentType === 'tour' ? 'tour package' : 'article'} for search engines and travellers
+            </p>
 
             {/* Score Summary Badges */}
             <div className="seo-score-badges">
@@ -307,10 +392,19 @@ export default function SEOAssistant({
 
             {/* Focus Keyword Display */}
             <div className="seo-focus-kw-display">
-              <CheckCircle size={14} className="text-emerald" />
+              <CheckCircle size={14} className={focusKeyword ? "text-emerald" : "text-amber"} />
               <span className="kw-label">Focus keyword</span>
-              <span className="kw-value">{focusKeyword || '(not set)'}</span>
+              <span className="kw-value">{focusKeyword || '(not set — enter in Basics or SEO & Meta)'}</span>
             </div>
+
+            {!focusKeyword && (
+              <div style={{ background: 'rgba(255, 137, 47, 0.08)', border: '1px solid rgba(255, 137, 47, 0.25)', borderRadius: '8px', padding: '0.65rem 0.85rem', marginTop: '0.65rem', fontSize: '0.78rem', color: '#FFB347', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Sparkles size={15} style={{ flexShrink: 0 }} />
+                <span>
+                  💡 <strong>Tip:</strong> Set a <strong>Focus Keyword</strong> in the <em>SEO & Meta</em> tab (e.g. "{title ? title.split(' ').slice(0, 3).join(' ') : 'kashmir luxury tour'}") to check keyword placement across titles, subheadings, and body content.
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Checklist */}
