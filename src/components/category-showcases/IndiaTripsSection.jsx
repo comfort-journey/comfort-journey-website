@@ -210,7 +210,7 @@ export default function IndiaTripsSection({
                           </button>
                           <button 
                             type="button"
-                            className="btn-book-compact btn-3d-tactile"
+                            className="btn-book-compact btn-india-book btn-3d-tactile"
                             onClick={(e) => {
                               triggerBurst(e, { count: 20, colors: ['#F59E0B', '#FF892F', '#F9FBE7'] });
                               onBookNow(tour);
@@ -478,6 +478,17 @@ export default function IndiaTripsSection({
 
         .india-ribbon {
           background: linear-gradient(135deg, #F59E0B, #B45309);
+        }
+
+        .btn-india-book {
+          background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%) !important;
+          color: #001233 !important;
+          box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4) !important;
+        }
+
+        .btn-india-book:hover {
+          background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%) !important;
+          box-shadow: 0 6px 22px rgba(245, 158, 11, 0.6) !important;
         }
 
         /* Bottom Dock */

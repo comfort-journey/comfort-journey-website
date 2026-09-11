@@ -478,14 +478,6 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                                 {/* Content Body */}
                                 <div className="c-card-content-body">
                                   <div className="c-card-title-row">
-                                    <div className="c-thumb-icon-box">
-                                      <img 
-                                        src={tour.image || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=120&q=80'} 
-                                        alt="" 
-                                        className="c-thumb-mini"
-                                        onError={(e) => { e.currentTarget.style.display = 'none'; }}
-                                      />
-                                    </div>
                                     <div className="c-title-text-group">
                                       <h4 className="city-headline" title={tour.name}>{tour.name}</h4>
                                       <span className="city-state-sub">
@@ -523,7 +515,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                                         className="btn-book-inline btn-3d-tactile"
                                         onClick={() => onBookNow(tour)}
                                       >
-                                        <span>Book</span>
+                                        <span>Book Now</span>
                                       </button>
                                     </div>
                                   </div>
@@ -633,14 +625,6 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                             {/* Content Body */}
                             <div className="c-card-content-body">
                               <div className="c-card-title-row">
-                                <div className="c-thumb-icon-box" title={tour.name}>
-                                  <img 
-                                    src={tour.image || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=120&q=80'} 
-                                    alt="" 
-                                    className="c-thumb-mini"
-                                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
-                                  />
-                                </div>
                                 <div className="c-title-text-group">
                                   <h4 className="city-headline" title={tour.name}>{tour.name}</h4>
                                   <span className="city-state-sub">
@@ -679,7 +663,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                                     className="btn-book-inline btn-3d-tactile"
                                     onClick={() => onBookNow(tour)}
                                   >
-                                    <span>Book</span>
+                                    <span>Book Now</span>
                                   </button>
                                 </div>
                               </div>
@@ -1536,12 +1520,12 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
         .c-card-footer-action {
           display: flex;
-          align-items: center;
-          justify-content: space-between;
+          flex-direction: column;
+          gap: 0.65rem;
           padding-top: 0.75rem;
           border-top: 1px solid rgba(255, 255, 255, 0.08);
-          flex-wrap: wrap;
-          gap: 0.5rem;
+          width: 100%;
+          box-sizing: border-box;
         }
 
         .start-lbl {
@@ -1571,7 +1555,9 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           border-radius: 12px;
           background: rgba(0, 29, 81, 0.6);
           border: 1px solid rgba(255, 255, 255, 0.08);
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.25rem;
+          width: 100%;
+          box-sizing: border-box;
         }
 
         .inc-icon-item {
@@ -1608,7 +1594,11 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         /* Compact Price Box */
         .compact-price-box {
           display: flex;
-          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          gap: 0.5rem;
+          box-sizing: border-box;
         }
 
         .price-strike-row {
@@ -1616,6 +1606,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           align-items: center;
           gap: 0.45rem;
           margin-bottom: 0.1rem;
+          flex-wrap: wrap;
         }
 
         .orig-price-strike {
@@ -1626,7 +1617,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         }
 
         .price-save-badge {
-          font-size: 0.74rem;
+          font-size: 0.72rem;
           font-weight: 900;
           color: #34D399;
           background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(5, 150, 105, 0.35) 100%);
@@ -1638,6 +1629,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           text-transform: uppercase;
           display: inline-flex;
           align-items: center;
+          white-space: nowrap;
         }
 
         .price-main-row {
@@ -1647,57 +1639,82 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         }
 
         .current-offer-price {
-          font-size: 1.3rem;
+          font-size: 1.35rem;
           font-weight: 900;
           color: #FF892F;
+          line-height: 1;
+          white-space: nowrap;
         }
 
         .price-per-person {
           font-size: 0.75rem;
           color: #CBD5E1;
           font-weight: 600;
+          white-space: nowrap;
         }
 
         .action-buttons-inline {
-          display: flex;
-          align-items: center;
-          gap: 0.35rem;
+          display: grid;
+          grid-template-columns: 1fr 1.15fr;
+          gap: 0.55rem;
+          width: 100%;
+          box-sizing: border-box;
         }
 
         .btn-itinerary-inline {
-          padding: 0.4rem 0.8rem;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          min-height: 38px;
+          padding: 0.48rem 0.65rem;
           border-radius: 9999px;
           background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          border: 1.2px solid rgba(255, 255, 255, 0.2);
           color: #FFFFFF;
-          font-size: 0.75rem;
+          font-family: var(--font-ui, system-ui, sans-serif);
+          font-size: 0.8rem;
           font-weight: 700;
           cursor: pointer;
-          transition: all 0.2s ease;
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+          white-space: nowrap;
+          box-sizing: border-box;
+          text-align: center;
         }
 
         .btn-itinerary-inline:hover {
           background: rgba(111, 230, 252, 0.2);
           border-color: #6FE6FC;
           color: #6FE6FC;
+          box-shadow: 0 0 12px rgba(111, 230, 252, 0.35);
         }
 
         .btn-book-inline {
-          padding: 0.4rem 0.8rem;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          min-height: 38px;
+          padding: 0.48rem 0.75rem;
           border-radius: 9999px;
-          background: linear-gradient(135deg, #FF892F, #E65100);
+          background: linear-gradient(135deg, #FF892F 0%, #E65100 100%);
           border: none;
           color: #FFFFFF;
-          font-size: 0.75rem;
+          font-family: var(--font-ui, system-ui, sans-serif);
+          font-size: 0.82rem;
           font-weight: 800;
           cursor: pointer;
-          transition: all 0.2s ease;
-          box-shadow: 0 4px 10px rgba(255, 137, 47, 0.35);
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+          box-shadow: 0 4px 14px rgba(255, 137, 47, 0.4);
+          white-space: nowrap;
+          box-sizing: border-box;
+          text-align: center;
         }
 
         .btn-book-inline:hover {
-          background: #E65100;
-          transform: scale(1.04);
+          background: linear-gradient(135deg, #FFA459 0%, #FF892F 100%);
+          box-shadow: 0 6px 20px rgba(255, 137, 47, 0.6);
+          transform: translateY(-1px);
         }
 
         /* Seasons and Styles bars */
