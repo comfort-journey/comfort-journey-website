@@ -1,10 +1,16 @@
-import React from 'react';
-import { Car, Hotel, Compass, Clock, Sparkles, ShieldCheck, Globe, CheckCircle2 } from 'lucide-react';
-import { WHY_US_PILLARS } from '../data/toursData';
+import React, { useState } from 'react';
+import { 
+  Car, Hotel, Compass, Clock, Sparkles, ShieldCheck, Globe, 
+  CheckCircle2, ArrowRight, MessageCircle, Heart, Users, Flame, 
+  Palmtree, Waves, Landmark, Briefcase 
+} from 'lucide-react';
+import { WHY_US_PILLARS, SERVICES_LIST } from '../data/toursData';
 import Tilt3DCard from './animations/Tilt3DCard';
 
 export default function WhyChooseUs({ onOpenAIPlanner }) {
-  const icons = [
+  const [activeTab, setActiveTab] = useState('pillars'); // 'pillars' | 'services'
+
+  const pillarIcons = [
     <Car size={26} className="text-amber" />,
     <Hotel size={26} className="text-amber" />,
     <Compass size={26} className="text-amber" />,
@@ -14,8 +20,20 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
     <Globe size={26} className="text-amber" />
   ];
 
+  const serviceIcons = [
+    <Compass size={24} className="text-amber" />,
+    <Heart size={24} className="text-pink" />,
+    <Users size={24} className="text-cyan" />,
+    <Flame size={24} className="text-amber" />,
+    <Waves size={24} className="text-cyan" />,
+    <Sparkles size={24} className="text-emerald" />,
+    <Briefcase size={24} className="text-amber" />,
+    <Landmark size={24} className="text-gold" />
+  ];
+
   return (
     <section id="why-us" className="why-us-root">
+      <span id="services" style={{ position: 'relative', top: '-80px', display: 'block' }} />
       <div className="container">
         {/* Section Header */}
         <div className="section-header" data-reveal="fade-up">
@@ -29,36 +47,95 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
           </h2>
           <p className="section-subtitle">
             Since 1992, we have redefined luxury travel across India and the globe. 
-            Here is our 7-pillar VIP promise to every guest.
+            Explore our 7 VIP promises and 8 bespoke travel solutions.
           </p>
+
+          {/* Unified Luxury Tab Switcher (Saves Space on Homepage) */}
+          <div className="why-us-tab-switcher">
+            <button
+              type="button"
+              className={`switcher-pill-btn ${activeTab === 'pillars' ? 'active' : ''}`}
+              onClick={() => setActiveTab('pillars')}
+            >
+              <ShieldCheck size={16} />
+              <span>🛡️ 7 VIP Guarantees (Why Us)</span>
+            </button>
+            <button
+              type="button"
+              className={`switcher-pill-btn ${activeTab === 'services' ? 'active' : ''}`}
+              onClick={() => setActiveTab('services')}
+            >
+              <Sparkles size={16} />
+              <span>💎 8 Bespoke Travel Desires (Specialized Services)</span>
+            </button>
+          </div>
         </div>
 
-        {/* 7 Pillars Grid with 3D Perspective Tilt */}
-        <div className="pillars-grid">
-          {WHY_US_PILLARS.map((pillar, idx) => (
-            <Tilt3DCard key={idx} maxTilt={6} scale={1.03} glare={true} className="pillar-tilt-wrapper">
-              <div 
-                className="pillar-card glass-card spotlight-card"
-                data-reveal="stagger"
-              >
-                <div className="pillar-top-row">
-                  <div className="pillar-icon-box">
-                    {icons[idx % icons.length]}
+        {/* VIEW 1: 7 Pillars Grid with 3D Perspective Tilt */}
+        {activeTab === 'pillars' ? (
+          <div className="pillars-grid animate-fade-in">
+            {WHY_US_PILLARS.map((pillar, idx) => (
+              <Tilt3DCard key={idx} maxTilt={6} scale={1.03} glare={true} className="pillar-tilt-wrapper">
+                <div 
+                  className="pillar-card glass-card spotlight-card"
+                  data-reveal="stagger"
+                >
+                  <div className="pillar-top-row">
+                    <div className="pillar-icon-box">
+                      {pillarIcons[idx % pillarIcons.length]}
+                    </div>
+                    <span className="pillar-num">0{idx + 1}</span>
                   </div>
-                  <span className="pillar-num">0{idx + 1}</span>
-                </div>
 
-                <h3 className="pillar-title font-editorial">{pillar.title}</h3>
-                <p className="pillar-desc">{pillar.desc}</p>
+                  <h3 className="pillar-title font-editorial">{pillar.title}</h3>
+                  <p className="pillar-desc">{pillar.desc}</p>
 
-                <div className="pillar-check">
-                  <CheckCircle2 size={15} className="text-emerald" />
-                  <span>Guaranteed Standard</span>
+                  <div className="pillar-check">
+                    <CheckCircle2 size={15} className="text-emerald" />
+                    <span>Guaranteed Standard</span>
+                  </div>
                 </div>
-              </div>
-            </Tilt3DCard>
-          ))}
-        </div>
+              </Tilt3DCard>
+            ))}
+          </div>
+        ) : (
+          /* VIEW 2: 8 Specialized Travel Solutions */
+          <div className="pillars-grid animate-fade-in">
+            {SERVICES_LIST.map((service, idx) => (
+              <Tilt3DCard key={idx} maxTilt={6} scale={1.03} glare={true} className="pillar-tilt-wrapper">
+                <div 
+                  className="pillar-card glass-card spotlight-card service-unified-card"
+                  data-reveal="stagger"
+                >
+                  <div className="pillar-top-row">
+                    <div className="pillar-icon-box service-icon-box">
+                      {serviceIcons[idx % serviceIcons.length]}
+                    </div>
+                    <span className="pillar-num">{service.num}</span>
+                  </div>
+
+                  <h3 className="pillar-title font-editorial">{service.title}</h3>
+                  <p className="pillar-desc">{service.desc}</p>
+
+                  <div className="service-card-action-row">
+                    <button
+                      type="button"
+                      className="service-whatsapp-inquire-btn"
+                      onClick={() => {
+                        const msg = encodeURIComponent(`Hi Comfort Journey! I would like to inquire about your bespoke ${service.title} travel services.`);
+                        window.open(`https://wa.me/918770403315?text=${msg}`, '_blank');
+                      }}
+                    >
+                      <MessageCircle size={15} />
+                      <span>Inquire Concierge</span>
+                      <ArrowRight size={14} />
+                    </button>
+                  </div>
+                </div>
+              </Tilt3DCard>
+            ))}
+          </div>
+        )}
 
         {/* Bottom Callout */}
         <div className="why-us-banner glass-panel spotlight-card" data-reveal="fade-up">
@@ -101,6 +178,82 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
           margin: 0 auto;
           color: #CBD5E1;
           font-size: 1.05rem;
+        }
+
+        .why-us-tab-switcher {
+          display: inline-flex;
+          align-items: center;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 50px;
+          padding: 0.35rem;
+          gap: 0.4rem;
+          margin: 1.75rem auto 0.5rem auto;
+          max-width: 100%;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .switcher-pill-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.6rem 1.25rem;
+          border-radius: 50px;
+          border: none;
+          background: transparent;
+          color: #94A3B8;
+          font-family: var(--font-ui);
+          font-size: 0.88rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .switcher-pill-btn:hover {
+          color: #FFFFFF;
+          background: rgba(255, 255, 255, 0.05);
+        }
+
+        .switcher-pill-btn.active {
+          background: linear-gradient(135deg, #FF892F 0%, #E65100 100%);
+          color: #FFFFFF;
+          box-shadow: 0 4px 14px rgba(255, 137, 47, 0.35);
+        }
+
+        .service-icon-box {
+          background: rgba(111, 230, 252, 0.12) !important;
+          border-color: rgba(111, 230, 252, 0.25) !important;
+        }
+
+        .service-card-action-row {
+          margin-top: auto;
+          padding-top: 1rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .service-whatsapp-inquire-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.45rem;
+          background: rgba(37, 211, 102, 0.12);
+          border: 1px solid rgba(37, 211, 102, 0.3);
+          border-radius: 8px;
+          color: #25D366;
+          font-family: var(--font-ui);
+          font-size: 0.82rem;
+          font-weight: 700;
+          padding: 0.5rem 0.9rem;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          width: 100%;
+          justify-content: center;
+        }
+
+        .service-whatsapp-inquire-btn:hover {
+          background: rgba(37, 211, 102, 0.25);
+          color: #FFFFFF;
+          transform: translateY(-1px);
         }
 
         .pillars-grid {

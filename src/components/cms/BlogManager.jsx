@@ -41,7 +41,7 @@ function getReadingTime(content) {
   return `${Math.max(1, Math.ceil(wordCount / 200))} min read`;
 }
 
-export default function BlogManager({ onViewBlog }) {
+export default function BlogManager({ onViewBlog, onOpenGlobalSync }) {
   const [view, setView] = useState('list'); // 'list' | 'editor'
   const [blogs, setBlogs] = useState(() => contentService.getBlogs().map(b => ({ ...b, status: b.status || 'published' })));
   const [editingBlog, setEditingBlog] = useState(null);
@@ -596,6 +596,7 @@ export default function BlogManager({ onViewBlog }) {
           onSaveAndExit={() => {
             handleSaveBlog(editingBlog, true);
           }}
+          onOpenGlobalSync={onOpenGlobalSync}
         />
       </div>
     );

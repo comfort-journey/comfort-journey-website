@@ -8,11 +8,9 @@ import ZajnoMagneticCursor from './components/animations/ZajnoMagneticCursor';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import StatsBar from './components/StatsBar';
-import TourExplorer from './components/TourExplorer';
 import TripCustomizerSection from './components/TripCustomizerSection';
 import GoogleReviewsSection from './components/GoogleReviewsSection';
 import TravelStoriesSection from './components/TravelStoriesSection';
-import ServicesSection from './components/ServicesSection';
 import AboutUsPage from './components/AboutUsPage';
 import WhyChooseUs from './components/WhyChooseUs';
 import FaqSection from './components/FaqSection';
@@ -21,7 +19,6 @@ import LandingPageTemplate from './components/LandingPageTemplate';
 import LandingPagesHubModal from './components/LandingPagesHubModal';
 import BlogMagazinePage from './components/BlogMagazinePage';
 import BlogPostReader from './components/BlogPostReader';
-import CategoryGatewayStrip from './components/category-showcases/CategoryGatewayStrip';
 import IndiaTripsSection from './components/category-showcases/IndiaTripsSection';
 import InternationalTripsSection from './components/category-showcases/InternationalTripsSection';
 import WeekendGetawaysSection from './components/category-showcases/WeekendGetawaysSection';
@@ -229,12 +226,7 @@ export default function App() {
                 {/* 3. Trust & Experience Stats Bar with Anime.js Elastic Counters */}
                 <StatsBar />
 
-                {/* 4. Category Gateway Strip: 4-Pillar Interactive Discovery Dock */}
-                <CategoryGatewayStrip 
-                  onNavigateLanding={navigateToLandingPage}
-                />
-
-                {/* 5. India Luxury & Heritage Showcase (Royal Desi Heritage) */}
+                {/* 4. India Luxury & Heritage Showcase (Royal Desi Heritage) */}
                 <IndiaTripsSection 
                   onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
                   onBookNow={(tour) => setSelectedBookingTour(tour)}
@@ -242,7 +234,7 @@ export default function App() {
                   onNavigateLanding={navigateToLandingPage}
                 />
 
-                {/* 6. World Passport Signature Collection (International Luxury Escapes) */}
+                {/* 5. World Passport Signature Collection (International Luxury Escapes) */}
                 <InternationalTripsSection 
                   onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
                   onBookNow={(tour) => setSelectedBookingTour(tour)}
@@ -250,7 +242,7 @@ export default function App() {
                   onNavigateLanding={navigateToLandingPage}
                 />
 
-                {/* 7. 48-Hour Weekend Getaways (Quick Friday-to-Sunday Resets) */}
+                {/* 6. 48-Hour Weekend Getaways (Quick Friday-to-Sunday Resets) */}
                 <WeekendGetawaysSection 
                   onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
                   onBookNow={(tour) => setSelectedBookingTour(tour)}
@@ -258,7 +250,7 @@ export default function App() {
                   onNavigateLanding={navigateToLandingPage}
                 />
 
-                {/* 8. Fixed Departure Travel Tribe (Guaranteed Dates & Community Group Batches) */}
+                {/* 7. Fixed Departure Travel Tribe (Guaranteed Dates & Community Group Batches) */}
                 <FixedDeparturesSection 
                   onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
                   onBookNow={(tour) => setSelectedBookingTour(tour)}
@@ -266,40 +258,23 @@ export default function App() {
                   onNavigateLanding={navigateToLandingPage}
                 />
 
-                {/* 9. Handcrafted Luxury Tour Packages Catalog Explorer with 3D Card Tilt & Seasonal Radar */}
-                <TourExplorer 
-                  searchFilters={searchFilters} 
-                  onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
-                  onBookNow={(tour) => setSelectedBookingTour(tour)}
-                  onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
-                  onOpenTierCompare={(tour) => {
-                    setTierCompareTour(tour);
-                    setIsTierCompareOpen(true);
-                  }}
-                />
-
-                {/* 5. Interactive Trip Studio & Live Price Estimator */}
+                {/* 8. Interactive Trip Studio & Live Price Estimator */}
                 <TripCustomizerSection />
 
-                {/* 10. Dedicated Verified Google Reviews Section (4.8★ Rating / 85+ Real Reviews) */}
+                {/* 9. Dedicated Verified Google Reviews Section (4.8★ Rating / 85+ Real Reviews) */}
                 <GoogleReviewsSection 
                   onOpenQuote={() => setIsQuickQuoteOpen(true)}
                 />
 
-                {/* 11. Traveler Instagram Reels & Live Video Stories with 3D Tilt */}
+                {/* 10. Traveler Instagram Reels & Live Video Stories with 3D Tilt */}
                 <TravelStoriesSection 
                   onOpenQuote={() => setIsQuickQuoteOpen(true)} 
                 />
 
-                {/* 12. What We Do (Services) */}
-                <ServicesSection 
-                  onOpenQuote={() => setIsQuickQuoteOpen(true)} 
-                />
-
-                {/* 13. Why Choose Comfort Journey (7 Pillars with 3D Tilt) */}
+                {/* 11. Unified Comfort Journey Standard: 7 VIP Guarantees & 8 Bespoke Travel Desires */}
                 <WhyChooseUs onOpenAIPlanner={() => setIsAIPlannerOpen(true)} />
 
-                {/* 15. Frequently Asked Questions */}
+                {/* 12. Frequently Asked Questions */}
                 <FaqSection />
               </>
             )}

@@ -409,6 +409,86 @@ export const contentService = {
 
     localStorage.setItem(STORAGE_KEY_LAST_SYNC, String(Date.now()));
     return await commitRes.json();
+  },
+
+  // ─── CLOUD PUBLISH STATUS & TOKEN HELPERS ───
+  getGithubToken() {
+    if (typeof window === 'undefined') return '';
+    return localStorage.getItem(STORAGE_KEY_GITHUB_TOKEN) || '';
+  },
+
+  setGithubToken(token) {
+    if (typeof window === 'undefined') return;
+    if (token) {
+      localStorage.setItem(STORAGE_KEY_GITHUB_TOKEN, token.trim());
+    } else {
+      localStorage.removeItem(STORAGE_KEY_GITHUB_TOKEN);
+    }
+  },
+
+  getGithubRepo() {
+    if (typeof window === 'undefined') return 'comfort-journey/comfort-journey-website';
+    return localStorage.getItem(STORAGE_KEY_GITHUB_REPO) || 'comfort-journey/comfort-journey-website';
+  },
+
+  setGithubRepo(repo) {
+    if (typeof window === 'undefined') return;
+    localStorage.setItem(STORAGE_KEY_GITHUB_REPO, (repo || '').trim());
+  },
+
+  getPublishStatus() {
+    const isLocal = isLocalDev();
+    const hasToken = Boolean(this.getGithubToken());
+    const directusUrl = (typeof window !== 'undefined' && localStorage.getItem('cj_directus_url')) || import.meta.env?.VITE_DIRECTUS_URL || '';
+    const hasDirectusConfigured = Boolean(directusUrl && directusUrl !== 'http://localhost:8055');
+    
+    return {
+      isLocalDev: isLocal,
+      hasGithubToken: hasToken,
+      hasDirectusConfigured,
+      canPublishWorldwide: isLocal || hasToken || hasDirectusConfigured,
+      activeRepo: this.getGithubRepo()
+    };
+  },
+
+  // ─── UNIFIED WORLDWIDE PUBLISH (GITHUB OR AWS DIRECTUS) ───
+  async publishWorldwide(options = {}) {
+    const { token, repo, commitMessage = 'Publish Worldwide from Content Studio' } = options;
+    const isLocal = isLocalDev();
+
+    // 1. If running locally in Vite dev server, write directly to disk
+    if (isLocal) {
+      const diskRes = await this.syncToLocalDisk({ tours: this.getTours(), blogs: this.getBlogs() });
+      return {
+        success: true,
+        method: 'local_disk',
+        message: 'Synchronized directly to local codebase (public/live-content.json)! Commit to Git to deploy to live server.',
+        details: diskRes
+      };
+    }
+
+    // 2. Publish to GitHub Contents API (triggers live worldwide deployment)
+    const activeToken = token || this.getGithubToken();
+    const activeRepo = repo || this.getGithubRepo();
+
+    if (!activeToken) {
+      throw new Error('NO_TOKEN: Please provide a GitHub Personal Access Token (PAT) with repo permissions to publish live worldwide.');
+    }
+
+    const ghRes = await this.publishToGitHub({
+      token: activeToken,
+      repo: activeRepo,
+      commitMessage: `${commitMessage} [${new Date().toLocaleTimeString()}]`
+    });
+
+    const sha = ghRes.commit?.sha ? ghRes.commit.sha.slice(0, 7) : 'latest';
+    return {
+      success: true,
+      method: 'github',
+      commitSha: sha,
+      message: `Successfully published worldwide! Commit ${sha} created. GitHub Actions is now deploying updates to all visitors worldwide (typically takes 1-2 minutes).`,
+      raw: ghRes
+    };
   }
 };
 

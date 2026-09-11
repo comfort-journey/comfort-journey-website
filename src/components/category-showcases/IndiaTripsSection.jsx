@@ -59,6 +59,7 @@ export default function IndiaTripsSection({
 
   return (
     <section id="india-trips" className="india-showcase-root">
+      <span id="tours" style={{ position: 'relative', top: '-80px', display: 'block' }} />
       {/* Royal Mughal Jali Background Watermark */}
       <div className="india-jali-watermark" />
       <div className="india-glow-orb-top" />

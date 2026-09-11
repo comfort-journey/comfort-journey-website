@@ -156,7 +156,7 @@ const EMPTY_TOUR = {
   rating: 4.95, reviews: 96, revisions: []
 };
 
-export default function TourPackageManager() {
+export default function TourPackageManager({ onOpenGlobalSync }) {
   const [view, setView] = useState('list');
   const [toursList, setToursList] = useState(() => contentService.getTours());
   const [editingTour, setEditingTour] = useState(null);
@@ -1524,6 +1524,7 @@ export default function TourPackageManager() {
           onSaveAndExit={() => {
             handleSave(editingTour, true);
           }}
+          onOpenGlobalSync={onOpenGlobalSync}
         />
       </div>
     );

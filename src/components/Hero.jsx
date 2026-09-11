@@ -346,13 +346,57 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               {/* Level 3: Dynamic In-Place Real Tour Packages Grid */}
               {(() => {
                 const countryPkgs = getCountryTours(activeCountry.id, activeCountry.name);
+                const isGlobalSearch = Boolean(countrySearchQuery.trim());
+                const baseList = isGlobalSearch ? TOURS_DATA : countryPkgs;
 
-                // If no exact pre-packaged tour exists for this country
-                if (countryPkgs.length === 0) {
+                const filteredTours = baseList.filter(tour => {
+                  const q = countrySearchQuery.toLowerCase().trim();
+                  if (!q) return true;
+
+                  const loc = (tour.location || '').toLowerCase();
+                  const name = (tour.name || '').toLowerCase();
+                  const country = (tour.country || '').toLowerCase();
+                  const state = (tour.state || '').toLowerCase();
+                  const city = (tour.city || '').toLowerCase();
+                  const tagline = (tour.tagline || '').toLowerCase();
+                  const desc = (tour.description || '').toLowerCase();
+                  const cats = (tour.categories || []).map(c => String(c).toLowerCase());
+                  const tags = (tour.tags || []).map(t => String(t).toLowerCase());
+
+                  return name.includes(q) || 
+                    loc.includes(q) || 
+                    country.includes(q) || 
+                    state.includes(q) || 
+                    city.includes(q) || 
+                    tagline.includes(q) ||
+                    desc.includes(q) ||
+                    cats.some(c => c.includes(q)) ||
+                    tags.some(t => t.includes(q));
+                });
+
+                // If not searching globally and no exact pre-packaged tour exists for this country
+                if (!isGlobalSearch && countryPkgs.length === 0) {
                   const similarInternationalTours = TOURS_DATA.filter(t => t.category === 'International Tours' || t.country !== 'India').slice(0, 4);
 
                   return (
                     <div className="no-exact-country-container animate-fade-in">
+                      {/* Search Bar also available when in country with 0 packages */}
+                      <div className="country-search-bar-unified mb-3">
+                        <div className="country-search-box">
+                          <Search size={16} className="text-amber flex-shrink-0" />
+                          <input
+                            type="text"
+                            placeholder="Search all 100+ live tour packages worldwide (e.g. Kashmir, Dubai, Bali, Alps, Safari)..."
+                            value={countrySearchQuery}
+                            onChange={(e) => {
+                              setCountrySearchQuery(e.target.value);
+                              if (e.target.value) setShowAllCountryTours(true);
+                            }}
+                            className="country-search-input"
+                          />
+                        </div>
+                      </div>
+
                       <div className="no-exact-country-card glass-panel">
                         <div className="no-exact-badge-row">
                           <span className="badge badge-amber"><Sparkles size={13} /> 100% Bespoke VIP Travel</span>
@@ -493,28 +537,19 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                   );
                 }
 
-                // If exact packages exist for this country
-                const baseList = countryPkgs;
-
-                const filteredTours = baseList.filter(tour => {
-                  const loc = (tour.location || '').toLowerCase();
-                  const name = (tour.name || '').toLowerCase();
-                  const q = countrySearchQuery.toLowerCase().trim();
-
-                  return !q || name.includes(q) || loc.includes(q);
-                });
-
                 const displayedTours = showAllCountryTours ? filteredTours : filteredTours.slice(0, 8);
 
                 return (
                   <div className="country-packages-wrapper">
-                    {/* Universal Top Search Bar for Easy Search (Prompt & PDF #11) */}
+                    {/* Universal Top Search Bar for Easy Search across ALL live tour packages */}
                     <div className="country-search-bar-unified">
                       <div className="country-search-box">
                         <Search size={16} className="text-amber flex-shrink-0" />
                         <input
                           type="text"
-                          placeholder={`Search ${baseList.length} tour packages in ${activeCountry.name} (e.g., city, beach, mountains, resort)...`}
+                          placeholder={isGlobalSearch 
+                            ? "Search all 100+ live tour packages worldwide..." 
+                            : `Search all live tour packages in ${activeCountry.name} or worldwide (e.g. Kashmir, Dubai, Bali, Switzerland, Honeymoon)...`}
                           value={countrySearchQuery}
                           onChange={(e) => {
                             setCountrySearchQuery(e.target.value);
@@ -534,23 +569,21 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                         )}
                       </div>
 
-                      {/* Search confirmation feedback per PDF item 11 */}
+                      {/* Search confirmation feedback */}
                       {countrySearchQuery && (
                         <div className="search-live-feedback-strip">
                           <span className="feedback-text">
                             {filteredTours.length > 0 
-                              ? `✨ Found ${filteredTours.length} tour package${filteredTours.length > 1 ? 's' : ''} matching "${countrySearchQuery}"` 
-                              : `No packages match "${countrySearchQuery}" in ${activeCountry.name}`}
+                              ? `✨ Found ${filteredTours.length} live tour package${filteredTours.length > 1 ? 's' : ''} matching "${countrySearchQuery}" across our global catalog` 
+                              : `No packages match "${countrySearchQuery}" worldwide`}
                           </span>
-                          {filteredTours.length === 0 && (
-                            <button
-                              type="button"
-                              className="btn-reset-country-search"
-                              onClick={() => setCountrySearchQuery('')}
-                            >
-                              Show All Packages
-                            </button>
-                          )}
+                          <button
+                            type="button"
+                            className="btn-reset-country-search"
+                            onClick={() => setCountrySearchQuery('')}
+                          >
+                            Clear Search
+                          </button>
                         </div>
                       )}
                     </div>

@@ -254,10 +254,10 @@ export default function AdminCMSModal({ isOpen, onClose }) {
             {/* Tab Content Area */}
             <div className="cs-tab-content">
               {/* ── Tour Package Manager ── */}
-              {activeTab === 'manage-tours' && <TourPackageManager />}
+              {activeTab === 'manage-tours' && <TourPackageManager onOpenGlobalSync={() => setActiveTab('global-sync')} />}
 
               {/* ── Blog Manager ── */}
-              {activeTab === 'manage-blogs' && <BlogManager />}
+              {activeTab === 'manage-blogs' && <BlogManager onOpenGlobalSync={() => setActiveTab('global-sync')} />}
 
               {/* ── Analytics Dashboard ── */}
               {activeTab === 'analytics' && <AnalyticsDashboard />}
@@ -359,9 +359,32 @@ export default function AdminCMSModal({ isOpen, onClose }) {
 
                   <div className="directus-config-form">
                     <h4 className="config-heading">GitHub Live Deployment Configuration</h4>
-                    <p style={{ color: '#94A3B8', fontSize: '0.85rem', marginBottom: '1.25rem' }}>
-                      To enable 1-click publishing for all global users across all devices without touching terminal code, provide a GitHub Personal Access Token with <code>repo</code> or <code>contents:write</code> scope.
+                    <p style={{ color: '#94A3B8', fontSize: '0.85rem', marginBottom: '1rem' }}>
+                      To enable 1-click publishing for all global users across all devices without touching terminal code, provide a GitHub Personal Access Token with <code>repo</code> scope.
                     </p>
+
+                    {/* How-To Token Guide */}
+                    <div style={{
+                      background: 'rgba(255, 255, 255, 0.03)',
+                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      borderRadius: '8px',
+                      padding: '0.85rem 1rem',
+                      marginBottom: '1.25rem',
+                      fontSize: '0.82rem',
+                      lineHeight: '1.5'
+                    }}>
+                      <strong style={{ color: '#FF892F' }}>🔑 Step-by-Step: How to get your GitHub Token (One-time setup):</strong>
+                      <ol style={{ margin: '0.5rem 0 0 1.25rem', padding: 0, color: '#CBD5E1' }}>
+                        <li>Log in to GitHub and go to: <a href="https://github.com/settings/tokens" target="_blank" rel="noreferrer" style={{ color: '#6FE6FC', textDecoration: 'underline' }}>github.com/settings/tokens</a> (Personal access tokens → Tokens classic).</li>
+                        <li>Click <strong>"Generate new token (classic)"</strong>.</li>
+                        <li>Give it a name (e.g. <code>Comfort Journey Website CMS</code>) and check the <strong><code>repo</code></strong> checkbox.</li>
+                        <li>Scroll down and click <strong>"Generate token"</strong>.</li>
+                        <li>Copy the generated token (starts with <code>ghp_...</code>) and paste it below. Click <strong>"Save Token"</strong>.</li>
+                      </ol>
+                      <p style={{ marginTop: '0.5rem', color: '#94A3B8', fontSize: '0.78rem' }}>
+                        💡 <em>The token is saved securely in your browser once. Your employees never have to enter it again on that computer.</em>
+                      </p>
+                    </div>
 
                     <div className="config-grid">
                       <div className="field-group">
@@ -406,6 +429,22 @@ export default function AdminCMSModal({ isOpen, onClose }) {
                         {syncFeedback}
                       </div>
                     )}
+                  </div>
+
+                  {/* Future AWS .com Notice */}
+                  <div style={{
+                    marginTop: '1.25rem',
+                    background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(111, 230, 252, 0.05) 100%)',
+                    border: '1px solid rgba(16, 185, 129, 0.25)',
+                    borderRadius: '10px',
+                    padding: '1rem',
+                    fontSize: '0.82rem',
+                    color: '#E2E8F0'
+                  }}>
+                    <strong style={{ color: '#34D399', fontSize: '0.88rem' }}>🚀 Upcoming AWS .com Production Setup:</strong>
+                    <p style={{ margin: '0.4rem 0 0', color: '#94A3B8', lineHeight: '1.4' }}>
+                      When you host your website on AWS with your official <code>.com</code> domain, you can connect your AWS Directus database or API endpoint (under the <strong>Directus & AWS</strong> tab). Once connected, employees won't even need GitHub tokens—every click of <strong>"Save"</strong> or <strong>"Publish"</strong> will sync directly into the AWS cloud database in real time!
+                    </p>
                   </div>
 
                   <div className="directus-guide-card" style={{ marginTop: '1.5rem' }}>
