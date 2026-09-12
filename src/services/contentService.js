@@ -13,12 +13,20 @@
 
 import { TOURS_DATA } from '../data/toursData';
 import { BLOGS_DATA } from '../data/blogsData';
+import {
+  getActivePublishToken,
+  getActiveRepo,
+  isPublishConfigured,
+  setLocalMasterToken,
+  testGitHubCredentials,
+  MASTER_SYNC_CONFIG
+} from '../config/syncConfig';
 
 export const STORAGE_KEY_TOURS = 'cj_custom_tours_dataset';
 export const STORAGE_KEY_BLOGS = 'cj_custom_blogs_dataset';
-export const STORAGE_KEY_GITHUB_TOKEN = 'cj_github_token';
-export const STORAGE_KEY_GITHUB_REPO = 'cj_github_repo';
-export const STORAGE_KEY_LAST_SYNC = 'cj_last_sync_timestamp';
+export const STORAGE_KEY_GITHUB_TOKEN = MASTER_SYNC_CONFIG.STORAGE_KEY_TOKEN;
+export const STORAGE_KEY_GITHUB_REPO = MASTER_SYNC_CONFIG.STORAGE_KEY_REPO;
+export const STORAGE_KEY_LAST_SYNC = MASTER_SYNC_CONFIG.STORAGE_KEY_LAST_SYNC;
 
 // Legacy keys to migrate from
 const LEGACY_KEYS_TOURS = ['cj_local_custom_tours'];
@@ -292,8 +300,8 @@ export const contentService = {
   },
 
   // ─── REMOTE LIVE CONTENT HYDRATION (FOR MULTI-DEVICE PARITY) ───
-  async checkRemoteLiveContent() {
-    if (isRemoteSyncing || typeof window === 'undefined') return;
+  async checkRemoteLiveContent(force = false) {
+    if (isRemoteSyncing || typeof window === 'undefined') return { updated: false };
     isRemoteSyncing = true;
 
     try {
@@ -301,7 +309,7 @@ export const contentService = {
       const liveJsonUrl = `${basePrefix}live-content.json?_t=${Date.now()}`;
 
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 4000);
+      const timeoutId = setTimeout(() => controller.abort(), 6000);
 
       const res = await fetch(liveJsonUrl, { signal: controller.signal, cache: 'no-store' });
       clearTimeout(timeoutId);
@@ -310,74 +318,89 @@ export const contentService = {
         const remote = await res.json();
         let updatedAny = false;
 
-        if (remote.tours && Array.isArray(remote.tours) && remote.tours.length > 0) {
-          const currentLocal = localStorage.getItem(STORAGE_KEY_TOURS);
-          const remoteTime = new Date(remote.lastUpdated || 0).getTime();
-          const localTime = Number(localStorage.getItem(STORAGE_KEY_LAST_SYNC) || 0);
+        const currentLocal = localStorage.getItem(STORAGE_KEY_TOURS);
+        const remoteTime = new Date(remote.lastUpdated || 0).getTime();
+        const localTime = Number(localStorage.getItem(STORAGE_KEY_LAST_SYNC) || 0);
 
-          // If remote is newer or local is uninitialized, adopt remote
-          if (!currentLocal || remoteTime > localTime) {
+        // Sync if forced, if local is empty, or if remote is newer / different
+        const shouldSync = force || !currentLocal || remoteTime > localTime;
+
+        if (shouldSync) {
+          if (remote.tours && Array.isArray(remote.tours) && remote.tours.length > 0) {
             activeTours = remote.tours;
             syncToursDataArray(remote.tours);
             localStorage.setItem(STORAGE_KEY_TOURS, JSON.stringify(remote.tours));
             broadcastToursUpdated(activeTours);
             updatedAny = true;
           }
-        }
 
-        if (remote.blogs && Array.isArray(remote.blogs) && remote.blogs.length > 0) {
-          const currentLocal = localStorage.getItem(STORAGE_KEY_BLOGS);
-          const remoteTime = new Date(remote.lastUpdated || 0).getTime();
-          const localTime = Number(localStorage.getItem(STORAGE_KEY_LAST_SYNC) || 0);
-
-          if (!currentLocal || remoteTime > localTime) {
+          if (remote.blogs && Array.isArray(remote.blogs) && remote.blogs.length > 0) {
             activeBlogs = remote.blogs;
             syncBlogsDataArray(remote.blogs);
             localStorage.setItem(STORAGE_KEY_BLOGS, JSON.stringify(remote.blogs));
             broadcastBlogsUpdated(activeBlogs);
             updatedAny = true;
           }
+
+          if (remote.lastUpdated) {
+            localStorage.setItem(STORAGE_KEY_LAST_SYNC, String(new Date(remote.lastUpdated).getTime()));
+          }
         }
 
-        if (updatedAny && remote.lastUpdated) {
-          localStorage.setItem(STORAGE_KEY_LAST_SYNC, String(new Date(remote.lastUpdated).getTime()));
-        }
+        return { updated: updatedAny, toursCount: remote.tours?.length || 0, lastUpdated: remote.lastUpdated };
       }
+      return { updated: false };
     } catch (e) {
-      // Offline or live-content.json not yet deployed
+      return { updated: false, error: e.message };
     } finally {
       isRemoteSyncing = false;
     }
   },
 
+  // Force manual sync from live cloud snapshot
+  async forceSyncFromCloud() {
+    return await this.checkRemoteLiveContent(true);
+  },
+
   // ─── GITHUB REST API DIRECT COMMIT (FOR LIVE GITHUB PAGES DEPLOYMENT) ───
-  async publishToGitHub({ token, repo = 'comfort-journey/comfort-journey-website', commitMessage }) {
-    const activeToken = token || localStorage.getItem(STORAGE_KEY_GITHUB_TOKEN);
-    const activeRepo = repo || localStorage.getItem(STORAGE_KEY_GITHUB_REPO) || 'comfort-journey/comfort-journey-website';
+  async publishToGitHub({ token, repo, commitMessage }) {
+    const activeToken = (token || getActivePublishToken() || '').trim();
+    const activeRepo = (repo || getActiveRepo() || '').trim();
 
     if (!activeToken) {
-      throw new Error('GitHub Personal Access Token is required to publish directly to the live GitHub repository.');
+      throw new Error('NO_TOKEN: Organization Master Publish Key is not configured. Please enter the Master Key once in the CMS Global Sync settings.');
     }
 
     const path = 'public/live-content.json';
     const apiUrl = `https://api.github.com/repos/${activeRepo}/contents/${path}`;
 
-    // 1. Get existing file SHA if it exists
-    let sha = null;
-    try {
-      const getRes = await fetch(apiUrl, {
-        headers: {
-          'Authorization': `Bearer ${activeToken}`,
-          'Accept': 'application/vnd.github.v3+json'
+    // Helper to get current file SHA
+    const fetchLatestSha = async () => {
+      try {
+        const getRes = await fetch(apiUrl, {
+          headers: {
+            'Authorization': `Bearer ${activeToken}`,
+            'Accept': 'application/vnd.github.v3+json',
+            'User-Agent': 'Comfort-Journey-CMS'
+          },
+          cache: 'no-store'
+        });
+        if (getRes.ok) {
+          const fileData = await getRes.json();
+          return fileData.sha;
         }
-      });
-      if (getRes.ok) {
-        const fileData = await getRes.json();
-        sha = fileData.sha;
+        if (getRes.status === 401) {
+          throw new Error('Bad credentials: The GitHub access token is invalid, expired, or revoked. Please update the Organization Master Key in CMS Settings.');
+        }
+      } catch (err) {
+        if (err.message.includes('Bad credentials')) throw err;
       }
-    } catch {}
+      return null;
+    };
 
-    // 2. Prepare content payload
+    let sha = await fetchLatestSha();
+
+    // Prepare content payload
     const contentObj = {
       lastUpdated: new Date().toISOString(),
       updatedBy: 'Comfort Journey Content Studio',
@@ -387,13 +410,14 @@ export const contentService = {
     const jsonStr = JSON.stringify(contentObj, null, 2);
     const base64Content = btoa(unescape(encodeURIComponent(jsonStr)));
 
-    // 3. Commit via PUT
-    const commitRes = await fetch(apiUrl, {
+    // Perform commit with automatic single retry on 409 conflict
+    let commitRes = await fetch(apiUrl, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${activeToken}`,
         'Content-Type': 'application/json',
-        'Accept': 'application/vnd.github.v3+json'
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'Comfort-Journey-CMS'
       },
       body: JSON.stringify({
         message: commitMessage || `CMS Live Update: ${new Date().toLocaleString()}`,
@@ -402,9 +426,34 @@ export const contentService = {
       })
     });
 
+    // If 409 conflict, refetch latest sha and retry once
+    if (commitRes.status === 409) {
+      sha = await fetchLatestSha();
+      commitRes = await fetch(apiUrl, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${activeToken}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/vnd.github.v3+json',
+          'User-Agent': 'Comfort-Journey-CMS'
+        },
+        body: JSON.stringify({
+          message: commitMessage || `CMS Live Update: ${new Date().toLocaleString()}`,
+          content: base64Content,
+          ...(sha ? { sha } : {})
+        })
+      });
+    }
+
     if (!commitRes.ok) {
       const errJson = await commitRes.json().catch(() => ({}));
-      throw new Error(errJson.message || `GitHub commit failed with status ${commitRes.status}`);
+      if (commitRes.status === 401) {
+        throw new Error('Bad credentials: GitHub rejected this token. Please check that your token is active and has the "repo" (Contents: Read & Write) scope enabled.');
+      }
+      if (commitRes.status === 404) {
+        throw new Error(`Repository "${activeRepo}" not found. Verify your organization repository name in CMS Settings.`);
+      }
+      throw new Error(errJson.message || `GitHub publish failed with status ${commitRes.status}`);
     }
 
     localStorage.setItem(STORAGE_KEY_LAST_SYNC, String(Date.now()));
@@ -413,38 +462,32 @@ export const contentService = {
 
   // ─── CLOUD PUBLISH STATUS & TOKEN HELPERS ───
   getGithubToken() {
-    if (typeof window === 'undefined') return '';
-    return localStorage.getItem(STORAGE_KEY_GITHUB_TOKEN) || '';
+    return getActivePublishToken();
   },
 
   setGithubToken(token) {
-    if (typeof window === 'undefined') return;
-    if (token) {
-      localStorage.setItem(STORAGE_KEY_GITHUB_TOKEN, token.trim());
-    } else {
-      localStorage.removeItem(STORAGE_KEY_GITHUB_TOKEN);
-    }
+    setLocalMasterToken(token);
   },
 
   getGithubRepo() {
-    if (typeof window === 'undefined') return 'comfort-journey/comfort-journey-website';
-    return localStorage.getItem(STORAGE_KEY_GITHUB_REPO) || 'comfort-journey/comfort-journey-website';
+    return getActiveRepo();
   },
 
   setGithubRepo(repo) {
     if (typeof window === 'undefined') return;
-    localStorage.setItem(STORAGE_KEY_GITHUB_REPO, (repo || '').trim());
+    window.localStorage.setItem(STORAGE_KEY_GITHUB_REPO, (repo || '').trim());
   },
 
   getPublishStatus() {
     const isLocal = isLocalDev();
-    const hasToken = Boolean(this.getGithubToken());
+    const hasToken = isPublishConfigured();
     const directusUrl = (typeof window !== 'undefined' && localStorage.getItem('cj_directus_url')) || import.meta.env?.VITE_DIRECTUS_URL || '';
     const hasDirectusConfigured = Boolean(directusUrl && directusUrl !== 'http://localhost:8055');
     
     return {
       isLocalDev: isLocal,
       hasGithubToken: hasToken,
+      isMasterConfigured: hasToken,
       hasDirectusConfigured,
       canPublishWorldwide: isLocal || hasToken || hasDirectusConfigured,
       activeRepo: this.getGithubRepo()
@@ -462,17 +505,17 @@ export const contentService = {
       return {
         success: true,
         method: 'local_disk',
-        message: 'Synchronized directly to local codebase (public/live-content.json)! Commit to Git to deploy to live server.',
+        message: 'Synchronized directly to local codebase (public/live-content.json)! Ready to deploy.',
         details: diskRes
       };
     }
 
     // 2. Publish to GitHub Contents API (triggers live worldwide deployment)
-    const activeToken = token || this.getGithubToken();
-    const activeRepo = repo || this.getGithubRepo();
+    const activeToken = (token || getActivePublishToken() || '').trim();
+    const activeRepo = (repo || getActiveRepo() || '').trim();
 
     if (!activeToken) {
-      throw new Error('NO_TOKEN: Please provide a GitHub Personal Access Token (PAT) with repo permissions to publish live worldwide.');
+      throw new Error('NO_TOKEN: Organization Master Publish Key is not configured. Please enter the Master Key once in the CMS Global Sync settings.');
     }
 
     const ghRes = await this.publishToGitHub({
@@ -492,7 +535,7 @@ export const contentService = {
   }
 };
 
-// Auto-run remote hydration on initialization in browser
+// Auto-run remote hydration on initialization in browser and cross-tab/focus sync
 if (typeof window !== 'undefined') {
   // Listen for storage events across browser tabs
   window.addEventListener('storage', (e) => {
@@ -518,8 +561,18 @@ if (typeof window !== 'undefined') {
     }
   });
 
-  // Background sync check
+  // Automatically check for cloud updates whenever user returns to the tab
+  window.addEventListener('focus', () => {
+    contentService.checkRemoteLiveContent();
+  });
+
+  // Initial cloud sync on load
   setTimeout(() => {
     contentService.checkRemoteLiveContent();
   }, 1000);
+
+  // Periodic multi-device heartbeat check every 60s
+  setInterval(() => {
+    contentService.checkRemoteLiveContent();
+  }, 60000);
 }

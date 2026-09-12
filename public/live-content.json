@@ -1,7 +1,91 @@
 {
-  "lastUpdated": "2026-09-12T08:05:55.149Z",
+  "lastUpdated": "2026-09-12T08:45:11.530Z",
   "updatedBy": "Comfort Journey Content Studio",
   "tours": [
+    {
+      "id": "tour-custom-1789202602199",
+      "name": "Whispers of Dalhousie Luxury Edition",
+      "slug": "whispers-of-dalhousie-luxury-edition",
+      "location": "",
+      "city": "",
+      "state": "",
+      "country": "India",
+      "continent": "Asia",
+      "duration": "3 Nights & 4 Days",
+      "price": 24999,
+      "originalPrice": 32999,
+      "category": "National Tours",
+      "categories": [
+        "National Tours"
+      ],
+      "dates": "Every Friday Departure",
+      "seatsLeft": 4,
+      "totalSeats": 16,
+      "badge": "🔥 Filling Fast",
+      "vibe": "Community Travel Tribe",
+      "fixedDeparture": {
+        "dates": "Every Friday Departure",
+        "seatsLeft": 4,
+        "totalSeats": 16,
+        "badge": "🔥 Filling Fast",
+        "vibe": "Community Travel Tribe",
+        "status": "Open for Booking"
+      },
+      "image": "",
+      "heroVideo": "",
+      "heroTagline": "",
+      "heroOverlayColor": "rgba(0,0,0,0.4)",
+      "tagline": "",
+      "description": "",
+      "inclusions": [
+        "Hotel Accommodation",
+        "Daily Breakfast",
+        "Private AC Vehicle",
+        "Sightseeing & Transfers"
+      ],
+      "exclusions": [
+        "Personal Expenses",
+        "Monument Entry Tickets",
+        "Anything not in Inclusions"
+      ],
+      "cardFeatures": [
+        "stay",
+        "cab",
+        "meals",
+        "sightseeing",
+        "vip"
+      ],
+      "itinerary": [
+        {
+          "day": 1,
+          "title": "Day 1: Arrival & Welcome",
+          "desc": "VIP greeting and transfer to hotel.",
+          "image": "",
+          "stayTier": "4-Star Stay",
+          "transport": "Private AC Cab",
+          "meals": "Dinner"
+        }
+      ],
+      "gallery": [],
+      "seasonalPricing": [],
+      "groupPricing": [],
+      "discountBadge": "",
+      "isVisible": true,
+      "status": "published",
+      "seo": {
+        "metaTitle": "",
+        "metaDescription": "",
+        "focusKeyword": ""
+      },
+      "allowIndexing": true,
+      "canonicalUrl": "",
+      "expertInsights": "",
+      "sourceVerification": "",
+      "searchIntent": "transactional",
+      "rating": 4.95,
+      "reviews": 96,
+      "revisions": []
+    },
     {
       "id": "tour-wix-peace-in-the-pines",
       "wixId": "033fe900-f95f-4744-80db-5a2984c1357b",

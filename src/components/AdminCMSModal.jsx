@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import {
   X, Lock, LayoutDashboard, FileText, Search, Database,
-  UploadCloud, TrendingUp, Image as ImageIcon, Settings, FileSpreadsheet
+  UploadCloud, TrendingUp, Image as ImageIcon, Settings, FileSpreadsheet,
+  CheckCircle2, AlertTriangle, Loader2, Key, RefreshCw, Globe, ExternalLink
 } from 'lucide-react';
 import { directusService, slugify, parseWixCsv, transformWixTourRow } from '../services/directusClient';
 import { TOURS_DATA } from '../data/toursData';
 import { contentService, isLocalDev, STORAGE_KEY_GITHUB_TOKEN, STORAGE_KEY_GITHUB_REPO } from '../services/contentService';
+import {
+  isPublishConfigured,
+  testGitHubCredentials,
+  setLocalMasterToken,
+  getActivePublishToken,
+  getActiveRepo,
+  obfuscateToken,
+  MASTER_SYNC_CONFIG
+} from '../config/syncConfig';
 
 // ═══ New Content Studio Components ═══
 import TourPackageManager from './cms/TourPackageManager';
@@ -116,37 +126,133 @@ export default function AdminCMSModal({ isOpen, onClose }) {
   };
 
   // Global Sync States & Handlers
-  const [githubToken, setGithubToken] = useState(() => localStorage.getItem(STORAGE_KEY_GITHUB_TOKEN) || '');
-  const [githubRepo, setGithubRepo] = useState(() => localStorage.getItem(STORAGE_KEY_GITHUB_REPO) || 'comfort-journey/comfort-journey-website');
+  const [githubToken, setGithubToken] = useState(() => getActivePublishToken() || '');
+  const [githubRepo, setGithubRepo] = useState(() => getActiveRepo() || 'comfort-journey/comfort-journey-website');
   const [isPublishingGitHub, setIsPublishingGitHub] = useState(false);
-  const [syncFeedback, setSyncFeedback] = useState('');
+  const [isTestingGitHubToken, setIsTestingGitHubToken] = useState(false);
+  const [isSyncingFromCloud, setIsSyncingFromCloud] = useState(false);
+  const [syncFeedback, setSyncFeedback] = useState(null);
+  const [tokenDiagnostic, setTokenDiagnostic] = useState(null);
 
-  const handleSaveGitHubConfig = () => {
-    localStorage.setItem(STORAGE_KEY_GITHUB_TOKEN, githubToken.trim());
-    localStorage.setItem(STORAGE_KEY_GITHUB_REPO, githubRepo.trim());
-    showToast('✅ GitHub Sync settings saved!');
+  const handleTestToken = async () => {
+    if (!githubToken.trim()) {
+      showToast('⚠️ Please enter a token first.');
+      return;
+    }
+    setIsTestingGitHubToken(true);
+    setTokenDiagnostic(null);
+    try {
+      const res = await testGitHubCredentials(githubToken.trim(), githubRepo.trim());
+      setTokenDiagnostic(res);
+      if (res.valid) {
+        showToast('✅ GitHub Token Verified! Ready to save.');
+      } else {
+        showToast('❌ Token test failed. See details below.');
+      }
+    } catch (e) {
+      setTokenDiagnostic({ valid: false, error: e.message });
+    } finally {
+      setIsTestingGitHubToken(false);
+    }
+  };
+
+  const handleSaveGitHubConfig = async () => {
+    const cleanToken = githubToken.trim();
+    const cleanRepo = githubRepo.trim();
+    if (!cleanToken) {
+      showToast('⚠️ Please enter your GitHub Personal Access Token.');
+      return;
+    }
+
+    setLocalMasterToken(cleanToken);
+    contentService.setGithubRepo(cleanRepo);
+
+    if (isLocalDev()) {
+      try {
+        const obfuscated = obfuscateToken(cleanToken);
+        const res = await fetch('/api/cms/save-master-token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ encodedKey: obfuscated, repo: cleanRepo })
+        });
+        if (res.ok) {
+          showToast('🎉 Master Token enabled for ALL devices worldwide!');
+          setSyncFeedback({
+            type: 'success',
+            message: '🎉 Organization Master Token configured! It is now embedded into the project configuration. When changes are deployed, ALL employees and devices worldwide can publish live with 1 click without entering any tokens!'
+          });
+          return;
+        }
+      } catch (err) {
+        console.warn('Could not auto-write to syncConfig.js via dev server:', err);
+      }
+    }
+
+    showToast('✅ Master Key saved for this browser! Click Test Connection to verify.');
+    setSyncFeedback({
+      type: 'success',
+      message: 'Master Key is saved in this browser. All publish actions will use this credential.'
+    });
   };
 
   const handlePublishToLiveGitHub = async () => {
-    if (!githubToken.trim()) {
+    const tokenToUse = githubToken.trim() || getActivePublishToken();
+    if (!tokenToUse) {
       showToast('⚠️ Please enter your GitHub Personal Access Token (PAT) first.');
       return;
     }
     setIsPublishingGitHub(true);
-    setSyncFeedback('🚀 Pushing updated live content to GitHub repository...');
+    setSyncFeedback({
+      type: 'info',
+      message: '🚀 Pushing updated live content to GitHub repository...'
+    });
     try {
-      const res = await contentService.publishToGitHub({
-        token: githubToken.trim(),
+      const res = await contentService.publishWorldwide({
+        token: tokenToUse,
         repo: githubRepo.trim(),
         commitMessage: `Content Studio Publish: ${new Date().toLocaleString()}`
       });
-      setSyncFeedback(`✅ Live Publish Successful! Commit SHA: ${res.commit?.sha?.slice(0, 7) || 'OK'}. GitHub Actions is building and deploying to all global users!`);
+      setSyncFeedback({
+        type: 'success',
+        message: `✅ Live Publish Successful! ${res.message}`
+      });
       showToast('🎉 Published to GitHub! Live site is updating worldwide.');
     } catch (err) {
-      setSyncFeedback(`❌ Publish failed: ${err.message}`);
+      setSyncFeedback({
+        type: 'error',
+        message: `❌ Publish failed: ${err.message}`
+      });
       showToast(`❌ Error: ${err.message}`);
     } finally {
       setIsPublishingGitHub(false);
+    }
+  };
+
+  const handleForceSyncFromCloud = async () => {
+    setIsSyncingFromCloud(true);
+    try {
+      const res = await contentService.forceSyncFromCloud();
+      if (res.updated) {
+        showToast(`✅ Synced ${res.toursCount || 0} packages from live cloud snapshot!`);
+        setSyncFeedback({
+          type: 'success',
+          message: `✅ Successfully pulled ${res.toursCount || 0} tour packages from the live cloud snapshot into this device.`
+        });
+      } else {
+        showToast('✅ Already synchronized with the latest cloud content!');
+        setSyncFeedback({
+          type: 'info',
+          message: '✅ This device is already running the exact latest content from the cloud snapshot.'
+        });
+      }
+    } catch (err) {
+      showToast(`❌ Sync error: ${err.message}`);
+      setSyncFeedback({
+        type: 'error',
+        message: `❌ Cloud sync failed: ${err.message}`
+      });
+    } finally {
+      setIsSyncingFromCloud(false);
     }
   };
 
@@ -341,50 +447,113 @@ export default function AdminCMSModal({ isOpen, onClose }) {
               {/* ── Global Live Sync Tab ── */}
               {activeTab === 'global-sync' && (
                 <div className="admin-tab-pane animate-fade-in global-sync-pane">
+                  {/* Status Banner */}
                   <div className="directus-status-card">
-                    <div className="status-header">
+                    <div className="status-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
                       <div className="status-indicator-col">
-                        <span className={`status-pill ${isLocalDev() ? 'online' : githubToken ? 'online' : 'fallback'}`}>
-                          {isLocalDev() ? 'Local Codebase Connected' : githubToken ? 'GitHub Sync Configured' : 'Local Browser Cache Active'}
+                        <span className={`status-pill ${isPublishConfigured() ? 'online' : 'fallback'}`}>
+                          {isPublishConfigured() ? '● Master Cloud Publishing Active' : '○ Setup Required: Master Token Not Configured'}
                         </span>
-                        <h3 className="status-title">Global Live Website Sync</h3>
+                        <h3 className="status-title" style={{ marginTop: '0.4rem' }}>
+                          Global Cloud Synchronization & Live Publishing
+                        </h3>
                       </div>
+
+                      {/* Quick Cloud Parity Sync Button */}
+                      <button
+                        type="button"
+                        className="btn-secondary"
+                        style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.82rem' }}
+                        onClick={handleForceSyncFromCloud}
+                        disabled={isSyncingFromCloud}
+                        title="Pull the latest tours and blogs published by other team members"
+                      >
+                        <RefreshCw size={14} className={isSyncingFromCloud ? 'animate-spin' : ''} />
+                        <span>{isSyncingFromCloud ? 'Syncing...' : '🔄 Pull Latest Cloud Updates to This Device'}</span>
+                      </button>
                     </div>
-                    <p className="status-desc">
-                      {isLocalDev()
-                        ? '🟢 You are running in local development mode. Any changes saved in the CMS are automatically written to public/live-content.json on disk! Committing and pushing to Git will deploy them to all global visitors.'
-                        : '🌐 You are running on the live website. Use GitHub Personal Access Token (PAT) integration to publish changes directly to the live website for all users worldwide with 1 click.'}
+
+                    <p className="status-desc" style={{ marginTop: '0.6rem' }}>
+                      {isPublishConfigured()
+                        ? '🟢 Organization Master Key is active. All employees on ANY device or computer can now publish live tour updates and blogs with 1 click without ever having to enter any passwords or tokens!'
+                        : '⚠️ Configure the Organization Master Key below once. Once configured by an Admin, all other employees and devices can publish live updates with 1 click without any password or key prompts.'}
                     </p>
                   </div>
 
-                  <div className="directus-config-form">
-                    <h4 className="config-heading">GitHub Live Deployment Configuration</h4>
-                    <p style={{ color: '#94A3B8', fontSize: '0.85rem', marginBottom: '1rem' }}>
-                      To enable 1-click publishing for all global users across all devices without touching terminal code, provide a GitHub Personal Access Token with <code>repo</code> scope.
-                    </p>
-
-                    {/* How-To Token Guide */}
-                    <div style={{
-                      background: 'rgba(255, 255, 255, 0.03)',
-                      border: '1px solid rgba(255, 255, 255, 0.08)',
-                      borderRadius: '8px',
-                      padding: '0.85rem 1rem',
-                      marginBottom: '1.25rem',
-                      fontSize: '0.82rem',
-                      lineHeight: '1.5'
-                    }}>
-                      <strong style={{ color: '#FF892F' }}>🔑 Step-by-Step: How to get your GitHub Token (One-time setup):</strong>
-                      <ol style={{ margin: '0.5rem 0 0 1.25rem', padding: 0, color: '#CBD5E1' }}>
-                        <li>Log in to GitHub and go to: <a href="https://github.com/settings/tokens" target="_blank" rel="noreferrer" style={{ color: '#6FE6FC', textDecoration: 'underline' }}>github.com/settings/tokens</a> (Personal access tokens → Tokens classic).</li>
-                        <li>Click <strong>"Generate new token (classic)"</strong>.</li>
-                        <li>Give it a name (e.g. <code>Comfort Journey Website CMS</code>) and check the <strong><code>repo</code></strong> checkbox.</li>
-                        <li>Scroll down and click <strong>"Generate token"</strong>.</li>
-                        <li>Copy the generated token (starts with <code>ghp_...</code>) and paste it below. Click <strong>"Save Token"</strong>.</li>
-                      </ol>
-                      <p style={{ marginTop: '0.5rem', color: '#94A3B8', fontSize: '0.78rem' }}>
-                        💡 <em>The token is saved securely in your browser once. Your employees never have to enter it again on that computer.</em>
-                      </p>
+                  {/* Feedback Banner if any */}
+                  {syncFeedback && (
+                    <div
+                      className="animate-fade-in"
+                      style={{
+                        marginTop: '1rem',
+                        padding: '0.85rem 1.15rem',
+                        borderRadius: '10px',
+                        fontSize: '0.85rem',
+                        lineHeight: '1.5',
+                        background:
+                          syncFeedback.type === 'success'
+                            ? 'rgba(16, 185, 129, 0.12)'
+                            : syncFeedback.type === 'error'
+                            ? 'rgba(239, 68, 68, 0.12)'
+                            : 'rgba(255, 137, 47, 0.12)',
+                        border: `1px solid ${
+                          syncFeedback.type === 'success'
+                            ? 'rgba(16, 185, 129, 0.35)'
+                            : syncFeedback.type === 'error'
+                            ? 'rgba(239, 68, 68, 0.35)'
+                            : 'rgba(255, 137, 47, 0.35)'
+                        }`,
+                        color: '#FFF'
+                      }}
+                    >
+                      {syncFeedback.message}
                     </div>
+                  )}
+
+                  {/* Token Diagnostic Feedback */}
+                  {tokenDiagnostic && (
+                    <div
+                      className="animate-fade-in"
+                      style={{
+                        marginTop: '1rem',
+                        padding: '0.85rem 1.15rem',
+                        borderRadius: '10px',
+                        fontSize: '0.85rem',
+                        lineHeight: '1.5',
+                        background: tokenDiagnostic.valid ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
+                        border: `1px solid ${tokenDiagnostic.valid ? 'rgba(16, 185, 129, 0.4)' : 'rgba(239, 68, 68, 0.4)'}`,
+                        color: tokenDiagnostic.valid ? '#A7F3D0' : '#FECACA',
+                        whiteSpace: 'pre-line'
+                      }}
+                    >
+                      {tokenDiagnostic.valid ? (
+                        <div>
+                          <strong style={{ color: '#34D399', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                            <CheckCircle2 size={16} /> Token Authenticated Successfully!
+                          </strong>
+                          <div style={{ marginTop: '0.3rem' }}>
+                            {tokenDiagnostic.message}
+                          </div>
+                        </div>
+                      ) : (
+                        <div>
+                          <strong style={{ color: '#F87171', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                            <AlertTriangle size={16} /> GitHub Credential Error:
+                          </strong>
+                          <div style={{ marginTop: '0.3rem' }}>
+                            {tokenDiagnostic.error}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Configuration Form */}
+                  <div className="directus-config-form" style={{ marginTop: '1.25rem' }}>
+                    <h4 className="config-heading">Organization Master Publishing Configuration</h4>
+                    <p style={{ color: '#94A3B8', fontSize: '0.85rem', marginBottom: '1rem' }}>
+                      Enter your GitHub repository and Personal Access Token (Classic with <code>repo</code> scope). This token is shared organization-wide so employees never have to see or manage secret keys.
+                    </p>
 
                     <div className="config-grid">
                       <div className="field-group">
@@ -394,63 +563,124 @@ export default function AdminCMSModal({ isOpen, onClose }) {
                           className="cms-input"
                           value={githubRepo}
                           onChange={(e) => setGithubRepo(e.target.value)}
-                          placeholder="owner/repo (e.g. comfort-journey/comfort-journey-website)"
+                          placeholder="comfort-journey/comfort-journey-website"
                         />
                       </div>
                       <div className="field-group">
-                        <label>GitHub Personal Access Token (PAT)</label>
+                        <label>Organization Master GitHub Token (PAT)</label>
                         <input
                           type="password"
                           className="cms-input"
                           value={githubToken}
-                          onChange={(e) => setGithubToken(e.target.value)}
-                          placeholder="ghp_... or github_pat_..."
+                          onChange={(e) => {
+                            setGithubToken(e.target.value);
+                            setTokenDiagnostic(null);
+                          }}
+                          placeholder="ghp_... (GitHub Classic Token)"
                         />
                       </div>
                     </div>
 
-                    <div className="config-actions-row" style={{ marginTop: '1rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                      <button type="button" className="btn-secondary" onClick={handleSaveGitHubConfig}>
-                        Save Token
+                    {/* Action Buttons */}
+                    <div className="config-actions-row" style={{ marginTop: '1.25rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                      <button
+                        type="button"
+                        className="btn-secondary"
+                        style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}
+                        onClick={handleTestToken}
+                        disabled={isTestingGitHubToken || !githubToken.trim()}
+                      >
+                        {isTestingGitHubToken ? <Loader2 size={15} className="animate-spin" /> : <Key size={15} />}
+                        <span>{isTestingGitHubToken ? 'Testing Permissions...' : '🔍 Test Connection & Permissions'}</span>
                       </button>
+
+                      <button
+                        type="button"
+                        className="btn-primary"
+                        style={{ background: '#10B981', borderColor: '#059669', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
+                        onClick={handleSaveGitHubConfig}
+                        disabled={!githubToken.trim()}
+                      >
+                        <CheckCircle2 size={15} />
+                        <span>💾 Save & Enable for All Employees Worldwide</span>
+                      </button>
+
                       <button
                         type="button"
                         className="btn-primary"
                         onClick={handlePublishToLiveGitHub}
                         disabled={isPublishingGitHub}
+                        style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}
                       >
-                        <UploadCloud size={15} />
-                        {isPublishingGitHub ? 'Publishing to GitHub...' : '🚀 Publish All Tours & Blogs to Live GitHub Website Now'}
+                        <UploadCloud size={15} className={isPublishingGitHub ? 'animate-spin' : ''} />
+                        <span>{isPublishingGitHub ? 'Publishing Live to Website...' : '🚀 Publish All Content to Live Website Now'}</span>
                       </button>
                     </div>
-
-                    {syncFeedback && (
-                      <div style={{ marginTop: '1rem', padding: '0.75rem 1rem', background: 'rgba(255, 137, 47, 0.1)', border: '1px solid rgba(255, 137, 47, 0.3)', borderRadius: '8px', fontSize: '0.85rem', color: '#FFF' }}>
-                        {syncFeedback}
-                      </div>
-                    )}
                   </div>
 
-                  {/* Future AWS .com Notice */}
-                  <div style={{
-                    marginTop: '1.25rem',
-                    background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(111, 230, 252, 0.05) 100%)',
-                    border: '1px solid rgba(16, 185, 129, 0.25)',
-                    borderRadius: '10px',
-                    padding: '1rem',
-                    fontSize: '0.82rem',
-                    color: '#E2E8F0'
-                  }}>
+                  {/* Step-by-Step Guide to Avoid "Bad credentials" */}
+                  <div
+                    style={{
+                      marginTop: '1.5rem',
+                      background: 'rgba(255, 255, 255, 0.03)',
+                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      borderRadius: '10px',
+                      padding: '1.25rem',
+                      fontSize: '0.83rem',
+                      lineHeight: '1.6'
+                    }}
+                  >
+                    <strong style={{ color: '#FF892F', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                      🔑 Why "Bad credentials" occurs & How to generate a working token:
+                    </strong>
+                    <ol style={{ margin: '0.6rem 0 0 1.25rem', padding: 0, color: '#CBD5E1' }}>
+                      <li>
+                        Visit your GitHub token page: <a href="https://github.com/settings/tokens" target="_blank" rel="noreferrer" style={{ color: '#6FE6FC', textDecoration: 'underline' }}>github.com/settings/tokens</a> (Select <strong>Personal access tokens → Tokens (classic)</strong>).
+                      </li>
+                      <li>
+                        Click <strong>"Generate new token (classic)"</strong>.
+                      </li>
+                      <li>
+                        Note name: e.g. <code>Comfort Journey Master CMS</code>.
+                      </li>
+                      <li>
+                        <strong style={{ color: '#FCD34D' }}>Crucial Checkbox:</strong> Check the <strong><code>repo</code></strong> box (Full control of private and public repositories). Without this, GitHub will reject publishes with <em>"Bad credentials"</em> or <em>"Not Found"</em>.
+                      </li>
+                      <li>
+                        Scroll to the bottom, click <strong>"Generate token"</strong>, and copy the string starting with <code>ghp_...</code>.
+                      </li>
+                      <li>
+                        Paste it in the box above, click <strong>"Test Connection"</strong>, and then click <strong>"Save & Enable for All Employees Worldwide"</strong>.
+                      </li>
+                    </ol>
+                    <p style={{ marginTop: '0.6rem', color: '#94A3B8', fontSize: '0.78rem' }}>
+                      💡 <em>Once saved, no other employee or device will ever be asked to enter a token. Normal employees only need to click "Publish" and changes go live worldwide.</em>
+                    </p>
+                  </div>
+
+                  {/* Future AWS .com Production Notice */}
+                  <div
+                    style={{
+                      marginTop: '1.25rem',
+                      background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(111, 230, 252, 0.05) 100%)',
+                      border: '1px solid rgba(16, 185, 129, 0.25)',
+                      borderRadius: '10px',
+                      padding: '1.15rem',
+                      fontSize: '0.82rem',
+                      color: '#E2E8F0'
+                    }}
+                  >
                     <strong style={{ color: '#34D399', fontSize: '0.88rem' }}>🚀 Upcoming AWS .com Production Setup:</strong>
-                    <p style={{ margin: '0.4rem 0 0', color: '#94A3B8', lineHeight: '1.4' }}>
+                    <p style={{ margin: '0.4rem 0 0', color: '#94A3B8', lineHeight: '1.5' }}>
                       When you host your website on AWS with your official <code>.com</code> domain, you can connect your AWS Directus database or API endpoint (under the <strong>Directus & AWS</strong> tab). Once connected, employees won't even need GitHub tokens—every click of <strong>"Save"</strong> or <strong>"Publish"</strong> will sync directly into the AWS cloud database in real time!
                     </p>
                   </div>
 
+                  {/* Manual Backup / Export */}
                   <div className="directus-guide-card" style={{ marginTop: '1.5rem' }}>
-                    <h4 className="guide-title">📦 Manual Code & JSON Export</h4>
+                    <h4 className="guide-title">📦 Manual Backup & JSON Export</h4>
                     <p style={{ color: '#94A3B8', fontSize: '0.85rem', marginBottom: '1rem' }}>
-                      If you do not want to use GitHub API tokens, you can instantly export the master live data JSON to include in your repository manually:
+                      You can also download or copy the master live dataset JSON at any time:
                     </p>
                     <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
                       <button type="button" className="btn-secondary" onClick={handleDownloadLiveContent}>

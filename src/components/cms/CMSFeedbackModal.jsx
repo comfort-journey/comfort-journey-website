@@ -14,16 +14,18 @@ import {
   Key,
   ExternalLink,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  RefreshCw
 } from 'lucide-react';
 import { contentService, isLocalDev } from '../../services/contentService';
+import { isPublishConfigured, testGitHubCredentials } from '../../config/syncConfig';
 
 // ═══════════════════════════════════════════════════════════════════
 // COMFORT JOURNEY CMS — CONFIRMATION & WORLDWIDE PUBLISH MODAL
 // Handles:
 // 1. Success confirmation on Save / Publish
-// 2. Direct 1-Click Worldwide Publishing (GitHub Pages & Cloud CI/CD)
-// 3. Warning confirmation on Back / Close with unsaved changes
+// 2. Direct 1-Click Worldwide Publishing (Auto-uses Organization Master Key)
+// 3. Zero token hassle for employees — keys are configured once by Admin
 // ═══════════════════════════════════════════════════════════════════
 
 export default function CMSFeedbackModal({
@@ -43,9 +45,10 @@ export default function CMSFeedbackModal({
   const [isPublishing, setIsPublishing] = useState(false);
   const [publishResult, setPublishResult] = useState(null);
   const [publishError, setPublishError] = useState(null);
-  const [showTokenDrawer, setShowTokenDrawer] = useState(false);
-  const [tokenInput, setTokenInput] = useState('');
-  const [repoInput, setRepoInput] = useState('comfort-journey/comfort-journey-website');
+  const [showAdminDrawer, setShowAdminDrawer] = useState(false);
+  const [adminTokenInput, setAdminTokenInput] = useState('');
+  const [isTestingToken, setIsTestingToken] = useState(false);
+  const [tokenTestFeedback, setTokenTestFeedback] = useState(null);
   const [publishStatus, setPublishStatus] = useState({ isLocalDev: false, hasGithubToken: false });
 
   // Reset local state when modal opens
@@ -53,12 +56,12 @@ export default function CMSFeedbackModal({
     if (isOpen) {
       const status = contentService.getPublishStatus();
       setPublishStatus(status);
-      setTokenInput(contentService.getGithubToken() || '');
-      setRepoInput(contentService.getGithubRepo() || 'comfort-journey/comfort-journey-website');
+      setAdminTokenInput(contentService.getGithubToken() || '');
       setPublishResult(null);
       setPublishError(null);
-      setShowTokenDrawer(false);
+      setShowAdminDrawer(false);
       setIsPublishing(false);
+      setTokenTestFeedback(null);
     }
   }, [isOpen]);
 
@@ -67,13 +70,13 @@ export default function CMSFeedbackModal({
   const isWarning = type === 'unsaved_warning';
   const isPublish = type === 'published';
 
-  // 1-Click Worldwide Deploy Handler
-  const handlePublishWorldwide = async (providedToken = null) => {
-    const activeToken = providedToken || tokenInput.trim() || contentService.getGithubToken();
+  // 1-Click Worldwide Deploy Handler (Uses Organization Master Token automatically)
+  const handlePublishWorldwide = async (explicitToken = null) => {
+    const tokenToUse = explicitToken || adminTokenInput.trim() || contentService.getGithubToken();
 
-    // If on live website without token, open drawer first
-    if (!isLocalDev() && !activeToken) {
-      setShowTokenDrawer(true);
+    // If on live website without any token configured anywhere, show Admin setup
+    if (!isLocalDev() && !tokenToUse && !isPublishConfigured()) {
+      setShowAdminDrawer(true);
       return;
     }
 
@@ -82,30 +85,39 @@ export default function CMSFeedbackModal({
     setPublishResult(null);
 
     try {
-      if (activeToken) {
-        contentService.setGithubToken(activeToken);
-        if (repoInput.trim()) contentService.setGithubRepo(repoInput.trim());
+      if (explicitToken) {
+        contentService.setGithubToken(explicitToken);
       }
 
       const res = await contentService.publishWorldwide({
-        token: activeToken,
-        repo: repoInput.trim(),
-        commitMessage: `Content Studio [${title || 'Item'}]: ${new Date().toLocaleString()}`
+        token: tokenToUse,
+        commitMessage: `Content Studio [${title || 'Tour'}]: ${new Date().toLocaleString()}`
       });
 
       setPublishResult(res);
       setPublishStatus(contentService.getPublishStatus());
-      setShowTokenDrawer(false);
+      setShowAdminDrawer(false);
     } catch (err) {
       console.error('[CMS Publish Worldwide Error]:', err);
-      const msg = err.message || 'Publishing failed. Please check your GitHub token or network connection.';
+      const msg = err.message || 'Publish failed. Please verify your connection.';
       setPublishError(msg);
-      if (msg.includes('NO_TOKEN') || msg.includes('401') || msg.includes('Bad credentials')) {
-        setShowTokenDrawer(true);
+      // Only open Admin drawer if credentials failed or missing
+      if (msg.includes('NO_TOKEN') || msg.includes('Bad credentials')) {
+        setShowAdminDrawer(true);
       }
     } finally {
       setIsPublishing(false);
     }
+  };
+
+  // Test token connection helper for admin
+  const handleTestToken = async () => {
+    if (!adminTokenInput.trim()) return;
+    setIsTestingToken(true);
+    setTokenTestFeedback(null);
+    const res = await testGitHubCredentials(adminTokenInput.trim());
+    setIsTestingToken(false);
+    setTokenTestFeedback(res);
   };
 
   return (
@@ -238,66 +250,124 @@ export default function CMSFeedbackModal({
                 <div className="cms-worldwide-feedback error animate-fade-in">
                   <AlertTriangle size={18} style={{ flexShrink: 0, marginTop: '2px' }} />
                   <div>
-                    <strong>Deployment Notice:</strong>
+                    <strong>Publish Issue:</strong>
                     <div style={{ marginTop: '0.2rem', fontSize: '0.78rem' }}>{publishError}</div>
                   </div>
                 </div>
               )}
 
-              {/* Quick Inline Token Drawer (Expands if token is needed or user wants to update) */}
-              {(!publishStatus.hasGithubToken || showTokenDrawer) && !publishResult && (
-                <div className="cms-quick-token-drawer animate-fade-in">
+              {/* Notice when Master Key is not configured yet on live site */}
+              {!isLocalDev() && !isPublishConfigured() && !publishResult && (
+                <div className="cms-worldwide-feedback warning animate-fade-in" style={{ marginTop: '0.75rem' }}>
+                  <AlertTriangle size={18} style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <div>
+                    <strong>Master Organization Key Not Configured:</strong>
+                    <div style={{ marginTop: '0.25rem', fontSize: '0.78rem', color: '#CBD5E1', lineHeight: '1.4' }}>
+                      To enable 1-click publishing for all employees without asking anyone for passwords or keys, an Administrator must configure the Master Key once in the <strong>Global Live Sync</strong> settings.
+                    </div>
+                    <div style={{ marginTop: '0.5rem', display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                      {onOpenGlobalSync && (
+                        <button
+                          type="button"
+                          className="cms-token-help-link"
+                          onClick={() => {
+                            onClose();
+                            onOpenGlobalSync();
+                          }}
+                        >
+                          Open Global Live Sync Tab →
+                        </button>
+                      )}
+                      <button
+                        type="button"
+                        className="cms-token-help-link"
+                        style={{ color: '#FDBA74' }}
+                        onClick={() => setShowAdminDrawer(!showAdminDrawer)}
+                      >
+                        {showAdminDrawer ? 'Hide Admin Setup' : '⚙️ Admin: Setup Key Here'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Admin Master Key Drawer (Only visible when explicitly opened by Admin) */}
+              {showAdminDrawer && !publishResult && (
+                <div className="cms-quick-token-drawer animate-fade-in" style={{ marginTop: '0.75rem' }}>
                   <label>
                     <Key size={14} className="text-amber" />
-                    <span>GitHub Personal Access Token (One-time setup for live site):</span>
+                    <span>Admin Master GitHub PAT (Configured once for the entire organization):</span>
                   </label>
                   <div className="cms-quick-token-row">
                     <input
                       type="password"
                       className="cms-input small"
-                      placeholder="ghp_... or github_pat_..."
-                      value={tokenInput}
-                      onChange={e => setTokenInput(e.target.value)}
+                      placeholder="Paste GitHub Classic Token (ghp_...)"
+                      value={adminTokenInput}
+                      onChange={e => {
+                        setAdminTokenInput(e.target.value);
+                        setTokenTestFeedback(null);
+                      }}
                     />
+                    <button
+                      type="button"
+                      className="btn-secondary"
+                      style={{ padding: '0.45rem 0.75rem', fontSize: '0.75rem', whiteSpace: 'nowrap' }}
+                      disabled={isTestingToken || !adminTokenInput.trim()}
+                      onClick={handleTestToken}
+                    >
+                      {isTestingToken ? <Loader2 size={13} className="animate-spin" /> : '🔍 Test'}
+                    </button>
                     <button
                       type="button"
                       className="btn-primary"
                       style={{ padding: '0.45rem 0.9rem', fontSize: '0.8rem', whiteSpace: 'nowrap' }}
-                      disabled={isPublishing || !tokenInput.trim()}
-                      onClick={() => handlePublishWorldwide(tokenInput.trim())}
+                      disabled={isPublishing || !adminTokenInput.trim()}
+                      onClick={() => handlePublishWorldwide(adminTokenInput.trim())}
                     >
                       Save & Publish
                     </button>
                   </div>
-                  <div className="cms-token-help-text">
-                    <span>Token is remembered in this browser.</span>
-                    {onOpenGlobalSync && (
-                      <button
-                        type="button"
-                        className="cms-token-help-link"
-                        onClick={() => {
-                          onClose();
-                          onOpenGlobalSync();
-                        }}
-                      >
-                        Open Full Global Sync Settings →
-                      </button>
-                    )}
+
+                  {/* Token Diagnostic Feedback */}
+                  {tokenTestFeedback && (
+                    <div
+                      style={{
+                        marginTop: '0.5rem',
+                        padding: '0.4rem 0.65rem',
+                        borderRadius: '6px',
+                        fontSize: '0.75rem',
+                        lineHeight: '1.4',
+                        background: tokenTestFeedback.valid ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
+                        border: `1px solid ${tokenTestFeedback.valid ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`,
+                        color: tokenTestFeedback.valid ? '#6EE7B7' : '#FCA5A5',
+                        whiteSpace: 'pre-line'
+                      }}
+                    >
+                      {tokenTestFeedback.valid ? `✅ ${tokenTestFeedback.message}` : `❌ ${tokenTestFeedback.error}`}
+                    </div>
+                  )}
+
+                  <div className="cms-token-help-text" style={{ marginTop: '0.4rem' }}>
+                    <span>Must be a <strong>Classic Token</strong> with <strong>[x] repo</strong> scope checked to prevent "Bad credentials".</span>
                   </div>
                 </div>
               )}
 
-              {/* Toggle token config button if token already exists */}
-              {publishStatus.hasGithubToken && !showTokenDrawer && !publishResult && (
-                <button
-                  type="button"
-                  className="cms-token-toggle-btn"
-                  onClick={() => setShowTokenDrawer(true)}
-                >
-                  <Key size={12} />
-                  <span>Update GitHub Token</span>
-                  <ChevronDown size={12} />
-                </button>
+              {/* Subtle Admin Setup toggle when token is already active */}
+              {isPublishConfigured() && !showAdminDrawer && !publishResult && (
+                <div style={{ marginTop: '0.5rem', display: 'flex', justifyContent: 'flex-end' }}>
+                  <button
+                    type="button"
+                    className="cms-token-toggle-btn"
+                    onClick={() => setShowAdminDrawer(true)}
+                    title="Change or update the Organization Master Key"
+                  >
+                    <Key size={11} />
+                    <span>Admin: Update Master Token</span>
+                    <ChevronDown size={11} />
+                  </button>
+                </div>
               )}
             </div>
           </div>

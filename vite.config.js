@@ -178,6 +178,42 @@ function cmsSyncDevServerPlugin() {
           }
         });
       });
+
+      // Endpoint to automatically persist Organization Master Key to src/config/syncConfig.js
+      server.middlewares.use('/api/cms/save-master-token', async (req, res) => {
+        if (req.method !== 'POST') {
+          res.statusCode = 405;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ error: 'Method Not Allowed' }));
+          return;
+        }
+
+        let body = '';
+        req.on('data', chunk => { body += chunk; });
+        req.on('end', async () => {
+          try {
+            const { encodedKey, repo } = JSON.parse(body || '{}');
+            const syncConfigFile = path.resolve('src/config/syncConfig.js');
+            if (fs.existsSync(syncConfigFile)) {
+              let content = fs.readFileSync(syncConfigFile, 'utf8');
+              if (encodedKey !== undefined) {
+                content = content.replace(/encodedMasterKey:\s*'[^']*'/, `encodedMasterKey: '${encodedKey}'`);
+              }
+              if (repo) {
+                content = content.replace(/repo:\s*'[^']*'/, `repo: '${repo}'`);
+              }
+              fs.writeFileSync(syncConfigFile, content, 'utf8');
+            }
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: true, message: 'Master token configured in src/config/syncConfig.js!' }));
+          } catch (err) {
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: false, error: err.message }));
+          }
+        });
+      });
     }
   };
 }
