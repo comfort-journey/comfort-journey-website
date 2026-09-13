@@ -34,9 +34,9 @@ function deobfuscateToken(str) {
 }
 
 export const MASTER_SYNC_CONFIG = {
-  // Secure Cloudflare Worker Endpoint (Recommended - Zero secrets in code)
+  // Secure Cloudflare Worker Endpoint (Zero secrets in code — 100% Enterprise Security)
   // Holds GitHub Token safely inside Cloudflare Secrets
-  cloudflareWorkerUrl: '',
+  cloudflareWorkerUrl: 'https://comfort-journey-website.comfortjourneymarcom.workers.dev',
 
   // Built-in organization repository & branch
   repo: 'comfort-journey/comfort-journey-website',
