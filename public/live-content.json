@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-12T08:45:11.530Z",
+  "lastUpdated": "2026-09-13T07:03:43.248Z",
   "updatedBy": "Comfort Journey Content Studio",
   "tours": [
     {
@@ -89,8 +89,8 @@
     {
       "id": "tour-wix-peace-in-the-pines",
       "wixId": "033fe900-f95f-4744-80db-5a2984c1357b",
-      "name": "Peace In The Pines - Royal Luxury Edition",
-      "slug": "peace-in-the-pines-royal-luxury-edition",
+      "name": "Peace In The Pines - Royal Luxury",
+      "slug": "peace-in-the-pines-royal-luxury",
       "location": "Dharamshala, Dalhousie",
       "city": "Dharamshala, Dalhousie",
       "state": "Himachal Pradesh",
@@ -200,7 +200,14 @@
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "revisions": [
+        {
+          "timestamp": "2026-09-13T07:03:30.953Z",
+          "name": "Peace In The Pines - Royal Luxury",
+          "price": 94012
+        }
+      ]
     },
     {
       "id": "tour-wix-karnataka-heritage-hills",
