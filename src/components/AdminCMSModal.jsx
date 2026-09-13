@@ -143,10 +143,14 @@ export default function AdminCMSModal({ isOpen, onClose }) {
   const [tokenDiagnostic, setTokenDiagnostic] = useState(null);
 
   const handleTestCloudflare = async () => {
-    const cleanUrl = cloudflareUrl.trim().replace(/\/+$/, '');
+    let cleanUrl = cloudflareUrl.trim().replace(/\/+$/, '');
     if (!cleanUrl) {
       showToast('⚠️ Please enter your Cloudflare Worker URL.');
       return;
+    }
+    if (!cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://')) {
+      cleanUrl = 'https://' + cleanUrl;
+      setCloudflareUrl(cleanUrl);
     }
     setIsTestingCloudflare(true);
     setCloudflareStatus(null);
@@ -154,8 +158,17 @@ export default function AdminCMSModal({ isOpen, onClose }) {
       const res = await fetch(`${cleanUrl}/health`);
       const data = await res.json().catch(() => ({}));
       if (res.ok) {
-        setCloudflareStatus({ valid: true, message: `✅ Cloudflare Worker is active! (${data.service || 'Ready'})` });
-        showToast('✅ Cloudflare Worker verified and online!');
+        if (data.configured) {
+          setCloudflareStatus({ valid: true, message: `✅ Cloudflare Worker is active and GITHUB_TOKEN is configured! Ready to publish worldwide.` });
+          showToast('✅ Cloudflare Worker verified and online!');
+        } else {
+          setCloudflareStatus({
+            valid: true,
+            warning: true,
+            message: `⚠️ Cloudflare Worker is active and online, but GITHUB_TOKEN is not yet set in Cloudflare Secrets!\n👉 Please go to Cloudflare Worker Settings → Variables and Secrets → Add "GITHUB_TOKEN" with your GitHub PAT.`
+          });
+          showToast('⚠️ Worker online, but GITHUB_TOKEN needed in Cloudflare.');
+        }
       } else {
         setCloudflareStatus({ valid: false, error: data.error || `HTTP ${res.status}` });
         showToast('❌ Cloudflare Worker returned error.');
@@ -169,7 +182,11 @@ export default function AdminCMSModal({ isOpen, onClose }) {
   };
 
   const handleSaveCloudflareConfig = () => {
-    const cleanUrl = cloudflareUrl.trim().replace(/\/+$/, '');
+    let cleanUrl = cloudflareUrl.trim().replace(/\/+$/, '');
+    if (cleanUrl && !cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://')) {
+      cleanUrl = 'https://' + cleanUrl;
+      setCloudflareUrl(cleanUrl);
+    }
     setCloudflareWorkerUrl(cleanUrl);
     showToast('🎉 Cloudflare Worker URL saved! Live publishing is now 100% token-free.');
     setSyncFeedback({

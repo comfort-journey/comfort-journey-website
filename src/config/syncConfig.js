@@ -174,7 +174,10 @@ export function getCloudflareWorkerUrl() {
  */
 export function setCloudflareWorkerUrl(url) {
   if (typeof window === 'undefined') return;
-  const clean = (url || '').trim().replace(/\/+$/, '');
+  let clean = (url || '').trim().replace(/\/+$/, '');
+  if (clean && !clean.startsWith('http://') && !clean.startsWith('https://')) {
+    clean = 'https://' + clean;
+  }
   if (clean) {
     window.localStorage.setItem(MASTER_SYNC_CONFIG.STORAGE_KEY_CLOUDFLARE_URL, clean);
   } else {
