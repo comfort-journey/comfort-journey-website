@@ -40,12 +40,14 @@ export default {
     const url = new URL(request.url);
 
     // 2. Health check endpoint
+    const activeToken = env.GITHUB_TOKEN || env.GITHUB_CMS_TOKEN || env.GH_TOKEN;
+
     if (url.pathname === '/' || url.pathname === '/health' || url.pathname === '/api/health') {
       return jsonResponse({
         status: 'online',
         service: 'Comfort Journey Secure Cloudflare Publisher',
         timestamp: new Date().toISOString(),
-        configured: Boolean(env.GITHUB_TOKEN)
+        configured: Boolean(activeToken)
       });
     }
 
@@ -56,10 +58,10 @@ export default {
       }
 
       // Check configured token in Cloudflare Secrets
-      const token = env.GITHUB_TOKEN;
+      const token = activeToken;
       if (!token) {
         return jsonResponse({
-          error: 'GITHUB_TOKEN is not configured in Cloudflare Worker Secrets. Please add GITHUB_TOKEN in Worker Settings -> Variables.'
+          error: 'GITHUB_TOKEN or GITHUB_CMS_TOKEN is not configured in Cloudflare Worker Secrets. Please add GITHUB_CMS_TOKEN or GITHUB_TOKEN in Worker Settings -> Variables.'
         }, 500);
       }
 
