@@ -1,11 +1,11 @@
 {
-  "lastUpdated": "2026-09-13T07:03:43.248Z",
+  "lastUpdated": "2026-09-13T07:22:06.838Z",
   "updatedBy": "Comfort Journey Content Studio",
   "tours": [
     {
       "id": "tour-custom-1789202602199",
-      "name": "Whispers of Dalhousie Luxury Edition",
-      "slug": "whispers-of-dalhousie-luxury-edition",
+      "name": "Whispers of Dalhousie Luxury",
+      "slug": "whispers-of-dalhousie-luxury",
       "location": "",
       "city": "",
       "state": "",
@@ -84,7 +84,13 @@
       "searchIntent": "transactional",
       "rating": 4.95,
       "reviews": 96,
-      "revisions": []
+      "revisions": [
+        {
+          "timestamp": "2026-09-13T07:21:58.373Z",
+          "name": "Whispers of Dalhousie Luxury",
+          "price": 24999
+        }
+      ]
     },
     {
       "id": "tour-wix-peace-in-the-pines",
