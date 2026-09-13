@@ -17,6 +17,8 @@ import {
   getActivePublishToken,
   getActiveRepo,
   isPublishConfigured,
+  getCloudflareWorkerUrl,
+  setCloudflareWorkerUrl,
   setLocalMasterToken,
   clearLocalMasterToken,
   getBuiltinMasterToken,
@@ -515,21 +517,24 @@ export const contentService = {
 
   getPublishStatus() {
     const isLocal = isLocalDev();
+    const hasCloudflare = Boolean(getCloudflareWorkerUrl());
     const hasToken = isPublishConfigured();
     const directusUrl = (typeof window !== 'undefined' && localStorage.getItem('cj_directus_url')) || import.meta.env?.VITE_DIRECTUS_URL || '';
     const hasDirectusConfigured = Boolean(directusUrl && directusUrl !== 'http://localhost:8055');
     
     return {
       isLocalDev: isLocal,
+      hasCloudflare,
       hasGithubToken: hasToken,
       isMasterConfigured: hasToken,
       hasDirectusConfigured,
-      canPublishWorldwide: isLocal || hasToken || hasDirectusConfigured,
-      activeRepo: this.getGithubRepo()
+      canPublishWorldwide: isLocal || hasCloudflare || hasToken || hasDirectusConfigured,
+      activeRepo: this.getGithubRepo(),
+      cloudflareUrl: getCloudflareWorkerUrl()
     };
   },
 
-  // ─── UNIFIED WORLDWIDE PUBLISH (GITHUB OR AWS DIRECTUS) ───
+  // ─── UNIFIED WORLDWIDE PUBLISH (CLOUDFLARE WORKER PROXY OR GITHUB OR LOCAL) ───
   async publishWorldwide(options = {}) {
     const { token, repo, commitMessage = 'Publish Worldwide from Content Studio' } = options;
     const isLocal = isLocalDev();
@@ -545,12 +550,42 @@ export const contentService = {
       };
     }
 
-    // 2. Publish to GitHub Contents API (triggers live worldwide deployment)
+    // 2. If Cloudflare Worker is configured, publish via the Secure Cloudflare Proxy!
+    // (Zero tokens in browser or code — 100% secure)
+    const cloudflareUrl = getCloudflareWorkerUrl();
+    if (cloudflareUrl) {
+      const endpoint = cloudflareUrl.replace(/\/+$/, '') + '/publish';
+      const cfRes = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tours: this.getTours(),
+          blogs: this.getBlogs(),
+          commitMessage: `${commitMessage} [${new Date().toLocaleTimeString()}]`
+        })
+      });
+
+      if (!cfRes.ok) {
+        const errJson = await cfRes.json().catch(() => ({}));
+        throw new Error(errJson.error || `Cloudflare Publish failed with status ${cfRes.status}`);
+      }
+
+      const cfData = await cfRes.json();
+      return {
+        success: true,
+        method: 'cloudflare_proxy',
+        commitSha: cfData.shortSha || 'live',
+        message: cfData.message || 'Successfully published worldwide via Secure Cloudflare Proxy!',
+        raw: cfData
+      };
+    }
+
+    // 3. Fallback: Direct GitHub API Publish (if token is provided or configured)
     const activeToken = (token || getActivePublishToken() || '').trim();
     const activeRepo = (repo || getActiveRepo() || '').trim();
 
     if (!activeToken) {
-      throw new Error('NO_TOKEN: Organization Master Publish Key is not configured. Please enter the Master Key once in the CMS Global Sync settings.');
+      throw new Error('NO_TOKEN: Organization Master Publish Key or Cloudflare Worker URL is not configured. Please configure in CMS Global Sync settings.');
     }
 
     const ghRes = await this.publishToGitHub({

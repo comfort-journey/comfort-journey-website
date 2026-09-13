@@ -34,23 +34,26 @@ function deobfuscateToken(str) {
 }
 
 export const MASTER_SYNC_CONFIG = {
+  // Secure Cloudflare Worker Endpoint (Recommended - Zero secrets in code)
+  // Holds GitHub Token safely inside Cloudflare Secrets
+  cloudflareWorkerUrl: '',
+
   // Built-in organization repository & branch
   repo: 'comfort-journey/comfort-journey-website',
   branch: 'main',
   contentPath: 'public/live-content.json',
 
-  // Master Organization Publish Token (Obfuscated)
-  // Built-in credential automatically available to ALL employees on all devices
-  // without requiring any employee to enter tokens or know secret keys.
-  encodedMasterKey: 'amZ/TyJfV249OVxne1o7QT4kWSp/ZWs2aFpZQkY9fX98RyNDQn0pdg==',
+  // Master Organization Publish Token (Kept empty when using Cloudflare Worker proxy)
+  encodedMasterKey: '',
 
-  // Provider configuration: 'github' (current) | 'aws' (upcoming .com domain)
-  provider: 'github',
+  // Provider configuration: 'cloudflare' (recommended) | 'github' (direct) | 'aws' (upcoming .com domain)
+  provider: 'cloudflare',
 
   // AWS / Cloud Backend API endpoint (for upcoming AWS deployment on .com domain)
   awsApiEndpoint: '',
 
   // Storage keys
+  STORAGE_KEY_CLOUDFLARE_URL: 'cj_cloudflare_worker_url',
   STORAGE_KEY_TOKEN: 'cj_github_token',
   STORAGE_KEY_REPO: 'cj_github_repo',
   STORAGE_KEY_PROVIDER: 'cj_sync_provider',
@@ -154,11 +157,38 @@ export function getActivePublishToken(explicitToken = null) {
 }
 
 /**
- * Returns true if ANY publish token is configured (either master or local).
- * When true, employees NEVER need to see or enter a token!
+ * Get Cloudflare Worker Secure Publish URL
+ */
+export function getCloudflareWorkerUrl() {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    try {
+      const local = window.localStorage.getItem(MASTER_SYNC_CONFIG.STORAGE_KEY_CLOUDFLARE_URL);
+      if (local && local.trim()) return local.trim();
+    } catch {}
+  }
+  return MASTER_SYNC_CONFIG.cloudflareWorkerUrl || '';
+}
+
+/**
+ * Set Cloudflare Worker Secure Publish URL
+ */
+export function setCloudflareWorkerUrl(url) {
+  if (typeof window === 'undefined') return;
+  const clean = (url || '').trim().replace(/\/+$/, '');
+  if (clean) {
+    window.localStorage.setItem(MASTER_SYNC_CONFIG.STORAGE_KEY_CLOUDFLARE_URL, clean);
+  } else {
+    window.localStorage.removeItem(MASTER_SYNC_CONFIG.STORAGE_KEY_CLOUDFLARE_URL);
+  }
+}
+
+/**
+ * Returns true if ANY publish mechanism is configured:
+ * 1. Cloudflare Worker Secure Proxy (recommended - zero tokens)
+ * 2. Or GitHub PAT Token
  */
 export function isPublishConfigured() {
-  return Boolean(getActivePublishToken());
+  return Boolean(getCloudflareWorkerUrl() || getActivePublishToken());
 }
 
 /**

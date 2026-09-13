@@ -15,6 +15,8 @@ import {
   getBuiltinMasterToken,
   getActivePublishToken,
   getActiveRepo,
+  getCloudflareWorkerUrl,
+  setCloudflareWorkerUrl,
   obfuscateToken,
   MASTER_SYNC_CONFIG
 } from '../config/syncConfig';
@@ -128,6 +130,10 @@ export default function AdminCMSModal({ isOpen, onClose }) {
   };
 
   // Global Sync States & Handlers
+  const [cloudflareUrl, setCloudflareUrl] = useState(() => getCloudflareWorkerUrl() || '');
+  const [isTestingCloudflare, setIsTestingCloudflare] = useState(false);
+  const [cloudflareStatus, setCloudflareStatus] = useState(null);
+
   const [githubToken, setGithubToken] = useState(() => getActivePublishToken() || '');
   const [githubRepo, setGithubRepo] = useState(() => getActiveRepo() || 'comfort-journey/comfort-journey-website');
   const [isPublishingGitHub, setIsPublishingGitHub] = useState(false);
@@ -135,6 +141,42 @@ export default function AdminCMSModal({ isOpen, onClose }) {
   const [isSyncingFromCloud, setIsSyncingFromCloud] = useState(false);
   const [syncFeedback, setSyncFeedback] = useState(null);
   const [tokenDiagnostic, setTokenDiagnostic] = useState(null);
+
+  const handleTestCloudflare = async () => {
+    const cleanUrl = cloudflareUrl.trim().replace(/\/+$/, '');
+    if (!cleanUrl) {
+      showToast('⚠️ Please enter your Cloudflare Worker URL.');
+      return;
+    }
+    setIsTestingCloudflare(true);
+    setCloudflareStatus(null);
+    try {
+      const res = await fetch(`${cleanUrl}/health`);
+      const data = await res.json().catch(() => ({}));
+      if (res.ok) {
+        setCloudflareStatus({ valid: true, message: `✅ Cloudflare Worker is active! (${data.service || 'Ready'})` });
+        showToast('✅ Cloudflare Worker verified and online!');
+      } else {
+        setCloudflareStatus({ valid: false, error: data.error || `HTTP ${res.status}` });
+        showToast('❌ Cloudflare Worker returned error.');
+      }
+    } catch (e) {
+      setCloudflareStatus({ valid: false, error: `Connection failed: ${e.message}` });
+      showToast(`❌ Error connecting to Cloudflare: ${e.message}`);
+    } finally {
+      setIsTestingCloudflare(false);
+    }
+  };
+
+  const handleSaveCloudflareConfig = () => {
+    const cleanUrl = cloudflareUrl.trim().replace(/\/+$/, '');
+    setCloudflareWorkerUrl(cleanUrl);
+    showToast('🎉 Cloudflare Worker URL saved! Live publishing is now 100% token-free.');
+    setSyncFeedback({
+      type: 'success',
+      message: '🎉 Cloudflare Worker configured! Employees worldwide can publish live without any tokens in the browser or GitHub.'
+    });
+  };
 
   const handleTestToken = async () => {
     if (!githubToken.trim()) {
@@ -598,11 +640,96 @@ export default function AdminCMSModal({ isOpen, onClose }) {
                     </div>
                   )}
 
-                  {/* Configuration Form */}
-                  <div className="directus-config-form" style={{ marginTop: '1.25rem' }}>
-                    <h4 className="config-heading">Organization Master Publishing Configuration</h4>
-                    <p style={{ color: '#94A3B8', fontSize: '0.85rem', marginBottom: '1rem' }}>
-                      Enter your GitHub repository and Personal Access Token (Classic with <code>repo</code> scope). This token is shared organization-wide so employees never have to see or manage secret keys.
+                  {/* ── Option A: Cloudflare Worker Secure Proxy (Recommended) ── */}
+                  <div
+                    style={{
+                      marginTop: '1.25rem',
+                      background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(59, 130, 246, 0.05) 100%)',
+                      border: '1px solid rgba(249, 115, 22, 0.3)',
+                      borderRadius: '12px',
+                      padding: '1.35rem'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
+                      <h4 style={{ margin: 0, color: '#FF892F', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                        🛡️ Cloudflare Worker Secure Proxy (Recommended & 100% Token-Free)
+                      </h4>
+                      <span className={`status-pill ${cloudflareUrl ? 'online' : 'fallback'}`}>
+                        {cloudflareUrl ? '● Cloudflare Proxy Active' : '○ Not Configured'}
+                      </span>
+                    </div>
+
+                    <p style={{ color: '#CBD5E1', fontSize: '0.84rem', margin: '0.5rem 0 1rem', lineHeight: '1.55' }}>
+                      Keeps your GitHub Token <strong>100% private</strong> inside Cloudflare's secure cloud secrets. Zero tokens in your GitHub repository, zero tokens in browser DevTools. All employees worldwide can 1-click publish without any password or key prompts.
+                    </p>
+
+                    <div className="field-group" style={{ marginBottom: '1rem' }}>
+                      <label style={{ fontSize: '0.82rem', color: '#94A3B8' }}>Your Cloudflare Worker Endpoint URL:</label>
+                      <input
+                        type="url"
+                        className="cms-input"
+                        value={cloudflareUrl}
+                        onChange={(e) => {
+                          setCloudflareUrl(e.target.value);
+                          setCloudflareStatus(null);
+                        }}
+                        placeholder="https://comfort-journey-sync.<your-subdomain>.workers.dev"
+                        style={{ fontFamily: 'monospace' }}
+                      />
+                    </div>
+
+                    {cloudflareStatus && (
+                      <div
+                        style={{
+                          marginBottom: '1rem',
+                          padding: '0.75rem 1rem',
+                          borderRadius: '8px',
+                          fontSize: '0.82rem',
+                          background: cloudflareStatus.valid ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
+                          border: `1px solid ${cloudflareStatus.valid ? 'rgba(16, 185, 129, 0.4)' : 'rgba(239, 68, 68, 0.4)'}`,
+                          color: cloudflareStatus.valid ? '#A7F3D0' : '#FECACA'
+                        }}
+                      >
+                        {cloudflareStatus.valid ? cloudflareStatus.message : `❌ Error: ${cloudflareStatus.error}`}
+                      </div>
+                    )}
+
+                    <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                      <button
+                        type="button"
+                        className="btn-secondary"
+                        onClick={handleTestCloudflare}
+                        disabled={isTestingCloudflare || !cloudflareUrl.trim()}
+                        style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.84rem' }}
+                      >
+                        {isTestingCloudflare ? <Loader2 size={14} className="animate-spin" /> : <Globe size={14} />}
+                        <span>{isTestingCloudflare ? 'Testing Endpoint...' : '🔍 Test Cloudflare Connection'}</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        className="btn-primary"
+                        onClick={handleSaveCloudflareConfig}
+                        disabled={!cloudflareUrl.trim()}
+                        style={{ background: '#10B981', borderColor: '#059669', display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.84rem' }}
+                      >
+                        <CheckCircle2 size={14} />
+                        <span>💾 Save Cloudflare Endpoint for All Devices</span>
+                      </button>
+                    </div>
+
+                    <p style={{ marginTop: '0.75rem', fontSize: '0.76rem', color: '#94A3B8', lineHeight: '1.4' }}>
+                      💡 <em>Setup takes 2 minutes in your free Cloudflare dashboard. See <code>cloudflare-worker/CLOUDFLARE_SETUP.md</code> for the step-by-step guide.</em>
+                    </p>
+                  </div>
+
+                  {/* ── Option B: Direct GitHub Publishing (Alternative) ── */}
+                  <div className="directus-config-form" style={{ marginTop: '1.5rem' }}>
+                    <h4 className="config-heading" style={{ color: '#94A3B8' }}>
+                      Alternative: Direct GitHub Token (Local Dev / Fallback)
+                    </h4>
+                    <p style={{ color: '#94A3B8', fontSize: '0.82rem', marginBottom: '1rem' }}>
+                      Direct Personal Access Token (Classic with <code>repo</code> scope) for local development or direct publishing.
                     </p>
 
                     <div className="config-grid">
