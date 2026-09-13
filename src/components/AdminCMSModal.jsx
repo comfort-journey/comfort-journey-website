@@ -11,6 +11,8 @@ import {
   isPublishConfigured,
   testGitHubCredentials,
   setLocalMasterToken,
+  clearLocalMasterToken,
+  getBuiltinMasterToken,
   getActivePublishToken,
   getActiveRepo,
   obfuscateToken,
@@ -164,34 +166,82 @@ export default function AdminCMSModal({ isOpen, onClose }) {
       return;
     }
 
-    setLocalMasterToken(cleanToken);
-    contentService.setGithubRepo(cleanRepo);
+    setIsTestingGitHubToken(true);
+    setSyncFeedback({
+      type: 'info',
+      message: '⏳ Verifying token and enabling master sync for all devices worldwide...'
+    });
 
-    if (isLocalDev()) {
-      try {
-        const obfuscated = obfuscateToken(cleanToken);
-        const res = await fetch('/api/cms/save-master-token', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ encodedKey: obfuscated, repo: cleanRepo })
+    try {
+      // 1. Validate token with GitHub
+      const diag = await testGitHubCredentials(cleanToken, cleanRepo);
+      setTokenDiagnostic(diag);
+      if (!diag.valid) {
+        showToast('❌ Token test failed. Please check permissions.');
+        setSyncFeedback({
+          type: 'error',
+          message: `❌ Cannot enable key: ${diag.error}`
         });
-        if (res.ok) {
-          showToast('🎉 Master Token enabled for ALL devices worldwide!');
-          setSyncFeedback({
-            type: 'success',
-            message: '🎉 Organization Master Token configured! It is now embedded into the project configuration. When changes are deployed, ALL employees and devices worldwide can publish live with 1 click without entering any tokens!'
-          });
-          return;
-        }
-      } catch (err) {
-        console.warn('Could not auto-write to syncConfig.js via dev server:', err);
+        return;
       }
-    }
 
-    showToast('✅ Master Key saved for this browser! Click Test Connection to verify.');
+      // 2. Set local storage and active repo
+      setLocalMasterToken(cleanToken);
+      contentService.setGithubRepo(cleanRepo);
+
+      // 3. If in local dev server, write to src/config/syncConfig.js
+      if (isLocalDev()) {
+        try {
+          const obfuscated = obfuscateToken(cleanToken);
+          await fetch('/api/cms/save-master-token', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ encodedKey: obfuscated, repo: cleanRepo })
+          });
+        } catch (err) {
+          console.warn('Could not auto-write to syncConfig.js via dev server:', err);
+        }
+      }
+
+      // 4. Commit updated master sync vault to GitHub so ALL devices sync it automatically!
+      try {
+        await contentService.publishMasterVault({
+          token: cleanToken,
+          repo: cleanRepo
+        });
+        showToast('🎉 Master Token enabled for ALL employees and devices worldwide!');
+        setSyncFeedback({
+          type: 'success',
+          message: '🎉 Organization Master Token configured & synchronized to GitHub! Every employee and device worldwide can now publish live with 1 click without entering any tokens or passwords!'
+        });
+      } catch (cloudErr) {
+        // If master vault commit fails, token is still active locally
+        showToast('✅ Master Key saved for this browser! (Cloud sync: ' + cloudErr.message + ')');
+        setSyncFeedback({
+          type: 'success',
+          message: 'Master Key is saved in this browser. You can publish live anytime.'
+        });
+      }
+    } catch (err) {
+      showToast(`❌ Error saving master key: ${err.message}`);
+      setSyncFeedback({
+        type: 'error',
+        message: `❌ Error: ${err.message}`
+      });
+    } finally {
+      setIsTestingGitHubToken(false);
+    }
+  };
+
+  const handleResetToDefaultMasterKey = () => {
+    clearLocalMasterToken();
+    const defaultToken = getBuiltinMasterToken();
+    setGithubToken(defaultToken);
+    setTokenDiagnostic(null);
+    showToast('🔄 Reset to default Organization Master Key.');
     setSyncFeedback({
       type: 'success',
-      message: 'Master Key is saved in this browser. All publish actions will use this credential.'
+      message: '✅ Restored built-in Organization Master Key. All devices use this verified key without passwords.'
     });
   };
 
@@ -603,6 +653,17 @@ export default function AdminCMSModal({ isOpen, onClose }) {
                       >
                         <CheckCircle2 size={15} />
                         <span>💾 Save & Enable for All Employees Worldwide</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        className="btn-secondary"
+                        style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', borderStyle: 'dashed' }}
+                        onClick={handleResetToDefaultMasterKey}
+                        title="Restore the built-in Master Token if a custom local token is malfunctioning"
+                      >
+                        <RefreshCw size={14} />
+                        <span>Reset to Default Master Key</span>
                       </button>
 
                       <button

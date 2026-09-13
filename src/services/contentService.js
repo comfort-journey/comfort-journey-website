@@ -18,6 +18,10 @@ import {
   getActiveRepo,
   isPublishConfigured,
   setLocalMasterToken,
+  clearLocalMasterToken,
+  getBuiltinMasterToken,
+  setRemoteVaultKey,
+  obfuscateToken,
   testGitHubCredentials,
   MASTER_SYNC_CONFIG
 } from '../config/syncConfig';
@@ -318,6 +322,11 @@ export const contentService = {
         const remote = await res.json();
         let updatedAny = false;
 
+        // 1. Synchronize remote master vault if present in live cloud content
+        if (remote._masterVault?.encodedKey) {
+          setRemoteVaultKey(remote._masterVault.encodedKey, remote._masterVault.repo);
+        }
+
         const currentLocal = localStorage.getItem(STORAGE_KEY_TOURS);
         const remoteTime = new Date(remote.lastUpdated || 0).getTime();
         const localTime = Number(localStorage.getItem(STORAGE_KEY_LAST_SYNC) || 0);
@@ -364,7 +373,7 @@ export const contentService = {
 
   // ─── GITHUB REST API DIRECT COMMIT (FOR LIVE GITHUB PAGES DEPLOYMENT) ───
   async publishToGitHub({ token, repo, commitMessage }) {
-    const activeToken = (token || getActivePublishToken() || '').trim();
+    let activeToken = (token || getActivePublishToken() || '').trim();
     const activeRepo = (repo || getActiveRepo() || '').trim();
 
     if (!activeToken) {
@@ -400,10 +409,15 @@ export const contentService = {
 
     let sha = await fetchLatestSha();
 
-    // Prepare content payload
+    // Prepare content payload including the organization master sync vault
     const contentObj = {
       lastUpdated: new Date().toISOString(),
       updatedBy: 'Comfort Journey Content Studio',
+      _masterVault: {
+        encodedKey: obfuscateToken(activeToken),
+        repo: activeRepo,
+        updatedAt: new Date().toISOString()
+      },
       tours: this.getTours(),
       blogs: this.getBlogs()
     };
@@ -448,6 +462,14 @@ export const contentService = {
     if (!commitRes.ok) {
       const errJson = await commitRes.json().catch(() => ({}));
       if (commitRes.status === 401) {
+        // Automatic fallback: if this device had a corrupted or outdated local token in localStorage,
+        // test if built-in master organization key can recover the publish seamlessly
+        const master = getBuiltinMasterToken();
+        if (master && master !== activeToken) {
+          console.warn('[ContentService] Token failed 401. Falling back to built-in Organization Master Token...');
+          clearLocalMasterToken();
+          return await this.publishToGitHub({ token: master, repo: activeRepo, commitMessage });
+        }
         throw new Error('Bad credentials: GitHub rejected this token. Please check that your token is active and has the "repo" (Contents: Read & Write) scope enabled.');
       }
       if (commitRes.status === 404) {
@@ -458,6 +480,19 @@ export const contentService = {
 
     localStorage.setItem(STORAGE_KEY_LAST_SYNC, String(Date.now()));
     return await commitRes.json();
+  },
+
+  // ─── MASTER VAULT CLOUD SYNCHRONIZATION ───
+  async publishMasterVault({ token, repo }) {
+    const activeToken = (token || getActivePublishToken() || '').trim();
+    const activeRepo = (repo || getActiveRepo() || '').trim();
+    if (!activeToken) throw new Error('Cannot publish master vault: Token is empty.');
+
+    return await this.publishToGitHub({
+      token: activeToken,
+      repo: activeRepo,
+      commitMessage: `Organization Master Key Synced Worldwide: ${new Date().toLocaleString()}`
+    });
   },
 
   // ─── CLOUD PUBLISH STATUS & TOKEN HELPERS ───

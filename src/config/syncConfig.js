@@ -40,9 +40,9 @@ export const MASTER_SYNC_CONFIG = {
   contentPath: 'public/live-content.json',
 
   // Master Organization Publish Token (Obfuscated)
-  // When set by Admin, this credential is automatically available to ALL
-  // employees on all devices without requiring them to enter any tokens.
-  encodedMasterKey: '',
+  // Built-in credential automatically available to ALL employees on all devices
+  // without requiring any employee to enter tokens or know secret keys.
+  encodedMasterKey: 'amZ/TyJfV249OVxne1o7QT4kWSp/ZWs2aFpZQkY9fX98RyNDQn0pdg==',
 
   // Provider configuration: 'github' (current) | 'aws' (upcoming .com domain)
   provider: 'github',
@@ -58,34 +58,91 @@ export const MASTER_SYNC_CONFIG = {
   STORAGE_KEY_LAST_SYNC: 'cj_last_sync_timestamp'
 };
 
+// Runtime in-memory vault token (updated dynamically from live-content.json if cloud config changes)
+let runtimeVaultToken = '';
+
+/**
+ * Get the built-in Master Organization Token (deobfuscated)
+ */
+export function getBuiltinMasterToken() {
+  if (MASTER_SYNC_CONFIG.encodedMasterKey) {
+    const decoded = deobfuscateToken(MASTER_SYNC_CONFIG.encodedMasterKey);
+    if (decoded && decoded.trim()) return decoded.trim();
+  }
+  return '';
+}
+
+/**
+ * Clear any local browser token override from localStorage
+ */
+export function clearLocalMasterToken() {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    try {
+      window.localStorage.removeItem(MASTER_SYNC_CONFIG.STORAGE_KEY_TOKEN);
+    } catch {}
+  }
+  runtimeVaultToken = '';
+}
+
+/**
+ * Update runtime vault token from live cloud snapshot
+ */
+export function setRemoteVaultKey(encodedKey, repo) {
+  if (!encodedKey) return;
+  const decoded = deobfuscateToken(encodedKey);
+  if (decoded && decoded.trim()) {
+    runtimeVaultToken = decoded.trim();
+    if (typeof window !== 'undefined' && window.localStorage) {
+      try {
+        window.localStorage.setItem(MASTER_SYNC_CONFIG.STORAGE_KEY_TOKEN, decoded.trim());
+        if (repo) {
+          window.localStorage.setItem(MASTER_SYNC_CONFIG.STORAGE_KEY_REPO, repo);
+        }
+      } catch {}
+    }
+  }
+}
+
 /**
  * Get active token for publishing.
  * Resolves in order:
  * 1. Explicitly passed parameter
- * 2. Browser localStorage (Admin override or set on this device)
- * 3. Project-level Master Organization Token (MASTER_SYNC_CONFIG)
- * 4. Vite build-time environment variable (VITE_GITHUB_TOKEN)
+ * 2. In-memory runtime cloud vault token (live-content.json)
+ * 3. Browser localStorage (if valid PAT starting with ghp_ or github_pat_)
+ * 4. Project-level Master Organization Token (MASTER_SYNC_CONFIG - active for ALL devices)
+ * 5. Vite build-time environment variable (VITE_GITHUB_TOKEN)
  */
 export function getActivePublishToken(explicitToken = null) {
   if (explicitToken && typeof explicitToken === 'string' && explicitToken.trim()) {
     return explicitToken.trim();
   }
 
-  // Check localStorage (local override / admin setup)
+  // 1. Check in-memory runtime cloud vault token
+  if (runtimeVaultToken) {
+    return runtimeVaultToken;
+  }
+
+  // 2. Check localStorage (local override / admin setup)
   if (typeof window !== 'undefined' && window.localStorage) {
     try {
       const local = window.localStorage.getItem(MASTER_SYNC_CONFIG.STORAGE_KEY_TOKEN);
-      if (local && local.trim()) return local.trim();
+      if (local && local.trim()) {
+        const clean = local.trim();
+        // Only return if it looks like a valid PAT token
+        if (clean.startsWith('ghp_') || clean.startsWith('github_pat_')) {
+          return clean;
+        }
+      }
     } catch {}
   }
 
-  // Check project-level built-in master token
-  if (MASTER_SYNC_CONFIG.encodedMasterKey) {
-    const decoded = deobfuscateToken(MASTER_SYNC_CONFIG.encodedMasterKey);
-    if (decoded && decoded.trim()) return decoded.trim();
+  // 3. Check project-level built-in master token (guaranteed fallback for all devices)
+  const master = getBuiltinMasterToken();
+  if (master) {
+    return master;
   }
 
-  // Check Vite environment variable
+  // 4. Check Vite environment variable
   try {
     const envToken = import.meta.env?.VITE_GITHUB_TOKEN;
     if (envToken && typeof envToken === 'string' && envToken.trim()) {
@@ -112,8 +169,10 @@ export function setLocalMasterToken(token) {
   const clean = (token || '').trim();
   if (clean) {
     window.localStorage.setItem(MASTER_SYNC_CONFIG.STORAGE_KEY_TOKEN, clean);
+    runtimeVaultToken = clean;
   } else {
     window.localStorage.removeItem(MASTER_SYNC_CONFIG.STORAGE_KEY_TOKEN);
+    runtimeVaultToken = '';
   }
 }
 
