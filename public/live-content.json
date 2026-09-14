@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-14T09:34:54.420Z",
+  "lastUpdated": "2026-09-14T09:56:49.298Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -628,8 +628,8 @@
     {
       "id": "tour-wix-rajasthan-royal-affair",
       "wixId": "1b953d63-664c-4bb2-81fa-8226b2b4656b",
-      "name": "Rajasthan Royal Affair",
-      "slug": "rajasthan-royal-affair",
+      "name": "Rajasthan Royal Escape – Where History Meets Luxury",
+      "slug": "rajasthan-royal-escape-where-history-meets-luxury",
       "location": "Rajasthan",
       "city": "Rajasthan",
       "state": "Rajasthan",
@@ -647,7 +647,13 @@
         "Heritage & Palaces",
         "Culture & Heritage",
         "Rajasthan",
-        "Luxury Signature"
+        "Luxury Signature",
+        "Summer",
+        "Winter",
+        "National Tours",
+        "Couple & Honeymoon",
+        "Family Trips",
+        "Heritage & Culture"
       ],
       "tags": [
         "National",
@@ -664,11 +670,11 @@
       ],
       "duration": "3 Nights & 4 Days",
       "durationDays": 34,
-      "price": 34272,
+      "price": 17999,
       "origPrice": 42840,
-      "originalPrice": 42840,
-      "tagline": "Immerse yourself in the royal heritage of Rajasthan with a vibrant journey through Jodhpur’s blue streets and Udaipur’s serene lakes. This budget-friendly package blends cultural landmarks, shopping, and scenic beauty.",
-      "description": "Immerse yourself in the royal heritage of Rajasthan with a vibrant journey through Jodhpur’s blue streets and Udaipur’s serene lakes. This budget-friendly package blends cultural landmarks, shopping, and scenic beauty.",
+      "originalPrice": 19999,
+      "tagline": "Experience royal palaces, vibrant culture, majestic forts, and golden sunsets on a luxurious Rajasthan escape.",
+      "description": "<!--StartFragment-->Experience royal palaces, vibrant culture, majestic forts, and golden sunsets on a luxurious Rajasthan escape.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/nsplsh_d4712cfb765d40b6b59a064fe192f29b~mv2.jpg/Image%20by%20Siddhesh%20Mangela.jpg#originWidth=9425&originHeight=3858",
       "badge": "National Signature",
@@ -691,39 +697,46 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival in Jodhpur & Local Sightseeing",
+          "title": "Arrival in Jodhpur & Local Sightseeing",
           "desc": "Arrive in Jodhpur, check-in at a 3-star hotel. Visit Mehrangarh Fort , Jaswant Thada , Umaid Bhawan Palace , Clock Tower , and Sardar Market . Evening - Explore bustling markets for local shopping.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Jodhpur Exploration & Transfer to Udaipur",
+          "title": "Jodhpur Exploration & Transfer to Udaipur",
           "desc": "Morning - Explore Rao Jodha Desert Rock Park and Mandore Gardens . Afternoon - Shop for handicrafts in Jodhpur. Drive to Udaipur (250 km / 5 hours), check-in at a 3-star hotel.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Full-Day Udaipur Sightseeing",
+          "title": "Full-Day Udaipur Sightseeing",
           "desc": "Morning - Visit City Palace , Jagdish Temple , Lake Pichola , Saheliyon Ki Bari , and Monsoon Palace . Evening - Return to the hotel.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Half-Day Udaipur & Departure",
+          "title": "Half-Day Udaipur & Departure",
           "desc": "Morning - Visit Fateh Sagar Lake . Afternoon - Shop for miniature paintings, silver jewelry, and crafts. Transfer to Jodhpur and depart via pre-booked flight/train.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "seo": {
+        "focusKeyword": "Rajasthan Royal Escape",
+        "metaDescription": "Experience royal palaces, vibrant culture, majestic forts, and golden sunsets on a luxurious Rajasthan escape."
+      },
+      "heroTagline": "Experience royal palaces, vibrant culture, majestic forts, and golden sunsets on a luxurious Rajasthan escape.",
+      "itinerarySectionTitle": "Rajasthan Royal Escape: 4 Days of Timeless Royalty",
+      "discountBadge": "10% OFF"
     },
     {
       "id": "tour-wix-royal-mp-route",
