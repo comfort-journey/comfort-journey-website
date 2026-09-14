@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-14T09:56:49.298Z",
+  "lastUpdated": "2026-09-14T10:23:00.250Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -741,8 +741,8 @@
     {
       "id": "tour-wix-royal-mp-route",
       "wixId": "28a57efc-64c2-468d-b105-cae1c871564a",
-      "name": "Royal MP Route",
-      "slug": "royal-mp-route",
+      "name": "Gwalior Orchha Route- Royal Stories of MP",
+      "slug": "gwalior-orchha-route-royal-stories-of-mp",
       "location": "Gwalior, Orchha",
       "city": "Gwalior, Orchha",
       "state": "Madhya Pradesh",
@@ -757,7 +757,15 @@
         "Family Tours",
         "Heritage & Palaces",
         "Culture & Heritage",
-        "Luxury Signature"
+        "Luxury Signature",
+        "National Tours",
+        "Summer",
+        "Winter",
+        "Monsoon",
+        "Autumn",
+        "Family Trips",
+        "Budget Friendly Trips",
+        "Group Tours"
       ],
       "tags": [
         "National",
@@ -771,11 +779,11 @@
       ],
       "duration": "3 Nights & 4 Days",
       "durationDays": 34,
-      "price": 33986,
+      "price": 20999,
       "origPrice": 35774,
-      "originalPrice": 35774,
-      "tagline": "A budget-friendly 4-day tour covering Gwalior’s historic forts, Orchha’s royal palaces, and Khajuraho’s UNESCO-listed temples. Includes 3-star hotels, Sedan transportation, and curated sightseeing.",
-      "description": "A budget-friendly 4-day tour covering Gwalior’s historic forts, Orchha’s royal palaces, and Khajuraho’s UNESCO-listed temples. Includes 3-star hotels, Sedan transportation, and curated sightseeing.",
+      "originalPrice": 29999,
+      "tagline": "Discover Royal Stories of MP through magnificent forts, timeless palaces, ancient temples, and Orchha's charm.",
+      "description": "Discover Royal Stories of MP through magnificent forts, timeless palaces, ancient temples, and Orchha's charm. A budget-friendly 4-day tour covering Gwalior’s historic forts and Orchha’s royal palaces.",
       "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/7f7d02_1d5c3165611d4fa8a890527a83faad7c~mv2.jpg/Ancient%20Temples%20(1).jpg#originWidth=5361&originHeight=3911",
       "badge": "National Signature",
@@ -801,39 +809,46 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival in Gwalior",
+          "title": "Arrival in Gwalior",
           "desc": "Arrive in Gwalior and check into 3-star hotel. Visit Gwalior Fort (one of India’s largest forts), Man Singh Palace (exquisite architecture), Gurudwara Data Bandi Chhod, Sashi Garden, and Teli Ka Mandir. Optional Sound & Light Show at Gwalior Fort. Overnight in Gwalior.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Gwalior to Orchha (3 hours, 118 km)",
+          "title": "Gwalior to Orchha (3 hours, 118 km)",
           "desc": "After breakfast, drive to Orchha. Check into 3-star hotel. Explore Orchha Fort (Raja Mahal, Jahangir Mahal), Chaturbhuj Temple, Rama Raja Temple, and Betwa River. Overnight in Orchha.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Orchha to Khajuraho (3 hours, 172 km)",
+          "title": "Orchha to Khajuraho (3 hours, 172 km)",
           "desc": "After breakfast, drive to Khajuraho. Check into 3-star hotel. Visit Kandariya Mahadev Temple, Lakshmana Temple, and Vishwanath Temple (famous for intricate carvings). Optional Sound & Light Show at Western Group of Temples. Overnight in Khajuraho.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Departure",
+          "title": "Departure",
           "desc": "Check out and drive back home with unforgettable memories.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "discountBadge": "30% OFF",
+      "seo": {
+        "focusKeyword": "Royal Stories of MP",
+        "metaDescription": "Discover Royal Stories of MP through magnificent forts, timeless palaces, ancient temples, and Orchha's charm."
+      },
+      "heroTagline": "Discover Royal Stories of MP through magnificent forts, timeless palaces, ancient temples, and Orchha's charm.",
+      "itinerarySectionTitle": "4 Days of Royal Forts & Timeless Tales"
     },
     {
       "id": "tour-wix-madhya-pradesh-wildside",
