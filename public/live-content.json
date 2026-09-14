@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-14T17:15:15.181Z",
+  "lastUpdated": "2026-09-14T17:44:48.500Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -1074,10 +1074,10 @@
     {
       "id": "tour-wix-andaman-coastal-retreat",
       "wixId": "46af588d-9291-45b9-b19b-d212c4e2d480",
-      "name": "Andaman Coastal Retreat",
-      "slug": "andaman-coastal-retreat",
-      "location": "India",
-      "city": "India",
+      "name": "Andaman Nicobar Getaway – Where Paradise Begins",
+      "slug": "andaman-nicobar-getaway-where-paradise-begins",
+      "location": "Andaman & Nicobar",
+      "city": "Andaman & Nicobar",
       "state": "Andaman & Nicobar",
       "continent": "Asia",
       "country": "India",
@@ -1092,10 +1092,13 @@
         "Summer",
         "Family & Group",
         "Family Tours",
-        "Heritage & Palaces",
-        "Culture & Heritage",
         "Andaman",
-        "Luxury Signature"
+        "Luxury Signature",
+        "National Tours",
+        "Monsoon",
+        "Couple & Honeymoon",
+        "Group Tours",
+        "Family Trips"
       ],
       "tags": [
         "National",
@@ -1117,8 +1120,8 @@
       "price": 134936,
       "origPrice": 161923,
       "originalPrice": 161923,
-      "tagline": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
-      "description": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
+      "tagline": "Discover turquoise waters, pristine beaches, island adventures, and unforgettable tropical luxury: Where Paradise Begins.",
+      "description": "<!--StartFragment-->Discover turquoise waters, pristine beaches, island adventures, and unforgettable tropical luxury: Where Paradise Begins.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/nsplsh_1f513ac692a446338db855517f1edfc2~mv2.jpg/Image%20by%20tatonomusic.jpg#originWidth=2998&originHeight=2000",
       "badge": "National Signature",
@@ -1192,55 +1195,60 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrive in Port Blair – Excursion to Cellular Jail – Light & Sound Show at Cellular Jail",
+          "title": "Arrive in Port Blair – Excursion to Cellular Jail – Light & Sound Show at Cellular Jail",
           "desc": "Arrival at Port Blair Airport. Meet and assistance at Veer Savarkar Airport followed by transfer to the hotel. Visit: Cellular Jail Light & Sound Show at Cellular Jail Overnight stay at Symphony Samudra Beachside Jungle Resort And Spa. Meals Breakfast: Not Included Lunch: Not Included Dinner: Not Included",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Ross Island Excursion – Chidiya Tapu Beach",
+          "title": "Ross Island Excursion – Chidiya Tapu Beach",
           "desc": "Visit: Ross Island Japanese Bunker Ross Island Lighthouse Chidiya Tapu Chidiya Tapu Biological Park Munda Pahar Beaches Sylvan Sands Chidiya Tapu Beach Overnight stay at Symphony Samudra Beachside Jungle Resort And Spa. Meals Breakfast Included Lunch Not Included Dinner Not Included",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Port Blair to Havelock Island – Ferry Transfer by Makruz / Nautica or Similar",
+          "title": "Port Blair to Havelock Island – Ferry Transfer by Makruz / Nautica or Similar",
           "desc": "Check out from Port Blair hotel and transfer to jetty. Board ferry to Havelock Island. Arrival and transfer to hotel. Overnight stay at Seashell Havelock. Meals Breakfast Included Lunch Not Included Dinner Not Included",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Elephant Island Beach Excursion – Kalapathar Beach Visit – Visit Radhanagar Beach",
+          "title": "Elephant Island Beach Excursion – Kalapathar Beach Visit – Visit Radhanagar Beach",
           "desc": "Visit: Elephant Beach Kalapathar Beach Radhanagar Beach Activities available at additional cost: Snorkelling Scuba Diving Overnight stay at Seashell Havelock. Meals Breakfast Included Lunch Not Included Dinner Not Included",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 5,
-          "title": "Day 5: Transfer to Port Blair – Port Blair Half Day City Tour – Corbyn's Cove Beach",
+          "title": "Transfer to Port Blair – Port Blair Half Day City Tour – Corbyn's Cove Beach",
           "desc": "Transfer from Havelock to Port Blair by ferry. Visit: Chatham Island Chatham Saw Mill Samudrika Naval Maritime Museum Anthropological Museum Corbyn's Cove Beach Evening free to explore local market. Overnight stay at Silver Sand Sea Princess Beach Resort. Meals Breakfast Included Lunch Not Included Dinner Not Included",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 6,
-          "title": "Day 6: Departure from Port Blair",
+          "title": "Departure from Port Blair",
           "desc": "Breakfast at hotel. Transfer to Port Blair Airport for onward journey. Meals Breakfast Included Lunch Not Included Dinner Not Included",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "heroTagline": "Discover turquoise waters, pristine beaches, island adventures, and unforgettable tropical luxury: Where Paradise Begins.",
+      "seo": {
+        "focusKeyword": "Where Paradise Begins"
+      },
+      "itinerarySectionTitle": "Itinerary to experience: Where Paradise Begins"
     },
     {
       "id": "tour-wix-up-ganga-grace",
