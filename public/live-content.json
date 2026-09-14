@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-14T10:24:50.623Z",
+  "lastUpdated": "2026-09-14T17:15:15.181Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -853,8 +853,8 @@
     {
       "id": "tour-wix-madhya-pradesh-wildside",
       "wixId": "2993d415-a0e9-4b15-9d0e-4d58075631fc",
-      "name": "Madhya Pradesh Wildside",
-      "slug": "madhya-pradesh-wildside",
+      "name": "Jabalpur MP Unveiled – Rivers, Rocks & Wilderness",
+      "slug": "jabalpur-mp-unveiled-rivers-rocks-wilderness",
       "location": "Jabalpur",
       "city": "Jabalpur",
       "state": "Madhya Pradesh",
@@ -868,12 +868,15 @@
         "Family & Group",
         "Family Tours",
         "Friends Travel",
-        "Solo Trips",
-        "Adventure & Trekking",
         "Wildlife & Nature",
         "Backwaters & Nature",
         "Monsoon",
-        "Luxury Signature"
+        "Luxury Signature",
+        "National Tours",
+        "Winter",
+        "Family Trips",
+        "Group Tours",
+        "Spring"
       ],
       "tags": [
         "National",
@@ -891,11 +894,11 @@
       ],
       "duration": "4 Nights & 5 Days",
       "durationDays": 45,
-      "price": 148512,
+      "price": 23999,
       "origPrice": 185640,
-      "originalPrice": 185640,
-      "tagline": "A luxurious 5-day wildlife tour covering Bandhavgarh, Kanha, and Pench National Parks. Includes 5-star hotels, Crysta transportation, and curated safaris.",
-      "description": "A luxurious 5-day wildlife tour covering Bandhavgarh, Kanha, and Pench National Parks. Includes 5-star hotels, Crysta transportation, and curated safaris.",
+      "originalPrice": 29999,
+      "tagline": "Discover the marble cliffs, cascading waterfalls and the serene Narmada on an unforgettable Jabalpur MP escape.",
+      "description": "<!--StartFragment-->Discover the marble cliffs, cascading waterfalls and the serene Narmada on an unforgettable Jabalpur MP escape.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/7f7d02_dd043f10d3954b119b3f9e643bc7e433~mv2.jpg/spotted%20deer%20and%20wild%20dog,%20Kanha%20nat.%20park,%20India%20(1).jpg#originWidth=5426&originHeight=3052",
       "badge": "National Signature",
@@ -923,47 +926,53 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival in Jabalpur",
+          "title": "Arrival in Jabalpur",
           "desc": "Arrive at Jabalpur Railway Station/Airport. Transfer to 5-star hotel. Explore Bhedaghat (Marble Rocks, Dhuandhar Waterfall) or Rani Durgavati Mahal. Overnight in Jabalpur.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Jabalpur to Bandhavgarh (4 hours, 202 km)",
+          "title": "Jabalpur to Bandhavgarh (4 hours, 202 km)",
           "desc": "Drive to Bandhavgarh. Check into 5-star resort. Afternoon safari in Bandhavgarh (tiger sightings, wildlife). Overnight in Bandhavgarh.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Bandhavgarh to Kanha (5 hours, 215 km)",
+          "title": "Bandhavgarh to Kanha (5 hours, 215 km)",
           "desc": "Early morning safari in Bandhavgarh. After breakfast, visit Bandhavgarh Fort. Drive to Kanha. Check into 5-star resort. Evening safari (tigers, barasinghas). Overnight in Kanha.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Kanha to Pench (5 hours, 200 km)",
+          "title": "Kanha to Pench (5 hours, 200 km)",
           "desc": "Morning safari in Kanha (tigers, leopards). After breakfast, drive to Pench. Check into 5-star hotel. Evening safari in Pench. Overnight in Pench.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 5,
-          "title": "Day 5: Morning Safari & Departure",
+          "title": "Morning Safari & Departure",
           "desc": "Early morning safari in Pench. Return to hotel, check out, and drive back home with unforgettable memories.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "heroTagline": "Discover the marble cliffs, cascading waterfalls and the serene Narmada on an unforgettable Jabalpur MP escape.",
+      "seo": {
+        "focusKeyword": "Jabalpur MP "
+      },
+      "itinerarySectionTitle": "Jabalpur MP Escape: A Journey Through Marble Rocks, Waterfalls & Narmada",
+      "discountBadge": "20% OFF"
     },
     {
       "id": "tour-wix-royal-mp-route-2",
