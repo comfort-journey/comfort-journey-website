@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-13T10:41:43.727Z",
+  "lastUpdated": "2026-09-14T08:19:54.736Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -95,8 +95,8 @@
     {
       "id": "tour-wix-peace-in-the-pines",
       "wixId": "033fe900-f95f-4744-80db-5a2984c1357b",
-      "name": "In The Pines - Royal Luxury",
-      "slug": "in-the-pines-royal-luxury",
+      "name": "Whispers of Dalhousie",
+      "slug": "whispers-of-dalhousie",
       "location": "Dharamshala, Dalhousie",
       "city": "Dharamshala, Dalhousie",
       "state": "Himachal Pradesh",
@@ -117,7 +117,11 @@
         "Heritage & Palaces",
         "Culture & Heritage",
         "Himachal",
-        "Luxury Signature"
+        "Luxury Signature",
+        "National Tours",
+        "Couple & Honeymoon",
+        "Family Trips",
+        "Group Tours"
       ],
       "tags": [
         "National",
@@ -137,11 +141,11 @@
       ],
       "duration": "4 Nights & 5 Days",
       "durationDays": 45,
-      "price": 94012,
+      "price": 22499,
       "origPrice": 188023,
-      "originalPrice": 188023,
+      "originalPrice": 29999,
       "tagline": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
-      "description": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
+      "description": "<!--StartFragment-->Experience the Whispers of Dalhousie with luxury accommodations, picturesque valleys, and iconic attractions like Khajjiar and Chamba. A perfect blend of relaxation, adventure, and Himalayan elegance awaits.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/nsplsh_18260b7e106d4955a021492dfabe9e9a~mv2.jpg/Image%20by%20Mountain%20Mysteries.jpg#originWidth=5464&originHeight=3640",
       "badge": "National Signature",
@@ -166,43 +170,43 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival in Chandigarh & Scenic Transfer to Dharamshala",
+          "title": "Arrival in Chandigarh & Scenic Transfer to Dharamshala",
           "desc": "Arrive in Chandigarh. Transfer to Dharamshala (7–8 hours). Visit Dharamshala Cricket Stadium, McLeod Ganj (Tibetan market), and enjoy local views. Overnight in Dharamshala.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Dharamshala Sightseeing",
+          "title": "Dharamshala Sightseeing",
           "desc": "Visit Bhagsunath Temple, Bhagsu Waterfall, Namgyal Monastery, Dal Lake, and Norbulingka Institute. Overnight in Dharamshala.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Dharamshala to Dalhousie (4 hours)",
+          "title": "Dharamshala to Dalhousie (4 hours)",
           "desc": "Drive to Dalhousie. Explore St. John’s Church, Gandhi Chowk, and Subhash Baoli. Evening stroll. Overnight in Dalhousie.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Dalhousie – Khajjiar Excursion",
+          "title": "Dalhousie – Khajjiar Excursion",
           "desc": "Drive to Khajjiar (Mini Switzerland of India, 1 hour). Visit Khajjiar Lake, enjoy zorbing, and explore Kalatop Wildlife Sanctuary. Return to Dalhousie. Overnight in Dalhousie.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 5,
-          "title": "Day 5: Dalhousie to Chandigarh (8–9 hours)",
+          "title": "Dalhousie to Chandigarh (8–9 hours)",
           "desc": "Check out and drive back to Chandigarh (8–9 hours). Tour concludes.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
@@ -212,8 +216,19 @@
           "timestamp": "2026-09-13T07:03:30.953Z",
           "name": "Peace In The Pines - Royal Luxury",
           "price": 94012
+        },
+        {
+          "timestamp": "2026-09-14T08:19:49.547Z",
+          "name": "Whispers of Dalhousie",
+          "price": 22499
         }
-      ]
+      ],
+      "seo": {
+        "metaDescription": "Experience the Whispers of Dalhousie with luxury accommodations, and iconic attractions like Khajjiar and Chamba. A perfect blend of relaxation, adventure, and Himalayan elegance.",
+        "focusKeyword": "Whispers of Dalhousie"
+      },
+      "itinerarySectionTitle": "Whispers of Dalhousie: Day by Day itinerary",
+      "discountBadge": "25% OFF"
     },
     {
       "id": "tour-wix-karnataka-heritage-hills",
