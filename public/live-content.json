@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-14T17:44:48.500Z",
+  "lastUpdated": "2026-09-14T17:47:49.956Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -1117,9 +1117,9 @@
       ],
       "duration": "5 Nights & 6 Days",
       "durationDays": 56,
-      "price": 134936,
+      "price": 25499,
       "origPrice": 161923,
-      "originalPrice": 161923,
+      "originalPrice": 29999,
       "tagline": "Discover turquoise waters, pristine beaches, island adventures, and unforgettable tropical luxury: Where Paradise Begins.",
       "description": "<!--StartFragment-->Discover turquoise waters, pristine beaches, island adventures, and unforgettable tropical luxury: Where Paradise Begins.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85",
@@ -1248,7 +1248,8 @@
       "seo": {
         "focusKeyword": "Where Paradise Begins"
       },
-      "itinerarySectionTitle": "Itinerary to experience: Where Paradise Begins"
+      "itinerarySectionTitle": "Itinerary to experience: Where Paradise Begins",
+      "discountBadge": "15%"
     },
     {
       "id": "tour-wix-up-ganga-grace",
