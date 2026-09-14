@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-14T17:47:55.875Z",
+  "lastUpdated": "2026-09-14T18:08:00.028Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -1254,11 +1254,11 @@
     {
       "id": "tour-wix-up-ganga-grace",
       "wixId": "4f0889b6-071e-4ea6-bbc3-919f068b19ad",
-      "name": "UP Ganga & Grace",
-      "slug": "up-ganga-grace",
+      "name": "Ayodhya & Varanasi – A Journey Within",
+      "slug": "ayodhya-varanasi-a-journey-within",
       "location": "Ayodhya, Varanasi",
       "city": "Ayodhya, Varanasi",
-      "state": "Uttarakhand",
+      "state": "Uttar Pradesh",
       "continent": "Asia",
       "country": "India",
       "category": "National Tours",
@@ -1270,7 +1270,16 @@
         "Family Tours",
         "Heritage & Palaces",
         "Culture & Heritage",
-        "Luxury Signature"
+        "Luxury Signature",
+        "National Tours",
+        "Winter",
+        "Summer",
+        "Family Trips",
+        "Group Tours",
+        "Budget Friendly Trips",
+        "Solo Trips",
+        "Heritage & Culture",
+        "Pilgrimage & Spiritual"
       ],
       "tags": [
         "National",
@@ -1284,11 +1293,11 @@
       ],
       "duration": "3 Nights & 4 Days",
       "durationDays": 34,
-      "price": 47300,
+      "price": 18399,
       "origPrice": 52555,
-      "originalPrice": 52555,
-      "tagline": "A premium 4-day spiritual tour covering Prayagraj’s sacred sites, Ayodhya’s Ram temples, and Varanasi’s Ganga Aarti. Includes 4-star hotels, Ertica transportation, and curated sightseeing. Note: Dress code (Dhoti-kurta/Saree) required for temple entry.",
-      "description": "A premium 4-day spiritual tour covering Prayagraj’s sacred sites, Ayodhya’s Ram temples, and Varanasi’s Ganga Aarti. Includes 4-star hotels, Ertica transportation, and curated sightseeing. Note: Dress code (Dhoti-kurta/Saree) required for temple entry.",
+      "originalPrice": 22999,
+      "tagline": "A premium 4-day spiritual tour covering Prayagraj’s sacred sites, Ayodhya’s Ram temples, and Varanasi’s Ganga Aarti. Discover A Journey Within you with sacred temples, timeless rituals, Ganga aartis, and the spiritual soul of India.",
+      "description": "A premium 4-day spiritual tour covering Prayagraj’s sacred sites, Ayodhya’s Ram temples, and Varanasi’s Ganga Aarti.&nbsp;Discover A Journey Within you with sacred temples, timeless rituals, Ganga aartis, and the spiritual soul of India.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/7f7d02_e240d8e32ff748deaba3bb72a04d6091~mv2.jpg/Pilgrimage%20(1).jpg#originWidth=6000&originHeight=4000",
       "badge": "National Signature",
@@ -1313,39 +1322,45 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival in Prayagraj",
+          "title": "Arrival in Prayagraj",
           "desc": "Arrive at Prayagraj Railway Station. Transfer to 4-star hotel. Visit Triveni Sangam (Ganga, Yamuna, Saraswati confluence), Kumbh Mela Area (if applicable), Anand Bhavan, Allahabad Fort, and Kali Mandir. Optional evening rituals/sunset at Sangam. Overnight in Prayagraj.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Prayagraj to Ayodhya (4 hours, 165 km)",
+          "title": "Prayagraj to Ayodhya (4 hours, 165 km)",
           "desc": "After breakfast, drive to Ayodhya. Check into 4-star hotel. Visit Ram Janmabhoomi Temple (birthplace of Lord Ram), Hanuman Garhi Temple, Kanak Bhavan, Sita Rasoi, and Surya Kund. Overnight in Ayodhya.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Ayodhya to Varanasi (5 hours, 220 km)",
+          "title": "Ayodhya to Varanasi (5 hours, 220 km)",
           "desc": "After breakfast, drive to Varanasi. Check into 4-star hotel. Visit Kashi Vishwanath Temple, Manikarnika Ghat, and Dashashwamedh Ghat. Evening Ganga Aarti (vibrant ritual with lamps and chanting). Overnight in Varanasi.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Departure",
+          "title": "Departure",
           "desc": "Check out and transfer to Varanasi Railway Station with unforgettable memories.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "heroTagline": "A premium 4-day spiritual tour covering Prayagraj’s sacred sites, Ayodhya’s Ram temples, and Varanasi’s Ganga Aarti. Discover A Journey Within you with sacred temples, timeless rituals, Ganga aartis, and the spiritual soul of India.",
+      "seo": {
+        "focusKeyword": "A Journey Within"
+      },
+      "itinerarySectionTitle": "Itinerary for A Journey Within yourself.",
+      "discountBadge": "20% OFF"
     },
     {
       "id": "tour-wix-rajasthan-grand-getaway-2",
