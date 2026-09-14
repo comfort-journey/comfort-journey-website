@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-14T08:40:22.745Z",
+  "lastUpdated": "2026-09-14T08:56:03.392Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -393,8 +393,8 @@
     {
       "id": "tour-wix-goa-weekend-vibe",
       "wixId": "0b042255-7f55-414f-8317-9efe7d8c1869",
-      "name": "Goa Weekend Vibe",
-      "slug": "goa-weekend-vibe",
+      "name": "Goa Unplugged: Salt, Air & Slow Days",
+      "slug": "goa-unplugged-salt-air-slow-days",
       "location": "Goa",
       "city": "Goa",
       "state": "Goa",
@@ -410,14 +410,17 @@
         "Summer Escapes",
         "Summer",
         "Family & Group",
-        "Family Tours",
         "Friends Travel",
         "Solo Trips",
         "Adventure & Trekking",
         "Heritage & Palaces",
-        "Culture & Heritage",
         "Goa",
-        "Luxury Signature"
+        "Luxury Signature",
+        "National Tours",
+        "Monsoon",
+        "Group Tours",
+        "Couple & Honeymoon",
+        "Budget Friendly Trips"
       ],
       "tags": [
         "National",
@@ -439,11 +442,11 @@
       ],
       "duration": "2 Nights and 3 Days",
       "durationDays": 23,
-      "price": 99360,
+      "price": 15999,
       "origPrice": 116894,
-      "originalPrice": 116894,
-      "tagline": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
-      "description": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
+      "originalPrice": 19999,
+      "tagline": "Immerse yourself in sun-kissed beaches, vibrant culture, and carefree coastal charm with Unplugged Goa.",
+      "description": "Immerse yourself in sun-kissed beaches, vibrant culture, and carefree coastal charm with Unplugged Goa.<!--EndFragment--><!--EndFragment--><!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/nsplsh_464675436b336a51373451~mv2_d_2100_4448_s_2.jpg/Image%20by%20Mayank%20Kanvalli.jpg#originWidth=2100&originHeight=4448",
       "badge": "National Signature",
@@ -467,31 +470,38 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival in Goa",
+          "title": "Arrival in Goa",
           "desc": "Arrive at Goa Airport (GOI) from Bhopal. Transfer to 5-star hotel. Relax and explore nearby beaches. Dinner at a beach shack. Overnight stay.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: North Goa Sightseeing",
+          "title": "North Goa Sightseeing",
           "desc": "Visit Fort Aguada, Sinquerim Beach, Anjuna Beach (Wednesday Flea Market if available), Vagator Beach, and Chapora Fort. Evening at Baga/Calangute. Overnight stay.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: South Goa Churches & Departure",
+          "title": "South Goa Churches & Departure",
           "desc": "Explore Old Goa Churches (Basilica of Bom Jesus, Sé Catedral), Mangeshi Temple, Shantadurga Temple, and Dona Paula Viewpoint. Check out and transfer to airport.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "seo": {
+        "metaDescription": "Immerse yourself in sun-kissed beaches, vibrant culture, and carefree coastal charm with Unplugged Goa.",
+        "focusKeyword": "Goa Unplugged"
+      },
+      "heroTagline": "Immerse yourself in sun-kissed beaches, vibrant culture, and carefree coastal charm with Unplugged Goa.",
+      "itinerarySectionTitle": "Goa Unplugged: Your 3-Day Coastal Escape",
+      "discountBadge": "20% OFF"
     },
     {
       "id": "tour-wix-ganga-to-the-hills",
