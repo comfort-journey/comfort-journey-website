@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-15T08:46:59.394Z",
+  "lastUpdated": "2026-09-15T08:57:23.585Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -1606,8 +1606,8 @@
     {
       "id": "tour-wix-nainital-jim-corbett-2",
       "wixId": "5c85d29f-fd90-4410-ad8a-ebccaefcd6fa",
-      "name": "Nainital-Jim Corbett",
-      "slug": "nainital-jim-corbett-2",
+      "name": "Nainital- Jim Corbett Discovery — Where Nature Roars",
+      "slug": "nainital-jim-corbett-discovery-where-nature-roars",
       "location": "Nanital",
       "city": "Nanital",
       "state": "Uttarakhand",
@@ -1631,7 +1631,12 @@
         "Wildlife & Nature",
         "Backwaters & Nature",
         "Monsoon",
-        "Luxury Signature"
+        "Luxury Signature",
+        "National Tours",
+        "Couple & Honeymoon",
+        "Group Tours",
+        "Budget Friendly Trips",
+        "Wildlife Safari"
       ],
       "tags": [
         "National",
@@ -1654,11 +1659,11 @@
       ],
       "duration": "3 Nights & 4 Days",
       "durationDays": 34,
-      "price": 24999,
+      "price": 17999,
       "origPrice": 31249,
-      "originalPrice": 31249,
-      "tagline": "A budget-friendly 4-day tour covering Nainital’s lakes and Jim Corbett’s wildlife. Includes 3-star hotels, Sedan transportation, and morning safari.",
-      "description": "A budget-friendly 4-day tour covering Nainital’s lakes and Jim Corbett’s wildlife. Includes 3-star hotels, Sedan transportation, and morning safari.",
+      "originalPrice": 19999,
+      "tagline": "Discover serene lakes, lush forests, thrilling wildlife and breathtaking Himalayan views with the luxury Nainital Jim Corbett tour.",
+      "description": "<!--StartFragment-->Discover serene lakes, lush forests, thrilling wildlife and breathtaking Himalayan views with the luxury Nainital Jim Corbett tour.<!--EndFragment--><!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/nsplsh_1f4e8a0e39ee4e2d8d112f881fbcc7c9~mv2.jpg/Image%20by%20Abhishek%20Royal.jpg#originWidth=6000&originHeight=4000",
       "badge": "National Signature",
@@ -1684,39 +1689,45 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival in Nainital",
+          "title": "Arrival in Nainital",
           "desc": "Arrive in Nainital. Check into 3-star hotel. Visit Mall Road, Naini Lake (boat ride), and Naina Devi Temple. Overnight stay.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Nainital – Bhimtal Excursion",
+          "title": "Nainital – Bhimtal Excursion",
           "desc": "Full-day trip to Bhimtal (lake & island aquarium), Sattal (cluster of seven lakes), and Naukuchiatal (9-cornered lake). Evening stroll in Nainital. Overnight stay.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Nainital to Jim Corbett (2–3 hours)",
+          "title": "Nainital to Jim Corbett (2–3 hours)",
           "desc": "Drive to Jim Corbett National Park. Check into resort. Explore Garjia Temple or Corbett Museum. Overnight stay.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Morning Safari & Departure",
+          "title": "Morning Safari & Departure",
           "desc": "Early morning jeep safari in Corbett (Bijrani/Jhirna zone). Return to resort, freshen up, and drive back to Nainital or Chandigarh with unforgettable memories.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "heroTagline": "Discover serene lakes, lush forests, thrilling wildlife and breathtaking Himalayan views with the luxury Nainital Jim Corbett tour.",
+      "seo": {
+        "focusKeyword": " Nainital Jim Corbett"
+      },
+      "discountBadge": "10% OFF",
+      "itinerarySectionTitle": "Day by Day itinerary to discover Lakes, Forests & Wildlife Wonders"
     },
     {
       "id": "tour-wix-up-ganga-grace-pp",
