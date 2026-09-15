@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-15T17:12:36.073Z",
+  "lastUpdated": "2026-09-15T17:23:57.745Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -1845,8 +1845,8 @@
     {
       "id": "tour-wix-rajasthan-desert-diaries",
       "wixId": "7c061a33-ffdf-47f4-b3f8-b61183326205",
-      "name": "Rajasthan Desert Diaries",
-      "slug": "rajasthan-desert-diaries",
+      "name": "Jaisalmer Desert & Jodhpur Dynasty",
+      "slug": "jaisalmer-desert-jodhpur-dynasty",
       "location": "Jaisalmer, Jodhpur",
       "city": "Jaisalmer, Jodhpur",
       "state": "Rajasthan",
@@ -1864,7 +1864,17 @@
         "Desert Safari & Dunes",
         "Ultra Luxury",
         "Rajasthan",
-        "Luxury Signature"
+        "Luxury Signature",
+        "National Tours",
+        "Winter",
+        "Summer",
+        "Monsoon",
+        "Spring",
+        "Couple & Honeymoon",
+        "Family Trips",
+        "Group Tours",
+        "Budget Friendly Trips",
+        "Solo Trips"
       ],
       "tags": [
         "National",
@@ -1881,11 +1891,11 @@
       ],
       "duration": "4 Nights & 5 Days",
       "durationDays": 45,
-      "price": 51100,
+      "price": 27165,
       "origPrice": 68133,
-      "originalPrice": 68133,
-      "tagline": "Discover the Blue City and golden dunes of Jaisalmer with upgraded 4-star comfort.",
-      "description": "Discover the Blue City and golden dunes of Jaisalmer with upgraded 4-star comfort.",
+      "originalPrice": 31959,
+      "tagline": "Discover the Jaisalmer Desert & Jodhpur Dynasty, where golden dunes, majestic forts, vibrant culture, and royal tales await.",
+      "description": "<!--StartFragment-->Discover the Jaisalmer Desert &amp; Jodhpur Dynasty, where golden dunes, majestic forts, vibrant culture, and royal tales await.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/7f7d02_8e4a5b29a6f646ed9ddd0b0a3ea391a4~mv2.jpg/Night%20under%20the%20stars.%20%20(1).jpg#originWidth=4000&originHeight=6000",
       "badge": "National Signature",
@@ -1905,52 +1915,59 @@
         "Personal Expenses",
         "Entry Tickets",
         "Anything not mentioned in the inclusions",
-        "All activities on direct payment basis"
+        "All activities on direct payment basis",
+        "Parking expenses"
       ],
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival in Jodhpur",
+          "title": "Arrival in Jodhpur",
           "desc": "Arrive at Jodhpur airport, then transfer to the hotel. Check in to your hotel and freshen up. In the afternoon, visit Mehrangarh Fort, one of India’s largest forts. Explore the museum and take in the stunning views of the 'Blue City.' In the evening, take a stroll through the Clock Tower and Sardar Market for local handicrafts and snacks. Return to the hotel for an overnight stay in Jodhpur.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Full Day Sightseeing in Jodhpur",
+          "title": "Full Day Sightseeing in Jodhpur",
           "desc": "After breakfast, drive to visit Umaid Bhawan Palace, a royal palace that’s also a luxury hotel and museum. Explore Jaswant Thada, a white marble cenotaph offering serene views. Visit Rao Jodha Desert Rock Park and Mandore Gardens. Enjoy some local handicraft shopping as Jodhpur is famous for its handicrafts—take time to explore local shops and artisans. Return to the hotel for an overnight stay.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Jodhpur to Jaisalmer (5 Hrs / 270 Kms)",
+          "title": "Jodhpur to Jaisalmer (5 Hrs / 270 Kms)",
           "desc": "After breakfast, check out from the hotel and transfer to Jaisalmer. Upon arrival in Jaisalmer, complete the check-in process and relax. Visit Gandisar Lake for boating and enjoy the sunset views. Walk through the local markets for unique handicrafts. Overnight stay at the hotel in Jaisalmer.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Full Day Sightseeing in Jaisalmer",
+          "title": "Full Day Sightseeing in Jaisalmer",
           "desc": "After breakfast, check out from the hotel and drive to local sightseeing points - · Jaisalmer Fort (Sonar Quila) · Patwon Ki Haveli · Salim Singh Ki Haveli Experience a desert safari at Sam Sand Dunes, including a camel ride. Check in for your tent stay and enjoy an overnight stay in Jaisalmer.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 5,
-          "title": "Day 5: Departure",
+          "title": "Departure",
           "desc": "After breakfast, check out from the camp and drive to the airport. Board your pre-booked flight with beautiful memories.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "heroTagline": "Discover the Jaisalmer Desert & Jodhpur Dynasty, where golden dunes, majestic forts, vibrant culture, and royal tales await.",
+      "discountBadge": "15% OFF",
+      "itinerarySectionTitle": "Itinerary for Forts & Forgotten Tales",
+      "seo": {
+        "focusKeyword": "Jaisalmer Desert & Jodhpur Dynasty"
+      }
     },
     {
       "id": "tour-wix-meghalaya-highland-holiday-2",
