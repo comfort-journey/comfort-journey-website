@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-15T08:37:45.367Z",
+  "lastUpdated": "2026-09-15T08:46:59.394Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -1492,8 +1492,8 @@
     {
       "id": "tour-wix-rajasthan-color-route",
       "wixId": "571d06d9-295b-46d6-b1f3-0cccf307cdd3",
-      "name": "Rajasthan Color Route",
-      "slug": "rajasthan-color-route",
+      "name": "Jaipur Ajmer Pushkar Essence- A Celebration of Rajasthan",
+      "slug": "jaipur-ajmer-pushkar-essence-a-celebration-of-rajasthan",
       "location": "Jaipur, Ajmer, Pushkar",
       "city": "Jaipur, Ajmer, Pushkar",
       "state": "Rajasthan",
@@ -1509,7 +1509,18 @@
         "Heritage & Palaces",
         "Culture & Heritage",
         "Rajasthan",
-        "Luxury Signature"
+        "Luxury Signature",
+        "National Tours",
+        "Summer",
+        "Winter",
+        "Spring",
+        "Couple & Honeymoon",
+        "Family Trips",
+        "Group Tours",
+        "Solo Trips",
+        "Budget Friendly Trips",
+        "Heritage & Culture",
+        "Pilgrimage & Spiritual"
       ],
       "tags": [
         "National",
@@ -1522,13 +1533,13 @@
         "Rajasthan",
         "Luxury Signature"
       ],
-      "duration": "2 Nights and 3 Days",
+      "duration": "3 Nights and 4 Days",
       "durationDays": 23,
-      "price": 67362,
+      "price": 19999,
       "origPrice": 79250,
-      "originalPrice": 79250,
-      "tagline": "Experience luxury with 5-star stays and premium transportation while exploring the Pink City and sacred Pushkar",
-      "description": "Experience luxury with 5-star stays and premium transportation while exploring the Pink City and sacred Pushkar",
+      "originalPrice": 24999,
+      "tagline": "Experience royal Jaipur, sacred Ajmer and vibrant Pushkar through heritage, culture, temples and timeless charm.",
+      "description": "<!--StartFragment-->Experience royal Jaipur, sacred Ajmer and vibrant Pushkar through heritage, culture, temples and timeless charm.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/nsplsh_3350314736377a4e794349~mv2.jpg/Image%20by%20Aditya%20Siva.jpg#originWidth=5760&originHeight=3840",
       "badge": "National Signature",
@@ -1552,39 +1563,45 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival in Jaipur",
+          "title": "Arrival in Jaipur",
           "desc": "Arrive at Jaipur Railway Station or Airport. Transfer to the hotel and check in. Freshen up and relax. In the evening, visit Albert Hall Museum and take a walk around Johari Bazaar. Overnight stay at the hotel.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified. "
         },
         {
           "day": 2,
-          "title": "Day 2: Jaipur Sightseeing",
+          "title": "Jaipur Sightseeing",
           "desc": "After breakfast, visit Amber Fort, Jal Mahal, Hawa Mahal, City Palace, and Jantar Mantar. In the evening, enjoy the local markets or explore Nahargarh Fort for panoramic views. Overnight stay in Jaipur.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified. "
         },
         {
           "day": 3,
-          "title": "Day 3: Jaipur to Ajmer & Pushkar (130 Kms / 3 Hrs)",
+          "title": "Jaipur to Ajmer & Pushkar (130 Kms / 3 Hrs)",
           "desc": "After breakfast, drive to Ajmer to visit Ajmer Sharif Dargah. Then proceed to Pushkar and check into the hotel. Overnight stay in Pushkar.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified. "
         },
         {
           "day": 4,
-          "title": "Day 4: Sightseeing in Pushkar and Departure",
+          "title": "Sightseeing in Pushkar and Departure",
           "desc": "After breakfast, complete the check-out process and drive to local sightseeing points · Brahma Temple · Pushkar Lake Return to your destination with beautiful memories.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified. "
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "itinerarySectionTitle": "4 Days of Timeless Rajasthan",
+      "heroTagline": "Experience royal Jaipur, sacred Ajmer and vibrant Pushkar through heritage, culture, temples and timeless charm.",
+      "seo": {
+        "focusKeyword": "Jaipur Ajmer Pushkar"
+      },
+      "discountBadge": "20% OFF"
     },
     {
       "id": "tour-wix-nainital-jim-corbett-2",
