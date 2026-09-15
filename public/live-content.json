@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-14T18:08:00.028Z",
+  "lastUpdated": "2026-09-15T08:36:59.892Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -1365,8 +1365,8 @@
     {
       "id": "tour-wix-rajasthan-grand-getaway-2",
       "wixId": "55b4dc00-61ff-473a-9747-615620c0c964",
-      "name": "Rajasthan Grand Getaway",
-      "slug": "rajasthan-grand-getaway-2",
+      "name": "Jaipur Heritage – The Royal Pink Chapter",
+      "slug": "jaipur-heritage-the-royal-pink-chapter",
       "location": "Jaipur",
       "city": "Jaipur",
       "state": "Rajasthan",
@@ -1383,9 +1383,16 @@
         "Culture & Heritage",
         "Wildlife & Nature",
         "Backwaters & Nature",
-        "Monsoon",
         "Rajasthan",
-        "Luxury Signature"
+        "Luxury Signature",
+        "National Tours",
+        "Winter",
+        "Summer",
+        "Couple & Honeymoon",
+        "Group Tours",
+        "Solo Trips",
+        "Budget Friendly Trips",
+        "Heritage & Culture"
       ],
       "tags": [
         "National",
@@ -1403,11 +1410,11 @@
       ],
       "duration": "4 Nights & 5 Days",
       "durationDays": 45,
-      "price": 93891,
+      "price": 19949,
       "origPrice": 98833,
-      "originalPrice": 98833,
-      "tagline": "Indulge in the ultimate luxury experience of Rajasthan with 5-star accommodations and premium transportation. Discover the cultural and natural treasures of Jaipur, Khatushyam Ji, and Ranthambore National Park.",
-      "description": "Indulge in the ultimate luxury experience of Rajasthan with 5-star accommodations and premium transportation. Discover the cultural and natural treasures of Jaipur, Khatushyam Ji, and Ranthambore National Park.",
+      "originalPrice": 20999,
+      "tagline": "Discover Jaipur’s Heritage, royal palaces, vibrant bazaars, and timeless charm in the Pink City, the cultural and natural treasures of Jaipur, Khatushyam Ji, and Ranthambore National Park.",
+      "description": "<!--StartFragment-->Discover Jaipur’s Heritage, royal palaces, vibrant bazaars, and timeless charm in the Pink City, the cultural and natural treasures of Jaipur, Khatushyam Ji, and Ranthambore National Park.",
       "image": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/nsplsh_95c20c2b7d73470aaa4bf07274a93ef2~mv2.jpg/Image%20by%20Gaurav%20Sehara.jpg#originWidth=3648&originHeight=4864",
       "badge": "National Signature",
@@ -1433,47 +1440,53 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival at Jaipur and Khatushyam Ji Darshan",
+          "title": "Arrival at Jaipur and Khatushyam Ji Darshan",
           "desc": "Arrive at Jaipur airport in the afternoon and transfer to the hotel for check-in. In the evening, perform darshan and pooja at Khatushyam Ji. Return to Jaipur and overnight stay at the hotel.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Jaipur Local Sightseeing",
+          "title": "Jaipur Local Sightseeing",
           "desc": "After breakfast, drive for a local sightseeing tour to visit Amber Fort, Jal Mahal, Hawa Mahal, City Palace, Jantar Mantar, and Albert Hall Museum. In the evening, explore local markets like Johari Bazaar and Bapu Bazaar. Return to the hotel and overnight stay.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Jaipur to Ranthambore National Park",
+          "title": "Jaipur to Ranthambore National Park",
           "desc": "After breakfast, check out from the hotel and drive to Ranthambore. Upon reaching, complete the check-in process, then drive to Ranthambore National Park for the evening jungle safari. Return to the hotel and overnight stay.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Ranthambore to Jaipur – Sightseeing",
+          "title": "Ranthambore to Jaipur – Sightseeing",
           "desc": "After breakfast, check out from the hotel and drive back to Jaipur. Upon arrival, complete the check-in process and visit Birla Mandir. Explore Nahargarh Fort for sunset views. Return to the hotel and overnight stay in Jaipur.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 5,
-          "title": "Day 5: Departure",
+          "title": "Departure",
           "desc": "Complete check-out in the early morning and drive to Jaipur airport to board your pre-booked flight, taking home beautiful memories.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "heroTagline": "Discover Jaipur’s Heritage, royal palaces, vibrant bazaars, and timeless charm in the Pink City, the cultural and natural treasures of Jaipur, Khatushyam Ji, and Ranthambore National Park.",
+      "seo": {
+        "focusKeyword": "Jaipur Heritage"
+      },
+      "itinerarySectionTitle": "5 Days of Royal Palaces, Majestic Forts & Timeless Tales",
+      "discountBadge": "5% OFF"
     },
     {
       "id": "tour-wix-rajasthan-color-route",
