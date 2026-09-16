@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-16T17:25:59.380Z",
+  "lastUpdated": "2026-09-16T17:34:47.426Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -2384,8 +2384,8 @@
     {
       "id": "tour-wix-mp-narmada-temples-3",
       "wixId": "a0387c6a-8760-43ea-a856-43cedd682a0b",
-      "name": "MP Narmada & Temples",
-      "slug": "mp-narmada-temples-3",
+      "name": "Discover Bhopal & Ujjain between lakes & temples",
+      "slug": "discover-bhopal-ujjain-between-lakes-temples",
       "location": "Bhopal, Ujjain",
       "city": "Bhopal, Ujjain",
       "state": "Madhya Pradesh",
@@ -2400,7 +2400,17 @@
         "Family Tours",
         "Heritage & Palaces",
         "Culture & Heritage",
-        "Luxury Signature"
+        "Luxury Signature",
+        "National Tours",
+        "Winter",
+        "Summer",
+        "Monsoon",
+        "Pilgrimage & Spiritual",
+        "Heritage & Culture",
+        "Family Trips",
+        "Group Tours",
+        "Solo Trips",
+        "Budget Friendly Trips"
       ],
       "tags": [
         "National",
@@ -2414,11 +2424,11 @@
       ],
       "duration": "4 Nights & 5 Days",
       "durationDays": 45,
-      "price": 39648,
+      "price": 22499,
       "origPrice": 49560,
-      "originalPrice": 49560,
-      "tagline": "A budget-friendly 5-day spiritual and cultural tour covering Bhopal’s lakes, Ujjain’s temples, Omkareshwar’s sacred sites, and Maheshwar’s heritage. Includes 3-star hotels, Sedan transportation, and breakfast.",
-      "description": "A budget-friendly 5-day spiritual and cultural tour covering Bhopal’s lakes, Ujjain’s temples, Omkareshwar’s sacred sites, and Maheshwar’s heritage. Includes 3-star hotels, Sedan transportation, and breakfast.",
+      "originalPrice": 24999,
+      "tagline": "Discover Bhopal & Ujjain, blending serene lakes, ancient temples, vibrant culture, and spiritual charm with a budget-friendly 5-day tour.",
+      "description": "<!--StartFragment-->Discover <span data-start=\"695\" data-end=\"712\">Bhopal &amp; Ujjain</span>, blending serene lakes, ancient temples, vibrant culture, and spiritual charm with a budget-friendly 5-day tour.",
       "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/nsplsh_871d6920b8df430fb7ec991cc0b5b159~mv2.jpg/Image%20by%20Karan%20Suthar.jpg#originWidth=3000&originHeight=4000",
       "badge": "National Signature",
@@ -2443,47 +2453,53 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival in Bhopal",
+          "title": "Arrival in Bhopal",
           "desc": "Arrive at Bhopal Railway Station. Transfer to 3-star hotel. Visit Upper Lake, Lower Lake, and VIP Road. Overnight in Bhopal.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Bhopal to Ujjain (4 hours, 200 km)",
+          "title": "Bhopal to Ujjain (4 hours, 200 km)",
           "desc": "Drive to Ujjain. Check into hotel. Visit Mahakaleshwara Temple (Bhasm Aarti in evening) and Kal Bhairav Temple. Overnight in Ujjain.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Ujjain to Omkareshwar to Maheshwar (4 hours, 150 km)",
+          "title": "Ujjain to Omkareshwar to Maheshwar (4 hours, 150 km)",
           "desc": "Early morning visit to Mahakaleshwara Temple. Drive to Omkareshwar. Explore Omkareshwar Temple, Om Mandhata Temple, and complete Parikrama. Proceed to Maheshwar. Overnight in Maheshwar.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Maheshwar Sightseeing",
+          "title": "Maheshwar Sightseeing",
           "desc": "Visit Narmada Ghat, Maheshwar Fort, Ahilya Devi Temple, and Rajwada Maheshwar. Evening free for shopping or exploring local markets. Overnight in Maheshwar.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 5,
-          "title": "Day 5: Maheshwar to Bhopal (4 hours, 290 km)",
+          "title": "Maheshwar to Bhopal (4 hours, 290 km)",
           "desc": "Check out and drive back to Bhopal. Tour concludes with unforgettable memories.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "heroTagline": "Discover Bhopal & Ujjain, blending serene lakes, ancient temples, vibrant culture, and spiritual charm with a budget-friendly 5-day tour.",
+      "itinerarySectionTitle": "Day by Day itinerary for Bhopal & Ujjain tour.",
+      "discountBadge": "10% OFF",
+      "seo": {
+        "focusKeyword": " lakes & temples"
+      }
     },
     {
       "id": "tour-wix-gujarat-divine-wild-3",
