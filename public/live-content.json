@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-16T17:42:56.367Z",
+  "lastUpdated": "2026-09-16T17:53:03.240Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -2626,8 +2626,8 @@
     {
       "id": "tour-wix-bhopal-ujjain-indore-4n-5d",
       "wixId": "b1f07615-8860-4b5f-b99d-a8c0656302b3",
-      "name": "Bhopal-Ujjain-Indore 4N-5D",
-      "slug": "bhopal-ujjain-indore-4n-5d",
+      "name": "The Madhya Pradesh Chapter: Bhopal, Ujjain, Indore",
+      "slug": "the-madhya-pradesh-chapter-bhopal-ujjain-indore",
       "location": "Bhopal, Indore, Ujjain",
       "city": "Bhopal, Indore, Ujjain",
       "state": "Madhya Pradesh",
@@ -2642,7 +2642,17 @@
         "Family Tours",
         "Heritage & Palaces",
         "Culture & Heritage",
-        "Luxury Signature"
+        "Luxury Signature",
+        "National Tours",
+        "Winter",
+        "Summer",
+        "Monsoon",
+        "Spring",
+        "Family Trips",
+        "Group Tours",
+        "Solo Trips",
+        "Heritage & Culture",
+        "Pilgrimage & Spiritual"
       ],
       "tags": [
         "National",
@@ -2656,11 +2666,11 @@
       ],
       "duration": "4 Nights & 5 Days",
       "durationDays": 45,
-      "price": 40040,
+      "price": 22499,
       "origPrice": 44488,
-      "originalPrice": 44488,
-      "tagline": "A budget-friendly 5-day spiritual and cultural tour covering Bhopal’s lakes, Ujjain’s temples, Omkareshwar’s sacred sites, and Indore’s heritage. Includes 3-star hotels, Sedan transportation, and breakfast. Note: Dress code required for temple entry (Dhoti-kurta/Saree).",
-      "description": "A budget-friendly 5-day spiritual and cultural tour covering Bhopal’s lakes, Ujjain’s temples, Omkareshwar’s sacred sites, and Indore’s heritage. Includes 3-star hotels, Sedan transportation, and breakfast. Note: Dress code required for temple entry (Dhoti-kurta/Saree).",
+      "originalPrice": 24999,
+      "tagline": "Discover The Madhya Pradesh Chapter: Bhopal Ujjain Indore, blending serene lakes, sacred temples, rich history, and vibrant city life.",
+      "description": "<!--StartFragment-->Discover The Madhya Pradesh Chapter: Bhopal Ujjain Indore, blending serene lakes, sacred temples, rich history, and vibrant city life.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/7f7d02_e38e197773a749a3af395de4dafe36b4~mv2.jpg/It%E2%80%99s%20the%20power%20of%20love%20that%20creates%20history%20of%20happiness%20for%20life%20and%20beyond.%20(1).jpg#originWidth=3147&originHeight=3932",
       "badge": "National Signature",
@@ -2685,47 +2695,54 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival in Bhopal",
+          "title": "Arrival in Bhopal",
           "desc": "Arrive at Bhopal Railway Station. Check into 3-star hotel. Visit Upper Lake, Lower Lake, Birla Mandir, Gufa Mandir, Sher Sapata, and VIP Road evening drive. Overnight in Bhopal.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Bhopal to Ujjain (4 hours, 200 km)",
+          "title": "Bhopal to Ujjain (4 hours, 200 km)",
           "desc": "After breakfast, drive to Ujjain. Check into hotel. Evening visit to Mahakaleshwara Temple (Bhasm Aarti) and Kal Bhairav Temple. Overnight in Ujjain.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Ujjain to Omkareshwar to Indore (4 hours, 140 km)",
+          "title": "Ujjain to Omkareshwar to Indore (4 hours, 140 km)",
           "desc": "Early morning Bhasm Aarti at Mahakaleshwara Temple. Drive to Omkareshwar. Explore Omkareshwar Temple, Omkareshwar Manhattan Temple, and Parikrama. Proceed to Indore. Overnight in Indore.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Indore Sightseeing",
+          "title": "Indore Sightseeing",
           "desc": "Visit Lal Bagh Palace, Khajrana Ganesh Temple, Kanch Mahal, ISKCON Temple, Rajwada, and Sarafa Bazaar. Evening free for shopping. Overnight in Indore.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 5,
-          "title": "Day 5: Departure",
+          "title": "Departure",
           "desc": "Check out and drive back to Bhopal Railway Station.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "heroTagline": "Discover The Madhya Pradesh Chapter: Bhopal Ujjain Indore, blending serene lakes, sacred temples, rich history, and vibrant city life.",
+      "itinerarySectionTitle": "5 Days of The Timeless Madhya Pradesh",
+      "discountBadge": "10% OFF",
+      "seo": {
+        "focusKeyword": "The Madhya Pradesh Chapter",
+        "metaTitle": "The Madhya Pradesh Chapter: Bhopal, Ujjain, Indore"
+      }
     },
     {
       "id": "tour-wix-kashmir-valley-calling-2",
