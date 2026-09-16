@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-15T17:36:30.084Z",
+  "lastUpdated": "2026-09-16T17:25:59.380Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -2246,108 +2246,10 @@
       "isVisible": true
     },
     {
-      "id": "tour-wix-rajasthan-color-route-2",
-      "wixId": "8ba12b70-f5fd-4a65-976e-e5f706d72f36",
-      "name": "Rajasthan Color Route",
-      "slug": "rajasthan-color-route-2",
-      "location": "Ajmer, Jaipur, Pushkar",
-      "city": "Ajmer, Jaipur, Pushkar",
-      "state": "Rajasthan",
-      "continent": "Asia",
-      "country": "India",
-      "category": "National Tours",
-      "categories": [
-        "National",
-        "Domestic",
-        "India Tours",
-        "Family & Group",
-        "Family Tours",
-        "Heritage & Palaces",
-        "Culture & Heritage",
-        "Rajasthan",
-        "Luxury Signature"
-      ],
-      "tags": [
-        "National",
-        "Domestic",
-        "India Tours",
-        "Family & Group",
-        "Family Tours",
-        "Heritage & Palaces",
-        "Culture & Heritage",
-        "Rajasthan",
-        "Luxury Signature"
-      ],
-      "duration": "2 Nights and 3 Days",
-      "durationDays": 23,
-      "price": 45954,
-      "origPrice": 51059,
-      "originalPrice": 51059,
-      "tagline": "Combine the royal heritage of Jaipur with the spiritual charm of Pushkar in 4-star comfort.",
-      "description": "Combine the royal heritage of Jaipur with the spiritual charm of Pushkar in 4-star comfort.",
-      "image": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85",
-      "legacyWixUrl": "wix:image://v1/nsplsh_455f557958764f48534473~mv2.jpg/Image%20by%20Prateek%20Keshari.jpg#originWidth=2984&originHeight=3984",
-      "badge": "National Signature",
-      "rating": 4.95,
-      "reviews": 96,
-      "reviewsCount": 96,
-      "inclusions": [
-        "Hotel Accommodation",
-        "Breakfast",
-        "Sightseeing",
-        "Driver Allowance",
-        "Night Allowance",
-        "Transportation",
-        "Taxes"
-      ],
-      "exclusions": [
-        "Personal Expenses",
-        "Entry Tickets",
-        "Anything not mentioned in the inclusions",
-        "All activities on direct payment basis"
-      ],
-      "itinerary": [
-        {
-          "day": 1,
-          "title": "Day 1: Arrival in Jaipur",
-          "desc": "Arrive at Jaipur Railway Station or Airport. Transfer to the hotel and check in. Freshen up and relax. In the evening, visit Albert Hall Museum and take a walk around Johari Bazaar. Overnight stay at the hotel.",
-          "stayTier": "4-Star / 5-Star Luxury Stay",
-          "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
-        },
-        {
-          "day": 2,
-          "title": "Day 2: Jaipur Sightseeing",
-          "desc": "After breakfast, visit Amber Fort, Jal Mahal, Hawa Mahal, City Palace, and Jantar Mantar. In the evening, enjoy the local markets or explore Nahargarh Fort for panoramic views. Overnight stay in Jaipur.",
-          "stayTier": "4-Star / 5-Star Luxury Stay",
-          "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
-        },
-        {
-          "day": 3,
-          "title": "Day 3: Jaipur to Ajmer & Pushkar (130 Kms / 3 Hrs)",
-          "desc": "After breakfast, drive to Ajmer to visit Ajmer Sharif Dargah. Then proceed to Pushkar and check into the hotel. Overnight stay in Pushkar.",
-          "stayTier": "4-Star / 5-Star Luxury Stay",
-          "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
-        },
-        {
-          "day": 4,
-          "title": "Day 4: Sightseeing in Pushkar and Departure",
-          "desc": "After breakfast, complete the check-out process and drive to local sightseeing points - · Brahma Temple · Pushkar Lake Return to your destination with beautiful memories.",
-          "stayTier": "4-Star / 5-Star Luxury Stay",
-          "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
-        }
-      ],
-      "status": "published",
-      "isVisible": true
-    },
-    {
       "id": "tour-wix-shimla-to-manali-story-3",
       "wixId": "913fa3ae-5027-4458-b4cc-78886a3f4aed",
-      "name": "Shimla To Manali Story",
-      "slug": "shimla-to-manali-story-3",
+      "name": "Shimla Manali Kullu — The Mountain Chapter",
+      "slug": "shimla-manali-kullu-the-mountain-chapter",
       "location": "Shimla, Manali",
       "city": "Shimla, Manali",
       "state": "Himachal Pradesh",
@@ -2369,7 +2271,12 @@
         "Solo Trips",
         "Adventure & Trekking",
         "Himachal",
-        "Luxury Signature"
+        "Luxury Signature",
+        "National Tours",
+        "Couple & Honeymoon",
+        "Group Tours",
+        "Budget Friendly Trips",
+        "Monsoon"
       ],
       "tags": [
         "National",
@@ -2390,11 +2297,11 @@
       ],
       "duration": "5 Nights & 6 Days",
       "durationDays": 56,
-      "price": 51681,
+      "price": 26399,
       "origPrice": 54401,
-      "originalPrice": 54401,
-      "tagline": "A curated winter tour through the scenic hills of Himachal Pradesh, covering Shimla, Kullu Valley, and Manali.",
-      "description": "A curated winter tour through the scenic hills of Himachal Pradesh, covering Shimla, Kullu Valley, and Manali.",
+      "originalPrice": 32999,
+      "tagline": "Discover the Mountain chapter, where pine forests, valleys, and snow-capped peaks' charm await.",
+      "description": "<!--StartFragment-->Discover <span data-start=\"781\" data-end=\"804\">the Mountain chapte</span><strong data-start=\"781\" data-end=\"804\">r</strong>, where pine forests, valleys, and&nbsp;snow-capped peaks'&nbsp;charm await.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/nsplsh_654dea76a0d44c36af8fc90a8f40eb31~mv2.jpg/Image%20by%20Raj%20Mathur.jpg#originWidth=2176&originHeight=4203",
       "badge": "National Signature",
@@ -2418,55 +2325,61 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Exploration & Sightseeing",
+          "title": "Exploration & Sightseeing",
           "desc": "Chandigarh arrival, transfer to Shimla via scenic routes. Explore Mall Road: Shimla's main commercial street with shops, cafes, and local attractions. Visit The Ridge: panoramic views. Enjoy Jakhoo Temple. Overnight in Chandigarh.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Exploration & Sightseeing",
+          "title": "Exploration & Sightseeing",
           "desc": "Shimla Sightseeing - Kufri and Heritage Sites Visit Kufri (horse riding/skiing), Viceregal Lodge (colonial history), Christ Church (historical temple), and Mall Road. Overnight stay in Shimla.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Exploration & Sightseeing",
+          "title": " Exploration & Sightseeing",
           "desc": "Scenic Drive to Manali via Kullu Valley. Drive to Manali through Kullu Valley (7-8 hours). Check into hotel to relax. Overnight stay in Manali.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Exploration & Sightseeing",
+          "title": " Exploration & Sightseeing",
           "desc": "Manali Local Sights - Temple and Hot Springs Explore Hadimba Temple, Manu Temple, Vashisht Baths, Manali Mall Road. Optional Old Manali visit. Overnight in Manali.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 5,
-          "title": "Day 5: Exploration & Sightseeing",
+          "title": "Exploration & Sightseeing",
           "desc": "Kullu Valley Excursion - Culture and Natural Beauty Drive to Kullu (40 km) and visit Raghunath Temple, Shawl Factory and Beas River. Return to Manali for relaxation. Overnight stay in Manali.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 6,
-          "title": "Day 6: Exploration & Sightseeing",
-          "desc": ": Return to Chandigarh (8-9 hours).",
+          "title": " Exploration & Sightseeing",
+          "desc": "Return to Chandigarh (8-9 hours).",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "heroTagline": "Discover the Mountain chapter, where pine forests, valleys, and snow-capped peaks' charm await.",
+      "itinerarySectionTitle": "6 Days of the Mountain chapter",
+      "discountBadge": "20% OFF",
+      "seo": {
+        "focusKeyword": " The Mountain Chapter"
+      }
     },
     {
       "id": "tour-wix-mp-narmada-temples-3",
