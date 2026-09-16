@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-16T17:34:47.426Z",
+  "lastUpdated": "2026-09-16T17:42:56.367Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -2504,10 +2504,10 @@
     {
       "id": "tour-wix-gujarat-divine-wild-3",
       "wixId": "ac5441fb-1f45-482a-b40f-66de8d126d89",
-      "name": "Gujarat Divine & Wild",
-      "slug": "gujarat-divine-wild-3",
-      "location": "Dwarka, Somnath",
-      "city": "Dwarka, Somnath",
+      "name": "The Sacred Gujarat Journey",
+      "slug": "the-sacred-gujarat-journey",
+      "location": "Dwarka, Somnath, Gir",
+      "city": "Dwarka, Somnath, Gir",
       "state": "Gujarat",
       "continent": "Asia",
       "country": "India",
@@ -2518,7 +2518,14 @@
         "India Tours",
         "Family & Group",
         "Family Tours",
-        "Luxury Signature"
+        "Luxury Signature",
+        "National Tours",
+        "Winter",
+        "Summer",
+        "Family Trips",
+        "Budget Friendly Trips",
+        "Heritage & Culture",
+        "Pilgrimage & Spiritual"
       ],
       "tags": [
         "National",
@@ -2530,11 +2537,11 @@
       ],
       "duration": "5 Nights & 6 Days",
       "durationDays": 56,
-      "price": 53820,
+      "price": 29759,
       "origPrice": 63317,
-      "originalPrice": 63317,
-      "tagline": "A budget-friendly 6-day tour covering Dwarka’s temples, Somnath’s spirituality, Diu’s colonial charm, and Gir’s wildlife. Includes 3-star hotels, Sedan transportation, and breakfast.",
-      "description": "A budget-friendly 6-day tour covering Dwarka’s temples, Somnath’s spirituality, Diu’s colonial charm, and Gir’s wildlife. Includes 3-star hotels, Sedan transportation, and breakfast.",
+      "originalPrice": 31999,
+      "tagline": "A budget-friendly 6-day tour covering Dwarka’s temples, Somnath’s spirituality, Diu’s colonial charm, and Gir’s wildlife with Gujarat’s timeless charm.",
+      "description": "A budget-friendly 6-day tour covering Dwarka’s temples, Somnath’s spirituality, Diu’s colonial charm, and Gir’s wildlife with&nbsp;Gujarat’s timeless charm.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/7f7d02_aec844778fcb415a91f34787c471a0a3~mv2.jpg/External%20View%20of%20architectural%20beauty%20Vijay%20Vilas%20Palace.%20(1).jpg#originWidth=5184&originHeight=3456",
       "badge": "National Signature",
@@ -2560,55 +2567,61 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival in Ahmedabad & Transfer to Dwarka (8 hours, 450 km)",
+          "title": "Arrival in Ahmedabad & Transfer to Dwarka (8 hours, 450 km)",
           "desc": "Arrive in Ahmedabad. Drive to Dwarka. Check into 3-star resort. Overnight in Dwarka.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Dwarka Sightseeing",
+          "title": "Dwarka Sightseeing",
           "desc": "Visit Bet Dwarka Island, Nageshwar Temple (Jyotirlinga), and Dwarkadhish Temple. Overnight in Dwarka.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Dwarka to Somnath (4 hours, 235 km)",
+          "title": " Dwarka to Somnath (4 hours, 235 km)",
           "desc": "Drive to Somnath. Visit Somnath Temple and Bhalka Tirth (Krishna’s final resting place). Overnight in Somnath.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Somnath to Diu (4 hours, 235 km)",
+          "title": "Somnath to Diu (4 hours, 235 km)",
           "desc": "Drive to Diu. Explore Diu Fort, St. Paul’s Church, Naida Caves, and Nagoa Beach. Overnight in Diu.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 5,
-          "title": "Day 5: Diu to Gir (4 hours, 230 km)",
+          "title": "Diu to Gir (4 hours, 230 km)",
           "desc": "Drive to Gir. Evening jungle safari in Gir National Park (subject to availability). Overnight in Gir.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 6,
-          "title": "Day 6: Gir Departure (7 hours, 325 km)",
+          "title": "Gir Departure (7 hours, 325 km)",
           "desc": "Check out and drive back to Ahmedabad with unforgettable memories.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "heroTagline": "A budget-friendly 6-day tour covering Dwarka’s temples, Somnath’s spirituality, Diu’s colonial charm, and Gir’s wildlife with Gujarat’s timeless charm.",
+      "itinerarySectionTitle": "6 Days of Sacred Temples, Coastal Beauty & Wild Encounters",
+      "seo": {
+        "focusKeyword": "Gujarat"
+      },
+      "discountBadge": "7% OFF"
     },
     {
       "id": "tour-wix-bhopal-ujjain-indore-4n-5d",
