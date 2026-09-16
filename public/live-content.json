@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-16T17:53:03.240Z",
+  "lastUpdated": "2026-09-16T18:02:12.799Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -2747,10 +2747,10 @@
     {
       "id": "tour-wix-kashmir-valley-calling-2",
       "wixId": "b6654d9a-c428-42b8-b7ad-b73d8783e5b2",
-      "name": "Kashmir Valley Calling",
-      "slug": "kashmir-valley-calling-2",
-      "location": "Jammu &  Kashmir, Jammu, Kashmir, Srinagar, Son Marg, Gulmarg",
-      "city": "Jammu &  Kashmir, Jammu, Kashmir, Srinagar, Son Marg, Gulmarg",
+      "name": "A Symphony of Kashmir",
+      "slug": "a-symphony-of-kashmir",
+      "location": "Srinagar, Son Marg, Gulmarg",
+      "city": "Srinagar, Son Marg, Gulmarg",
       "state": "Jammu & Kashmir",
       "continent": "Asia",
       "country": "India",
@@ -2772,7 +2772,13 @@
         "Solo Trips",
         "Adventure & Trekking",
         "Kashmir",
-        "Luxury Signature"
+        "Luxury Signature",
+        "National Tours",
+        "Spring",
+        "Autumn",
+        "Monsoon",
+        "Couple & Honeymoon",
+        "Group Tours"
       ],
       "tags": [
         "National",
@@ -2795,11 +2801,11 @@
       ],
       "duration": "3 Nights & 4 Days",
       "durationDays": 34,
-      "price": 49632,
+      "price": 21113,
       "origPrice": 62040,
-      "originalPrice": 62040,
-      "tagline": "A 3-day J&K escape with Srinagar’s lakes and Gulmarg’s adventures.",
-      "description": "A 3-day J&K escape with Srinagar’s lakes and Gulmarg’s adventures.",
+      "originalPrice": 22949,
+      "tagline": "Discover Kashmir Unveiled: Srinagar, Sonamarg, Gulmarg, where serene lakes, alpine meadows and snow-capped peaks await.",
+      "description": "<!--StartFragment-->Discover&nbsp;<!--StartFragment-->Kashmir Unveiled:&nbsp;<span data-start=\"822\" data-end=\"851\">Srinagar, Sonamarg, Gulmarg</span>, where serene lakes, alpine meadows and snow-capped peaks await.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/7f7d02_9d4021fd4d2743b4bb5749ca05488c77~mv2.jpg/An%20aerial%20view%20of%20a%20city%20lit%20up%20at%20night%20(1).jpg#originWidth=4000&originHeight=2252",
       "badge": "National Signature",
@@ -2825,131 +2831,45 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival at Srinagar",
+          "title": "Arrival at Srinagar",
           "desc": "Shikara ride on Dal Lake and Mall Road visit. Overnight stay.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Srinagar to Son Marg",
+          "title": "Srinagar to Son Marg",
           "desc": "Explore Son Marg’s natural beauty. Return to Srinagar.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Srinagar to Gulmarg",
+          "title": "Srinagar to Gulmarg",
           "desc": "Visit Gulmarg’s ski slopes, Gondola, and Alpather Lake. Overnight stay.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Departure",
+          "title": "Departure",
           "desc": "Return to Srinagar and drive to airport.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
-    },
-    {
-      "id": "tour-wix-taj-braj-tales-2",
-      "wixId": "c3d57ca8-6d47-42d2-a715-2bb5d9351ae6",
-      "name": "Taj & Braj Tales",
-      "slug": "taj-braj-tales-2",
-      "location": "Ayodhya, Varanasi",
-      "city": "Ayodhya, Varanasi",
-      "state": "Uttar Pradesh",
-      "continent": "Asia",
-      "country": "India",
-      "category": "National Tours",
-      "categories": [
-        "National",
-        "Domestic",
-        "India Tours",
-        "Family & Group",
-        "Family Tours",
-        "Luxury Signature"
-      ],
-      "tags": [
-        "National",
-        "Domestic",
-        "India Tours",
-        "Family & Group",
-        "Family Tours",
-        "Luxury Signature"
-      ],
-      "duration": "3 Nights & 4 Days",
-      "durationDays": 34,
-      "price": 63360,
-      "origPrice": 79200,
-      "originalPrice": 79200,
-      "tagline": "A luxurious 4-day spiritual tour covering Agra’s Taj Mahal, Mathura’s Krishna temples, and Vrindavan’s iconic sites. Includes 5-star hotels, Crysta transportation, and curated sightseeing. Note: Dress code (Dhoti-kurta/Saree) required for temple entry.",
-      "description": "A luxurious 4-day spiritual tour covering Agra’s Taj Mahal, Mathura’s Krishna temples, and Vrindavan’s iconic sites. Includes 5-star hotels, Crysta transportation, and curated sightseeing. Note: Dress code (Dhoti-kurta/Saree) required for temple entry.",
-      "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
-      "legacyWixUrl": "wix:image://v1/7f7d02_c627c229d5ff42afbe3173bef8caf087~mv2.jpg/A%20beautiful%20replica%20statue%20of%20Lord%20Ram%20Lalla%20being%20worshipped%20at%20a%20Hindu%20festival%20in%20Mumba.jpg#originWidth=3600&originHeight=5400",
-      "badge": "National Signature",
-      "rating": 4.95,
-      "reviews": 96,
-      "reviewsCount": 96,
-      "inclusions": [
-        "Hotel Accommodation",
-        "Breakfast",
-        "Sightseeing",
-        "Driver Allowance",
-        "Night Allowance",
-        "Transportation",
-        "Taxes"
-      ],
-      "exclusions": [
-        "Personal Expenses",
-        "Entry Tickets",
-        "Anything not mentioned in inclusions",
-        "All activities on direct payment basis"
-      ],
-      "itinerary": [
-        {
-          "day": 1,
-          "title": "Day 1: Arrival in Agra",
-          "desc": "Arrive in Agra and check into 5-star hotel. Visit Taj Mahal (UNESCO site), Agra Fort, and optional Mehtab Bagh for sunset view. Overnight in Agra.",
-          "stayTier": "4-Star / 5-Star Luxury Stay",
-          "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
-        },
-        {
-          "day": 2,
-          "title": "Day 2: Agra to Mathura (1.5 hours, 60 km)",
-          "desc": "After breakfast, drive to Mathura. Visit Krishna Janmabhoomi Temple, Dwarkadhish Temple, Vishram Ghat, and Government Museum. Evening Ganga Aarti at Vishram Ghat. Overnight in Mathura.",
-          "stayTier": "4-Star / 5-Star Luxury Stay",
-          "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
-        },
-        {
-          "day": 3,
-          "title": "Day 3: Vrindavan Excursion",
-          "desc": "Full-day trip to Vrindavan: Visit Banke Bihari Temple, Prem Mandir (light show), ISKCON Temple, Radha Raman Temple, and Nidhivan. Return to Mathura. Overnight in Mathura.",
-          "stayTier": "4-Star / 5-Star Luxury Stay",
-          "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
-        },
-        {
-          "day": 4,
-          "title": "Day 4: Departure",
-          "desc": "Check out and transfer to onward destination with unforgettable memories.",
-          "stayTier": "4-Star / 5-Star Luxury Stay",
-          "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
-        }
-      ],
-      "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "heroTagline": "Discover Kashmir Unveiled: Srinagar, Sonamarg, Gulmarg, where serene lakes, alpine meadows and snow-capped peaks await.",
+      "itinerarySectionTitle": "4 Days of Scenic Valleys",
+      "discountBadge": "8% OFF",
+      "seo": {
+        "focusKeyword": "Kashmir"
+      }
     },
     {
       "id": "tour-wix-madhya-pradesh-wildside-2",
