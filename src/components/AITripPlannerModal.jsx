@@ -1,13 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
-  X, Sparkles, Send, CheckCircle2, Clock, MapPin, Hotel, Users, 
-  ArrowRight, MessageCircle, Heart, ShieldCheck, Flame, Compass, 
-  Landmark, Snowflake, Palmtree, Sun, Flower2, Building2, Star, 
-  ExternalLink, PhoneCall, RefreshCw, Globe, ChevronRight, HelpCircle, Bot
+  X, Award, Send, CheckCircle2, Clock, MapPin, Hotel, Users, 
+  ArrowRight, MessageCircle, Heart, ShieldCheck, Compass, 
+  Landmark, Snowflake, Palmtree, Sun, Building2, Star, 
+  ExternalLink, RefreshCw, ChevronRight, Bot, Car, Utensils, 
+  Download, Share2, FileSpreadsheet, Printer, Map as MapIcon, SlidersHorizontal
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { TOURS_DATA } from '../data/toursData';
-import { askAIConcierge, QUICK_PROMPTS } from '../services/aiConciergeService';
+import { 
+  askAIConcierge, 
+  QUICK_PROMPTS, 
+  parseTravelIntent, 
+  generateComfyItinerary 
+} from '../services/aiConciergeService';
+import ComfySplitMap from './ComfySplitMap';
+import ProximityPlacesDrawer from './ProximityPlacesDrawer';
+import ItinerarySocialCardModal from './ItinerarySocialCardModal';
+import { exportItineraryToExcel, printPdfBrochure } from '../services/itineraryExportService';
 
 const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
 const mascotDefaultSrc = `${basePrefix}mascot-default.png`;
@@ -16,34 +26,38 @@ const mascotReactionSrc = `${basePrefix}mascot-reaction.png`;
 export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTour, onBookCustomTrip }) {
   const { formatPrice } = useCurrency();
 
-  // Mode: 'chat' (Conversational AI Concierge) | 'wizard' (4-Step Guided Builder)
-  const [activeTab, setActiveTab] = useState('chat');
+  // Mode: 'planner' (Interactive Split-Screen Map & Schedule) | 'chat' (Conversational Assistant)
+  const [activeTab, setActiveTab] = useState('planner');
+
+  // Conversational Search Input (KAYAK Style)
+  const [conversationalQuery, setConversationalQuery] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  // Active Trip Plan State (Generated via Intent or default signature trip)
+  const [tripPlan, setTripPlan] = useState(() => {
+    return generateComfyItinerary(parseTravelIntent('7 days in Kashmir for parents who need relaxed pacing, pure veg meals, and a private Innova Hycross'));
+  });
+
+  // Split-Screen Interactive State
+  const [activeDay, setActiveDay] = useState(1);
+  const [selectedStop, setSelectedStop] = useState(null);
+
+  // Modals
+  const [isSocialCardOpen, setIsSocialCardOpen] = useState(false);
 
   // Chat State
   const [messages, setMessages] = useState([
     {
       id: 'welcome',
       role: 'assistant',
-      content: `**Namaste! I am Navi, your Senior AI Travel Concierge for Comfort Journey (Est. 1992).** 👑\n\nI can answer any questions before, during, or after your vacation — including tour packages, real pricing, best seasons, packing tips, pure veg/Jain dining, private chauffeurs, or bespoke itineraries across India and 2,000+ destinations worldwide.\n\n*Ask me in English, Hindi, Hinglish, or any language you prefer!*`,
+      content: `**Namaste! I am Comfy.ai, your friendly travel assistant at Comfort Journey (Est. 1992).** 🌟\n\nI can help plan comfortable, personalized vacations across India and 2,000+ destinations worldwide — with verified hotels, private cars with courteous drivers, and pure vegetarian or Jain dining arrangements.\n\n*Speak to me naturally just like asking a travel friend!*`,
       tours: TOURS_DATA.filter(t => t.id.includes('peace-in-the-pines') || t.id.includes('bali')).slice(0, 2),
       time: 'Just now'
     }
   ]);
-  const [inputQuery, setInputQuery] = useState('');
+  const [chatInput, setChatInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  const [activePromptCategory, setActivePromptCategory] = useState('Before Travel');
   const chatBottomRef = useRef(null);
-
-  // Wizard State (4-Step Builder)
-  const [step, setStep] = useState(1);
-  const [wizardPrompt, setWizardPrompt] = useState('');
-  const [vibe, setVibe] = useState('Romantic Honeymoon');
-  const [landscape, setLandscape] = useState('Snow & Glaciers');
-  const [durationGroup, setDurationGroup] = useState('5–6 Days');
-  const [guestsCount, setGuestsCount] = useState(2);
-  const [hotelTier, setHotelTier] = useState('5-Star Royal Palace / Pool Villa');
-  const [isGeneratingWizard, setIsGeneratingWizard] = useState(false);
-  const [wizardResult, setWizardResult] = useState(null);
 
   useEffect(() => {
     if (activeTab === 'chat') {
@@ -51,16 +65,47 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
     }
   }, [messages, isTyping, activeTab]);
 
-  if (isOpen === false) return null;
+  // Set initial selected stop when activeDay changes
+  useEffect(() => {
+    if (tripPlan?.days) {
+      const currentDay = tripPlan.days.find(d => d.day === activeDay) || tripPlan.days[0];
+      if (currentDay?.stops?.length) {
+        setSelectedStop(currentDay.stops[0]);
+      }
+    }
+  }, [activeDay, tripPlan]);
 
-  // Send query to AI Concierge
+  if (!isOpen) return null;
+
+  // Handle Conversational Query Submission (KAYAK Style)
+  const handleConversationalSubmit = (overrideText) => {
+    const queryToUse = (overrideText || conversationalQuery).trim();
+    if (!queryToUse) return;
+
+    setIsGenerating(true);
+    try {
+      const parsed = parseTravelIntent(queryToUse);
+      const newTrip = generateComfyItinerary(parsed);
+
+      setTimeout(() => {
+        setTripPlan(newTrip);
+        setActiveDay(1);
+        setSelectedStop(newTrip.days[0]?.stops[0] || null);
+        setActiveTab('planner');
+        setIsGenerating(false);
+      }, 500);
+    } catch (err) {
+      console.error('Error generating trip itinerary:', err);
+      setIsGenerating(false);
+    }
+  };
+
+  // Handle Chat message
   const handleSendMessage = async (textToSend) => {
-    const text = (textToSend || inputQuery).trim();
+    const text = (textToSend || chatInput).trim();
     if (!text || isTyping) return;
 
-    setInputQuery('');
-
-    // Add user message
+    setChatInput('');
     const userMsg = {
       id: `user-${Date.now()}`,
       role: 'user',
@@ -75,6 +120,10 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
       const history = messages.map(m => ({ role: m.role, content: m.content }));
       const response = await askAIConcierge({ prompt: text, conversationHistory: history });
 
+      if (response.generatedTrip) {
+        setTripPlan(response.generatedTrip);
+      }
+
       const assistantMsg = {
         id: `assistant-${Date.now()}`,
         role: 'assistant',
@@ -87,13 +136,13 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
 
       setMessages(prev => [...prev, assistantMsg]);
     } catch (err) {
-      console.error('Error in AI Concierge chat:', err);
+      console.error('Error in Comfy.ai chat:', err);
       setMessages(prev => [
         ...prev,
         {
           id: `err-${Date.now()}`,
           role: 'assistant',
-          content: 'I apologize for the brief pause. Please feel free to ask your question again, or speak directly with our Senior Trip Designers via WhatsApp (+91 8770403315).',
+          content: 'I apologize for the brief pause. Please feel free to ask again or WhatsApp our trip curators directly at +91 8770403315.',
           tours: [],
           time: 'Just now'
         }
@@ -103,189 +152,343 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
     }
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSendMessage();
-    }
-  };
-
-  const handleWhatsAppInquiry = (tour, customText = '') => {
-    const tourTitle = tour ? tour.name : 'Custom Luxury Itinerary';
-    const tourPrice = tour?.price ? ` (₹${tour.price.toLocaleString('en-IN')})` : '';
+  // Quick WhatsApp Booking Link with prefilled custom itinerary
+  const handleWhatsAppBooking = () => {
     const message = encodeURIComponent(
-      customText || 
-      `Hi Comfort Journey! I am consulting with your AI Travel Concierge (Navi) regarding:\n` +
-      `✨ Package / Request: ${tourTitle}${tourPrice}\n` +
-      `👤 Travelers: ${guestsCount || 2} Person(s)\n` +
-      `📅 Duration: ${tour?.duration || durationGroup}\n\n` +
-      `Please connect me with a Senior Luxury Trip Curator to finalize our custom itinerary!`
+      `Hi Comfort Journey! I am reviewing a personalized vacation itinerary on your website:\n` +
+      `📍 Destination: ${tripPlan.destination}\n` +
+      `📅 Duration: ${tripPlan.duration}\n` +
+      `👥 Travelers: ${tripPlan.party} (${tripPlan.pacing})\n` +
+      `🚗 Vehicle: ${tripPlan.vehicle}\n` +
+      `🍲 Meals: ${tripPlan.dietary}\n` +
+      `🏨 Stay Tier: ${tripPlan.stayTier}\n\n` +
+      `Please connect me with a friendly trip manager to confirm dates and final package pricing!`
     );
     window.open(`https://wa.me/918770403315?text=${message}`, '_blank');
   };
 
-  // Step wizard generation
-  const handleWizardGenerate = () => {
-    setIsGeneratingWizard(true);
-    setStep(5);
-
-    setTimeout(() => {
-      const lowerPrompt = wizardPrompt.toLowerCase().trim();
-      let matchedTour = TOURS_DATA.find(t => {
-        const name = (t.name || '').toLowerCase();
-        const country = (t.country || '').toLowerCase();
-        const loc = (t.location || '').toLowerCase();
-        return (lowerPrompt && (name.includes(lowerPrompt) || country.includes(lowerPrompt) || loc.includes(lowerPrompt))) ||
-               (landscape === 'Snow & Glaciers' && (name.includes('kashmir') || loc.includes('kashmir'))) ||
-               (landscape === 'Tropical Islands' && (name.includes('bali') || loc.includes('bali'))) ||
-               (landscape === 'Desert Oasis' && (name.includes('dubai') || loc.includes('dubai'))) ||
-               (landscape === 'European Fairytale' && (name.includes('europe') || loc.includes('europe')));
-      }) || TOURS_DATA[0];
-
-      setWizardResult({
-        matchedTour,
-        destination: wizardPrompt || matchedTour.location || landscape,
-        estimatedCost: matchedTour.price || 48999,
-        summary: `Tailor-made ${durationGroup} VIP itinerary combining ${vibe} with ${landscape} scenery: ${matchedTour.name}.`
-      });
-
-      setIsGeneratingWizard(false);
-    }, 900);
+  // Customizer: Pacing toggle
+  const handleTogglePacing = (newPacing) => {
+    setTripPlan(prev => ({
+      ...prev,
+      pacing: newPacing,
+      subtitle: `Personalized for ${prev.party} · ${prev.vehicle} · ${newPacing}`
+    }));
   };
 
-  const vibesList = [
-    { title: 'Romantic Honeymoon', desc: 'Candlelight dinners, private villas & sunset cruises', icon: Heart },
-    { title: 'Family Wonder', desc: 'Child-friendly pacing, spacious SUVs & luxury resorts', icon: Users },
-    { title: 'Thrill & Treks', desc: 'Snowmobiling, scuba, dune bashing & hiking', icon: Compass },
-    { title: 'Ultra Luxury Palaces', desc: 'Royal heritage suites, private butlers & helicopters', icon: Sparkles },
-    { title: 'Sacred Heritage', desc: 'Char Dham, Kedarnath VIP darshan & Ganga aarti', icon: Landmark }
-  ];
+  // Customizer: Vehicle toggle
+  const handleChangeVehicle = (newVehicle) => {
+    setTripPlan(prev => {
+      const updated = { ...prev, vehicle: newVehicle };
+      updated.days = prev.days.map(d => ({
+        ...d,
+        stops: d.stops.map(s => s.type === 'transport' ? { ...s, subtitle: `${newVehicle} with courteous driver` } : s)
+      }));
+      return updated;
+    });
+  };
 
-  const landscapesList = [
-    { title: 'Snow & Glaciers', sub: 'Kashmir, Swiss Alps, Iceland', icon: Snowflake },
-    { title: 'Tropical Islands', sub: 'Bali, Maldives, Andaman', icon: Palmtree },
-    { title: 'Desert Oasis', sub: 'Dubai, Abu Dhabi, Rajasthan', icon: Sun },
-    { title: 'European Fairytale', sub: 'Italy, France, Switzerland', icon: Landmark },
-    { title: 'African Safari', sub: 'Kenya Maasai Mara, Serengeti', icon: Compass },
-    { title: 'Japanese Zen', sub: 'Kyoto, Tokyo, Mount Fuji', icon: Flower2 }
-  ];
+  // Customizer: Stay Tier toggle
+  const handleChangeStayTier = (newTier) => {
+    setTripPlan(prev => ({
+      ...prev,
+      stayTier: newTier,
+      price: newTier.includes('5★') ? prev.price + 12000 : prev.price
+    }));
+  };
+
+  const activeDayData = tripPlan?.days?.find(d => d.day === activeDay) || tripPlan?.days?.[0];
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content ai-concierge-modal" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content comfy-ai-planner-modal" onClick={(e) => e.stopPropagation()}>
         
-        {/* TOP BRAND HEADER WITH MASCOT AVATAR */}
-        <div className="ai-modal-top-bar">
-          <div className="ai-mascot-badge-wrap">
-            <div className="ai-mascot-avatar-circle">
+        {/* TOP BRAND HEADER (COMFY.AI) */}
+        <div className="comfy-modal-top-bar">
+          <div className="comfy-brand-group">
+            <div className="comfy-mascot-avatar-circle">
               <img 
                 src={mascotDefaultSrc} 
-                alt="Navi Comfort Wolf Mascot" 
-                className="ai-avatar-wolf-img"
+                alt="Comfy Wolf Mascot" 
+                className="comfy-avatar-img"
                 onError={(e) => { e.currentTarget.src = './mascot-default.png'; }}
               />
-              <span className="ai-online-beacon" />
+              <span className="comfy-online-beacon" />
             </div>
 
-            <div className="ai-title-block">
-              <div className="ai-brand-pill">
-                <Sparkles size={13} className="text-amber" />
+            <div className="comfy-title-meta">
+              <div className="comfy-est-tag">
+                <Award size={13} className="text-amber" />
                 <span>COMFORT JOURNEY • EST. 1992</span>
               </div>
-              <h2 className="ai-concierge-heading">
-                Navi <span className="text-orange-glow">AI Travel Concierge</span>
+              <h2 className="comfy-planner-heading">
+                Comfy.ai <span className="text-amber">Travel Planner</span>
               </h2>
-              <p className="ai-concierge-status">
+              <p className="comfy-planner-subtitle">
                 <span className="status-dot-green" />
-                <span>Online • Handcrafting 2,000+ Bespoke Luxury Journeys Worldwide</span>
+                <span>Live Map & Route Itinerary • Personalized Holidays Planned Just for You</span>
               </p>
             </div>
           </div>
 
-          <div className="ai-top-controls">
-            {/* Direct 24/7 Concierge Hotline */}
+          <div className="comfy-top-actions">
             <a 
               href="https://wa.me/918770403315" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="ai-hotline-btn"
-              title="Chat with Senior Trip Designer"
+              className="comfy-hotline-pill"
+              title="Speak with friendly Trip Manager"
             >
               <MessageCircle size={15} />
               <span className="hidden-mobile">+91 8770403315</span>
             </a>
 
-            <button className="ai-close-btn" onClick={onClose} aria-label="Close">
+            <button className="comfy-close-btn" onClick={onClose} aria-label="Close">
               <X size={20} />
             </button>
           </div>
         </div>
 
-        {/* MODE SWITCHER TABS: CONVERSATIONAL CHAT vs GUIDED BUILDER */}
-        <div className="ai-mode-tabs-bar">
+        {/* KAYAK-STYLE CONVERSATIONAL SEARCH BAR */}
+        <div className="comfy-conversational-search-section">
+          <div className="search-bar-inner">
+            <Compass size={20} className="search-compass-icon text-amber" />
+            <input 
+              type="text"
+              className="conversational-input"
+              placeholder='Speak naturally: e.g. "7 days in Kashmir for parents who need relaxed pacing, pure veg meals, and a private Innova Hycross"'
+              value={conversationalQuery}
+              onChange={(e) => setConversationalQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') handleConversationalSubmit();
+              }}
+            />
+            <button 
+              type="button" 
+              className="btn-plan-journey"
+              onClick={() => handleConversationalSubmit()}
+              disabled={isGenerating}
+            >
+              {isGenerating ? (
+                <span>Planning...</span>
+              ) : (
+                <>
+                  <Compass size={15} />
+                  <span>Plan My Vacation</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          {/* Quick Conversational Prompt Chips (1-Click KAYAK Experience) */}
+          <div className="conversational-chips-row">
+            <span className="chips-label">Try asking:</span>
+            {[
+              '7 days in Kashmir for parents with relaxed pacing & Innova Hycross',
+              '5 days Bali honeymoon with private pool villa & veg meals',
+              '4 days Dubai family trip with desert safari & Burj Khalifa'
+            ].map((chip, idx) => (
+              <button 
+                key={idx}
+                type="button"
+                className="query-suggestion-chip"
+                onClick={() => {
+                  setConversationalQuery(chip);
+                  handleConversationalSubmit(chip);
+                }}
+              >
+                <span>{chip}</span>
+                <ChevronRight size={12} />
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* MODE TABS BAR: SPLIT-SCREEN PLANNER vs CHAT */}
+        <div className="comfy-mode-tabs-bar">
           <button 
             type="button"
-            className={`ai-mode-tab ${activeTab === 'chat' ? 'active' : ''}`}
-            onClick={() => setActiveTab('chat')}
+            className={`comfy-tab-btn ${activeTab === 'planner' ? 'active' : ''}`}
+            onClick={() => setActiveTab('planner')}
           >
-            <Bot size={16} />
-            <span>Ask Navi Anything (Chat & Advice)</span>
+            <MapIcon size={16} />
+            <span>Interactive Split-Screen Map & Schedule</span>
           </button>
 
           <button 
             type="button"
-            className={`ai-mode-tab ${activeTab === 'wizard' ? 'active' : ''}`}
-            onClick={() => setActiveTab('wizard')}
+            className={`comfy-tab-btn ${activeTab === 'chat' ? 'active' : ''}`}
+            onClick={() => setActiveTab('chat')}
           >
-            <Compass size={16} />
-            <span>Guided 4-Step Trip Builder</span>
+            <Bot size={16} />
+            <span>Ask Comfy.ai Anything (Advice & Tips)</span>
           </button>
         </div>
 
         {/* =========================================================================
-            MODE 1: CONVERSATIONAL AI CONCIERGE CHAT
+            TAB 1: INTERACTIVE SPLIT-SCREEN TRIP PLANNER (TRIP.COM STYLE)
             ========================================================================= */}
-        {activeTab === 'chat' && (
-          <div className="ai-chat-view-container">
-            {/* Interactive Prompt Pills Bar */}
-            <div className="ai-quick-topics-row">
-              <div className="ai-topic-tabs">
-                {QUICK_PROMPTS.map(cat => (
-                  <button
-                    key={cat.category}
-                    type="button"
-                    className={`topic-tab-pill ${activePromptCategory === cat.category ? 'active' : ''}`}
-                    onClick={() => setActivePromptCategory(cat.category)}
-                  >
-                    <span>{cat.category}</span>
-                  </button>
-                ))}
+        {activeTab === 'planner' && (
+          <div className="comfy-split-planner-view">
+            
+            {/* LEFT HALF: DAY-BY-DAY ITINERARY SCHEDULE & CUSTOMIZER */}
+            <div className="planner-left-panel">
+              
+              {/* Trip Overview Banner */}
+              <div className="trip-overview-card glass-panel">
+                <div className="overview-badges-wrap">
+                  <span className="pill-badge pill-amber">{tripPlan.destination}</span>
+                  <span className="pill-badge pill-emerald">{tripPlan.duration}</span>
+                  <span className="pill-badge pill-cyan">{tripPlan.party}</span>
+                </div>
+
+                <h3 className="trip-overview-title">{tripPlan.title}</h3>
+                <p className="trip-overview-subtitle">{tripPlan.subtitle}</p>
+
+                {/* Interactive Customizer Bar (Pacing, Vehicle, Stay Tier) */}
+                <div className="quick-customizer-bar">
+                  <div className="customizer-item">
+                    <span className="customizer-label">Pacing:</span>
+                    <div className="customizer-options">
+                      {['Relaxed Pace', 'Balanced Pace'].map(p => (
+                        <button
+                          key={p}
+                          type="button"
+                          className={`mini-pill ${tripPlan.pacing.includes(p.split(' ')[0]) ? 'active' : ''}`}
+                          onClick={() => handleTogglePacing(p)}
+                        >
+                          {p}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="customizer-item">
+                    <span className="customizer-label">Vehicle:</span>
+                    <div className="customizer-options">
+                      {['Innova Hycross', 'Innova Crysta', 'Luxury Sedan'].map(v => (
+                        <button
+                          key={v}
+                          type="button"
+                          className={`mini-pill ${tripPlan.vehicle.includes(v) ? 'active' : ''}`}
+                          onClick={() => handleChangeVehicle(`Private Toyota ${v} (AC)`)}
+                        >
+                          {v}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div className="ai-chips-scrollable">
-                {QUICK_PROMPTS.find(c => c.category === activePromptCategory)?.questions.map((q, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    className="ai-question-chip"
-                    onClick={() => handleSendMessage(q)}
-                  >
-                    <span>{q}</span>
-                    <ArrowRight size={12} className="chip-arrow" />
-                  </button>
-                ))}
+              {/* Day Selector Tabs Bar */}
+              <div className="planner-day-tabs-row">
+                <span className="day-tabs-heading">Schedule:</span>
+                <div className="day-tabs-scroll">
+                  {tripPlan.days?.map(d => (
+                    <button
+                      key={d.day}
+                      type="button"
+                      className={`planner-day-pill ${activeDay === d.day ? 'active' : ''}`}
+                      onClick={() => {
+                        setActiveDay(d.day);
+                        setSelectedStop(d.stops[0] || null);
+                      }}
+                    >
+                      <span>Day {d.day}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
+
+              {/* Active Day Header & Route Summary */}
+              {activeDayData && (
+                <div className="active-day-header-box">
+                  <div className="day-header-top">
+                    <h4 className="active-day-title">
+                      Day {activeDayData.day}: {activeDayData.title}
+                    </h4>
+                    <span className="day-travel-badge">
+                      <Car size={13} />
+                      <span>{activeDayData.travelDistance}</span>
+                    </span>
+                  </div>
+                  <p className="active-day-desc">{activeDayData.summary}</p>
+                </div>
+              )}
+
+              {/* Day Stops Timeline */}
+              <div className="day-timeline-list">
+                {activeDayData?.stops?.map((stop, idx) => {
+                  const isSelected = selectedStop?.title === stop.title;
+                  return (
+                    <div 
+                      key={idx} 
+                      className={`timeline-stop-card ${isSelected ? 'selected' : ''}`}
+                      onClick={() => setSelectedStop(stop)}
+                    >
+                      <div className="timeline-pin-number">
+                        <span>{idx + 1}</span>
+                      </div>
+
+                      <div className="timeline-stop-body">
+                        <div className="stop-meta-line">
+                          <span className="stop-time">
+                            <Clock size={12} />
+                            <span>{stop.time}</span>
+                          </span>
+                          <span className={`stop-type-badge type-${stop.type}`}>
+                            {stop.type}
+                          </span>
+                          {stop.ticketStatus && (
+                            <span className="stop-ticket-badge">
+                              {stop.ticketStatus}
+                            </span>
+                          )}
+                        </div>
+
+                        <h4 className="stop-title">{stop.title}</h4>
+                        <p className="stop-subtitle">{stop.subtitle}</p>
+
+                        {/* If this stop is selected, render Trip.com-style Proximity Drawer */}
+                        {isSelected && (
+                          <ProximityPlacesDrawer stop={stop} />
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
             </div>
 
-            {/* Chat Messages Stream */}
-            <div className="ai-chat-messages-scroll">
+            {/* RIGHT HALF: INTERACTIVE LEAFLET VECTOR MAP (TRIP.COM STYLE) */}
+            <div className="planner-right-panel">
+              <ComfySplitMap 
+                activeDay={activeDay}
+                days={tripPlan.days}
+                selectedStop={selectedStop}
+                onSelectStop={(stop) => setSelectedStop(stop)}
+                destinationName={tripPlan.destination}
+              />
+            </div>
+
+          </div>
+        )}
+
+        {/* =========================================================================
+            TAB 2: CONVERSATIONAL CHATBOT (COMFY.AI ASSISTANT)
+            ========================================================================= */}
+        {activeTab === 'chat' && (
+          <div className="comfy-chat-view-container">
+            <div className="comfy-chat-messages-scroll">
               {messages.map((msg) => (
                 <div key={msg.id} className={`chat-bubble-row ${msg.role === 'user' ? 'user-row' : 'assistant-row'}`}>
                   {msg.role === 'assistant' && (
                     <div className="assistant-avatar-small">
                       <img 
                         src={mascotDefaultSrc} 
-                        alt="Navi" 
+                        alt="Comfy" 
                         onError={(e) => { e.currentTarget.src = './mascot-default.png'; }}
                       />
                     </div>
@@ -295,8 +498,6 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
                     <div className="bubble-content-text">
                       {msg.content.split('\n').map((line, lIdx) => {
                         if (!line.trim()) return <div key={lIdx} className="line-spacer" />;
-                        
-                        // Bold formatting
                         const formatted = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
                         return (
                           <p 
@@ -308,24 +509,18 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
                       })}
                     </div>
 
-                    {/* Matched Tour Cards (Embedded Directly in Chat) */}
                     {msg.tours && msg.tours.length > 0 && (
                       <div className="chat-matched-tours-section">
                         <div className="matched-tours-header">
-                          <Sparkles size={13} className="text-amber" />
-                          <span>Curated Comfort Journey Packages:</span>
+                          <Compass size={13} className="text-amber" />
+                          <span>Curated Comfort Journey Holidays:</span>
                         </div>
 
                         <div className="matched-tours-grid">
                           {msg.tours.map(tour => (
                             <div key={tour.id} className="chat-tour-card glass-card">
                               <div className="card-thumb-wrap">
-                                <img 
-                                  src={tour.image} 
-                                  alt={tour.name} 
-                                  className="card-thumb-img" 
-                                  loading="lazy"
-                                />
+                                <img src={tour.image} alt={tour.name} className="card-thumb-img" loading="lazy" />
                                 <span className="card-duration-badge">
                                   <Clock size={11} />
                                   <span>{tour.duration}</span>
@@ -338,34 +533,21 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
                                   <span>{tour.location || tour.country}</span>
                                 </span>
                                 <h4 className="card-tour-name">{tour.name}</h4>
-                                
                                 <div className="card-price-row">
-                                  <span className="price-label">From</span>
+                                  <span className="price-label">Starting From</span>
                                   <span className="price-value">{formatPrice(tour.price)}</span>
-                                  <span className="price-sub">/ person</span>
                                 </div>
-
                                 <div className="card-actions-row">
                                   <button
                                     type="button"
                                     className="btn-card-itinerary"
                                     onClick={() => {
-                                      onClose();
-                                      if (onSelectTour) onSelectTour(tour);
+                                      setConversationalQuery(tour.name);
+                                      handleConversationalSubmit(tour.name);
                                     }}
                                   >
-                                    <span>View Itinerary</span>
+                                    <span>Open in Split Map</span>
                                     <ChevronRight size={13} />
-                                  </button>
-
-                                  <button
-                                    type="button"
-                                    className="btn-card-whatsapp"
-                                    onClick={() => handleWhatsAppInquiry(tour)}
-                                    title="Book via WhatsApp"
-                                  >
-                                    <MessageCircle size={14} />
-                                    <span>WhatsApp</span>
                                   </button>
                                 </div>
                               </div>
@@ -388,13 +570,12 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
                 </div>
               ))}
 
-              {/* Typing Indicator */}
               {isTyping && (
                 <div className="chat-bubble-row assistant-row">
                   <div className="assistant-avatar-small">
                     <img 
                       src={mascotReactionSrc} 
-                      alt="Navi Typing" 
+                      alt="Comfy Typing" 
                       onError={(e) => { e.currentTarget.src = './mascot-reaction.png'; }}
                     />
                   </div>
@@ -402,7 +583,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
                     <span className="typing-dot" />
                     <span className="typing-dot" />
                     <span className="typing-dot" />
-                    <span className="typing-hint">Navi is curating your royal itinerary...</span>
+                    <span className="typing-hint">Comfy.ai is planning your personalized trip...</span>
                   </div>
                 </div>
               )}
@@ -416,10 +597,15 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
                 <input
                   type="text"
                   className="ai-chat-text-input"
-                  placeholder="Ask about tour packages, Kashmir snow season, Bali villas, pure veg food, visa, or custom plans..."
-                  value={inputQuery}
-                  onChange={(e) => setInputQuery(e.target.value)}
-                  onKeyDown={handleKeyPress}
+                  placeholder="Ask about hotels, pure veg food, Kashmir snow, private cars, or custom dates..."
+                  value={chatInput}
+                  onChange={(e) => setChatInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSendMessage();
+                    }
+                  }}
                   disabled={isTyping}
                 />
                 
@@ -427,321 +613,88 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
                   type="button"
                   className="ai-send-btn"
                   onClick={() => handleSendMessage()}
-                  disabled={!inputQuery.trim() || isTyping}
-                  aria-label="Send query"
+                  disabled={!chatInput.trim() || isTyping}
                 >
                   <Send size={16} />
                   <span>Send</span>
                 </button>
               </div>
-
-              <div className="input-disclaimer-row">
-                <span className="disclaimer-brand">Comfort Journey Luxury Travel (Est. 1992)</span>
-                <span className="disclaimer-dot">•</span>
-                <span>Verified 5★ Stays & Dedicated AC Chauffeurs</span>
-                <span className="disclaimer-dot">•</span>
-                <span className="text-emerald font-600">Strictly Private & Confidential</span>
-              </div>
             </div>
           </div>
         )}
 
-        {/* =========================================================================
-            MODE 2: GUIDED 4-STEP TRIP BUILDER WIZARD
-            ========================================================================= */}
-        {activeTab === 'wizard' && (
-          <div className="ai-wizard-view-container">
-            {step < 5 && (
-              <div className="wizard-progress-bar-wrap">
-                <div className="wizard-steps-indicator">
-                  <span className={`step-circle ${step >= 1 ? 'active' : ''}`}>1</span>
-                  <div className={`step-line ${step >= 2 ? 'active' : ''}`} />
-                  <span className={`step-circle ${step >= 2 ? 'active' : ''}`}>2</span>
-                  <div className={`step-line ${step >= 3 ? 'active' : ''}`} />
-                  <span className={`step-circle ${step >= 3 ? 'active' : ''}`}>3</span>
-                  <div className={`step-line ${step >= 4 ? 'active' : ''}`} />
-                  <span className={`step-circle ${step >= 4 ? 'active' : ''}`}>4</span>
-                </div>
-              </div>
-            )}
+        {/* BOTTOM EXPORT & BOOKING ACTION BAR (TRIP.COM INSPIRED) */}
+        <div className="comfy-bottom-action-bar">
+          <div className="export-buttons-group">
+            <button
+              type="button"
+              className="btn-export-tool social-card-btn"
+              onClick={() => setIsSocialCardOpen(true)}
+              title="Download 9:16 Social Story Card for WhatsApp & Instagram"
+            >
+              <Share2 size={15} />
+              <span>Social Share Card</span>
+            </button>
 
-            {/* Step 1: Vibe */}
-            {step === 1 && (
-              <div className="wizard-step-card animate-fade-in">
-                <h3 className="wizard-step-title">What is your dream travel vibe?</h3>
-                <p className="wizard-step-desc">Select the ambiance that matches your journey style</p>
+            <button
+              type="button"
+              className="btn-export-tool excel-btn"
+              onClick={() => exportItineraryToExcel(tripPlan)}
+              title="Download day-by-day table in Excel format"
+            >
+              <FileSpreadsheet size={15} />
+              <span>Download Excel</span>
+            </button>
 
-                <div className="wizard-options-grid">
-                  {vibesList.map(v => {
-                    const Icon = v.icon;
-                    return (
-                      <button
-                        key={v.title}
-                        type="button"
-                        className={`wizard-opt-btn ${vibe === v.title ? 'selected' : ''}`}
-                        onClick={() => setVibe(v.title)}
-                      >
-                        <div className="opt-icon-circle"><Icon size={20} /></div>
-                        <div className="opt-text-wrap">
-                          <h4>{v.title}</h4>
-                          <p>{v.desc}</p>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-
-                <div className="wizard-footer-nav">
-                  <div className="custom-input-box">
-                    <input 
-                      type="text" 
-                      placeholder="Or specify custom destination: e.g. Kashmir, Switzerland, Vietnam, Bali..." 
-                      value={wizardPrompt}
-                      onChange={(e) => setWizardPrompt(e.target.value)}
-                    />
-                  </div>
-                  <button type="button" className="btn-wizard-next" onClick={() => setStep(2)}>
-                    <span>Next: Select Landscape</span>
-                    <ArrowRight size={16} />
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Step 2: Landscape */}
-            {step === 2 && (
-              <div className="wizard-step-card animate-fade-in">
-                <h3 className="wizard-step-title">Which scenery inspires you?</h3>
-                <p className="wizard-step-desc">Pick your preferred terrain or climatic experience</p>
-
-                <div className="wizard-options-grid">
-                  {landscapesList.map(l => {
-                    const Icon = l.icon;
-                    return (
-                      <button
-                        key={l.title}
-                        type="button"
-                        className={`wizard-opt-btn ${landscape === l.title ? 'selected' : ''}`}
-                        onClick={() => setLandscape(l.title)}
-                      >
-                        <div className="opt-icon-circle"><Icon size={20} /></div>
-                        <div className="opt-text-wrap">
-                          <h4>{l.title}</h4>
-                          <p>{l.sub}</p>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-
-                <div className="wizard-footer-nav">
-                  <button type="button" className="btn-wizard-back" onClick={() => setStep(1)}>
-                    Back
-                  </button>
-                  <button type="button" className="btn-wizard-next" onClick={() => setStep(3)}>
-                    <span>Next: Duration & Guests</span>
-                    <ArrowRight size={16} />
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Step 3: Duration & Guests */}
-            {step === 3 && (
-              <div className="wizard-step-card animate-fade-in">
-                <h3 className="wizard-step-title">Trip Duration & Party Size</h3>
-                <p className="wizard-step-desc">We pace your vacation so you enjoy every moment with luxury ease</p>
-
-                <div className="wizard-row-settings">
-                  <div className="setting-group">
-                    <label>Duration</label>
-                    <div className="pills-selection-row">
-                      {['3–4 Days (Quick Escape)', '5–6 Days (Signature)', '7–9 Days (Grand Journey)', '10+ Days (Epic Odyssey)'].map(d => (
-                        <button
-                          key={d}
-                          type="button"
-                          className={`setting-pill ${durationGroup === d ? 'active' : ''}`}
-                          onClick={() => setDurationGroup(d)}
-                        >
-                          {d}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="setting-group">
-                    <label>Number of Travelers</label>
-                    <div className="guests-counter-row">
-                      <button type="button" onClick={() => setGuestsCount(Math.max(1, guestsCount - 1))}>-</button>
-                      <span className="count-number">{guestsCount} Traveler(s)</span>
-                      <button type="button" onClick={() => setGuestsCount(guestsCount + 1)}>+</button>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="wizard-footer-nav">
-                  <button type="button" className="btn-wizard-back" onClick={() => setStep(2)}>
-                    Back
-                  </button>
-                  <button type="button" className="btn-wizard-next" onClick={() => setStep(4)}>
-                    <span>Next: Luxury Hotel Tier</span>
-                    <ArrowRight size={16} />
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Step 4: Hotel Tier */}
-            {step === 4 && (
-              <div className="wizard-step-card animate-fade-in">
-                <h3 className="wizard-step-title">Select Your Accommodation Tier</h3>
-                <p className="wizard-step-desc">Every property is verified by Comfort Journey inspectors</p>
-
-                <div className="hotel-tier-cards-list">
-                  {[
-                    { title: '5-Star Royal Palace / Pool Villa', sub: 'Handpicked Taj, Oberoi, private beach villas & heritage suites with dedicated butlers' },
-                    { title: 'Premium 4★ Deluxe Boutique Stays', sub: 'Spacious alpine chalets, boutique properties with scenic mountain or ocean balconies' },
-                    { title: 'Signature Curated Luxury Heritage', sub: 'Royal cedarwood houseboats in Dal Lake, traditional desert camps & vineyard retreats' }
-                  ].map(h => (
-                    <button
-                      key={h.title}
-                      type="button"
-                      className={`tier-select-card ${hotelTier === h.title ? 'active' : ''}`}
-                      onClick={() => setHotelTier(h.title)}
-                    >
-                      <div className="tier-check-circle">
-                        {hotelTier === h.title && <CheckCircle2 size={16} />}
-                      </div>
-                      <div className="tier-text-block">
-                        <h4>{h.title}</h4>
-                        <p>{h.sub}</p>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-
-                <div className="wizard-footer-nav">
-                  <button type="button" className="btn-wizard-back" onClick={() => setStep(3)}>
-                    Back
-                  </button>
-                  <button type="button" className="btn-wizard-generate" onClick={handleWizardGenerate}>
-                    <Sparkles size={16} />
-                    <span>Generate Royal Itinerary</span>
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Step 5: Generated Result */}
-            {step === 5 && (
-              <div className="wizard-result-card animate-fade-in">
-                {isGeneratingWizard ? (
-                  <div className="wizard-loading-box">
-                    <img 
-                      src={mascotReactionSrc} 
-                      alt="Navi" 
-                      className="loading-mascot-img" 
-                      onError={(e) => { e.currentTarget.src = './mascot-reaction.png'; }}
-                    />
-                    <h4>Navi is handcrafting your bespoke itinerary...</h4>
-                    <p>Matching verified 5-star properties, dedicated chauffeurs & scenic routes</p>
-                  </div>
-                ) : wizardResult ? (
-                  <div className="result-content-wrap">
-                    <div className="result-header-banner">
-                      <div className="result-badge-pill">
-                        <Sparkles size={14} className="text-amber" />
-                        <span>MATCHED LUXURY VACATION</span>
-                      </div>
-                      <h3>{wizardResult.matchedTour.name}</h3>
-                      <p className="result-summary-text">{wizardResult.summary}</p>
-                    </div>
-
-                    <div className="result-details-grid">
-                      <div className="result-detail-item">
-                        <Clock size={16} className="text-amber" />
-                        <div>
-                          <strong>Duration</strong>
-                          <span>{wizardResult.matchedTour.duration}</span>
-                        </div>
-                      </div>
-
-                      <div className="result-detail-item">
-                        <Hotel size={16} className="text-cyan" />
-                        <div>
-                          <strong>Stay Tier</strong>
-                          <span>{hotelTier}</span>
-                        </div>
-                      </div>
-
-                      <div className="result-detail-item">
-                        <ShieldCheck size={16} className="text-emerald" />
-                        <div>
-                          <strong>Transfers</strong>
-                          <span>Dedicated Private AC Chauffeur</span>
-                        </div>
-                      </div>
-
-                      <div className="result-detail-item">
-                        <Star size={16} className="text-gold" />
-                        <div>
-                          <strong>Starting From</strong>
-                          <span className="price-big">{formatPrice(wizardResult.estimatedCost)}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="result-cta-buttons-row">
-                      <button
-                        type="button"
-                        className="btn-result-view"
-                        onClick={() => {
-                          onClose();
-                          if (onSelectTour) onSelectTour(wizardResult.matchedTour);
-                        }}
-                      >
-                        <span>View Full Itinerary</span>
-                        <ArrowRight size={16} />
-                      </button>
-
-                      <button
-                        type="button"
-                        className="btn-result-whatsapp"
-                        onClick={() => handleWhatsAppInquiry(wizardResult.matchedTour)}
-                      >
-                        <MessageCircle size={18} />
-                        <span>Book via WhatsApp Concierge</span>
-                      </button>
-
-                      <button
-                        type="button"
-                        className="btn-result-reset"
-                        onClick={() => setStep(1)}
-                      >
-                        <RefreshCw size={14} />
-                        <span>Plan Another</span>
-                      </button>
-                    </div>
-                  </div>
-                ) : null}
-              </div>
-            )}
+            <button
+              type="button"
+              className="btn-export-tool pdf-btn"
+              onClick={() => printPdfBrochure(tripPlan)}
+              title="Print or Save official PDF Vacation Brochure"
+            >
+              <Printer size={15} />
+              <span>PDF Brochure</span>
+            </button>
           </div>
-        )}
+
+          <div className="pricing-and-whatsapp-group">
+            <div className="bottom-price-box">
+              <span className="price-caption">Starting From</span>
+              <span className="price-amount">{formatPrice(tripPlan.price)}</span>
+              <span className="price-unit">/ person</span>
+            </div>
+
+            <button
+              type="button"
+              className="btn-book-whatsapp"
+              onClick={handleWhatsAppBooking}
+            >
+              <MessageCircle size={17} />
+              <span>Book via WhatsApp</span>
+            </button>
+          </div>
+        </div>
 
       </div>
 
-      {/* COMPREHENSIVE LUXURY STYLES */}
+      {/* Social Card Preview Modal */}
+      <ItinerarySocialCardModal 
+        isOpen={isSocialCardOpen}
+        onClose={() => setIsSocialCardOpen(false)}
+        tripPlan={tripPlan}
+      />
+
+      {/* COMPREHENSIVE STYLES */}
       <style>{`
-        .ai-concierge-modal {
-          max-width: 960px;
-          width: 95vw;
-          height: 88vh;
-          max-height: 850px;
+        .comfy-ai-planner-modal {
+          max-width: 1280px;
+          width: 96vw;
+          height: 92vh;
+          max-height: 920px;
           background: #001233;
-          border: 1px solid rgba(255, 137, 47, 0.35);
+          border: 1px solid rgba(255, 137, 47, 0.4);
           border-radius: 20px;
-          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 40px rgba(255, 137, 47, 0.2);
+          box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(255, 137, 47, 0.25);
           display: flex;
           flex-direction: column;
           overflow: hidden;
@@ -749,288 +702,573 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
           color: #FFFFFF;
         }
 
-        /* Top Bar */
-        .ai-modal-top-bar {
+        /* Top Brand Bar */
+        .comfy-modal-top-bar {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 1.15rem 1.5rem;
-          background: rgba(0, 18, 51, 0.95);
+          padding: 10px 18px;
+          background: rgba(0, 18, 51, 0.96);
           border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-          gap: 1rem;
-        }
-
-        .ai-mascot-badge-wrap {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-        }
-
-        .ai-mascot-avatar-circle {
-          position: relative;
-          width: 52px;
-          height: 52px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, rgba(255, 137, 47, 0.25) 0%, rgba(111, 230, 252, 0.2) 100%);
-          border: 1.5px solid rgba(255, 137, 47, 0.5);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          overflow: visible;
-          box-shadow: 0 0 16px rgba(255, 137, 47, 0.3);
+          gap: 12px;
           flex-shrink: 0;
         }
 
-        .ai-avatar-wolf-img {
-          width: 44px;
-          height: 44px;
-          object-fit: contain;
-          margin-top: 2px;
+        .comfy-brand-group {
+          display: flex;
+          align-items: center;
+          gap: 12px;
         }
 
-        .ai-online-beacon {
+        .comfy-mascot-avatar-circle {
+          position: relative;
+          width: 46px;
+          height: 46px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, rgba(255, 137, 47, 0.25) 0%, rgba(111, 230, 252, 0.2) 100%);
+          border: 1.5px solid rgba(255, 137, 47, 0.6);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+
+        .comfy-avatar-img {
+          width: 38px;
+          height: 38px;
+          object-fit: contain;
+        }
+
+        .comfy-online-beacon {
           position: absolute;
           bottom: 1px;
           right: 1px;
-          width: 12px;
-          height: 12px;
+          width: 10px;
+          height: 10px;
           border-radius: 50%;
           background: #10B981;
           border: 2px solid #001233;
-          box-shadow: 0 0 8px #10B981;
         }
 
-        .ai-brand-pill {
+        .comfy-est-tag {
           display: inline-flex;
           align-items: center;
-          gap: 0.4rem;
-          font-size: 0.72rem;
+          gap: 5px;
+          font-size: 0.68rem;
           font-weight: 800;
-          letter-spacing: 0.12em;
-          color: #FFA459;
-          margin-bottom: 0.15rem;
+          letter-spacing: 0.8px;
+          color: #FF892F;
         }
 
-        .ai-concierge-heading {
-          font-size: 1.25rem;
-          font-weight: 800;
+        .comfy-planner-heading {
           margin: 0;
-          line-height: 1.2;
+          font-size: 1.15rem;
+          font-weight: 800;
           color: #FFFFFF;
+          line-height: 1.2;
         }
 
-        .ai-concierge-status {
-          font-size: 0.78rem;
-          color: #94A3B8;
-          margin: 0.15rem 0 0 0;
+        .comfy-planner-subtitle {
+          margin: 0;
+          font-size: 0.72rem;
+          color: rgba(255, 255, 255, 0.7);
           display: flex;
           align-items: center;
-          gap: 0.45rem;
+          gap: 6px;
         }
 
         .status-dot-green {
-          width: 7px;
-          height: 7px;
+          width: 6px;
+          height: 6px;
           border-radius: 50%;
           background: #10B981;
           display: inline-block;
         }
 
-        .ai-top-controls {
+        .comfy-top-actions {
           display: flex;
           align-items: center;
-          gap: 0.75rem;
+          gap: 10px;
         }
 
-        .ai-hotline-btn {
+        .comfy-hotline-pill {
           display: inline-flex;
           align-items: center;
-          gap: 0.5rem;
-          padding: 0.45rem 0.85rem;
-          border-radius: 9999px;
+          gap: 6px;
           background: rgba(37, 211, 102, 0.15);
-          border: 1px solid rgba(37, 211, 102, 0.45);
+          border: 1px solid rgba(37, 211, 102, 0.4);
           color: #25D366;
-          font-size: 0.8rem;
+          padding: 6px 12px;
+          border-radius: 20px;
+          font-size: 0.75rem;
           font-weight: 700;
           text-decoration: none;
-          transition: all 0.2s ease;
         }
 
-        .ai-hotline-btn:hover {
-          background: rgba(37, 211, 102, 0.25);
-          transform: translateY(-1px);
-        }
-
-        .ai-close-btn {
+        .comfy-close-btn {
           background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          color: #CBD5E1;
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .ai-close-btn:hover {
-          background: rgba(255, 255, 255, 0.15);
-          color: #FFFFFF;
-          transform: rotate(90deg);
-        }
-
-        /* Mode Switcher */
-        .ai-mode-tabs-bar {
-          display: flex;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-          background: rgba(0, 15, 40, 0.9);
-        }
-
-        .ai-mode-tab {
-          flex: 1;
-          padding: 0.75rem 1rem;
-          background: transparent;
           border: none;
-          border-bottom: 2px solid transparent;
-          color: #94A3B8;
-          font-size: 0.88rem;
-          font-weight: 700;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 0.5rem;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .ai-mode-tab:hover {
           color: #FFFFFF;
-          background: rgba(255, 255, 255, 0.03);
-        }
-
-        .ai-mode-tab.active {
-          color: #FF892F;
-          border-bottom-color: #FF892F;
-          background: rgba(255, 137, 47, 0.06);
-        }
-
-        /* Chat View */
-        .ai-chat-view-container {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          overflow: hidden;
-          background: radial-gradient(circle at 50% 0%, rgba(255, 137, 47, 0.05) 0%, transparent 60%);
-        }
-
-        /* Quick Topics Bar */
-        .ai-quick-topics-row {
-          padding: 0.75rem 1.25rem;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-          background: rgba(0, 18, 51, 0.6);
-        }
-
-        .ai-topic-tabs {
-          display: flex;
-          gap: 0.5rem;
-          margin-bottom: 0.5rem;
-        }
-
-        .topic-tab-pill {
-          padding: 0.25rem 0.7rem;
-          border-radius: 9999px;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: #CBD5E1;
-          font-size: 0.74rem;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .topic-tab-pill.active {
-          background: rgba(255, 137, 47, 0.2);
-          border-color: rgba(255, 137, 47, 0.5);
-          color: #FFA459;
-        }
-
-        .ai-chips-scrollable {
-          display: flex;
-          gap: 0.5rem;
-          overflow-x: auto;
-          scrollbar-width: none;
-          padding-bottom: 2px;
-        }
-
-        .ai-chips-scrollable::-webkit-scrollbar {
-          display: none;
-        }
-
-        .ai-question-chip {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.4rem;
-          padding: 0.35rem 0.75rem;
-          border-radius: 9999px;
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: #E2E8F0;
-          font-size: 0.78rem;
-          white-space: nowrap;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .ai-question-chip:hover {
-          background: rgba(255, 137, 47, 0.15);
-          border-color: rgba(255, 137, 47, 0.4);
-          color: #FFFFFF;
-          transform: translateY(-1px);
-        }
-
-        .chip-arrow {
-          color: #FF892F;
-        }
-
-        /* Messages Scroll */
-        .ai-chat-messages-scroll {
-          flex: 1;
-          overflow-y: auto;
-          padding: 1.25rem;
-          display: flex;
-          flex-direction: column;
-          gap: 1.15rem;
-        }
-
-        .chat-bubble-row {
-          display: flex;
-          gap: 0.75rem;
-          max-width: 85%;
-        }
-
-        .user-row {
-          align-self: flex-end;
-          flex-direction: row-reverse;
-        }
-
-        .assistant-row {
-          align-self: flex-start;
-        }
-
-        .assistant-avatar-small {
+          border-radius: 50%;
           width: 32px;
           height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        }
+
+        /* KAYAK-Style Conversational Search Section */
+        .comfy-conversational-search-section {
+          background: #001A44;
+          padding: 10px 18px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          flex-shrink: 0;
+        }
+
+        .search-bar-inner {
+          display: flex;
+          align-items: center;
+          background: rgba(0, 12, 36, 0.9);
+          border: 1.5px solid rgba(255, 137, 47, 0.5);
+          border-radius: 30px;
+          padding: 4px 6px 4px 16px;
+          gap: 10px;
+          box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+        }
+
+        .search-compass-icon {
+          flex-shrink: 0;
+        }
+
+        .conversational-input {
+          flex: 1;
+          background: none;
+          border: none;
+          color: #FFFFFF;
+          font-size: 0.88rem;
+          outline: none;
+        }
+
+        .conversational-input::placeholder {
+          color: rgba(255, 255, 255, 0.45);
+        }
+
+        .btn-plan-journey {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          background: linear-gradient(135deg, #FF892F 0%, #FF6B00 100%);
+          color: #001233;
+          border: none;
+          padding: 8px 18px;
+          border-radius: 24px;
+          font-weight: 800;
+          font-size: 0.82rem;
+          cursor: pointer;
+          white-space: nowrap;
+          box-shadow: 0 4px 14px rgba(255, 137, 47, 0.35);
+        }
+
+        .conversational-chips-row {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          overflow-x: auto;
+          scrollbar-width: none;
+        }
+
+        .chips-label {
+          font-size: 0.72rem;
+          color: rgba(255, 255, 255, 0.55);
+          white-space: nowrap;
+        }
+
+        .query-suggestion-chip {
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: rgba(255, 255, 255, 0.85);
+          padding: 4px 10px;
+          border-radius: 16px;
+          font-size: 0.72rem;
+          cursor: pointer;
+          white-space: nowrap;
+          transition: all 0.2s ease;
+        }
+
+        .query-suggestion-chip:hover {
+          background: rgba(255, 137, 47, 0.15);
+          border-color: #FF892F;
+          color: #FFFFFF;
+        }
+
+        /* Mode Tabs Bar */
+        .comfy-mode-tabs-bar {
+          display: flex;
+          background: rgba(0, 18, 51, 0.9);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          padding: 0 18px;
+          gap: 16px;
+          flex-shrink: 0;
+        }
+
+        .comfy-tab-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          padding: 10px 4px;
+          background: none;
+          border: none;
+          border-bottom: 2px solid transparent;
+          color: rgba(255, 255, 255, 0.65);
+          font-size: 0.82rem;
+          font-weight: 700;
+          cursor: pointer;
+        }
+
+        .comfy-tab-btn.active {
+          color: #FF892F;
+          border-bottom-color: #FF892F;
+        }
+
+        /* =========================================================================
+           SPLIT-SCREEN TRIP PLANNER (50% Schedule / 50% Map)
+           ========================================================================= */
+        .comfy-split-planner-view {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          flex: 1;
+          overflow: hidden;
+          background: #001233;
+        }
+
+        /* Left Schedule Panel */
+        .planner-left-panel {
+          overflow-y: auto;
+          padding: 16px 18px;
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+          border-right: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Trip Overview Card */
+        .trip-overview-card {
+          background: rgba(0, 24, 69, 0.7);
+          border: 1px solid rgba(255, 137, 47, 0.3);
+          border-radius: 14px;
+          padding: 14px;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .overview-badges-wrap {
+          display: flex;
+          gap: 6px;
+          flex-wrap: wrap;
+        }
+
+        .pill-badge {
+          padding: 3px 9px;
+          border-radius: 20px;
+          font-size: 0.7rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.3px;
+        }
+
+        .pill-amber { background: rgba(255, 137, 47, 0.15); color: #FF892F; border: 1px solid rgba(255, 137, 47, 0.35); }
+        .pill-emerald { background: rgba(16, 185, 129, 0.15); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.35); }
+        .pill-cyan { background: rgba(111, 230, 252, 0.15); color: #6FE6FC; border: 1px solid rgba(111, 230, 252, 0.35); }
+
+        .trip-overview-title {
+          margin: 0;
+          font-size: 1.12rem;
+          font-weight: 800;
+          color: #FFFFFF;
+        }
+
+        .trip-overview-subtitle {
+          margin: 0;
+          font-size: 0.78rem;
+          color: rgba(255, 255, 255, 0.75);
+        }
+
+        .quick-customizer-bar {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+          margin-top: 6px;
+          padding-top: 8px;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .customizer-item {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+
+        .customizer-label {
+          font-size: 0.7rem;
+          font-weight: 700;
+          color: rgba(255, 255, 255, 0.6);
+        }
+
+        .customizer-options {
+          display: flex;
+          gap: 4px;
+        }
+
+        .mini-pill {
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: rgba(255, 255, 255, 0.8);
+          border-radius: 12px;
+          padding: 2px 8px;
+          font-size: 0.68rem;
+          cursor: pointer;
+        }
+
+        .mini-pill.active {
+          background: #FF892F;
+          color: #001233;
+          font-weight: 800;
+          border-color: #FF892F;
+        }
+
+        /* Day Tabs Bar */
+        .planner-day-tabs-row {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .day-tabs-heading {
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: #FF892F;
+          text-transform: uppercase;
+        }
+
+        .day-tabs-scroll {
+          display: flex;
+          gap: 6px;
+          overflow-x: auto;
+          scrollbar-width: none;
+        }
+
+        .planner-day-pill {
+          background: rgba(255, 255, 255, 0.07);
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          color: #FFFFFF;
+          padding: 6px 14px;
+          border-radius: 20px;
+          font-size: 0.76rem;
+          font-weight: 700;
+          cursor: pointer;
+          white-space: nowrap;
+          transition: all 0.2s ease;
+        }
+
+        .planner-day-pill.active {
+          background: #FF892F;
+          color: #001233;
+          border-color: #FF892F;
+          box-shadow: 0 0 14px rgba(255, 137, 47, 0.4);
+        }
+
+        /* Active Day Header */
+        .active-day-header-box {
+          background: rgba(0, 18, 51, 0.5);
+          border-left: 3px solid #FF892F;
+          padding: 8px 12px;
+          border-radius: 4px 8px 8px 4px;
+        }
+
+        .day-header-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 4px;
+        }
+
+        .active-day-title {
+          margin: 0;
+          font-size: 0.92rem;
+          font-weight: 700;
+          color: #FFFFFF;
+        }
+
+        .day-travel-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          background: rgba(111, 230, 252, 0.15);
+          color: #6FE6FC;
+          padding: 2px 8px;
+          border-radius: 12px;
+          font-size: 0.68rem;
+          font-weight: 700;
+        }
+
+        .active-day-desc {
+          margin: 0;
+          font-size: 0.74rem;
+          color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Timeline Stops */
+        .day-timeline-list {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .timeline-stop-card {
+          display: flex;
+          gap: 12px;
+          background: rgba(0, 20, 56, 0.5);
+          border: 1px solid rgba(255, 255, 255, 0.07);
+          border-radius: 12px;
+          padding: 12px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .timeline-stop-card:hover {
+          background: rgba(0, 28, 80, 0.65);
+          border-color: rgba(255, 137, 47, 0.3);
+        }
+
+        .timeline-stop-card.selected {
+          background: rgba(0, 32, 90, 0.85);
+          border-color: #FF892F;
+          box-shadow: 0 4px 20px rgba(255, 137, 47, 0.18);
+        }
+
+        .timeline-pin-number {
+          width: 28px;
+          height: 28px;
           border-radius: 50%;
-          background: rgba(255, 137, 47, 0.2);
-          border: 1px solid rgba(255, 137, 47, 0.4);
+          background: #FF892F;
+          color: #001233;
+          font-weight: 800;
+          font-size: 0.82rem;
           display: flex;
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
+          margin-top: 2px;
+        }
+
+        .timeline-stop-body {
+          flex: 1;
+          min-width: 0;
+        }
+
+        .stop-meta-line {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 4px;
+        }
+
+        .stop-time {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          font-size: 0.7rem;
+          font-weight: 700;
+          color: #6FE6FC;
+        }
+
+        .stop-type-badge {
+          font-size: 0.65rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          padding: 1px 6px;
+          border-radius: 4px;
+        }
+
+        .type-transport { background: #0369A1; color: #E0F2FE; }
+        .type-sightseeing { background: #B45309; color: #FEF3C7; }
+        .type-meal { background: #15803D; color: #DCFCE7; }
+        .type-hotel { background: #7E22CE; color: #F3E8FF; }
+
+        .stop-ticket-badge {
+          font-size: 0.65rem;
+          color: rgba(255, 255, 255, 0.6);
+        }
+
+        .stop-title {
+          margin: 0 0 3px 0;
+          font-size: 0.88rem;
+          font-weight: 700;
+          color: #FFFFFF;
+        }
+
+        .stop-subtitle {
+          margin: 0;
+          font-size: 0.74rem;
+          color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Right Map Panel */
+        .planner-right-panel {
+          height: 100%;
+          position: relative;
+          padding: 14px 18px 14px 0;
+        }
+
+        /* =========================================================================
+           CHAT VIEW CONTAINER
+           ========================================================================= */
+        .comfy-chat-view-container {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
           overflow: hidden;
+          background: #001233;
+        }
+
+        .comfy-chat-messages-scroll {
+          flex: 1;
+          overflow-y: auto;
+          padding: 16px 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .chat-bubble-row {
+          display: flex;
+          gap: 10px;
+          max-width: 82%;
+        }
+
+        .chat-bubble-row.user-row {
+          margin-left: auto;
+          flex-direction: row-reverse;
+        }
+
+        .assistant-avatar-small {
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+          background: rgba(255, 137, 47, 0.2);
+          border: 1px solid #FF892F;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
         }
 
         .assistant-avatar-small img {
@@ -1040,97 +1278,58 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
         }
 
         .chat-bubble {
-          padding: 1rem 1.25rem;
+          padding: 12px 16px;
           border-radius: 16px;
-          font-size: 0.92rem;
-          line-height: 1.6;
-        }
-
-        .user-bubble {
-          background: linear-gradient(135deg, #FF892F 0%, #E06D14 100%);
-          color: #FFFFFF;
-          border-bottom-right-radius: 4px;
-          box-shadow: 0 4px 15px rgba(255, 137, 47, 0.3);
+          font-size: 0.84rem;
+          line-height: 1.5;
         }
 
         .assistant-bubble {
-          background: rgba(0, 24, 68, 0.75);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: #E2E8F0;
-          border-bottom-left-radius: 4px;
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+          background: #001A44;
+          border: 1px solid rgba(255, 137, 47, 0.3);
+          color: #FFFFFF;
+          border-top-left-radius: 4px;
         }
 
-        .chat-paragraph {
-          margin: 0.35rem 0;
+        .user-bubble {
+          background: #FF892F;
+          color: #001233;
+          font-weight: 600;
+          border-top-right-radius: 4px;
         }
 
-        .chat-paragraph strong {
-          color: #FFA459;
-        }
-
-        .line-spacer {
-          height: 0.5rem;
-        }
-
-        .bubble-footer-row {
-          display: flex;
-          align-items: center;
-          justify-content: flex-end;
-          gap: 0.6rem;
-          margin-top: 0.5rem;
-          font-size: 0.72rem;
-          color: #94A3B8;
-        }
-
-        .bubble-model-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.3rem;
-          color: #CBD5E1;
-        }
-
-        /* Matched Tour Cards inside chat */
         .chat-matched-tours-section {
-          margin-top: 0.85rem;
-          padding-top: 0.75rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          margin-top: 12px;
+          padding-top: 10px;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .matched-tours-header {
           display: flex;
           align-items: center;
-          gap: 0.4rem;
-          font-size: 0.78rem;
+          gap: 6px;
+          font-size: 0.75rem;
           font-weight: 700;
-          color: #FFA459;
-          margin-bottom: 0.6rem;
+          color: #FF892F;
+          margin-bottom: 8px;
         }
 
         .matched-tours-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-          gap: 0.65rem;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 10px;
         }
 
         .chat-tour-card {
-          background: rgba(0, 18, 51, 0.85);
-          border: 1px solid rgba(255, 137, 47, 0.3);
-          border-radius: 12px;
+          background: rgba(0, 12, 36, 0.8);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
           overflow: hidden;
-          transition: all 0.2s ease;
-        }
-
-        .chat-tour-card:hover {
-          border-color: rgba(255, 137, 47, 0.6);
-          transform: translateY(-2px);
-          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
         }
 
         .card-thumb-wrap {
           position: relative;
-          height: 100px;
-          overflow: hidden;
+          height: 90px;
         }
 
         .card-thumb-img {
@@ -1143,37 +1342,23 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
           position: absolute;
           bottom: 6px;
           left: 6px;
-          background: rgba(0, 0, 0, 0.75);
-          backdrop-filter: blur(4px);
-          padding: 0.2rem 0.5rem;
-          border-radius: 9999px;
-          font-size: 0.7rem;
-          color: #FFFFFF;
+          background: rgba(0, 0, 0, 0.7);
+          padding: 2px 6px;
+          border-radius: 4px;
+          font-size: 0.65rem;
           display: flex;
           align-items: center;
-          gap: 0.3rem;
+          gap: 4px;
         }
 
         .card-info-wrap {
-          padding: 0.65rem;
-        }
-
-        .card-country-tag {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.25rem;
-          font-size: 0.68rem;
-          color: #94A3B8;
-          text-transform: uppercase;
-          font-weight: 700;
+          padding: 8px;
         }
 
         .card-tour-name {
-          font-size: 0.85rem;
+          margin: 3px 0 6px 0;
+          font-size: 0.78rem;
           font-weight: 700;
-          color: #FFFFFF;
-          margin: 0.2rem 0 0.4rem 0;
-          line-height: 1.3;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -1182,77 +1367,49 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
         .card-price-row {
           display: flex;
           align-items: baseline;
-          gap: 0.3rem;
-          margin-bottom: 0.5rem;
+          gap: 4px;
+          margin-bottom: 8px;
         }
 
-        .price-label {
-          font-size: 0.68rem;
-          color: #94A3B8;
-        }
-
-        .price-value {
-          font-size: 0.95rem;
-          font-weight: 800;
-          color: #FF892F;
-        }
-
-        .price-sub {
-          font-size: 0.65rem;
-          color: #64748B;
-        }
-
-        .card-actions-row {
-          display: flex;
-          gap: 0.35rem;
-        }
+        .price-label { font-size: 0.65rem; color: rgba(255, 255, 255, 0.6); }
+        .price-value { font-size: 0.82rem; font-weight: 800; color: #FF892F; }
 
         .btn-card-itinerary {
-          flex: 1;
-          padding: 0.35rem 0.5rem;
+          width: 100%;
+          background: #FF892F;
+          color: #001233;
+          border: none;
+          padding: 5px 8px;
           border-radius: 6px;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          color: #FFFFFF;
           font-size: 0.72rem;
           font-weight: 700;
-          cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 0.2rem;
-          transition: all 0.2s ease;
-        }
-
-        .btn-card-itinerary:hover {
-          background: rgba(255, 255, 255, 0.15);
-        }
-
-        .btn-card-whatsapp {
-          padding: 0.35rem 0.6rem;
-          border-radius: 6px;
-          background: #25D366;
-          border: none;
-          color: #FFFFFF;
-          font-size: 0.72rem;
-          font-weight: 700;
+          gap: 4px;
           cursor: pointer;
+        }
+
+        .bubble-footer-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 6px;
+          font-size: 0.68rem;
+          color: rgba(255, 255, 255, 0.5);
+        }
+
+        .bubble-model-badge {
           display: flex;
           align-items: center;
-          gap: 0.25rem;
-          transition: all 0.2s ease;
+          gap: 4px;
+          color: #10B981;
         }
 
-        .btn-card-whatsapp:hover {
-          background: #20BA56;
-          transform: translateY(-1px);
-        }
-
-        /* Typing indicator */
         .typing-bubble {
           display: flex;
           align-items: center;
-          gap: 0.4rem;
+          gap: 6px;
         }
 
         .typing-dot {
@@ -1260,612 +1417,178 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
           height: 6px;
           border-radius: 50%;
           background: #FF892F;
-          animation: typingDotBounce 1.4s infinite ease-in-out both;
+          animation: typingPulse 1s infinite alternate;
         }
 
-        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
-        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
 
-        @keyframes typingDotBounce {
-          0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
-          40% { transform: scale(1); opacity: 1; }
+        @keyframes typingPulse {
+          0% { transform: translateY(0); opacity: 0.4; }
+          100% { transform: translateY(-4px); opacity: 1; }
         }
 
         .typing-hint {
-          font-size: 0.8rem;
-          color: #94A3B8;
-          margin-left: 0.4rem;
-          font-style: italic;
+          font-size: 0.74rem;
+          color: rgba(255, 255, 255, 0.7);
+          margin-left: 4px;
         }
 
-        /* Chat Input */
         .ai-chat-input-area {
-          padding: 0.85rem 1.25rem 1rem 1.25rem;
+          padding: 12px 18px;
           background: rgba(0, 18, 51, 0.95);
           border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .input-field-wrapper {
           display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          background: rgba(0, 24, 68, 0.8);
-          border: 1.5px solid rgba(255, 137, 47, 0.4);
-          border-radius: 12px;
-          padding: 0.35rem 0.5rem 0.35rem 1rem;
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-          transition: all 0.2s ease;
-        }
-
-        .input-field-wrapper:focus-within {
-          border-color: #FF892F;
-          box-shadow: 0 0 20px rgba(255, 137, 47, 0.25);
+          gap: 8px;
+          background: rgba(0, 12, 36, 0.9);
+          border: 1px solid rgba(255, 137, 47, 0.4);
+          border-radius: 26px;
+          padding: 4px 6px 4px 16px;
         }
 
         .ai-chat-text-input {
           flex: 1;
-          background: transparent;
+          background: none;
           border: none;
-          outline: none;
           color: #FFFFFF;
-          font-size: 0.92rem;
-        }
-
-        .ai-chat-text-input::placeholder {
-          color: #64748B;
+          font-size: 0.85rem;
+          outline: none;
         }
 
         .ai-send-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.4rem;
-          padding: 0.55rem 1.1rem;
-          border-radius: 8px;
-          background: linear-gradient(135deg, #FF892F 0%, #E06D14 100%);
+          background: #FF892F;
+          color: #001233;
           border: none;
-          color: #FFFFFF;
-          font-size: 0.85rem;
+          padding: 7px 16px;
+          border-radius: 20px;
           font-weight: 700;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .ai-send-btn:hover:not(:disabled) {
-          transform: translateY(-1px);
-          box-shadow: 0 4px 15px rgba(255, 137, 47, 0.4);
-        }
-
-        .ai-send-btn:disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-        }
-
-        .input-disclaimer-row {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 0.5rem;
-          margin-top: 0.5rem;
-          font-size: 0.72rem;
-          color: #64748B;
-        }
-
-        .disclaimer-dot {
-          color: #475569;
-        }
-
-        /* Wizard Mode Styles */
-        .ai-wizard-view-container {
-          flex: 1;
-          overflow-y: auto;
-          padding: 1.5rem;
-        }
-
-        .wizard-progress-bar-wrap {
-          display: flex;
-          justify-content: center;
-          margin-bottom: 1.5rem;
-        }
-
-        .wizard-steps-indicator {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-
-        .step-circle {
-          width: 28px;
-          height: 28px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #94A3B8;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 0.75rem;
-          font-weight: 800;
-        }
-
-        .step-circle.active {
-          background: #FF892F;
-          border-color: #FF892F;
-          color: #FFFFFF;
-          box-shadow: 0 0 10px rgba(255, 137, 47, 0.4);
-        }
-
-        .step-line {
-          width: 40px;
-          height: 2px;
-          background: rgba(255, 255, 255, 0.1);
-        }
-
-        .step-line.active {
-          background: #FF892F;
-        }
-
-        .wizard-step-title {
-          font-size: 1.35rem;
-          font-weight: 800;
-          color: #FFFFFF;
-          margin: 0 0 0.25rem 0;
-          text-align: center;
-        }
-
-        .wizard-step-desc {
-          font-size: 0.88rem;
-          color: #94A3B8;
-          text-align: center;
-          margin: 0 0 1.5rem 0;
-        }
-
-        .wizard-options-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-          gap: 0.85rem;
-          margin-bottom: 1.5rem;
-        }
-
-        .wizard-opt-btn {
-          display: flex;
-          align-items: center;
-          gap: 0.85rem;
-          padding: 1rem;
-          border-radius: 12px;
-          background: rgba(0, 24, 68, 0.6);
-          border: 1.5px solid rgba(255, 255, 255, 0.08);
-          color: #FFFFFF;
-          text-align: left;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .wizard-opt-btn:hover {
-          border-color: rgba(255, 137, 47, 0.5);
-          background: rgba(255, 137, 47, 0.08);
-          transform: translateY(-2px);
-        }
-
-        .wizard-opt-btn.selected {
-          border-color: #FF892F;
-          background: rgba(255, 137, 47, 0.15);
-          box-shadow: 0 0 20px rgba(255, 137, 47, 0.25);
-        }
-
-        .opt-icon-circle {
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
-          background: rgba(255, 137, 47, 0.15);
-          color: #FF892F;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-        }
-
-        .opt-text-wrap h4 {
-          font-size: 0.95rem;
-          font-weight: 700;
-          margin: 0 0 0.2rem 0;
-        }
-
-        .opt-text-wrap p {
           font-size: 0.78rem;
-          color: #94A3B8;
-          margin: 0;
-          line-height: 1.3;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          cursor: pointer;
         }
 
-        .wizard-footer-nav {
+        /* =========================================================================
+           BOTTOM EXPORT & BOOKING BAR
+           ========================================================================= */
+        .comfy-bottom-action-bar {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 1rem;
-          margin-top: 1.5rem;
-        }
-
-        .custom-input-box {
-          flex: 1;
-        }
-
-        .custom-input-box input {
-          width: 100%;
-          padding: 0.65rem 1rem;
-          border-radius: 8px;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          color: #FFFFFF;
-          font-size: 0.85rem;
-        }
-
-        .btn-wizard-next, .btn-wizard-generate {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.65rem 1.4rem;
-          border-radius: 8px;
-          background: linear-gradient(135deg, #FF892F 0%, #E06D14 100%);
-          border: none;
-          color: #FFFFFF;
-          font-size: 0.88rem;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          white-space: nowrap;
-        }
-
-        .btn-wizard-next:hover, .btn-wizard-generate:hover {
-          transform: translateY(-1px);
-          box-shadow: 0 4px 15px rgba(255, 137, 47, 0.4);
-        }
-
-        .btn-wizard-back {
-          padding: 0.65rem 1.2rem;
-          border-radius: 8px;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          color: #CBD5E1;
-          font-size: 0.85rem;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .btn-wizard-back:hover {
-          background: rgba(255, 255, 255, 0.15);
-          color: #FFFFFF;
-        }
-
-        /* Step 3 Settings */
-        .wizard-row-settings {
-          max-width: 650px;
-          margin: 0 auto 1.5rem auto;
-          display: flex;
-          flex-direction: column;
-          gap: 1.25rem;
-        }
-
-        .setting-group label {
-          display: block;
-          font-size: 0.85rem;
-          font-weight: 700;
-          color: #FFA459;
-          margin-bottom: 0.5rem;
-        }
-
-        .pills-selection-row {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-          gap: 0.5rem;
-        }
-
-        .setting-pill {
-          padding: 0.6rem 0.85rem;
-          border-radius: 8px;
-          background: rgba(0, 24, 68, 0.6);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: #CBD5E1;
-          font-size: 0.82rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .setting-pill.active {
-          background: rgba(255, 137, 47, 0.2);
-          border-color: #FF892F;
-          color: #FFFFFF;
-        }
-
-        .guests-counter-row {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          background: rgba(0, 24, 68, 0.6);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          padding: 0.5rem 1rem;
-          border-radius: 8px;
-          width: fit-content;
-        }
-
-        .guests-counter-row button {
-          width: 32px;
-          height: 32px;
-          border-radius: 6px;
-          background: rgba(255, 137, 47, 0.2);
-          border: 1px solid rgba(255, 137, 47, 0.4);
-          color: #FF892F;
-          font-size: 1.1rem;
-          font-weight: 800;
-          cursor: pointer;
-        }
-
-        .count-number {
-          font-size: 0.95rem;
-          font-weight: 800;
-          min-width: 110px;
-          text-align: center;
-        }
-
-        /* Step 4 Hotel Tier */
-        .hotel-tier-cards-list {
-          display: flex;
-          flex-direction: column;
-          gap: 0.85rem;
-          max-width: 700px;
-          margin: 0 auto 1.5rem auto;
-        }
-
-        .tier-select-card {
-          display: flex;
-          align-items: flex-start;
-          gap: 1rem;
-          padding: 1.15rem;
-          border-radius: 12px;
-          background: rgba(0, 24, 68, 0.6);
-          border: 1.5px solid rgba(255, 255, 255, 0.08);
-          color: #FFFFFF;
-          text-align: left;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .tier-select-card.active {
-          border-color: #FF892F;
-          background: rgba(255, 137, 47, 0.12);
-        }
-
-        .tier-check-circle {
-          width: 24px;
-          height: 24px;
-          border-radius: 50%;
-          border: 2px solid rgba(255, 255, 255, 0.3);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #FF892F;
+          padding: 10px 18px;
+          background: rgba(0, 14, 40, 0.98);
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
           flex-shrink: 0;
-          margin-top: 2px;
-        }
-
-        .tier-select-card.active .tier-check-circle {
-          border-color: #FF892F;
-        }
-
-        .tier-text-block h4 {
-          font-size: 1rem;
-          font-weight: 700;
-          margin: 0 0 0.25rem 0;
-        }
-
-        .tier-text-block p {
-          font-size: 0.82rem;
-          color: #94A3B8;
-          margin: 0;
-          line-height: 1.4;
-        }
-
-        /* Step 5 Result */
-        .wizard-result-card {
-          max-width: 760px;
-          margin: 0 auto;
-        }
-
-        .wizard-loading-box {
-          text-align: center;
-          padding: 3rem 1rem;
-        }
-
-        .loading-mascot-img {
-          width: 80px;
-          height: 80px;
-          object-fit: contain;
-          margin-bottom: 1rem;
-          animation: mascotBob 1.5s infinite ease-in-out;
-        }
-
-        @keyframes mascotBob {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-8px); }
-        }
-
-        .result-content-wrap {
-          background: rgba(0, 24, 68, 0.7);
-          border: 1.5px solid rgba(255, 137, 47, 0.4);
-          border-radius: 16px;
-          padding: 1.75rem;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .result-badge-pill {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.4rem;
-          padding: 0.25rem 0.75rem;
-          border-radius: 9999px;
-          background: rgba(255, 137, 47, 0.15);
-          border: 1px solid rgba(255, 137, 47, 0.4);
-          font-size: 0.74rem;
-          font-weight: 800;
-          color: #FFA459;
-          margin-bottom: 0.5rem;
-        }
-
-        .result-header-banner h3 {
-          font-size: 1.5rem;
-          font-weight: 800;
-          color: #FFFFFF;
-          margin: 0 0 0.5rem 0;
-        }
-
-        .result-summary-text {
-          font-size: 0.95rem;
-          color: #CBD5E1;
-          line-height: 1.5;
-          margin: 0 0 1.25rem 0;
-        }
-
-        .result-details-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-          gap: 0.85rem;
-          background: rgba(0, 15, 40, 0.7);
-          border-radius: 12px;
-          padding: 1rem;
-          margin-bottom: 1.5rem;
-        }
-
-        .result-detail-item {
-          display: flex;
-          align-items: center;
-          gap: 0.65rem;
-        }
-
-        .result-detail-item strong {
-          display: block;
-          font-size: 0.72rem;
-          color: #94A3B8;
-          text-transform: uppercase;
-        }
-
-        .result-detail-item span {
-          font-size: 0.88rem;
-          font-weight: 700;
-          color: #FFFFFF;
-        }
-
-        .price-big {
-          font-size: 1.15rem !important;
-          color: #FF892F !important;
-          font-weight: 900 !important;
-        }
-
-        .result-cta-buttons-row {
-          display: flex;
+          gap: 12px;
           flex-wrap: wrap;
-          gap: 0.75rem;
         }
 
-        .btn-result-view {
-          flex: 1;
+        .export-buttons-group {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .btn-export-tool {
           display: inline-flex;
           align-items: center;
-          justify-content: center;
-          gap: 0.5rem;
-          padding: 0.75rem 1.2rem;
-          border-radius: 8px;
-          background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          gap: 6px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.16);
           color: #FFFFFF;
-          font-size: 0.88rem;
+          padding: 7px 12px;
+          border-radius: 8px;
+          font-size: 0.75rem;
           font-weight: 700;
           cursor: pointer;
           transition: all 0.2s ease;
         }
 
-        .btn-result-view:hover {
-          background: rgba(255, 255, 255, 0.2);
+        .btn-export-tool:hover {
+          background: rgba(255, 137, 47, 0.2);
+          border-color: #FF892F;
+          color: #FF892F;
         }
 
-        .btn-result-whatsapp {
-          flex: 1;
+        .pricing-and-whatsapp-group {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+        }
+
+        .bottom-price-box {
+          display: flex;
+          align-items: baseline;
+          gap: 5px;
+        }
+
+        .price-caption {
+          font-size: 0.7rem;
+          color: rgba(255, 255, 255, 0.6);
+        }
+
+        .price-amount {
+          font-size: 1.15rem;
+          font-weight: 800;
+          color: #FF892F;
+        }
+
+        .price-unit {
+          font-size: 0.7rem;
+          color: rgba(255, 255, 255, 0.6);
+        }
+
+        .btn-book-whatsapp {
           display: inline-flex;
           align-items: center;
-          justify-content: center;
-          gap: 0.5rem;
-          padding: 0.75rem 1.2rem;
-          border-radius: 8px;
+          gap: 7px;
           background: #25D366;
-          border: none;
           color: #FFFFFF;
-          font-size: 0.88rem;
-          font-weight: 700;
+          border: none;
+          padding: 9px 18px;
+          border-radius: 24px;
+          font-weight: 800;
+          font-size: 0.84rem;
           cursor: pointer;
-          transition: all 0.2s ease;
+          box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
+          transition: transform 0.15s ease;
         }
 
-        .btn-result-whatsapp:hover {
-          background: #20BA56;
+        .btn-book-whatsapp:hover {
           transform: translateY(-1px);
         }
 
-        .btn-result-reset {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.4rem;
-          padding: 0.75rem 1rem;
-          border-radius: 8px;
-          background: transparent;
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          color: #94A3B8;
-          font-size: 0.85rem;
-          font-weight: 700;
-          cursor: pointer;
-        }
-
-        .btn-result-reset:hover {
-          color: #FFFFFF;
-          border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        /* Responsive Mobile */
-        @media (max-width: 768px) {
-          .ai-concierge-modal {
-            width: 100vw;
-            height: 100vh;
-            max-height: 100vh;
-            border-radius: 0;
-            border: none;
-          }
-
-          .ai-modal-top-bar {
-            padding: 0.85rem 1rem;
-          }
-
-          .ai-concierge-heading {
-            font-size: 1.05rem;
-          }
-
-          .hidden-mobile {
-            display: none;
-          }
-
-          .ai-mode-tab {
-            font-size: 0.78rem;
-            padding: 0.65rem 0.5rem;
-          }
-
-          .chat-bubble-row {
-            max-width: 96%;
-          }
-
-          .matched-tours-grid {
+        /* Mobile Responsiveness */
+        @media (max-width: 900px) {
+          .comfy-split-planner-view {
             grid-template-columns: 1fr;
+            grid-template-rows: 1fr 340px;
           }
 
-          .input-disclaimer-row {
-            display: none;
+          .planner-right-panel {
+            padding: 0 14px 14px 14px;
+          }
+
+          .comfy-bottom-action-bar {
+            flex-direction: column;
+            align-items: stretch;
+          }
+
+          .export-buttons-group {
+            justify-content: space-between;
+          }
+
+          .btn-export-tool {
+            flex: 1;
+            justify-content: center;
+          }
+
+          .pricing-and-whatsapp-group {
+            justify-content: space-between;
           }
         }
       `}</style>

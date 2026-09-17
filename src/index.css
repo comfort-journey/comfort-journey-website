@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,100..900,7.7;1,9..144,100..900,7.7&family=Outfit:wght@100..900&family=Righteous&family=Noto+Sans:ital,wght@0,400..700;1,400..700&family=Noto+Serif:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Devanagari:wght@400..700&family=Noto+Sans+Arabic:wght@400..700&display=swap');
 
 :root {
   /* =======================================================
@@ -70,11 +70,17 @@
   --cj-blur-desktop: 16px;
   --cj-blur-mobile: 8px;
 
-  /* Brand Typography: Fraunces (Luxury Editorial) & Outfit (Modern Geometric UI) */
-  --font-serif: 'Fraunces', Georgia, serif;
-  --font-heading: 'Fraunces', Georgia, serif;
-  --font-ui: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
-  --font-body: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
+  /* Brand Typography: Triple-Font System & Multilingual Fallbacks */
+  --font-fraunces: 'Fraunces', 'Noto Serif', 'Noto Serif Devanagari', Georgia, serif;
+  --font-righteous: 'Righteous', 'Noto Sans', 'Noto Sans Devanagari', 'Noto Sans Arabic', cursive, sans-serif;
+  --font-outfit: 'Outfit', 'Noto Sans', 'Noto Sans Devanagari', 'Noto Sans Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --font-serif: var(--font-fraunces);
+  --font-heading: var(--font-fraunces);
+  --font-editorial: var(--font-fraunces);
+  --font-discovery: var(--font-righteous);
+  --font-ui: var(--font-outfit);
+  --font-body: var(--font-outfit);
 
   /* Radius Tokens */
   --radius-xs: 6px;
@@ -279,19 +285,61 @@ body {
   transform: translateY(0);
 }
 
-/* Typography Hierarchy per Spec B2 */
-h1, h2, .font-editorial {
-  font-family: var(--font-serif);
+/* Typography Hierarchy: Triple-Font System (Fraunces, Righteous, Outfit) */
+h1, h2, .font-editorial, .font-fraunces {
+  font-family: var(--font-fraunces);
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--cj-text-heading);
 }
 
-h3, h4, h5, h6, .font-ui {
+h3, h4, h5, h6, .font-ui, .font-outfit {
   font-family: var(--font-ui);
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--cj-text-heading);
+}
+
+.font-righteous, .font-discovery {
+  font-family: var(--font-righteous) !important;
+  letter-spacing: 0.02em;
+}
+
+/* Editorial Ampersands: Fraunces Italic for handcrafted elegance */
+.font-ampersand, .ampersand {
+  font-family: var(--font-fraunces) !important;
+  font-style: italic !important;
+  font-weight: 400 !important;
+  display: inline-block;
+  padding: 0 0.08em;
+}
+
+/* Hero Title Split Identity */
+.hero-journey-text {
+  font-family: var(--font-righteous) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.02em !important;
+  display: inline-block;
+}
+
+.hero-comfort-text {
+  font-family: var(--font-fraunces) !important;
+  font-weight: 800 !important;
+  display: inline-block;
+}
+
+/* Quotes, Testimonials & Blockquotes in Fraunces */
+blockquote, .quote-text-content, .comment, .reader-blockquote, .quote-box-gold {
+  font-family: var(--font-fraunces) !important;
+  font-style: italic;
+}
+
+/* Continent & Discovery Region Titles in Righteous */
+.continent-chip-meta .c-title,
+.continent-chip-card .c-title,
+.continent-title {
+  font-family: var(--font-righteous) !important;
+  letter-spacing: 0.02em !important;
 }
 
 p, span, li, input, textarea, select {
@@ -941,13 +989,13 @@ s {
   background: linear-gradient(135deg, rgba(20, 10, 5, 0.94) 0%, rgba(35, 15, 5, 0.96) 100%) !important;
   border: 1.5px solid #FF892F !important;
   color: #FFFFFF !important;
-  font-family: var(--font-ui) !important;
+  font-family: var(--font-righteous) !important;
   font-size: 0.68rem !important;
-  font-weight: 800 !important;
+  font-weight: 400 !important;
   padding: 0.22rem 0.65rem !important;
   border-radius: 9999px !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.04em !important;
+  letter-spacing: 0.02em !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), 0 0 10px rgba(255, 137, 47, 0.35) !important;
   display: inline-flex !important;
   align-items: center !important;
@@ -1094,13 +1142,13 @@ s {
   gap: 0.25rem;
   background: linear-gradient(135deg, #FF892F, #E65100);
   color: #FFFFFF;
-  font-family: var(--font-ui, system-ui, sans-serif);
+  font-family: var(--font-righteous) !important;
   font-size: 0.68rem;
-  font-weight: 800;
+  font-weight: 400;
   padding: 0.22rem 0.6rem;
   border-radius: 9999px;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
   white-space: nowrap;
 }
@@ -1111,13 +1159,13 @@ s {
   background: linear-gradient(135deg, rgba(16, 185, 129, 0.95), rgba(5, 150, 105, 0.95));
   border: 1px solid #34D399;
   color: #FFFFFF;
-  font-family: var(--font-ui, system-ui, sans-serif);
+  font-family: var(--font-righteous) !important;
   font-size: 0.72rem;
-  font-weight: 900;
+  font-weight: 400;
   padding: 0.22rem 0.6rem;
   border-radius: 9999px;
   box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   white-space: nowrap;
 }
 
@@ -1361,9 +1409,10 @@ s {
   background: linear-gradient(135deg, #FF892F 0%, #E65100 100%) !important;
   border: none !important;
   color: #FFFFFF !important;
-  font-family: var(--font-ui, system-ui, sans-serif) !important;
-  font-size: 0.82rem !important;
-  font-weight: 800 !important;
+  font-family: var(--font-righteous) !important;
+  font-size: 0.84rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.02em !important;
   cursor: pointer !important;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
   white-space: nowrap !important;

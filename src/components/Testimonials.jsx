@@ -109,6 +109,7 @@ export default function Testimonials() {
         }
 
         .comment {
+          font-family: var(--font-fraunces);
           font-size: 0.98rem;
           line-height: 1.65;
           color: #E2E8F0;

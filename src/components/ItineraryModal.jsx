@@ -44,7 +44,7 @@ Please share customized availability and booking details!`);
               <span className="badge badge-gold">⭐ {tour.rating} ({tour.reviews} Reviews)</span>
             </div>
 
-            <h1 className="banner-title font-editorial">{tour.name}</h1>
+            <h2 className="banner-title font-editorial">{tour.name}</h2>
             <p className="banner-tagline">{tour.tagline}</p>
           </div>
         </div>

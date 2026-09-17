@@ -918,15 +918,17 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
         }
 
         .quote-text-content {
-          font-size: 0.84rem;
+          font-family: var(--font-fraunces);
+          font-style: italic;
+          font-size: 0.86rem;
           color: #F1F5F9;
-          line-height: 1.48;
+          line-height: 1.5;
           margin: 0;
           display: -webkit-box;
           -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
           overflow: hidden;
-          font-weight: 500;
+          font-weight: 400;
         }
 
         /* Card Footer Strip */
@@ -1216,11 +1218,13 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
         }
 
         .story-quote-body p {
+          font-family: var(--font-fraunces);
+          font-style: italic;
           color: #F1F5F9;
-          font-size: 0.98rem;
+          font-size: 1.05rem;
           line-height: 1.65;
           margin: 0;
-          font-weight: 500;
+          font-weight: 400;
         }
 
         .story-modal-footer {

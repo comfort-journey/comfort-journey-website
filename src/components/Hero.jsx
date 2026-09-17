@@ -239,12 +239,14 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         <div className="hero-headline-block">
           <HeroMascot heroRef={heroRef} />
           <h1 className="hero-title">
-            Your Journey • <span className="text-orange-glow">Your Comfort!</span>
+            <span className="hero-journey-text">YOUR JOURNEY</span>
+            <span className="hero-divider-dot"> • </span>
+            <span className="hero-comfort-text text-orange-glow">Your Comfort!</span>
           </h1>
 
           {/* Description line placed between the two headings */}
           <p className="hero-subline">
-            Explore 2,000+ handpicked journeys by Continents, Weather & Season, or Bespoke Style
+            Explore 2,000+ handpicked journeys by Continents, Weather <span className="font-ampersand">&</span> Season, or Personalized Style
           </p>
 
           <div className="question-badge-row">
@@ -273,7 +275,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               onClick={() => setDiscoveryMode('weather')}
             >
               <Sun size={18} className="text-cyan" />
-              <span>By Weather & Season</span>
+              <span>By Weather <span className="font-ampersand">&</span> Season</span>
             </button>
 
             <button
@@ -496,7 +498,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                                         <span className="price-save-badge">Save {formatPrice(origPrice - tour.price)}</span>
                                       </div>
                                       <div className="price-main-row">
-                                        <strong className="current-offer-price font-editorial">{formatPrice(tour.price)}</strong>
+                                        <strong className="current-offer-price">{formatPrice(tour.price)}</strong>
                                         <span className="price-per-person">/ person</span>
                                       </div>
                                     </div>
@@ -644,7 +646,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                                     <span className="price-save-badge">Save {formatPrice(origPrice - tour.price)}</span>
                                   </div>
                                   <div className="price-main-row">
-                                    <strong className="current-offer-price font-editorial">{formatPrice(tour.price)}</strong>
+                                    <strong className="current-offer-price">{formatPrice(tour.price)}</strong>
                                     <span className="price-per-person">/ person</span>
                                   </div>
                                 </div>
@@ -771,7 +773,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                         <div className="st-footer">
                           <div className="compact-price-box">
                             <span className="orig-price-strike">{formatPrice(origPrice)}</span>
-                            <strong className="current-offer-price font-editorial">{formatPrice(tour.price)}</strong>
+                            <strong className="current-offer-price">{formatPrice(tour.price)}</strong>
                           </div>
                           <button
                             type="button"
@@ -866,7 +868,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                         <div className="st-footer">
                           <div className="compact-price-box">
                             <span className="orig-price-strike">{formatPrice(origPrice)}</span>
-                            <strong className="current-offer-price font-editorial">{formatPrice(tour.price)}</strong>
+                            <strong className="current-offer-price">{formatPrice(tour.price)}</strong>
                           </div>
                           <button
                             type="button"
@@ -1010,6 +1012,25 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           margin-bottom: 0.65rem;
           line-height: 1.15;
           letter-spacing: -0.02em;
+          font-family: var(--font-fraunces);
+        }
+
+        .hero-journey-text {
+          font-family: var(--font-righteous) !important;
+          text-transform: uppercase !important;
+          letter-spacing: 0.02em !important;
+          color: #FFFFFF;
+        }
+
+        .hero-comfort-text {
+          font-family: var(--font-fraunces) !important;
+          font-weight: 800 !important;
+        }
+
+        .hero-divider-dot {
+          color: #FFA459;
+          font-family: var(--font-fraunces);
+          padding: 0 0.15rem;
         }
 
         .text-orange-glow {

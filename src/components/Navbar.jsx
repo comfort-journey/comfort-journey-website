@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Phone, MessageCircle, Menu, X, Sparkles, ChevronDown, ChevronRight, 
+  Phone, MessageCircle, Menu, X, Bot, ChevronDown, ChevronRight, 
   Globe, Heart, Scale, Shield, Lock, Sun, Snowflake, Mountain, Palmtree, 
   Users, Briefcase, GraduationCap, Clock, Compass, MapPin, CloudSun 
 } from 'lucide-react';
@@ -289,15 +289,15 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
             )}
           </div>
 
-          {/* AI Trip Planner CTA */}
+          {/* Comfy.ai Trip Planner CTA */}
           <button 
             type="button" 
             className="btn-ai-glow nav-ai-btn"
             onClick={onOpenAIPlanner}
-            title="Design Custom Trip with AI"
+            title="Plan with Comfy.ai"
           >
-            <Sparkles size={15} />
-            <span className="ai-btn-text">AI Planner</span>
+            <Bot size={15} />
+            <span className="ai-btn-text">Comfy.ai</span>
           </button>
 
           {/* Phone VIP Link */}
@@ -473,8 +473,8 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
                   onOpenAIPlanner();
                 }}
               >
-                <Sparkles size={18} />
-                <span>✨ Plan Trip with AI Concierge</span>
+                <Bot size={17} />
+                <span>Plan with Comfy.ai</span>
               </button>
 
               <button
@@ -499,11 +499,11 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
                 className="btn-whatsapp w-full drawer-btn-row"
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  window.open('https://wa.me/918770403315?text=Hi%20Comfort%20Journey!%20I%20want%20to%20plan%20a%20luxury%20custom%20trip.', '_blank');
+                  window.open('https://wa.me/918770403315?text=Hi%20Comfort%20Journey!%20I%20want%20to%20plan%20a%20personalized%20trip.', '_blank');
                 }}
               >
                 <MessageCircle size={18} />
-                <span>Chat on WhatsApp (24/7 VIP)</span>
+                <span>Chat on WhatsApp (24/7 Care)</span>
               </button>
 
               <button
@@ -631,7 +631,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         }
 
         .title-comfort {
-          font-family: 'Fraunces', Georgia, serif;
+          font-family: var(--font-fraunces, 'Fraunces', Georgia, serif);
           font-weight: 800;
           font-size: 1.32rem;
           letter-spacing: -0.01em;
@@ -640,10 +640,10 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         }
 
         .title-journey {
-          font-family: 'Outfit', sans-serif;
-          font-weight: 900;
+          font-family: var(--font-righteous, 'Righteous', sans-serif);
+          font-weight: 400;
           font-size: 1.32rem;
-          letter-spacing: -0.02em;
+          letter-spacing: 0.02em;
           color: #FFB070;
           text-shadow: 0 1px 8px rgba(255, 137, 47, 0.3);
         }

@@ -98,7 +98,7 @@ export function RenderRichArticleContent({ content, imageAlt = "Comfort Journey 
           }
           .rich-article-html h1, .rich-article-html h2, .rich-article-html h3, .rich-article-html h4 {
             color: #FFFFFF;
-            font-family: var(--font-serif, 'Playfair Display', serif);
+            font-family: var(--font-fraunces, Georgia, serif);
             margin: 1.75rem 0 0.75rem 0;
             line-height: 1.35;
           }
@@ -113,13 +113,14 @@ export function RenderRichArticleContent({ content, imageAlt = "Comfort Journey 
           .rich-article-html ul, .rich-article-html ol { margin: 1rem 0 1.5rem 1.5rem; }
           .rich-article-html li { margin-bottom: 0.5rem; }
           .rich-article-html blockquote {
+            font-family: var(--font-fraunces, Georgia, serif);
+            font-style: italic;
             border-left: 4px solid #FF892F;
             background: rgba(255, 137, 47, 0.08);
             border-radius: 0 8px 8px 0;
             padding: 1rem 1.25rem;
             margin: 1.5rem 0;
             color: #E2E8F0;
-            font-style: italic;
           }
           .rich-article-html table {
             width: 100%;

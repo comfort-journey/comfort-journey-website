@@ -840,8 +840,10 @@ export default function LandingPageTemplate({
           align-items: center;
           gap: 0.55rem;
           color: #FFFFFF;
+          font-family: var(--font-righteous);
           font-size: 1rem;
-          font-weight: 800;
+          font-weight: 400;
+          letter-spacing: 0.02em;
           padding: 0.9rem 1.85rem;
           border-radius: 9999px;
           text-decoration: none;
@@ -858,6 +860,7 @@ export default function LandingPageTemplate({
           display: inline-flex;
           align-items: center;
           gap: 0.55rem;
+          font-family: var(--font-ui);
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.2);
           color: #FFFFFF;

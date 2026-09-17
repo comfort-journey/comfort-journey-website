@@ -596,13 +596,15 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
         }
 
         .reader-blockquote {
+          font-family: var(--font-fraunces);
+          font-style: italic;
           margin: 1.75rem 0;
           padding: 1.25rem 1.75rem;
           background: rgba(255, 137, 47, 0.08);
           border-left: 4px solid #FF892F;
           border-radius: 0 16px 16px 0;
           color: #F8FAFC;
-          font-size: 1.02rem;
+          font-size: 1.05rem;
           line-height: 1.6;
         }
 

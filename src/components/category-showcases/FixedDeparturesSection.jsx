@@ -4,8 +4,8 @@ import { useCurrency } from '../../context/CurrencyContext';
 import { useParticleBurst } from '../../hooks/useParticleBurst';
 import Tilt3DCard from '../animations/Tilt3DCard';
 import { 
-  Users, Calendar, Flame, MapPin, Clock, Star, Hotel, Car, Utensils, 
-  Camera, ShieldCheck, ChevronLeft, ChevronRight, ArrowRight, Sparkles, CheckCircle2, Ticket
+  Users, Calendar, CalendarClock, Flame, MapPin, Clock, Star, Hotel, Car, Utensils, 
+  Camera, ShieldCheck, ChevronLeft, ChevronRight, ArrowRight, CheckCircle2, Ticket
 } from 'lucide-react';
 
 export const FIXED_DEPARTURE_BATCHES = [
@@ -389,7 +389,7 @@ export default function FixedDeparturesSection({
               className="btn-custom-fixed-ai"
               onClick={onOpenAIPlanner}
             >
-              <Sparkles size={14} />
+              <CalendarClock size={15} />
               <span>Ask AI About Dates</span>
             </button>
           </div>
