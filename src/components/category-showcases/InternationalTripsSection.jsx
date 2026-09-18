@@ -3,6 +3,8 @@ import { useLiveTours } from '../../hooks/useLiveContent';
 import { useCurrency } from '../../context/CurrencyContext';
 import { useParticleBurst } from '../../hooks/useParticleBurst';
 import Tilt3DCard from '../animations/Tilt3DCard';
+import Peeking3DDecor from '../animations/Peeking3DDecor';
+import { EiffelTower3D, BurjKhalifa3D, MountFuji3D } from '../animations/Travel3DIcons';
 import { 
   Globe, Plane, MapPin, Clock, Star, Hotel, Car, Utensils, Ticket, 
   ShieldCheck, ChevronLeft, ChevronRight, ArrowRight, Sparkles, FileText, CheckCircle2
@@ -221,21 +223,64 @@ export default function InternationalTripsSection({
       {/* Layer 1: World Map with Routes */}
       <WorldMapBackground />
       
-      {/* Layer 2: Floating Passport Stamps */}
+      {/* Layer 2: 3D Peeking Global Landmarks (Half-Hidden, Half-Popping Out at Edges) */}
+      <Peeking3DDecor 
+        side="left" 
+        top="12%" 
+        peekPercent={58} 
+        width={310} 
+        height={310} 
+        glowColor="rgba(255, 213, 79, 0.25)"
+        floatDelay="0.5s"
+        floatDuration="9s"
+        ariaLabel="3D Eiffel Tower Peeking from Border"
+      >
+        <EiffelTower3D size={310} />
+      </Peeking3DDecor>
+
+      <Peeking3DDecor 
+        side="right" 
+        top="34%" 
+        peekPercent={55} 
+        width={300} 
+        height={300} 
+        glowColor="rgba(111, 230, 252, 0.25)"
+        floatDelay="2s"
+        floatDuration="9.5s"
+        ariaLabel="3D Dubai Burj Khalifa Peeking from Border"
+      >
+        <BurjKhalifa3D size={300} />
+      </Peeking3DDecor>
+
+      <Peeking3DDecor 
+        side="left" 
+        bottom="5%" 
+        peekPercent={52} 
+        width={290} 
+        height={290} 
+        glowColor="rgba(255, 128, 171, 0.22)"
+        floatDelay="1s"
+        floatDuration="10s"
+        ariaLabel="3D Mount Fuji Peeking from Border"
+      >
+        <MountFuji3D size={290} />
+      </Peeking3DDecor>
+
+      {/* Layer 3: Floating Passport Stamps */}
       <FloatingPassportStamps />
       
-      {/* Layer 3: Constellation Star Particles */}
+      {/* Layer 4: Constellation Star Particles */}
       <ConstellationStars />
       
-      {/* Layer 4: Flying Airplane Animation */}
+      {/* Layer 5: Flying Airplane Animation */}
       <FlyingAirplane />
       
-      {/* Layer 5: Enhanced Aurora Orbs */}
+      {/* Layer 6: Enhanced Aurora Orbs */}
       <div className="intl-aurora-orb-top" />
       <div className="intl-aurora-orb-bottom" />
       <div className="intl-aurora-orb-center" />
       
-      {/* Layer 6: Enhanced Flight Arc Lines */}
+      {/* Layer 7: Enhanced Flight Arc Lines */}
       <svg className="intl-flight-arc-bg" viewBox="0 0 1440 600" fill="none" preserveAspectRatio="none" aria-hidden="true">
         <path 
           d="M-100 400 C 200 150, 600 100, 900 250 C 1100 350, 1300 200, 1540 100" 
@@ -251,35 +296,28 @@ export default function InternationalTripsSection({
           strokeDasharray="4 6" 
           className="arc-animated arc-delay"
         />
-        <path 
-          d="M-50 200 C 300 350, 700 180, 1000 300 C 1200 380, 1350 280, 1500 200" 
-          stroke="rgba(45, 212, 191, 0.08)" 
-          strokeWidth="1" 
-          strokeDasharray="3 5" 
-          className="arc-animated arc-delay-2"
-        />
       </svg>
 
       <div className="container relative-z">
-        {/* Section Header */}
+        {/* Section Header - De-cluttered & Airy (Haoqi / Stippl style) */}
         <div className="showcase-header">
           <div className="showcase-badge-pill intl-badge">
             <Globe size={14} className="text-cyan animate-pulse" />
-            <span>WORLD PASSPORT COLLECTION • SEAMLESS GLOBAL TRAVEL</span>
+            <span>WORLD PASSPORT COLLECTION</span>
           </div>
           <h2 className="showcase-title font-editorial">
-            World Passport <span className="gradient-text-cyan-emerald">Signature Escapes</span>
+            Global Escapes <span className="gradient-text-cyan-emerald">& Signature Journeys</span>
           </h2>
           <p className="showcase-subtitle">
-            The world is bigger than your city. Go see it. In-house visa filing assistance, private airport chauffeur, and central 5-star neighborhoods globally.
+            Hassle-free international vacations with complete visa filing, private airport transfers, and central 4★ & 5★ boutique stays.
           </p>
 
           {/* Vibe Micro-Badges Strip */}
           <div className="vibe-badges-strip">
-            <span className="vibe-micro-badge"><FileText size={12} className="text-cyan" /> In-House Visa Filing Assist</span>
-            <span className="vibe-micro-badge"><Plane size={12} className="text-cyan" /> Private Airport VIP Chauffeurs</span>
-            <span className="vibe-micro-badge"><Hotel size={12} className="text-cyan" /> Central 5-Star Neighborhoods</span>
-            <span className="vibe-micro-badge"><Clock size={12} className="text-cyan" /> 24/7 Global Timezone Concierge</span>
+            <span className="vibe-micro-badge"><FileText size={12} className="text-cyan" /> Visa Filing Assistance</span>
+            <span className="vibe-micro-badge"><Plane size={12} className="text-cyan" /> Private Airport Transfers</span>
+            <span className="vibe-micro-badge"><Hotel size={12} className="text-cyan" /> Central 4★/5★ Stays</span>
+            <span className="vibe-micro-badge"><Clock size={12} className="text-cyan" /> 24/7 Global Concierge</span>
           </div>
 
           {/* Sub-region filter tabs & carousel arrow controls */}
@@ -479,12 +517,15 @@ export default function InternationalTripsSection({
 
       <style>{`
         .intl-showcase-root {
-          padding: 5rem 0 4rem 0;
+          padding: 6.5rem 0 5.5rem 0;
           position: relative;
-          background: linear-gradient(180deg, #000B1E 0%, #001233 20%, #001A40 50%, #001233 80%, #000B1E 100%);
-          border-top: 1px solid rgba(56, 189, 248, 0.3);
-          border-bottom: 1px solid rgba(56, 189, 248, 0.15);
-          overflow: hidden;
+          background: radial-gradient(circle at 88% 22%, rgba(111, 230, 252, 0.08) 0%, transparent 45%),
+                      radial-gradient(circle at 10% 68%, rgba(56, 189, 248, 0.07) 0%, transparent 45%),
+                      linear-gradient(180deg, #001233 0%, #001944 18%, #00225E 50%, #00163C 82%, #001233 100%);
+          border-top: none;
+          border-bottom: none;
+          overflow-x: clip;
+          overflow-y: visible;
         }
 
         .relative-z {

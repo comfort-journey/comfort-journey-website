@@ -58,9 +58,9 @@ export default function StatsBar() {
 
       <style>{`
         .stats-root {
-          background: #001233;
-          padding: 1.5rem 0;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          background: linear-gradient(180deg, #001233 0%, #001233 100%);
+          padding: 2.2rem 0;
+          border-bottom: none;
           color: #FFFFFF;
         }
 

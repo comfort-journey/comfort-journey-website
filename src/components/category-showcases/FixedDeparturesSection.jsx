@@ -3,9 +3,10 @@ import { useLiveTours } from '../../hooks/useLiveContent';
 import { useCurrency } from '../../context/CurrencyContext';
 import { useParticleBurst } from '../../hooks/useParticleBurst';
 import Tilt3DCard from '../animations/Tilt3DCard';
+import Peeking3DDecor from '../animations/Peeking3DDecor';
 import { 
   Users, Calendar, CalendarClock, Flame, MapPin, Clock, Star, Hotel, Car, Utensils, 
-  Camera, ShieldCheck, ChevronLeft, ChevronRight, ArrowRight, CheckCircle2, Ticket
+  Camera, ShieldCheck, ChevronLeft, ChevronRight, ArrowRight, CheckCircle2, Ticket, Compass
 } from 'lucide-react';
 
 export const FIXED_DEPARTURE_BATCHES = [
@@ -160,26 +161,65 @@ export default function FixedDeparturesSection({
       <div className="fixed-neon-orb-top" />
       <div className="fixed-neon-orb-bottom" />
 
+      {/* 3D Peeking Expedition Compass Badge (Half-Hidden, Half-Popping Out on Left Edge) */}
+      <Peeking3DDecor 
+        side="left" 
+        top="25%" 
+        peekPercent={54} 
+        width={280} 
+        height={280} 
+        glowColor="rgba(249, 115, 22, 0.28)"
+        floatDelay="1.2s"
+        floatDuration="9s"
+        ariaLabel="3D Expedition Compass Badge Peeking from Border"
+      >
+        <svg width="280" height="280" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="expedGold" x1="50" y1="20" x2="210" y2="240" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#FFA459" />
+              <stop offset="50%" stopColor="#FF892F" />
+              <stop offset="100%" stopColor="#E66F12" />
+            </linearGradient>
+            <radialGradient id="expedGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#FFA459" stopOpacity="0.45" />
+              <stop offset="100%" stopColor="transparent" />
+            </radialGradient>
+          </defs>
+          <circle cx="130" cy="130" r="100" fill="url(#expedGlow)" />
+          {/* Compass Outer Bezel */}
+          <circle cx="130" cy="130" r="82" fill="#0A0618" stroke="url(#expedGold)" strokeWidth="3" />
+          <circle cx="130" cy="130" r="74" fill="#140A28" stroke="#FFA459" strokeWidth="1" strokeDasharray="3 4" />
+          {/* 8-Point Star Needle */}
+          <polygon points="130,62 136,124 198,130 136,136 130,198 124,136 62,130 124,124" fill="url(#expedGold)" />
+          <polygon points="130,62 136,124 130,130 124,124" fill="#FFF" opacity="0.9" />
+          <polygon points="198,130 136,136 130,130 136,124" fill="#E66F12" />
+          <polygon points="130,198 124,136 130,130 136,136" fill="#A855F7" opacity="0.8" />
+          <polygon points="62,130 124,124 130,130 124,136" fill="#DAF561" opacity="0.8" />
+          <circle cx="130" cy="130" r="10" fill="#FFF" stroke="#FF892F" strokeWidth="2.5" />
+          <circle cx="130" cy="130" r="4" fill="#FF892F" />
+        </svg>
+      </Peeking3DDecor>
+
       <div className="container relative-z">
-        {/* Section Header */}
+        {/* Section Header - De-cluttered & Airy (Haoqi / Stippl style) */}
         <div className="showcase-header">
           <div className="showcase-badge-pill fixed-badge">
             <Flame size={14} className="text-orange animate-bounce" />
-            <span>COMMUNITY TRAVEL TRIBE • 100% GUARANTEED DEPARTURES</span>
+            <span>GUARANTEED DEPARTURES & TRIBE</span>
           </div>
           <h2 className="showcase-title font-editorial">
-            Fixed Departure <span className="gradient-text-orange-purple">Travel Tribe</span>
+            Fixed Departures <span className="gradient-text-orange-purple">& Travel Tribe</span>
           </h2>
           <p className="showcase-subtitle">
-            Just show up. We got the rest. Solo-friendly group departures, guaranteed departure dates, professional trip leader, and like-minded travelers who become lifelong friends.
+            100% guaranteed departure dates. Join solo or with friends — verified group batches with professional trip leads and shared bonfires.
           </p>
 
           {/* Vibe Micro-Badges Strip */}
           <div className="vibe-badges-strip">
-            <span className="vibe-micro-badge fixed-micro"><Users size={12} className="text-orange" /> 45%+ Solo Travelers Join Solo</span>
-            <span className="vibe-micro-badge fixed-micro"><Calendar size={12} className="text-orange" /> 100% Guaranteed Go Dates</span>
-            <span className="vibe-micro-badge fixed-micro"><Camera size={12} className="text-orange" /> Pro Trip Photography Included</span>
-            <span className="vibe-micro-badge fixed-micro">🔥 Instant Tribe Bonfire Vibe</span>
+            <span className="vibe-micro-badge fixed-micro"><Users size={12} className="text-orange" /> 45%+ Solo Travelers</span>
+            <span className="vibe-micro-badge fixed-micro"><Calendar size={12} className="text-orange" /> Guaranteed Departures</span>
+            <span className="vibe-micro-badge fixed-micro"><Camera size={12} className="text-orange" /> Trip Photography</span>
+            <span className="vibe-micro-badge fixed-micro">🔥 Bonfire Community</span>
           </div>
 
           {/* Sub-region filter tabs & carousel arrow controls */}
@@ -398,12 +438,15 @@ export default function FixedDeparturesSection({
 
       <style>{`
         .fixed-showcase-root {
-          padding: 4.5rem 0 3.5rem 0;
+          padding: 6rem 0 5rem 0;
           position: relative;
-          background: linear-gradient(180deg, #120520 0%, #200936 50%, #120520 100%);
-          border-top: 1px solid rgba(249, 115, 22, 0.25);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-          overflow: hidden;
+          background: radial-gradient(circle at 85% 25%, rgba(249, 115, 22, 0.08) 0%, transparent 45%),
+                      radial-gradient(circle at 12% 70%, rgba(168, 85, 247, 0.07) 0%, transparent 45%),
+                      linear-gradient(180deg, #001233 0%, #150625 18%, #200936 50%, #140523 82%, #001233 100%);
+          border-top: none;
+          border-bottom: none;
+          overflow-x: clip;
+          overflow-y: visible;
         }
 
         .relative-z {

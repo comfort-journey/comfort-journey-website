@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   Phone, MessageCircle, Menu, X, Bot, ChevronDown, ChevronRight, 
   Globe, Heart, Scale, Shield, Lock, Sun, Snowflake, Mountain, Palmtree, 
-  Users, Briefcase, GraduationCap, Clock, Compass, MapPin, CloudSun 
+  Users, Briefcase, GraduationCap, Clock, Compass, MapPin, CloudSun, Sparkles 
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useWishlistCompare } from '../context/WishlistCompareContext';
@@ -212,11 +212,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
               <span className="title-comfort">Comfort</span>
               <span className="title-journey">Journey</span>
             </div>
-            <div className="sub-row">
-              <span className="sub-tag">LUXURY TRAVEL</span>
-              <span className="sub-dot">★</span>
-              <span className="sub-est">EST. 1992</span>
-            </div>
+            <span className="sub-est-clean">Since 1992</span>
           </div>
         </a>
 
@@ -646,6 +642,15 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           letter-spacing: 0.02em;
           color: #FFB070;
           text-shadow: 0 1px 8px rgba(255, 137, 47, 0.3);
+        }
+
+        .sub-est-clean {
+          font-family: 'Outfit', sans-serif;
+          font-size: 0.65rem;
+          font-weight: 600;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: rgba(255, 176, 112, 0.75);
         }
 
         .sub-row {

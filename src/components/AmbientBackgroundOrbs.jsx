@@ -21,6 +21,26 @@ export default function AmbientBackgroundOrbs() {
       {/* 4. Electric Aqua Lagoon Glow (Bottom Right) */}
       <div className="ambient-gradient-layer orb-aqua" />
 
+      {/* 5. Connected Journey "Wanderlust Thread" (Stippl.io inspired continuous route connecting sections) */}
+      <svg className="wanderlust-thread-bg" viewBox="0 0 1440 3200" fill="none" preserveAspectRatio="none" aria-hidden="true">
+        <path
+          d="M 1200 100 C 600 400, 200 700, 450 1100 C 700 1500, 1300 1700, 950 2200 C 600 2700, 200 2900, 800 3200"
+          stroke="url(#wanderlustGradient)"
+          strokeWidth="2"
+          strokeDasharray="8 12"
+          className="wanderlust-path"
+        />
+        <defs>
+          <linearGradient id="wanderlustGradient" x1="0" y1="0" x2="0" y2="3200" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#FF892F" stopOpacity="0.25" />
+            <stop offset="25%" stopColor="#FFA459" stopOpacity="0.2" />
+            <stop offset="50%" stopColor="#6FE6FC" stopOpacity="0.2" />
+            <stop offset="75%" stopColor="#DAF561" stopOpacity="0.2" />
+            <stop offset="100%" stopColor="#FF892F" stopOpacity="0.15" />
+          </linearGradient>
+        </defs>
+      </svg>
+
       {/* Subtle Star Dust / Texture Overlay */}
       <div className="ambient-noise-layer" />
 
@@ -93,6 +113,25 @@ export default function AmbientBackgroundOrbs() {
         @keyframes floatSoftEmerald {
           0% { transform: translate3d(0, 0, 0) scale(1); }
           100% { transform: translate3d(35px, -30px, 0) scale(1.07); }
+        }
+
+        .wanderlust-thread-bg {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+          z-index: 1;
+          opacity: 0.7;
+        }
+
+        .wanderlust-path {
+          animation: wanderlustFlow 50s linear infinite;
+        }
+
+        @keyframes wanderlustFlow {
+          from { stroke-dashoffset: 0; }
+          to { stroke-dashoffset: -800; }
         }
 
         .ambient-noise-layer {

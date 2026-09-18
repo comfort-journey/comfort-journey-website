@@ -3,6 +3,8 @@ import { useLiveTours } from '../../hooks/useLiveContent';
 import { useCurrency } from '../../context/CurrencyContext';
 import { useParticleBurst } from '../../hooks/useParticleBurst';
 import Tilt3DCard from '../animations/Tilt3DCard';
+import Peeking3DDecor from '../animations/Peeking3DDecor';
+import { Campfire3D } from '../animations/Travel3DIcons';
 import { 
   Compass, MapPin, Clock, Star, Hotel, Car, Utensils, Ticket, 
   ShieldCheck, ChevronLeft, ChevronRight, ArrowRight, Sparkles, Coffee, Luggage, Trees
@@ -68,34 +70,49 @@ export default function WeekendGetawaysSection({
       <div className="weekend-forest-orb-top" />
       <div className="weekend-forest-orb-bottom" />
       
+      {/* 3D Peeking Campfire (Half-Hidden, Half-Popping Out on Right Edge) */}
+      <Peeking3DDecor 
+        side="right" 
+        top="26%" 
+        peekPercent={55} 
+        width={300} 
+        height={300} 
+        glowColor="rgba(255, 160, 0, 0.28)"
+        floatDelay="0.8s"
+        floatDuration="8.5s"
+        ariaLabel="3D Cozy Campfire Peeking from Border"
+      >
+        <Campfire3D size={300} />
+      </Peeking3DDecor>
+
       {/* Mountain Pine Tree Silhouette SVG Watermark along bottom */}
       <svg className="weekend-pines-silhouette" viewBox="0 0 1200 120" preserveAspectRatio="none">
         <path 
           d="M0,120 L0,80 L30,40 L60,80 L90,30 L120,80 L160,20 L200,80 L240,45 L280,80 L320,15 L360,80 L410,35 L460,80 L520,25 L570,80 L620,40 L670,80 L730,20 L790,80 L840,35 L890,80 L950,25 L1010,80 L1070,30 L1130,80 L1180,40 L1200,80 L1200,120 Z" 
-          fill="rgba(16, 185, 129, 0.04)" 
+          fill="rgba(16, 185, 129, 0.05)" 
         />
       </svg>
 
       <div className="container relative-z">
-        {/* Section Header */}
+        {/* Section Header - De-cluttered & Airy (Haoqi / Stippl style) */}
         <div className="showcase-header">
           <div className="showcase-badge-pill weekend-badge">
             <Trees size={14} className="text-emerald" />
-            <span>48-HOUR QUICK RECHARGE • FRIDAY TO SUNDAY ESCAPES</span>
+            <span>48-HOUR WEEKEND ESCAPES</span>
           </div>
           <h2 className="showcase-title font-editorial">
-            48-Hour Weekend <span className="gradient-text-emerald">Getaways & Resets</span>
+            Weekend Breaks <span className="gradient-text-emerald">& Nature Resets</span>
           </h2>
           <p className="showcase-subtitle">
-            Friday night. Bags packed. Let's go. 0 leave approvals needed, scenic private chauffeur pickup from your doorstep, and work Slack on mute.
+            Zero leave approvals needed. Private chauffeur pickup from your doorstep to misty hill cottages, quiet beaches, and coffee estates.
           </p>
 
           {/* Vibe Micro-Badges Strip */}
           <div className="vibe-badges-strip">
-            <span className="vibe-micro-badge weekend-micro"><Luggage size={12} className="text-emerald" /> 0 Leaves Needed</span>
-            <span className="vibe-micro-badge weekend-micro"><Car size={12} className="text-emerald" /> Doorstep Chauffeur Pickup</span>
-            <span className="vibe-micro-badge weekend-micro"><Coffee size={12} className="text-emerald" /> Scenic Plantation Cottages</span>
-            <span className="vibe-micro-badge weekend-micro">📵 Work Slack Muted Zone</span>
+            <span className="vibe-micro-badge weekend-micro"><Luggage size={12} className="text-emerald" /> Zero Leaves Needed</span>
+            <span className="vibe-micro-badge weekend-micro"><Car size={12} className="text-emerald" /> Doorstep Pickup</span>
+            <span className="vibe-micro-badge weekend-micro"><Coffee size={12} className="text-emerald" /> Scenic Cottages</span>
+            <span className="vibe-micro-badge weekend-micro">📵 Work Slack Muted</span>
           </div>
 
           {/* Sub-region filter tabs & carousel arrow controls */}
@@ -274,12 +291,15 @@ export default function WeekendGetawaysSection({
 
       <style>{`
         .weekend-showcase-root {
-          padding: 4.5rem 0 3.5rem 0;
+          padding: 6rem 0 5rem 0;
           position: relative;
-          background: linear-gradient(180deg, #021710 0%, #05291C 50%, #021710 100%);
-          border-top: 1px solid rgba(16, 185, 129, 0.25);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-          overflow: hidden;
+          background: radial-gradient(circle at 12% 28%, rgba(16, 185, 129, 0.08) 0%, transparent 45%),
+                      radial-gradient(circle at 85% 65%, rgba(245, 158, 11, 0.07) 0%, transparent 45%),
+                      linear-gradient(180deg, #001233 0%, #031B15 18%, #06281D 50%, #031D16 82%, #001233 100%);
+          border-top: none;
+          border-bottom: none;
+          overflow-x: clip;
+          overflow-y: visible;
         }
 
         .relative-z {

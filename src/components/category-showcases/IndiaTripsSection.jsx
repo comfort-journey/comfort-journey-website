@@ -3,6 +3,8 @@ import { useLiveTours } from '../../hooks/useLiveContent';
 import { useCurrency } from '../../context/CurrencyContext';
 import { useParticleBurst } from '../../hooks/useParticleBurst';
 import Tilt3DCard from '../animations/Tilt3DCard';
+import Peeking3DDecor from '../animations/Peeking3DDecor';
+import { TajMahal3D, HawaMahal3D, KeralaHouseboat3D } from '../animations/Travel3DIcons';
 import { 
   Sparkles, MapPin, Clock, Star, Hotel, Car, Utensils, Ticket, 
   ShieldCheck, ChevronLeft, ChevronRight, ArrowRight, Compass, Shield
@@ -261,12 +263,49 @@ export default function IndiaTripsSection({
       <div className="india-glow-orb-bottom" />
       <div className="india-glow-orb-center" />
       
-      {/* Layer 4: Floating Monument Silhouettes */}
-      <TajMahalSilhouette />
-      <HawaMahalSilhouette />
-      <GatewayOfIndiaSilhouette />
-      <LotusTempleSilhouette />
-      
+      {/* Layer 4: 3D Peeking Monuments (Half-Hidden, Half-Popping Out at Edges) */}
+      <Peeking3DDecor 
+        side="left" 
+        top="14%" 
+        peekPercent={58} 
+        width={310} 
+        height={310} 
+        glowColor="rgba(255, 137, 47, 0.28)"
+        floatDelay="0s"
+        floatDuration="8.5s"
+        ariaLabel="3D Taj Mahal Monument Peeking from Border"
+      >
+        <TajMahal3D size={310} />
+      </Peeking3DDecor>
+
+      <Peeking3DDecor 
+        side="right" 
+        top="36%" 
+        peekPercent={55} 
+        width={300} 
+        height={300} 
+        glowColor="rgba(231, 111, 81, 0.25)"
+        floatDelay="1.5s"
+        floatDuration="10s"
+        ariaLabel="3D Jaipur Hawa Mahal Peeking from Border"
+      >
+        <HawaMahal3D size={300} />
+      </Peeking3DDecor>
+
+      <Peeking3DDecor 
+        side="left" 
+        bottom="6%" 
+        peekPercent={50} 
+        width={280} 
+        height={280} 
+        glowColor="rgba(111, 230, 252, 0.2)"
+        floatDelay="2.5s"
+        floatDuration="9.5s"
+        ariaLabel="3D Kerala Houseboat Peeking from Border"
+      >
+        <KeralaHouseboat3D size={280} />
+      </Peeking3DDecor>
+
       {/* Layer 5: Rotating Mandala Ring */}
       <MandalaRing />
       
@@ -274,25 +313,25 @@ export default function IndiaTripsSection({
       <FloatingDiyaParticles />
 
       <div className="container relative-z">
-        {/* Atmospheric Section Header */}
+        {/* Atmospheric Section Header - De-cluttered & Airy (Haoqi / Stippl style) */}
         <div className="showcase-header">
           <div className="showcase-badge-pill india-badge">
             <span>🇮🇳</span>
-            <span>ROYAL DESI HERITAGE • 80+ SIGNATURE PACKAGES</span>
+            <span>ROYAL DESI HERITAGE COLLECTION</span>
           </div>
           <h2 className="showcase-title font-editorial">
-            Incredible India <span className="gradient-text-gold">Luxury Collection</span>
+            Incredible India <span className="gradient-text-gold">Palaces & Escapes</span>
           </h2>
           <p className="showcase-subtitle">
-            You've seen the world. But have you seen royal India? Verified 5-star palace suites, private chauffeured AC sedans, and 24/7 dedicated concierge.
+            Private chauffeured journeys through royal palace suites, serene backwaters, and misty Himalayan sanctuaries.
           </p>
 
           {/* Vibe Micro-Badges Strip */}
           <div className="vibe-badges-strip">
             <span className="vibe-micro-badge"><Shield size={12} className="text-amber" /> Zero Visa Drama</span>
-            <span className="vibe-micro-badge">🏰 Sleep in Verified Heritage Forts</span>
-            <span className="vibe-micro-badge">☕ Local Tapri Chai & Hidden Plugs</span>
-            <span className="vibe-micro-badge">👑 30+ Years Royal Hospitality</span>
+            <span className="vibe-micro-badge">🏰 Verified Heritage Forts</span>
+            <span className="vibe-micro-badge">🚗 Private AC Car & Chauffeur</span>
+            <span className="vibe-micro-badge">👑 33+ Years Hospitality</span>
           </div>
 
           {/* Sub-region filter tabs & carousel arrow controls */}
@@ -471,12 +510,15 @@ export default function IndiaTripsSection({
 
       <style>{`
         .india-showcase-root {
-          padding: 5rem 0 4rem 0;
+          padding: 6.5rem 0 5.5rem 0;
           position: relative;
-          background: linear-gradient(180deg, #0A0515 0%, #170E2B 30%, #1A0A20 55%, #0F0720 80%, #001233 100%);
-          border-top: 1px solid rgba(245, 158, 11, 0.35);
-          border-bottom: 1px solid rgba(245, 158, 11, 0.15);
-          overflow: hidden;
+          background: radial-gradient(circle at 12% 25%, rgba(255, 137, 47, 0.1) 0%, transparent 45%),
+                      radial-gradient(circle at 88% 55%, rgba(231, 111, 81, 0.08) 0%, transparent 45%),
+                      linear-gradient(180deg, #001233 0%, #150824 16%, #190A2C 50%, #100620 84%, #001233 100%);
+          border-top: none;
+          border-bottom: none;
+          overflow-x: clip;
+          overflow-y: visible;
         }
 
         .relative-z {
