@@ -1,38 +1,56 @@
 import React, { useState, useEffect } from 'react';
-import { LIVE_BOOKINGS_FEED } from '../data/toursData';
+import { siteSettingsService, EVENT_SETTINGS_UPDATED } from '../services/siteSettingsService';
 import { CheckCircle2, Sparkles, X, MapPin } from 'lucide-react';
 
 export default function LiveBookingToast() {
+  const [toastConfig, setToastConfig] = useState(() => siteSettingsService.getLiveToasts());
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visible, setVisible] = useState(false);
   const [dismissed, setDismissed] = useState(false);
 
+  // Listen for live CMS updates
   useEffect(() => {
-    if (dismissed) return;
+    const handleUpdate = () => {
+      setToastConfig(siteSettingsService.getLiveToasts());
+    };
+    window.addEventListener(EVENT_SETTINGS_UPDATED, handleUpdate);
+    return () => window.removeEventListener(EVENT_SETTINGS_UPDATED, handleUpdate);
+  }, []);
 
-    // Show initial toast after 4 seconds
+  const bookings = toastConfig.bookings || [];
+  const intervalMs = (toastConfig.intervalSeconds || 12) * 1000;
+  const initialDelayMs = (toastConfig.initialDelaySeconds || 4) * 1000;
+
+  useEffect(() => {
+    if (dismissed || !toastConfig.enabled || bookings.length === 0) {
+      setVisible(false);
+      return;
+    }
+
+    // Show initial toast
     const initialTimer = setTimeout(() => {
       setVisible(true);
-    }, 4000);
+    }, initialDelayMs);
 
     // Loop through feed items
     const interval = setInterval(() => {
       setVisible(false);
       setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % LIVE_BOOKINGS_FEED.length);
+        setCurrentIndex((prev) => (prev + 1) % bookings.length);
         setVisible(true);
       }, 800);
-    }, 12000);
+    }, intervalMs);
 
     return () => {
       clearTimeout(initialTimer);
       clearInterval(interval);
     };
-  }, [dismissed]);
+  }, [dismissed, toastConfig.enabled, bookings.length, intervalMs, initialDelayMs]);
 
-  if (dismissed || !visible) return null;
+  if (dismissed || !visible || !toastConfig.enabled || bookings.length === 0) return null;
 
-  const booking = LIVE_BOOKINGS_FEED[currentIndex];
+  const booking = bookings[currentIndex % bookings.length];
+  if (!booking) return null;
 
   return (
     <div className="live-toast-wrapper">

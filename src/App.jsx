@@ -38,6 +38,7 @@ import LiveBookingToast from './components/LiveBookingToast';
 
 import { seoHeadManager } from './utils/seoHeadManager';
 import { jsonLdSchemaGenerator } from './utils/jsonLdSchemaGenerator';
+import { usePageSEO } from './hooks/usePageSEO';
 
 export default function App() {
   // Activate high-performance scroll reveals
@@ -56,6 +57,16 @@ export default function App() {
   const [currentView, setCurrentView] = useState('home'); // 'home' | 'about' | 'landing' | 'magazine' | 'blog-reader'
   const [activeLandingPage, setActiveLandingPage] = useState(null);
   const [activeBlogSlug, setActiveBlogSlug] = useState(null);
+
+  // Dynamic 2026 Page SEO, AEO & GEO injection
+  const activeSeoKey = 
+    currentView === 'about' ? 'about' :
+    currentView === 'magazine' ? 'blog' :
+    (currentView === 'landing' && activeLandingPage?.slug) ? `campaign-${activeLandingPage.slug}` :
+    isLPHubOpen ? 'landing-hub' :
+    'home';
+
+  usePageSEO(activeSeoKey);
 
   // Inject TouristTrip schema whenever an itinerary is viewed
   useEffect(() => {

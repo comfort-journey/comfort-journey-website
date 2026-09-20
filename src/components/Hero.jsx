@@ -13,11 +13,23 @@ import { useCurrency } from '../context/CurrencyContext';
 import VantaTravelSkyCanvas from './animations/VantaTravelSkyCanvas';
 import HeroMascot from './HeroMascot';
 import CardInclusionsStrip from './CardInclusionsStrip';
+import { siteSettingsService, EVENT_SETTINGS_UPDATED } from '../services/siteSettingsService';
 
 export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, onOpenQuote }) {
   const TOURS_DATA = useLiveTours();
   const { formatPrice } = useCurrency();
   const heroRef = useRef(null);
+
+  // Dynamic CMS Hero Settings
+  const [heroSettings, setHeroSettings] = useState(() => siteSettingsService.getHero());
+
+  useEffect(() => {
+    const handleSettingsUpdate = () => {
+      setHeroSettings(siteSettingsService.getHero());
+    };
+    window.addEventListener(EVENT_SETTINGS_UPDATED, handleSettingsUpdate);
+    return () => window.removeEventListener(EVENT_SETTINGS_UPDATED, handleSettingsUpdate);
+  }, []);
 
   // Background slider index
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -219,6 +231,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           muted
           playsInline
           poster="https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1920&q=85"
+          onError={(e) => { e.currentTarget.style.display = 'none'; }}
         >
           {/* High-definition tropical & luxury travel drone footage */}
           <source src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-luxury-resort-in-the-maldives-41880-large.mp4" type="video/mp4" />
@@ -239,14 +252,14 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         <div className="hero-headline-block">
           <HeroMascot heroRef={heroRef} />
           <h1 className="hero-title">
-            <span className="hero-journey-text">YOUR JOURNEY</span>
+            <span className="hero-journey-text">{heroSettings.headlineMain || 'YOUR JOURNEY'}</span>
             <span className="hero-divider-dot"> • </span>
-            <span className="hero-comfort-text text-orange-glow">Your Comfort!</span>
+            <span className="hero-comfort-text text-orange-glow">{heroSettings.headlineHighlight || 'Your Comfort!'}</span>
           </h1>
 
           {/* Description line placed between the two headings */}
           <p className="hero-subline">
-            Explore 2,000+ handpicked journeys by Continents, Weather <span className="font-ampersand">&</span> Season, or Personalized Style
+            {heroSettings.subheadline || 'Explore 2,000+ handpicked journeys by Continents, Weather & Season, or Personalized Style'}
           </p>
 
           <div className="question-badge-row">

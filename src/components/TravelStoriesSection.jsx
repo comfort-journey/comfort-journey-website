@@ -99,7 +99,6 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                           className="reel-embed-iframe"
                           frameBorder="0"
                           scrolling="no"
-                          allowTransparency="true"
                           loading="lazy"
                           title={reel.destination}
                         />
@@ -178,7 +177,6 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                     className="reel-modal-ig-iframe"
                     frameBorder="0"
                     scrolling="no"
-                    allowTransparency="true"
                     allow="autoplay; encrypted-media; clipboard-write"
                     title={`Instagram Reel - ${activeReelModal.destination}`}
                   />

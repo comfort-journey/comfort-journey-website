@@ -142,7 +142,7 @@ function cmsSyncDevServerPlugin() {
         req.on('end', async () => {
           try {
             const parsed = JSON.parse(body || '{}');
-            const { tours, blogs } = parsed;
+            const { tours, blogs, siteSettings } = parsed;
 
             const publicLiveJsonPath = path.resolve('public/live-content.json');
             let liveData = { tours: [], blogs: [], lastUpdated: new Date().toISOString() };
@@ -157,6 +157,9 @@ function cmsSyncDevServerPlugin() {
             }
             if (blogs && Array.isArray(blogs)) {
               liveData.blogs = blogs;
+            }
+            if (siteSettings && typeof siteSettings === 'object') {
+              liveData.siteSettings = siteSettings;
             }
             liveData.lastUpdated = new Date().toISOString();
             liveData.updatedBy = 'Comfort Journey Content Studio Dev Server';

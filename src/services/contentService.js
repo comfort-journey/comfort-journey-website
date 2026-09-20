@@ -308,6 +308,7 @@ export const contentService = {
   // ─── REMOTE LIVE CONTENT HYDRATION (FOR MULTI-DEVICE PARITY) ───
   async checkRemoteLiveContent(force = false) {
     if (isRemoteSyncing || typeof window === 'undefined') return { updated: false };
+    if (typeof navigator !== 'undefined' && navigator.onLine === false) return { updated: false };
     isRemoteSyncing = true;
 
     try {
@@ -641,8 +642,11 @@ if (typeof window !== 'undefined') {
     contentService.checkRemoteLiveContent();
   }, 1000);
 
-  // Periodic multi-device heartbeat check every 60s
-  setInterval(() => {
-    contentService.checkRemoteLiveContent();
-  }, 60000);
+  // Periodic multi-device heartbeat check (only in production / remote hosting)
+  if (!isLocalDev()) {
+    setInterval(() => {
+      if (typeof navigator !== 'undefined' && navigator.onLine === false) return;
+      contentService.checkRemoteLiveContent();
+    }, 120000);
+  }
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   X, Lock, LayoutDashboard, FileText, Search, Database,
   UploadCloud, TrendingUp, Image as ImageIcon, Settings, FileSpreadsheet,
-  CheckCircle2, AlertTriangle, Loader2, Key, RefreshCw, Globe, ExternalLink
+  CheckCircle2, AlertTriangle, Loader2, Key, RefreshCw, Globe, ExternalLink, Sliders, Sparkles
 } from 'lucide-react';
 import { directusService, slugify, parseWixCsv, transformWixTourRow } from '../services/directusClient';
 import { TOURS_DATA } from '../data/toursData';
@@ -26,6 +26,7 @@ import TourPackageManager from './cms/TourPackageManager';
 import BlogManager from './cms/BlogManager';
 import AnalyticsDashboard from './cms/AnalyticsDashboard';
 import DataHubManager from './cms/DataHubManager';
+import SiteCustomizer from './cms/SiteCustomizer';
 import './cms/ContentStudio.css';
 
 // ═══════════════════════════════════════════════════════════════════
@@ -399,6 +400,7 @@ export default function AdminCMSModal({ isOpen, onClose }) {
   const tabs = [
     { id: 'manage-tours', label: 'Tour Packages', icon: LayoutDashboard },
     { id: 'manage-blogs', label: 'Blog & Magazine', icon: FileText },
+    { id: 'site-customizer', label: 'Site & SEO Customizer', icon: Sliders },
     { id: 'global-sync', label: 'Global Live Sync', icon: UploadCloud },
     { id: 'data-hub', label: 'Data Hub (Import & Export)', icon: FileSpreadsheet },
     { id: 'analytics', label: 'Growth Hub', icon: TrendingUp },
@@ -473,6 +475,9 @@ export default function AdminCMSModal({ isOpen, onClose }) {
 
               {/* ── Blog Manager ── */}
               {activeTab === 'manage-blogs' && <BlogManager onOpenGlobalSync={() => setActiveTab('global-sync')} />}
+
+              {/* ── Site & SEO Customizer (Homepage, Popups, Meta, AEO/GEO) ── */}
+              {activeTab === 'site-customizer' && <SiteCustomizer onToast={showToast} />}
 
               {/* ── Analytics Dashboard ── */}
               {activeTab === 'analytics' && <AnalyticsDashboard />}
