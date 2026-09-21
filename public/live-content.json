@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-21T18:12:37.223Z",
+  "lastUpdated": "2026-09-21T18:23:27.283Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -3493,125 +3493,10 @@
       }
     },
     {
-      "id": "tour-wix-pachmarhi-madhai-2",
-      "wixId": "fb10ff2f-05bc-4535-88b2-b9f314e8ad90",
-      "name": "Pachmarhi-Madhai",
-      "slug": "pachmarhi-madhai-2",
-      "location": "Pachmarhi, Madhai",
-      "city": "Pachmarhi, Madhai",
-      "state": "Madhya Pradesh",
-      "continent": "Asia",
-      "country": "India",
-      "category": "National Tours",
-      "categories": [
-        "National",
-        "Domestic",
-        "India Tours",
-        "Family & Group",
-        "Family Tours",
-        "Friends Travel",
-        "Solo Trips",
-        "Adventure & Trekking",
-        "Wildlife & Nature",
-        "Backwaters & Nature",
-        "Monsoon",
-        "Luxury Signature"
-      ],
-      "tags": [
-        "National",
-        "Domestic",
-        "India Tours",
-        "Family & Group",
-        "Family Tours",
-        "Friends Travel",
-        "Solo Trips",
-        "Adventure & Trekking",
-        "Wildlife & Nature",
-        "Backwaters & Nature",
-        "Monsoon",
-        "Luxury Signature"
-      ],
-      "duration": "4 Nights & 5 Days",
-      "durationDays": 45,
-      "price": 76014,
-      "origPrice": 84460,
-      "originalPrice": 84460,
-      "tagline": "Experience the natural beauty of Pachmarhi and the wilderness of Madhai National Park in this 4-night, 5-day deluxe tour. Ideal for nature lovers and adventure enthusiasts, this tour offers an immersive experience with local sightseeing and jungle safaris.",
-      "description": "Experience the natural beauty of Pachmarhi and the wilderness of Madhai National Park in this 4-night, 5-day deluxe tour. Ideal for nature lovers and adventure enthusiasts, this tour offers an immersive experience with local sightseeing and jungle safaris.",
-      "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
-      "legacyWixUrl": "wix:image://v1/nsplsh_8f6d7d798d7b4a1e9fef60633451954e~mv2.jpg/Image%20by%20APOORV%20SHRIVASTAVA.jpg#originWidth=4624&originHeight=3117",
-      "badge": "National Signature",
-      "rating": 4.95,
-      "reviews": 96,
-      "reviewsCount": 96,
-      "inclusions": [
-        "Hotel Accommodation",
-        "Breakfast",
-        "Sightseeing",
-        "Driver allowance",
-        "Night allowance",
-        "Transportation",
-        "Taxes",
-        "One day open Gypsy in Pachmarhi",
-        "Evening & Morning Jungle safari in Madhai"
-      ],
-      "exclusions": [
-        "Personal Expenses",
-        "Entry Ticket",
-        "Anything Not Mentioned in the Inclusions",
-        "All Activities on Direct Payment Basis",
-        "Toll and Parking Charges"
-      ],
-      "itinerary": [
-        {
-          "day": 1,
-          "title": "Day 1: ARRIVE PACHMARHI (5 HRS/210 KMS)",
-          "desc": "Upon arrival at Pachmarhi, transfer to the hotel. Complete the check-in formalities, and enjoy an overnight stay at Pachmarhi.",
-          "stayTier": "4-Star / 5-Star Luxury Stay",
-          "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
-        },
-        {
-          "day": 2,
-          "title": "Day 2: PACHMARHI LOCAL SIGHTSEEING",
-          "desc": "After breakfast, visit the local sightseeing spots of Pachmarhi, including Jata Shankar, Handi Kho, Priyadarshini, Mahadev, Gupt Mahadev, Amba Mai, and Begum Palace. Stay overnight at the Pachmarhi hotel.",
-          "stayTier": "4-Star / 5-Star Luxury Stay",
-          "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
-        },
-        {
-          "day": 3,
-          "title": "Day 3: PACHMARHI LOCAL SIGHTSEEING",
-          "desc": "After breakfast, continue exploring Pachmarhi. Visit Pandav Gufa, Museum, Apsara Vihar, Silver Fall, Panchali Kund, Bee Fall, Reechgarh, and Rajendra Giri. Stay overnight at the Pachmarhi hotel.",
-          "stayTier": "4-Star / 5-Star Luxury Stay",
-          "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
-        },
-        {
-          "day": 4,
-          "title": "Day 4: PACHMARHI—MADHAI NATIONAL PARK (3 hrs/100 km)",
-          "desc": "After breakfast at the hotel, check out and transfer to Madhai. Upon arrival, check in at the hotel. In the evening, take a drive to Madhai National Park and enjoy an evening jungle safari. Return to the hotel for an overnight stay.",
-          "stayTier": "4-Star / 5-Star Luxury Stay",
-          "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
-        },
-        {
-          "day": 5,
-          "title": "Day 5: MORNING JUNGLE SAFARI – DEPARTURE (3 hrs/125 km)",
-          "desc": "Early in the morning, drive to Madhai National Park for a jungle safari. Afterward, return to the hotel, check out, and drive back home with beautiful memories.",
-          "stayTier": "4-Star / 5-Star Luxury Stay",
-          "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
-        }
-      ],
-      "status": "published",
-      "isVisible": true
-    },
-    {
       "id": "tour-wix-heart-of-madhya-pradesh-3",
       "wixId": "ff7134a0-e7d1-4b1f-bf13-98021121382a",
-      "name": "Heart of Madhya Pradesh",
-      "slug": "heart-of-madhya-pradesh-3",
+      "name": "Bhopal Beyond the Ordinary: Between Lakes & Legacies",
+      "slug": "bhopal-beyond-the-ordinary-between-lakes-legacies",
       "location": "Bhopal",
       "city": "Bhopal",
       "state": "Madhya Pradesh",
@@ -3624,7 +3509,18 @@
         "India Tours",
         "Family & Group",
         "Family Tours",
-        "Luxury Signature"
+        "Luxury Signature",
+        "National Tours",
+        "Winter",
+        "Summer",
+        "Autumn",
+        "Monsoon",
+        "Spring",
+        "Family Trips",
+        "Group Tours",
+        "Solo Trips",
+        "Budget Friendly Trips",
+        "Heritage & Culture"
       ],
       "tags": [
         "National",
@@ -3636,11 +3532,11 @@
       ],
       "duration": "3 Nights & 4 Days",
       "durationDays": 34,
-      "price": 76608,
+      "price": 14249,
       "origPrice": 95760,
-      "originalPrice": 95760,
-      "tagline": "A luxurious 4-day tour covering Bhopal’s lakes, Sanchi Stupa, Jain Temple, and wildlife. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
-      "description": "A luxurious 4-day tour covering Bhopal’s lakes, Sanchi Stupa, Jain Temple, and wildlife. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
+      "originalPrice": 14999,
+      "tagline": "Discover Bhopal Beyond the Ordinary, where tranquil lakes, historic monuments, vibrant culture, and timeless charm come alive.A luxurious 4-day tour covering lakes, Sanchi Stupa, Jain Temple, and wildlife.",
+      "description": "<!--StartFragment-->Discover Bhopal Beyond the Ordinary, where tranquil lakes, historic monuments, vibrant culture, and timeless charm come alive.A luxurious 4-day tour covering s lakes, Sanchi Stupa, Jain Temple, and wildlife.",
       "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/7f7d02_11cb021d759b4b9287cb73d246a1e7d0~mv2.jpg/unsplash-gPOrH28OG-U%20(1).jpg#originWidth=2976&originHeight=3968",
       "badge": "National Signature",
@@ -3666,39 +3562,44 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival in Bhopal",
+          "title": "Arrival in Bhopal",
           "desc": "Arrive at Bhopal Railway Station/Airport. Transfer to 5-star hotel. Visit Upper Lake, Lower Lake, and VIP Road. Overnight in Bhopal.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Bhopal Sightseeing",
+          "title": " Bhopal Sightseeing",
           "desc": "After breakfast, visit Van Vihar National Park (wildlife), Sher Sapata (scenic views), and local attractions. Lunch at own expense. Overnight in Bhopal.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Sanchi Stupa Excursion",
+          "title": "Sanchi Stupa Excursion",
           "desc": "Drive to Sanchi (1.5 hours, 50 km). Explore Sanchi Stupa (Buddhist monument by Emperor Ashoka), monasteries, and Manuabhan Tekri (Jain Temple, panoramic views). Return to Bhopal. Overnight in Bhopal.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Departure",
+          "title": "Departure",
           "desc": "Check out and transfer to Railway Station/Airport.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "heroTagline": "Discover Bhopal Beyond the Ordinary, where tranquil lakes, historic monuments, vibrant culture, and timeless charm come alive.A luxurious 4-day tour covering lakes, Sanchi Stupa, Jain Temple, and wildlife.",
+      "itinerarySectionTitle": "Explore Bhopal Beyond the Ordinary",
+      "seo": {
+        "focusKeyword": "Bhopal Beyond the Ordinary"
+      }
     },
     {
       "id": "tour-wix-phuket-paradise-getaway",
