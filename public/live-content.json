@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-21T17:47:08.727Z",
+  "lastUpdated": "2026-09-21T17:59:01.791Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -3256,8 +3256,8 @@
     {
       "id": "tour-wix-uttarakhand-explorer-3",
       "wixId": "f6bd8229-bbb4-4ce2-aeb2-50a227aa3ce7",
-      "name": "Uttarakhand Explorer",
-      "slug": "uttarakhand-explorer-3",
+      "name": "Rishikesh & Mussoorie: River Rhythms & Mountain Whispers ",
+      "slug": "rishikesh-mussoorie-river-rhythms-mountain-whispers",
       "location": "Rishikesh, Mussoorie",
       "city": "Rishikesh, Mussoorie",
       "state": "Uttarakhand",
@@ -3268,7 +3268,6 @@
         "National",
         "Domestic",
         "India Tours",
-        "Mountain & Snow",
         "Hills & Mountains",
         "Winter Wonderland",
         "Winter",
@@ -3279,7 +3278,15 @@
         "Solo Trips",
         "Adventure & Trekking",
         "Uttarakhand",
-        "Luxury Signature"
+        "Luxury Signature",
+        "National Tours",
+        "Monsoon",
+        "Budget Friendly Trips",
+        "Group Tours",
+        "Family Trips",
+        "Couple & Honeymoon",
+        "Heritage & Culture",
+        "Pilgrimage & Spiritual"
       ],
       "tags": [
         "National",
@@ -3300,11 +3307,11 @@
       ],
       "duration": "2 Nights and 3 Days",
       "durationDays": 23,
-      "price": 38640,
+      "price": 15599,
       "origPrice": 48300,
-      "originalPrice": 48300,
-      "tagline": "A budget-friendly 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 3-star hotel, Sedan transportation, and breakfast.",
-      "description": "A budget-friendly 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 3-star hotel, Sedan transportation, and breakfast.",
+      "originalPrice": 19499,
+      "tagline": "Experience Rishikesh & Mussoorie, blending Ganga serenity, mountain views, adventure, and peaceful escapes.",
+      "description": "<!--StartFragment-->Experience <strong data-start=\"871\" data-end=\"894\">Rishikesh &amp; Mussoorie</strong>, blending Ganga serenity, mountain views, adventure, and peaceful escapes.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/nsplsh_504984840c464f09b4a27196737c11c0~mv2.jpg/Image%20by%20Karthik%20B%20K.jpg#originWidth=3712&originHeight=5568",
       "badge": "National Signature",
@@ -3328,31 +3335,36 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival in Rishikesh",
+          "title": "Arrival in Rishikesh",
           "desc": "Arrive at Rohilla Railway Station. Transfer to 3-star hotel. After check-in, visit Lakshman Jhula, Ram Jhula, Triveni Ghat, Janki Setu, and Beatles Ashram. Overnight in Rishikesh.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Mussoorie Excursion",
+          "title": " Mussoorie Excursion",
           "desc": "After breakfast, drive to Mussoorie (3 hours). Visit Kempty Falls, Gun Hill, Camel’s Back Road, Company Garden, and Lal Tibba Scenic Point. Evening free for shopping or cafes. Return to Rishikesh. Overnight in Rishikesh.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Departure",
+          "title": "Departure",
           "desc": "Check out and transfer to Nizamuddin Railway Station (5-hour drive). Tour concludes.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "heroTagline": "Experience Rishikesh & Mussoorie, blending Ganga serenity, mountain views, adventure, and peaceful escapes.",
+      "itinerarySectionTitle": "4 Days of Ganga Serenity, Mountain Views & Unforgettable Adventures",
+      "seo": {
+        "focusKeyword": "Rishikesh & Mussoorie"
+      }
     },
     {
       "id": "tour-wix-madhya-pradesh-nature-retreat-3",
