@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-21T17:59:01.791Z",
+  "lastUpdated": "2026-09-21T18:12:37.223Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -3369,8 +3369,8 @@
     {
       "id": "tour-wix-madhya-pradesh-nature-retreat-3",
       "wixId": "f7df64c3-80ec-43e3-be5c-680722c0d3c3",
-      "name": "Madhya Pradesh Nature Retreat",
-      "slug": "madhya-pradesh-nature-retreat-3",
+      "name": "Pachmarhi Calling: Nature’s Secret Blooming",
+      "slug": "pachmarhi-calling-nature-s-secret-blooming",
       "location": "Pachmarhi",
       "city": "Pachmarhi",
       "state": "Madhya Pradesh",
@@ -3389,7 +3389,12 @@
         "Wildlife & Nature",
         "Backwaters & Nature",
         "Monsoon",
-        "Luxury Signature"
+        "Luxury Signature",
+        "National Tours",
+        "Winter",
+        "Autumn",
+        "Spring",
+        "Wildlife Safari"
       ],
       "tags": [
         "National",
@@ -3407,11 +3412,11 @@
       ],
       "duration": "4 Nights & 5 Days",
       "durationDays": 45,
-      "price": 79470,
+      "price": 19967,
       "origPrice": 93494,
-      "originalPrice": 93494,
-      "tagline": "A budget-friendly 5-day tour covering Pachmarhi’s caves, waterfalls, and Madhai National Park’s jungle safaris. Includes 3-star hotel, Sedan transportation, and one Gypsy ride in Pachmarhi.",
-      "description": "A budget-friendly 5-day tour covering Pachmarhi’s caves, waterfalls, and Madhai National Park’s jungle safaris. Includes 3-star hotel, Sedan transportation, and one Gypsy ride in Pachmarhi.",
+      "originalPrice": 24959,
+      "tagline": "Discover Pachmarhi, where misty hills, cascading waterfalls, lush forests, and tranquil beauty come alive.  A budget-friendly 5-day tour covering Pachmarhi’s caves, waterfalls, and Madhai National Park’s jungle safaris. ",
+      "description": "<!--StartFragment-->Discover <strong data-start=\"778\" data-end=\"791\">Pachmarhi</strong>, where misty hills, cascading waterfalls, lush forests, and tranquil beauty come alive.<!--EndFragment-->&nbsp; A budget-friendly 5-day tour covering Pachmarhi’s caves, waterfalls, and Madhai National Park’s jungle safaris.&nbsp;",
       "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/7f7d02_11b2fb7a0e1842a39391a0715171905f~mv2.jpg/Peace%20(1).jpg#originWidth=2468&originHeight=3840",
       "badge": "National Signature",
@@ -3438,47 +3443,54 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival in Pachmarhi",
+          "title": "Arrival in Pachmarhi",
           "desc": "Arrive in Pachmarhi and check into 3-star hotel. Evening free for relaxation. Overnight stay.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Pachmarhi Local Sightseeing",
+          "title": "Pachmarhi Local Sightseeing",
           "desc": "Visit Jata Shankar, Handi Kho, Priyadarshini, Mahadev, Gupt Mahadev, Amba Mai, and Begum Palace. Overnight stay.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Pachmarhi Continued",
+          "title": "Pachmarhi Continued",
           "desc": "Explore Pandav Gufa, Museum, Apsara Vihar, Silver Fall, Panchali Kund, Bee Fall, Reechgarh, and Rajendra Giri. Overnight stay.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Pachmarhi to Madhai National Park",
+          "title": "Pachmarhi to Madhai National Park",
           "desc": "Drive to Madhai (3 hours). Check into hotel. Evening jungle safari in Madhai. Overnight stay.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 5,
-          "title": "Day 5: Morning Safari & Departure",
+          "title": "Morning Safari & Departure",
           "desc": "Early morning jungle safari in Madhai. Return to hotel, freshen up, and drive back home with unforgettable memories.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "heroTagline": "Discover Pachmarhi, where misty hills, cascading waterfalls, lush forests, and tranquil beauty come alive.  A budget-friendly 5-day tour covering Pachmarhi’s caves, waterfalls, and Madhai National Park’s jungle safaris. ",
+      "itinerarySectionTitle": "4-Day Itinerary to Unveil Pachmarhi ",
+      "discountBadge": "20% OFF",
+      "seo": {
+        "focusKeyword": "Pachmarhi:  Nature’s Secret Blooming",
+        "metaDescription": "Discover Pachmarhi with Nature’s Secret Blooming, where misty hills, cascading waterfalls, lush forests, and tranquil beauty come alive.  A budget-friendly 5-day tour covering Pachmarhi’s caves, waterfalls, and Madhai National Park’s jungle safaris. "
+      }
     },
     {
       "id": "tour-wix-pachmarhi-madhai-2",
