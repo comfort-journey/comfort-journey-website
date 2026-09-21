@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-21T17:23:48.532Z",
+  "lastUpdated": "2026-09-21T17:36:12.257Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -3005,8 +3005,8 @@
     {
       "id": "tour-wix-taj-temples-tales",
       "wixId": "d2838f3c-a79f-48d7-aa6d-0dd70f097810",
-      "name": "Taj, Temples & Tales",
-      "slug": "taj-temples-tales",
+      "name": "Agra, Mathura & Vrindavan in One Story: Taj, Temples & Tales",
+      "slug": "agra-mathura-vrindavan-in-one-story-taj-temples-tales",
       "location": "Agra",
       "city": "Agra",
       "state": "Uttar Pradesh",
@@ -3019,7 +3019,17 @@
         "India Tours",
         "Family & Group",
         "Family Tours",
-        "Luxury Signature"
+        "Luxury Signature",
+        "National Tours",
+        "Winter",
+        "Summer",
+        "Monsoon",
+        "Family Trips",
+        "Group Tours",
+        "Solo Trips",
+        "Budget Friendly Trips",
+        "Heritage & Culture",
+        "Pilgrimage & Spiritual"
       ],
       "tags": [
         "National",
@@ -3031,11 +3041,11 @@
       ],
       "duration": "3 Nights & 4 Days",
       "durationDays": 34,
-      "price": 25245,
+      "price": 16999,
       "origPrice": 28,
-      "originalPrice": 28,
-      "tagline": "A budget-friendly 4-day spiritual tour covering Agra’s Taj Mahal, Mathura’s Krishna temples, and Vrindavan’s iconic sites. Includes 3-star hotels, Sedan transportation, and breakfast. Note: Vrindavan Parikrama not included.",
-      "description": "A budget-friendly 4-day spiritual tour covering Agra’s Taj Mahal, Mathura’s Krishna temples, and Vrindavan’s iconic sites. Includes 3-star hotels, Sedan transportation, and breakfast. Note: Vrindavan Parikrama not included.",
+      "originalPrice": 19999,
+      "tagline": "Experience Agra, Mathura & Vrindavan, where majestic monuments, sacred temples, devotion, and timeless beauty meet.",
+      "description": "<!--StartFragment-->Experience <strong data-start=\"880\" data-end=\"906\">Agra, Mathura &amp; Vrindavan</strong>, where majestic monuments, sacred temples, devotion, and timeless beauty meet.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/7f7d02_944791d4380d4fdfbd38dae35bd5de2c~mv2.jpg/Taj%20Mahal%20%20(1).jpg#originWidth=5927&originHeight=3951",
       "badge": "National Signature",
@@ -3054,45 +3064,50 @@
         "Personal Expenses",
         "Entry Tickets",
         "Anything not mentioned in inclusions",
-        "All activities on direct payment basis",
-        "Vrindavan Parikrama"
+        "All activities on direct payment basis"
       ],
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival in Agra",
+          "title": "Arrival in Agra",
           "desc": "Arrive in Agra and check into 3-star hotel. Visit Taj Mahal (UNESCO site), Agra Fort, and optional Mehtab Bagh for sunset view. Overnight in Agra.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Agra to Mathura (1.5 hours, 60 km)",
+          "title": "Agra to Mathura (1.5 hours, 60 km)",
           "desc": "After breakfast, drive to Mathura. Visit Krishna Janmabhoomi Temple, Dwarkadhish Temple, Vishram Ghat, and Government Museum. Evening Ganga Aarti at Vishram Ghat. Overnight in Mathura.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Vrindavan Excursion",
+          "title": " Vrindavan Excursion",
           "desc": "Full-day trip to Vrindavan: Visit Banke Bihari Temple, Prem Mandir (light show), ISKCON Temple, Radha Raman Temple, and Nidhivan. Return to Mathura. Overnight in Mathura.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Departure",
+          "title": "Departure",
           "desc": "Check out and transfer to onward destination with unforgettable memories.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "heroTagline": "Experience Agra, Mathura & Vrindavan, where majestic monuments, sacred temples, devotion, and timeless beauty meet.",
+      "itinerarySectionTitle": "Agra, Mathura & Vrindavan in One Story",
+      "discountBadge": "15% OFF",
+      "seo": {
+        "focusKeyword": "Agra, Mathura & Vrindavan"
+      }
     },
     {
       "id": "tour-wix-leh-beyond-the-passes",
