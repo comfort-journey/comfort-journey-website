@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-21T17:36:12.257Z",
+  "lastUpdated": "2026-09-21T17:47:08.727Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -3112,10 +3112,10 @@
     {
       "id": "tour-wix-leh-beyond-the-passes",
       "wixId": "e4215518-8690-491e-b1a8-aa595ac1855f",
-      "name": "Leh Beyond the Passes",
-      "slug": "leh-beyond-the-passes",
-      "location": "Ladakh",
-      "city": "Ladakh",
+      "name": "Leh Unveiled: The High-Altitude Stories",
+      "slug": "leh-unveiled-the-high-altitude-stories",
+      "location": "Leh",
+      "city": "Leh",
       "state": "Ladakh",
       "continent": "Asia",
       "country": "India",
@@ -3136,7 +3136,14 @@
         "Adventure & Trekking",
         "Heritage & Palaces",
         "Culture & Heritage",
-        "Luxury Signature"
+        "Luxury Signature",
+        "National Tours",
+        "Spring",
+        "Autumn",
+        "Couple & Honeymoon",
+        "Family Trips",
+        "Group Tours",
+        "Heritage & Culture"
       ],
       "tags": [
         "National",
@@ -3158,11 +3165,11 @@
       ],
       "duration": "5 Nights & 6 Days",
       "durationDays": 56,
-      "price": 45040,
+      "price": 40499,
       "origPrice": 54048,
-      "originalPrice": 54048,
-      "tagline": "Handcrafted 5 Nights & 6 Days tour to Ladakh curated by Comfort Journey since 1992.",
-      "description": "Handcrafted 5 Nights & 6 Days tour to Ladakh curated by Comfort Journey since 1992.",
+      "originalPrice": 44999,
+      "tagline": "Discover Leh Unveiled, where dramatic mountains, ancient monasteries, high-altitude lakes, and endless skies await.",
+      "description": "<!--StartFragment-->Discover <strong data-start=\"715\" data-end=\"722\">Leh Unveiled</strong>, where dramatic mountains, ancient monasteries, high-altitude lakes, and endless skies await.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/nsplsh_960596b644aa41ffb65ef341e0360424~mv2.jpg/Image%20by%20Darshan%20Chudasama.jpg#originWidth=6000&originHeight=4000",
       "badge": "National Signature",
@@ -3185,61 +3192,66 @@
         "Breakfast, lunches, dinners and drinks (alcoholic and nonalcoholic), unless specified in the itinerary",
         "Any international and/or domestic flights, unless explicitly mentioned as an inclusion",
         "Excess baggage charges, and where applicable, baggage not included in your fare Tips for services and experiences",
-        "Read useful information and terms for more on what is included and excluded",
         "GST excluded"
       ],
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival at Leh",
+          "title": "Arrival at Leh",
           "desc": "Arrive at Leh Kushok Bakula Airport. (This must be one of the Most Sensational Flights in the World. On a clear day from one side of the aircraft can be seen in the distance the peaks of K2, Nanga Parbat, Gasherbrum and on the other side of the aircraft, so close that you feel you could reach out and touch it, is the Nun Kun massif). Upon arrival you will be met by our representative and transfer to Hotel for check-in. Complete day for rest and leisure to acclimatize to the higher altitude. Overnight stay at Hotel City Palace",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Day Excursion to Matho, Stakna, Stok & Mahabodhi",
+          "title": "Day Excursion to Matho, Stakna, Stok & Mahabodhi",
           "desc": "After breakfast, we start on a sightseeing tour visiting Matho Monastery, Stakna Monastery, Stok Palace and Mahabodhi. Matho Monastery: Located around 26 kilometers away from Leh, on the picturesque Indus Valley, Matho Monastery is a Tibetan Buddhist monastery built under the Saskya Monastic Establishment. It was constructed around 500 years ago. Notes : All entrance fees to Monastries and Monuments are on Direct Payment Basis, payable by the customer. Overnight stay at Hotel City Palace",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Excursion to Pangong Lake",
+          "title": " Excursion to Pangong Lake",
           "desc": "After an early breakfast, we leave for Pangong Lake through Changla pass (5486 Mtrs). The long easy ascent takes you to Changla pass through its winding roads passing through Sakti Village. Stop at the Changla Pass for a quick photograph session. The Chang La (also known as Changla) is one of the highest mountain roads of the country. The pass, guarded and maintained by the Indian Army (due its proximity to Chinese border), is covered with snow throughout the year. This road is usually open all year, but it can be closed anytime when the access is not cleared of snow. The Changla Pass is the main gateway for the Changthang Plateau situated in the Himalayas. The pass is located on the 134 km-long (83 mi) road between the Pangong Lake and Leh. Road closures can be frequent. Later, we drive down to the village of Tangtse, where you can relax for a cup of tea. Leaving Tangtse for Pangong you pass through few small villages of Changthang and finally you can have a sudden view of the Pangong Lake situated at 14,000 feet (4,267 m). This famous blue brackish Lake of Pangong is 5/6 Kms wide and over 133 Kms long with half of it's running the other side of the \"INDO CHINA BORDER\". Overnight stay at Hotel City Palace",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Excursion to Nubra Valley",
+          "title": "Excursion to Nubra Valley",
           "desc": "After breakfast, we proceed to Nubra Valley. The road journey from Leh to Nubra Valley passes over Khardung La (The Highest Motorable Road In The World). Khardung La: The Highest Motor able Road in The World at 5,602 Mtrs. / 18,390 Ft, around 39 km from Leh. From the pass, one can see all the way south over the Indus valley to seemingly endless peaks and ridges of the Zanskar range, and north to the giants of the Saser massif. The views from the top of the pass are amazing. Later, we visit Hunder and Disket Monastery. Diskit monastery also known as Diskit Gompa is situated in the Nubra valley of Ladakh. This Buddhist center is one of the oldest and largest monasteries in Leh Ladakh. The Diskit monastery was founded by Changzem Tserab Zangpo in the 14th century. The prime attraction of the Diskit monastery is 100 foot high Maitreya Buddha statue, which was inaugurated by the holy Dalai Lama. Overnight stay at Hotel City Palace Notes : All entrance fees to Monastries and Monuments are on Direct Payment Basis, payable by the customer.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 5,
-          "title": "Day 5: Half Day Excursion to Sham Valley",
+          "title": "Half Day Excursion to Sham Valley",
           "desc": "After breakfast drive downstream along the River Indus on Leh - Kargil Highway and start sightseeing with: Hall of Fame: The Hall of Fame, located near the Leh Airfield, is a museum constructed as well as maintained by the Indian Army in the memory of the soldiers who had lost their lives during the Indo-Pak wars. It is also termed as a memorial for the war heros. This building consists of two floors. While on the ground floor, there is information about the brave soldiers and a souvenir shop but on the first floor, there are artifacts of various wars (mainly Kargil war) such as the weapons used during the war and some important documents, related to the same. There is another section dedicated to the Siachen glacier. Gurudwara Patthar Sahib: Situated 25 miles from Leh in Ladakh region in Jammu and Kashmir, Gurudwara Pathar Sahib stands. Overnight stay at Hotel City Palace Notes : All entrance fees to Monastries and Monuments are on Direct Payment Basis, payable by the customer.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 6,
-          "title": "Day 6: Departure from Leh",
+          "title": " Departure from Leh",
           "desc": "We thank you for your patronage and ensures a punctual transfer to Domestic Airport to catch the flight for your onward Destination with a lifetime memory.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "itinerarySectionTitle": "Day by Day itinerary",
+      "discountBadge": "10% OFF",
+      "seo": {
+        "focusKeyword": "Leh Unveiled"
+      },
+      "heroTagline": "Discover Leh Unveiled, where dramatic mountains, ancient monasteries, high-altitude lakes, and endless skies await."
     },
     {
       "id": "tour-wix-uttarakhand-explorer-3",
