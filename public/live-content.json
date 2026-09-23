@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-23T18:28:04.153Z",
+  "lastUpdated": "2026-09-23T18:46:50.523Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -3756,8 +3756,8 @@
     {
       "id": "tour-wix-unbeatable-vietnam-premium",
       "wixId": "2b41572c-c33f-4f00-b5ae-89a7b388aac3",
-      "name": "Unbeatable Vietnam Premium",
-      "slug": "unbeatable-vietnam-premium",
+      "name": "Vietnam Beyond the Ordinary- Ancient Streets & Azure Bays",
+      "slug": "vietnam-beyond-the-ordinary-ancient-streets-azure-bays",
       "location": "Vietnam",
       "city": "Vietnam",
       "state": "Vietnam",
@@ -3780,7 +3780,13 @@
         "Heritage & Palaces",
         "Culture & Heritage",
         "Vietnam",
-        "Luxury Signature"
+        "Luxury Signature",
+        "Couple & Honeymoon",
+        "Family Trips",
+        "Group Tours",
+        "Budget Friendly Trips",
+        "Heritage & Culture",
+        "Spring"
       ],
       "tags": [
         "International",
@@ -3802,11 +3808,11 @@
       ],
       "duration": "7N/8D",
       "durationDays": 78,
-      "price": 218554,
+      "price": 49999,
       "origPrice": 218554,
-      "originalPrice": 218554,
-      "tagline": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
-      "description": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
+      "originalPrice": 54999,
+      "tagline": "Explore Vietnam, where lantern-lit streets, emerald bays, rich culture, and vibrant flavours come alive.",
+      "description": "<!--StartFragment-->Explore&nbsp;<span data-start=\"1004\" data-end=\"1015\">Vietnam</span>, where lantern-lit streets, emerald bays, rich culture, and vibrant flavours come alive.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/nsplsh_65316a695557786a475f77~mv2.jpg/Image%20by%20Sandip%20Roy.jpg#originWidth=6000&originHeight=4000",
       "badge": "International Signature",
@@ -3814,70 +3820,20 @@
       "reviews": 96,
       "reviewsCount": 96,
       "inclusions": [
-        "Hanoi – 2 Nights",
-        "Stay for 2 nights at Pullman Hanoi Hotel or similar",
-        "Superior Room",
-        "Breakfast",
-        "Daily Continental Breakfast at Hotel",
-        "Half-Day Hanoi City Tour (Shared Basis)",
-        "Hoan Kiem Lake",
-        "Ngoc Son Temple",
-        "One Pillar Pagoda",
         "Ho Chi Minh Mausoleum (outside view)",
-        "Full-Day Ninh Binh Tour (Shared Basis)",
-        "Hoa Lu Ancient Capital",
-        "Tam Coc Caves",
-        "Sampan Boat Ride",
         "Daily Lunches and Indian Dinners as per itinerary",
         "Single Entry Vietnam E-Visa",
         "Transfer to Airport from hotel on Private basis",
         "Halong Bay – 1 Night",
-        "Stay for 1 night at Hera Cruise or similar",
-        "Superior Room",
-        "All Meals",
         "One-Night Stay on Halong Bay Cruise",
         "Meals on Cruise: Breakfast, Lunch and Dinner",
-        "Seafood and Veg options available on request",
         "To and Fro Transfer to Halong Bay from Hanoi (Shared Basis)",
         "Cruise through Halong Bay’s iconic limestone formations and islands",
-        "Visit natural grottos and hidden gems in the bay",
-        "Swim in crystal-clear waters",
-        "Explore caves and grottos",
         "Enjoy onboard entertainment and a peaceful night on the cruise",
         "Domestic Flight Transfer from Hanoi to Da Nang",
-        "Da Nang – 2 Nights",
-        "Stay for 2 nights at Grand Mercure Danang or similar",
-        "Superior Room",
-        "Breakfast",
-        "Daily Continental Breakfast at Hotel",
-        "Full Day at Ba Na Hills (Shared Basis)",
-        "Golden Bridge",
-        "Linh Ung Pagoda",
-        "Cable Car Ride",
-        "Fantasy Park",
-        "Half-Day Hoi An Ancient Tour",
-        "Visit to the Coconut Forest",
-        "Hoi An Old Town",
-        "Phuc Kien Assembly Hall",
-        "Tan Ky Ancient House",
-        "Japanese Covered Bridge",
         "Daily Lunches and Indian Dinner as per itinerary",
         "Transfer to Airport from hotel on Private basis",
-        "Domestic Flight Transfer from Da Nang to Ho Chi Minh City",
-        "Ho Chi Minh City – 2 Nights",
-        "Stay for 2 nights at Sofitel Saigon Plaza or similar",
-        "Superior Room",
-        "Breakfast",
-        "Daily Continental Breakfast at Hotel",
-        "Full-Day Ho Chi Minh City Tour with Cu Chi Tunnels (Shared Basis)",
-        "Notre Dame Cathedral",
-        "Post Office",
-        "China Town",
-        "Cho Lon Market",
-        "Thien Hau Pagoda",
-        "Cu Chi Tunnels",
-        "To and fro Transfer to Airport from hotel on Private basis",
-        "Daily Lunches and Dinners as per itinerary"
+        "Daily Continental Breakfast at Hotel"
       ],
       "exclusions": [
         "Tips for Guide (USD 3 per person per day) is mandatory and not included.",
@@ -3894,71 +3850,77 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival at Hanoi - Half Day Hanoi City Tour",
+          "title": "Arrival at Hanoi - Half Day Hanoi City Tour",
           "desc": "On arrival at Noi Bai International Airport, our local representative will wait outside the customs area to welcome you and take you to your hotel. In the afternoon get ready for Hanoi City Tour Half Day. Visit Hoan Kiem Lake, Ngoc Son Temple, One Pillar Pagoda, Ho Chi Minh Mausoleum (outside view), and Dong Xuan Market. Dinner at an Indian Restaurant. Overnight Stay - Pullman Hanoi Hotel Meals - Indian Lunch, Indian Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Full Day Ninh Binh (Tam Coc - Hoa Lu with Sampan Boat Ride)",
+          "title": " Full Day Ninh Binh (Tam Coc - Hoa Lu with Sampan Boat Ride)",
           "desc": "Drive south of Hanoi to Ninh Binh Visit: Tam Coc Hoa Lu Ancient Capital King Dinh Temple King Le Temple Enjoy a Sampan Boat Ride through limestone karsts and paddy fields. Return to Hanoi in the evening. Overnight Stay - Pullman Hanoi Hotel Meals - Breakfast, Local Lunch, Indian Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Transfer from Hanoi to Halong Bay – Overnight Stay on Cruise",
+          "title": "Transfer from Hanoi to Halong Bay – Overnight Stay on Cruise",
           "desc": "Travel to Halong Bay and board a traditional sailing junk cruise. Highlights: Cruise through Halong Bay Visit natural grottos Explore limestone formations Swimming opportunities Overnight stay onboard Overnight Stay - Hera Cruise Meals - Breakfast, Lunch on Cruise, Dinner on Cruise",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Transfer from Halong Bay to Hanoi - Fly to Da Nang",
+          "title": " Transfer from Halong Bay to Hanoi - Fly to Da Nang",
           "desc": "Breakfast on cruise followed by disembarkation. Transfer to Hanoi Airport for flight to Da Nang. Upon arrival check into hotel. Remaining day at leisure. Overnight Stay - Grand Mercure Danang Meals - Brunch, Indian Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 5,
-          "title": "Day 5: Full Day Ba Na Hills Tour with Golden Bridge",
+          "title": "Full Day Ba Na Hills Tour with Golden Bridge",
           "desc": "Visit: Ba Na Hills Golden Bridge Linh Ung Pagoda Cable Car Ride Fantasy Park Nghinh Phong Peak Optional direct payment visit: Debay Wine Cellar Overnight Stay - Grand Mercure Danang Meals - Breakfast, Lunch, Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 6,
-          "title": "Day 6: Half Day Hoi An Ancient Town - Transfer from Da Nang to Ho Chi Minh",
+          "title": "Half Day Hoi An Ancient Town - Transfer from Da Nang to Ho Chi Minh",
           "desc": "Visit: Coconut Forest Bamboo Basket Boat Experience Hoi An Old Town Phuc Kien Assembly Hall Tan Ky Ancient House Japanese Covered Bridge Hoi An Traditional Performing Arts House Transfer to airport for flight to Ho Chi Minh City. Check in at hotel upon arrival. Overnight Stay - Sofitel Saigon Plaza Meals - Breakfast, Lunch, Indian Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 7,
-          "title": "Day 7: Full Day Ho Chi Minh City Tour with Cu Chi Tunnels",
+          "title": "Full Day Ho Chi Minh City Tour with Cu Chi Tunnels",
           "desc": "Visit: Post Office Notre Dame Cathedral Thien Hau Pagoda China Town Cho Lon Market Cu Chi Tunnels Return to Saigon in the evening. Overnight Stay - Sofitel Saigon Plaza Meals - Breakfast, Local Lunch, Indian Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 8,
-          "title": "Day 8: Morning Free for Shopping - Departure from Ho Chi Minh City",
+          "title": " Morning Free for Shopping - Departure from Ho Chi Minh City",
           "desc": "Free time for shopping at Ben Thanh Market or nearby malls. Transfer to airport for onward flight. Meals - Breakfast, Indian Lunch",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "heroTagline": "Explore Vietnam, where lantern-lit streets, emerald bays, rich culture, and vibrant flavours come alive.",
+      "itinerarySectionTitle": "8 Days of Cultural Wonders",
+      "discountBadge": "9% OFF",
+      "seo": {
+        "focusKeyword": "Vietnam"
+      }
     },
     {
       "id": "tour-wix-bali-tropical-escape",
