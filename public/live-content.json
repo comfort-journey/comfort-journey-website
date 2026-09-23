@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-21T18:23:27.283Z",
+  "lastUpdated": "2026-09-23T18:27:19.581Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -3604,8 +3604,8 @@
     {
       "id": "tour-wix-phuket-paradise-getaway",
       "wixId": "0cad7a97-43ff-42b1-acea-8c35acc1ec32",
-      "name": "Phuket Paradise Getaway",
-      "slug": "phuket-paradise-getaway",
+      "name": "Phuket in Full Bloom",
+      "slug": "phuket-in-full-bloom",
       "location": "Phuket",
       "city": "Phuket",
       "state": "Thailand",
@@ -3627,7 +3627,9 @@
         "Heritage & Palaces",
         "Culture & Heritage",
         "Thailand",
-        "Luxury Signature"
+        "Luxury Signature",
+        "Couple & Honeymoon",
+        "Group Tours"
       ],
       "tags": [
         "International",
@@ -3648,11 +3650,11 @@
       ],
       "duration": "5N/6D",
       "durationDays": 56,
-      "price": 71047,
+      "price": 49999,
       "origPrice": 170514,
-      "originalPrice": 170514,
-      "tagline": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
-      "description": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
+      "originalPrice": 59999,
+      "tagline": "Discover Phuket, where turquoise waters, tropical beaches, island adventures, and vibrant nights await.",
+      "description": "<!--StartFragment-->Discover <span data-start=\"730\" data-end=\"740\">Phuket</span>, where turquoise waters, tropical beaches, island adventures, and vibrant nights await.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/nsplsh_67754e496a497555636759~mv2_d_2992_3992_s_4_2.jpg/Image%20by%20Denys%20Nevozhai.jpg#originWidth=2992&originHeight=3992",
       "badge": "International Signature",
@@ -3660,57 +3662,25 @@
       "reviews": 96,
       "reviewsCount": 96,
       "inclusions": [
-        "Phuket 2 nights -",
-        "Stay for 2 nights at Patong Bay Residence",
         "1 x Grand Deluxe Sunset View",
         "1 Double Bed",
         "Free breakfast, Free WiFi, Free self parking",
-        "Save:54%",
-        "Non-refundable",
         "One-way transfer from Phuket Airport to Phuket Hotel - Private transfer",
         "Private Transfers",
-        "James Bond Island Tour - Longtail Boat + Sea Canoe + Seat in Coach",
-        "Starts at 9:00 am (Duration: 9 hrs)",
         "James Bond Island With Transfers And Lunch - Longtail Boat + Sea Canoe + Seat in Coach's type",
         "Start from Patong Bay Residence",
-        "Start time 09:00 am",
-        "Shared Transfers",
         "Meal Included",
         "Phuket to Phi Phi Island - Shared Transfer to Pier + Ferry To Phi Phi",
-        "Starts at 7:00 am, 12:00 pm (Duration: 4 hrs)",
         "Shared Transfers",
-        "Breakfast - Included on 2 days",
         "Lunch - Included on 1 day",
-        "Dinner - Not Included",
         "Phi Phi Island 1 night -",
         "Stay for 1 night at Phi Phi The Beach Resort",
-        "1 x Superior, Villa, Partial Sea View",
         "Bed and Breakfast",
         "Phi Phi Island to Krabi - (Own Transfers from Phi Phi Hotel to Phi Phi Pier) + Ferry + SIC Transfers from Pier to Krabi Hotel",
-        "Starts at 2:30 pm (Duration: 3 hrs)",
-        "Pick up time 02:30 pm",
-        "Start from Phi Phi The Beach Resort",
         "Drop at Ananta Burin Resort",
-        "Shared Transfers",
         "Breakfast - Included on 1 day",
-        "Krabi 2 nights -",
-        "Stay for 2 nights at Ananta Burin Resort",
         "1 x Superior Super Kids (No Window)",
-        "1 Double Bed",
-        "Free breakfast, Free WiFi, Free self parking",
-        "Save:48%",
-        "Non-refundable",
-        "Krabi Four Island Tour - Long Tail Boat - Seat in Coach (Open Air Local Vehicle)",
-        "Starts at 8:00 am (Duration: 7 hrs)",
-        "Krabi Four Island Ticket by Long Tail Boat's type",
-        "Start from Ananta Burin Resort",
-        "Start time 08:00 am",
-        "Shared Transfers,",
-        "Meal Included",
-        "Krabi Hotel To Krabi Airport - Private",
-        "Private Transfers",
-        "Breakfast - Included on 2 days",
-        "Lunch - Included on 1 day"
+        "Krabi Four Island Tour - Long Tail Boat - Seat in Coach (Open Air Local Vehicle)"
       ],
       "exclusions": [
         "Passport fees, immunization costs, city taxes at the hotel and local departure taxes (wherever applicable)",
@@ -3727,63 +3697,61 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Phuket - 2 Nights",
-          "desc": "Phuket - 2 Nights Patong Bay Residence 73/6 Phrabaramee Rd Check-in 02:00 PM Check-out 12:00 PM 1 x Grand Deluxe Sunset View 1 Double Bed Free breakfast, Free WiFi, Free self parking Save:54% Non-refundable Meals Included - Breakfast Non-refundable You'll be asked to pay the following charges at the property. Fees may include applicable taxes: Deposit: THB 1000 per accommodation, per stay What to know about this hotel Prime Location: The hotel's central location in Patong Beach provides easy access to the beach, shopping, and nightlife. Stunning Views: Many rooms offer breathtaking views of Patong Bay, adding to the hotel's charm. Attentive Service: 1The hotel's staff is known for their exceptional service, ensuring a personalized and memorable stay. Modern Amenities: The hotel features modern amenities, including a rooftop pool, fitness center, and on-site restaurant, ensuring a comfortable stay. Small Gym: The fitness center is relatively small, which may not be suitable for guests who require extensive gym facilities. Limited Parking: The hotel has limited parking spaces available, which can be a challenge for guests with vehicles. Noisy Area: The hotel's location in the heart of Patong Beach can result in noise from the surrounding bars and nightlife.",
-          "stayTier": "4-Star / 5-Star Luxury Stay",
-          "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
-        },
-        {
-          "day": 1,
-          "title": "Day 1: Arrival in Phuket",
+          "title": "Arrival in Phuket",
           "desc": "Upon arrival at Phuket Airport, meet our local tour coordinator who will meet and greet you at the specified area and transfer you to the hotel. Check-in at the hotel and relax. Flight arriving on - Phuket Intl Airport, Phuket Overnight stay at Patong Bay Residence Dinner - Not Included",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: James Bond Island by Longtail Boat",
+          "title": "James Bond Island by Longtail Boat",
           "desc": "The world’s most famous international spy and visit a stunning Thai Island - Khao Ping Khan, also known as James Bond Island. Once the location for \"The Man With The Golden Gun\", the island jutting out of the surrounding emerald-green water is a great place to take some snaps as you remember some of James Bond’s best moments. The trip begins with an early morning hotel pick up and takes you to Royal Phuket Marina from where you hop on a speedboat and head to the picturesque Phang Nga Bay. Upon your arrival, enjoy sightseeing on Panak Island and swim in a quiet secluded lagoon before finally getting your chance to gaze upon James Bond Island. Stroll through an enchanting mangrove forest, discover ancient paintings and more. Have lunch on Panyee Island and go kayaking around Hong Island. Relax on the beach on Naka Noi Island after your engaged day before heading back to your hotel. Notes :- Tour in long tail boat starts from the pier in Phang Nga Province which is around 1.5 hours drive away and you also visit the famous Monkey Cave of Wat Suwan Kuha as part of the tour. If you wish to spend more time at the island and beach and not visit monkey cave, it's advisable to upgrade to tour in speed boat. Swimwear, a change of clothes, sunscreen, sun hat, camera, toiletries and a towel. Showers and changing rooms are available at the pier Overnight stay at Patong Bay Residence Breakfast - Included at Hotel Lunch - Included",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Transfer from Phuket to Phi Phi Islands",
+          "title": "Transfer from Phuket to Phi Phi Islands",
           "desc": "Take your fill at breakfast early this morning, pack your bags and check out from the hotel. Today we bid goodbye to Phuket and further our vacation to a much more exotic and beautiful  destination- Phi Phi Islands. On arrival at Phi Phi, check in to your hotel (Standard Check in time: 1400 - 1500 hours) and relax. Rest of the day is free at your own leisure. Overnight stay at Phi Phi The Beach Resort Breakfast - Included at Hotel Phi Phi Island - 1 Night Phi Phi The Beach Resort Check-in 02:00 PM Check-out 11:00 AM 1 x Superior, Villa, Partial Sea View Bed and Breakfast Meals Included - Breakfast Non-refundable You'll be asked to pay the following charges at the property: The charges below are included in your overall room price: New Year's Eve gala dinner fee What to know about this hotel Convenient: Short walk to Phi Phi Island Village and shops Beachfront: Direct access to beautiful Long Beach Spacious Rooms: Rooms range from 40-60 sqm with private balconies Lush Lobby: Spacious and modern lobby with comfortable seating MultipleDining: 4 restaurants and bars offering international cuisine FreeWiFi: Complimentary Wi-Fi throughout the resort Vegetarian: Vegetarian options available for Indian guests IndianFood: Indian cuisine available at resort's restaurant LiftLimitations: Only 2 elevators serving 4 floors, potential waiting times OlderHotel: Resort built in 1994, some areas showing signs of age LimitedShopping: Limited local shopping options nearby, mostly touristy shops LimitedOptions: Limited Indian cuisine options compared to other resorts",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Transfer from Phi Phi Island to Krabi",
+          "title": "Transfer from Phi Phi Island to Krabi",
           "desc": "Take your fill at breakfast early this morning, pack your bags and check out from the hotel. Today we bid goodbye to Phi Phi and further our vacation to a much more exotic and beautiful destination- Krabi by Ferry. On arrival at Krabi, check in to your hotel (Standard Check in time: 1400 - 1500 hours) and relax. Rest of the day is free at your own leisure. In the evening you can go out and get acquainted to your nearby areas and relish some freshly made cuisines at local seaside restaurants. Later return to hotel and sleep relaxed. Overnight stay at Ananta Burin Resort Breakfast - Included at Hotel Krabi - 2 nights Ananta Burin Resort Check-in 03:00 PM Check-out 12:00 PM 1 x Superior Super Kids (No Window) 1 Double Bed Free breakfast, Free WiFi, Free self parking Save:48% Non-refundable Meals Included - Breakfast What to know about this hotel Newly Renovated: Hotel renovated in 2018 Wi-Fi Quality: Free and reliable Wi-Fi throughout Pool Availability: Large outdoor pool with sun loungers Spacious Rooms: Rooms start at 40 sqm in size Lobby Atmosphere: Spacious and modern lobby Lift Efficiency: Fast and efficient elevator system Walk to Beach: 300 meters to Ao Nang Beach Indian Food: Available at on-site restaurant Indian Breakfast: Included in breakfast buffet Limited Dining: Only one on-site restaurant No Mall: No malls within walking distance Not Metro: No metro station nearby Small Gym: Limited equipment in fitness center No Indian: Nearby restaurants within walking distance",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 5,
-          "title": "Day 5: Full Day Krabi Four Island Tour by Long Tail Boat",
+          "title": "Full Day Krabi Four Island Tour by Long Tail Boat",
           "desc": "After breakfast, proceed for Krabi Four Island Day Trip. Explore the islands of Koh Tup, Koh Gai, Koh Poda and Phra Nang Cave Beach via boat on this day trip from Krabi. Start your day trip in the morning by first going to the scenic Koh Tup Island, famed for its tidal sandbank. Wonder at the unique formation of shoals and picturesque coastline. Next, head over to Koh Gai Island, also known as Chicken Island for its similar appearance to the head of a chicken. Here dive into the exquisite, azure water for a swim or go snorkelling to closely observe the variety of sea creatures. Break for a delicious picnic lunch at Koh Poda Island and take time to relax on the white sandy beach, snooze in the sun, and observe the stunning scenery. Your last stop is at the breathtaking Phra Nang Cave Beach. Explore the grotto caves, watch as daring climbers ascend the rocks, and swim in the warm waters inside the caves. Notes: Wear sunglasses and sunscreen, bring towels, swimwear and a hat/cap Don't forget your camera and a waterproof case Overnight stay at Ananta Burin Resort Breakfast - Included at Hotel Lunch - Included",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 6,
-          "title": "Day 6: Departure from Krabi",
+          "title": "Departure from Krabi",
           "desc": "After breakfast, check-out from your hotel. You will be picked up and transfered to Krabi Airport to catch your return flight back home. Your trip ends with sweet memories. Flight departing on - Krabi Airport, Krabi Breakfast - Included at Hotel",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "heroTagline": "Discover Phuket, where turquoise waters, tropical beaches, island adventures, and vibrant nights await.",
+      "itinerarySectionTitle": "6 Days of Island Adventures & Coastal Moments",
+      "discountBadge": "17% OFF",
+      "seo": {
+        "focusKeyword": "Phuket "
+      }
     },
     {
       "id": "tour-wix-unbeatable-vietnam-premium",
