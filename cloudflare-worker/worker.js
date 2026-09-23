@@ -71,10 +71,10 @@ export default {
 
       try {
         const body = await request.json();
-        const { tours, blogs, commitMessage } = body || {};
+        const { tours, blogs, siteSettings, commitMessage } = body || {};
 
-        if (!tours && !blogs) {
-          return jsonResponse({ error: 'Missing tours or blogs payload in request.' }, 400);
+        if (!tours && !blogs && !siteSettings) {
+          return jsonResponse({ error: 'Missing tours, blogs, or siteSettings payload in request.' }, 400);
         }
 
         const apiUrl = `https://api.github.com/repos/${repo}/contents/${filePath}`;
@@ -105,7 +105,8 @@ export default {
           lastUpdated: new Date().toISOString(),
           updatedBy: 'Comfort Journey Content Studio (via Secure Cloudflare Proxy)',
           tours: Array.isArray(tours) ? tours : [],
-          blogs: Array.isArray(blogs) ? blogs : []
+          blogs: Array.isArray(blogs) ? blogs : [],
+          ...(siteSettings && typeof siteSettings === 'object' ? { siteSettings } : {})
         };
 
         const jsonStr = JSON.stringify(contentObj, null, 2);

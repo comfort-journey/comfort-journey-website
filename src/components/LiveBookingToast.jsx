@@ -3,15 +3,22 @@ import { siteSettingsService, EVENT_SETTINGS_UPDATED } from '../services/siteSet
 import { CheckCircle2, Sparkles, X, MapPin } from 'lucide-react';
 
 export default function LiveBookingToast() {
-  const [toastConfig, setToastConfig] = useState(() => siteSettingsService.getLiveToasts());
+  const [toastConfig, setToastConfig] = useState(() => ({ ...siteSettingsService.getLiveToasts() }));
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visible, setVisible] = useState(false);
   const [dismissed, setDismissed] = useState(false);
 
   // Listen for live CMS updates
   useEffect(() => {
-    const handleUpdate = () => {
-      setToastConfig(siteSettingsService.getLiveToasts());
+    const handleUpdate = (e) => {
+      const updated = e.detail?.liveToasts || siteSettingsService.getLiveToasts();
+      setToastConfig({
+        ...updated,
+        bookings: Array.isArray(updated.bookings) ? [...updated.bookings] : []
+      });
+      if (updated.enabled) {
+        setDismissed(false);
+      }
     };
     window.addEventListener(EVENT_SETTINGS_UPDATED, handleUpdate);
     return () => window.removeEventListener(EVENT_SETTINGS_UPDATED, handleUpdate);

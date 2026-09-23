@@ -3,9 +3,10 @@ import {
   Sparkles, Globe, Search, Share2, Eye, Sliders, CheckCircle2,
   Trash2, Plus, RefreshCw, AlertCircle, Phone, MessageCircle,
   Video, Image as ImageIcon, ShieldCheck, HelpCircle, Save, ExternalLink,
-  Laptop, Smartphone, Layers, Check, Copy
+  Laptop, Smartphone, Layers, Check, Copy, UploadCloud, Loader2
 } from 'lucide-react';
 import { siteSettingsService } from '../../services/siteSettingsService';
+import { contentService } from '../../services/contentService';
 import './SiteCustomizer.css';
 
 export default function SiteCustomizer({ onToast }) {
@@ -14,6 +15,7 @@ export default function SiteCustomizer({ onToast }) {
   const [selectedPage, setSelectedPage] = useState('home');
   const [serpViewMode, setSerpViewMode] = useState('desktop'); // 'desktop' | 'mobile'
   const [isSaved, setIsSaved] = useState(false);
+  const [isPublishing, setIsPublishing] = useState(false);
   const [newBooking, setNewBooking] = useState({ name: '', from: '', tour: '', time: 'Just now' });
 
   // Update local state if settings change externally
@@ -24,12 +26,34 @@ export default function SiteCustomizer({ onToast }) {
   const showFeedback = (msg) => {
     if (onToast) onToast(msg);
     setIsSaved(true);
-    setTimeout(() => setIsSaved(false), 2500);
+    setTimeout(() => setIsSaved(false), 3000);
   };
 
   const handleSave = async () => {
     await siteSettingsService.saveSettings(settings);
-    showFeedback('✅ Site & SEO Settings updated live across all pages!');
+    showFeedback('✅ Settings saved in this browser & local dev disk!');
+  };
+
+  // 1-Click Live Worldwide Publishing to GitHub / Cloudflare
+  const handlePublishWorldwide = async () => {
+    setIsPublishing(true);
+    showFeedback('🚀 Publishing to live website worldwide...');
+    try {
+      // 1. Save locally and to local dev disk first
+      await siteSettingsService.saveSettings(settings);
+
+      // 2. Publish to live site repository
+      const res = await contentService.publishWorldwide({
+        commitMessage: `Site & SEO Customizer Update: ${new Date().toLocaleString()}`
+      });
+
+      showFeedback(`🎉 Published Live Worldwide! ${res.message || 'Live site is updated for all visitors.'}`);
+    } catch (err) {
+      console.warn('[SiteCustomizer] Publish error:', err);
+      showFeedback(`⚠️ Saved locally! Note: ${err.message}`);
+    } finally {
+      setIsPublishing(false);
+    }
   };
 
   const handleResetDefaults = () => {
@@ -203,13 +227,22 @@ export default function SiteCustomizer({ onToast }) {
         </button>
 
         <div className="subnav-actions">
-          <button className="btn-secondary btn-sm" onClick={handleResetDefaults}>
+          <button className="btn-secondary btn-sm" onClick={handleResetDefaults} title="Reset to brand defaults">
             <RefreshCw size={14} />
             <span>Reset</span>
           </button>
-          <button className="btn-primary btn-sm save-all-btn" onClick={handleSave}>
+          <button className="btn-secondary btn-sm" onClick={handleSave} title="Save in browser">
             <Save size={14} />
-            <span>Save All Changes</span>
+            <span>Save Locally</span>
+          </button>
+          <button
+            className="btn-primary btn-sm save-all-btn"
+            onClick={handlePublishWorldwide}
+            disabled={isPublishing}
+            title="Publish live to GitHub / Cloudflare for all visitors worldwide"
+          >
+            {isPublishing ? <Loader2 size={14} className="animate-spin" /> : <UploadCloud size={14} />}
+            <span>{isPublishing ? 'Publishing...' : '🚀 Publish Live (Worldwide)'}</span>
           </button>
         </div>
       </div>
@@ -452,6 +485,17 @@ export default function SiteCustomizer({ onToast }) {
                   onChange={(e) => handleHeroChange('subheadline', e.target.value)}
                   placeholder="Explore 2,000+ handpicked journeys by Continents, Weather & Season, or Personalized Style"
                 />
+              </div>
+
+              <div className="field-group">
+                <label>Question Heading (Above Discovery Gateways)</label>
+                <input
+                  type="text"
+                  value={settings.hero.questionHeading || ''}
+                  onChange={(e) => handleHeroChange('questionHeading', e.target.value)}
+                  placeholder="How Do You Want to Travel?"
+                />
+                <span className="field-hint">Heading text right above Continents, Weather & Season tabs.</span>
               </div>
 
               <h4 className="section-subtitle mt-6">📢 Seasonal Announcement Bar</h4>
@@ -885,7 +929,7 @@ export default function SiteCustomizer({ onToast }) {
       <div className="customizer-bottom-bar">
         <div className="bottom-bar-left">
           <span className="text-gray text-sm">
-            💡 Changes saved here take effect immediately in the browser and persist across all devices.
+            💡 Click <strong>Save Locally</strong> to test in your browser, or <strong>Publish Live (Worldwide)</strong> to push changes to the live site on GitHub.
           </span>
         </div>
         <div className="bottom-bar-actions">
@@ -893,9 +937,17 @@ export default function SiteCustomizer({ onToast }) {
             <RefreshCw size={15} />
             <span>Reset Defaults</span>
           </button>
-          <button className={`btn-primary ${isSaved ? 'btn-success-flash' : ''}`} onClick={handleSave}>
-            {isSaved ? <Check size={16} /> : <Save size={16} />}
-            <span>{isSaved ? 'Saved Successfully!' : 'Save & Publish Live'}</span>
+          <button className="btn-secondary" onClick={handleSave}>
+            <Save size={15} />
+            <span>Save Locally</span>
+          </button>
+          <button
+            className={`btn-primary ${isSaved ? 'btn-success-flash' : ''}`}
+            onClick={handlePublishWorldwide}
+            disabled={isPublishing}
+          >
+            {isPublishing ? <Loader2 size={16} className="animate-spin" /> : <UploadCloud size={16} />}
+            <span>{isPublishing ? 'Publishing Live to GitHub...' : '🚀 Publish Live (Worldwide)'}</span>
           </button>
         </div>
       </div>

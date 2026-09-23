@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useWishlistCompare } from '../context/WishlistCompareContext';
+import { siteSettingsService, EVENT_SETTINGS_UPDATED } from '../services/siteSettingsService';
 
 export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOpenLandingHub }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -29,6 +30,17 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
 
   const { currency, setCurrency, currencies } = useCurrency();
   const { wishlist, setIsWishlistOpen, compareList, setIsCompareOpen } = useWishlistCompare();
+
+  // Dynamic Site Settings for Announcement Bar and Contacts
+  const [siteSettings, setSiteSettings] = useState(() => ({ ...siteSettingsService.getSettings() }));
+
+  useEffect(() => {
+    const handleUpdate = (e) => {
+      setSiteSettings({ ...(e.detail || siteSettingsService.getSettings()) });
+    };
+    window.addEventListener(EVENT_SETTINGS_UPDATED, handleUpdate);
+    return () => window.removeEventListener(EVENT_SETTINGS_UPDATED, handleUpdate);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -193,6 +205,24 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
 
   return (
     <>
+      {/* Dynamic Seasonal Top Announcement Bar */}
+      {siteSettings.hero?.announcementActive && siteSettings.hero?.announcementText && (
+        <div className="top-announcement-strip">
+          <div className="container announcement-inner">
+            <span className="announcement-badge-pill">{siteSettings.hero?.announcementBadge || '2026 Special'}</span>
+            <span className="announcement-text-content">{siteSettings.hero?.announcementText}</span>
+            <a
+              href={`https://wa.me/${siteSettings.hero?.whatsappNumber || '918770403315'}?text=${encodeURIComponent(siteSettings.hero?.whatsappDefaultMessage || 'Hi Comfort Journey!')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="announcement-cta-link"
+            >
+              Enquire Now →
+            </a>
+          </div>
+        </div>
+      )}
+
       <header className={`navbar-root ${isScrolled ? 'scrolled' : ''}`}>
         <div className="container nav-container">
         {/* Modern Luxury Brand Logo & Tagline */}
@@ -1426,6 +1456,61 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           .brand-emblem-badge svg {
             width: 34px;
             height: 34px;
+          }
+        }
+
+        /* ── Top Announcement Strip ── */
+        .top-announcement-strip {
+          background: linear-gradient(90deg, #1E1B4B 0%, #312E81 50%, #4338CA 100%);
+          border-bottom: 1px solid rgba(255, 184, 0, 0.25);
+          color: #F8FAFC;
+          font-size: 0.78rem;
+          padding: 0.4rem 0;
+          position: relative;
+          z-index: 10001;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        .announcement-inner {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.75rem;
+          flex-wrap: wrap;
+          text-align: center;
+        }
+        .announcement-badge-pill {
+          background: #FF892F;
+          color: #FFFFFF;
+          font-size: 0.68rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          padding: 0.15rem 0.5rem;
+          border-radius: 20px;
+          box-shadow: 0 0 10px rgba(255, 137, 47, 0.4);
+        }
+        .announcement-text-content {
+          font-weight: 500;
+          color: #F1F5F9;
+        }
+        .announcement-cta-link {
+          color: #FFB800;
+          font-weight: 700;
+          text-decoration: underline;
+          transition: color 0.2s ease;
+          display: inline-flex;
+          align-items: center;
+        }
+        .announcement-cta-link:hover {
+          color: #FFA500;
+        }
+        @media (max-width: 640px) {
+          .announcement-badge-pill {
+            display: none;
+          }
+          .top-announcement-strip {
+            font-size: 0.72rem;
+            padding: 0.3rem 0.5rem;
           }
         }
       `}</style>

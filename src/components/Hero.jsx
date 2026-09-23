@@ -21,11 +21,12 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
   const heroRef = useRef(null);
 
   // Dynamic CMS Hero Settings
-  const [heroSettings, setHeroSettings] = useState(() => siteSettingsService.getHero());
+  const [heroSettings, setHeroSettings] = useState(() => ({ ...siteSettingsService.getHero() }));
 
   useEffect(() => {
-    const handleSettingsUpdate = () => {
-      setHeroSettings(siteSettingsService.getHero());
+    const handleSettingsUpdate = (e) => {
+      const updated = e.detail?.hero || siteSettingsService.getHero();
+      setHeroSettings({ ...updated });
     };
     window.addEventListener(EVENT_SETTINGS_UPDATED, handleSettingsUpdate);
     return () => window.removeEventListener(EVENT_SETTINGS_UPDATED, handleSettingsUpdate);
@@ -230,11 +231,13 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           loop
           muted
           playsInline
-          poster="https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1920&q=85"
+          poster={heroSettings.videoPoster || "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1920&q=85"}
           onError={(e) => { e.currentTarget.style.display = 'none'; }}
         >
           {/* High-definition tropical & luxury travel drone footage */}
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-luxury-resort-in-the-maldives-41880-large.mp4" type="video/mp4" />
+          {heroSettings.bgVideoUrl && (
+            <source src={heroSettings.bgVideoUrl} type="video/mp4" />
+          )}
         </video>
         {HERO_SLIDES.map((s, idx) => (
           <div
@@ -264,7 +267,11 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
           <div className="question-badge-row">
             <h2 className="question-text">
-              How Do You Want to <span className="gradient-text-gold">Travel?</span>
+              {heroSettings.questionHeading ? (
+                heroSettings.questionHeading
+              ) : (
+                <>How Do You Want to <span className="gradient-text-gold">Travel?</span></>
+              )}
             </h2>
           </div>
         </div>

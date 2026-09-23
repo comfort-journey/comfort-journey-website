@@ -13,6 +13,7 @@
 
 import { TOURS_DATA } from '../data/toursData';
 import { BLOGS_DATA } from '../data/blogsData';
+import { siteSettingsService } from './siteSettingsService';
 import {
   getActivePublishToken,
   getActiveRepo,
@@ -281,13 +282,14 @@ export const contentService = {
   },
 
   // ─── LOCAL VITE DEV SERVER AUTO-FILE-WRITER ───
-  async syncToLocalDisk({ tours, blogs }) {
+  async syncToLocalDisk({ tours, blogs, siteSettings }) {
     if (!isLocalDev()) return { success: false, reason: 'Not in local dev' };
 
     try {
       const payload = {};
       if (tours) payload.tours = tours;
       if (blogs) payload.blogs = blogs;
+      if (siteSettings) payload.siteSettings = siteSettings;
 
       const res = await fetch('/api/cms/sync', {
         method: 'POST',
@@ -354,6 +356,16 @@ export const contentService = {
             updatedAny = true;
           }
 
+          // Hydrate Site Settings (Headings, Popups, SEO) from cloud snapshot
+          if (remote.siteSettings && typeof remote.siteSettings === 'object') {
+            try {
+              siteSettingsService.hydrateFromRemote(remote.siteSettings);
+              updatedAny = true;
+            } catch (err) {
+              console.warn('[ContentService] Failed to hydrate siteSettings from remote:', err);
+            }
+          }
+
           if (remote.lastUpdated) {
             localStorage.setItem(STORAGE_KEY_LAST_SYNC, String(new Date(remote.lastUpdated).getTime()));
           }
@@ -412,6 +424,9 @@ export const contentService = {
 
     let sha = await fetchLatestSha();
 
+    // Read active siteSettings to bundle into live-content.json
+    const currentSiteSettings = siteSettingsService.getSettings();
+
     // Prepare content payload including the organization master sync vault
     const contentObj = {
       lastUpdated: new Date().toISOString(),
@@ -422,7 +437,8 @@ export const contentService = {
         updatedAt: new Date().toISOString()
       },
       tours: this.getTours(),
-      blogs: this.getBlogs()
+      blogs: this.getBlogs(),
+      ...(currentSiteSettings ? { siteSettings: currentSiteSettings } : {})
     };
     const jsonStr = JSON.stringify(contentObj, null, 2);
     const base64Content = btoa(unescape(encodeURIComponent(jsonStr)));
@@ -555,6 +571,8 @@ export const contentService = {
     // (Zero tokens in browser or code — 100% secure)
     const cloudflareUrl = getCloudflareWorkerUrl();
     if (cloudflareUrl) {
+      const currentSiteSettings = siteSettingsService.getSettings();
+
       const endpoint = cloudflareUrl.replace(/\/+$/, '') + '/publish';
       const cfRes = await fetch(endpoint, {
         method: 'POST',
@@ -562,6 +580,7 @@ export const contentService = {
         body: JSON.stringify({
           tours: this.getTours(),
           blogs: this.getBlogs(),
+          ...(currentSiteSettings ? { siteSettings: currentSiteSettings } : {}),
           commitMessage: `${commitMessage} [${new Date().toLocaleTimeString()}]`
         })
       });

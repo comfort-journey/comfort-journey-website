@@ -50,28 +50,59 @@ function initSettings() {
 // Broadcast event so UI re-renders instantaneously without page reload
 function broadcastSettingsUpdated(settings) {
   if (typeof window === 'undefined') return;
-  window.dispatchEvent(new CustomEvent(EVENT_SETTINGS_UPDATED, { detail: settings }));
+  const clone = JSON.parse(JSON.stringify(settings));
+  window.dispatchEvent(new CustomEvent(EVENT_SETTINGS_UPDATED, { detail: clone }));
 }
 
 export const siteSettingsService = {
-  // Get all settings
+  // Get all settings (always fresh clone to ensure React reactivity)
   getSettings() {
-    return initSettings();
+    return { ...initSettings() };
   },
 
   // Get Hero section settings
   getHero() {
-    return this.getSettings().hero || DEFAULT_SITE_SETTINGS.hero;
+    return { ...(this.getSettings().hero || DEFAULT_SITE_SETTINGS.hero) };
   },
 
   // Get Live booking toast notifications
   getLiveToasts() {
-    return this.getSettings().liveToasts || DEFAULT_SITE_SETTINGS.liveToasts;
+    const toasts = this.getSettings().liveToasts || DEFAULT_SITE_SETTINGS.liveToasts;
+    return {
+      ...toasts,
+      bookings: Array.isArray(toasts.bookings) ? [...toasts.bookings] : []
+    };
   },
 
   // Get Brand trust facts for GEO (Generative AI search)
   getBrandAuthority() {
-    return this.getSettings().brandAuthority || DEFAULT_SITE_SETTINGS.brandAuthority;
+    return { ...(this.getSettings().brandAuthority || DEFAULT_SITE_SETTINGS.brandAuthority) };
+  },
+
+  // Hydrate settings from remote live-content.json on live website
+  hydrateFromRemote(remoteSettings) {
+    if (!remoteSettings || typeof remoteSettings !== 'object') return;
+    const current = initSettings();
+    activeSettings = {
+      ...DEFAULT_SITE_SETTINGS,
+      ...current,
+      ...remoteSettings,
+      hero: { ...DEFAULT_SITE_SETTINGS.hero, ...(current.hero || {}), ...(remoteSettings.hero || {}) },
+      liveToasts: { ...DEFAULT_SITE_SETTINGS.liveToasts, ...(current.liveToasts || {}), ...(remoteSettings.liveToasts || {}) },
+      brandAuthority: { ...DEFAULT_SITE_SETTINGS.brandAuthority, ...(current.brandAuthority || {}), ...(remoteSettings.brandAuthority || {}) },
+      pageSeo: { ...DEFAULT_SITE_SETTINGS.pageSeo, ...(current.pageSeo || {}), ...(remoteSettings.pageSeo || {}) }
+    };
+
+    if (typeof window !== 'undefined' && window.localStorage) {
+      try {
+        localStorage.setItem(STORAGE_KEY_SITE_SETTINGS, JSON.stringify(activeSettings));
+      } catch (err) {
+        console.warn('[SiteSettingsService] LocalStorage save error during remote hydration:', err);
+      }
+    }
+
+    broadcastSettingsUpdated(activeSettings);
+    return activeSettings;
   },
 
   // Get SEO configuration for a specific page (e.g. 'home', 'about', 'blog')
@@ -181,3 +212,21 @@ export const siteSettingsService = {
     return activeSettings;
   }
 };
+
+// Auto-hydrate site settings from live-content.json on initial load
+if (typeof window !== 'undefined') {
+  setTimeout(async () => {
+    try {
+      const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
+      const liveJsonUrl = `${basePrefix}live-content.json?_t=${Date.now()}`;
+      const res = await fetch(liveJsonUrl, { cache: 'no-store' });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.siteSettings && typeof data.siteSettings === 'object') {
+          siteSettingsService.hydrateFromRemote(data.siteSettings);
+        }
+      }
+    } catch {}
+  }, 300);
+}
+
