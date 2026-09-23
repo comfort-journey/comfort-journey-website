@@ -205,46 +205,48 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
 
   return (
     <>
-      {/* Dynamic Seasonal Top Announcement Bar */}
-      {siteSettings.hero?.announcementActive && siteSettings.hero?.announcementText && (
-        <div className="top-announcement-strip">
-          <div className="container announcement-inner">
-            <span className="announcement-badge-pill">{siteSettings.hero?.announcementBadge || '2026 Special'}</span>
-            <span className="announcement-text-content">{siteSettings.hero?.announcementText}</span>
-            <a
-              href={`https://wa.me/${siteSettings.hero?.whatsappNumber || '918770403315'}?text=${encodeURIComponent(siteSettings.hero?.whatsappDefaultMessage || 'Hi Comfort Journey!')}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="announcement-cta-link"
-            >
-              Enquire Now →
-            </a>
-          </div>
-        </div>
-      )}
-
       <header className={`navbar-root ${isScrolled ? 'scrolled' : ''}`}>
-        <div className="container nav-container">
-        {/* Modern Luxury Brand Logo & Tagline */}
-        <a href="#hero" className="brand-logo" aria-label="Comfort Journey Luxury Travel">
-          <div className="logo-glow-wrapper">
-            <div className="brand-emblem-badge">
-              <img 
-                src="https://static.wixstatic.com/media/43df74_c248c4fdb5bf421aa3465ca1f6846ba0~mv2.jpg/v1/fill/w_192,h_192,lg_1,usm_0.66_1.00_0.01/43df74_c248c4fdb5bf421aa3465ca1f6846ba0~mv2.jpg" 
-                alt="Comfort Journey Logo" 
-                className="navbar-brand-img"
-              />
-              <div className="emblem-pulse-ring"></div>
+        {/* Dynamic Seasonal Top Announcement Bar - Seamlessly Integrated at Top */}
+        {siteSettings.hero?.announcementActive && siteSettings.hero?.announcementText && (
+          <div className="top-announcement-strip">
+            <div className="container announcement-inner">
+              <span className="announcement-badge-pill">{siteSettings.hero?.announcementBadge || '2026 Special'}</span>
+              <span className="announcement-text-content">{siteSettings.hero?.announcementText}</span>
+              <a
+                href={`https://wa.me/${siteSettings.hero?.whatsappNumber || '918770403315'}?text=${encodeURIComponent(siteSettings.hero?.whatsappDefaultMessage || 'Hi Comfort Journey!')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="announcement-cta-link"
+              >
+                Enquire Now →
+              </a>
             </div>
           </div>
-          <div className="logo-text">
-            <div className="title-row">
-              <span className="title-comfort">Comfort</span>
-              <span className="title-journey">Journey</span>
-            </div>
-            <span className="sub-est-clean">Since 1992</span>
-          </div>
-        </a>
+        )}
+
+        {/* Main Navbar Header Content Bar */}
+        <div className="navbar-main-content">
+          <div className="container nav-container">
+            {/* Modern Luxury Brand Logo & Tagline */}
+            <a href="#hero" className="brand-logo" aria-label="Comfort Journey Luxury Travel">
+              <div className="logo-glow-wrapper">
+                <div className="brand-emblem-badge">
+                  <img 
+                    src="https://static.wixstatic.com/media/43df74_c248c4fdb5bf421aa3465ca1f6846ba0~mv2.jpg/v1/fill/w_192,h_192,lg_1,usm_0.66_1.00_0.01/43df74_c248c4fdb5bf421aa3465ca1f6846ba0~mv2.jpg" 
+                    alt="Comfort Journey Logo" 
+                    className="navbar-brand-img"
+                  />
+                  <div className="emblem-pulse-ring"></div>
+                </div>
+              </div>
+              <div className="logo-text">
+                <div className="title-row">
+                  <span className="title-comfort">Comfort</span>
+                  <span className="title-journey">Journey</span>
+                </div>
+                <span className="sub-est-clean">Since 1992</span>
+              </div>
+            </a>
 
         {/* Desktop Navigation Links - Clean, Uncluttered */}
         <nav className="desktop-nav">
@@ -356,7 +358,8 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           </button>
         </div>
       </div>
-    </header>
+    </div>
+  </header>
 
     {/* Universal Luxury Drawer & Backdrop Overlay (Rendered outside header to avoid backdrop-filter clipping) */}
     {mobileMenuOpen && (
@@ -556,18 +559,27 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           right: 0;
           z-index: 9999;
           transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-          padding: 1.15rem 0;
-          background: rgba(7, 11, 20, 0.6);
+          padding: 0;
+          background: rgba(7, 11, 20, 0.65);
           backdrop-filter: blur(var(--cj-blur-desktop));
           -webkit-backdrop-filter: blur(var(--cj-blur-desktop));
           border-bottom: 1px solid var(--cj-glass-border);
         }
 
+        .navbar-main-content {
+          padding: 0.95rem 0;
+          transition: padding 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+          width: 100%;
+        }
+
         .navbar-root.scrolled {
-          padding: 0.75rem 0;
-          background: rgba(7, 11, 20, 0.94);
+          background: rgba(7, 11, 20, 0.95);
           box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
           border-bottom: 1px solid rgba(255, 107, 0, 0.25);
+        }
+
+        .navbar-root.scrolled .navbar-main-content {
+          padding: 0.65rem 0;
         }
 
         .nav-container {
@@ -1428,7 +1440,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         }
 
         @media (max-width: 768px) {
-          .navbar-root {
+          .navbar-main-content {
             padding: 0.65rem 0;
           }
           .nav-ai-btn, .currency-selector-rel, .admin-trigger-btn {
