@@ -253,7 +253,11 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
       <div className="container hero-content-container">
         {/* Unified Hero Headline & Question with Interactive Mascot */}
         <div className="hero-headline-block">
-          <HeroMascot heroRef={heroRef} />
+          <HeroMascot 
+            heroRef={heroRef} 
+            onOpenAIPlanner={onOpenAIPlanner} 
+            onOpenQuote={onOpenQuote} 
+          />
           <h1 className="hero-title">
             <span className="hero-journey-text">{heroSettings.headlineMain || 'YOUR JOURNEY'}</span>
             <span className="hero-divider-dot"> • </span>
