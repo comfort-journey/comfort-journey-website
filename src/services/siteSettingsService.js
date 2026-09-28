@@ -34,7 +34,14 @@ function initSettings() {
           hero: { ...DEFAULT_SITE_SETTINGS.hero, ...(parsed.hero || {}) },
           liveToasts: { ...DEFAULT_SITE_SETTINGS.liveToasts, ...(parsed.liveToasts || {}) },
           brandAuthority: { ...DEFAULT_SITE_SETTINGS.brandAuthority, ...(parsed.brandAuthority || {}) },
-          pageSeo: { ...DEFAULT_SITE_SETTINGS.pageSeo, ...(parsed.pageSeo || {}) }
+          pageSeo: { ...DEFAULT_SITE_SETTINGS.pageSeo, ...(parsed.pageSeo || {}) },
+          tripStudio: {
+            ...DEFAULT_SITE_SETTINGS.tripStudio,
+            ...(parsed.tripStudio || {}),
+            hotelTiers: Array.isArray(parsed.tripStudio?.hotelTiers) ? parsed.tripStudio.hotelTiers : DEFAULT_SITE_SETTINGS.tripStudio.hotelTiers,
+            vehicles: Array.isArray(parsed.tripStudio?.vehicles) ? parsed.tripStudio.vehicles : DEFAULT_SITE_SETTINGS.tripStudio.vehicles,
+            addons: Array.isArray(parsed.tripStudio?.addons) ? parsed.tripStudio.addons : DEFAULT_SITE_SETTINGS.tripStudio.addons
+          }
         };
         return activeSettings;
       }
@@ -90,7 +97,15 @@ export const siteSettingsService = {
       hero: { ...DEFAULT_SITE_SETTINGS.hero, ...(current.hero || {}), ...(remoteSettings.hero || {}) },
       liveToasts: { ...DEFAULT_SITE_SETTINGS.liveToasts, ...(current.liveToasts || {}), ...(remoteSettings.liveToasts || {}) },
       brandAuthority: { ...DEFAULT_SITE_SETTINGS.brandAuthority, ...(current.brandAuthority || {}), ...(remoteSettings.brandAuthority || {}) },
-      pageSeo: { ...DEFAULT_SITE_SETTINGS.pageSeo, ...(current.pageSeo || {}), ...(remoteSettings.pageSeo || {}) }
+      pageSeo: { ...DEFAULT_SITE_SETTINGS.pageSeo, ...(current.pageSeo || {}), ...(remoteSettings.pageSeo || {}) },
+      tripStudio: {
+        ...DEFAULT_SITE_SETTINGS.tripStudio,
+        ...(current.tripStudio || {}),
+        ...(remoteSettings.tripStudio || {}),
+        hotelTiers: Array.isArray(remoteSettings.tripStudio?.hotelTiers) ? remoteSettings.tripStudio.hotelTiers : (current.tripStudio?.hotelTiers || DEFAULT_SITE_SETTINGS.tripStudio.hotelTiers),
+        vehicles: Array.isArray(remoteSettings.tripStudio?.vehicles) ? remoteSettings.tripStudio.vehicles : (current.tripStudio?.vehicles || DEFAULT_SITE_SETTINGS.tripStudio.vehicles),
+        addons: Array.isArray(remoteSettings.tripStudio?.addons) ? remoteSettings.tripStudio.addons : (current.tripStudio?.addons || DEFAULT_SITE_SETTINGS.tripStudio.addons)
+      }
     };
 
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -103,6 +118,18 @@ export const siteSettingsService = {
 
     broadcastSettingsUpdated(activeSettings);
     return activeSettings;
+  },
+
+  // Get Trip Studio & Live Estimator configuration
+  getTripStudio() {
+    const ts = this.getSettings().tripStudio || DEFAULT_SITE_SETTINGS.tripStudio;
+    return {
+      ...DEFAULT_SITE_SETTINGS.tripStudio,
+      ...ts,
+      hotelTiers: Array.isArray(ts?.hotelTiers) ? [...ts.hotelTiers] : [...DEFAULT_SITE_SETTINGS.tripStudio.hotelTiers],
+      vehicles: Array.isArray(ts?.vehicles) ? [...ts.vehicles] : [...DEFAULT_SITE_SETTINGS.tripStudio.vehicles],
+      addons: Array.isArray(ts?.addons) ? [...ts.addons] : [...DEFAULT_SITE_SETTINGS.tripStudio.addons]
+    };
   },
 
   // Get SEO configuration for a specific page (e.g. 'home', 'about', 'blog')
@@ -200,6 +227,53 @@ export const siteSettingsService = {
       ...current,
       brandAuthority: { ...current.brandAuthority, ...brandUpdates }
     });
+  },
+
+  // Update Trip Studio settings (tiers, vehicles, addons)
+  async updateTripStudio(studioUpdates) {
+    const current = this.getSettings();
+    const currentStudio = current.tripStudio || DEFAULT_SITE_SETTINGS.tripStudio;
+    return await this.saveSettings({
+      ...current,
+      tripStudio: {
+        ...currentStudio,
+        ...studioUpdates
+      }
+    });
+  },
+
+  // Update price or details of a single add-on
+  async updateAddonPrice(addonId, newPrice) {
+    const current = this.getSettings();
+    const studio = current.tripStudio || DEFAULT_SITE_SETTINGS.tripStudio;
+    const updatedAddons = (studio.addons || []).map(a =>
+      a.id === addonId ? { ...a, price: Number(newPrice) || a.price } : a
+    );
+    return await this.updateTripStudio({ addons: updatedAddons });
+  },
+
+  // Add a new add-on perk
+  async addStudioAddon(newAddon) {
+    const current = this.getSettings();
+    const studio = current.tripStudio || DEFAULT_SITE_SETTINGS.tripStudio;
+    const addonObj = {
+      id: newAddon.id || `addon-${Date.now()}`,
+      label: newAddon.label || 'VIP Experience',
+      price: Number(newAddon.price) || 2500,
+      destination: newAddon.destination || 'All',
+      icon: newAddon.icon || '✨',
+      ...(newAddon.desc ? { desc: newAddon.desc } : {})
+    };
+    const updatedAddons = [...(studio.addons || []), addonObj];
+    return await this.updateTripStudio({ addons: updatedAddons });
+  },
+
+  // Delete an add-on perk
+  async deleteStudioAddon(addonId) {
+    const current = this.getSettings();
+    const studio = current.tripStudio || DEFAULT_SITE_SETTINGS.tripStudio;
+    const updatedAddons = (studio.addons || []).filter(a => a.id !== addonId);
+    return await this.updateTripStudio({ addons: updatedAddons });
   },
 
   // Reset to original brand defaults

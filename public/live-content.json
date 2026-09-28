@@ -5389,6 +5389,35 @@
         "ogImage": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85",
         "searchIntent": "Transactional"
       }
+    },
+    "tripStudio": {
+      "enabled": true,
+      "hotelTiers": [
+        { "id": "3-star", "label": "3-Star Comfort", "mult": 1.0, "stars": 3, "desc": "Clean, verified boutique hotels & cozy scenic stays" },
+        { "id": "4-star", "label": "4-Star Premium Deluxe", "mult": 1.35, "stars": 4, "desc": "Luxury properties, valley views & gourmet buffet" },
+        { "id": "5-star", "label": "5-Star Palace / Villa", "mult": 1.85, "stars": 5, "desc": "Royal heritage palaces, overwater villas & private butlers" }
+      ],
+      "vehicles": [
+        { "id": "sedan", "label": "Private AC Sedan", "price": 1500, "capacity": "1-3 Guests", "desc": "Swift Dzire / Etios for couples & solo" },
+        { "id": "suv", "label": "Luxury SUV Crysta", "price": 2800, "capacity": "4-6 Guests", "desc": "Toyota Innova Crysta with luxury recliner seats" },
+        { "id": "tempo", "label": "VIP Urbania / Sprinter", "price": 4800, "capacity": "7-12 Guests", "desc": "Air-conditioned luxury mini coach for families" }
+      ],
+      "addons": [
+        { "id": "kashmir-shikara", "label": "Private Sunset Shikara Ride on Dal Lake", "price": 1800, "destination": "Kashmir", "icon": "🛶" },
+        { "id": "kashmir-gondola", "label": "Gulmarg Gondola Phase 1 & 2 Passes", "price": 3500, "destination": "Kashmir", "icon": "🚠" },
+        { "id": "bali-floating-bf", "label": "Ubud Jungle Swing & Floating Pool Breakfast", "price": 3200, "destination": "Bali", "icon": "🍳" },
+        { "id": "bali-seafood-dinner", "label": "Candlelight Jimbaran Beach Seafood Dinner", "price": 4500, "destination": "Bali", "icon": "🕯️" },
+        { "id": "dubai-desert-safari", "label": "Desert Dune Safari, BBQ Dinner & Show", "price": 4200, "destination": "Dubai", "icon": "🏜️" },
+        { "id": "dubai-burj-vip", "label": "Burj Khalifa 124th Fl. Fast-Track VIP Pass", "price": 5500, "destination": "Dubai", "icon": "🏙️" },
+        { "id": "kerala-houseboat", "label": "Alleppey Private Backwater Luxury Houseboat Upgrade", "price": 6500, "destination": "Kerala", "icon": "⛵" },
+        { "id": "andaman-scuba", "label": "PADI Scuba Diving & Underwater HD Photoshoot", "price": 4200, "destination": "Andaman", "icon": "🤿" },
+        { "id": "himachal-paraglide", "label": "Solang Valley Paragliding & Snow Activity Pass", "price": 3600, "destination": "Himachal", "icon": "🪂" },
+        { "id": "candlelight", "label": "Private Candlelight 4-Course Gourmet Dinner", "price": 4500, "destination": "All", "icon": "🥂" },
+        { "id": "heli", "label": "Helicopter Joyride / Mountain Darshan Pass", "price": 9500, "destination": "All", "icon": "🚁" },
+        { "id": "spa", "label": "Couple 2-Hour Aromatherapy Rejuvenation Spa", "price": 5000, "destination": "All", "icon": "💆" },
+        { "id": "vip-pass", "label": "VIP Fast-Track Monument & Cable Car Passes", "price": 2800, "destination": "All", "icon": "🎟️" },
+        { "id": "photo", "label": "Private Vacation Photographer (Half-Day Album)", "price": 4000, "destination": "All", "icon": "📸" }
+      ]
     }
   }
 }

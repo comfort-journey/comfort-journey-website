@@ -1,22 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Sparkles, Globe, Search, Share2, Eye, Sliders, CheckCircle2,
   Trash2, Plus, RefreshCw, AlertCircle, Phone, MessageCircle,
   Video, Image as ImageIcon, ShieldCheck, HelpCircle, Save, ExternalLink,
-  Laptop, Smartphone, Layers, Check, Copy, UploadCloud, Loader2
+  Laptop, Smartphone, Layers, Check, Copy, UploadCloud, Loader2,
+  Compass, DollarSign, Hotel, Car, Tag, Edit3, MapPin
 } from 'lucide-react';
 import { siteSettingsService } from '../../services/siteSettingsService';
 import { contentService } from '../../services/contentService';
 import './SiteCustomizer.css';
 
 export default function SiteCustomizer({ onToast }) {
-  const [activeSubTab, setActiveSubTab] = useState('toasts'); // 'toasts' | 'hero' | 'seo' | 'brand'
+  const [activeSubTab, setActiveSubTab] = useState('studio'); // 'studio' | 'toasts' | 'hero' | 'seo' | 'brand'
   const [settings, setSettings] = useState(() => siteSettingsService.getSettings());
   const [selectedPage, setSelectedPage] = useState('home');
   const [serpViewMode, setSerpViewMode] = useState('desktop'); // 'desktop' | 'mobile'
   const [isSaved, setIsSaved] = useState(false);
   const [isPublishing, setIsPublishing] = useState(false);
   const [newBooking, setNewBooking] = useState({ name: '', from: '', tour: '', time: 'Just now' });
+
+  // ── Trip Studio & Add-on Handlers ──
+  const [newAddon, setNewAddon] = useState({
+    label: '',
+    price: '',
+    destination: 'All',
+    icon: '✨',
+    desc: ''
+  });
+  const [studioSearch, setStudioSearch] = useState('');
+  const [studioDestFilter, setStudioDestFilter] = useState('All_Filters');
+
+  const filteredStudioAddons = useMemo(() => {
+    const addons = settings.tripStudio?.addons || [];
+    return addons.filter(addon => {
+      const matchesSearch = !studioSearch.trim() || 
+        addon.label.toLowerCase().includes(studioSearch.toLowerCase()) ||
+        (addon.destination && addon.destination.toLowerCase().includes(studioSearch.toLowerCase()));
+      const matchesDest = studioDestFilter === 'All_Filters' || addon.destination === studioDestFilter;
+      return matchesSearch && matchesDest;
+    });
+  }, [settings.tripStudio?.addons, studioSearch, studioDestFilter]);
 
   // Update local state if settings change externally
   useEffect(() => {
@@ -118,6 +141,103 @@ export default function SiteCustomizer({ onToast }) {
     setNewBooking(preset);
   };
 
+  // ── Trip Studio Mutation Handlers ──
+  const handleAddStudioAddon = (e) => {
+    e?.preventDefault();
+    if (!newAddon.label.trim()) {
+      alert('Please enter an Add-on Perk Name.');
+      return;
+    }
+    const priceNum = Number(newAddon.price) || 0;
+    if (priceNum <= 0) {
+      alert('Please enter a valid price in ₹.');
+      return;
+    }
+
+    const item = {
+      id: `addon-${Date.now()}`,
+      label: newAddon.label.trim(),
+      price: priceNum,
+      destination: newAddon.destination || 'All',
+      icon: newAddon.icon || '✨',
+      ...(newAddon.desc ? { desc: newAddon.desc.trim() } : {})
+    };
+
+    setSettings(prev => {
+      const currentStudio = prev.tripStudio || {};
+      const currentAddons = currentStudio.addons || [];
+      return {
+        ...prev,
+        tripStudio: {
+          ...currentStudio,
+          addons: [...currentAddons, item]
+        }
+      };
+    });
+
+    setNewAddon({ label: '', price: '', destination: 'All', icon: '✨', desc: '' });
+    showFeedback(`✨ Added VIP Add-on: "${item.label}" (+₹${item.price.toLocaleString('en-IN')})`);
+  };
+
+  const handleUpdateAddonPrice = (id, newPrice) => {
+    const priceVal = Math.max(0, Number(newPrice) || 0);
+    setSettings(prev => {
+      const currentStudio = prev.tripStudio || {};
+      const updatedAddons = (currentStudio.addons || []).map(a =>
+        a.id === id ? { ...a, price: priceVal } : a
+      );
+      return {
+        ...prev,
+        tripStudio: {
+          ...currentStudio,
+          addons: updatedAddons
+        }
+      };
+    });
+  };
+
+  const handleDeleteAddon = (id) => {
+    setSettings(prev => {
+      const currentStudio = prev.tripStudio || {};
+      return {
+        ...prev,
+        tripStudio: {
+          ...currentStudio,
+          addons: (currentStudio.addons || []).filter(a => a.id !== id)
+        }
+      };
+    });
+    showFeedback('🗑️ Add-on removed.');
+  };
+
+  const handleUpdateHotelMultiplier = (tierId, multVal) => {
+    const val = Math.max(0.5, Math.min(5.0, parseFloat(multVal) || 1.0));
+    setSettings(prev => {
+      const currentStudio = prev.tripStudio || {};
+      const updated = (currentStudio.hotelTiers || []).map(h =>
+        h.id === tierId ? { ...h, mult: val } : h
+      );
+      return {
+        ...prev,
+        tripStudio: { ...currentStudio, hotelTiers: updated }
+      };
+    });
+  };
+
+  const handleUpdateVehiclePrice = (vehicleId, priceVal) => {
+    const val = Math.max(0, parseInt(priceVal) || 0);
+    setSettings(prev => {
+      const currentStudio = prev.tripStudio || {};
+      const updated = (currentStudio.vehicles || []).map(v =>
+        v.id === vehicleId ? { ...v, price: val } : v
+      );
+      return {
+        ...prev,
+        tripStudio: { ...currentStudio, vehicles: updated }
+      };
+    });
+  };
+
   // Helper for Hero fields
   const handleHeroChange = (field, value) => {
     setSettings(prev => ({
@@ -194,6 +314,15 @@ export default function SiteCustomizer({ onToast }) {
       {/* ═══ Customizer Sub-Nav ═══ */}
       <div className="customizer-subnav">
         <button
+          className={`subnav-btn ${activeSubTab === 'studio' ? 'active' : ''}`}
+          onClick={() => setActiveSubTab('studio')}
+        >
+          <Compass size={16} />
+          <span>Trip Studio & Add-ons</span>
+          <span className="badge-count">{settings.tripStudio?.addons?.length || 0}</span>
+        </button>
+
+        <button
           className={`subnav-btn ${activeSubTab === 'toasts' ? 'active' : ''}`}
           onClick={() => setActiveSubTab('toasts')}
         >
@@ -246,6 +375,287 @@ export default function SiteCustomizer({ onToast }) {
           </button>
         </div>
       </div>
+
+      {/* ══════════════════════════════════════════════════════
+          SUB-TAB 0: TRIP STUDIO & DESTINATION-SPECIFIC ADD-ONS
+          ══════════════════════════════════════════════════════ */}
+      {activeSubTab === 'studio' && (
+        <div className="customizer-pane animate-fade-in">
+          <div className="pane-header-box">
+            <div>
+              <h3 className="pane-title">🧭 Trip Studio & Destination Add-ons Manager</h3>
+              <p className="pane-desc">
+                Add and customize destination-specific perks (e.g. Shikara in Kashmir, Floating breakfast in Bali, Desert safari in Dubai), 
+                and update live prices in real time. Changes immediately update the homepage Trip Studio and publish worldwide with 1 click.
+              </p>
+            </div>
+            <div className="toggle-lockup">
+              <span className="toggle-label">Trip Studio Status:</span>
+              <label className="switch-pill">
+                <input
+                  type="checkbox"
+                  checked={settings.tripStudio?.enabled !== false}
+                  onChange={(e) => {
+                    const enabled = e.target.checked;
+                    setSettings(prev => ({
+                      ...prev,
+                      tripStudio: { ...(prev.tripStudio || {}), enabled }
+                    }));
+                  }}
+                />
+                <span className="slider-pill round" />
+              </label>
+              <span className={`status-badge-text ${settings.tripStudio?.enabled !== false ? 'text-green' : 'text-gray'}`}>
+                {settings.tripStudio?.enabled !== false ? 'ACTIVE ON SITE' : 'DISABLED'}
+              </span>
+            </div>
+          </div>
+
+          {/* Form: Add New VIP Perk */}
+          <div className="studio-cms-add-card">
+            <h4 className="section-subtitle">
+              <Plus size={16} className="text-amber" />
+              <span>Add New Luxury Perk / Destination Add-on</span>
+            </h4>
+            <form onSubmit={handleAddStudioAddon} className="studio-add-form-grid">
+              <div className="input-group">
+                <label>Perk Title / Experience Name *</label>
+                <input
+                  type="text"
+                  placeholder="e.g. Private Sunset Yacht & Champagne Cruise"
+                  value={newAddon.label}
+                  onChange={(e) => setNewAddon({ ...newAddon, label: e.target.value })}
+                  required
+                />
+              </div>
+
+              <div className="input-group">
+                <label>Extra Price (₹ INR Per Person / Couple) *</label>
+                <input
+                  type="number"
+                  placeholder="e.g. 4500"
+                  value={newAddon.price}
+                  onChange={(e) => setNewAddon({ ...newAddon, price: e.target.value })}
+                  required
+                />
+              </div>
+
+              <div className="input-group">
+                <label>Destination Filter (Where to show this add-on?)</label>
+                <select
+                  value={newAddon.destination}
+                  onChange={(e) => setNewAddon({ ...newAddon, destination: e.target.value })}
+                >
+                  <option value="All">🌐 All Destinations (Universal Perk)</option>
+                  <option value="Kashmir">🏔️ Kashmir (Srinagar, Gulmarg, Pahalgam)</option>
+                  <option value="Bali">🌴 Bali (Ubud, Seminyak, Nusa Penida)</option>
+                  <option value="Dubai">🏙️ Dubai (Marina, Desert, Downtown)</option>
+                  <option value="Kerala">⛵ Kerala (Alleppey, Munnar, Kovalam)</option>
+                  <option value="Andaman">🤿 Andaman (Havelock, Neil, Port Blair)</option>
+                  <option value="Himachal">❄️ Himachal (Manali, Shimla, Dalhousie)</option>
+                  <option value="Rajasthan">🏰 Rajasthan (Jaipur, Udaipur, Jodhpur)</option>
+                  <option value="Goa">🏖️ Goa (North & South Goa)</option>
+                  <option value="Karnataka">🌿 Karnataka (Coorg, Kabini, Chikmagalur)</option>
+                  <option value="MP">🐅 Madhya Pradesh (Jabalpur, Khajuraho, Bandhavgarh)</option>
+                  <option value="Thailand">🇹🇭 Thailand (Phuket, Krabi, Bangkok)</option>
+                  <option value="Singapore">🦁 Singapore</option>
+                  <option value="Europe">🏰 Europe / Switzerland</option>
+                </select>
+              </div>
+
+              <div className="input-group">
+                <label>Icon / Emoji</label>
+                <div className="emoji-picker-row">
+                  <input
+                    type="text"
+                    style={{ width: '60px', textAlign: 'center', fontSize: '1.25rem' }}
+                    value={newAddon.icon}
+                    onChange={(e) => setNewAddon({ ...newAddon, icon: e.target.value })}
+                    maxLength={3}
+                  />
+                  <div className="emoji-quick-picks">
+                    {['🛶', '🚠', '🍳', '🕯️', '🏜️', '🏙️', '⛵', '🤿', '🪂', '🥂', '🚁', '💆', '🎟️', '📸', '🐘', '🚤'].map(em => (
+                      <button
+                        key={em}
+                        type="button"
+                        className="emoji-mini-btn"
+                        onClick={() => setNewAddon({ ...newAddon, icon: em })}
+                      >
+                        {em}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="input-group full-width">
+                <label>Short Inclusions / Description (Optional)</label>
+                <input
+                  type="text"
+                  placeholder="e.g. Includes private roundtrip chauffeur transfer, VIP lane access, and souvenir video."
+                  value={newAddon.desc}
+                  onChange={(e) => setNewAddon({ ...newAddon, desc: e.target.value })}
+                />
+              </div>
+
+              <div className="form-submit-row">
+                <button type="submit" className="btn-primary">
+                  <Plus size={16} />
+                  <span>Add Perk to Trip Studio</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          {/* Manage Existing Add-ons */}
+          <div className="studio-addons-manager-card">
+            <div className="manager-toolbar">
+              <div className="toolbar-left">
+                <h4 className="section-subtitle">
+                  <Tag size={16} className="text-amber" />
+                  <span>Active Add-ons Master Catalog ({filteredStudioAddons.length})</span>
+                </h4>
+                <p className="subtext">
+                  Directly edit prices below in real-time. Changes save locally and publish live worldwide with 1 click.
+                </p>
+              </div>
+
+              <div className="toolbar-filters">
+                <div className="search-pill-box">
+                  <Search size={14} className="text-gray" />
+                  <input
+                    type="text"
+                    placeholder="Search perks..."
+                    value={studioSearch}
+                    onChange={(e) => setStudioSearch(e.target.value)}
+                  />
+                </div>
+
+                <select
+                  value={studioDestFilter}
+                  onChange={(e) => setStudioDestFilter(e.target.value)}
+                  className="filter-dest-select"
+                >
+                  <option value="All_Filters">Filter: All Destinations</option>
+                  <option value="All">🌐 Universal (All Places)</option>
+                  <option value="Kashmir">🏔️ Kashmir</option>
+                  <option value="Bali">🌴 Bali</option>
+                  <option value="Dubai">🏙️ Dubai</option>
+                  <option value="Kerala">⛵ Kerala</option>
+                  <option value="Andaman">🤿 Andaman</option>
+                  <option value="Himachal">❄️ Himachal</option>
+                  <option value="Rajasthan">🏰 Rajasthan</option>
+                  <option value="Goa">🏖️ Goa</option>
+                  <option value="Karnataka">🌿 Karnataka</option>
+                  <option value="MP">🐅 MP</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Addons List Grid */}
+            <div className="addons-admin-grid">
+              {filteredStudioAddons.map((addon) => (
+                <div key={addon.id} className="addon-admin-item">
+                  <div className="addon-icon-badge">{addon.icon || '✨'}</div>
+                  <div className="addon-info">
+                    <div className="addon-top-row">
+                      <span className="addon-title">{addon.label}</span>
+                      <span className={`dest-tag-badge ${addon.destination === 'All' ? 'badge-universal' : 'badge-dest'}`}>
+                        {addon.destination === 'All' ? '🌐 All Places' : addon.destination}
+                      </span>
+                    </div>
+                    {addon.desc && <p className="addon-desc-text">{addon.desc}</p>}
+                  </div>
+
+                  <div className="addon-pricing-actions">
+                    <div className="price-input-wrap">
+                      <span className="currency-prefix">₹</span>
+                      <input
+                        type="number"
+                        className="inline-price-input"
+                        value={addon.price}
+                        onChange={(e) => handleUpdateAddonPrice(addon.id, e.target.value)}
+                        title="Edit price in INR"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      className="btn-trash-icon"
+                      onClick={() => handleDeleteAddon(addon.id)}
+                      title="Remove this add-on"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Hotel & Vehicle Standards Multipliers */}
+          <div className="grid-two-cols" style={{ marginTop: '1.5rem' }}>
+            {/* Hotel Standards */}
+            <div className="studio-card-box">
+              <h4 className="section-subtitle">
+                <Hotel size={16} className="text-amber" />
+                <span>Accommodation Star Multipliers</span>
+              </h4>
+              <p className="subtext">Multiplier applied to base tour per-night stay rate.</p>
+              <div className="multiplier-list">
+                {(settings.tripStudio?.hotelTiers || []).map((h) => (
+                  <div key={h.id} className="multiplier-row">
+                    <div>
+                      <strong>{h.label}</strong>
+                      <span className="desc-sub">{h.desc}</span>
+                    </div>
+                    <div className="multiplier-input-wrap">
+                      <input
+                        type="number"
+                        step="0.05"
+                        min="0.5"
+                        max="5.0"
+                        value={h.mult}
+                        onChange={(e) => handleUpdateHotelMultiplier(h.id, e.target.value)}
+                      />
+                      <span>× Multiplier</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Vehicle Fleet */}
+            <div className="studio-card-box">
+              <h4 className="section-subtitle">
+                <Car size={16} className="text-amber" />
+                <span>Private Transport Fleet Base Rates (₹/Day)</span>
+              </h4>
+              <p className="subtext">Chauffeur day-rate factored into total itinerary estimation.</p>
+              <div className="multiplier-list">
+                {(settings.tripStudio?.vehicles || []).map((v) => (
+                  <div key={v.id} className="multiplier-row">
+                    <div>
+                      <strong>{v.label}</strong>
+                      <span className="desc-sub">{v.capacity} • {v.desc}</span>
+                    </div>
+                    <div className="multiplier-input-wrap">
+                      <span className="currency-prefix">₹</span>
+                      <input
+                        type="number"
+                        step="100"
+                        min="500"
+                        value={v.price}
+                        onChange={(e) => handleUpdateVehiclePrice(v.id, e.target.value)}
+                      />
+                      <span>/ day</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ══════════════════════════════════════════════════════
           SUB-TAB 1: LIVE BOOKING TOASTS POPUP (Social Proof)
