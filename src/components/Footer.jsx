@@ -1,391 +1,703 @@
 import React from 'react';
-import { MapPin, Phone, Mail, MessageCircle, Heart, ShieldCheck, FileText, Lock } from 'lucide-react';
+import { 
+  Phone, 
+  Mail, 
+  MessageCircle, 
+  Star, 
+  Sparkles, 
+  ShieldCheck, 
+  FileText, 
+  Lock, 
+  Compass, 
+  Globe 
+} from 'lucide-react';
 
-export default function Footer({ onOpenPolicy, onOpenAdmin, onOpenLandingHub, onSelectLandingPage }) {
+const basePrefix = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+
+export default function Footer({ 
+  onOpenPolicy, 
+  onOpenAdmin, 
+  onOpenLandingHub, 
+  onSelectLandingPage,
+  onOpenAIPlanner 
+}) {
   return (
-    <footer id="contact" className="footer-root">
+    <footer id="contact" className="footer-nietzsche-root">
       <div className="container">
-        <div className="footer-grid">
-          {/* Brand Info */}
-          <div className="footer-brand">
-            <div className="footer-logo">
-              <img 
-                src="https://static.wixstatic.com/media/43df74_c248c4fdb5bf421aa3465ca1f6846ba0~mv2.jpg/v1/fill/w_192,h_192,lg_1,usm_0.66_1.00_0.01/43df74_c248c4fdb5bf421aa3465ca1f6846ba0~mv2.jpg" 
-                alt="Comfort Journey Logo" 
-                className="f-logo-img"
-              />
-              <div>
-                <h3 className="f-title">COMFORT JOURNEY</h3>
-                <span className="f-sub">We Cover Distance with Comfort</span>
+        
+        {/* The 3D Stepped Nietzsche Luxury Card */}
+        <div className="nietzsche-card">
+          
+          {/* ========================================================
+              1. FULL-BLEED BACKGROUND LANDSCAPE CANVAS
+              ======================================================== */}
+          <div className="card-bg-canvas" aria-hidden="true">
+            <img 
+              src={`${basePrefix}images/footer/footer-bg-golden-terrace.jpg`} 
+              alt="Comfort Journey Golden Mountain Vista" 
+              className="canvas-landscape-img" 
+            />
+            {/* Subtle atmospheric sky glow on upper right */}
+            <div className="canvas-sky-gradient" />
+          </div>
+
+          {/* ========================================================
+              2. TOP SOLID WHITE HEADER (100% Width)
+              ======================================================== */}
+          <div className="card-top-header">
+            
+            {/* Brand Logo & Heritage */}
+            <div className="card-brand-block">
+              <div className="brand-logo-row">
+                <div className="brand-sun-emblem">
+                  <svg viewBox="0 0 24 24" fill="none" className="sun-icon">
+                    <circle cx="12" cy="12" r="5" fill="#FF6B00" />
+                    <line x1="12" y1="1" x2="12" y2="4" stroke="#FF6B00" strokeWidth="2.5" strokeLinecap="round" />
+                    <line x1="12" y1="20" x2="12" y2="23" stroke="#FF6B00" strokeWidth="2.5" strokeLinecap="round" />
+                    <line x1="4.22" y1="4.22" x2="6.34" y2="6.34" stroke="#FF6B00" strokeWidth="2.5" strokeLinecap="round" />
+                    <line x1="17.66" y1="17.66" x2="19.78" y2="19.78" stroke="#FF6B00" strokeWidth="2.5" strokeLinecap="round" />
+                    <line x1="1" y1="12" x2="4" y2="12" stroke="#FF6B00" strokeWidth="2.5" strokeLinecap="round" />
+                    <line x1="20" y1="12" x2="23" y2="12" stroke="#FF6B00" strokeWidth="2.5" strokeLinecap="round" />
+                    <line x1="4.22" y1="19.78" x2="6.34" y2="17.66" stroke="#FF6B00" strokeWidth="2.5" strokeLinecap="round" />
+                    <line x1="17.66" y1="6.34" x2="19.78" y2="4.22" stroke="#FF6B00" strokeWidth="2.5" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="brand-name">Comfort Journey</h3>
+                  <p className="brand-tagline">Est. 1992 · Luxury Travel Concierge</p>
+                </div>
               </div>
             </div>
-            <p className="f-desc">
-              Comfort Journey is a premier luxury travel agency with 30+ years of royal expertise (Est. 1992). Handcrafting custom VIP tour packages across 2,000+ destinations worldwide.
+
+            {/* 4 Clean Navigation Columns */}
+            <div className="card-nav-columns">
+              
+              {/* Col 1: Signature Circuits */}
+              <div className="nav-column">
+                <h4 className="column-title">Signature Circuits</h4>
+                <ul className="column-list">
+                  <li><a href="#/india-packages">Incredible India</a></li>
+                  <li><a href="#/international-packages">World Passport</a></li>
+                  <li><a href="#/tropical-beach">Beach & Islands</a></li>
+                  <li><a href="#/mountain-escapes">Mountain & Treks</a></li>
+                  <li><a href="#/summer-packages">Summer 2026 Specials</a></li>
+                </ul>
+              </div>
+
+              {/* Col 2: Campaign Hub */}
+              <div className="nav-column">
+                <h4 className="column-title">Campaign Hub</h4>
+                <ul className="column-list">
+                  <li><a href="#/solo-travel">Solo Escapes</a></li>
+                  <li><a href="#/couple-honeymoon">Honeymoon & Couples</a></li>
+                  <li><a href="#/family-travel">Family Holidays</a></li>
+                  <li><a href="#/corporate-travel">Corporate Offsites</a></li>
+                  <li>
+                    <button 
+                      type="button" 
+                      className="nav-action-btn highlight"
+                      onClick={onOpenLandingHub}
+                    >
+                      All 15 Portals →
+                    </button>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Col 3: Trust & Policies */}
+              <div className="nav-column">
+                <h4 className="column-title">Trust & Policies</h4>
+                <ul className="column-list">
+                  <li>
+                    <button 
+                      type="button" 
+                      className="nav-action-btn"
+                      onClick={() => onOpenPolicy && onOpenPolicy('cancellation')}
+                    >
+                      100% Refund Policy
+                    </button>
+                  </li>
+                  <li>
+                    <button 
+                      type="button" 
+                      className="nav-action-btn"
+                      onClick={() => onOpenPolicy && onOpenPolicy('privacy')}
+                    >
+                      Traveler Safety & Privacy
+                    </button>
+                  </li>
+                  <li>
+                    <button 
+                      type="button" 
+                      className="nav-action-btn"
+                      onClick={() => onOpenPolicy && onOpenPolicy('terms')}
+                    >
+                      Terms of VIP Booking
+                    </button>
+                  </li>
+                  <li><a href="#/blog">Editorial Journal</a></li>
+                  <li>
+                    <button 
+                      type="button" 
+                      className="nav-action-btn subtle"
+                      onClick={onOpenAdmin}
+                    >
+                      Team Studio
+                    </button>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Col 4: VIP Concierge */}
+              <div className="nav-column">
+                <h4 className="column-title">VIP Concierge</h4>
+                <ul className="column-list">
+                  <li><span className="location-text">Bhopal, MP HQ</span></li>
+                  <li><a href="tel:+918770403315" className="contact-link">+91 87704 03315</a></li>
+                  <li>
+                    <a 
+                      href="https://wa.me/918770403315?text=Hi%20Comfort%20Journey!%20I%20want%20to%20plan%20a%20vacation." 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="contact-link whatsapp"
+                    >
+                      WhatsApp VIP Desk
+                    </a>
+                  </li>
+                  <li>
+                    <a 
+                      href="https://share.google/EUhDlYWM7iZDuJVs0" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="contact-link google"
+                    >
+                      ★ 4.8 Google Reviews
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+
+          {/* 3. Hairline Divider Line */}
+          <div className="card-divider-line" />
+
+          {/* ========================================================
+              4. STEPPED 3D OVERLAP ROW
+              - Left: Solid white card block with large text
+              - Right: Transparent open window exposing the mountain peak and sky!
+              ======================================================== */}
+          <div className="card-stepped-row">
+            
+            {/* Left Solid White Stepped Panel with 3D drop shadow */}
+            <div className="stepped-white-panel">
+              <h2 className="editorial-heading">
+                Handcrafting journeys for the discerning voyager
+              </h2>
+              <p className="editorial-desc">
+                Bespoke private itineraries, verified 5-star properties, dedicated chauffeurs, and 24/7 royal concierge care across 2,000+ worldwide destinations since 1992.
+              </p>
+            </div>
+
+            {/* Right Open Area: Mountain Peak & Sky Visually Emerge from Behind */}
+            <div className="stepped-open-window">
+              <div className="floating-socials-group">
+                <h4 className="socials-label">Socials</h4>
+                <div className="socials-icon-row">
+                  <a 
+                    href="https://wa.me/918770403315" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="social-btn" 
+                    title="WhatsApp VIP"
+                  >
+                    <MessageCircle size={18} />
+                  </a>
+
+                  <a 
+                    href="tel:+918770403315" 
+                    className="social-btn" 
+                    title="Call Concierge (+91 87704 03315)"
+                  >
+                    <Phone size={18} />
+                  </a>
+
+                  <a 
+                    href="https://share.google/EUhDlYWM7iZDuJVs0" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="social-btn" 
+                    title="Google Business Profile (4.8★)"
+                  >
+                    <Star size={18} />
+                  </a>
+
+                  <a 
+                    href="mailto:contact@comfortjourney.com" 
+                    className="social-btn" 
+                    title="Email Concierge"
+                  >
+                    <Mail size={18} />
+                  </a>
+
+                  {onOpenAIPlanner && (
+                    <button 
+                      type="button" 
+                      className="social-btn ai-btn" 
+                      onClick={onOpenAIPlanner}
+                      title="Plan with Comfy.ai"
+                    >
+                      <Sparkles size={18} />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* ========================================================
+              5. 100% UNOBSTRUCTED SCENIC VIEWPORT
+              (NO boxes, NO buttons, NO overlays over the mountains & terraces)
+              ======================================================== */}
+          <div className="card-scenic-viewport" />
+
+          {/* 6. Clean Minimal Baseline Bar */}
+          <div className="card-baseline-bar">
+            <p className="copyright-text">
+              © {new Date().getFullYear()} Comfort Journey (Est. 1992). All rights reserved.
             </p>
-            <div className="f-badges">
-              <span className="trust-stamp-tag stamp-amber">
-                <span style={{ fontSize: '0.82rem' }}>🏛️</span>
-                <span>Est. 1992</span>
-              </span>
-              <span className="trust-stamp-tag stamp-emerald">
-                <ShieldCheck size={13} className="text-emerald flex-shrink-0" />
-                <span>Govt. Verified</span>
-              </span>
-              <span className="trust-stamp-tag stamp-purple">
-                <MapPin size={12} className="text-purple flex-shrink-0" />
-                <span>Bhopal, MP</span>
-              </span>
-            </div>
+            <p className="craft-text">
+              We Cover Distance with Comfort · Royal Luxury Travel
+            </p>
           </div>
 
-          {/* Specialty Landing Pages & Ads Hub */}
-          <div className="footer-col">
-            <h4 className="col-title">Campaign Pages (SEO & Ads)</h4>
-            <ul className="col-links">
-              <li><a href="#/solo-travel">Solo Traveler Escapes</a></li>
-              <li><a href="#/family-travel">Family Holiday Packages</a></li>
-              <li><a href="#/couple-honeymoon">Honeymoon & Couples</a></li>
-              <li><a href="#/group-travel">Friends & Squad Trips</a></li>
-              <li><a href="#/corporate-travel">Corporate Offsites & Retreats</a></li>
-              <li><a href="#/school-college-trips">Educational Study Tours</a></li>
-              <li><a href="#/weekend-getaways">48-Hour Weekend Escapes</a></li>
-              <li><a href="#/fixed-departures">Fixed Departures Tribe</a></li>
-            </ul>
-          </div>
-
-          {/* Popular Destinations */}
-          <div className="footer-col">
-            <h4 className="col-title">Signature Circuits</h4>
-            <ul className="col-links">
-              <li><a href="#/india-packages">Incredible India Signature</a></li>
-              <li><a href="#/international-packages">World Passport Holidays</a></li>
-              <li><a href="#/adventure-tours">Adventure & Treks</a></li>
-              <li><a href="#/beach-vacations">Tropical Beach & Islands</a></li>
-              <li><a href="#/mountain-escapes">Mountain & Snow Escapes</a></li>
-              <li><a href="#/summer-packages">Summer Vacation Specials</a></li>
-              <li><a href="#/winter-packages">Winter Snow Wonderland</a></li>
-            </ul>
-          </div>
-
-          {/* Trust & Transparency */}
-          <div className="footer-col">
-            <h4 className="col-title">Trust & Policies</h4>
-            <ul className="col-links policy-links">
-              <li>
-                <button type="button" className="footer-link-btn" onClick={() => onOpenPolicy && onOpenPolicy('cancellation')}>
-                  <ShieldCheck size={15} className="text-amber flex-shrink-0 f-link-icon" />
-                  <span>100% Refund & Cancellation</span>
-                </button>
-              </li>
-              <li>
-                <button type="button" className="footer-link-btn" onClick={() => onOpenPolicy && onOpenPolicy('privacy')}>
-                  <FileText size={15} className="text-emerald flex-shrink-0 f-link-icon" />
-                  <span>Privacy & Traveler Safety</span>
-                </button>
-              </li>
-              <li>
-                <button type="button" className="footer-link-btn" onClick={() => onOpenPolicy && onOpenPolicy('terms')}>
-                  <FileText size={15} className="text-purple flex-shrink-0 f-link-icon" />
-                  <span>Terms of VIP Booking</span>
-                </button>
-              </li>
-              <li>
-                <a href="#/blog" className="footer-link-btn" style={{ color: '#6FE6FC', fontWeight: 700 }}>
-                  <FileText size={15} className="text-cyan flex-shrink-0 f-link-icon" />
-                  <span>Editorial Journal & Guides</span>
-                </a>
-              </li>
-              <li>
-                <button type="button" className="footer-link-btn admin-link-subtle" onClick={onOpenAdmin}>
-                  <Lock size={14} className="flex-shrink-0 f-link-icon" />
-                  <span>Team CMS & SEO Studio</span>
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact & Google Profile */}
-          <div className="footer-col">
-            <h4 className="col-title">24/7 VIP Concierge</h4>
-            <div className="contact-list">
-              <div className="c-item">
-                <MapPin size={18} className="c-icon" />
-                <span>Shop no 2, Phase 5, Ankur Complex, 6 Number Bus Stop, Shivaji Nagar, Bhopal, MP 462016</span>
-              </div>
-              <div className="c-item">
-                <Phone size={18} className="c-icon" />
-                <a href="tel:+918770403315">+91 87704 03315</a>
-              </div>
-              <div className="c-item">
-                <MessageCircle size={18} className="c-icon" />
-                <a href="https://wa.me/918770403315?text=Hi%20Comfort%20Journey!%20I%20want%20to%20plan%20a%20luxury%20vacation." target="_blank" rel="noopener noreferrer">
-                  Instant WhatsApp VIP Desk
-                </a>
-              </div>
-              <div className="c-item google-link-item">
-                <a 
-                  href="https://share.google/EUhDlYWM7iZDuJVs0" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="footer-google-btn"
-                >
-                  <span className="google-star-gold">★ 4.8</span>
-                  <span className="google-btn-text">Google Business Profile (85+ Reviews)</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Copyright Bar */}
-        <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} Comfort Journey (Est. 1992). All rights reserved.</p>
-          <p className="credit">Handcrafted with Royal Luxury & High Performance</p>
         </div>
       </div>
 
+      {/* 3D Stepped Nietzsche Styling */}
       <style>{`
-        .footer-root {
+        .footer-nietzsche-root {
+          padding: 3.5rem 0 6rem 0;
           background: #001233;
-          color: #94A3B8;
-          padding: 3.5rem 0 2rem 0;
-          border-top: 1px solid rgba(111, 230, 252, 0.15);
           position: relative;
           z-index: 10;
         }
 
-        .footer-grid {
-          display: grid;
-          grid-template-columns: 1.4fr 1fr 1fr 1fr 1.3fr;
-          gap: 1.75rem;
-          margin-bottom: 2.5rem;
+        /* The Main 3D Card Container */
+        .nietzsche-card {
+          position: relative;
+          border-radius: 28px;
+          overflow: hidden;
+          box-shadow: 0 30px 75px -15px rgba(0, 0, 0, 0.5);
+          background: #0F172A;
         }
 
-        @media (max-width: 1024px) {
-          .footer-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
+        /* Full-Bleed Background Landscape Canvas */
+        .card-bg-canvas {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+          pointer-events: none;
         }
 
-        @media (max-width: 640px) {
-          .footer-grid {
-            grid-template-columns: 1fr;
-          }
+        .canvas-landscape-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center bottom;
+          display: block;
         }
 
-        .footer-logo {
+        .canvas-sky-gradient {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 55%;
+          height: 50%;
+          background: radial-gradient(ellipse at top right, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.25) 50%, transparent 80%);
+          pointer-events: none;
+        }
+
+        /* ----------------------------------------------------
+           ROW 1: Solid White Top Header (100% Width)
+           ---------------------------------------------------- */
+        .card-top-header {
+          position: relative;
+          z-index: 10;
+          background: #FFFFFF;
+          padding: 2.25rem 3rem 1.4rem 3rem;
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 2.5rem;
+        }
+
+        .card-brand-block {
+          flex-shrink: 0;
+        }
+
+        .brand-logo-row {
           display: flex;
           align-items: center;
-          gap: 0.9rem;
-          margin-bottom: 1.15rem;
+          gap: 0.85rem;
         }
 
-        .f-logo-img {
-          width: 48px;
-          height: 48px;
-          border-radius: 50%;
-          border: 2px solid var(--cj-amber-500);
-          box-shadow: 0 0 12px rgba(255, 107, 0, 0.35);
+        .brand-sun-emblem {
+          width: 38px;
+          height: 38px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
-        .f-title {
+        .sun-icon {
+          width: 34px;
+          height: 34px;
+        }
+
+        .brand-name {
           font-family: var(--font-serif);
-          font-size: 1.3rem;
-          color: #FFFFFF;
+          font-size: 1.45rem;
           font-weight: 800;
-          line-height: 1.2;
+          color: #0F172A;
+          line-height: 1.15;
+          letter-spacing: -0.01em;
         }
 
-        .f-sub {
+        .brand-tagline {
           font-family: var(--font-ui);
-          font-size: 0.78rem;
-          color: var(--cj-amber-500);
-          font-style: italic;
+          font-size: 0.76rem;
+          color: #64748B;
+          font-weight: 600;
+          margin-top: 0.15rem;
+        }
+
+        /* 4 Navigation Columns */
+        .card-nav-columns {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 2rem;
+          flex-grow: 1;
+          max-width: 780px;
+        }
+
+        .nav-column {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .column-title {
+          font-family: var(--font-ui);
+          font-size: 0.92rem;
+          font-weight: 700;
+          color: #0F172A;
+          margin-bottom: 0.75rem;
+          letter-spacing: -0.01em;
+        }
+
+        .column-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 0.45rem;
+        }
+
+        .column-list a, .column-list .location-text {
+          font-family: var(--font-ui);
+          font-size: 0.84rem;
+          color: #64748B;
+          text-decoration: none;
+          transition: color 0.2s ease, transform 0.2s ease;
+          display: inline-block;
+          font-weight: 500;
+        }
+
+        .column-list a:hover {
+          color: #FF6B00;
+          transform: translateX(2px);
+        }
+
+        .contact-link.whatsapp {
+          color: #059669;
           font-weight: 600;
         }
 
-        .f-desc {
-          font-family: var(--font-body);
-          font-size: 0.88rem;
-          line-height: 1.6;
-          margin-bottom: 1.15rem;
-          color: #CBD5E1;
+        .contact-link.whatsapp:hover {
+          color: #047857;
         }
 
-        .f-badges {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.4rem;
+        .contact-link.google {
+          color: #D97706;
+          font-weight: 600;
         }
 
-        .col-title {
-          font-family: var(--font-ui);
-          font-size: 1.05rem;
-          color: #FFFFFF;
-          margin-bottom: 1.15rem;
-          font-weight: 800;
-        }
-
-        .col-links {
-          list-style: none;
-          display: flex;
-          flex-direction: column;
-          gap: 0.65rem;
-        }
-
-        .col-links a {
-          color: #CBD5E1;
-          font-size: 0.88rem;
-          font-weight: 500;
-          transition: color 0.2s ease;
-          display: inline-block;
-          padding: 0.2rem 0;
-        }
-
-        .col-links a:hover {
-          color: var(--cj-amber-500);
-        }
-
-        .footer-link-btn {
-          display: inline-flex;
-          align-items: flex-start;
-          gap: 0.6rem;
+        .nav-action-btn {
           background: none;
           border: none;
-          color: #CBD5E1;
+          padding: 0;
           font-family: var(--font-ui);
-          font-size: 0.88rem;
+          font-size: 0.84rem;
+          color: #64748B;
           font-weight: 500;
-          text-align: left;
-          padding: 0.25rem 0;
           cursor: pointer;
+          text-align: left;
           transition: all 0.2s ease;
-          line-height: 1.4;
         }
 
-        .f-link-icon {
-          margin-top: 0.18rem;
+        .nav-action-btn:hover {
+          color: #FF6B00;
+          transform: translateX(2px);
         }
 
-        .footer-link-btn:hover {
-          color: #FFFFFF;
-          transform: translateX(3px);
-        }
-
-        .admin-link-subtle {
-          color: #94A3B8;
-          margin-top: 0.4rem;
-        }
-
-        .admin-link-subtle:hover {
-          color: var(--cj-amber-500);
-        }
-
-        .contact-list {
-          display: flex;
-          flex-direction: column;
-          gap: 0.9rem;
-        }
-
-        .c-item {
-          display: flex;
-          align-items: flex-start;
-          gap: 0.75rem;
-          font-size: 0.88rem;
-        }
-
-        .c-icon {
-          color: var(--cj-amber-500);
-          flex-shrink: 0;
-          margin-top: 0.2rem;
-        }
-
-        .c-item a {
-          color: #FFFFFF;
-          font-weight: 600;
-          transition: color 0.2s ease;
-          display: inline-block;
-          padding: 0.2rem 0;
-        }
-
-        .c-item a:hover {
-          color: var(--cj-amber-500);
-        }
-
-        .footer-google-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.6rem;
-          background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(251, 188, 5, 0.4);
-          padding: 0.5rem 0.95rem;
-          border-radius: var(--radius-full);
-          color: #FFFFFF !important;
-          font-size: 0.84rem !important;
-          font-weight: 700 !important;
-          margin-top: 0.35rem;
-          transition: all 0.2s ease;
-          text-decoration: none;
-        }
-
-        .footer-google-btn:hover {
-          background: rgba(251, 188, 5, 0.15);
-          border-color: #FBBC05;
-          transform: translateY(-2px);
-        }
-
-        .google-star-gold {
-          color: #FBBC05;
-          font-weight: 900;
-          margin-right: 0.25rem;
-          font-size: 0.88rem;
-        }
-
-        .google-btn-text {
-          white-space: nowrap;
-        }
-
-        .footer-bottom {
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
-          padding-top: 2rem;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          font-size: 0.82rem;
-          flex-wrap: wrap;
-          gap: 1rem;
-        }
-
-        .credit {
-          color: var(--cj-gold-500);
+        .nav-action-btn.highlight {
+          color: #FF6B00;
           font-weight: 700;
         }
 
+        .nav-action-btn.subtle {
+          color: #94A3B8;
+          font-size: 0.78rem;
+        }
+
+        /* ----------------------------------------------------
+           DIVIDER LINE
+           ---------------------------------------------------- */
+        .card-divider-line {
+          position: relative;
+          z-index: 10;
+          height: 1px;
+          background: #E2E8F0;
+        }
+
+        /* ----------------------------------------------------
+           STEPPED 3D ROW
+           ---------------------------------------------------- */
+        .card-stepped-row {
+          position: relative;
+          z-index: 10;
+          display: flex;
+          align-items: stretch;
+        }
+
+        /* Left Solid White Stepped Panel */
+        .stepped-white-panel {
+          background: #FFFFFF;
+          width: 50%;
+          padding: 2.25rem 3rem 2.75rem 3rem;
+          border-bottom-right-radius: 36px;
+          box-shadow: 15px 20px 40px rgba(0, 0, 0, 0.12);
+          position: relative;
+          z-index: 12;
+        }
+
+        .editorial-heading {
+          font-family: var(--font-serif);
+          font-size: clamp(1.7rem, 2.4vw, 2.2rem);
+          font-weight: 800;
+          color: #0F172A;
+          line-height: 1.18;
+          letter-spacing: -0.02em;
+        }
+
+        .editorial-desc {
+          font-family: var(--font-body);
+          font-size: 0.92rem;
+          color: #64748B;
+          line-height: 1.6;
+          margin-top: 0.75rem;
+        }
+
+        /* Right Open Window: Exposes Mountain Peak and Sky */
+        .stepped-open-window {
+          width: 50%;
+          padding: 2.25rem 3rem;
+          display: flex;
+          justify-content: flex-end;
+          align-items: flex-start;
+          position: relative;
+          z-index: 11;
+        }
+
+        .floating-socials-group {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+        }
+
+        .socials-label {
+          font-family: var(--font-ui);
+          font-size: 1.05rem;
+          font-weight: 800;
+          color: #0F172A;
+          margin-bottom: 0.85rem;
+          letter-spacing: -0.01em;
+          text-shadow: 0 1px 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .socials-icon-row {
+          display: flex;
+          align-items: center;
+          gap: 0.65rem;
+        }
+
+        .social-btn {
+          width: 42px;
+          height: 42px;
+          border-radius: 50%;
+          background: #FFFFFF;
+          border: 1px solid rgba(226, 232, 240, 0.8);
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          color: #0F172A;
+          text-decoration: none;
+          cursor: pointer;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+          transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .social-btn:hover {
+          background: #0F172A;
+          color: #FFFFFF;
+          border-color: #0F172A;
+          transform: translateY(-3px) scale(1.05);
+          box-shadow: 0 8px 20px rgba(15, 23, 42, 0.25);
+        }
+
+        .social-btn.ai-btn:hover {
+          background: #FF6B00;
+          border-color: #FF6B00;
+        }
+
+        /* ----------------------------------------------------
+           UNOBSTRUCTED SCENIC VIEWPORT
+           (NO boxes, NO buttons, NO overlays over the mountains)
+           ---------------------------------------------------- */
+        .card-scenic-viewport {
+          position: relative;
+          z-index: 2;
+          width: 100%;
+          height: clamp(260px, 32vw, 380px);
+          pointer-events: none;
+        }
+
+        /* Clean Minimal Baseline Bar */
+        .card-baseline-bar {
+          position: relative;
+          z-index: 10;
+          background: rgba(15, 23, 42, 0.9);
+          backdrop-filter: blur(12px);
+          color: #94A3B8;
+          padding: 1rem 3rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-family: var(--font-ui);
+          font-size: 0.82rem;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+        }
+
+        .copyright-text {
+          color: #CBD5E1;
+        }
+
+        .craft-text {
+          color: #94A3B8;
+        }
+
+        /* ----------------------------------------------------
+           RESPONSIVE BREAKPOINTS
+           ---------------------------------------------------- */
         @media (max-width: 1024px) {
-          .footer-grid {
-            grid-template-columns: 1fr 1fr;
-            gap: 2.5rem;
+          .card-top-header {
+            flex-direction: column;
+            gap: 2rem;
+            padding: 2.25rem 2rem 1.5rem 2rem;
+          }
+
+          .card-nav-columns {
+            width: 100%;
+            max-width: none;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+          }
+
+          .card-stepped-row {
+            flex-direction: column;
+          }
+
+          .stepped-white-panel {
+            width: 100%;
+            border-bottom-right-radius: 0;
+            padding: 2rem;
+          }
+
+          .stepped-open-window {
+            width: 100%;
+            justify-content: flex-start;
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(8px);
+          }
+
+          .floating-socials-group {
+            align-items: flex-start;
+          }
+
+          .card-baseline-bar {
+            padding: 1rem 2rem;
           }
         }
 
         @media (max-width: 768px) {
-          .footer-root {
-            padding: 3rem 0 5.5rem 0; /* Extra bottom padding for floating dock */
+          .footer-nietzsche-root {
+            padding: 2rem 0 7rem 0; /* Space for Apple floating dock */
           }
-          .footer-grid {
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            margin-bottom: 2rem;
+
+          .nietzsche-card {
+            border-radius: 20px;
           }
-          .footer-bottom {
+
+          .card-top-header {
+            padding: 1.75rem 1.25rem 1.25rem 1.25rem;
+          }
+
+          .card-nav-columns {
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+          }
+
+          .stepped-white-panel {
+            padding: 1.5rem 1.25rem;
+          }
+
+          .stepped-open-window {
+            padding: 1.25rem;
+          }
+
+          .column-list a, .nav-action-btn, .column-list .location-text {
+            min-height: 40px;
+            display: inline-flex;
+            align-items: center;
+          }
+
+          .card-scenic-viewport {
+            height: 220px;
+          }
+
+          .card-baseline-bar {
+            padding: 1rem 1.25rem;
             flex-direction: column;
             text-align: center;
-            gap: 0.65rem;
-          }
-          .col-links a, .footer-link-btn, .c-item a {
-            min-height: 44px;
-            display: flex;
-            align-items: center;
           }
         }
       `}</style>

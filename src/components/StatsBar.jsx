@@ -29,25 +29,30 @@ export default function StatsBar() {
             const parsed = parseStat(stat.value);
             return (
               <Tilt3DCard key={idx} maxTilt={6} scale={1.03} className="stat-tilt-wrapper">
-                <div className="stat-card">
-                  <div className="stat-icon-wrapper">
-                    {icons[idx]}
-                  </div>
-                  <div className="stat-info">
-                    <span className="stat-value font-editorial">
-                      {parsed ? (
-                        <AnimatedCounter
-                          target={parsed.target}
-                          suffix={parsed.suffix}
-                          decimals={parsed.decimals || 0}
-                          duration={2200}
-                        />
-                      ) : (
-                        stat.value
-                      )}
-                    </span>
-                    <span className="stat-label">{stat.label}</span>
-                    <span className="stat-sub">{stat.sub}</span>
+                <div className="stat-card liquid-glass-card">
+                  <div className="liquidGlass-effect" aria-hidden="true" />
+                  <div className="liquidGlass-tint" aria-hidden="true" />
+                  <div className="liquidGlass-shine" aria-hidden="true" />
+                  <div className="liquidGlass-content stat-card-inner">
+                    <div className="stat-icon-wrapper">
+                      {icons[idx]}
+                    </div>
+                    <div className="stat-info">
+                      <span className="stat-value font-editorial">
+                        {parsed ? (
+                          <AnimatedCounter
+                            target={parsed.target}
+                            suffix={parsed.suffix}
+                            decimals={parsed.decimals || 0}
+                            duration={2200}
+                          />
+                        ) : (
+                          stat.value
+                        )}
+                      </span>
+                      <span className="stat-label">{stat.label}</span>
+                      <span className="stat-sub">{stat.sub}</span>
+                    </div>
                   </div>
                 </div>
               </Tilt3DCard>
@@ -71,21 +76,25 @@ export default function StatsBar() {
         }
 
         .stat-card {
+          position: relative;
+          padding: 1.25rem 1.5rem;
+          border-radius: var(--radius-md, 20px);
+          overflow: hidden;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stat-card-inner {
+          position: relative;
+          z-index: 3;
           display: flex;
           align-items: center;
           gap: 1.25rem;
-          padding: 1.25rem 1.5rem;
-          border-radius: var(--radius-md);
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.07);
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          width: 100%;
         }
 
         .stat-card:hover {
           transform: translateY(-4px);
-          background: rgba(255, 255, 255, 0.06);
-          border-color: rgba(255, 107, 0, 0.4);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 107, 0, 0.15);
+          box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 137, 47, 0.25);
         }
 
         .stat-icon-wrapper {

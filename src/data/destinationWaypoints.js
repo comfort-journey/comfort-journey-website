@@ -810,53 +810,675 @@ export const DESTINATION_WAYPOINTS = {
         ]
       }
     ]
+  },
+  thailand: {
+    center: [7.8804, 98.3923], // Phuket
+    baseCity: 'Phuket & Krabi, Thailand',
+    daysTemplate: [
+      {
+        day: 1,
+        title: 'Arrival in Phuket & Patong Beach Sunset',
+        travelDistance: '35 km · ~45 mins',
+        summary: 'Welcome at Phuket International Airport with private transfer. Check into beachfront resort and explore the vibrant Patong Beach at sunset.',
+        stops: [
+          {
+            time: '12:00 PM',
+            type: 'transport',
+            title: 'Phuket Airport (HKT) Meet & Chauffeur Transfer',
+            subtitle: 'Private air-conditioned minivan with luggage assistance',
+            ticketStatus: 'Included in package',
+            duration: '50 mins',
+            lat: 8.1132,
+            lng: 98.3169,
+            proximity: {
+              transport: [{ name: 'Phuket Airport Terminal', dist: '100m' }],
+              landmarks: [{ name: 'Sirinat National Park', dist: '2 km' }],
+              dining: [{ name: 'Airport Food Court', dist: '150m' }],
+              shopping: [{ name: 'King Power Duty Free', dist: '200m' }]
+            }
+          },
+          {
+            time: '04:00 PM',
+            type: 'sightseeing',
+            title: 'Patong Beach Golden Hour Walk & Photo Stop',
+            subtitle: 'Gentle stroll along Andaman sea with turquoise waters and coconut palms',
+            ticketStatus: 'Free access',
+            duration: '2 hrs',
+            lat: 7.8967,
+            lng: 98.2962,
+            proximity: {
+              transport: [{ name: 'Patong Tuk-Tuk Stand', dist: '100m' }],
+              landmarks: [{ name: 'Bangla Road Night Market', dist: '200m' }],
+              dining: [{ name: 'Thai Vegetarian Kitchen', dist: '300m' }],
+              shopping: [{ name: 'Jungceylon Mall', dist: '400m' }]
+            }
+          },
+          {
+            time: '07:30 PM',
+            type: 'hotel',
+            title: 'Check-in: 4★/5★ Beachfront Resort',
+            subtitle: 'Sea-facing room with pool access and Thai hospitality',
+            ticketStatus: 'Confirmed booking',
+            duration: 'Overnight',
+            lat: 7.8804,
+            lng: 98.3923,
+            proximity: {
+              transport: [{ name: 'Resort Lobby Concierge', dist: '10m' }],
+              landmarks: [{ name: 'Kata Viewpoint', dist: '3 km' }],
+              dining: [{ name: 'In-House Thai & Indian Dining', dist: 'In-house' }],
+              shopping: [{ name: 'Beach Bazaar', dist: '200m' }]
+            }
+          }
+        ]
+      },
+      {
+        day: 2,
+        title: 'Phi Phi Islands & Maya Bay Speedboat Excursion',
+        travelDistance: '48 km · ~1 hr by speedboat',
+        summary: 'Full-day island-hopping adventure to the world-famous Phi Phi Islands with snorkeling, Maya Bay, and Monkey Beach.',
+        stops: [
+          {
+            time: '08:00 AM',
+            type: 'transport',
+            title: 'Speedboat Transfer to Phi Phi Islands',
+            subtitle: 'Private speedboat from Rassada Pier with life jackets and guide',
+            ticketStatus: 'Included in package',
+            duration: '1 hr',
+            lat: 7.7407,
+            lng: 98.6762,
+            proximity: {
+              transport: [{ name: 'Rassada Pier', dist: '50m' }],
+              landmarks: [{ name: 'Phi Phi Don', dist: '45 km' }],
+              dining: [{ name: 'Pier-side Breakfast', dist: '100m' }],
+              shopping: [{ name: 'Marine Gift Shop', dist: '80m' }]
+            }
+          },
+          {
+            time: '10:30 AM',
+            type: 'sightseeing',
+            title: 'Maya Bay & Pileh Lagoon Swimming',
+            subtitle: 'Crystal-clear emerald waters surrounded by towering limestone cliffs',
+            ticketStatus: 'National park fee included',
+            duration: '3 hrs',
+            lat: 7.6788,
+            lng: 98.7649,
+            proximity: {
+              transport: [{ name: 'Maya Bay Dock', dist: '20m' }],
+              landmarks: [{ name: 'Viking Cave', dist: '800m' }, { name: 'Loh Samah Bay', dist: '500m' }],
+              dining: [{ name: 'Onboard Lunch Box', dist: 'On boat' }],
+              shopping: [{ name: 'Island Souvenir Stall', dist: '150m' }]
+            }
+          },
+          {
+            time: '03:00 PM',
+            type: 'meal',
+            title: 'Lunch at Phi Phi Don Seafood & Vegetarian Restaurant',
+            subtitle: 'Fresh Thai cuisine with stunning harbor views',
+            ticketStatus: 'Arranged',
+            duration: '1 hr 15 mins',
+            lat: 7.7380,
+            lng: 98.7750,
+            proximity: {
+              transport: [{ name: 'Ton Sai Pier', dist: '100m' }],
+              landmarks: [{ name: 'Phi Phi Viewpoint', dist: '1.5 km' }],
+              dining: [{ name: 'Local Thai Restaurant Row', dist: '50m' }],
+              shopping: [{ name: 'Ton Sai Market', dist: '120m' }]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  himachal: {
+    center: [32.2396, 77.1887], // Manali
+    baseCity: 'Manali & Shimla, Himachal Pradesh',
+    daysTemplate: [
+      {
+        day: 1,
+        title: 'Arrival in Manali & Old Manali Heritage Walk',
+        travelDistance: '12 km · ~30 mins',
+        summary: 'Private car pickup from Bhuntar Airport or Chandigarh-Manali highway. Explore old town charm with riverside cafes and Hadimba Temple.',
+        stops: [
+          {
+            time: '11:00 AM',
+            type: 'transport',
+            title: 'Bhuntar Airport / Highway Welcome Point',
+            subtitle: 'Private Innova Crysta with courteous driver',
+            ticketStatus: 'Included in package',
+            duration: '1 hr 30 mins',
+            lat: 31.8777,
+            lng: 77.1542,
+            proximity: {
+              transport: [{ name: 'Bhuntar Airport (KUU)', dist: '100m' }],
+              landmarks: [{ name: 'Kullu Valley Viewpoint', dist: '5 km' }],
+              dining: [{ name: 'Highway Dhaba', dist: '2 km' }],
+              shopping: [{ name: 'Kullu Shawl Market', dist: '4 km' }]
+            }
+          },
+          {
+            time: '03:00 PM',
+            type: 'sightseeing',
+            title: 'Hadimba Devi Temple & Van Vihar Park',
+            subtitle: 'Ancient wooden temple surrounded by towering deodar cedars',
+            ticketStatus: 'Free entry',
+            duration: '2 hrs',
+            lat: 32.2434,
+            lng: 77.1893,
+            proximity: {
+              transport: [{ name: 'Temple Parking', dist: '50m' }],
+              landmarks: [{ name: 'Club House', dist: '800m' }],
+              dining: [{ name: 'Old Manali Cafe Row', dist: '1 km' }],
+              shopping: [{ name: 'Tibetan Market', dist: '600m' }]
+            }
+          },
+          {
+            time: '07:00 PM',
+            type: 'hotel',
+            title: 'Check-in: Mountain View Boutique Resort',
+            subtitle: 'Pine-view room with bonfire and warm Himachali hospitality',
+            ticketStatus: 'Confirmed booking',
+            duration: 'Overnight',
+            lat: 32.2396,
+            lng: 77.1887,
+            proximity: {
+              transport: [{ name: 'Resort Porch', dist: '10m' }],
+              landmarks: [{ name: 'Beas River', dist: '300m' }],
+              dining: [{ name: 'In-House Multi-Cuisine', dist: 'In-house' }],
+              shopping: [{ name: 'Mall Road Shops', dist: '1.5 km' }]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  kedarnath: {
+    center: [30.7346, 79.0669], // Kedarnath
+    baseCity: 'Kedarnath & Rishikesh, Uttarakhand',
+    daysTemplate: [
+      {
+        day: 1,
+        title: 'Arrival in Rishikesh & Ganga Aarti at Triveni Ghat',
+        travelDistance: '25 km · ~40 mins',
+        summary: 'Private car pickup from Dehradun airport. Transfer to Rishikesh for an enchanting evening Ganga Aarti ceremony.',
+        stops: [
+          {
+            time: '12:00 PM',
+            type: 'transport',
+            title: 'Jolly Grant Airport (DED) Private Transfer',
+            subtitle: 'AC car with experienced hill driver to Rishikesh',
+            ticketStatus: 'Included in package',
+            duration: '50 mins',
+            lat: 30.1844,
+            lng: 78.1808,
+            proximity: {
+              transport: [{ name: 'Jolly Grant Airport', dist: '100m' }],
+              landmarks: [{ name: 'Forest Research Institute', dist: '15 km' }],
+              dining: [{ name: 'Airport Cafe', dist: '150m' }],
+              shopping: [{ name: 'Dehradun Market', dist: '18 km' }]
+            }
+          },
+          {
+            time: '06:00 PM',
+            type: 'sightseeing',
+            title: 'Triveni Ghat Ganga Aarti & Ram Jhula Walk',
+            subtitle: 'Spiritual evening ceremony with sacred chants on the banks of Ganges',
+            ticketStatus: 'Free entry',
+            duration: '2 hrs',
+            lat: 30.1047,
+            lng: 78.2940,
+            proximity: {
+              transport: [{ name: 'Triveni Ghat Parking', dist: '100m' }],
+              landmarks: [{ name: 'Laxman Jhula Bridge', dist: '3 km' }, { name: 'Ram Jhula', dist: '1.5 km' }],
+              dining: [{ name: 'Chotiwala Restaurant (Pure Veg)', dist: '200m' }],
+              shopping: [{ name: 'Rishikesh Yoga Market', dist: '300m' }]
+            }
+          },
+          {
+            time: '08:30 PM',
+            type: 'hotel',
+            title: 'Check-in: Riverside Ashram Resort',
+            subtitle: 'Serene Ganga-view accommodation with sattvic vegetarian meals',
+            ticketStatus: 'Confirmed booking',
+            duration: 'Overnight',
+            lat: 30.1200,
+            lng: 78.3100,
+            proximity: {
+              transport: [{ name: 'Hotel Drop-off', dist: '10m' }],
+              landmarks: [{ name: 'River Ganges', dist: '50m' }],
+              dining: [{ name: 'Ashram Pure Veg Dining', dist: 'In-house' }],
+              shopping: [{ name: 'Spiritual Books & Crafts', dist: '200m' }]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  maldives: {
+    center: [4.1755, 73.5093], // Malé
+    baseCity: 'Malé & Resort Islands, Maldives',
+    daysTemplate: [
+      {
+        day: 1,
+        title: 'Arrival in Malé & Speedboat to Private Island Resort',
+        travelDistance: '25 km · ~40 mins by speedboat',
+        summary: 'VIP airport greeting, speedboat ride over turquoise waters to your overwater villa resort.',
+        stops: [
+          {
+            time: '02:00 PM',
+            type: 'transport',
+            title: 'Velana International Airport (MLE) VIP Transfer',
+            subtitle: 'Private speedboat transfer to resort island',
+            ticketStatus: 'Included in package',
+            duration: '40 mins',
+            lat: 4.1918,
+            lng: 73.5293,
+            proximity: {
+              transport: [{ name: 'Velana Airport Terminal', dist: '100m' }],
+              landmarks: [{ name: 'Hulhumalé Beach', dist: '2 km' }],
+              dining: [{ name: 'Airport Lounge', dist: '150m' }],
+              shopping: [{ name: 'Duty Free', dist: '200m' }]
+            }
+          },
+          {
+            time: '04:00 PM',
+            type: 'sightseeing',
+            title: 'Overwater Villa Check-in & Lagoon Snorkeling',
+            subtitle: 'Crystal-clear waters with vibrant coral reefs right below your villa',
+            ticketStatus: 'Snorkeling gear included',
+            duration: '2 hrs',
+            lat: 4.2500,
+            lng: 73.4500,
+            proximity: {
+              transport: [{ name: 'Resort Jetty', dist: '50m' }],
+              landmarks: [{ name: 'House Reef', dist: '10m' }, { name: 'Sandbank', dist: '500m' }],
+              dining: [{ name: 'Overwater Restaurant', dist: '200m' }],
+              shopping: [{ name: 'Resort Boutique', dist: '100m' }]
+            }
+          },
+          {
+            time: '07:00 PM',
+            type: 'hotel',
+            title: 'Sunset Dinner at Overwater Restaurant',
+            subtitle: 'Romantic dining with ocean views and fresh Maldivian cuisine',
+            ticketStatus: 'Half-board included',
+            duration: 'Overnight',
+            lat: 4.1755,
+            lng: 73.5093,
+            proximity: {
+              transport: [{ name: 'Villa Buggy Service', dist: '10m' }],
+              landmarks: [{ name: 'Infinity Pool', dist: '100m' }],
+              dining: [{ name: 'All-Day Dining & Beach Bar', dist: 'In-house' }],
+              shopping: [{ name: 'Island Gift Shop', dist: '150m' }]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  andaman: {
+    center: [11.6234, 92.7265], // Port Blair
+    baseCity: 'Port Blair & Havelock, Andaman Islands',
+    daysTemplate: [
+      {
+        day: 1,
+        title: 'Arrival in Port Blair & Cellular Jail Light Show',
+        travelDistance: '12 km · ~25 mins',
+        summary: 'Welcome at Veer Savarkar Airport and visit to the historic Cellular Jail with its powerful light and sound show.',
+        stops: [
+          {
+            time: '12:00 PM',
+            type: 'transport',
+            title: 'Veer Savarkar Airport (IXZ) Private Transfer',
+            subtitle: 'AC car pickup with island welcome',
+            ticketStatus: 'Included in package',
+            duration: '25 mins',
+            lat: 11.6410,
+            lng: 92.7297,
+            proximity: {
+              transport: [{ name: 'Port Blair Airport', dist: '100m' }],
+              landmarks: [{ name: 'Corbyn\'s Cove Beach', dist: '6 km' }],
+              dining: [{ name: 'Airport Cafe', dist: '150m' }],
+              shopping: [{ name: 'Aberdeen Bazaar', dist: '4 km' }]
+            }
+          },
+          {
+            time: '05:30 PM',
+            type: 'sightseeing',
+            title: 'Cellular Jail National Memorial & Light Show',
+            subtitle: 'Historic colonial-era prison with moving sound and light show at dusk',
+            ticketStatus: 'Entry ticket included',
+            duration: '2 hrs 30 mins',
+            lat: 11.6944,
+            lng: 92.7622,
+            proximity: {
+              transport: [{ name: 'Cellular Jail Parking', dist: '50m' }],
+              landmarks: [{ name: 'Netaji Subhash Park', dist: '300m' }],
+              dining: [{ name: 'New Lighthouse Restaurant', dist: '500m' }],
+              shopping: [{ name: 'Aberdeen Market', dist: '1 km' }]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  goa: {
+    center: [15.2993, 74.1240], // Goa
+    baseCity: 'North & South Goa',
+    daysTemplate: [
+      {
+        day: 1,
+        title: 'Arrival in Goa & Baga Beach Sunset',
+        travelDistance: '42 km · ~55 mins',
+        summary: 'Private airport pickup, check-in to beachside resort, and evening at the vibrant Baga Beach with golden Goan sunset.',
+        stops: [
+          {
+            time: '12:00 PM',
+            type: 'transport',
+            title: 'Dabolim / Manohar Airport Private Transfer',
+            subtitle: 'AC car with Goan welcome and cold coconut water',
+            ticketStatus: 'Included in package',
+            duration: '55 mins',
+            lat: 15.3808,
+            lng: 73.8314,
+            proximity: {
+              transport: [{ name: 'Goa Airport (GOI)', dist: '100m' }],
+              landmarks: [{ name: 'Vasco da Gama Waterfront', dist: '5 km' }],
+              dining: [{ name: 'Airport Restaurant', dist: '150m' }],
+              shopping: [{ name: 'Airport Duty Free', dist: '100m' }]
+            }
+          },
+          {
+            time: '04:30 PM',
+            type: 'sightseeing',
+            title: 'Baga Beach Sunset & Tito\'s Lane Walk',
+            subtitle: 'Pristine golden sand beach with water sports and beachside cafes',
+            ticketStatus: 'Free access',
+            duration: '2 hrs',
+            lat: 15.5549,
+            lng: 73.7514,
+            proximity: {
+              transport: [{ name: 'Beach Parking', dist: '100m' }],
+              landmarks: [{ name: 'Calangute Beach', dist: '2 km' }, { name: 'Fort Aguada', dist: '5 km' }],
+              dining: [{ name: 'Britto\'s Beachside Restaurant', dist: '50m' }],
+              shopping: [{ name: 'Saturday Night Market', dist: '3 km' }]
+            }
+          },
+          {
+            time: '08:00 PM',
+            type: 'hotel',
+            title: 'Check-in: Beach Resort / Heritage Boutique Stay',
+            subtitle: 'Pool-facing room with Goan susegad ambiance',
+            ticketStatus: 'Confirmed booking',
+            duration: 'Overnight',
+            lat: 15.2993,
+            lng: 74.1240,
+            proximity: {
+              transport: [{ name: 'Resort Valet', dist: '10m' }],
+              landmarks: [{ name: 'Dona Paula Viewpoint', dist: '8 km' }],
+              dining: [{ name: 'In-House Multi-Cuisine', dist: 'In-house' }],
+              shopping: [{ name: 'Panjim Market', dist: '6 km' }]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  europe: {
+    center: [48.8566, 2.3522], // Paris
+    baseCity: 'Paris, Switzerland & Italy',
+    daysTemplate: [
+      {
+        day: 1,
+        title: 'Arrival in Paris & Eiffel Tower Sunset',
+        travelDistance: '28 km · ~45 mins',
+        summary: 'Welcome at Charles de Gaulle Airport. Private transfer and evening visit to the iconic Eiffel Tower with panoramic city views.',
+        stops: [
+          {
+            time: '11:00 AM',
+            type: 'transport',
+            title: 'Paris CDG Airport Private Luxury Transfer',
+            subtitle: 'Mercedes executive sedan with English-speaking chauffeur',
+            ticketStatus: 'Included in package',
+            duration: '50 mins',
+            lat: 49.0097,
+            lng: 2.5479,
+            proximity: {
+              transport: [{ name: 'Charles de Gaulle Terminal 2E', dist: '100m' }],
+              landmarks: [{ name: 'Sacré-Cœur Basilica', dist: '25 km' }],
+              dining: [{ name: 'Airport Premium Lounge', dist: '200m' }],
+              shopping: [{ name: 'CDG Duty Free', dist: '150m' }]
+            }
+          },
+          {
+            time: '05:00 PM',
+            type: 'sightseeing',
+            title: 'Eiffel Tower Summit & Trocadéro Gardens',
+            subtitle: 'Skip-the-line access to the 2nd floor with Champagne bar and panoramic views',
+            ticketStatus: 'Priority tickets included',
+            duration: '2 hrs 30 mins',
+            lat: 48.8584,
+            lng: 2.2945,
+            proximity: {
+              transport: [{ name: 'Bir-Hakeim Metro', dist: '300m' }],
+              landmarks: [{ name: 'Champ de Mars', dist: '50m' }, { name: 'Seine River', dist: '200m' }],
+              dining: [{ name: 'Le Jules Verne Restaurant', dist: 'Inside tower' }],
+              shopping: [{ name: 'Trocadéro Gift Shops', dist: '400m' }]
+            }
+          },
+          {
+            time: '08:00 PM',
+            type: 'hotel',
+            title: 'Check-in: 4★ Boutique Hotel near Champs-Élysées',
+            subtitle: 'Classic Parisian elegance with city skyline views',
+            ticketStatus: 'Confirmed booking',
+            duration: 'Overnight',
+            lat: 48.8738,
+            lng: 2.2950,
+            proximity: {
+              transport: [{ name: 'George V Metro', dist: '200m' }],
+              landmarks: [{ name: 'Arc de Triomphe', dist: '500m' }],
+              dining: [{ name: 'Indian Vegetarian Restaurants Nearby', dist: '300m' }],
+              shopping: [{ name: 'Champs-Élysées Boutiques', dist: '100m' }]
+            }
+          }
+        ]
+      }
+    ]
   }
+};
+
+
+// Comprehensive worldwide coordinate dictionary for intelligent map placement
+const KNOWN_CITY_COORDINATES = {
+  // Thailand & Southeast Asia
+  'thailand': [7.8804, 98.3923],
+  'phuket': [7.8804, 98.3923],
+  'krabi': [8.0863, 98.9063],
+  'bangkok': [13.7563, 100.5018],
+  'pattaya': [12.9276, 100.8771],
+  'chiang mai': [18.7883, 98.9853],
+  'koh samui': [9.5120, 100.0136],
+  'singapore': [1.3521, 103.8198],
+  'malaysia': [3.1390, 101.6869],
+  'kuala lumpur': [3.1390, 101.6869],
+  'vietnam': [21.0285, 105.8542],
+  'hanoi': [21.0285, 105.8542],
+  'da nang': [16.0544, 108.2022],
+  'bali': [-8.4095, 115.1889],
+  'indonesia': [-8.4095, 115.1889],
+  'sri lanka': [6.9271, 79.8612],
+  'colombo': [6.9271, 79.8612],
+  'maldives': [3.2028, 73.2207],
+
+  // Middle East
+  'dubai': [25.2048, 55.2708],
+  'uae': [25.2048, 55.2708],
+  'abu dhabi': [24.4539, 54.3773],
+  'egypt': [30.0444, 31.2357],
+  'cairo': [30.0444, 31.2357],
+  'turkey': [41.0082, 28.9784],
+  'istanbul': [41.0082, 28.9784],
+
+  // Europe
+  'switzerland': [46.8182, 8.2275],
+  'zurich': [47.3769, 8.5417],
+  'lucerne': [47.0502, 8.3093],
+  'interlaken': [46.6863, 7.8632],
+  'paris': [48.8566, 2.3522],
+  'france': [48.8566, 2.3522],
+  'rome': [41.9028, 12.4964],
+  'italy': [41.9028, 12.4964],
+  'london': [51.5074, -0.1278],
+  'uk': [51.5074, -0.1278],
+  'greece': [37.9838, 23.7275],
+  'santorini': [36.3932, 25.4615],
+
+  // East Asia
+  'japan': [35.6762, 139.6503],
+  'tokyo': [35.6762, 139.6503],
+  'kyoto': [35.0116, 135.7681],
+  'osaka': [34.6937, 135.5023],
+
+  // India
+  'kashmir': [34.0837, 74.7973],
+  'srinagar': [34.0837, 74.7973],
+  'gulmarg': [34.0484, 74.3805],
+  'pahalgam': [34.0163, 75.3150],
+  'himachal': [32.2396, 77.1887],
+  'manali': [32.2396, 77.1887],
+  'shimla': [31.1048, 77.1734],
+  'dharamshala': [32.2190, 76.3234],
+  'kerala': [9.9312, 76.2673],
+  'munnar': [10.0889, 77.0595],
+  'alleppey': [9.4981, 76.3388],
+  'rajasthan': [26.9124, 75.7873],
+  'jaipur': [26.9124, 75.7873],
+  'udaipur': [24.5854, 73.7125],
+  'kedarnath': [30.7352, 79.0669],
+  'uttarakhand': [30.0869, 78.2676],
+  'rishikesh': [30.0869, 78.2676],
+  'goa': [15.2993, 74.1240],
+  'andaman': [11.6234, 92.7265],
+  'ladakh': [34.1526, 77.5771],
+  'leh': [34.1526, 77.5771],
+  'varanasi': [25.3176, 82.9739],
+  'amritsar': [31.6340, 74.8723],
+  'agra': [27.1767, 78.0081],
+  'delhi': [28.6139, 77.2090],
+  'mumbai': [19.0760, 72.8777],
+  'sikkim': [27.3389, 88.6065],
+  'meghalaya': [25.5788, 91.8933],
+  'ooty': [11.4102, 76.6950],
+  'nepal': [27.7172, 85.3240],
+  'kathmandu': [27.7172, 85.3240],
+  'mauritius': [-20.3484, 57.5522]
 };
 
 /**
  * Universal Destination Resolver:
- * Maps any prompt or tour to a guaranteed rich destination with coordinates
+ * Maps any prompt or tour to a guaranteed rich destination with coordinates.
+ * Accurately handles Thailand, Bangkok, Pattaya, Dubai, Bali, and any searched term.
  */
 export function resolveDestinationWaypoints(destinationName, destKey) {
-  const normalizedKey = (destKey || '').toLowerCase();
+  const combined = `${destKey || ''} ${destinationName || ''}`.toLowerCase();
   
-  // Direct match
-  if (DESTINATION_WAYPOINTS[normalizedKey]) {
+  // 1. Exact primary package match
+  const normalizedKey = (destKey || '').toLowerCase().trim();
+  if (normalizedKey && DESTINATION_WAYPOINTS[normalizedKey]) {
     return DESTINATION_WAYPOINTS[normalizedKey];
   }
 
-  // Synonym / Substring matching
-  for (const [key, data] of Object.entries(DESTINATION_WAYPOINTS)) {
-    if (normalizedKey.includes(key) || key.includes(normalizedKey)) {
-      return data;
+  // 2. Direct keyword alias mapping to rich multi-day templates
+  if (/thailand|phuket|krabi|bangkok|pattaya|chiang mai|phi phi|samui/i.test(combined)) {
+    return DESTINATION_WAYPOINTS.thailand;
+  }
+  if (/dubai|uae|abu dhabi|sharjah|burj khalifa/i.test(combined)) {
+    return DESTINATION_WAYPOINTS.dubai;
+  }
+  if (/bali|indonesia|ubud|seminyak|kuta|nusa/i.test(combined)) {
+    return DESTINATION_WAYPOINTS.bali;
+  }
+  if (/kashmir|srinagar|gulmarg|pahalgam|sonmarg|dal lake/i.test(combined)) {
+    return DESTINATION_WAYPOINTS.kashmir;
+  }
+  if (/swiss|switzerland|zurich|lucerne|interlaken|zermatt|alps/i.test(combined)) {
+    return DESTINATION_WAYPOINTS.switzerland;
+  }
+  if (/vietnam|hanoi|da nang|halong|saigon|hoi an/i.test(combined)) {
+    return DESTINATION_WAYPOINTS.vietnam;
+  }
+  if (/japan|tokyo|kyoto|osaka|fuji/i.test(combined)) {
+    return DESTINATION_WAYPOINTS.japan;
+  }
+  if (/singapore|sentosa|marina bay/i.test(combined)) {
+    return DESTINATION_WAYPOINTS.singapore;
+  }
+  if (/kerala|munnar|alleppey|kochi|thekkady/i.test(combined)) {
+    return DESTINATION_WAYPOINTS.kerala;
+  }
+  if (/rajasthan|jaipur|udaipur|jodhpur|jaisalmer/i.test(combined)) {
+    return DESTINATION_WAYPOINTS.rajasthan;
+  }
+  if (/himachal|manali|shimla|dharamshala|dalhousie/i.test(combined)) {
+    return DESTINATION_WAYPOINTS.himachal;
+  }
+  if (/kedarnath|badrinath|char dham|rishikesh|haridwar|uttarakhand/i.test(combined)) {
+    return DESTINATION_WAYPOINTS.kedarnath;
+  }
+  if (/maldives|male/i.test(combined)) {
+    return DESTINATION_WAYPOINTS.maldives;
+  }
+  if (/andaman|havelock|port blair/i.test(combined)) {
+    return DESTINATION_WAYPOINTS.andaman;
+  }
+  if (/goa/i.test(combined)) {
+    return DESTINATION_WAYPOINTS.goa;
+  }
+  if (/europe|paris|france|rome|italy|london|amsterdam|florence|venice/i.test(combined)) {
+    return DESTINATION_WAYPOINTS.europe;
+  }
+
+  // 3. Check for city in KNOWN_CITY_COORDINATES
+  let resolvedCenter = null;
+  for (const [cityName, coords] of Object.entries(KNOWN_CITY_COORDINATES)) {
+    if (combined.includes(cityName)) {
+      resolvedCenter = coords;
+      break;
     }
   }
 
-  // Fallback: If unknown, create a dynamic localized template based on destination name
-  const isEurope = /paris|france|italy|rome|london|germany|spain/i.test(destinationName);
-  const isBeach = /maldives|andaman|phuket|goa|beach|island/i.test(destinationName);
-  
-  const fallbackCenter = isEurope ? [48.8566, 2.3522] : isBeach ? [-8.5069, 115.2625] : [25.2048, 55.2708];
+  // Default coordinate if no city matched (Neutral central landmark, never defaulting to Dubai)
+  if (!resolvedCenter) {
+    if (/beach|island|coastal/i.test(combined)) {
+      resolvedCenter = [7.8804, 98.3923]; // Tropical Beach (Phuket)
+    } else if (/mountain|snow|himalaya|alps|hill/i.test(combined)) {
+      resolvedCenter = [34.0837, 74.7973]; // Mountain Scenic (Kashmir)
+    } else {
+      resolvedCenter = [28.6139, 77.2090]; // Delhi / Central Orientation
+    }
+  }
+
+  const cleanDestName = destinationName || 'Custom Vacation Destination';
 
   return {
-    center: fallbackCenter,
-    baseCity: destinationName || 'Custom Vacation Destination',
+    center: resolvedCenter,
+    baseCity: cleanDestName,
     daysTemplate: [
       {
         day: 1,
-        title: `Arrival in ${destinationName} & Scenic City Orientation`,
+        title: `Arrival in ${cleanDestName} & Scenic Orientation`,
         travelDistance: '22 km · ~35 mins',
-        summary: `Personalized airport greeting with your private chauffeur, transfer to your 4★/5★ hotel, and relaxed evening stroll.`,
+        summary: `Personalized airport greeting with your private chauffeur, transfer to your handpicked hotel, and relaxed evening exploration.`,
         stops: [
           {
             time: '11:30 AM',
             type: 'transport',
-            title: `${destinationName} Airport Meet & Chauffeur Transfer`,
+            title: `${cleanDestName} Airport Meet & Chauffeur Transfer`,
             subtitle: 'Private air-conditioned vehicle with luggage assistance',
             ticketStatus: 'Included in package',
             duration: '40 mins',
-            lat: fallbackCenter[0] - 0.05,
-            lng: fallbackCenter[1] - 0.05,
+            lat: resolvedCenter[0] - 0.03,
+            lng: resolvedCenter[1] - 0.02,
             proximity: {
               transport: [{ name: 'Main Airport Terminal Bay', dist: '100m' }],
               landmarks: [{ name: 'City Welcome Arch', dist: '1.2 km' }],
@@ -867,15 +1489,15 @@ export function resolveDestinationWaypoints(destinationName, destKey) {
           {
             time: '03:30 PM',
             type: 'sightseeing',
-            title: `Highlights & Historic Landmarks of ${destinationName}`,
+            title: `Highlights & Historic Landmarks of ${cleanDestName}`,
             subtitle: 'Guided panoramic sightseeing with comfortable photo stops',
             ticketStatus: 'Entry tickets included',
             duration: '2 hrs 30 mins',
-            lat: fallbackCenter[0],
-            lng: fallbackCenter[1],
+            lat: resolvedCenter[0] + 0.01,
+            lng: resolvedCenter[1] + 0.01,
             proximity: {
               transport: [{ name: 'Central Tourist Parking', dist: '50m' }],
-              landmarks: [{ name: `${destinationName} Central Square`, dist: '100m' }],
+              landmarks: [{ name: `${cleanDestName} Central Square`, dist: '100m' }],
               dining: [{ name: 'Pure Vegetarian & Multi-Cuisine Dining', dist: '350m' }],
               shopping: [{ name: 'Traditional Artisan Market', dist: '200m' }]
             }
@@ -883,12 +1505,12 @@ export function resolveDestinationWaypoints(destinationName, destKey) {
           {
             time: '07:00 PM',
             type: 'hotel',
-            title: `Check-in: 4★/5★ Handpicked Stays in ${destinationName}`,
+            title: `Check-in: 4★/5★ Handpicked Stays in ${cleanDestName}`,
             subtitle: 'Comfortable stay with verified hygiene and dedicated hospitality',
             ticketStatus: 'Confirmed hotel reservation',
             duration: 'Overnight',
-            lat: fallbackCenter[0] + 0.03,
-            lng: fallbackCenter[1] + 0.02,
+            lat: resolvedCenter[0] + 0.02,
+            lng: resolvedCenter[1] - 0.01,
             proximity: {
               transport: [{ name: 'Hotel Valet Porch', dist: '10m' }],
               landmarks: [{ name: 'City Waterfront / Viewpoint', dist: '450m' }],

@@ -917,7 +917,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         .hero-root {
           position: relative;
           min-height: 100vh;
-          padding: calc(92px + 2rem) 0 3.5rem 0;
+          padding: calc(105px + 3.2rem) 0 3.5rem 0;
           display: flex;
           align-items: center;
           justify-content: center;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Phone, MessageCircle, Menu, X, Bot, ChevronDown, ChevronRight, 
   Globe, Heart, Scale, Shield, Lock, Sun, Snowflake, Mountain, Palmtree, 
@@ -7,6 +7,8 @@ import {
 import { useCurrency } from '../context/CurrencyContext';
 import { useWishlistCompare } from '../context/WishlistCompareContext';
 import { siteSettingsService, EVENT_SETTINGS_UPDATED } from '../services/siteSettingsService';
+
+const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
 
 export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOpenLandingHub }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -72,6 +74,92 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
     { label: 'Why Us', href: '#why-us' },
     { label: 'Who We Are', href: '#/about' },
   ];
+
+  // PC Nav Liquid Indicator State & Refs
+  const [activeNavIdx, setActiveNavIdx] = useState(0);
+  const [hoveredNavIdx, setHoveredNavIdx] = useState(null);
+  const [tabIndicatorStyle, setTabIndicatorStyle] = useState({ left: 0, width: 0, opacity: 0 });
+  const navLinksRef = useRef([]);
+
+  // Mobile Bottom Dock Tab State & Refs
+  const [mobileActiveTab, setMobileActiveTab] = useState('explore');
+  const [mobileIndicatorStyle, setMobileIndicatorStyle] = useState({ left: 0, width: 0, opacity: 0 });
+  const mobileTabRefs = useRef([]);
+
+  // Sync PC Header Tab Indicator on hover or active change
+  useEffect(() => {
+    const targetIdx = hoveredNavIdx !== null ? hoveredNavIdx : activeNavIdx;
+    const targetEl = navLinksRef.current[targetIdx];
+    if (targetEl) {
+      setTabIndicatorStyle({
+        left: targetEl.offsetLeft,
+        width: targetEl.offsetWidth,
+        opacity: 1
+      });
+    }
+  }, [hoveredNavIdx, activeNavIdx]);
+
+  // Sync Mobile Bottom Dock Tab Indicator
+  useEffect(() => {
+    const tabKeys = ['explore', 'wishlist', 'comfy', 'whatsapp', 'menu'];
+    const idx = tabKeys.indexOf(mobileActiveTab);
+    const targetEl = mobileTabRefs.current[idx];
+    if (targetEl) {
+      setMobileIndicatorStyle({
+        left: targetEl.offsetLeft,
+        width: targetEl.offsetWidth,
+        opacity: 1
+      });
+    }
+  }, [mobileActiveTab, mobileMenuOpen]);
+
+  // Handle window resize and initial mount calculation
+  useEffect(() => {
+    const updatePositions = () => {
+      const targetIdx = hoveredNavIdx !== null ? hoveredNavIdx : activeNavIdx;
+      const pcEl = navLinksRef.current[targetIdx];
+      if (pcEl) {
+        setTabIndicatorStyle({
+          left: pcEl.offsetLeft,
+          width: pcEl.offsetWidth,
+          opacity: 1
+        });
+      }
+      const tabKeys = ['explore', 'wishlist', 'comfy', 'whatsapp', 'menu'];
+      const mobIdx = tabKeys.indexOf(mobileActiveTab);
+      const mobEl = mobileTabRefs.current[mobIdx];
+      if (mobEl) {
+        setMobileIndicatorStyle({
+          left: mobEl.offsetLeft,
+          width: mobEl.offsetWidth,
+          opacity: 1
+        });
+      }
+    };
+    window.addEventListener('resize', updatePositions);
+    const timer = setTimeout(updatePositions, 120);
+    return () => {
+      window.removeEventListener('resize', updatePositions);
+      clearTimeout(timer);
+    };
+  }, [hoveredNavIdx, activeNavIdx, mobileActiveTab]);
+
+  // Detect active hash on mount and hash changes to sync PC & mobile tabs
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash;
+      const foundIdx = navLinks.findIndex(l => l.href === hash || (hash && l.href.includes(hash)));
+      if (foundIdx !== -1) {
+        setActiveNavIdx(foundIdx);
+      }
+      if (hash === '#tours' || hash === '#destinations') {
+        setMobileActiveTab('explore');
+      }
+    };
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
 
   // The 15 Landing Pages Grouped into 4 Curated Categories
   const landingCategories = [
@@ -206,27 +294,60 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
   return (
     <>
       <header className={`navbar-root ${isScrolled ? 'scrolled' : ''}`}>
-        {/* Dynamic Seasonal Top Announcement Bar - Seamlessly Integrated at Top */}
-        {siteSettings.hero?.announcementActive && siteSettings.hero?.announcementText && (
-          <div className="top-announcement-strip">
-            <div className="container announcement-inner">
-              <span className="announcement-badge-pill">{siteSettings.hero?.announcementBadge || '2026 Special'}</span>
-              <span className="announcement-text-content">{siteSettings.hero?.announcementText}</span>
-              <a
-                href={`https://wa.me/${siteSettings.hero?.whatsappNumber || '918770403315'}?text=${encodeURIComponent(siteSettings.hero?.whatsappDefaultMessage || 'Hi Comfort Journey!')}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="announcement-cta-link"
-              >
-                Enquire Now →
-              </a>
+        {/* Ultra-Sleek Continuous Marquee Scroller Top Banner */}
+        {siteSettings.hero?.announcementActive && (
+          <div className="top-marquee-strip" aria-label="Special Offers and Updates">
+            <div className="marquee-track">
+              {[1, 2].map((loopIdx) => (
+                <div key={loopIdx} className="marquee-content-chunk">
+                  <div className="marquee-item">
+                    <span className="marquee-badge">{siteSettings.hero?.announcementBadge || '2026 Special'}</span>
+                    <span className="marquee-text">{siteSettings.hero?.announcementText || 'Early Bird Specials: Flat 20% Off on Kashmir, Bali & Swiss Summer 2026 Tours!'}</span>
+                    <a
+                      href={`https://wa.me/${siteSettings.hero?.whatsappNumber || '918770403315'}?text=${encodeURIComponent(siteSettings.hero?.whatsappDefaultMessage || 'Hi Comfort Journey! I want to enquire about 2026 special offers.')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="marquee-cta"
+                    >
+                      Enquire Now →
+                    </a>
+                  </div>
+                  <span className="marquee-dot">✦</span>
+                  <div className="marquee-item">
+                    <span className="marquee-badge">VIP Benefit</span>
+                    <span className="marquee-text">Zero Convenience Fees on Flights & 5-Star Luxury Resort Combos</span>
+                  </div>
+                  <span className="marquee-dot">✦</span>
+                  <div className="marquee-item">
+                    <span className="marquee-badge">4.9★ Rated</span>
+                    <span className="marquee-text">30,000+ Delighted Travelers Across 2,000+ Global Destinations</span>
+                  </div>
+                  <span className="marquee-dot">✦</span>
+                  <div className="marquee-item">
+                    <span className="marquee-badge">Free Perks</span>
+                    <span className="marquee-text">Complimentary Visa Filing Assistance for Europe, UK & Dubai Holidays</span>
+                  </div>
+                  <span className="marquee-dot">✦</span>
+                  <div className="marquee-item">
+                    <span className="marquee-badge">24/7 Desk</span>
+                    <span className="marquee-text">Instant WhatsApp VIP Concierge: +91 8770403315</span>
+                  </div>
+                  <span className="marquee-dot">✦</span>
+                </div>
+              ))}
             </div>
           </div>
         )}
 
-        {/* Main Navbar Header Content Bar */}
-        <div className="navbar-main-content">
-          <div className="container nav-container">
+        {/* Floating Rounded Liquid Glass Header Bar */}
+        <div className="navbar-floating-bar liquid-glass-dock">
+          {/* Optical Glass Layers */}
+          <div className="liquidGlass-effect" aria-hidden="true" />
+          <div className="liquidGlass-tint" aria-hidden="true" />
+          <div className="liquidGlass-shine" aria-hidden="true" />
+
+          {/* Main Navbar Header Content Bar */}
+          <div className="navbar-glass-content">
             {/* Modern Luxury Brand Logo & Tagline */}
             <a href="#hero" className="brand-logo" aria-label="Comfort Journey Luxury Travel">
               <div className="logo-glow-wrapper">
@@ -248,118 +369,257 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
               </div>
             </a>
 
-        {/* Desktop Navigation Links - Clean, Uncluttered */}
-        <nav className="desktop-nav">
-          {navLinks.map((link, idx) => (
-            <a key={idx} href={link.href} className="nav-link">
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        {/* Utility & Actions */}
-        <div className="nav-actions">
-          {/* Wishlist Button with Badge */}
-          <button 
-            type="button" 
-            className="nav-icon-btn"
-            onClick={() => setIsWishlistOpen(true)}
-            title="Saved Dreamboard Wishlist"
-            aria-label="Wishlist"
-          >
-            <Heart size={17} className={wishlist.length > 0 ? 'text-amber fill-amber' : ''} />
-            {wishlist.length > 0 && <span className="nav-badge-count">{wishlist.length}</span>}
-          </button>
-
-          {/* Compare Button with Badge */}
-          {compareList.length > 0 && (
-            <button 
-              type="button" 
-              className="nav-icon-btn compare-btn-active"
-              onClick={() => setIsCompareOpen(true)}
-              title="Compare Selected Packages"
+            {/* Desktop Navigation Links with Liquid Tab Slider Effect */}
+            <nav 
+              className="desktop-nav-liquid-track" 
+              onMouseLeave={() => setHoveredNavIdx(null)}
             >
-              <Scale size={17} />
-              <span className="nav-badge-count">{compareList.length}</span>
-            </button>
-          )}
-
-          {/* Multi-Currency Dropdown */}
-          <div className="currency-selector-rel">
-            <button 
-              type="button"
-              className="currency-btn"
-              onClick={() => setCurrencyDropdownOpen(!currencyDropdownOpen)}
-              title="Select Global Currency"
-            >
-              <Globe size={14} />
-              <span>{currency}</span>
-              <ChevronDown size={12} />
-            </button>
-
-            {currencyDropdownOpen && (
-              <div className="currency-menu">
-                {Object.keys(currencies).map((currKey) => (
-                  <button
-                    key={currKey}
-                    type="button"
-                    className={`curr-option ${currency === currKey ? 'active' : ''}`}
-                    onClick={() => {
-                      setCurrency(currKey);
-                      setCurrencyDropdownOpen(false);
-                    }}
-                  >
-                    <span className="c-symbol">{currencies[currKey].symbol}</span>
-                    <span className="c-name">{currencies[currKey].name}</span>
-                  </button>
-                ))}
+              {/* Sliding Liquid Indicator Bubble */}
+              <div 
+                className="nav-liquid-bubble"
+                style={{
+                  left: `${tabIndicatorStyle.left}px`,
+                  width: `${tabIndicatorStyle.width}px`,
+                  opacity: tabIndicatorStyle.opacity,
+                }}
+              >
+                <div className="liquid-bubble-shine" />
               </div>
-            )}
-          </div>
 
-          {/* Comfy.ai Trip Planner CTA */}
-          <button 
-            type="button" 
-            className="btn-ai-glow nav-ai-btn"
-            onClick={onOpenAIPlanner}
-            title="Plan with Comfy.ai"
+              {navLinks.map((link, idx) => (
+                <a 
+                  key={idx} 
+                  ref={el => (navLinksRef.current[idx] = el)}
+                  href={link.href} 
+                  className={`nav-link ${(hoveredNavIdx !== null ? hoveredNavIdx === idx : activeNavIdx === idx) ? 'active' : ''}`}
+                  onMouseEnter={() => setHoveredNavIdx(idx)}
+                  onClick={() => setActiveNavIdx(idx)}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+
+            {/* Utility & Actions */}
+            <div className="nav-actions">
+              {/* Wishlist Button with Badge */}
+              <button 
+                type="button" 
+                className="nav-icon-btn liquid-glass-btn"
+                onClick={() => setIsWishlistOpen(true)}
+                title="Saved Dreamboard Wishlist"
+                aria-label="Wishlist"
+              >
+                <Heart size={16} className={wishlist.length > 0 ? 'text-amber fill-amber' : ''} />
+                {wishlist.length > 0 && <span className="nav-badge-count">{wishlist.length}</span>}
+              </button>
+
+              {/* Compare Button with Badge */}
+              {compareList.length > 0 && (
+                <button 
+                  type="button" 
+                  className="nav-icon-btn compare-btn-active liquid-glass-btn"
+                  onClick={() => setIsCompareOpen(true)}
+                  title="Compare Selected Packages"
+                >
+                  <Scale size={16} />
+                  <span className="nav-badge-count">{compareList.length}</span>
+                </button>
+              )}
+
+              {/* Multi-Currency Dropdown */}
+              <div className="currency-selector-rel">
+                <button 
+                  type="button"
+                  className="currency-btn liquid-glass-btn"
+                  onClick={() => setCurrencyDropdownOpen(!currencyDropdownOpen)}
+                  title="Select Global Currency"
+                >
+                  <Globe size={14} />
+                  <span>{currency}</span>
+                  <ChevronDown size={12} />
+                </button>
+
+                {currencyDropdownOpen && (
+                  <div className="currency-menu liquid-glass-dock">
+                    <div className="liquidGlass-effect" aria-hidden="true" />
+                    <div className="liquidGlass-tint" aria-hidden="true" />
+                    <div className="liquidGlass-shine" aria-hidden="true" />
+                    <div className="currency-menu-content" style={{ position: 'relative', zIndex: 3 }}>
+                      {Object.keys(currencies).map((currKey) => (
+                        <button
+                          key={currKey}
+                          type="button"
+                          className={`curr-option ${currency === currKey ? 'active' : ''}`}
+                          onClick={() => {
+                            setCurrency(currKey);
+                            setCurrencyDropdownOpen(false);
+                          }}
+                        >
+                          <span className="c-symbol">{currencies[currKey].symbol}</span>
+                          <span className="c-name">{currencies[currKey].name}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Comfy.ai Trip Planner CTA with Liquid Shimmer */}
+              <button 
+                type="button" 
+                className="btn-ai-glow nav-ai-btn btn-ai-liquid"
+                onClick={onOpenAIPlanner}
+                title="Plan with Comfy.ai"
+              >
+                <Bot size={15} />
+                <span className="ai-btn-text">Comfy.ai</span>
+              </button>
+
+              {/* Phone VIP Link (Desktop) */}
+              <a href="tel:+918770403315" className="phone-btn liquid-glass-btn" title="Call 24/7 VIP Concierge">
+                <Phone size={14} />
+                <span className="phone-text">+91 8770403315</span>
+              </a>
+
+              {/* Quick Mobile Top Phone Shortcut */}
+              <a href="tel:+918770403315" className="mobile-top-phone-btn liquid-glass-btn" title="Call 24/7 Concierge" aria-label="Call Concierge">
+                <Phone size={15} />
+              </a>
+
+              {/* Admin CMS Trigger (Discreet Lock) */}
+              <button
+                type="button"
+                className="admin-trigger-btn liquid-glass-btn"
+                onClick={onOpenAdmin}
+                title="Admin CMS & SEO Portal"
+                aria-label="Admin Portal"
+              >
+                <Lock size={13} />
+              </button>
+
+              {/* Universal Menu Hamburger Toggle */}
+              <button 
+                type="button"
+                className="nav-menu-toggle liquid-glass-btn" 
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Toggle Navigation & Specialty Trips Menu"
+                title="Explore All Journeys & Special Packages"
+              >
+                {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+                <span className="menu-btn-label">Menu</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* ─── DEDICATED MOBILE 1-HAND ERGONOMIC APPLE-STYLE LIQUID GLASS BOTTOM DOCK ─── */}
+      <nav className="mobile-bottom-glass-dock liquid-glass-dock" aria-label="Mobile Navigation">
+        <div className="liquidGlass-effect" aria-hidden="true" />
+        <div className="liquidGlass-tint" aria-hidden="true" />
+        <div className="liquidGlass-shine" aria-hidden="true" />
+
+        <div className="mobile-dock-inner">
+          {/* Mobile Liquid Sliding Bubble Indicator */}
+          <div 
+            className="mobile-dock-liquid-bubble"
+            style={{
+              left: `${mobileIndicatorStyle.left}px`,
+              width: `${mobileIndicatorStyle.width}px`,
+              opacity: mobileIndicatorStyle.opacity,
+            }}
+          />
+
+          {/* 1. Explore */}
+          <button
+            ref={el => (mobileTabRefs.current[0] = el)}
+            type="button"
+            className={`mobile-dock-btn ${mobileActiveTab === 'explore' ? 'active' : ''}`}
+            onClick={() => {
+              setMobileActiveTab('explore');
+              window.location.hash = '#tours';
+            }}
+            aria-label="Explore Destinations"
           >
-            <Bot size={15} />
-            <span className="ai-btn-text">Comfy.ai</span>
+            <Compass size={19} />
+            <span className="mobile-dock-label">Explore</span>
           </button>
 
-          {/* Phone VIP Link */}
-          <a href="tel:+918770403315" className="phone-btn" title="Call 24/7 VIP Concierge">
-            <Phone size={15} />
-            <span className="phone-text">+91 8770403315</span>
+          {/* 2. Wishlist with live counter */}
+          <button
+            ref={el => (mobileTabRefs.current[1] = el)}
+            type="button"
+            className={`mobile-dock-btn ${mobileActiveTab === 'wishlist' ? 'active' : ''}`}
+            onClick={() => {
+              setMobileActiveTab('wishlist');
+              setIsWishlistOpen(true);
+            }}
+            aria-label="Saved Wishlist"
+          >
+            <div style={{ position: 'relative', display: 'inline-flex' }}>
+              <Heart size={19} className={wishlist.length > 0 ? 'text-amber fill-amber' : ''} />
+              {wishlist.length > 0 && (
+                <span className="mobile-dock-badge">{wishlist.length}</span>
+              )}
+            </div>
+            <span className="mobile-dock-label">Wishlist</span>
+          </button>
+
+          {/* 3. Center Elevated Mascot Action ("Plan with Comfy") */}
+          <button
+            ref={el => (mobileTabRefs.current[2] = el)}
+            type="button"
+            className="mobile-dock-btn mobile-tab-mascot-center"
+            onClick={() => {
+              setMobileActiveTab('comfy');
+              onOpenAIPlanner();
+            }}
+            title="Plan with Comfy Mascot"
+            aria-label="Plan with Comfy AI"
+          >
+            <div className="mascot-center-bubble">
+              <img 
+                src={`${basePrefix}mascot-default-cropped.png`} 
+                alt="Comfy Mascot Buddy" 
+                className="mascot-bubble-img"
+                onError={(e) => { e.currentTarget.src = './mascot-default-cropped.png'; }}
+              />
+              <div className="mascot-ping-ring" />
+            </div>
+            <span className="mobile-dock-label">Plan with Comfy</span>
+          </button>
+
+          {/* 4. WhatsApp (Instant 1-Hand VIP Enquire) */}
+          <a
+            ref={el => (mobileTabRefs.current[3] = el)}
+            href={`https://wa.me/${siteSettings.hero?.whatsappNumber || '918770403315'}?text=${encodeURIComponent(siteSettings.hero?.whatsappDefaultMessage || 'Hi Comfort Journey! I want to plan a personalized luxury trip.')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`mobile-dock-btn mobile-tab-whatsapp ${mobileActiveTab === 'whatsapp' ? 'active' : ''}`}
+            onClick={() => setMobileActiveTab('whatsapp')}
+            aria-label="Chat on WhatsApp"
+          >
+            <MessageCircle size={19} />
+            <span className="mobile-dock-label">WhatsApp</span>
           </a>
 
-          {/* Admin CMS Trigger (Discreet Lock) */}
+          {/* 5. Menu Drawer Toggle */}
           <button
+            ref={el => (mobileTabRefs.current[4] = el)}
             type="button"
-            className="admin-trigger-btn"
-            onClick={onOpenAdmin}
-            title="Admin CMS & SEO Portal"
-            aria-label="Admin Portal"
+            className={`mobile-dock-btn ${mobileMenuOpen ? 'active' : ''}`}
+            onClick={() => {
+              setMobileActiveTab('menu');
+              setMobileMenuOpen(!mobileMenuOpen);
+            }}
+            aria-label="Toggle Full Menu"
           >
-            <Lock size={14} />
-          </button>
-
-          {/* Universal Menu Hamburger Toggle (Available on Desktop & Mobile) */}
-          <button 
-            type="button"
-            className="nav-menu-toggle" 
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle Navigation & Specialty Trips Menu"
-            title="Explore All Journeys & Special Packages"
-          >
-            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-            <span className="menu-btn-label">Menu</span>
+            {mobileMenuOpen ? <X size={19} /> : <Menu size={19} />}
+            <span className="mobile-dock-label">Menu</span>
           </button>
         </div>
-      </div>
-    </div>
-  </header>
+      </nav>
 
     {/* Universal Luxury Drawer & Backdrop Overlay (Rendered outside header to avoid backdrop-filter clipping) */}
     {mobileMenuOpen && (
@@ -558,28 +818,30 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           left: 0;
           right: 0;
           z-index: 9999;
+          pointer-events: none;
           transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
           padding: 0;
-          background: rgba(7, 11, 20, 0.65);
-          backdrop-filter: blur(var(--cj-blur-desktop));
-          -webkit-backdrop-filter: blur(var(--cj-blur-desktop));
-          border-bottom: 1px solid var(--cj-glass-border);
+          background: transparent;
+          border-bottom: none;
         }
 
         .navbar-main-content {
-          padding: 0.95rem 0;
-          transition: padding 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+          padding: 0;
           width: 100%;
         }
 
         .navbar-root.scrolled {
-          background: rgba(7, 11, 20, 0.95);
-          box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
-          border-bottom: 1px solid rgba(255, 107, 0, 0.25);
+          background: transparent;
+          border-bottom: none;
+          box-shadow: none;
         }
 
         .navbar-root.scrolled .navbar-main-content {
-          padding: 0.65rem 0;
+          padding: 0;
+        }
+
+        .mobile-top-phone-btn {
+          display: none;
         }
 
         .nav-container {
@@ -1440,20 +1702,23 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         }
 
         @media (max-width: 768px) {
-          .navbar-main-content {
-            padding: 0.65rem 0;
-          }
-          .nav-ai-btn, .currency-selector-rel, .admin-trigger-btn {
-            display: none;
-          }
-          .menu-btn-label {
+          .nav-ai-btn, .currency-selector-rel, .admin-trigger-btn, .phone-btn {
             display: none;
           }
           .nav-menu-toggle {
-            padding: 0.5rem;
-            background: rgba(255, 137, 47, 0.15);
-            border-color: rgba(255, 137, 47, 0.4);
+            display: none; /* Managed by ergonomic bottom dock */
+          }
+          .mobile-top-phone-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 137, 47, 0.18);
+            border: 1px solid rgba(255, 137, 47, 0.45);
             color: #FF892F;
+            box-shadow: 0 0 10px rgba(255, 137, 47, 0.25);
           }
           .brand-logo .sub-row {
             display: none;
@@ -1472,16 +1737,6 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         }
 
         /* ── Top Announcement Strip ── */
-        .top-announcement-strip {
-          background: linear-gradient(90deg, #1E1B4B 0%, #312E81 50%, #4338CA 100%);
-          border-bottom: 1px solid rgba(255, 184, 0, 0.25);
-          color: #F8FAFC;
-          font-size: 0.78rem;
-          padding: 0.4rem 0;
-          position: relative;
-          z-index: 10001;
-          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
         .announcement-inner {
           display: flex;
           align-items: center;
@@ -1522,7 +1777,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           }
           .top-announcement-strip {
             font-size: 0.72rem;
-            padding: 0.3rem 0.5rem;
+            padding: 0.25rem 0.65rem;
           }
         }
       `}</style>

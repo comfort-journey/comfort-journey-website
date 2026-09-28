@@ -296,6 +296,7 @@ export default function App() {
               onOpenAdmin={() => setIsAdminCMSOpen(true)}
               onOpenLandingHub={() => setIsLPHubOpen(true)}
               onSelectLandingPage={navigateToLandingPage}
+              onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
             />
 
           {/* --- MODALS & OVERLAYS --- */}

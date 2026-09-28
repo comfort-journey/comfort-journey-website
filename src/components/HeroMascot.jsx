@@ -2,225 +2,36 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Sparkles, MessageCircle, Phone, ArrowRight, X, Heart, Star, Compass } from 'lucide-react';
 
 /**
- * HeroMascot - "Comfy 🐺" The Official Comfort Journey 3D Brand Buddy
+ * HeroMascot - "Comfy 🐺" The Official Comfort Journey Brand Buddy
  * 
- * Features:
- *  - Stereoscopic 3D Multi-Plane Parallax Rig:
- *      * Layer 1: Receding Ears (Z: -28px)
- *      * Layer 2: Head Base & Bandana (Z: 0px)
- *      * Layer 3: Dynamic 3D Eye Sockets with moving pupil tracking (Z: +16px)
- *      * Layer 4: Protruding 3D Muzzle & Wet Nose (Z: +42px, parallax amplified)
- *      * Layer 5: Dynamic Cursor-Tracking Specular Light Glint (Z: +46px)
- *      * Layer 6: Front Paws firmly anchored to the headline sign (Z: +55px)
- *  - Lifelike Organic Idle Physics: Natural chest & ear breathing cycle (4.5s ease-in-out).
- *  - Natural Spontaneous Blinking (every 3.5s - 5.5s).
- *  - Real Brand Buddy Concierge Popover:
- *      * 1-Click AI Trip Planner trigger
- *      * 1-Click Custom Quote trigger
- *      * Direct WhatsApp Concierge hotline
- *      * 2026 Special Tour Recommendations
- *  - Celebratory Wink & Cheerful Bounce on click with golden stardust particles.
+ * Clean 2D mascot with:
+ *  - Gentle idle breathing animation
+ *  - Hover bounce effect
+ *  - Click reaction wink
+ *  - Brand Buddy Concierge Popover (AI Planner, Custom Quote, WhatsApp, Call)
  */
 export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
   const stageRef = useRef(null);
-  const rigRef = useRef(null);
-  const pupilLeftRef = useRef(null);
-  const pupilRightRef = useRef(null);
-  const snoutRef = useRef(null);
-  const pawsRef = useRef(null);
-  const specularRef = useRef(null);
 
   const [isReacting, setIsReacting] = useState(false);
-  const [isBlinking, setIsBlinking] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isBuddyModalOpen, setIsBuddyModalOpen] = useState(false);
   const [speechGreeting, setSpeechGreeting] = useState("Hi! I'm Comfy 🐺 Your Travel Buddy");
-  const [isMobile, setIsMobile] = useState(false);
 
-  // Physics animation state
-  const animState = useRef({
-    targetRotX: 0,
-    targetRotY: 0,
-    targetRotZ: 0,
-    rotX: 0,
-    rotY: 0,
-    rotZ: 0,
-    pupilX: 0,
-    pupilY: 0,
-    targetPupilX: 0,
-    targetPupilY: 0,
-    mouseX: typeof window !== 'undefined' ? window.innerWidth / 2 : 0,
-    mouseY: typeof window !== 'undefined' ? 300 : 0,
-  });
-
-  const rafRef = useRef(null);
   const reactionTimerRef = useRef(null);
 
   // Dynamic asset URLs supporting GitHub Pages subdirectories
   const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
-  const mascotEarsSrc = `${basePrefix}mascot-ears.png`;
-  const mascotScleraSrc = `${basePrefix}mascot-sclera.png`;
-  const mascotPupilSrc = `${basePrefix}mascot-pupil.png`;
-  const mascotSnoutSrc = `${basePrefix}mascot-snout.png`;
-  const mascotPawsSrc = `${basePrefix}mascot-paws.png`;
+  const mascotDefaultSrc = `${basePrefix}mascot-default.png`;
   const mascotReactionSrc = `${basePrefix}mascot-reaction.png`;
 
-  // Preload all assets
+  // Preload assets
   useEffect(() => {
-    [mascotEarsSrc, mascotScleraSrc, mascotPupilSrc, mascotSnoutSrc, mascotPawsSrc, mascotReactionSrc].forEach((src) => {
+    [mascotDefaultSrc, mascotReactionSrc].forEach((src) => {
       const img = new Image();
       img.src = src;
     });
-  }, [mascotEarsSrc, mascotScleraSrc, mascotPupilSrc, mascotSnoutSrc, mascotPawsSrc, mascotReactionSrc]);
-
-  // Mobile detection
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768 || window.matchMedia('(hover: none)').matches);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Periodic natural blinking
-  useEffect(() => {
-    let timeoutId;
-    const scheduleNextBlink = () => {
-      const delay = Math.random() * 2500 + 3500; // 3.5s - 6s
-      timeoutId = setTimeout(() => {
-        setIsBlinking(true);
-        setTimeout(() => {
-          setIsBlinking(false);
-          scheduleNextBlink();
-        }, 140);
-      }, delay);
-    };
-
-    scheduleNextBlink();
-    return () => clearTimeout(timeoutId);
-  }, []);
-
-  // 60/120fps Continuous Stereoscopic Parallax Loop
-  useEffect(() => {
-    if (isMobile) {
-      if (rigRef.current) {
-        rigRef.current.style.transform = 'perspective(850px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)';
-      }
-      return;
-    }
-
-    let isRunning = true;
-    const state = animState.current;
-
-    const tick = () => {
-      if (!isRunning) return;
-
-      // Smooth interpolation for head rotation (factor 0.10 for natural neck muscle inertia)
-      state.rotX += (state.targetRotX - state.rotX) * 0.10;
-      state.rotY += (state.targetRotY - state.rotY) * 0.10;
-      state.rotZ += (state.targetRotZ - state.rotZ) * 0.10;
-
-      // Faster interpolation for pupils (factor 0.16 for responsive eye saccades)
-      state.pupilX += (state.targetPupilX - state.pupilX) * 0.16;
-      state.pupilY += (state.targetPupilY - state.pupilY) * 0.16;
-
-      // 1. Rotate main 3D head assembly
-      if (rigRef.current) {
-        rigRef.current.style.transform = `perspective(850px) rotateX(${state.rotX.toFixed(2)}deg) rotateY(${state.rotY.toFixed(2)}deg) rotateZ(${state.rotZ.toFixed(2)}deg)`;
-      }
-
-      // 2. Extra 3D parallax displacement for protruding snout (protrudes 42px in front)
-      if (snoutRef.current) {
-        const snoutShiftX = (state.rotY * 0.40).toFixed(1);
-        const snoutShiftY = (-state.rotX * 0.28).toFixed(1);
-        snoutRef.current.style.transform = `translate3d(${snoutShiftX}px, ${snoutShiftY}px, 42px)`;
-      }
-
-      // 3. Paws anchored to ledge with subtle resisting physics
-      if (pawsRef.current) {
-        const pawResistX = (state.rotY * -0.12).toFixed(1);
-        pawsRef.current.style.transform = `translate3d(${pawResistX}px, 0, 55px)`;
-      }
-
-      // 4. Pupils tracking in eye sockets
-      const pTransform = `translate(calc(-50% + ${state.pupilX.toFixed(1)}px), calc(-50% + ${state.pupilY.toFixed(1)}px))`;
-      if (pupilLeftRef.current) pupilLeftRef.current.style.transform = pTransform;
-      if (pupilRightRef.current) pupilRightRef.current.style.transform = pTransform;
-
-      // 5. Specular highlight following light angle
-      if (specularRef.current) {
-        const lightX = 50 + (state.rotY / 22) * 28;
-        const lightY = 50 + (-state.rotX / 16) * 28;
-        specularRef.current.style.background = `radial-gradient(circle at ${lightX}% ${lightY}%, rgba(255, 235, 195, 0.42) 0%, rgba(255, 184, 0, 0.12) 38%, transparent 70%)`;
-      }
-
-      rafRef.current = requestAnimationFrame(tick);
-    };
-
-    rafRef.current = requestAnimationFrame(tick);
-    return () => {
-      isRunning = false;
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, [isMobile]);
-
-  // Window-wide cursor tracking
-  useEffect(() => {
-    if (isMobile) return;
-
-    const handleMouseMove = (e) => {
-      const state = animState.current;
-      state.mouseX = e.clientX;
-      state.mouseY = e.clientY;
-
-      if (!rigRef.current) return;
-
-      const rect = rigRef.current.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height * 0.45; // Center between eyes and muzzle
-
-      const deltaX = e.clientX - cx;
-      const deltaY = e.clientY - cy;
-
-      const maxDistX = Math.max(window.innerWidth / 2, 450);
-      const maxDistY = Math.max(window.innerHeight / 2, 380);
-
-      const normX = Math.max(-1, Math.min(1, deltaX / maxDistX));
-      const normY = Math.max(-1, Math.min(1, deltaY / maxDistY));
-
-      // 3D Rotation angles:
-      // Turn left/right: max ±22deg
-      // Pitch up/down: max ±16deg
-      // Cute ear tilt: max ±3.5deg
-      state.targetRotY = normX * 22;
-      state.targetRotX = -normY * 16;
-      state.targetRotZ = normX * -3.5;
-
-      // Spherical pupil offset (max ~5.2px inside eye socket)
-      const angle = Math.atan2(deltaY, deltaX);
-      const distRatio = Math.min(1, Math.hypot(deltaX, deltaY) / 320);
-      state.targetPupilX = Math.cos(angle) * distRatio * 5.2;
-      state.targetPupilY = Math.sin(angle) * distRatio * 5.2;
-    };
-
-    const handleMouseLeave = () => {
-      const state = animState.current;
-      state.targetRotX = 0;
-      state.targetRotY = 0;
-      state.targetRotZ = 0;
-      state.targetPupilX = 0;
-      state.targetPupilY = 0;
-    };
-
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    document.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, [isMobile]);
+  }, [mascotDefaultSrc, mascotReactionSrc]);
 
   // Click outside to close buddy popover
   useEffect(() => {
@@ -258,7 +69,7 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
     <div 
       ref={stageRef}
       className="hero-mascot-stage"
-      aria-label="Comfy the Comfort Journey 3D Mascot Buddy"
+      aria-label="Comfy the Comfort Journey Mascot Buddy"
     >
       {/* Brand Buddy Floating Speech Pill */}
       {!isBuddyModalOpen && (
@@ -353,112 +164,25 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
         </div>
       )}
 
-      {/* Stereoscopic 3D Multi-Plane Head Rig */}
+      {/* Clean 2D Mascot Image */}
       <div 
-        ref={rigRef}
-        className={`head-3d-rig ${isReacting ? 'is-reacting' : ''}`}
+        className={`mascot-2d-container ${isReacting ? 'is-reacting' : ''} ${isHovered ? 'is-hovered' : ''}`}
         onClick={handleMascotClick}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         title="Hi! I'm Comfy! Click me to plan your trip!"
       >
-        {/* If reacting, show cheerful winking pose; otherwise full stereoscopic 3D layers */}
-        {isReacting ? (
-          <img
-            src={mascotReactionSrc}
-            alt="Comfy Winking"
-            className="layer-img winking-face"
-            draggable="false"
-            onError={(e) => {
-              e.currentTarget.src = './mascot-reaction.png';
-            }}
-          />
-        ) : (
-          <>
-            {/* Layer 1: Receding 3D Ears (Z: -28px) */}
-            <div className="layer-ears">
-              <img 
-                src={mascotEarsSrc} 
-                alt="Ears" 
-                className="layer-img" 
-                draggable="false"
-                onError={(e) => { e.currentTarget.src = './mascot-ears.png'; }}
-              />
-            </div>
-
-            {/* Layer 2: Head Base & Bandana (Z: 0px) */}
-            <div className="layer-head-base">
-              <img 
-                src={mascotScleraSrc} 
-                alt="Wolf Head" 
-                className="layer-img" 
-                draggable="false"
-                onError={(e) => { e.currentTarget.src = './mascot-sclera.png'; }}
-              />
-            </div>
-
-            {/* Layer 3: Dynamic 3D Eye Sockets with Look-At Pupil Tracking (Z: +16px) */}
-            <div className="layer-eyes">
-              {/* Left Eye Socket */}
-              <div className={`eye-socket left-eye ${isBlinking ? 'blinking' : ''}`}>
-                <div ref={pupilLeftRef} className="pupil-tracker">
-                  <img 
-                    src={mascotPupilSrc} 
-                    alt="Pupil Left" 
-                    className="pupil-img" 
-                    draggable="false"
-                    onError={(e) => { e.currentTarget.src = './mascot-pupil.png'; }}
-                  />
-                </div>
-                {/* Natural Blinking Eyelid */}
-                <div className="eyelid-shutter" />
-              </div>
-
-              {/* Right Eye Socket */}
-              <div className={`eye-socket right-eye ${isBlinking ? 'blinking' : ''}`}>
-                <div ref={pupilRightRef} className="pupil-tracker">
-                  <img 
-                    src={mascotPupilSrc} 
-                    alt="Pupil Right" 
-                    className="pupil-img" 
-                    draggable="false"
-                    onError={(e) => { e.currentTarget.src = './mascot-pupil.png'; }}
-                  />
-                </div>
-                {/* Natural Blinking Eyelid */}
-                <div className="eyelid-shutter" />
-              </div>
-            </div>
-
-            {/* Layer 4: Protruding 3D Muzzle & Wet Nose (Z: +42px, parallax amplified) */}
-            <div ref={snoutRef} className="layer-snout">
-              <img 
-                src={mascotSnoutSrc} 
-                alt="Snout" 
-                className="layer-img" 
-                draggable="false"
-                onError={(e) => { e.currentTarget.src = './mascot-snout.png'; }}
-              />
-            </div>
-
-            {/* Layer 5: Dynamic Cursor-Tracking Specular Light Glint (Z: +46px) */}
-            <div ref={specularRef} className="layer-specular-light" />
-
-            {/* Layer 6: Front Paws Anchored to Top of Headline (Z: +55px) */}
-            <div ref={pawsRef} className="layer-paws">
-              <img 
-                src={mascotPawsSrc} 
-                alt="Paws" 
-                className="layer-img" 
-                draggable="false"
-                onError={(e) => { e.currentTarget.src = './mascot-paws.png'; }}
-              />
-            </div>
-          </>
-        )}
-
-        {/* Soft Contact Drop-Shadow Underneath Paws */}
-        <div className="mascot-paw-shadow" />
+        <img
+          src={isReacting ? mascotReactionSrc : mascotDefaultSrc}
+          alt="Comfy Wolf Mascot"
+          className="mascot-2d-img"
+          draggable="false"
+          onError={(e) => {
+            e.currentTarget.src = isReacting ? './mascot-reaction.png' : './mascot-default.png';
+          }}
+        />
+        {/* Soft contact shadow */}
+        <div className="mascot-2d-shadow" />
       </div>
 
       <style>{`
@@ -470,21 +194,37 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
           justify-content: flex-end;
           width: 100%;
           height: 115px;
-          margin-bottom: -15px; /* Paws sit right on top of the text border */
+          margin-bottom: -15px;
           z-index: 15;
           user-select: none;
         }
 
-        /* 3D Stereoscopic Rig Assembly */
-        .head-3d-rig {
+        /* Clean 2D Mascot Container */
+        .mascot-2d-container {
           position: relative;
           width: clamp(125px, 14.5vw, 160px);
           height: clamp(110px, 12.8vw, 140px);
-          transform-style: preserve-3d;
-          will-change: transform;
           cursor: pointer;
           animation: buddyBreathing 4.5s ease-in-out infinite;
-          transition: transform 0.06s cubic-bezier(0.2, 0, 0.2, 1);
+          transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .mascot-2d-container.is-hovered {
+          transform: translateY(-4px) scale(1.05);
+        }
+
+        .mascot-2d-img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          display: block;
+          pointer-events: none;
+          filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.45));
+          transition: filter 0.3s ease;
+        }
+
+        .mascot-2d-container.is-hovered .mascot-2d-img {
+          filter: drop-shadow(0 12px 24px rgba(255, 137, 47, 0.35));
         }
 
         /* Subtle Lifelike Breathing Physics */
@@ -497,133 +237,8 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
           }
         }
 
-        .layer-img {
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-          display: block;
-          pointer-events: none;
-        }
-
-        .winking-face {
-          filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.45));
-        }
-
-        /* Layer 1: Receding Ears */
-        .layer-ears {
-          position: absolute;
-          inset: 0;
-          transform: translateZ(-28px);
-          pointer-events: none;
-        }
-
-        /* Layer 2: Head Base */
-        .layer-head-base {
-          position: absolute;
-          inset: 0;
-          transform: translateZ(0px);
-          filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
-          pointer-events: none;
-        }
-
-        /* Layer 3: Eyes & Pupils */
-        .layer-eyes {
-          position: absolute;
-          inset: 0;
-          transform: translateZ(16px);
-          pointer-events: none;
-        }
-
-        .eye-socket {
-          position: absolute;
-          width: 9.2%;
-          height: 10%;
-          overflow: hidden;
-          border-radius: 50% 50% 48% 48%;
-          box-shadow: inset 0 2px 4px rgba(30, 20, 15, 0.55);
-        }
-
-        .eye-socket.left-eye {
-          left: 41.8%;
-          top: 38.1%;
-          transform: translate(-50%, -50%) rotate(2deg);
-        }
-
-        .eye-socket.right-eye {
-          left: 58.2%;
-          top: 38.1%;
-          transform: translate(-50%, -50%) rotate(-2deg);
-        }
-
-        .pupil-tracker {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          width: 76%;
-          height: 76%;
-          transform: translate(-50%, -50%);
-          will-change: transform;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .pupil-img {
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-          display: block;
-          filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
-        }
-
-        /* Eyelid Shutter for Natural Blinks */
-        .eyelid-shutter {
-          position: absolute;
-          inset: 0;
-          background: #B6B4B0;
-          transform-origin: top center;
-          transform: scaleY(0);
-          transition: transform 0.08s ease-in-out;
-          border-bottom: 2px solid #3A3530;
-          border-radius: 50% 50% 0 0;
-        }
-
-        .eye-socket.blinking .eyelid-shutter {
-          transform: scaleY(1);
-        }
-
-        /* Layer 4: Protruding Snout & Muzzle */
-        .layer-snout {
-          position: absolute;
-          inset: 0;
-          transform: translateZ(42px);
-          filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
-          pointer-events: none;
-        }
-
-        /* Layer 5: Dynamic Cursor Specular Lighting */
-        .layer-specular-light {
-          position: absolute;
-          inset: 0;
-          transform: translateZ(46px);
-          pointer-events: none;
-          mix-blend-mode: overlay;
-          border-radius: 50%;
-          opacity: 0.75;
-          transition: background 0.05s ease;
-        }
-
-        /* Layer 6: Paws */
-        .layer-paws {
-          position: absolute;
-          inset: 0;
-          transform: translateZ(55px);
-          filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
-          pointer-events: none;
-        }
-
         /* Click reaction cheerful bounce */
-        .head-3d-rig.is-reacting {
+        .mascot-2d-container.is-reacting {
           animation: mascotCheerBounce 0.75s cubic-bezier(0.25, 1.4, 0.5, 1);
         }
 
@@ -634,18 +249,17 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
           100% { transform: scale(1) translateY(0); }
         }
 
-        /* Soft contact drop shadow under paws */
-        .mascot-paw-shadow {
+        /* Soft contact drop shadow under mascot */
+        .mascot-2d-shadow {
           position: absolute;
           bottom: 2px;
           left: 10%;
           width: 80%;
           height: 8px;
-          background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 70%);
+          background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 70%);
           border-radius: 50%;
           pointer-events: none;
           opacity: 0.85;
-          transform: translateZ(20px);
         }
 
         /* Floating Speech Chip */
@@ -834,8 +448,7 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
             margin-bottom: -12px;
           }
 
-          .head-3d-rig {
-            transform: perspective(850px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) !important;
+          .mascot-2d-container {
             animation: none !important;
           }
 

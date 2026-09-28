@@ -1,3 +1,5 @@
+import QRCode from 'qrcode';
+
 /**
  * Itinerary Export Service for Comfy.ai & Comfort Journey
  * Provides 1-click exports:
@@ -70,203 +72,369 @@ export function exportItineraryToExcel(tripPlan) {
 
 /**
  * 2. Generate Visual Social Share Card using HTML5 Canvas
- * Exactly mirrors Trip.com's clean vertical social card from the user's screenshot.
+ * Features real-time GPS route map projection and authentic scannable QR code.
  */
-export function generateSocialCardDataUrl(tripPlan) {
-  return new Promise((resolve) => {
-    const canvas = document.createElement('canvas');
-    const width = 640;
-    const height = 1200;
-    canvas.width = width;
-    canvas.height = height;
-    const ctx = canvas.getContext('2d');
+export async function generateSocialCardDataUrl(tripPlan) {
+  const canvas = document.createElement('canvas');
+  const width = 640;
+  const height = 1200;
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext('2d');
 
-    // Background Navy & Soft Gradient
-    ctx.fillStyle = '#001233';
-    ctx.fillRect(0, 0, width, height);
+  // Background Dark Navy
+  ctx.fillStyle = '#001233';
+  ctx.fillRect(0, 0, width, height);
 
-    // Map Header Graphic Area (Top 340px)
-    const mapGrad = ctx.createLinearGradient(0, 0, width, 340);
-    mapGrad.addColorStop(0, '#E8F0FE');
-    mapGrad.addColorStop(1, '#D2E3FC');
-    ctx.fillStyle = mapGrad;
-    ctx.fillRect(0, 0, width, 340);
+  // --- TOP MAP SECTION: Real-time route from GPS coordinates ---
+  const mapAreaHeight = 350;
 
-    // Draw stylized vector map roads & blocks
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-    ctx.fillRect(40, 20, 180, 110);
-    ctx.fillRect(250, 40, 200, 90);
-    ctx.fillRect(80, 170, 210, 120);
-    ctx.fillRect(320, 160, 260, 140);
-
-    // Stylized Green Park Block
-    ctx.fillStyle = '#6EE7B7';
-    ctx.beginPath();
-    ctx.moveTo(480, 0);
-    ctx.lineTo(640, 0);
-    ctx.lineTo(640, 130);
-    ctx.closePath();
-    ctx.fill();
-
-    // Stylized Route Polyline (Thick blue road with circles)
-    ctx.strokeStyle = '#2563EB';
-    ctx.lineWidth = 10;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    ctx.beginPath();
-    ctx.moveTo(160, 140);
-    ctx.lineTo(220, 210);
-    ctx.lineTo(410, 110);
-    ctx.lineTo(480, 180);
-    ctx.stroke();
-
-    // Start Waypoint Pin Circle
-    ctx.fillStyle = '#FFFFFF';
-    ctx.beginPath();
-    ctx.arc(160, 140, 14, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = '#2563EB';
-    ctx.beginPath();
-    ctx.arc(160, 140, 7, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Destination Pin Marker
-    ctx.fillStyle = '#2563EB';
-    ctx.beginPath();
-    ctx.arc(480, 180, 20, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = '#FFFFFF';
-    ctx.beginPath();
-    ctx.arc(480, 180, 7, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Soft blur divider into white container
-    ctx.fillStyle = '#F8FAFC';
-    ctx.beginPath();
-    ctx.roundRect(28, 300, width - 56, height - 340, [24, 24, 24, 24]);
-    ctx.fill();
-
-    // Brand Tag & Title
-    ctx.fillStyle = '#FF892F';
-    ctx.font = 'bold 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText('COMFORT JOURNEY • EST. 1992', 56, 350);
-
-    ctx.fillStyle = '#0F172A';
-    ctx.font = 'bold 26px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    const mainTitle = tripPlan.title || `${tripPlan.durationDays || 5}-Day Itinerary in ${tripPlan.destination || 'Vacation'}`;
-    ctx.fillText(mainTitle.length > 34 ? mainTitle.slice(0, 32) + '...' : mainTitle, 56, 390);
-
-    // Meta row: "7 days · 1 place · Private Chauffeur"
-    ctx.fillStyle = '#1E3A8A';
-    ctx.font = 'bold 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(`${tripPlan.durationDays || 5} days  |  ${tripPlan.party}  |  ${tripPlan.pacing.split(' ')[0]}`, 56, 422);
-
-    // Divider Line
-    ctx.strokeStyle = '#E2E8F0';
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.moveTo(56, 445);
-    ctx.lineTo(width - 56, 445);
-    ctx.stroke();
-
-    // Day-by-Day Bulleted List
-    let currentY = 485;
-    const daysToShow = (tripPlan.days || []).slice(0, 6);
-
-    daysToShow.forEach((d, i) => {
-      // Bullet Dot
-      ctx.fillStyle = '#0F172A';
-      ctx.beginPath();
-      ctx.arc(66, currentY - 5, 5, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Day Title
-      ctx.fillStyle = '#0F172A';
-      ctx.font = 'bold 17px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-      ctx.fillText(`Day ${d.day}`, 86, currentY);
-
-      // Main Stop / Title
-      ctx.fillStyle = '#475569';
-      ctx.font = '15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-      const stopText = d.stops[0]?.title || d.title;
-      ctx.fillText(stopText.length > 38 ? stopText.slice(0, 36) + '...' : stopText, 150, currentY);
-
-      // Subtitle
-      if (d.stops[1]) {
-        currentY += 22;
-        ctx.fillStyle = '#64748B';
-        ctx.font = '13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-        const subText = `+ ${d.stops[1].title} · ${d.travelDistance || ''}`;
-        ctx.fillText(subText.length > 44 ? subText.slice(0, 42) + '...' : subText, 150, currentY);
+  // Collect all GPS coordinates from the trip
+  const allCoords = [];
+  (tripPlan.days || []).forEach(d => {
+    (d.stops || []).forEach(s => {
+      if (s.lat && s.lng) {
+        allCoords.push({
+          lat: s.lat,
+          lng: s.lng,
+          type: s.type || 'sightseeing',
+          title: s.title || '',
+          day: d.day
+        });
       }
-
-      currentY += 46;
     });
+  });
 
-    // Inclusions & Vehicle Strip
-    currentY = 890;
-    ctx.fillStyle = '#EFF6FF';
+  // Map Background: Deep midnight nautical gradient
+  const mapGrad = ctx.createLinearGradient(0, 0, width, mapAreaHeight);
+  mapGrad.addColorStop(0, '#06132B');
+  mapGrad.addColorStop(0.5, '#0B1D42');
+  mapGrad.addColorStop(1, '#081736');
+  ctx.fillStyle = mapGrad;
+  ctx.fillRect(0, 0, width, mapAreaHeight);
+
+  // Subtle geographic grid
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i < width; i += 45) {
     ctx.beginPath();
-    ctx.roundRect(56, currentY, width - 112, 90, [14]);
-    ctx.fill();
-    ctx.strokeStyle = '#BFDBFE';
-    ctx.lineWidth = 1;
+    ctx.moveTo(i, 0);
+    ctx.lineTo(i, mapAreaHeight);
     ctx.stroke();
+  }
+  for (let j = 0; j < mapAreaHeight; j += 45) {
+    ctx.beginPath();
+    ctx.moveTo(0, j);
+    ctx.lineTo(width, j);
+    ctx.stroke();
+  }
 
-    ctx.fillStyle = '#1E40AF';
-    ctx.font = 'bold 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText('✨ SIGNATURE INCLUSIONS:', 76, currentY + 28);
+  // Draw Compass Rose on Top Right
+  const compassX = width - 42;
+  const compassY = 36;
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+  ctx.beginPath();
+  ctx.arc(compassX, compassY, 18, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
 
-    ctx.fillStyle = '#334155';
-    ctx.font = '13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(`• ${tripPlan.vehicle}`, 76, currentY + 52);
-    ctx.fillText(`• ${tripPlan.dietary} · ${tripPlan.stayTier}`, 76, currentY + 72);
+  // North pointer
+  ctx.fillStyle = '#FF892F';
+  ctx.beginPath();
+  ctx.moveTo(compassX, compassY - 14);
+  ctx.lineTo(compassX - 4, compassY);
+  ctx.lineTo(compassX + 4, compassY);
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = 'bold 9px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('N', compassX, compassY - 16);
+  ctx.textAlign = 'start';
 
-    // QR Code Box (Bottom Section)
-    const qrY = 1015;
-    
-    // Draw QR code visual placeholder grid
-    ctx.fillStyle = '#0F172A';
-    ctx.fillRect(56, qrY, 110, 110);
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fillRect(62, qrY + 6, 98, 98);
+  if (allCoords.length > 0) {
+    // Calculate bounds with adaptive padding
+    const lats = allCoords.map(c => c.lat);
+    const lngs = allCoords.map(c => c.lng);
+    const minLat = Math.min(...lats);
+    const maxLat = Math.max(...lats);
+    const minLng = Math.min(...lngs);
+    const maxLng = Math.max(...lngs);
 
-    // QR Corner Squares
-    const drawQRSquare = (x, y) => {
-      ctx.fillStyle = '#001233';
-      ctx.fillRect(x, y, 26, 26);
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillRect(x + 4, y + 4, 18, 18);
-      ctx.fillStyle = '#001233';
-      ctx.fillRect(x + 8, y + 8, 10, 10);
+    const latPad = Math.max((maxLat - minLat) * 0.35, 0.03);
+    const lngPad = Math.max((maxLng - minLng) * 0.35, 0.03);
+    const padMinLat = minLat - latPad;
+    const padMaxLat = maxLat + latPad;
+    const padMinLng = minLng - lngPad;
+    const padMaxLng = maxLng + lngPad;
+
+    // Convert GPS coordinates to Canvas pixel points
+    const mapPadX = 60;
+    const mapPadY = 55;
+    const mapW = width - mapPadX * 2;
+    const mapH = mapAreaHeight - mapPadY * 2 - 25;
+
+    const toCanvasX = (lng) => mapPadX + ((lng - padMinLng) / (padMaxLng - padMinLng)) * mapW;
+    const toCanvasY = (lat) => mapPadY + (1 - (lat - padMinLat) / (padMaxLat - padMinLat)) * mapH;
+
+    // Draw route lines connecting all waypoints
+    if (allCoords.length > 1) {
+      // Wide subtle route corridor glow
+      ctx.strokeStyle = 'rgba(255, 137, 47, 0.22)';
+      ctx.lineWidth = 12;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.beginPath();
+      ctx.moveTo(toCanvasX(allCoords[0].lng), toCanvasY(allCoords[0].lat));
+      for (let i = 1; i < allCoords.length; i++) {
+        ctx.lineTo(toCanvasX(allCoords[i].lng), toCanvasY(allCoords[i].lat));
+      }
+      ctx.stroke();
+
+      // Sharp golden-orange core dashed route
+      ctx.strokeStyle = '#FF892F';
+      ctx.lineWidth = 3.5;
+      ctx.setLineDash([8, 6]);
+      ctx.beginPath();
+      ctx.moveTo(toCanvasX(allCoords[0].lng), toCanvasY(allCoords[0].lat));
+      for (let i = 1; i < allCoords.length; i++) {
+        ctx.lineTo(toCanvasX(allCoords[i].lng), toCanvasY(allCoords[i].lat));
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // Type colors for waypoints
+    const typeColors = {
+      transport: '#0284C7',
+      sightseeing: '#F59E0B',
+      meal: '#10B981',
+      hotel: '#8B5CF6',
+      shopping: '#F43F5E'
     };
 
-    drawQRSquare(68, qrY + 12);
-    drawQRSquare(128, qrY + 12);
-    drawQRSquare(68, qrY + 72);
+    // Draw waypoints
+    allCoords.forEach((c, i) => {
+      const cx = toCanvasX(c.lng);
+      const cy = toCanvasY(c.lat);
+      const isStart = i === 0;
+      const isEnd = i === allCoords.length - 1;
+      const color = isStart ? '#10B981' : isEnd ? '#FF892F' : (typeColors[c.type] || '#38BDF8');
+      const radius = isStart || isEnd ? 13 : 9;
 
-    // Random QR data blocks
-    ctx.fillStyle = '#001233';
-    ctx.fillRect(102, qrY + 22, 6, 16);
-    ctx.fillRect(118, qrY + 50, 12, 6);
-    ctx.fillRect(104, qrY + 68, 20, 8);
-    ctx.fillRect(128, qrY + 84, 16, 16);
+      // Outer glow ring
+      ctx.fillStyle = isStart ? 'rgba(16, 185, 129, 0.25)' : isEnd ? 'rgba(255, 137, 47, 0.25)' : 'rgba(255, 255, 255, 0.12)';
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius + 6, 0, Math.PI * 2);
+      ctx.fill();
 
-    // QR Description
+      // Main pin circle
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Crisp white outline
+      ctx.strokeStyle = '#FFFFFF';
+      ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Center sequence number or indicator
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = 'bold 9px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(`${i + 1}`, cx, cy);
+
+      // Stop label pill for first, middle and last stop
+      if (isStart || isEnd || (i === 1 && allCoords.length > 2)) {
+        const labelText = isStart ? 'Start: ' + c.title.slice(0, 18) : isEnd ? 'Finish: ' + c.title.slice(0, 18) : c.title.slice(0, 16);
+        ctx.font = 'bold 10px sans-serif';
+        const textWidth = ctx.measureText(labelText).width;
+        const pillX = Math.max(15, Math.min(width - textWidth - 25, cx - textWidth / 2 - 8));
+        const pillY = isStart ? cy - 28 : cy + 16;
+
+        ctx.fillStyle = 'rgba(0, 18, 51, 0.88)';
+        ctx.beginPath();
+        ctx.roundRect(pillX, pillY, textWidth + 16, 20, [10]);
+        ctx.fill();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        ctx.fillStyle = '#FFFFFF';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'alphabetic';
+        ctx.fillText(labelText, pillX + 8, pillY + 14);
+      }
+    });
+  }
+
+  // Floating Route HUD Banner (Top Left)
+  ctx.fillStyle = 'rgba(0, 18, 51, 0.88)';
+  ctx.beginPath();
+  ctx.roundRect(18, 16, 260, 32, [16]);
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(255, 137, 47, 0.4)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  ctx.fillStyle = '#FF892F';
+  ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText(`📍 ${tripPlan.destination || 'Vacation'} · GPS Route`, 32, 36);
+
+  // Bottom Route Info Pill
+  ctx.fillStyle = 'rgba(0, 18, 51, 0.85)';
+  ctx.beginPath();
+  ctx.roundRect(18, mapAreaHeight - 44, width - 36, 32, [10]);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+  ctx.font = '600 11.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.fillText(`🗺️ Real-time GPS Route • ${allCoords.length} Connected Waypoints • Curated by Comfy.ai`, 32, mapAreaHeight - 24);
+
+  // White Card Main Container
+  ctx.fillStyle = '#F8FAFC';
+  ctx.beginPath();
+  ctx.roundRect(24, 320, width - 48, height - 344, [24, 24, 24, 24]);
+  ctx.fill();
+
+  // Brand Tag & Title
+  ctx.fillStyle = '#FF892F';
+  ctx.font = 'bold 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.fillText('COMFORT JOURNEY • EST. 1992', 50, 365);
+
+  ctx.fillStyle = '#0F172A';
+  ctx.font = 'bold 24px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  const mainTitle = tripPlan.title || `${tripPlan.durationDays || 5}-Day ${tripPlan.destination} Holiday`;
+  ctx.fillText(mainTitle.length > 34 ? mainTitle.slice(0, 32) + '...' : mainTitle, 50, 400);
+
+  // Meta row: "5 Days / 4 Nights · Family / Couple · Relaxed Pace"
+  ctx.fillStyle = '#1E3A8A';
+  ctx.font = 'bold 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.fillText(`${tripPlan.duration}  |  ${tripPlan.party}  |  ${tripPlan.pacing.split(' ')[0]}`, 50, 430);
+
+  // Divider Line
+  ctx.strokeStyle = '#E2E8F0';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(50, 452);
+  ctx.lineTo(width - 50, 452);
+  ctx.stroke();
+
+  // Day-by-Day Schedule Highlights
+  let currentY = 490;
+  const daysToShow = (tripPlan.days || []).slice(0, 6);
+
+  daysToShow.forEach((d) => {
+    // Bullet Dot
+    ctx.fillStyle = '#FF892F';
+    ctx.beginPath();
+    ctx.arc(60, currentY - 5, 5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Day Title
     ctx.fillStyle = '#0F172A';
     ctx.font = 'bold 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText('Scan to view or book on Comfort Journey', 185, qrY + 38);
+    ctx.fillText(`Day ${d.day}`, 78, currentY);
 
-    ctx.fillStyle = '#64748B';
-    ctx.font = '13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText('Share this itinerary with family or WhatsApp us at', 185, qrY + 62);
-    ctx.fillStyle = '#FF892F';
-    ctx.font = 'bold 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText('+91 8770403315 for instant custom booking', 185, qrY + 84);
+    // Main Stop / Title
+    ctx.fillStyle = '#334155';
+    ctx.font = '14.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    const stopText = d.stops[0]?.title || d.title;
+    ctx.fillText(stopText.length > 36 ? stopText.slice(0, 34) + '...' : stopText, 140, currentY);
 
-    resolve(canvas.toDataURL('image/png'));
+    // Subtitle / Driving Distance
+    if (d.stops[1] || d.travelDistance) {
+      currentY += 21;
+      ctx.fillStyle = '#64748B';
+      ctx.font = '12.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      const subText = d.stops[1] ? `+ ${d.stops[1].title} · ${d.travelDistance || ''}` : `${d.travelDistance || ''}`;
+      ctx.fillText(subText.length > 44 ? subText.slice(0, 42) + '...' : subText, 140, currentY);
+    }
+
+    currentY += 44;
   });
+
+  // Signature Inclusions Strip
+  currentY = 880;
+  ctx.fillStyle = '#EFF6FF';
+  ctx.beginPath();
+  ctx.roundRect(50, currentY, width - 100, 92, [14]);
+  ctx.fill();
+  ctx.strokeStyle = '#BFDBFE';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  ctx.fillStyle = '#1E40AF';
+  ctx.font = 'bold 13.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.fillText('✨ VERIFIED COMFORT JOURNEY INCLUSIONS:', 70, currentY + 28);
+
+  ctx.fillStyle = '#334155';
+  ctx.font = '13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.fillText(`• ${tripPlan.vehicle} with dedicated private driver`, 70, currentY + 52);
+  ctx.fillText(`• ${tripPlan.dietary} · ${tripPlan.stayTier}`, 70, currentY + 74);
+
+  // --- QR Code Section: Real, 100% Scannable QR Code ---
+  const qrY = 1005;
+  const qrTargetUrl = `https://wa.me/918770403315?text=${encodeURIComponent(`Hi Comfort Journey! I scanned your itinerary card for ${tripPlan.destination} (${tripPlan.duration}). Please share dates and pricing!`)}`;
+
+  try {
+    // Generate real, high-resolution QR code data URL offline
+    const qrDataUrl = await QRCode.toDataURL(qrTargetUrl, {
+      margin: 1,
+      width: 220,
+      color: {
+        dark: '#001233',
+        light: '#FFFFFF'
+      },
+      errorCorrectionLevel: 'M'
+    });
+
+    const qrImage = new Image();
+    await new Promise((res) => {
+      qrImage.onload = res;
+      qrImage.onerror = res;
+      qrImage.src = qrDataUrl;
+    });
+
+    // Draw QR White Frame & Image
+    ctx.fillStyle = '#FFFFFF';
+    ctx.beginPath();
+    ctx.roundRect(50, qrY, 118, 118, [12]);
+    ctx.fill();
+    ctx.strokeStyle = '#E2E8F0';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    ctx.drawImage(qrImage, 55, qrY + 5, 108, 108);
+  } catch (err) {
+    console.error('Error generating QR code in canvas:', err);
+  }
+
+  // QR Description Text
+  ctx.fillStyle = '#0F172A';
+  ctx.font = 'bold 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.fillText('Scan to view or book on Comfort Journey', 185, qrY + 32);
+
+  ctx.fillStyle = '#64748B';
+  ctx.font = '13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.fillText('Point your phone camera to chat instantly with our', 185, qrY + 56);
+  ctx.fillStyle = '#FF892F';
+  ctx.font = 'bold 13.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.fillText('24/7 Vacation Concierge (+91 8770403315)', 185, qrY + 78);
+
+  ctx.fillStyle = '#10B981';
+  ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.fillText('✓ 100% Verified Private Tours · Est. 1992', 185, qrY + 102);
+
+  return canvas.toDataURL('image/png');
 }
+
 
 /**
  * 3. Print PDF Travel Brochure

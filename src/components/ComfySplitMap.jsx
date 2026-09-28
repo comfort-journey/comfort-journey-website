@@ -30,14 +30,15 @@ const TILE_PRESETS = {
   }
 };
 
-// Sleek, modern vector icons for map pins (Zero Childish Emojis)
+// Clean, modern luxury stroke SVG icons for map pins (100% Crisp & High-End)
 const TYPE_SVG_ICONS = {
-  transport: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>`,
-  sightseeing: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="22" x2="22" y2="22"/><line x1="4" y1="2" x2="20" y2="2"/><polygon points="4 6 20 6 12 2 4 6"/><line x1="6" y1="6" x2="6" y2="22"/><line x1="10" y1="6" x2="10" y2="22"/><line x1="14" y1="6" x2="14" y2="22"/><line x1="18" y1="6" x2="18" y2="22"/></svg>`,
-  meal: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 2-2.3 2.3a3 3 0 0 0 0 4.2l1.8 1.8a3 3 0 0 0 4.2 0L22 8Z"/><path d="M15 15 3.3 3.3a4.2 4.2 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7"/><path d="m2.1 21.8 6.4-6.3"/><path d="m19 5-7 7"/></svg>`,
-  hotel: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 8v10"/><path d="M18 8v10"/><path d="M2 12h20"/><circle cx="7" cy="5" r="2"/></svg>`,
-  shopping: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`
+  transport: `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.5 2.8C2.1 11.2 2 11.6 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>`,
+  sightseeing: `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>`,
+  meal: `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v6a3 3 0 0 1-3 3 3 3 0 0 1-3-3V2"/><path d="M15 11v11"/><path d="M5 2v4a3 3 0 0 0 3 3v13"/><path d="M8 2v4"/></svg>`,
+  hotel: `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>`,
+  shopping: `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`
 };
+
 
 /**
  * ComfySplitMap - Interactive Leaflet Map for Comfy.ai Planner
@@ -56,6 +57,7 @@ export default function ComfySplitMap({
   const currentTileLayerRef = useRef(null);
   const markersLayerRef = useRef(null);
   const polylineLayerRef = useRef(null);
+  const markersMapRef = useRef(new Map());
 
   // Map tile style selector: 'streets' | 'topo' | 'satellite'
   const [activeStyle, setActiveStyle] = useState('streets');
@@ -74,7 +76,7 @@ export default function ComfySplitMap({
       const firstStop = days[0]?.stops?.[0];
       const initialCenter = firstStop?.lat && firstStop?.lng 
         ? [firstStop.lat, firstStop.lng] 
-        : [34.0837, 74.7973];
+        : [7.8804, 98.3923];
 
       const map = L.map(mapContainerRef.current, {
         center: initialCenter,
@@ -124,14 +126,18 @@ export default function ComfySplitMap({
     }).addTo(map);
   };
 
-  // Update Markers & Polyline when activeDay, days, routeMode, or selectedStop change
+  // Update Markers & Polyline when activeDay, days, or routeMode changes
   useEffect(() => {
     const map = mapInstanceRef.current;
     if (!map || !markersLayerRef.current || !polylineLayerRef.current) return;
 
+    // Invalidate size immediately so Leaflet knows true container dimensions
+    map.invalidateSize();
+
     // Clear previous markers & polylines
     markersLayerRef.current.clearLayers();
     polylineLayerRef.current.clearLayers();
+    markersMapRef.current.clear();
 
     // Determine stops to display based on routeMode
     let stopsToRender = [];
@@ -168,21 +174,21 @@ export default function ComfySplitMap({
       const isSelected = selectedStop?.title === stop.title;
       const svgIcon = TYPE_SVG_ICONS[stop.type] || TYPE_SVG_ICONS.sightseeing;
 
-      // Custom Clean HTML Marker (NO EMOJIS, Elegant Luxury Design)
+      // Modern luxury map pin with circular badge and anchor caret
       const markerHtml = `
-        <div class="comfy-map-pin ${isSelected ? 'selected' : ''} type-${stop.type}">
-          <div class="pin-badge">${stop.stopNumber}</div>
-          <div class="pin-icon-wrap">${svgIcon}</div>
-          <div class="pin-pulse"></div>
+        <div class="comfy-modern-pin ${isSelected ? 'is-selected' : ''} type-${stop.type}">
+          <div class="pin-badge-seq">${stop.stopNumber}</div>
+          <div class="pin-icon-inner">${svgIcon}</div>
+          <div class="pin-anchor-dot"></div>
         </div>
       `;
 
       const customIcon = L.divIcon({
         className: 'custom-comfy-marker-container',
         html: markerHtml,
-        iconSize: [40, 46],
-        iconAnchor: [20, 44],
-        popupAnchor: [0, -42]
+        iconSize: [42, 48],
+        iconAnchor: [21, 46],
+        popupAnchor: [0, -44]
       });
 
       const marker = L.marker(position, { icon: customIcon });
@@ -190,7 +196,7 @@ export default function ComfySplitMap({
       // Click to select stop
       marker.on('click', () => {
         if (onSelectStop) onSelectStop(stop);
-        map.flyTo(position, 14, { duration: 0.8 });
+        map.flyTo(position, 14, { animate: true, duration: 0.8 });
       });
 
       // Tooltip
@@ -200,9 +206,10 @@ export default function ComfySplitMap({
           <div>${stop.subtitle || ''}</div>
           <small>${stop.time || ''} · ${stop.duration || ''}</small>
         </div>
-      `, { direction: 'top', offset: [0, -38] });
+      `, { direction: 'top', offset: [0, -40] });
 
       markersLayerRef.current.addLayer(marker);
+      markersMapRef.current.set(stop.title, marker);
     });
 
     // Draw route polyline if 2 or more stops exist
@@ -220,7 +227,7 @@ export default function ComfySplitMap({
       // Core route polyline
       const routeLine = L.polyline(latLngs, {
         color: '#002B7F',
-        weight: 4,
+        weight: 3.5,
         opacity: 0.95,
         dashArray: '6, 8',
         lineCap: 'round',
@@ -230,13 +237,13 @@ export default function ComfySplitMap({
 
       // Fit map bounds to show full route with padding
       const bounds = L.latLngBounds(latLngs);
-      map.fitBounds(bounds, { padding: [45, 45], maxZoom: 14 });
+      map.fitBounds(bounds, { padding: [50, 50], maxZoom: 14, animate: true });
     } else if (latLngs.length === 1) {
-      map.flyTo(latLngs[0], 13, { duration: 0.8 });
+      map.flyTo(latLngs[0], 13, { animate: true, duration: 0.8 });
     }
-  }, [activeDay, days, routeMode, selectedStop]);
+  }, [activeDay, days, routeMode]);
 
-  // When selectedStop is changed via parent click, center on it
+  // When selectedStop is changed via parent click, center on it smoothly
   useEffect(() => {
     const map = mapInstanceRef.current;
     if (!map || !selectedStop || !selectedStop.lat || !selectedStop.lng) return;
@@ -480,69 +487,103 @@ export default function ComfySplitMap({
           pointer-events: none;
         }
 
-        /* Marker Pin Styling (Zero Childish Emojis) */
+        /* Modern Luxury Map Pin Styling */
         .custom-comfy-marker-container {
           background: none;
           border: none;
         }
 
-        .comfy-map-pin {
+        .comfy-modern-pin {
           position: relative;
-          width: 36px;
-          height: 36px;
+          width: 38px;
+          height: 38px;
           border-radius: 50%;
-          background: #001233;
-          border: 2px solid #FF892F;
           display: flex;
           align-items: center;
           justify-content: center;
-          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6), 0 0 10px rgba(255, 137, 47, 0.35);
           cursor: pointer;
-          transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          border: 2.5px solid #FFFFFF;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+          transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.25s ease;
         }
 
-        .comfy-map-pin:hover, .comfy-map-pin.selected {
-          transform: scale(1.22);
-          border-color: #6FE6FC;
-          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6), 0 0 16px #6FE6FC;
-          z-index: 1200;
+        .comfy-modern-pin.type-transport {
+          background: linear-gradient(135deg, #0284C7, #0369A1);
+        }
+        .comfy-modern-pin.type-sightseeing {
+          background: linear-gradient(135deg, #F59E0B, #D97706);
+        }
+        .comfy-modern-pin.type-meal {
+          background: linear-gradient(135deg, #10B981, #059669);
+        }
+        .comfy-modern-pin.type-hotel {
+          background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+        }
+        .comfy-modern-pin.type-shopping {
+          background: linear-gradient(135deg, #F43F5E, #E11D48);
         }
 
-        .pin-badge {
+        .pin-anchor-dot {
+          position: absolute;
+          bottom: -6px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 0;
+          height: 0;
+          border-left: 5px solid transparent;
+          border-right: 5px solid transparent;
+          border-top: 6px solid #FFFFFF;
+        }
+
+        .comfy-modern-pin:hover, .comfy-modern-pin.is-selected {
+          transform: scale(1.22) translateY(-4px);
+          z-index: 9999;
+        }
+
+        .comfy-modern-pin.is-selected {
+          border-color: #FF892F;
+          box-shadow: 0 0 0 4px rgba(255, 137, 47, 0.45), 0 8px 24px rgba(0, 0, 0, 0.55);
+        }
+
+        .comfy-modern-pin.is-selected .pin-anchor-dot {
+          border-top-color: #FF892F;
+        }
+
+        .pin-badge-seq {
           position: absolute;
           top: -6px;
           right: -6px;
-          background: #FF892F;
-          color: #001233;
+          background: #001233;
+          color: #FF892F;
           font-weight: 800;
           font-size: 0.65rem;
-          padding: 0 4px;
+          min-width: 17px;
           height: 17px;
           border-radius: 9px;
           display: flex;
           align-items: center;
           justify-content: center;
-          border: 1.5px solid #FFFFFF;
+          padding: 0 3px;
+          border: 1.5px solid #FF892F;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.4);
         }
 
-        .pin-icon-wrap {
-          color: #FFB37C;
+        .pin-icon-inner {
+          color: #FFFFFF;
           display: flex;
           align-items: center;
           justify-content: center;
+          filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
         }
 
-        .comfy-map-pin.selected .pin-icon-wrap {
-          color: #6FE6FC;
-        }
-
-        .comfy-map-pin.selected .pin-pulse {
+        .comfy-modern-pin.is-selected .pin-pulse {
           position: absolute;
-          inset: -6px;
+          inset: -8px;
           border-radius: 50%;
-          border: 2px solid #6FE6FC;
+          border: 2px solid rgba(255, 137, 47, 0.6);
           animation: mapPinPulse 1.6s infinite;
         }
+
 
         @keyframes mapPinPulse {
           0% { transform: scale(1); opacity: 0.9; }

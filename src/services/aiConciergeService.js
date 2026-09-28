@@ -107,27 +107,38 @@ export function parseTravelIntent(prompt) {
   // 1. Destination
   let destination = 'Kashmir';
   let destKey = 'kashmir';
-  if (q.includes('bali') || q.includes('indonesia')) { destination = 'Bali, Indonesia'; destKey = 'bali'; }
-  else if (q.includes('dubai') || q.includes('uae') || q.includes('abu dhabi')) { destination = 'Dubai, UAE'; destKey = 'dubai'; }
-  else if (q.includes('swiss') || q.includes('switzerland') || q.includes('lucerne') || q.includes('interlaken') || q.includes('alps')) { destination = 'Switzerland'; destKey = 'switzerland'; }
-  else if (q.includes('europe') || q.includes('paris') || q.includes('rome') || q.includes('italy') || q.includes('france')) { destination = 'Essence of Europe'; destKey = 'europe'; }
-  else if (q.includes('vietnam') || q.includes('hanoi') || q.includes('da nang') || q.includes('halong')) { destination = 'Vietnam'; destKey = 'vietnam'; }
-  else if (q.includes('thailand') || q.includes('phuket') || q.includes('krabi') || q.includes('bangkok')) { destination = 'Phuket & Krabi, Thailand'; destKey = 'thailand'; }
-  else if (q.includes('japan') || q.includes('tokyo') || q.includes('kyoto') || q.includes('fuji')) { destination = 'Tokyo & Kyoto, Japan'; destKey = 'japan'; }
-  else if (q.includes('singapore')) { destination = 'Singapore'; destKey = 'singapore'; }
-  else if (q.includes('kerala') || q.includes('munnar') || q.includes('alleppey') || q.includes('cochin')) { destination = 'Kerala Backwaters'; destKey = 'kerala'; }
-  else if (q.includes('rajasthan') || q.includes('jaipur') || q.includes('udaipur') || q.includes('jodhpur')) { destination = 'Rajasthan Heritage'; destKey = 'rajasthan'; }
-  else if (q.includes('himachal') || q.includes('manali') || q.includes('shimla') || q.includes('solang')) { destination = 'Himachal Hills'; destKey = 'himachal'; }
-  else if (q.includes('kedarnath') || q.includes('char dham') || q.includes('rishikesh') || q.includes('uttarakhand')) { destination = 'Kedarnath & Uttarakhand'; destKey = 'kedarnath'; }
-  else if (q.includes('maldives')) { destination = 'Maldives'; destKey = 'maldives'; }
-  else if (q.includes('andaman') || q.includes('havelock')) { destination = 'Andaman Islands'; destKey = 'andaman'; }
+  if (q.includes('thailand') || q.includes('phuket') || q.includes('krabi') || q.includes('bangkok') || q.includes('pattaya') || q.includes('chiang mai') || q.includes('samui') || q.includes('phi phi')) { destination = 'Phuket & Krabi, Thailand'; destKey = 'thailand'; }
+  else if (q.includes('bali') || q.includes('indonesia') || q.includes('ubud') || q.includes('seminyak')) { destination = 'Bali, Indonesia'; destKey = 'bali'; }
+  else if (q.includes('dubai') || q.includes('uae') || q.includes('abu dhabi') || q.includes('burj')) { destination = 'Dubai, UAE'; destKey = 'dubai'; }
+  else if (q.includes('swiss') || q.includes('switzerland') || q.includes('lucerne') || q.includes('interlaken') || q.includes('alps') || q.includes('zurich')) { destination = 'Switzerland'; destKey = 'switzerland'; }
+  else if (q.includes('europe') || q.includes('paris') || q.includes('rome') || q.includes('italy') || q.includes('france') || q.includes('london')) { destination = 'Essence of Europe'; destKey = 'europe'; }
+  else if (q.includes('vietnam') || q.includes('hanoi') || q.includes('da nang') || q.includes('halong') || q.includes('saigon')) { destination = 'Vietnam'; destKey = 'vietnam'; }
+  else if (q.includes('japan') || q.includes('tokyo') || q.includes('kyoto') || q.includes('fuji') || q.includes('osaka')) { destination = 'Tokyo & Kyoto, Japan'; destKey = 'japan'; }
+  else if (q.includes('singapore') || q.includes('sentosa')) { destination = 'Singapore'; destKey = 'singapore'; }
+  else if (q.includes('kerala') || q.includes('munnar') || q.includes('alleppey') || q.includes('cochin') || q.includes('kochi')) { destination = 'Kerala Backwaters'; destKey = 'kerala'; }
+  else if (q.includes('rajasthan') || q.includes('jaipur') || q.includes('udaipur') || q.includes('jodhpur') || q.includes('jaisalmer')) { destination = 'Rajasthan Heritage'; destKey = 'rajasthan'; }
+  else if (q.includes('himachal') || q.includes('manali') || q.includes('shimla') || q.includes('solang') || q.includes('dharamshala')) { destination = 'Himachal Hills'; destKey = 'himachal'; }
+  else if (q.includes('kedarnath') || q.includes('char dham') || q.includes('rishikesh') || q.includes('uttarakhand') || q.includes('haridwar')) { destination = 'Kedarnath & Uttarakhand'; destKey = 'kedarnath'; }
+  else if (q.includes('maldives') || q.includes('male')) { destination = 'Maldives'; destKey = 'maldives'; }
+  else if (q.includes('andaman') || q.includes('havelock') || q.includes('port blair')) { destination = 'Andaman Islands'; destKey = 'andaman'; }
   else if (q.includes('goa')) { destination = 'Goa Beaches'; destKey = 'goa'; }
+  else if (q.includes('sri lanka') || q.includes('colombo')) { destination = 'Sri Lanka Scenic Island'; destKey = 'sri_lanka'; }
+  else if (q.includes('nepal') || q.includes('kathmandu')) { destination = 'Nepal Himalayan Kingdom'; destKey = 'nepal'; }
+  else if (q.includes('mauritius')) { destination = 'Mauritius Luxury Escape'; destKey = 'mauritius'; }
+  else if (q.includes('ladakh') || q.includes('leh')) { destination = 'Leh Ladakh High Passes'; destKey = 'ladakh'; }
   else {
     // Check if user specified another country or city in TOURS_DATA
     const matched = findMatchingTours(prompt, 1);
     if (matched.length > 0) {
       destination = matched[0].location || matched[0].country || matched[0].name;
       destKey = destination.toLowerCase().replace(/[^a-z0-9]/g, '_');
+    } else {
+      // Clean extracted prompt as custom destination name
+      const cleanPromptWords = prompt.replace(/\b(days?|nights?|trip|tour|plan|custom|vacation|itinerary|for|with|parents|family|honeymoon|couple|in)\b/gi, '').trim();
+      if (cleanPromptWords.length >= 3) {
+        destination = cleanPromptWords.charAt(0).toUpperCase() + cleanPromptWords.slice(1);
+        destKey = destination.toLowerCase().replace(/[^a-z0-9]/g, '_');
+      }
     }
   }
 
@@ -499,9 +510,10 @@ function generateLocalSmartResponse(prompt) {
 
   // 6. Conversational Itinerary Intent detected (KAYAK style)
   const parsed = parseTravelIntent(prompt);
-  if (parsed && (q.includes('day') || q.includes('plan') || q.includes('itinerary') || q.includes('trip') || q.includes('custom') || q.includes('parent') || q.includes('honeymoon'))) {
+  const isSpecificDestination = parsed && parsed.destKey && parsed.destKey !== 'kashmir';
+  if (parsed && (isSpecificDestination || q.includes('kashmir') || q.includes('day') || q.includes('plan') || q.includes('itinerary') || q.includes('trip') || q.includes('tour') || q.includes('custom') || q.includes('parent') || q.includes('honeymoon'))) {
     const generatedTrip = generateComfyItinerary(parsed);
-    const replyText = `**I have handcrafted a personalized ${parsed.durationDays}-day holiday plan for you!** ✈️\n\n` +
+    const replyText = `**I have handcrafted a personalized ${parsed.durationDays}-day holiday plan for ${parsed.destination}!** ✈️\n\n` +
       `- **Destination:** ${parsed.destination}\n` +
       `- **Pacing & Party:** ${parsed.pacing} (${parsed.party})\n` +
       `- **Private Vehicle:** ${parsed.vehicle}\n` +

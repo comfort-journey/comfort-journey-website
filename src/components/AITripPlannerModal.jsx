@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   X, Award, Send, CheckCircle2, Clock, MapPin, Hotel, Users, 
-  ArrowRight, MessageCircle, Heart, ShieldCheck, Compass, 
+  ArrowRight, MessageCircle, Heart, ShieldCheck, Compass, Sparkles,
   Landmark, Snowflake, Palmtree, Sun, Building2, Star, 
   ExternalLink, RefreshCw, ChevronRight, Bot, Car, Utensils, 
-  Download, Share2, FileSpreadsheet, Printer, Map as MapIcon, SlidersHorizontal
+  Download, Share2, FileSpreadsheet, Printer, Map as MapIcon, SlidersHorizontal,
+  Camera, BedDouble, ShoppingBag, Navigation
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { TOURS_DATA } from '../data/toursData';
@@ -285,12 +286,13 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
             <span className="chips-label">Try asking:</span>
             {[
               '7 days in Kashmir for parents with relaxed pacing & Innova Hycross',
+              '5 days Thailand & Phuket beach holiday with island tours',
               '5 days Bali honeymoon with private pool villa & veg meals',
               '4 days Dubai family trip with desert safari & Burj Khalifa'
             ].map((chip, idx) => (
               <button 
-                key={idx}
-                type="button"
+                key={idx} 
+                type="button" 
                 className="query-suggestion-chip"
                 onClick={() => {
                   setConversationalQuery(chip);
@@ -307,7 +309,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
         {/* MODE TABS BAR: SPLIT-SCREEN PLANNER vs CHAT */}
         <div className="comfy-mode-tabs-bar">
           <button 
-            type="button"
+            type="button" 
             className={`comfy-tab-btn ${activeTab === 'planner' ? 'active' : ''}`}
             onClick={() => setActiveTab('planner')}
           >
@@ -316,7 +318,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
           </button>
 
           <button 
-            type="button"
+            type="button" 
             className={`comfy-tab-btn ${activeTab === 'chat' ? 'active' : ''}`}
             onClick={() => setActiveTab('chat')}
           >
@@ -334,21 +336,22 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
             {/* LEFT HALF: DAY-BY-DAY ITINERARY SCHEDULE & CUSTOMIZER */}
             <div className="planner-left-panel">
               
-              {/* Trip Overview Banner */}
+              {/* Trip Overview Banner — Compact, Visual, Clean */}
               <div className="trip-overview-card glass-panel">
-                <div className="overview-badges-wrap">
-                  <span className="pill-badge pill-amber">{tripPlan.destination}</span>
-                  <span className="pill-badge pill-emerald">{tripPlan.duration}</span>
-                  <span className="pill-badge pill-cyan">{tripPlan.party}</span>
+                <div className="overview-top-row">
+                  <h3 className="trip-overview-title">{tripPlan.title}</h3>
+                </div>
+                <div className="overview-info-chips">
+                  <span className="info-chip chip-amber"><MapPin size={12} />{tripPlan.destination}</span>
+                  <span className="info-chip chip-emerald"><Clock size={12} />{tripPlan.duration}</span>
+                  <span className="info-chip chip-cyan"><Users size={12} />{tripPlan.party}</span>
+                  <span className="info-chip chip-purple"><Car size={12} />{tripPlan.vehicle.replace('Private Toyota ', '').replace(' (AC)', '').replace(' (Hybrid AC)', '')}</span>
                 </div>
 
-                <h3 className="trip-overview-title">{tripPlan.title}</h3>
-                <p className="trip-overview-subtitle">{tripPlan.subtitle}</p>
-
-                {/* Interactive Customizer Bar (Pacing, Vehicle, Stay Tier) */}
+                {/* Compact Customizer Row */}
                 <div className="quick-customizer-bar">
                   <div className="customizer-item">
-                    <span className="customizer-label">Pacing:</span>
+                    <span className="customizer-label">Pace:</span>
                     <div className="customizer-options">
                       {['Relaxed Pace', 'Balanced Pace'].map(p => (
                         <button
@@ -357,7 +360,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
                           className={`mini-pill ${tripPlan.pacing.includes(p.split(' ')[0]) ? 'active' : ''}`}
                           onClick={() => handleTogglePacing(p)}
                         >
-                          {p}
+                          {p.split(' ')[0]}
                         </button>
                       ))}
                     </div>
@@ -373,7 +376,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
                           className={`mini-pill ${tripPlan.vehicle.includes(v) ? 'active' : ''}`}
                           onClick={() => handleChangeVehicle(`Private Toyota ${v} (AC)`)}
                         >
-                          {v}
+                          {v.replace('Innova ', '')}
                         </button>
                       ))}
                     </div>
@@ -401,7 +404,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
                 </div>
               </div>
 
-              {/* Active Day Header & Route Summary */}
+              {/* Active Day Header & Route Summary - Clean & Aesthetic */}
               {activeDayData && (
                 <div className="active-day-header-box">
                   <div className="day-header-top">
@@ -413,7 +416,12 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
                       <span>{activeDayData.travelDistance}</span>
                     </span>
                   </div>
-                  <p className="active-day-desc">{activeDayData.summary}</p>
+                  {activeDayData.summary && (
+                    <div className="active-day-summary-chip">
+                      <Sparkles size={12} className="text-amber flex-shrink-0" />
+                      <span>{activeDayData.summary}</span>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -427,19 +435,23 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
                       className={`timeline-stop-card ${isSelected ? 'selected' : ''}`}
                       onClick={() => setSelectedStop(stop)}
                     >
-                      <div className="timeline-pin-number">
-                        <span>{idx + 1}</span>
+                      <div className={`timeline-pin-icon type-bg-${stop.type}`}>
+                        {stop.type === 'transport' && <Car size={14} />}
+                        {stop.type === 'sightseeing' && <Camera size={14} />}
+                        {stop.type === 'meal' && <Utensils size={14} />}
+                        {stop.type === 'hotel' && <BedDouble size={14} />}
+                        {stop.type === 'shopping' && <ShoppingBag size={14} />}
                       </div>
 
                       <div className="timeline-stop-body">
                         <div className="stop-meta-line">
                           <span className="stop-time">
-                            <Clock size={12} />
+                            <Clock size={11} />
                             <span>{stop.time}</span>
                           </span>
-                          <span className={`stop-type-badge type-${stop.type}`}>
-                            {stop.type}
-                          </span>
+                          {stop.duration && (
+                            <span className="stop-duration-badge">{stop.duration}</span>
+                          )}
                           {stop.ticketStatus && (
                             <span className="stop-ticket-badge">
                               {stop.ticketStatus}
@@ -966,40 +978,35 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
           padding: 14px;
           display: flex;
           flex-direction: column;
-          gap: 8px;
+          gap: 10px;
         }
 
-        .overview-badges-wrap {
+        .overview-top-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .overview-info-chips {
           display: flex;
           gap: 6px;
           flex-wrap: wrap;
         }
 
-        .pill-badge {
+        .info-chip {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
           padding: 3px 9px;
           border-radius: 20px;
-          font-size: 0.7rem;
+          font-size: 0.68rem;
           font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.3px;
         }
 
-        .pill-amber { background: rgba(255, 137, 47, 0.15); color: #FF892F; border: 1px solid rgba(255, 137, 47, 0.35); }
-        .pill-emerald { background: rgba(16, 185, 129, 0.15); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.35); }
-        .pill-cyan { background: rgba(111, 230, 252, 0.15); color: #6FE6FC; border: 1px solid rgba(111, 230, 252, 0.35); }
-
-        .trip-overview-title {
-          margin: 0;
-          font-size: 1.12rem;
-          font-weight: 800;
-          color: #FFFFFF;
-        }
-
-        .trip-overview-subtitle {
-          margin: 0;
-          font-size: 0.78rem;
-          color: rgba(255, 255, 255, 0.75);
-        }
+        .chip-amber { background: rgba(255, 137, 47, 0.15); color: #FF892F; border: 1px solid rgba(255, 137, 47, 0.3); }
+        .chip-emerald { background: rgba(16, 185, 129, 0.15); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .chip-cyan { background: rgba(111, 230, 252, 0.15); color: #6FE6FC; border: 1px solid rgba(111, 230, 252, 0.3); }
+        .chip-purple { background: rgba(139, 92, 246, 0.15); color: #A78BFA; border: 1px solid rgba(139, 92, 246, 0.3); }
 
         .quick-customizer-bar {
           display: flex;
@@ -1119,24 +1126,46 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
           font-weight: 700;
         }
 
-        .active-day-desc {
-          margin: 0;
-          font-size: 0.74rem;
-          color: rgba(255, 255, 255, 0.7);
+        .active-day-summary-chip {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          font-size: 0.72rem;
+          color: rgba(255, 255, 255, 0.82);
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 8px;
+          padding: 6px 10px;
+          line-height: 1.35;
         }
 
-        /* Timeline Stops */
+        /* Timeline Stops with clean connecting rail */
         .day-timeline-list {
           display: flex;
           flex-direction: column;
-          gap: 12px;
+          gap: 10px;
+          position: relative;
+        }
+
+        .day-timeline-list::before {
+          content: '';
+          position: absolute;
+          left: 27px;
+          top: 20px;
+          bottom: 20px;
+          width: 2px;
+          background: linear-gradient(180deg, rgba(255, 137, 47, 0.35), rgba(2, 132, 199, 0.35));
+          z-index: 0;
+          border-radius: 1px;
         }
 
         .timeline-stop-card {
+          position: relative;
+          z-index: 1;
           display: flex;
           gap: 12px;
-          background: rgba(0, 20, 56, 0.5);
-          border: 1px solid rgba(255, 255, 255, 0.07);
+          background: rgba(0, 20, 56, 0.65);
+          border: 1px solid rgba(255, 255, 255, 0.08);
           border-radius: 12px;
           padding: 12px;
           cursor: pointer;
@@ -1144,8 +1173,9 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
         }
 
         .timeline-stop-card:hover {
-          background: rgba(0, 28, 80, 0.65);
-          border-color: rgba(255, 137, 47, 0.3);
+          background: rgba(0, 28, 80, 0.75);
+          border-color: rgba(255, 137, 47, 0.35);
+          transform: translateX(2px);
         }
 
         .timeline-stop-card.selected {
@@ -1154,20 +1184,23 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
           box-shadow: 0 4px 20px rgba(255, 137, 47, 0.18);
         }
 
-        .timeline-pin-number {
-          width: 28px;
-          height: 28px;
-          border-radius: 50%;
-          background: #FF892F;
-          color: #001233;
-          font-weight: 800;
-          font-size: 0.82rem;
+        .timeline-pin-icon {
+          width: 32px;
+          height: 32px;
+          border-radius: 10px;
           display: flex;
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
           margin-top: 2px;
+          color: #FFFFFF;
         }
+
+        .type-bg-transport { background: linear-gradient(135deg, #0284C7, #0369A1); }
+        .type-bg-sightseeing { background: linear-gradient(135deg, #F59E0B, #D97706); }
+        .type-bg-meal { background: linear-gradient(135deg, #10B981, #059669); }
+        .type-bg-hotel { background: linear-gradient(135deg, #8B5CF6, #7C3AED); }
+        .type-bg-shopping { background: linear-gradient(135deg, #F43F5E, #E11D48); }
 
         .timeline-stop-body {
           flex: 1;
@@ -1190,22 +1223,18 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
           color: #6FE6FC;
         }
 
-        .stop-type-badge {
-          font-size: 0.65rem;
-          font-weight: 700;
-          text-transform: uppercase;
+        .stop-duration-badge {
+          font-size: 0.63rem;
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.5);
+          background: rgba(255, 255, 255, 0.06);
           padding: 1px 6px;
           border-radius: 4px;
         }
 
-        .type-transport { background: #0369A1; color: #E0F2FE; }
-        .type-sightseeing { background: #B45309; color: #FEF3C7; }
-        .type-meal { background: #15803D; color: #DCFCE7; }
-        .type-hotel { background: #7E22CE; color: #F3E8FF; }
-
         .stop-ticket-badge {
-          font-size: 0.65rem;
-          color: rgba(255, 255, 255, 0.6);
+          font-size: 0.63rem;
+          color: rgba(255, 255, 255, 0.5);
         }
 
         .stop-title {
