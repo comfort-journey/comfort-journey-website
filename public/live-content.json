@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-29T12:55:33.817Z",
+  "lastUpdated": "2026-09-29T13:32:10.520Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -4109,8 +4109,8 @@
     {
       "id": "tour-wix-colombo-to-the-clouds",
       "wixId": "82ef9be5-fd26-44e6-9046-cdd6be11a40c",
-      "name": "Colombo to the Clouds",
-      "slug": "colombo-to-the-clouds",
+      "name": "Colombo Escape— Beaches, Culture & the Spirit of Sri Lanka",
+      "slug": "colombo-escape-beaches-culture-the-spirit-of-sri-lanka",
       "location": "Colombo",
       "city": "Colombo",
       "state": "Sri Lanka",
@@ -4124,7 +4124,18 @@
         "Family Tours",
         "Heritage & Palaces",
         "Culture & Heritage",
-        "Luxury Signature"
+        "Luxury Signature",
+        "Spring",
+        "Autumn",
+        "Summer",
+        "Couple & Honeymoon",
+        "Family Trips",
+        "Group Tours",
+        "Solo Trips",
+        "Budget Friendly Trips",
+        "Beach & Coastal",
+        "Heritage & Culture",
+        "Winter"
       ],
       "tags": [
         "International",
@@ -4137,11 +4148,11 @@
       ],
       "duration": "5N/6D",
       "durationDays": 56,
-      "price": 144904,
+      "price": 46799,
       "origPrice": 166640,
-      "originalPrice": 166640,
-      "tagline": "Handcrafted 5N/6D tour to Colombo curated by Comfort Journey since 1992.",
-      "description": "Handcrafted 5N/6D tour to Colombo curated by Comfort Journey since 1992.",
+      "originalPrice": 51999,
+      "tagline": "Discover Colombo Tropical Escape, blending golden beaches, vibrant culture, colonial charm, and island flavours.",
+      "description": "<!--StartFragment-->Discover Colombo Tropical Escape, blending golden beaches, vibrant culture, colonial charm, and island flavours.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/beda25_3a7af49cc5e44cb9a3d3c3d7c88abf49~mv2.jpeg/WhatsApp%20Image%202026-07-16%20at%204.58.57%20PM.jpeg#originWidth=960&originHeight=1280",
       "badge": "International Signature",
@@ -4171,55 +4182,62 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival in Colombo and transfer to hotel",
+          "title": "Arrival in Colombo and transfer to hotel",
           "desc": "After arriving at the Colombo Airport, our representatives will be waiting for you. The team will transfer you to the hotel for check-in in Colombo. You’ll have the rest of the day to relax and explore the city on your own before we spend the night at the hotel in Colombo. Overnight stay at Courtyard By Marriott Colombo",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Galle and Bentota Day-Tour",
+          "title": "Galle and Bentota Day-Tour",
           "desc": "Breakfast at hotel. This is a Galle and Bentota Day Tour that includes pick-up from your hotel. The Boat Safari at Madu River is a major attraction that will show you the view of the wide Madu Ganga. It’s a healing journey through the mangrove forest and observe the biodiversity of Madu River that includes 19 endemic species. There are 64 islands and is such an attractive destination for nature lovers and bird watchers. Catch sights of the rare bird species and reptiles that made their home here. There are also traditional fishermen here who make a living through Stilt Fishing. It is a method that uses a crossbar with a vertical pole attached to the sea floor and they wait by the crossbar for the fish to bite. Then visit the Kosgoda Sea Turtle Conservation Project for turtle hatching. Since 1981, the area has become one of the best locations to find turtles laying their eggs and it was established by the Wildlife Protection Society. The project will take in newborn turtles and raise them in big tanks with nutritional food and clean environment for just a few days. They’ll then be released into the wild at night from the safest area to ensure survivability. The Conservation generally has five species they take care of and visitors will learn all about these gorgeous turtles that are now endangered. They are also allowed to interact with the turtles and hold them in their palms and check out the babies in their tanks. Overnight stay at Courtyard By Marriott Colombo",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Colombo City Tour",
+          "title": "Colombo City Tour",
           "desc": "Colombo is the business and commercial center and the new capital is Sri Jayawardhanapura Kotte, only a few miles away. Colombo was only a small seaport, which came into prominence in the 16th Century with the arrival of the Portuguese in 1505 and the development of it as a major Harbor took place during the British period. Colombo became the capital of Sri Lanka in 1815 after Kandyan Kingdom was ceded to the British. The remains of the buildings during the period of the Portuguese, Dutch and British rule are found in every area of the city. None of the Portuguese & Dutch fortifications are found today but some of their buildings and churches could be seen in the Fort & Pettah areas. Visit Fort, the former British administrative center and military garrison, Sea Street - the Goldsmith’s quarters in the heart of Pettah, the Bazaar area where there is also a Hindu Temple with elaborate stone carvings, the Kayman’s Gate with the Belfry at the original gate to enter the Fort, the Dutch Church of Wolfendhaal dating back to 1749, Kelaniya Buddhist Temple dating to 6th C.B.C., Davatagaha Mosque, Colombo Museum and the Natural History Museum are some of the sites to be visited. Also visit the BMICH (Bandaranaike Memorial International Conference Hall), see the replica of Avukana Buddha in front and the Independence Memorial. Take out time for some shopping before returning back to your hotel. Overnight stay at Courtyard By Marriott Colombo",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Transfer from Colombo to Nuwara Eliya Via Gampola Ambuluwawa Tower",
+          "title": "Transfer from Colombo to Nuwara Eliya Via Gampola Ambuluwawa Tower",
           "desc": "After breakfast, depart from Colombo and travel towards Gampola to visit the iconic Ambuluwawa Tower, known for its unique spiral tower and breathtaking panoramic views of the surrounding mountains and valleys. After exploring the hilltop complex, continue your scenic drive through tea plantations and misty landscapes to the charming hill station of Nuwara Eliya, often referred to as “Little England,” then Check in at the hotel. Overnight stay at Heritance Tea Factory",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 5,
-          "title": "Day 5: Sita Amman Temple & Bahirawakanda Temple Tour",
+          "title": "Sita Amman Temple & Bahirawakanda Temple Tour",
           "desc": "Enjoy your breakfast today before we set off on our tour of the day. We’re going to Sita Amman Temple as our first destination, a Hindu Temple dedicated to Princess Sita that was also mentioned in the epic of Ramayana. The story goes that Sita was rescued by Rama 5000 years ago and to commemorate her, the temple was built here. Many devotees visit the temple to worship Sita Mata. Visitors are advised to wear modestly when they visit the temple. We’ll then visit the Bahirawakanda Temple, where you can see the popular Bahirawakanda Buddha statue erected atop the Bahirawa Kanda Hill. It is located at the temple, which is also known as Sri Maha Bodhi Temple and is gorgeously sculpted and put up in 1972. Bahirawakanda means “Gnome Mountain” and is a reference to the legend that an evil human-eating gnome used to live here. From the top of the hill, you can get a panoramic view of Kandy city. Visitors need to remove their shoes and hats before entering to offer flowers or oil lamps. We’ll ride back to the hotel in Nuwara Eliya for an overnight stay. Notes : Sightseeing: Tickets / entrance fees at additional cost, directly payable",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 6,
-          "title": "Day 6: Transfer from Nuwara Eliya to Colombo for Departure",
+          "title": "Transfer from Nuwara Eliya to Colombo for Departure",
           "desc": "After breakfast, we’ll check-out of Nuwara Eliya and head to Colombo. After 5 hours of ride, we’ll bring you to the Colombo Airport in time for your departure flight.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "heroTagline": "Discover Colombo Tropical Escape, blending golden beaches, vibrant culture, colonial charm, and island flavours.",
+      "itinerarySectionTitle": "6 Days of Beaches, Heritage, Culture & Island Adventures",
+      "discountBadge": "10% OFF",
+      "seo": {
+        "focusKeyword": "Sri Lanka",
+        "metaDescription": "Discover Colombo Tropical Escape (Sri Lanka), blending golden beaches, vibrant culture, colonial charm, and island flavours."
+      }
     },
     {
       "id": "tour-wix-singapore-city-gardens",
