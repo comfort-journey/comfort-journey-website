@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-29T12:05:17.919Z",
+  "lastUpdated": "2026-09-29T12:39:25.884Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -3811,8 +3811,8 @@
     {
       "id": "tour-wix-bali-tropical-escape",
       "wixId": "684e1b1a-235b-4d84-9def-a94295ebd813",
-      "name": "Bali Tropical Escape",
-      "slug": "bali-tropical-escape",
+      "name": "Bali Tropical Retreat",
+      "slug": "bali-tropical-retreat",
       "location": "Bali",
       "city": "Bali",
       "state": "Indonesia",
@@ -3833,7 +3833,11 @@
         "Heritage & Palaces",
         "Culture & Heritage",
         "Bali",
-        "Luxury Signature"
+        "Luxury Signature",
+        "Autumn",
+        "Couple & Honeymoon",
+        "Group Tours",
+        "Budget Friendly Trips"
       ],
       "tags": [
         "International",
@@ -3853,11 +3857,11 @@
       ],
       "duration": "4N/5D",
       "durationDays": 45,
-      "price": 62710,
+      "price": 50999,
       "origPrice": 69870,
-      "originalPrice": 69870,
-      "tagline": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
-      "description": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
+      "originalPrice": 59999,
+      "tagline": "Explore Bali Unveiled, blending golden beaches, emerald landscapes, sacred temples, and unforgettable island moments.",
+      "description": "<!--StartFragment-->Explore Bali Unveiled, blending golden beaches, emerald landscapes, sacred temples, and unforgettable island moments.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/nsplsh_08cc77b975e84072bbcea36aba72a65e~mv2.jpg/Image%20by%20Bao%20Menglong.jpg#originWidth=5653&originHeight=3768",
       "badge": "International Signature",
@@ -3911,47 +3915,53 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival at Bali",
+          "title": " Arrival at Bali",
           "desc": "Upon your arrival at Ngurah Rai Airport in Denpasar, Bali, our representative will meet and welcome you. You will then be taken to the hotel for your refreshment.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Nusa Penida Island Day Trip",
+          "title": " Nusa Penida Island Day Trip",
           "desc": "Experience the magic of Nusa Penida Island on our Full Day West Penida Tour. Begin your day with convenient private transfers to the pier, where you'll board a shared fastboat to this enchanting destination. Explore the island’s breathtaking landscapes, including the iconic Broken Beach and the majestic Kelingking Cliff. Swim in crystalclear waters and relax on pristine beaches, immersing yourself in the natural beauty that surrounds you. Indulge in a delicious local lunch, savoring the unique flavors of the island. With knowledgeable guides ensuring a seamless experience, this tour offers the perfect mix of adventure and leisure in one of Bali's hidden gems. Stay - Overnight stay at Anathera Resort Kuta. Meals - Breakfast: Included Lunch: Included Dinner: Not Included Notes - If snorkelling is selected at additional cost, Crystal Bay may not be covered due to time limitations. Local lunch is provided with limited quantity and options.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Full Day North Bali Tour",
+          "title": "Full Day North Bali Tour",
           "desc": "Proceed for a full-day North Bali sightseeing tour. Places Covered Bedugul Fruit and Vegetable Market Ulun Danu Temple Lovina Beach Area Aling-Aling Waterfalls Banjar Hot Springs The tour includes visits to cultural and natural attractions across North Bali while crossing the scenic central mountain range. Stay - Overnight stay at Anathera Resort Kuta. Meals - Breakfast: Included Lunch: Not Included Dinner: Not Included",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Tanah Lot Temple & Uluwatu Temple Tour with Kecak Dance",
+          "title": "Tanah Lot Temple & Uluwatu Temple Tour with Kecak Dance",
           "desc": "Visit the iconic Tanah Lot Temple located on a rock formation in the ocean. Enjoy free time for shopping and purchasing Balinese handicrafts and souvenirs. In the evening, proceed to Uluwatu Temple, situated on a cliff approximately 100 metres above the ocean. Witness the famous Kecak Dance performance by around 50 dancers. Stay - Overnight stay at Anathera Resort Kuta. Meals - Breakfast: Included Lunch: Not Included Dinner: Not Included Notes - Guests are advised to take care of personal belongings around monkeys at Uluwatu Temple. Shiny items such as earrings, necklaces, glasses and hair accessories may attract monkeys.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 5,
-          "title": "Day 5: Bali Swing at Tegallalang Village & Departure",
+          "title": "Bali Swing at Tegallalang Village & Departure",
           "desc": "Visit Aloha Ubud Theme Park and enjoy the Bali Swing experience in the Tegallalang area, known for its spectacular views. After breakfast, transfer to the airport for your onward flight. Meals - Breakfast: Included Lunch: Not Included Dinner: Not Included",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "heroTagline": "Explore Bali Unveiled, blending golden beaches, emerald landscapes, sacred temples, and unforgettable island moments.",
+      "itinerarySectionTitle": "Unveil Bali — 5 Days of Beaches, Temples, Nature & Island Experiences",
+      "discountBadge": "15% OFF",
+      "seo": {
+        "focusKeyword": "Bali"
+      }
     },
     {
       "id": "tour-wix-sakura-moments-the-ultimate-cherry-blossom",
