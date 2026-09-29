@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-25T08:55:24.627Z",
+  "lastUpdated": "2026-09-29T12:00:57.638Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -276,120 +276,6 @@
       },
       "itinerarySectionTitle": "Timeless Karnataka: Day by Day journey overview",
       "discountBadge": "15% OFF"
-    },
-    {
-      "id": "tour-wix-karnataka-peaks-palaces",
-      "wixId": "0ab9247a-4d9a-4401-b638-2641bcd7e866",
-      "name": "Karnataka Peaks & Palaces",
-      "slug": "karnataka-peaks-palaces",
-      "location": "India",
-      "city": "India",
-      "state": "Karnataka",
-      "continent": "Asia",
-      "country": "India",
-      "category": "National Tours",
-      "categories": [
-        "National",
-        "Domestic",
-        "India Tours",
-        "Family & Group",
-        "Family Tours",
-        "Heritage & Palaces",
-        "Culture & Heritage",
-        "Karnataka",
-        "Luxury Signature"
-      ],
-      "tags": [
-        "National",
-        "Domestic",
-        "India Tours",
-        "Family & Group",
-        "Family Tours",
-        "Heritage & Palaces",
-        "Culture & Heritage",
-        "Karnataka",
-        "Luxury Signature"
-      ],
-      "duration": "4 Nights & 5 Days",
-      "durationDays": 45,
-      "price": 90640,
-      "origPrice": 95410,
-      "originalPrice": 95410,
-      "tagline": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
-      "description": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
-      "image": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85",
-      "legacyWixUrl": "wix:image://v1/nsplsh_2bcc540b61484381ae1d34ce478d4cc6~mv2.jpg/Image%20by%20Sam%20Benstan.jpg#originWidth=4032&originHeight=3024",
-      "badge": "National Signature",
-      "rating": 4.95,
-      "reviews": 96,
-      "reviewsCount": 96,
-      "inclusions": [
-        "Hotel Accommodation",
-        "Breakfast",
-        "Sightseeing",
-        "Driver allowance",
-        "Night allowance",
-        "Transportation",
-        "Taxes"
-      ],
-      "exclusions": [
-        "Personal Expenses",
-        "Entry ticket",
-        "Anything not mentioned in the inclusions",
-        "All activities on direct payment basis"
-      ],
-      "itinerary": [
-        {
-          "day": 1,
-          "title": "Day 1: ARRIVAL IN BANGALORE",
-          "desc": "Upon arrival, meet our representative and proceed with your journey to explore Bangalore's sightseeing places such as Bangalore Palace, Vidhana Soudha, Lalbagh Botanical Garden, ISKCON Temple, and Tipu Sultan's Summer Palace. Overnight stay at a hotel in Bangalore.",
-          "stayTier": "4-Star / 5-Star Luxury Stay",
-          "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
-        },
-        {
-          "day": 2,
-          "title": "Day 2: BANGALORE TO MYSORE",
-          "desc": "(150 KMS / 3 HRS) After breakfast, check out from the hotel and drive to Mysore. Upon arrival, begin local sightseeing by visiting Mysore Palace, Chamundeshwari Temple, St. Philomena's Church, and Brindavan Gardens. Check in at the hotel and enjoy an overnight stay in Mysore.",
-          "stayTier": "4-Star / 5-Star Luxury Stay",
-          "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
-        },
-        {
-          "day": 3,
-          "title": "Day 3: MYSORE TO COORG",
-          "desc": "(140 KMS / 3 HRS) After breakfast, check out from the hotel and drive to Coorg. Upon arrival in Coorg, explore the stunning Abbey Falls, surrounded by lush greenery. Then, take a tour of a coffee plantation to learn about the region's famous coffee production while enjoying a fresh cup of locally brewed coffee.",
-          "stayTier": "4-Star / 5-Star Luxury Stay",
-          "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
-        },
-        {
-          "day": 4,
-          "title": "Day 4: COORG SIGHTSEEING",
-          "desc": "After breakfast, enjoy a full day of local sightseeing. Visit Talacauvery, the origin of the River Cauvery, located amidst scenic hills, and Omkareshwar Temple. Then, visit the Dubare Elephant Camp to interact with elephants and enjoy the natural surroundings. Return to the hotel for an overnight stay in Coorg.",
-          "stayTier": "4-Star / 5-Star Luxury Stay",
-          "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
-        },
-        {
-          "day": 5,
-          "title": "Day 5: COORG TO OOTY",
-          "desc": "(270KMS / 6HRS) After breakfast, check out from the hotel and drive to Ooty. Upon arrival, explore the Rose Garden, Ooty Lake and Botanical Garden, Ooty Boat House, Madumalai Tiger Reserve, Government Musueum, Overnight stay at Ooty Hotel.",
-          "stayTier": "4-Star / 5-Star Luxury Stay",
-          "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
-        },
-        {
-          "day": 6,
-          "title": "Day 6: DEPARTURE",
-          "desc": "After breakfast, check out from the hotel and return to your destination with beautiful memories.",
-          "stayTier": "4-Star / 5-Star Luxury Stay",
-          "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
-        }
-      ],
-      "status": "published",
-      "isVisible": true
     },
     {
       "id": "tour-wix-goa-weekend-vibe",
@@ -3808,9 +3694,9 @@
       ],
       "duration": "7N/8D",
       "durationDays": 78,
-      "price": 49999,
+      "price": 52211,
       "origPrice": 218554,
-      "originalPrice": 54999,
+      "originalPrice": 54959,
       "tagline": "Explore Vietnam, where lantern-lit streets, emerald bays, rich culture, and vibrant flavours come alive.",
       "description": "<!--StartFragment-->Explore&nbsp;<span data-start=\"1004\" data-end=\"1015\">Vietnam</span>, where lantern-lit streets, emerald bays, rich culture, and vibrant flavours come alive.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85",
@@ -3917,7 +3803,7 @@
       "isVisible": true,
       "heroTagline": "Explore Vietnam, where lantern-lit streets, emerald bays, rich culture, and vibrant flavours come alive.",
       "itinerarySectionTitle": "8 Days of Cultural Wonders",
-      "discountBadge": "9% OFF",
+      "discountBadge": "5% OFF",
       "seo": {
         "focusKeyword": "Vietnam"
       }
@@ -5393,30 +5279,150 @@
     "tripStudio": {
       "enabled": true,
       "hotelTiers": [
-        { "id": "3-star", "label": "3-Star Comfort", "mult": 1.0, "stars": 3, "desc": "Clean, verified boutique hotels & cozy scenic stays" },
-        { "id": "4-star", "label": "4-Star Premium Deluxe", "mult": 1.35, "stars": 4, "desc": "Luxury properties, valley views & gourmet buffet" },
-        { "id": "5-star", "label": "5-Star Palace / Villa", "mult": 1.85, "stars": 5, "desc": "Royal heritage palaces, overwater villas & private butlers" }
+        {
+          "id": "3-star",
+          "label": "3-Star Comfort",
+          "mult": 1,
+          "stars": 3,
+          "desc": "Clean, verified boutique hotels & cozy scenic stays"
+        },
+        {
+          "id": "4-star",
+          "label": "4-Star Premium Deluxe",
+          "mult": 1.35,
+          "stars": 4,
+          "desc": "Luxury properties, valley views & gourmet buffet"
+        },
+        {
+          "id": "5-star",
+          "label": "5-Star Palace / Villa",
+          "mult": 1.85,
+          "stars": 5,
+          "desc": "Royal heritage palaces, overwater villas & private butlers"
+        }
       ],
       "vehicles": [
-        { "id": "sedan", "label": "Private AC Sedan", "price": 1500, "capacity": "1-3 Guests", "desc": "Swift Dzire / Etios for couples & solo" },
-        { "id": "suv", "label": "Luxury SUV Crysta", "price": 2800, "capacity": "4-6 Guests", "desc": "Toyota Innova Crysta with luxury recliner seats" },
-        { "id": "tempo", "label": "VIP Urbania / Sprinter", "price": 4800, "capacity": "7-12 Guests", "desc": "Air-conditioned luxury mini coach for families" }
+        {
+          "id": "sedan",
+          "label": "Private AC Sedan",
+          "price": 1500,
+          "capacity": "1-3 Guests",
+          "desc": "Swift Dzire / Etios for couples & solo"
+        },
+        {
+          "id": "suv",
+          "label": "Luxury SUV Crysta",
+          "price": 2800,
+          "capacity": "4-6 Guests",
+          "desc": "Toyota Innova Crysta with luxury recliner seats"
+        },
+        {
+          "id": "tempo",
+          "label": "VIP Urbania / Sprinter",
+          "price": 4800,
+          "capacity": "7-12 Guests",
+          "desc": "Air-conditioned luxury mini coach for families"
+        }
       ],
       "addons": [
-        { "id": "kashmir-shikara", "label": "Private Sunset Shikara Ride on Dal Lake", "price": 1800, "destination": "Kashmir", "icon": "🛶" },
-        { "id": "kashmir-gondola", "label": "Gulmarg Gondola Phase 1 & 2 Passes", "price": 3500, "destination": "Kashmir", "icon": "🚠" },
-        { "id": "bali-floating-bf", "label": "Ubud Jungle Swing & Floating Pool Breakfast", "price": 3200, "destination": "Bali", "icon": "🍳" },
-        { "id": "bali-seafood-dinner", "label": "Candlelight Jimbaran Beach Seafood Dinner", "price": 4500, "destination": "Bali", "icon": "🕯️" },
-        { "id": "dubai-desert-safari", "label": "Desert Dune Safari, BBQ Dinner & Show", "price": 4200, "destination": "Dubai", "icon": "🏜️" },
-        { "id": "dubai-burj-vip", "label": "Burj Khalifa 124th Fl. Fast-Track VIP Pass", "price": 5500, "destination": "Dubai", "icon": "🏙️" },
-        { "id": "kerala-houseboat", "label": "Alleppey Private Backwater Luxury Houseboat Upgrade", "price": 6500, "destination": "Kerala", "icon": "⛵" },
-        { "id": "andaman-scuba", "label": "PADI Scuba Diving & Underwater HD Photoshoot", "price": 4200, "destination": "Andaman", "icon": "🤿" },
-        { "id": "himachal-paraglide", "label": "Solang Valley Paragliding & Snow Activity Pass", "price": 3600, "destination": "Himachal", "icon": "🪂" },
-        { "id": "candlelight", "label": "Private Candlelight 4-Course Gourmet Dinner", "price": 4500, "destination": "All", "icon": "🥂" },
-        { "id": "heli", "label": "Helicopter Joyride / Mountain Darshan Pass", "price": 9500, "destination": "All", "icon": "🚁" },
-        { "id": "spa", "label": "Couple 2-Hour Aromatherapy Rejuvenation Spa", "price": 5000, "destination": "All", "icon": "💆" },
-        { "id": "vip-pass", "label": "VIP Fast-Track Monument & Cable Car Passes", "price": 2800, "destination": "All", "icon": "🎟️" },
-        { "id": "photo", "label": "Private Vacation Photographer (Half-Day Album)", "price": 4000, "destination": "All", "icon": "📸" }
+        {
+          "id": "kashmir-shikara",
+          "label": "Private Sunset Shikara Ride on Dal Lake",
+          "price": 1800,
+          "destination": "Kashmir",
+          "icon": "🛶"
+        },
+        {
+          "id": "kashmir-gondola",
+          "label": "Gulmarg Gondola Phase 1 & 2 Passes",
+          "price": 3500,
+          "destination": "Kashmir",
+          "icon": "🚠"
+        },
+        {
+          "id": "bali-floating-bf",
+          "label": "Ubud Jungle Swing & Floating Pool Breakfast",
+          "price": 3200,
+          "destination": "Bali",
+          "icon": "🍳"
+        },
+        {
+          "id": "bali-seafood-dinner",
+          "label": "Candlelight Jimbaran Beach Seafood Dinner",
+          "price": 4500,
+          "destination": "Bali",
+          "icon": "🕯️"
+        },
+        {
+          "id": "dubai-desert-safari",
+          "label": "Desert Dune Safari, BBQ Dinner & Show",
+          "price": 4200,
+          "destination": "Dubai",
+          "icon": "🏜️"
+        },
+        {
+          "id": "dubai-burj-vip",
+          "label": "Burj Khalifa 124th Fl. Fast-Track VIP Pass",
+          "price": 5500,
+          "destination": "Dubai",
+          "icon": "🏙️"
+        },
+        {
+          "id": "kerala-houseboat",
+          "label": "Alleppey Private Backwater Luxury Houseboat Upgrade",
+          "price": 6500,
+          "destination": "Kerala",
+          "icon": "⛵"
+        },
+        {
+          "id": "andaman-scuba",
+          "label": "PADI Scuba Diving & Underwater HD Photoshoot",
+          "price": 4200,
+          "destination": "Andaman",
+          "icon": "🤿"
+        },
+        {
+          "id": "himachal-paraglide",
+          "label": "Solang Valley Paragliding & Snow Activity Pass",
+          "price": 3600,
+          "destination": "Himachal",
+          "icon": "🪂"
+        },
+        {
+          "id": "candlelight",
+          "label": "Private Candlelight 4-Course Gourmet Dinner",
+          "price": 4500,
+          "destination": "All",
+          "icon": "🥂"
+        },
+        {
+          "id": "heli",
+          "label": "Helicopter Joyride / Mountain Darshan Pass",
+          "price": 9500,
+          "destination": "All",
+          "icon": "🚁"
+        },
+        {
+          "id": "spa",
+          "label": "Couple 2-Hour Aromatherapy Rejuvenation Spa",
+          "price": 5000,
+          "destination": "All",
+          "icon": "💆"
+        },
+        {
+          "id": "vip-pass",
+          "label": "VIP Fast-Track Monument & Cable Car Passes",
+          "price": 2800,
+          "destination": "All",
+          "icon": "🎟️"
+        },
+        {
+          "id": "photo",
+          "label": "Private Vacation Photographer (Half-Day Album)",
+          "price": 4000,
+          "destination": "All",
+          "icon": "📸"
+        }
       ]
     }
   }
