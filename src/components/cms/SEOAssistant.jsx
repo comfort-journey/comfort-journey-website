@@ -4,6 +4,7 @@ import {
   ExternalLink, Shield, Sparkles, ChevronDown, Eye, Tag,
   FileText, Link2, ImageIcon, Code, Zap, Brain, Target, TrendingUp
 } from 'lucide-react';
+import { getKeywordRecommendations, generateSmartSeoPlan } from '../../data/ubersuggestKeywordData';
 
 // ═══════════════════════════════════════════════════════════════════
 // COMFORT JOURNEY — WIX-LEVEL SEO ASSISTANT
@@ -323,6 +324,22 @@ export default function SEOAssistant({
     };
   }, [title, metaDescription, slug, contentType, siteUrl]);
 
+  // Ubersuggest Keyword Intelligence & Auto-Optimization
+  const ubersuggestRecommendations = useMemo(() => {
+    return getKeywordRecommendations(focusKeyword || title);
+  }, [focusKeyword, title]);
+
+  const smartSeoPlan = useMemo(() => {
+    return generateSmartSeoPlan({ name: title, title, description: metaDescription });
+  }, [title, metaDescription]);
+
+  const handleApplySmartPlan = () => {
+    if (!smartSeoPlan) return;
+    if (onFocusKeywordChange && smartSeoPlan.focusKeyword) onFocusKeywordChange(smartSeoPlan.focusKeyword);
+    if (onMetaTitleChange && smartSeoPlan.metaTitle) onMetaTitleChange(smartSeoPlan.metaTitle);
+    if (onMetaDescriptionChange && smartSeoPlan.metaDescription) onMetaDescriptionChange(smartSeoPlan.metaDescription);
+  };
+
   const scoreColor = analysis.score >= 80 ? '#10B981' : analysis.score >= 50 ? '#F59E0B' : '#EF4444';
 
   // Tab buttons
@@ -405,6 +422,84 @@ export default function SEOAssistant({
                 </span>
               </div>
             )}
+          </div>
+
+          {/* ═══ Ubersuggest AI Live Keyword Intelligence & 1-Click Optimizer ═══ */}
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(255, 106, 0, 0.08), rgba(111, 230, 252, 0.05))',
+            border: '1px solid rgba(255, 106, 0, 0.25)',
+            borderRadius: '10px',
+            padding: '0.85rem 1rem',
+            marginTop: '0.85rem',
+            marginBottom: '0.85rem'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                <Sparkles size={15} color="#FF892F" />
+                <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#FFFFFF' }}>
+                  Ubersuggest AI Keyword Intelligence
+                </span>
+                <span style={{ fontSize: '0.68rem', padding: '0.1rem 0.4rem', borderRadius: '4px', background: 'rgba(255, 106, 0, 0.15)', color: '#FDBA74', fontWeight: 600 }}>
+                  Lifetime Active
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={handleApplySmartPlan}
+                style={{
+                  background: 'linear-gradient(135deg, #10B981, #059669)',
+                  border: 'none',
+                  borderRadius: '6px',
+                  padding: '0.35rem 0.75rem',
+                  fontSize: '0.74rem',
+                  fontWeight: 700,
+                  color: '#FFFFFF',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  boxShadow: '0 2px 8px rgba(16, 185, 129, 0.25)'
+                }}
+                title="Auto-fill Meta Title, Meta Description, and Focus Keyword using top Ubersuggest keywords"
+              >
+                <Zap size={12} /> 1-Click AI Auto-Fill SEO
+              </button>
+            </div>
+
+            <p style={{ margin: '0 0 0.65rem', fontSize: '0.75rem', color: '#94A3B8' }}>
+              Top high-volume, low-competition keywords for <em>"{title || 'this tour'}"</em>. Click any keyword to set as Focus Keyword:
+            </p>
+
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+              {ubersuggestRecommendations.slice(0, 3).map((kw, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => onFocusKeywordChange && onFocusKeywordChange(kw.keyword)}
+                  style={{
+                    background: focusKeyword && focusKeyword.toLowerCase() === kw.keyword.toLowerCase() ? 'rgba(16, 185, 129, 0.2)' : 'rgba(0, 0, 0, 0.35)',
+                    border: focusKeyword && focusKeyword.toLowerCase() === kw.keyword.toLowerCase() ? '1px solid #10B981' : '1px solid rgba(255, 255, 255, 0.12)',
+                    borderRadius: '6px',
+                    padding: '0.35rem 0.6rem',
+                    cursor: 'pointer',
+                    textAlign: 'left',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.15rem'
+                  }}
+                  title="Click to set as Focus Keyword"
+                >
+                  <span style={{ fontSize: '0.75rem', fontWeight: 600, color: focusKeyword && focusKeyword.toLowerCase() === kw.keyword.toLowerCase() ? '#34D399' : '#F1F5F9' }}>
+                    {kw.keyword}
+                  </span>
+                  <div style={{ display: 'flex', gap: '0.5rem', fontSize: '0.68rem', color: '#94A3B8' }}>
+                    <span>Vol: <strong style={{ color: '#6FE6FC' }}>{kw.volume.toLocaleString()}</strong></span>
+                    <span>SD: <strong style={{ color: kw.sd <= 25 ? '#10B981' : '#F59E0B' }}>{kw.sd}</strong></span>
+                    <span>CPC: <strong style={{ color: '#34D399' }}>{kw.cpc}</strong></span>
+                  </div>
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Checklist */}

@@ -3,8 +3,10 @@ import {
   TrendingUp, TrendingDown, Users, MousePointerClick, Eye, Clock,
   Search, Star, MessageSquare, ExternalLink, RefreshCw, Settings,
   BarChart3, Globe, Zap, Activity, ArrowUpRight, ArrowDownRight,
-  Link2, AlertCircle, CheckCircle, Flame, Target, MonitorSmartphone
+  Link2, AlertCircle, CheckCircle, Flame, Target, MonitorSmartphone,
+  Sparkles
 } from 'lucide-react';
+import UbersuggestHub from './UbersuggestHub';
 
 // ═══════════════════════════════════════════════════════════════════
 // COMFORT JOURNEY — UNIFIED ANALYTICS DASHBOARD
@@ -199,7 +201,7 @@ export default function AnalyticsDashboard() {
   const [clarityData, setClarityData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const [activeSection, setActiveSection] = useState('overview'); // overview, search, reviews, clarity
+  const [activeSection, setActiveSection] = useState('ubersuggest'); // ubersuggest, overview, search, reviews, clarity
 
   // Settings form state
   const [formCreds, setFormCreds] = useState({ ...credentials });
@@ -230,6 +232,7 @@ export default function AnalyticsDashboard() {
   };
 
   const sectionTabs = [
+    { id: 'ubersuggest', label: 'Ubersuggest AI SEO', icon: Sparkles },
     { id: 'overview', label: 'Traffic Overview', icon: BarChart3 },
     { id: 'search', label: 'Search Console', icon: Search },
     { id: 'reviews', label: 'Google Reviews', icon: Star },
@@ -243,8 +246,8 @@ export default function AnalyticsDashboard() {
         <div className="analytics-title-row">
           <TrendingUp size={20} className="text-emerald" />
           <div>
-            <h3>Growth Hub — Analytics Dashboard</h3>
-            <span className="analytics-subtitle">GA4 · Search Console · Google Business Profile · Microsoft Clarity</span>
+            <h3>Growth Hub — Analytics & SEO Intelligence</h3>
+            <span className="analytics-subtitle">Ubersuggest AI · GA4 · Search Console · Google Business Profile · Microsoft Clarity</span>
           </div>
         </div>
         <div className="analytics-header-actions">
@@ -356,6 +359,11 @@ export default function AnalyticsDashboard() {
           </button>
         ))}
       </div>
+
+      {/* ═══ Ubersuggest AI SEO Intelligence Section ═══ */}
+      {activeSection === 'ubersuggest' && (
+        <UbersuggestHub />
+      )}
 
       {/* ═══ Overview Section ═══ */}
       {activeSection === 'overview' && ga4Data && (
