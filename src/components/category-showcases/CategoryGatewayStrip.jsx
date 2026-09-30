@@ -1,5 +1,5 @@
 import React from 'react';
-import { Compass, Globe, Sparkles, Clock, Users, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Compass, Globe, Sparkles, Clock, Users, ArrowRight, ShieldCheck, Crown } from 'lucide-react';
 import Tilt3DCard from '../animations/Tilt3DCard';
 
 export const CATEGORY_PILLARS = [
@@ -10,7 +10,8 @@ export const CATEGORY_PILLARS = [
     title: 'India Luxury & Heritage',
     subtitle: 'Himalayas, Royal Palaces & Tropical Backwaters',
     count: '80+ Handcrafted Tours',
-    badge: '👑 Royal Desi Heritage',
+    badge: 'Royal Desi Heritage',
+    icon: Crown,
     image: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=800&q=80',
     accentColor: '#F59E0B',
     glowColor: 'rgba(245, 158, 11, 0.35)',
@@ -24,7 +25,8 @@ export const CATEGORY_PILLARS = [
     title: 'World Passport Escapes',
     subtitle: 'Europe, Bali, Dubai, Singapore & Switzerland',
     count: '15+ Iconic Continents',
-    badge: '✈️ Global Jetsetter',
+    badge: 'Global Jetsetter',
+    icon: Globe,
     image: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80',
     accentColor: '#38BDF8',
     glowColor: 'rgba(56, 189, 248, 0.35)',
@@ -38,7 +40,8 @@ export const CATEGORY_PILLARS = [
     title: '48-Hour Weekend Breaks',
     subtitle: 'Quick Friday-to-Sunday Road Trips & Hill Retreats',
     count: '38+ Scenic Getaways',
-    badge: '🎒 0 Leaves Needed',
+    badge: '0 Leaves Needed',
+    icon: Clock,
     image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=80',
     accentColor: '#10B981',
     glowColor: 'rgba(16, 185, 129, 0.35)',
@@ -52,7 +55,8 @@ export const CATEGORY_PILLARS = [
     title: 'Fixed Departure Tribe',
     subtitle: 'Guaranteed Dates, Solo-Friendly Group Batches',
     count: '12+ Upcoming Batches',
-    badge: '🤝 Community Tribe',
+    badge: 'Community Tribe',
+    icon: Users,
     image: 'https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=800&q=80',
     accentColor: '#FF892F',
     glowColor: 'rgba(255, 137, 47, 0.35)',
@@ -116,6 +120,7 @@ export default function CategoryGatewayStrip({ onNavigateLanding }) {
                 {/* Top Badge & Count */}
                 <div className="gateway-top-row">
                   <span className="pillar-badge" style={{ borderColor: pillar.accentColor, color: pillar.accentColor }}>
+                    {pillar.icon && <pillar.icon size={11} style={{ marginRight: '4px', verticalAlign: '-1px', display: 'inline-block' }} />}
                     {pillar.badge}
                   </span>
                   <span className="pillar-count-chip">

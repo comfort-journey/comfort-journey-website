@@ -15,7 +15,10 @@ import {
   Award, 
   Globe,
   Sliders,
-  CheckCircle2
+  CheckCircle2,
+  Sun,
+  Mountain,
+  Waves
 } from 'lucide-react';
 
 const basePrefix = import.meta.env.BASE_URL.endsWith('/')
@@ -26,7 +29,7 @@ const SCENIC_THEMES = [
   {
     id: 'golden-terrace',
     name: 'Golden Terrace',
-    icon: '🌅',
+    icon: Sun,
     label: 'Sunset Glow',
     file: 'images/footer/footer-bg-golden-terrace.jpg',
     accentColor: '#FF9F1C',
@@ -35,7 +38,7 @@ const SCENIC_THEMES = [
   {
     id: 'misty-valley',
     name: 'Misty Valley',
-    icon: '🏔️',
+    icon: Mountain,
     label: 'Sunlit Peaks',
     file: 'images/footer/footer-bg-misty-valley.jpg',
     accentColor: '#6FE6FC',
@@ -44,7 +47,7 @@ const SCENIC_THEMES = [
   {
     id: 'waterfall-stream',
     name: 'Alpine Falls',
-    icon: '🌊',
+    icon: Waves,
     label: 'Pure Waters',
     file: 'images/footer/footer-bg-waterfall-stream.jpg',
     accentColor: '#A78BFA',
@@ -186,7 +189,7 @@ export default function Footer({
                         setIsAutoPaused(true);
                       }}
                     >
-                      <span className="chip-icon">{theme.icon}</span>
+                      <theme.icon size={13} className="chip-icon" />
                       <span className="chip-name">{theme.name}</span>
                       {isActive && <CheckCircle2 size={12} className="chip-check" />}
                     </button>

@@ -3,10 +3,10 @@ import { useLiveTours } from '../../hooks/useLiveContent';
 import { useCurrency } from '../../context/CurrencyContext';
 import { useParticleBurst } from '../../hooks/useParticleBurst';
 import Tilt3DCard from '../animations/Tilt3DCard';
-import Peeking3DDecor from '../animations/Peeking3DDecor';
 import { 
   Users, Calendar, CalendarClock, Flame, MapPin, Clock, Star, Hotel, Car, Utensils, 
-  Camera, ShieldCheck, ChevronLeft, ChevronRight, ArrowRight, CheckCircle2, Ticket, Compass
+  Camera, ShieldCheck, ChevronLeft, ChevronRight, ArrowRight, CheckCircle2, Ticket, Compass,
+  Mountain, Palmtree, CloudRain, Sparkles
 } from 'lucide-react';
 
 export const FIXED_DEPARTURE_BATCHES = [
@@ -161,47 +161,8 @@ export default function FixedDeparturesSection({
       <div className="fixed-neon-orb-top" />
       <div className="fixed-neon-orb-bottom" />
 
-      {/* 3D Peeking Expedition Compass Badge (Half-Hidden, Half-Popping Out on Left Edge) */}
-      <Peeking3DDecor 
-        side="left" 
-        top="25%" 
-        peekPercent={54} 
-        width={280} 
-        height={280} 
-        glowColor="rgba(249, 115, 22, 0.28)"
-        floatDelay="1.2s"
-        floatDuration="9s"
-        ariaLabel="3D Expedition Compass Badge Peeking from Border"
-      >
-        <svg width="280" height="280" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="expedGold" x1="50" y1="20" x2="210" y2="240" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stopColor="#FFA459" />
-              <stop offset="50%" stopColor="#FF892F" />
-              <stop offset="100%" stopColor="#E66F12" />
-            </linearGradient>
-            <radialGradient id="expedGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#FFA459" stopOpacity="0.45" />
-              <stop offset="100%" stopColor="transparent" />
-            </radialGradient>
-          </defs>
-          <circle cx="130" cy="130" r="100" fill="url(#expedGlow)" />
-          {/* Compass Outer Bezel */}
-          <circle cx="130" cy="130" r="82" fill="#0A0618" stroke="url(#expedGold)" strokeWidth="3" />
-          <circle cx="130" cy="130" r="74" fill="#140A28" stroke="#FFA459" strokeWidth="1" strokeDasharray="3 4" />
-          {/* 8-Point Star Needle */}
-          <polygon points="130,62 136,124 198,130 136,136 130,198 124,136 62,130 124,124" fill="url(#expedGold)" />
-          <polygon points="130,62 136,124 130,130 124,124" fill="#FFF" opacity="0.9" />
-          <polygon points="198,130 136,136 130,130 136,124" fill="#E66F12" />
-          <polygon points="130,198 124,136 130,130 136,136" fill="#A855F7" opacity="0.8" />
-          <polygon points="62,130 124,124 130,130 124,136" fill="#DAF561" opacity="0.8" />
-          <circle cx="130" cy="130" r="10" fill="#FFF" stroke="#FF892F" strokeWidth="2.5" />
-          <circle cx="130" cy="130" r="4" fill="#FF892F" />
-        </svg>
-      </Peeking3DDecor>
-
       <div className="container relative-z">
-        {/* Section Header - De-cluttered & Airy (Haoqi / Stippl style) */}
+        {/* Section Header - Clean, Refined & Modern Luxury */}
         <div className="showcase-header">
           <div className="showcase-badge-pill fixed-badge">
             <Flame size={14} className="text-orange animate-bounce" />
@@ -219,18 +180,18 @@ export default function FixedDeparturesSection({
             <span className="vibe-micro-badge fixed-micro"><Users size={12} className="text-orange" /> 45%+ Solo Travelers</span>
             <span className="vibe-micro-badge fixed-micro"><Calendar size={12} className="text-orange" /> Guaranteed Departures</span>
             <span className="vibe-micro-badge fixed-micro"><Camera size={12} className="text-orange" /> Trip Photography</span>
-            <span className="vibe-micro-badge fixed-micro">🔥 Bonfire Community</span>
+            <span className="vibe-micro-badge fixed-micro"><Flame size={12} className="text-orange" /> Bonfire Community</span>
           </div>
 
           {/* Sub-region filter tabs & carousel arrow controls */}
           <div className="controls-and-tabs-bar">
             <div className="sub-region-tabs">
               {[
-                { id: 'All', label: 'All Upcoming Batches' },
-                { id: 'Spiti', label: '🏔️ Spiti & Kasol' },
-                { id: 'Ladakh', label: '🏍️ Ladakh High Passes' },
-                { id: 'NorthEast', label: '🌧️ Meghalaya Rainforest' },
-                { id: 'Intl', label: '🌴 Bali Island Tribe' },
+                { id: 'All', label: 'All Upcoming Batches', icon: <Compass size={14} className="text-orange" /> },
+                { id: 'Spiti', label: 'Spiti & Kasol', icon: <Mountain size={14} className="text-orange" /> },
+                { id: 'Ladakh', label: 'Ladakh High Passes', icon: <Compass size={14} className="text-orange" /> },
+                { id: 'NorthEast', label: 'Meghalaya Rainforest', icon: <CloudRain size={14} className="text-orange" /> },
+                { id: 'Intl', label: 'Bali Island Tribe', icon: <Palmtree size={14} className="text-orange" /> },
               ].map(tab => (
                 <button
                   key={tab.id}
@@ -238,7 +199,8 @@ export default function FixedDeparturesSection({
                   className={`sub-tab-btn fixed-tab ${activeSubTab === tab.id ? 'active' : ''}`}
                   onClick={() => setActiveSubTab(tab.id)}
                 >
-                  {tab.label}
+                  {tab.icon}
+                  <span>{tab.label}</span>
                 </button>
               ))}
             </div>
@@ -496,6 +458,12 @@ export default function FixedDeparturesSection({
         .fixed-micro {
           background: rgba(249, 115, 22, 0.1);
           border-color: rgba(249, 115, 22, 0.3);
+        }
+
+        .fixed-tab {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.45rem;
         }
 
         .fixed-tab:hover {

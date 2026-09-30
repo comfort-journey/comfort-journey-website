@@ -58,7 +58,7 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
               onClick={() => setActiveTab('pillars')}
             >
               <ShieldCheck size={16} />
-              <span>🛡️ 7 VIP Guarantees (Why Us)</span>
+              <span>7 VIP Guarantees (Why Us)</span>
             </button>
             <button
               type="button"
@@ -66,7 +66,7 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
               onClick={() => setActiveTab('services')}
             >
               <Sparkles size={16} />
-              <span>💎 8 Bespoke Travel Desires (Specialized Services)</span>
+              <span>8 Bespoke Travel Desires (Specialized Services)</span>
             </button>
           </div>
         </div>

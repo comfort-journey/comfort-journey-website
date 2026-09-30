@@ -3,120 +3,12 @@ import { useLiveTours } from '../../hooks/useLiveContent';
 import { useCurrency } from '../../context/CurrencyContext';
 import { useParticleBurst } from '../../hooks/useParticleBurst';
 import Tilt3DCard from '../animations/Tilt3DCard';
-import Peeking3DDecor from '../animations/Peeking3DDecor';
-import { TajMahal3D, HawaMahal3D, KeralaHouseboat3D } from '../animations/Travel3DIcons';
 import { 
   Sparkles, MapPin, Clock, Star, Hotel, Car, Utensils, Ticket, 
-  ShieldCheck, ChevronLeft, ChevronRight, ArrowRight, Compass, Shield
+  ShieldCheck, ChevronLeft, ChevronRight, ArrowRight, Compass, Shield,
+  Crown, Mountain, Palmtree, Award
 } from 'lucide-react';
 import CardInclusionsStrip from '../CardInclusionsStrip';
-
-/* ─── SVG Monument Silhouette Components ─── */
-const TajMahalSilhouette = () => (
-  <svg className="india-monument india-monument-taj" viewBox="0 0 400 350" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    {/* Main dome */}
-    <ellipse cx="200" cy="120" rx="70" ry="85" stroke="currentColor" strokeWidth="1.2" fill="none"/>
-    {/* Finial on top */}
-    <line x1="200" y1="35" x2="200" y2="15" stroke="currentColor" strokeWidth="1.5"/>
-    <circle cx="200" cy="12" r="4" stroke="currentColor" strokeWidth="1" fill="none"/>
-    {/* Main body rectangle */}
-    <rect x="100" y="190" width="200" height="80" rx="2" stroke="currentColor" strokeWidth="1.2" fill="none"/>
-    {/* Left minaret */}
-    <rect x="60" y="100" width="18" height="170" rx="2" stroke="currentColor" strokeWidth="1" fill="none"/>
-    <ellipse cx="69" cy="100" rx="9" ry="14" stroke="currentColor" strokeWidth="1" fill="none"/>
-    <circle cx="69" cy="84" r="3" stroke="currentColor" strokeWidth="0.8" fill="none"/>
-    {/* Right minaret */}
-    <rect x="322" y="100" width="18" height="170" rx="2" stroke="currentColor" strokeWidth="1" fill="none"/>
-    <ellipse cx="331" cy="100" rx="9" ry="14" stroke="currentColor" strokeWidth="1" fill="none"/>
-    <circle cx="331" cy="84" r="3" stroke="currentColor" strokeWidth="0.8" fill="none"/>
-    {/* Central arch */}
-    <path d="M170 270 L170 220 Q200 190 230 220 L230 270" stroke="currentColor" strokeWidth="1.2" fill="none"/>
-    {/* Side arches */}
-    <path d="M110 270 L110 235 Q130 215 150 235 L150 270" stroke="currentColor" strokeWidth="0.8" fill="none"/>
-    <path d="M250 270 L250 235 Q270 215 290 235 L290 270" stroke="currentColor" strokeWidth="0.8" fill="none"/>
-    {/* Platform base */}
-    <rect x="50" y="270" width="300" height="12" rx="1" stroke="currentColor" strokeWidth="1" fill="none"/>
-    {/* Reflecting pool */}
-    <rect x="160" y="290" width="80" height="50" rx="1" stroke="currentColor" strokeWidth="0.6" strokeDasharray="3 3" fill="none"/>
-  </svg>
-);
-
-const HawaMahalSilhouette = () => (
-  <svg className="india-monument india-monument-hawa" viewBox="0 0 220 360" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    {/* Tiered facade — 5 storeys of ornate windows */}
-    {[0, 1, 2, 3, 4].map(row => {
-      const y = 40 + row * 60;
-      const w = 120 + row * 20;
-      const x = 110 - w / 2;
-      const arches = 3 + row;
-      const archW = w / (arches + 1);
-      return (
-        <g key={row}>
-          <rect x={x} y={y} width={w} height={55} rx="2" stroke="currentColor" strokeWidth="0.8" fill="none"/>
-          {Array.from({ length: arches }).map((_, i) => {
-            const ax = x + archW * (i + 0.5);
-            return (
-              <path key={i} d={`M${ax} ${y + 55} L${ax} ${y + 20} Q${ax + archW * 0.5} ${y + 5} ${ax + archW} ${y + 20} L${ax + archW} ${y + 55}`}
-                stroke="currentColor" strokeWidth="0.6" fill="none"/>
-            );
-          })}
-          {/* Crown domes */}
-          {Array.from({ length: arches }).map((_, i) => {
-            const cx = x + archW * (i + 1);
-            return <ellipse key={i} cx={cx} cy={y} rx={archW * 0.35} ry={6} stroke="currentColor" strokeWidth="0.5" fill="none"/>;
-          })}
-        </g>
-      );
-    })}
-    {/* Base platform */}
-    <rect x="20" y="340" width="180" height="8" rx="1" stroke="currentColor" strokeWidth="0.8" fill="none"/>
-  </svg>
-);
-
-const GatewayOfIndiaSilhouette = () => (
-  <svg className="india-monument india-monument-gateway" viewBox="0 0 240 280" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    {/* Main arch */}
-    <path d="M60 250 L60 80 Q120 20 180 80 L180 250" stroke="currentColor" strokeWidth="1.2" fill="none"/>
-    {/* Side turrets */}
-    <rect x="40" y="60" width="25" height="190" rx="2" stroke="currentColor" strokeWidth="1" fill="none"/>
-    <rect x="175" y="60" width="25" height="190" rx="2" stroke="currentColor" strokeWidth="1" fill="none"/>
-    {/* Turret domes */}
-    <ellipse cx="52" cy="58" rx="10" ry="16" stroke="currentColor" strokeWidth="0.8" fill="none"/>
-    <ellipse cx="188" cy="58" rx="10" ry="16" stroke="currentColor" strokeWidth="0.8" fill="none"/>
-    {/* Central dome */}
-    <ellipse cx="120" cy="28" rx="18" ry="22" stroke="currentColor" strokeWidth="1" fill="none"/>
-    <line x1="120" y1="6" x2="120" y2="0" stroke="currentColor" strokeWidth="1"/>
-    {/* Inner arch detail */}
-    <path d="M80 250 L80 120 Q120 70 160 120 L160 250" stroke="currentColor" strokeWidth="0.6" strokeDasharray="2 3" fill="none"/>
-    {/* Base */}
-    <rect x="30" y="250" width="180" height="10" rx="1" stroke="currentColor" strokeWidth="1" fill="none"/>
-  </svg>
-);
-
-const LotusTempleSilhouette = () => (
-  <svg className="india-monument india-monument-lotus" viewBox="0 0 260 240" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    {/* Lotus petals — 3 layers */}
-    {[0, 1, 2].map(layer => {
-      const scale = 1 - layer * 0.25;
-      const baseY = 160 - layer * 30;
-      const petals = layer === 0 ? 9 : layer === 1 ? 7 : 5;
-      return Array.from({ length: petals }).map((_, i) => {
-        const angle = (i / petals) * Math.PI - Math.PI / 2;
-        const cx = 130 + Math.cos(angle) * 60 * scale;
-        const tipY = baseY - 70 * scale;
-        return (
-          <path key={`${layer}-${i}`}
-            d={`M${cx - 15 * scale} ${baseY} Q${cx} ${tipY} ${cx + 15 * scale} ${baseY}`}
-            stroke="currentColor" strokeWidth={0.8 - layer * 0.15} fill="none"/>
-        );
-      });
-    })}
-    {/* Base platform circles */}
-    <ellipse cx="130" cy="175" rx="80" ry="15" stroke="currentColor" strokeWidth="0.8" fill="none"/>
-    <ellipse cx="130" cy="190" rx="100" ry="18" stroke="currentColor" strokeWidth="0.6" fill="none"/>
-    <ellipse cx="130" cy="205" rx="115" ry="15" stroke="currentColor" strokeWidth="0.5" fill="none"/>
-  </svg>
-);
 
 /* ─── Floating Diya (Oil Lamp) Particle ─── */
 const FloatingDiyaParticles = () => (
@@ -166,31 +58,6 @@ const MandalaRing = () => (
         <g key={i} transform={`rotate(${angle} 300 300)`}>
           <ellipse cx="300" cy="270" rx="6" ry="14" stroke="currentColor" strokeWidth="0.5" fill="none"/>
         </g>
-      );
-    })}
-  </svg>
-);
-
-/* ─── Ornate Top Border (Mughal Arch Pattern) ─── */
-const OrnateTopBorder = () => (
-  <svg className="india-ornate-border-top" viewBox="0 0 1440 60" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    {Array.from({ length: 24 }).map((_, i) => {
-      const x = i * 60;
-      return (
-        <path key={i} d={`M${x} 60 L${x} 30 Q${x + 30} 5 ${x + 60} 30 L${x + 60} 60`}
-          stroke="currentColor" strokeWidth="1" fill="none"/>
-      );
-    })}
-  </svg>
-);
-
-const OrnateBottomBorder = () => (
-  <svg className="india-ornate-border-bottom" viewBox="0 0 1440 60" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    {Array.from({ length: 24 }).map((_, i) => {
-      const x = i * 60;
-      return (
-        <path key={i} d={`M${x} 0 L${x} 30 Q${x + 30} 55 ${x + 60} 30 L${x + 60} 0`}
-          stroke="currentColor" strokeWidth="1" fill="none"/>
       );
     })}
   </svg>
@@ -250,74 +117,26 @@ export default function IndiaTripsSection({
       <span id="tours" style={{ position: 'relative', top: '-80px', display: 'block' }} />
       
       {/* ═══ IMMERSIVE ATMOSPHERIC BACKGROUND LAYERS ═══ */}
-      
-      {/* Layer 1: Ornate Mughal arch borders top & bottom */}
-      <OrnateTopBorder />
-      <OrnateBottomBorder />
-      
-      {/* Layer 2: Royal Mughal Jali dot-pattern watermark */}
-      <div className="india-jali-watermark" />
-      
-      {/* Layer 3: Warm amber glow orbs */}
+      {/* Layer 1: Warm amber glow orbs */}
       <div className="india-glow-orb-top" />
       <div className="india-glow-orb-bottom" />
       <div className="india-glow-orb-center" />
+
+      {/* Layer 2: Subtle Royal Mughal Jali watermark */}
+      <div className="india-jali-watermark" />
       
-      {/* Layer 4: 3D Peeking Monuments (Half-Hidden, Half-Popping Out at Edges) */}
-      <Peeking3DDecor 
-        side="left" 
-        top="14%" 
-        peekPercent={58} 
-        width={310} 
-        height={310} 
-        glowColor="rgba(255, 137, 47, 0.28)"
-        floatDelay="0s"
-        floatDuration="8.5s"
-        ariaLabel="3D Taj Mahal Monument Peeking from Border"
-      >
-        <TajMahal3D size={310} />
-      </Peeking3DDecor>
-
-      <Peeking3DDecor 
-        side="right" 
-        top="36%" 
-        peekPercent={55} 
-        width={300} 
-        height={300} 
-        glowColor="rgba(231, 111, 81, 0.25)"
-        floatDelay="1.5s"
-        floatDuration="10s"
-        ariaLabel="3D Jaipur Hawa Mahal Peeking from Border"
-      >
-        <HawaMahal3D size={300} />
-      </Peeking3DDecor>
-
-      <Peeking3DDecor 
-        side="left" 
-        bottom="6%" 
-        peekPercent={50} 
-        width={280} 
-        height={280} 
-        glowColor="rgba(111, 230, 252, 0.2)"
-        floatDelay="2.5s"
-        floatDuration="9.5s"
-        ariaLabel="3D Kerala Houseboat Peeking from Border"
-      >
-        <KeralaHouseboat3D size={280} />
-      </Peeking3DDecor>
-
-      {/* Layer 5: Rotating Mandala Ring */}
+      {/* Layer 3: Rotating Geometric Mandala Ring */}
       <MandalaRing />
       
-      {/* Layer 6: Floating Diya Particles */}
+      {/* Layer 4: Ambient Warm Diya Particles */}
       <FloatingDiyaParticles />
 
       <div className="container relative-z">
-        {/* Atmospheric Section Header - De-cluttered & Airy (Haoqi / Stippl style) */}
+        {/* Atmospheric Section Header - Clean, Refined & Modern Luxury */}
         <div className="showcase-header">
           <div className="showcase-badge-pill india-badge">
-            <span>🇮🇳</span>
-            <span>ROYAL DESI HERITAGE COLLECTION</span>
+            <Sparkles size={13} className="text-amber animate-pulse" />
+            <span>ROYAL HERITAGE COLLECTION</span>
           </div>
           <h2 className="showcase-title font-editorial">
             Incredible India <span className="gradient-text-gold">Palaces & Escapes</span>
@@ -326,22 +145,22 @@ export default function IndiaTripsSection({
             Private chauffeured journeys through royal palace suites, serene backwaters, and misty Himalayan sanctuaries.
           </p>
 
-          {/* Vibe Micro-Badges Strip */}
+          {/* Vibe Micro-Badges Strip with Modern Vector Icons */}
           <div className="vibe-badges-strip">
             <span className="vibe-micro-badge"><Shield size={12} className="text-amber" /> Zero Visa Drama</span>
-            <span className="vibe-micro-badge">🏰 Verified Heritage Forts</span>
-            <span className="vibe-micro-badge">🚗 Private AC Car & Chauffeur</span>
-            <span className="vibe-micro-badge">👑 33+ Years Hospitality</span>
+            <span className="vibe-micro-badge"><Crown size={12} className="text-amber" /> Verified Heritage Forts</span>
+            <span className="vibe-micro-badge"><Car size={12} className="text-amber" /> Private AC Car & Chauffeur</span>
+            <span className="vibe-micro-badge"><Award size={12} className="text-amber" /> 33+ Years Hospitality</span>
           </div>
 
           {/* Sub-region filter tabs & carousel arrow controls */}
           <div className="controls-and-tabs-bar">
             <div className="sub-region-tabs">
               {[
-                { id: 'All', label: 'All India Royalty' },
-                { id: 'Himalayas', label: '🏔️ Himalayas & Snow' },
-                { id: 'Rajasthan', label: '🏰 Royal Rajasthan' },
-                { id: 'South', label: '🌴 Kerala & South' },
+                { id: 'All', label: 'All India Royalty', icon: <Compass size={14} className="text-amber" /> },
+                { id: 'Himalayas', label: 'Himalayas & Snow', icon: <Mountain size={14} className="text-amber" /> },
+                { id: 'Rajasthan', label: 'Royal Rajasthan', icon: <Crown size={14} className="text-amber" /> },
+                { id: 'South', label: 'Kerala & South', icon: <Palmtree size={14} className="text-amber" /> },
               ].map(tab => (
                 <button
                   key={tab.id}
@@ -349,7 +168,8 @@ export default function IndiaTripsSection({
                   className={`sub-tab-btn ${activeSubTab === tab.id ? 'active' : ''}`}
                   onClick={() => setActiveSubTab(tab.id)}
                 >
-                  {tab.label}
+                  {tab.icon}
+                  <span>{tab.label}</span>
                 </button>
               ))}
             </div>
@@ -809,6 +629,7 @@ export default function IndiaTripsSection({
         .sub-tab-btn {
           display: inline-flex;
           align-items: center;
+          gap: 0.45rem;
           padding: 0.45rem 1.05rem;
           border-radius: 9999px;
           background: rgba(255, 255, 255, 0.05);

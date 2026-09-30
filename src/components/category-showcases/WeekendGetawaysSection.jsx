@@ -3,11 +3,10 @@ import { useLiveTours } from '../../hooks/useLiveContent';
 import { useCurrency } from '../../context/CurrencyContext';
 import { useParticleBurst } from '../../hooks/useParticleBurst';
 import Tilt3DCard from '../animations/Tilt3DCard';
-import Peeking3DDecor from '../animations/Peeking3DDecor';
-import { Campfire3D } from '../animations/Travel3DIcons';
 import { 
   Compass, MapPin, Clock, Star, Hotel, Car, Utensils, Ticket, 
-  ShieldCheck, ChevronLeft, ChevronRight, ArrowRight, Sparkles, Coffee, Luggage, Trees
+  ShieldCheck, ChevronLeft, ChevronRight, ArrowRight, Sparkles, Coffee, Luggage, Trees,
+  Mountain, Waves, Landmark, BellOff
 } from 'lucide-react';
 import CardInclusionsStrip from '../CardInclusionsStrip';
 
@@ -69,32 +68,9 @@ export default function WeekendGetawaysSection({
       {/* Misty Pine Horizon Watermark & Ambient Orbs */}
       <div className="weekend-forest-orb-top" />
       <div className="weekend-forest-orb-bottom" />
-      
-      {/* 3D Peeking Campfire (Half-Hidden, Half-Popping Out on Right Edge) */}
-      <Peeking3DDecor 
-        side="right" 
-        top="26%" 
-        peekPercent={55} 
-        width={300} 
-        height={300} 
-        glowColor="rgba(255, 160, 0, 0.28)"
-        floatDelay="0.8s"
-        floatDuration="8.5s"
-        ariaLabel="3D Cozy Campfire Peeking from Border"
-      >
-        <Campfire3D size={300} />
-      </Peeking3DDecor>
-
-      {/* Mountain Pine Tree Silhouette SVG Watermark along bottom */}
-      <svg className="weekend-pines-silhouette" viewBox="0 0 1200 120" preserveAspectRatio="none">
-        <path 
-          d="M0,120 L0,80 L30,40 L60,80 L90,30 L120,80 L160,20 L200,80 L240,45 L280,80 L320,15 L360,80 L410,35 L460,80 L520,25 L570,80 L620,40 L670,80 L730,20 L790,80 L840,35 L890,80 L950,25 L1010,80 L1070,30 L1130,80 L1180,40 L1200,80 L1200,120 Z" 
-          fill="rgba(16, 185, 129, 0.05)" 
-        />
-      </svg>
 
       <div className="container relative-z">
-        {/* Section Header - De-cluttered & Airy (Haoqi / Stippl style) */}
+        {/* Section Header - Clean, Refined & Modern Luxury */}
         <div className="showcase-header">
           <div className="showcase-badge-pill weekend-badge">
             <Trees size={14} className="text-emerald" />
@@ -112,17 +88,17 @@ export default function WeekendGetawaysSection({
             <span className="vibe-micro-badge weekend-micro"><Luggage size={12} className="text-emerald" /> Zero Leaves Needed</span>
             <span className="vibe-micro-badge weekend-micro"><Car size={12} className="text-emerald" /> Doorstep Pickup</span>
             <span className="vibe-micro-badge weekend-micro"><Coffee size={12} className="text-emerald" /> Scenic Cottages</span>
-            <span className="vibe-micro-badge weekend-micro">📵 Work Slack Muted</span>
+            <span className="vibe-micro-badge weekend-micro"><BellOff size={12} className="text-emerald" /> Work Slack Muted</span>
           </div>
 
           {/* Sub-region filter tabs & carousel arrow controls */}
           <div className="controls-and-tabs-bar">
             <div className="sub-region-tabs">
               {[
-                { id: 'All', label: 'All 48-Hr Getaways' },
-                { id: 'Hills', label: '🌲 Misty Hill Retreats' },
-                { id: 'Beach', label: '🏖️ Coastal Goa & Beach' },
-                { id: 'Heritage', label: '🏰 Palace Short Breaks' },
+                { id: 'All', label: 'All 48-Hr Getaways', icon: <Compass size={14} className="text-emerald" /> },
+                { id: 'Hills', label: 'Misty Hill Retreats', icon: <Mountain size={14} className="text-emerald" /> },
+                { id: 'Beach', label: 'Coastal Goa & Beach', icon: <Waves size={14} className="text-emerald" /> },
+                { id: 'Heritage', label: 'Palace Short Breaks', icon: <Landmark size={14} className="text-emerald" /> },
               ].map(tab => (
                 <button
                   key={tab.id}
@@ -130,7 +106,8 @@ export default function WeekendGetawaysSection({
                   className={`sub-tab-btn weekend-tab ${activeSubTab === tab.id ? 'active' : ''}`}
                   onClick={() => setActiveSubTab(tab.id)}
                 >
-                  {tab.label}
+                  {tab.icon}
+                  <span>{tab.label}</span>
                 </button>
               ))}
             </div>
@@ -366,6 +343,12 @@ export default function WeekendGetawaysSection({
           color: #FFFFFF;
           border-color: rgba(16, 185, 129, 0.5);
           background: rgba(16, 185, 129, 0.15);
+        }
+
+        .weekend-tab {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.45rem;
         }
 
         .weekend-tab.active {

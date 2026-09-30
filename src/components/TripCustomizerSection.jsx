@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import {
   Sliders, Calendar, Hotel, Car, Check, Sparkles, MessageCircle,
   ShieldCheck, ArrowRight, DollarSign, ChevronDown, Search, X,
-  MapPin, Star, Users, CheckCircle2, Compass, Tag
+  MapPin, Star, Users, CheckCircle2, Compass, Tag, Mountain, Globe, Waves, Crown, Landmark
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { TOURS_DATA } from '../data/toursData';
@@ -10,12 +10,12 @@ import { contentService } from '../services/contentService';
 import { siteSettingsService, EVENT_SETTINGS_UPDATED } from '../services/siteSettingsService';
 
 const CATEGORY_TABS = [
-  { id: 'all', label: 'All Tours', icon: '🌟' },
-  { id: 'mountains', label: 'Mountains & Snow', icon: '🏔️', keywords: ['kashmir', 'himachal', 'manali', 'dalhousie', 'ladakh', 'uttarakhand', 'shimla', 'dharamshala'] },
-  { id: 'international', label: 'International', icon: '✈️', keywords: ['bali', 'dubai', 'thailand', 'singapore', 'vietnam', 'maldives', 'international'] },
-  { id: 'beach', label: 'Beach & Coastal', icon: '🏖️', keywords: ['goa', 'kerala', 'andaman', 'bali', 'phuket', 'thailand', 'beach', 'coastal'] },
-  { id: 'heritage', label: 'Royal Heritage', icon: '🏰', keywords: ['rajasthan', 'mp', 'madhya pradesh', 'orchha', 'gwalior', 'jaipur', 'udaipur', 'jodhpur', 'heritage', 'karnataka'] },
-  { id: 'spiritual', label: 'Spiritual', icon: '🕉️', keywords: ['varanasi', 'ayodhya', 'haridwar', 'mussoorie', 'kashi', 'temple', 'spiritual'] }
+  { id: 'all', label: 'All Tours', icon: Sparkles },
+  { id: 'mountains', label: 'Mountains & Snow', icon: Mountain, keywords: ['kashmir', 'himachal', 'manali', 'dalhousie', 'ladakh', 'uttarakhand', 'shimla', 'dharamshala'] },
+  { id: 'international', label: 'International', icon: Globe, keywords: ['bali', 'dubai', 'thailand', 'singapore', 'vietnam', 'maldives', 'international'] },
+  { id: 'beach', label: 'Beach & Coastal', icon: Waves, keywords: ['goa', 'kerala', 'andaman', 'bali', 'phuket', 'thailand', 'beach', 'coastal'] },
+  { id: 'heritage', label: 'Royal Heritage', icon: Crown, keywords: ['rajasthan', 'mp', 'madhya pradesh', 'orchha', 'gwalior', 'jaipur', 'udaipur', 'jodhpur', 'heritage', 'karnataka'] },
+  { id: 'spiritual', label: 'Spiritual', icon: Landmark, keywords: ['varanasi', 'ayodhya', 'haridwar', 'mussoorie', 'kashi', 'temple', 'spiritual'] }
 ];
 
 export default function TripCustomizerSection() {
@@ -272,20 +272,23 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
 
               {/* Category Filter Chips */}
               <div className="category-chips-scroll">
-                {CATEGORY_TABS.map((cat) => (
-                  <button
-                    key={cat.id}
-                    type="button"
-                    className={`cat-chip-btn ${activeCategory === cat.id ? 'active' : ''}`}
-                    onClick={() => {
-                      setActiveCategory(cat.id);
-                      setSearchQuery('');
-                    }}
-                  >
-                    <span>{cat.icon}</span>
-                    <span>{cat.label}</span>
-                  </button>
-                ))}
+                {CATEGORY_TABS.map((cat) => {
+                  const Icon = cat.icon;
+                  return (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      className={`cat-chip-btn ${activeCategory === cat.id ? 'active' : ''}`}
+                      onClick={() => {
+                        setActiveCategory(cat.id);
+                        setSearchQuery('');
+                      }}
+                    >
+                      <Icon size={13} className="cat-chip-icon" />
+                      <span>{cat.label}</span>
+                    </button>
+                  );
+                })}
               </div>
 
               {/* Luxury Combobox / Dropdown Trigger */}
@@ -848,6 +851,12 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           background: rgba(255, 137, 47, 0.2);
           border-color: #FF892F;
           color: #FFFFFF;
+        }
+
+        .cat-chip-icon {
+          color: inherit;
+          opacity: 0.85;
+          flex-shrink: 0;
         }
 
         /* Luxury Dropdown Combobox */

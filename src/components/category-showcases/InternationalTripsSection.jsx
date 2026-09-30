@@ -3,11 +3,10 @@ import { useLiveTours } from '../../hooks/useLiveContent';
 import { useCurrency } from '../../context/CurrencyContext';
 import { useParticleBurst } from '../../hooks/useParticleBurst';
 import Tilt3DCard from '../animations/Tilt3DCard';
-import Peeking3DDecor from '../animations/Peeking3DDecor';
-import { EiffelTower3D, BurjKhalifa3D, MountFuji3D } from '../animations/Travel3DIcons';
 import { 
   Globe, Plane, MapPin, Clock, Star, Hotel, Car, Utensils, Ticket, 
-  ShieldCheck, ChevronLeft, ChevronRight, ArrowRight, Sparkles, FileText, CheckCircle2
+  ShieldCheck, ChevronLeft, ChevronRight, ArrowRight, Sparkles, FileText, CheckCircle2,
+  Compass, Palmtree, SunMedium, Landmark
 } from 'lucide-react';
 
 /* ═══════════════════════════════════════════════════════
@@ -114,34 +113,6 @@ const WorldMapBackground = () => (
   </svg>
 );
 
-/* ═══ FLOATING PASSPORT STAMPS ═══ */
-const FloatingPassportStamps = () => {
-  const stamps = [
-    { text: 'APPROVED', sub: 'IMMIGRATION', x: '8%', y: '15%', rot: -12, delay: '0s' },
-    { text: 'VISA GRANTED', sub: 'SCHENGEN', x: '85%', y: '20%', rot: 8, delay: '3s' },
-    { text: 'ENTRY PERMIT', sub: 'BALI • INDONESIA', x: '12%', y: '75%', rot: 15, delay: '6s' },
-    { text: 'CLEARED', sub: 'DUBAI • UAE', x: '88%', y: '70%', rot: -6, delay: '9s' },
-    { text: 'DEPARTED', sub: 'DEL → ZRH', x: '50%', y: '85%', rot: 4, delay: '12s' },
-  ];
-
-  return (
-    <div className="intl-passport-field" aria-hidden="true">
-      {stamps.map((s, i) => (
-        <div key={i} className="passport-stamp" style={{
-          left: s.x, top: s.y,
-          transform: `rotate(${s.rot}deg)`,
-          animationDelay: s.delay,
-        }}>
-          <div className="stamp-border">
-            <span className="stamp-main">{s.text}</span>
-            <span className="stamp-sub">{s.sub}</span>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
-
 /* ═══ FLOATING STAR CONSTELLATION PARTICLES ═══ */
 const ConstellationStars = () => (
   <div className="intl-stars-field" aria-hidden="true">
@@ -154,15 +125,6 @@ const ConstellationStars = () => (
         '--star-size': `${1.5 + (i % 3) * 1}px`,
       }}/>
     ))}
-  </div>
-);
-
-/* ═══ ANIMATED AIRPLANE ICON ═══ */
-const FlyingAirplane = () => (
-  <div className="intl-flying-plane" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-      <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
-    </svg>
   </div>
 );
 
@@ -219,68 +181,18 @@ export default function InternationalTripsSection({
     <section id="intl-trips" className="intl-showcase-root">
       
       {/* ═══ IMMERSIVE ATMOSPHERIC BACKGROUND LAYERS ═══ */}
-      
-      {/* Layer 1: World Map with Routes */}
+      {/* Layer 1: World Map with Navigation Routes */}
       <WorldMapBackground />
       
-      {/* Layer 2: 3D Peeking Global Landmarks (Half-Hidden, Half-Popping Out at Edges) */}
-      <Peeking3DDecor 
-        side="left" 
-        top="12%" 
-        peekPercent={58} 
-        width={310} 
-        height={310} 
-        glowColor="rgba(255, 213, 79, 0.25)"
-        floatDelay="0.5s"
-        floatDuration="9s"
-        ariaLabel="3D Eiffel Tower Peeking from Border"
-      >
-        <EiffelTower3D size={310} />
-      </Peeking3DDecor>
-
-      <Peeking3DDecor 
-        side="right" 
-        top="34%" 
-        peekPercent={55} 
-        width={300} 
-        height={300} 
-        glowColor="rgba(111, 230, 252, 0.25)"
-        floatDelay="2s"
-        floatDuration="9.5s"
-        ariaLabel="3D Dubai Burj Khalifa Peeking from Border"
-      >
-        <BurjKhalifa3D size={300} />
-      </Peeking3DDecor>
-
-      <Peeking3DDecor 
-        side="left" 
-        bottom="5%" 
-        peekPercent={52} 
-        width={290} 
-        height={290} 
-        glowColor="rgba(255, 128, 171, 0.22)"
-        floatDelay="1s"
-        floatDuration="10s"
-        ariaLabel="3D Mount Fuji Peeking from Border"
-      >
-        <MountFuji3D size={290} />
-      </Peeking3DDecor>
-
-      {/* Layer 3: Floating Passport Stamps */}
-      <FloatingPassportStamps />
-      
-      {/* Layer 4: Constellation Star Particles */}
+      {/* Layer 2: Constellation Star Field */}
       <ConstellationStars />
       
-      {/* Layer 5: Flying Airplane Animation */}
-      <FlyingAirplane />
-      
-      {/* Layer 6: Enhanced Aurora Orbs */}
+      {/* Layer 3: Enhanced Aurora Glow Orbs */}
       <div className="intl-aurora-orb-top" />
       <div className="intl-aurora-orb-bottom" />
       <div className="intl-aurora-orb-center" />
       
-      {/* Layer 7: Enhanced Flight Arc Lines */}
+      {/* Layer 4: Global Aviation Arc Lines */}
       <svg className="intl-flight-arc-bg" viewBox="0 0 1440 600" fill="none" preserveAspectRatio="none" aria-hidden="true">
         <path 
           d="M-100 400 C 200 150, 600 100, 900 250 C 1100 350, 1300 200, 1540 100" 
@@ -299,7 +211,7 @@ export default function InternationalTripsSection({
       </svg>
 
       <div className="container relative-z">
-        {/* Section Header - De-cluttered & Airy (Haoqi / Stippl style) */}
+        {/* Section Header - Clean, Modern Luxury Aesthetic */}
         <div className="showcase-header">
           <div className="showcase-badge-pill intl-badge">
             <Globe size={14} className="text-cyan animate-pulse" />
@@ -324,10 +236,10 @@ export default function InternationalTripsSection({
           <div className="controls-and-tabs-bar">
             <div className="sub-region-tabs">
               {[
-                { id: 'All', label: 'All World Destinations' },
-                { id: 'Europe', label: '🇪🇺 Europe Signature' },
-                { id: 'Tropical', label: '🌴 Bali & Thailand' },
-                { id: 'MiddleEast', label: '🏜️ Dubai Red Dunes' },
+                { id: 'All', label: 'All World Destinations', icon: <Compass size={14} className="text-cyan" /> },
+                { id: 'Europe', label: 'Europe Signature', icon: <Landmark size={14} className="text-cyan" /> },
+                { id: 'Tropical', label: 'Bali & Thailand', icon: <Palmtree size={14} className="text-cyan" /> },
+                { id: 'MiddleEast', label: 'Dubai Red Dunes', icon: <SunMedium size={14} className="text-cyan" /> },
               ].map(tab => (
                 <button
                   key={tab.id}
@@ -335,7 +247,8 @@ export default function InternationalTripsSection({
                   className={`sub-tab-btn intl-tab ${activeSubTab === tab.id ? 'active' : ''}`}
                   onClick={() => setActiveSubTab(tab.id)}
                 >
-                  {tab.label}
+                  {tab.icon}
+                  <span>{tab.label}</span>
                 </button>
               ))}
             </div>
@@ -819,6 +732,12 @@ export default function InternationalTripsSection({
           -webkit-background-clip: text;
           background-clip: text;
           -webkit-text-fill-color: transparent;
+        }
+
+        .intl-tab {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.45rem;
         }
 
         .intl-tab:hover {
