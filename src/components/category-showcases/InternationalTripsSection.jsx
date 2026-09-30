@@ -11,109 +11,7 @@ import {
 
 const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
 
-/* ═══════════════════════════════════════════════════════
-   SVG WORLD MAP — Simplified Continental Outlines
-   ═══════════════════════════════════════════════════════ */
-const WorldMapBackground = () => (
-  <svg className="intl-world-map-bg" viewBox="0 0 1440 700" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    {/* Europe */}
-    <path d="M650 140 L670 120 L700 115 L730 125 L740 110 L760 115 L770 130 L780 120 L800 125 L790 145 L770 155 L755 165 L740 155 L720 160 L700 155 L685 160 L670 155 L650 150 Z" 
-      stroke="currentColor" strokeWidth="0.8" fill="none" className="continent-outline"/>
-    {/* British Isles */}
-    <path d="M630 120 L640 110 L650 115 L648 130 L635 135 Z" stroke="currentColor" strokeWidth="0.6" fill="none" className="continent-outline"/>
-    {/* Scandinavia */}
-    <path d="M700 80 L710 60 L725 55 L730 70 L720 90 L710 100 L700 95 Z" stroke="currentColor" strokeWidth="0.6" fill="none" className="continent-outline"/>
-    
-    {/* Africa */}
-    <path d="M660 180 L680 170 L710 175 L730 180 L745 200 L750 230 L755 260 L760 290 L750 320 L735 340 L720 350 L705 345 L690 330 L680 310 L670 280 L665 250 L660 220 L655 200 Z" 
-      stroke="currentColor" strokeWidth="0.8" fill="none" className="continent-outline"/>
-    
-    {/* Asia — India & Subcontinent */}
-    <path d="M820 150 L850 140 L880 145 L910 155 L930 170 L920 190 L900 200 L890 220 L870 240 L855 260 L840 250 L835 230 L830 210 L825 195 L820 180 L815 165 Z" 
-      stroke="currentColor" strokeWidth="0.9" fill="none" className="continent-outline continent-india"/>
-    {/* Sri Lanka */}
-    <ellipse cx="870" cy="270" rx="8" ry="12" stroke="currentColor" strokeWidth="0.5" fill="none"/>
-    
-    {/* Southeast Asia */}
-    <path d="M950 200 L970 190 L990 195 L1000 210 L995 225 L980 230 L970 220 L960 215 Z" 
-      stroke="currentColor" strokeWidth="0.7" fill="none" className="continent-outline"/>
-    {/* Indonesia / Bali region */}
-    <path d="M980 260 L1000 255 L1020 258 L1010 268 L995 270 L980 265 Z" stroke="currentColor" strokeWidth="0.5" fill="none" className="continent-outline"/>
-    <path d="M1025 262 L1045 258 L1060 265 L1050 272 L1035 270 Z" stroke="currentColor" strokeWidth="0.5" fill="none" className="continent-outline"/>
-    
-    {/* Middle East */}
-    <path d="M770 170 L790 165 L810 170 L815 185 L805 195 L790 200 L780 195 L775 185 Z" 
-      stroke="currentColor" strokeWidth="0.7" fill="none" className="continent-outline"/>
-    
-    {/* East Asia */}
-    <path d="M960 120 L980 110 L1010 115 L1030 130 L1025 150 L1010 160 L990 155 L975 145 L965 135 Z" 
-      stroke="currentColor" strokeWidth="0.7" fill="none" className="continent-outline"/>
-    {/* Japan */}
-    <path d="M1050 120 L1060 110 L1065 125 L1060 140 L1052 135 Z" stroke="currentColor" strokeWidth="0.5" fill="none" className="continent-outline"/>
-    
-    {/* Australia */}
-    <path d="M1020 350 L1060 340 L1100 345 L1120 360 L1115 385 L1095 400 L1060 405 L1035 395 L1020 375 Z" 
-      stroke="currentColor" strokeWidth="0.7" fill="none" className="continent-outline"/>
-    
-    {/* North America */}
-    <path d="M200 100 L250 80 L310 75 L370 90 L400 110 L410 140 L390 170 L360 190 L330 200 L300 195 L280 180 L250 170 L230 150 L210 130 Z" 
-      stroke="currentColor" strokeWidth="0.7" fill="none" className="continent-outline"/>
-    
-    {/* South America */}
-    <path d="M330 280 L350 260 L370 265 L385 280 L390 310 L385 345 L375 380 L360 410 L340 430 L325 425 L315 400 L310 370 L315 340 L320 310 Z" 
-      stroke="currentColor" strokeWidth="0.7" fill="none" className="continent-outline"/>
 
-    {/* ═══ ANIMATED FLIGHT ROUTES FROM INDIA ═══ */}
-    {/* India origin point */}
-    <circle cx="855" cy="210" r="4" fill="rgba(56, 189, 248, 0.6)" className="origin-dot-pulse"/>
-    <circle cx="855" cy="210" r="8" fill="none" stroke="rgba(56, 189, 248, 0.3)" strokeWidth="1" className="origin-ring-pulse"/>
-    
-    {/* Route: India → Dubai */}
-    <path d="M855 210 Q810 185 795 185" stroke="url(#routeGradient1)" strokeWidth="1.5" strokeDasharray="6 4" fill="none" className="flight-route route-1"/>
-    <circle cx="795" cy="185" r="3.5" className="destination-dot dot-dubai"/>
-    <text x="795" y="175" className="dest-label">DUBAI</text>
-
-    {/* Route: India → Bali */}
-    <path d="M855 210 Q930 250 1000 260" stroke="url(#routeGradient2)" strokeWidth="1.5" strokeDasharray="6 4" fill="none" className="flight-route route-2"/>
-    <circle cx="1000" cy="260" r="3.5" className="destination-dot dot-bali"/>
-    <text x="1000" y="250" className="dest-label">BALI</text>
-
-    {/* Route: India → Europe (Switzerland) */}
-    <path d="M855 210 Q800 170 735 140" stroke="url(#routeGradient3)" strokeWidth="1.5" strokeDasharray="6 4" fill="none" className="flight-route route-3"/>
-    <circle cx="735" cy="140" r="3.5" className="destination-dot dot-europe"/>
-    <text x="735" y="130" className="dest-label">EUROPE</text>
-
-    {/* Route: India → Thailand/Phuket */}
-    <path d="M855 210 Q910 215 965 215" stroke="url(#routeGradient2)" strokeWidth="1.2" strokeDasharray="5 4" fill="none" className="flight-route route-4"/>
-    <circle cx="965" cy="215" r="3" className="destination-dot dot-thailand"/>
-    <text x="965" y="205" className="dest-label">THAILAND</text>
-
-    {/* Route: India → Japan */}
-    <path d="M855 210 Q950 160 1055 125" stroke="url(#routeGradient3)" strokeWidth="1.2" strokeDasharray="5 4" fill="none" className="flight-route route-5"/>
-    <circle cx="1055" cy="125" r="3" className="destination-dot dot-japan"/>
-    <text x="1055" y="115" className="dest-label">JAPAN</text>
-    
-    {/* Route: India → Australia */}
-    <path d="M855 210 Q960 300 1060 360" stroke="url(#routeGradient1)" strokeWidth="1" strokeDasharray="4 5" fill="none" className="flight-route route-6"/>
-    <circle cx="1060" cy="360" r="2.5" className="destination-dot dot-aus"/>
-
-    {/* ═══ GRADIENT DEFINITIONS ═══ */}
-    <defs>
-      <linearGradient id="routeGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="rgba(56, 189, 248, 0.7)"/>
-        <stop offset="100%" stopColor="rgba(168, 85, 247, 0.4)"/>
-      </linearGradient>
-      <linearGradient id="routeGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="rgba(56, 189, 248, 0.6)"/>
-        <stop offset="100%" stopColor="rgba(45, 212, 191, 0.5)"/>
-      </linearGradient>
-      <linearGradient id="routeGradient3" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="rgba(56, 189, 248, 0.6)"/>
-        <stop offset="100%" stopColor="rgba(218, 245, 97, 0.4)"/>
-      </linearGradient>
-    </defs>
-  </svg>
-);
 
 /* ═══ FLOATING STAR CONSTELLATION PARTICLES ═══ */
 const ConstellationStars = () => (
@@ -183,34 +81,13 @@ export default function InternationalTripsSection({
     <section id="intl-trips" className="intl-showcase-root">
       
       {/* ═══ IMMERSIVE ATMOSPHERIC BACKGROUND LAYERS ═══ */}
-      {/* Layer 1: World Map with Navigation Routes */}
-      <WorldMapBackground />
-      
-      {/* Layer 2: Constellation Star Field */}
+      {/* Layer 1: Constellation Star Field */}
       <ConstellationStars />
       
-      {/* Layer 3: Enhanced Aurora Glow Orbs */}
+      {/* Layer 2: Enhanced Aurora Glow Orbs */}
       <div className="intl-aurora-orb-top" />
       <div className="intl-aurora-orb-bottom" />
       <div className="intl-aurora-orb-center" />
-      
-      {/* Layer 4: Global Aviation Arc Lines */}
-      <svg className="intl-flight-arc-bg" viewBox="0 0 1440 600" fill="none" preserveAspectRatio="none" aria-hidden="true">
-        <path 
-          d="M-100 400 C 200 150, 600 100, 900 250 C 1100 350, 1300 200, 1540 100" 
-          stroke="rgba(56, 189, 248, 0.15)" 
-          strokeWidth="2" 
-          strokeDasharray="6 8" 
-          className="arc-animated"
-        />
-        <path 
-          d="M0 500 C 350 300, 800 250, 1100 400 C 1300 500, 1400 350, 1600 300" 
-          stroke="rgba(168, 85, 247, 0.1)" 
-          strokeWidth="1.5" 
-          strokeDasharray="4 6" 
-          className="arc-animated arc-delay"
-        />
-      </svg>
 
       <div className="container relative-z">
         {/* Section Header - Clean, Modern Luxury Aesthetic */}
@@ -448,96 +325,7 @@ export default function InternationalTripsSection({
           z-index: 5;
         }
 
-        /* ═══════════════════════════════════════════
-           WORLD MAP BACKGROUND
-           ═══════════════════════════════════════════ */
-        .intl-world-map-bg {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          pointer-events: none;
-          z-index: 1;
-          color: rgba(56, 189, 248, 0.06);
-        }
 
-        .continent-outline {
-          animation: continentPulse 8s ease-in-out infinite alternate;
-        }
-
-        .continent-india {
-          stroke: rgba(56, 189, 248, 0.15) !important;
-          filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.1));
-        }
-
-        @keyframes continentPulse {
-          0% { opacity: 0.4; }
-          100% { opacity: 0.8; }
-        }
-
-        /* ═══ FLIGHT ROUTES ═══ */
-        .flight-route {
-          stroke-dashoffset: 0;
-          animation: dashFlow 4s linear infinite;
-        }
-
-        .route-1 { animation-delay: 0s; }
-        .route-2 { animation-delay: 0.8s; }
-        .route-3 { animation-delay: 1.6s; }
-        .route-4 { animation-delay: 2.4s; }
-        .route-5 { animation-delay: 3.2s; }
-        .route-6 { animation-delay: 4s; }
-
-        @keyframes dashFlow {
-          0% { stroke-dashoffset: 0; }
-          100% { stroke-dashoffset: -30; }
-        }
-
-        /* ═══ DESTINATION DOTS ═══ */
-        .destination-dot {
-          fill: rgba(56, 189, 248, 0.7);
-          animation: dotPulse 3s ease-in-out infinite;
-        }
-
-        .dot-dubai { fill: rgba(245, 158, 11, 0.7); animation-delay: 0s; }
-        .dot-bali { fill: rgba(45, 212, 191, 0.7); animation-delay: 0.6s; }
-        .dot-europe { fill: rgba(168, 85, 247, 0.7); animation-delay: 1.2s; }
-        .dot-thailand { fill: rgba(45, 212, 191, 0.6); animation-delay: 1.8s; }
-        .dot-japan { fill: rgba(218, 245, 97, 0.6); animation-delay: 2.4s; }
-        .dot-aus { fill: rgba(56, 189, 248, 0.5); animation-delay: 3s; }
-
-        @keyframes dotPulse {
-          0%, 100% { r: 3; opacity: 0.5; }
-          50% { r: 5; opacity: 1; }
-        }
-
-        .origin-dot-pulse {
-          animation: originPulse 2s ease-in-out infinite;
-        }
-
-        .origin-ring-pulse {
-          animation: ringExpand 2s ease-in-out infinite;
-        }
-
-        @keyframes originPulse {
-          0%, 100% { opacity: 0.6; r: 4; }
-          50% { opacity: 1; r: 5; }
-        }
-
-        @keyframes ringExpand {
-          0% { r: 8; opacity: 0.4; }
-          100% { r: 18; opacity: 0; }
-        }
-
-        /* ═══ DESTINATION LABELS ═══ */
-        .dest-label {
-          font-size: 7px;
-          font-weight: 800;
-          fill: rgba(56, 189, 248, 0.35);
-          text-anchor: middle;
-          letter-spacing: 0.12em;
-          font-family: inherit;
-        }
 
         /* ═══════════════════════════════════════════
            FLOATING PASSPORT STAMPS
@@ -697,27 +485,7 @@ export default function InternationalTripsSection({
           100% { opacity: 1; transform: scale(1.1) translateY(-15px); }
         }
 
-        /* ═══ FLIGHT ARC ANIMATIONS ═══ */
-        .intl-flight-arc-bg {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          pointer-events: none;
-          z-index: 1;
-        }
 
-        .arc-animated {
-          stroke-dashoffset: 0;
-          animation: arcDash 8s linear infinite;
-        }
-        .arc-delay { animation-delay: 3s; }
-        .arc-delay-2 { animation-delay: 6s; }
-
-        @keyframes arcDash {
-          0% { stroke-dashoffset: 0; }
-          100% { stroke-dashoffset: -40; }
-        }
 
         /* ═══════════════════════════════════════════
            HEADER, BADGES, TABS
@@ -856,10 +624,8 @@ export default function InternationalTripsSection({
 
         /* ═══ RESPONSIVE ═══ */
         @media (max-width: 768px) {
-          .intl-world-map-bg { opacity: 0.5; }
           .passport-stamp { display: none; }
           .intl-flying-plane { display: none; }
-          .dest-label { display: none; }
         }
       `}</style>
     </section>
