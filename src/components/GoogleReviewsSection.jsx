@@ -21,6 +21,8 @@ import {
 } from 'lucide-react';
 import { GOOGLE_REVIEWS, GOOGLE_BUSINESS_PROFILE } from '../data/toursData';
 
+const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
+
 export default function GoogleReviewsSection({ onOpenQuote }) {
   const [filterTour, setFilterTour] = useState('All');
   const [helpfulLikes, setHelpfulLikes] = useState({});
@@ -460,7 +462,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
           position: relative;
           background: 
             linear-gradient(180deg, #0B1120 0%, rgba(11, 17, 32, 0.76) 12%, rgba(11, 17, 32, 0.58) 50%, rgba(11, 17, 32, 0.78) 88%, #0B1120 100%),
-            url('/backgrounds/reviews-alpine-flowers.webp') center 35% / cover no-repeat;
+            url('${basePrefix}backgrounds/reviews-alpine-flowers.webp') center 35% / cover no-repeat;
           border-top: 1px solid rgba(255, 255, 255, 0.06);
           border-bottom: 1px solid rgba(255, 255, 255, 0.06);
           overflow: hidden;

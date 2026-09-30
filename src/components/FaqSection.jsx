@@ -3,6 +3,8 @@ import { FAQS } from '../data/toursData';
 import { ChevronDown, HelpCircle, Sparkles, MessageCircle, PhoneCall } from 'lucide-react';
 import Tilt3DCard from './animations/Tilt3DCard';
 
+const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
+
 export default function FaqSection() {
   const [openIdx, setOpenIdx] = useState(0);
 
@@ -90,7 +92,7 @@ export default function FaqSection() {
           padding: 5rem 0 4rem 0;
           background: 
             linear-gradient(180deg, #0B1120 0%, rgba(11, 17, 32, 0.82) 12%, rgba(0, 29, 81, 0.62) 50%, rgba(11, 17, 32, 0.84) 88%, #0B1120 100%),
-            url('/backgrounds/scottish-fairy-pools.webp') center 40% / cover no-repeat;
+            url('${basePrefix}backgrounds/scottish-fairy-pools.webp') center 40% / cover no-repeat;
           color: #FFFFFF;
           position: relative;
           z-index: 2;

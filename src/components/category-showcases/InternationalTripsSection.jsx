@@ -9,6 +9,8 @@ import {
   Compass, Palmtree, SunMedium, Landmark
 } from 'lucide-react';
 
+const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
+
 /* ═══════════════════════════════════════════════════════
    SVG WORLD MAP — Simplified Continental Outlines
    ═══════════════════════════════════════════════════════ */
@@ -434,7 +436,7 @@ export default function InternationalTripsSection({
           position: relative;
           background: 
             linear-gradient(180deg, #0B1120 0%, rgba(11, 17, 32, 0.82) 10%, rgba(0, 25, 68, 0.60) 50%, rgba(11, 17, 32, 0.84) 90%, #0B1120 100%),
-            url('/backgrounds/global-escapes-iceland-waterfall.webp') center 40% / cover no-repeat;
+            url('${basePrefix}backgrounds/global-escapes-iceland-waterfall.webp') center 40% / cover no-repeat;
           border-top: none;
           border-bottom: none;
           overflow-x: clip;

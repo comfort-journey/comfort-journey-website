@@ -10,6 +10,8 @@ import {
 } from 'lucide-react';
 import CardInclusionsStrip from '../CardInclusionsStrip';
 
+const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
+
 export default function WeekendGetawaysSection({ 
   onSelectItinerary, 
   onBookNow, 
@@ -272,7 +274,7 @@ export default function WeekendGetawaysSection({
           position: relative;
           background: 
             linear-gradient(180deg, #0B1120 0%, rgba(11, 17, 32, 0.82) 10%, rgba(10, 30, 25, 0.58) 50%, rgba(11, 17, 32, 0.84) 90%, #0B1120 100%),
-            url('/backgrounds/weekend-cappadocia-balloons.webp') center 40% / cover no-repeat;
+            url('${basePrefix}backgrounds/weekend-cappadocia-balloons.webp') center 40% / cover no-repeat;
           border-top: none;
           border-bottom: none;
           overflow-x: clip;

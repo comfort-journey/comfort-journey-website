@@ -14,6 +14,7 @@
 import { TOURS_DATA } from '../data/toursData';
 import { BLOGS_DATA } from '../data/blogsData';
 import { siteSettingsService } from './siteSettingsService';
+import { parseTourDays } from '../utils/durationParser';
 import {
   getActivePublishToken,
   getActiveRepo,
@@ -62,8 +63,8 @@ function initTours() {
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          activeTours = parsed;
-          syncToursDataArray(parsed);
+          activeTours = parsed.map(t => ({ ...t, durationDays: parseTourDays(t) }));
+          syncToursDataArray(activeTours);
           return activeTours;
         }
       }
@@ -74,9 +75,9 @@ function initTours() {
         if (legacy) {
           const parsed = JSON.parse(legacy);
           if (Array.isArray(parsed) && parsed.length > 0) {
-            activeTours = parsed;
-            localStorage.setItem(STORAGE_KEY_TOURS, JSON.stringify(parsed));
-            syncToursDataArray(parsed);
+            activeTours = parsed.map(t => ({ ...t, durationDays: parseTourDays(t) }));
+            localStorage.setItem(STORAGE_KEY_TOURS, JSON.stringify(activeTours));
+            syncToursDataArray(activeTours);
             return activeTours;
           }
         }

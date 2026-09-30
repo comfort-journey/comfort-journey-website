@@ -116,7 +116,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 94012,
     "origPrice": 188023,
     "originalPrice": 188023,
@@ -232,7 +232,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "5 Nights & 6 Days",
-    "durationDays": 56,
+    "durationDays": 6,
     "price": 141360,
     "origPrice": 157067,
     "originalPrice": 157067,
@@ -350,7 +350,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 90640,
     "origPrice": 95410,
     "originalPrice": 95410,
@@ -478,7 +478,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "2 Nights and 3 Days",
-    "durationDays": 23,
+    "durationDays": 3,
     "price": 99360,
     "origPrice": 116894,
     "originalPrice": 116894,
@@ -577,7 +577,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 45885,
     "origPrice": 48300,
     "originalPrice": 48300,
@@ -686,7 +686,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "2 Nights and 3 Days",
-    "durationDays": 23,
+    "durationDays": 3,
     "price": 69575,
     "origPrice": 77305,
     "originalPrice": 77305,
@@ -785,7 +785,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 64515,
     "origPrice": 71683,
     "originalPrice": 71683,
@@ -887,7 +887,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 34272,
     "origPrice": 42840,
     "originalPrice": 42840,
@@ -989,7 +989,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 96214,
     "origPrice": 113192,
     "originalPrice": 113192,
@@ -1096,7 +1096,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 42336,
     "origPrice": 44564,
     "originalPrice": 44564,
@@ -1189,7 +1189,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 65520,
     "origPrice": 68968,
     "originalPrice": 68968,
@@ -1281,7 +1281,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 58080,
     "origPrice": 64533,
     "originalPrice": 64533,
@@ -1389,7 +1389,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 148680,
     "origPrice": 198240,
     "originalPrice": 198240,
@@ -1495,7 +1495,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 51786,
     "origPrice": 69048,
     "originalPrice": 69048,
@@ -1612,7 +1612,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 72105,
     "origPrice": 80117,
     "originalPrice": 80117,
@@ -1708,7 +1708,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 33986,
     "origPrice": 35774,
     "originalPrice": 35774,
@@ -1807,7 +1807,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 51920,
     "origPrice": 57689,
     "originalPrice": 57689,
@@ -1929,7 +1929,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 148512,
     "origPrice": 185640,
     "originalPrice": 185640,
@@ -2050,7 +2050,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "2 Nights and 3 Days",
-    "durationDays": 23,
+    "durationDays": 3,
     "price": 62733,
     "origPrice": 73803,
     "originalPrice": 73803,
@@ -2156,7 +2156,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "5 Nights & 6 Days",
-    "durationDays": 56,
+    "durationDays": 6,
     "price": 313040,
     "origPrice": 417386,
     "originalPrice": 417386,
@@ -2281,7 +2281,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "5 Nights & 6 Days",
-    "durationDays": 56,
+    "durationDays": 6,
     "price": 59070,
     "origPrice": 65633,
     "originalPrice": 65633,
@@ -2398,7 +2398,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 53099,
     "origPrice": 58999,
     "originalPrice": 58999,
@@ -2514,7 +2514,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 24999,
     "origPrice": 31249,
     "originalPrice": 31249,
@@ -2611,7 +2611,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 68828,
     "origPrice": 72450,
     "originalPrice": 72450,
@@ -2715,7 +2715,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 46452,
     "origPrice": 48897,
     "originalPrice": 48897,
@@ -2822,7 +2822,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "5 Nights & 6 Days",
-    "durationDays": 56,
+    "durationDays": 6,
     "price": 134936,
     "origPrice": 161923,
     "originalPrice": 161923,
@@ -2983,7 +2983,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 47300,
     "origPrice": 52555,
     "originalPrice": 52555,
@@ -3087,7 +3087,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 93891,
     "origPrice": 98833,
     "originalPrice": 98833,
@@ -3194,7 +3194,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "2 Nights and 3 Days",
-    "durationDays": 23,
+    "durationDays": 3,
     "price": 67362,
     "origPrice": 79250,
     "originalPrice": 79250,
@@ -3289,7 +3289,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 28980,
     "origPrice": 30505,
     "originalPrice": 30505,
@@ -3400,7 +3400,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "2 Nights and 3 Days",
-    "durationDays": 23,
+    "durationDays": 3,
     "price": 26460,
     "origPrice": 27852,
     "originalPrice": 27852,
@@ -3505,7 +3505,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 24999,
     "origPrice": 31249,
     "originalPrice": 31249,
@@ -3616,7 +3616,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "5 Nights & 6 Days",
-    "durationDays": 56,
+    "durationDays": 6,
     "price": 142324,
     "origPrice": 167440,
     "originalPrice": 167440,
@@ -3734,7 +3734,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 34776,
     "origPrice": 40912,
     "originalPrice": 40912,
@@ -3827,7 +3827,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "5 Nights & 6 Days",
-    "durationDays": 56,
+    "durationDays": 6,
     "price": 83160,
     "origPrice": 92400,
     "originalPrice": 92400,
@@ -3936,7 +3936,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 76608,
     "origPrice": 95760,
     "originalPrice": 95760,
@@ -4032,7 +4032,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "6 Nights & 7 Days",
-    "durationDays": 67,
+    "durationDays": 7,
     "price": 153120,
     "origPrice": 161179,
     "originalPrice": 161179,
@@ -4147,7 +4147,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "5 Nights & 6 Days",
-    "durationDays": 56,
+    "durationDays": 6,
     "price": 102300,
     "origPrice": 136400,
     "originalPrice": 136400,
@@ -4256,7 +4256,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 64860,
     "origPrice": 76305,
     "originalPrice": 76305,
@@ -4352,7 +4352,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 61477,
     "origPrice": 68307,
     "originalPrice": 68307,
@@ -4449,7 +4449,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 63360,
     "origPrice": 79200,
     "originalPrice": 79200,
@@ -4541,7 +4541,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 34776,
     "origPrice": 40912,
     "originalPrice": 40912,
@@ -4653,7 +4653,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "5 Nights & 6 Days",
-    "durationDays": 56,
+    "durationDays": 6,
     "price": 71225,
     "origPrice": 94967,
     "originalPrice": 94967,
@@ -4766,7 +4766,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "5 Nights & 6 Days",
-    "durationDays": 56,
+    "durationDays": 6,
     "price": 103983,
     "origPrice": 122333,
     "originalPrice": 122333,
@@ -4893,7 +4893,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "5 Nights & 6 Days",
-    "durationDays": 56,
+    "durationDays": 6,
     "price": 76033,
     "origPrice": 84481,
     "originalPrice": 84481,
@@ -5013,7 +5013,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 122500,
     "origPrice": 163333,
     "originalPrice": 163333,
@@ -5126,7 +5126,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 51100,
     "origPrice": 68133,
     "originalPrice": 68133,
@@ -5256,7 +5256,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "6 Nights & 7 Days",
-    "durationDays": 67,
+    "durationDays": 7,
     "price": 69664,
     "origPrice": 77404,
     "originalPrice": 77404,
@@ -5374,7 +5374,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "6 Nights & 7 Days",
-    "durationDays": 67,
+    "durationDays": 7,
     "price": 121770,
     "origPrice": 135300,
     "originalPrice": 135300,
@@ -5509,7 +5509,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "5 Nights & 6 Days",
-    "durationDays": 56,
+    "durationDays": 6,
     "price": 102740,
     "origPrice": 120871,
     "originalPrice": 120871,
@@ -5624,7 +5624,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "2 Nights and 3 Days",
-    "durationDays": 23,
+    "durationDays": 3,
     "price": 45954,
     "origPrice": 51059,
     "originalPrice": 51059,
@@ -5732,7 +5732,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 48271,
     "origPrice": 56789,
     "originalPrice": 56789,
@@ -5849,7 +5849,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "5 Nights & 6 Days",
-    "durationDays": 56,
+    "durationDays": 6,
     "price": 51681,
     "origPrice": 54401,
     "originalPrice": 54401,
@@ -5976,7 +5976,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "2 Nights and 3 Days",
-    "durationDays": 23,
+    "durationDays": 3,
     "price": 45408,
     "origPrice": 50453,
     "originalPrice": 50453,
@@ -6064,7 +6064,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 39648,
     "origPrice": 49560,
     "originalPrice": 49560,
@@ -6164,7 +6164,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "5 Nights & 6 Days",
-    "durationDays": 56,
+    "durationDays": 6,
     "price": 53820,
     "origPrice": 63317,
     "originalPrice": 63317,
@@ -6277,7 +6277,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 40040,
     "origPrice": 44488,
     "originalPrice": 44488,
@@ -6383,7 +6383,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "2 Nights and 3 Days",
-    "durationDays": 23,
+    "durationDays": 3,
     "price": 27692,
     "origPrice": 32579,
     "originalPrice": 32579,
@@ -6487,7 +6487,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 104580,
     "origPrice": 139440,
     "originalPrice": 139440,
@@ -6610,7 +6610,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 49632,
     "origPrice": 62040,
     "originalPrice": 62040,
@@ -6719,7 +6719,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 223642,
     "origPrice": 279552,
     "originalPrice": 279552,
@@ -6822,7 +6822,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 98532,
     "origPrice": 115920,
     "originalPrice": 115920,
@@ -6922,7 +6922,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 63360,
     "origPrice": 79200,
     "originalPrice": 79200,
@@ -7020,7 +7020,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 131040,
     "origPrice": 137937,
     "originalPrice": 137937,
@@ -7140,7 +7140,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 72072,
     "origPrice": 80080,
     "originalPrice": 80080,
@@ -7242,7 +7242,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 128800,
     "origPrice": 171733,
     "originalPrice": 171733,
@@ -7362,7 +7362,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 24999,
     "origPrice": 31249,
     "originalPrice": 31249,
@@ -7467,7 +7467,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 94990,
     "origPrice": 111752,
     "originalPrice": 111752,
@@ -7570,7 +7570,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 25245,
     "origPrice": 28,
     "originalPrice": 28,
@@ -7682,7 +7682,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "5 Nights & 6 Days",
-    "durationDays": 56,
+    "durationDays": 6,
     "price": 66550,
     "origPrice": 73944,
     "originalPrice": 73944,
@@ -7791,7 +7791,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 39060,
     "origPrice": 41115,
     "originalPrice": 41115,
@@ -7903,7 +7903,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "5 Nights & 6 Days",
-    "durationDays": 56,
+    "durationDays": 6,
     "price": 45040,
     "origPrice": 54048,
     "originalPrice": 54048,
@@ -8025,7 +8025,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 51800,
     "origPrice": 69067,
     "originalPrice": 69067,
@@ -8115,7 +8115,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 44352,
     "origPrice": 49280,
     "originalPrice": 49280,
@@ -8218,7 +8218,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 41664,
     "origPrice": 52080,
     "originalPrice": 52080,
@@ -8336,7 +8336,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "2 Nights and 3 Days",
-    "durationDays": 23,
+    "durationDays": 3,
     "price": 38640,
     "origPrice": 48300,
     "originalPrice": 48300,
@@ -8431,7 +8431,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 79470,
     "origPrice": 93494,
     "originalPrice": 93494,
@@ -8545,7 +8545,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 76014,
     "origPrice": 84460,
     "originalPrice": 84460,
@@ -8660,7 +8660,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4 Nights & 5 Days",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 74338,
     "origPrice": 82598,
     "originalPrice": 82598,
@@ -8761,7 +8761,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "3 Nights & 4 Days",
-    "durationDays": 34,
+    "durationDays": 4,
     "price": 76608,
     "origPrice": 95760,
     "originalPrice": 95760,
@@ -8872,7 +8872,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "5N/6D",
-    "durationDays": 56,
+    "durationDays": 6,
     "price": 71047,
     "origPrice": 170514,
     "originalPrice": 170514,
@@ -9058,7 +9058,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "7N/8D",
-    "durationDays": 78,
+    "durationDays": 8,
     "price": 218554,
     "origPrice": 218554,
     "originalPrice": 218554,
@@ -9261,7 +9261,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4N/5D",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 62710,
     "origPrice": 69870,
     "originalPrice": 69870,
@@ -9394,7 +9394,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "7N/6D",
-    "durationDays": 76,
+    "durationDays": 6,
     "price": 755156,
     "origPrice": 906187,
     "originalPrice": 906187,
@@ -9525,7 +9525,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "5N/6D",
-    "durationDays": 56,
+    "durationDays": 6,
     "price": 144904,
     "origPrice": 166640,
     "originalPrice": 166640,
@@ -9642,7 +9642,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "5N/6D",
-    "durationDays": 56,
+    "durationDays": 6,
     "price": 282452,
     "origPrice": 389783,
     "originalPrice": 389783,
@@ -9772,7 +9772,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "10N/11D",
-    "durationDays": 10,
+    "durationDays": 11,
     "price": 294705,
     "origPrice": 368382,
     "originalPrice": 368382,
@@ -9997,7 +9997,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "7N/8D",
-    "durationDays": 78,
+    "durationDays": 8,
     "price": 387104,
     "origPrice": 455417,
     "originalPrice": 455417,
@@ -10177,7 +10177,7 @@ export const TOURS_DATA = [
       "Luxury Signature"
     ],
     "duration": "4N/5D",
-    "durationDays": 45,
+    "durationDays": 5,
     "price": 113503,
     "origPrice": 136204,
     "originalPrice": 136204,

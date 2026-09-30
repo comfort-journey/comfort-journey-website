@@ -9,6 +9,8 @@ import {
   Mountain, Palmtree, CloudRain, Sparkles
 } from 'lucide-react';
 
+const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
+
 export const FIXED_DEPARTURE_BATCHES = [
   {
     id: 'spiti-extreme',
@@ -404,7 +406,7 @@ export default function FixedDeparturesSection({
           position: relative;
           background: 
             linear-gradient(180deg, #0B1120 0%, rgba(11, 17, 32, 0.80) 10%, rgba(20, 10, 35, 0.60) 50%, rgba(11, 17, 32, 0.84) 90%, #0B1120 100%),
-            url('/backgrounds/fixed-departures-kashmir-meadow.webp') center 40% / cover no-repeat;
+            url('${basePrefix}backgrounds/fixed-departures-kashmir-meadow.webp') center 40% / cover no-repeat;
           border-top: none;
           border-bottom: none;
           overflow-x: clip;

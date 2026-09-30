@@ -7,6 +7,8 @@ import {
 import { WHY_US_PILLARS, SERVICES_LIST } from '../data/toursData';
 import Tilt3DCard from './animations/Tilt3DCard';
 
+const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
+
 export default function WhyChooseUs({ onOpenAIPlanner }) {
   const [activeTab, setActiveTab] = useState('pillars'); // 'pillars' | 'services'
 
@@ -160,7 +162,7 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
           padding: 5rem 0 4rem 0;
           background: 
             linear-gradient(180deg, #0B1120 0%, rgba(11, 17, 32, 0.82) 12%, rgba(11, 17, 32, 0.62) 50%, rgba(11, 17, 32, 0.82) 88%, #0B1120 100%),
-            url('/backgrounds/faq-coastal-roadtrip.webp') center 45% / cover no-repeat;
+            url('${basePrefix}backgrounds/faq-coastal-roadtrip.webp') center 45% / cover no-repeat;
           color: #FFFFFF;
           position: relative;
           border-top: 1px solid rgba(255, 255, 255, 0.05);

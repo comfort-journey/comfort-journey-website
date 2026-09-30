@@ -10,6 +10,8 @@ import {
 } from 'lucide-react';
 import CardInclusionsStrip from '../CardInclusionsStrip';
 
+const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
+
 /* ─── Floating Diya (Oil Lamp) Particle ─── */
 const FloatingDiyaParticles = () => (
   <div className="india-diya-field" aria-hidden="true">
@@ -334,7 +336,7 @@ export default function IndiaTripsSection({
           position: relative;
           background: 
             linear-gradient(180deg, #0B1120 0%, rgba(15, 23, 42, 0.82) 10%, rgba(21, 10, 36, 0.62) 50%, rgba(15, 23, 42, 0.84) 90%, #0B1120 100%),
-            url('/backgrounds/incredible-india-misty-terraces.webp') center 30% / cover no-repeat;
+            url('${basePrefix}backgrounds/incredible-india-misty-terraces.webp') center 30% / cover no-repeat;
           border-top: none;
           border-bottom: none;
           overflow-x: clip;

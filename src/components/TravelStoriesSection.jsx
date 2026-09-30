@@ -4,6 +4,8 @@ import { Play, MessageCircle, Heart, CheckCircle2, X, Sparkles, ChevronLeft, Che
 import Tilt3DCard from './animations/Tilt3DCard';
 import { useParticleBurst } from '../hooks/useParticleBurst';
 
+const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
+
 export default function TravelStoriesSection({ onOpenQuote }) {
   const { triggerBurst } = useParticleBurst();
   const reelsScrollRef = useRef(null);
@@ -258,7 +260,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           padding: 5rem 0 4rem 0;
           background: 
             linear-gradient(180deg, #0B1120 0%, rgba(11, 17, 32, 0.80) 12%, rgba(0, 26, 64, 0.58) 50%, rgba(11, 17, 32, 0.82) 88%, #0B1120 100%),
-            url('/backgrounds/tropical-turquoise-lake-boat.webp') center 40% / cover no-repeat;
+            url('${basePrefix}backgrounds/tropical-turquoise-lake-boat.webp') center 40% / cover no-repeat;
           color: #FFFFFF;
           position: relative;
           border-top: 1px solid rgba(255, 255, 255, 0.05);

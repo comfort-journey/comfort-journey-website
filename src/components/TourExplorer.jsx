@@ -12,6 +12,7 @@ import Tilt3DCard from './animations/Tilt3DCard';
 import GoldSealStamp from './animations/GoldSealStamp';
 import { useParticleBurst } from '../hooks/useParticleBurst';
 import CardInclusionsStrip from './CardInclusionsStrip';
+import { parseTourDays } from '../utils/durationParser';
 
 export default function TourExplorer({ searchFilters, onSelectItinerary, onBookNow, onOpenAIPlanner, onOpenTierCompare }) {
   const TOURS_DATA = useLiveTours();
@@ -97,7 +98,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
       (activeRegion === 'Asia' && (tour.continent === 'Asia' || tourCats.includes('thailand') || tourCats.includes('bali') || tourCats.includes('dubai'))) ||
       (activeRegion === 'Europe' && (tour.continent === 'Europe' || tourCats.includes('switzerland') || tour.location?.toLowerCase().includes('switz')));
 
-    const parsedDays = tour.durationDays || parseInt((tour.duration || '').replace(/[^0-9]/g, '').slice(0, 2), 10) || 5;
+    const parsedDays = parseTourDays(tour);
     let durationMatch = true;
     if (activeDuration === '3-5') durationMatch = parsedDays >= 3 && parsedDays <= 5;
     if (activeDuration === '6-9') durationMatch = parsedDays >= 6 && parsedDays <= 9;

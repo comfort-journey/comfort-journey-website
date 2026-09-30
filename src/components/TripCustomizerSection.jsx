@@ -8,6 +8,9 @@ import { useCurrency } from '../context/CurrencyContext';
 import { TOURS_DATA } from '../data/toursData';
 import { contentService } from '../services/contentService';
 import { siteSettingsService, EVENT_SETTINGS_UPDATED } from '../services/siteSettingsService';
+import { parseTourDays } from '../utils/durationParser';
+
+const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
 
 const CATEGORY_TABS = [
   { id: 'all', label: 'All Tours', icon: Sparkles },
@@ -52,7 +55,7 @@ export default function TripCustomizerSection() {
           name: 'Whispers of Dalhousie',
           location: 'Dharamshala, Dalhousie',
           country: 'India',
-          durationDays: 6,
+          durationDays: 5,
           basePricePerDay: 4500,
           image: 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=800&q=80'
         }
@@ -60,7 +63,7 @@ export default function TripCustomizerSection() {
     }
 
     return allTours.map((t) => {
-      const days = Number(t.durationDays) || 5;
+      const days = parseTourDays(t);
       const priceNum = Number(t.price) || 25000;
       const baseDaily = Math.max(2200, Math.round(priceNum / days));
       return {
@@ -101,7 +104,7 @@ export default function TripCustomizerSection() {
   }, [destinationsList, selectedTourName]);
 
   // Trip configurations
-  const [durationDays, setDurationDays] = useState(currentTour?.durationDays || 6);
+  const [durationDays, setDurationDays] = useState(() => (currentTour ? parseTourDays(currentTour) : 5));
   const [travelersCount, setTravelersCount] = useState(2);
   const [hotelTier, setHotelTier] = useState('4-star'); // '3-star', '4-star', '5-star'
   const [vehicleType, setVehicleType] = useState('suv'); // 'sedan', 'suv', 'tempo'
@@ -110,7 +113,7 @@ export default function TripCustomizerSection() {
   // Update duration when tour changes (if user hasn't heavily customized it)
   const handleSelectTour = (tour) => {
     setSelectedTourName(tour.name);
-    setDurationDays(tour.durationDays || 6);
+    setDurationDays(parseTourDays(tour) || 5);
     setIsDropdownOpen(false);
   };
 
@@ -716,7 +719,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           padding: 5rem 0 4rem 0;
           background: 
             linear-gradient(180deg, #0B1120 0%, rgba(11, 17, 32, 0.82) 12%, rgba(11, 17, 32, 0.62) 50%, rgba(11, 17, 32, 0.82) 88%, #0B1120 100%),
-            url('/backgrounds/trip-studio-dolomites-daisies.webp') center 40% / cover no-repeat;
+            url('${basePrefix}backgrounds/trip-studio-dolomites-daisies.webp') center 40% / cover no-repeat;
           color: #FFFFFF;
           position: relative;
           border-top: 1px solid rgba(255, 255, 255, 0.05);
