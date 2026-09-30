@@ -255,10 +255,14 @@ export default function TravelStoriesSection({ onOpenQuote }) {
 
       <style>{`
         .stories-root {
-          padding: 4rem 0 3rem 0;
-          background: linear-gradient(180deg, #001233 0%, #001A40 50%, #001233 100%);
+          padding: 5rem 0 4rem 0;
+          background: 
+            linear-gradient(180deg, #0B1120 0%, rgba(11, 17, 32, 0.80) 12%, rgba(0, 26, 64, 0.58) 50%, rgba(11, 17, 32, 0.82) 88%, #0B1120 100%),
+            url('/backgrounds/tropical-turquoise-lake-boat.webp') center 40% / cover no-repeat;
           color: #FFFFFF;
           position: relative;
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .instagram-section-badge {

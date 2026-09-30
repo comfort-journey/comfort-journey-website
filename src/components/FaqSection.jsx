@@ -87,11 +87,15 @@ export default function FaqSection() {
 
       <style>{`
         .faq-root {
-          padding: 3.5rem 0 2.5rem 0;
-          background: var(--cj-bg-panel, #001D51);
+          padding: 5rem 0 4rem 0;
+          background: 
+            linear-gradient(180deg, #0B1120 0%, rgba(11, 17, 32, 0.82) 12%, rgba(0, 29, 81, 0.62) 50%, rgba(11, 17, 32, 0.84) 88%, #0B1120 100%),
+            url('/backgrounds/scottish-fairy-pools.webp') center 40% / cover no-repeat;
           color: #FFFFFF;
           position: relative;
           z-index: 2;
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .section-header {

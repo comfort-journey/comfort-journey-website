@@ -157,9 +157,14 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
 
       <style>{`
         .why-us-root {
-          padding: 3.5rem 0 2.5rem 0;
-          background: var(--cj-bg-obsidian);
+          padding: 5rem 0 4rem 0;
+          background: 
+            linear-gradient(180deg, #0B1120 0%, rgba(11, 17, 32, 0.82) 12%, rgba(11, 17, 32, 0.62) 50%, rgba(11, 17, 32, 0.82) 88%, #0B1120 100%),
+            url('/backgrounds/faq-coastal-roadtrip.webp') center 45% / cover no-repeat;
           color: #FFFFFF;
+          position: relative;
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .section-header {

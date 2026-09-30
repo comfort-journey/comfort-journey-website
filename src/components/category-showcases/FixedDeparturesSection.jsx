@@ -440,9 +440,9 @@ export default function FixedDeparturesSection({
         .fixed-showcase-root {
           padding: 6rem 0 5rem 0;
           position: relative;
-          background: radial-gradient(circle at 85% 25%, rgba(249, 115, 22, 0.08) 0%, transparent 45%),
-                      radial-gradient(circle at 12% 70%, rgba(168, 85, 247, 0.07) 0%, transparent 45%),
-                      linear-gradient(180deg, #001233 0%, #150625 18%, #200936 50%, #140523 82%, #001233 100%);
+          background: 
+            linear-gradient(180deg, #0B1120 0%, rgba(11, 17, 32, 0.80) 10%, rgba(20, 10, 35, 0.60) 50%, rgba(11, 17, 32, 0.84) 90%, #0B1120 100%),
+            url('/backgrounds/fixed-departures-kashmir-meadow.webp') center 40% / cover no-repeat;
           border-top: none;
           border-bottom: none;
           overflow-x: clip;

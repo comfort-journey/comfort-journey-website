@@ -293,9 +293,9 @@ export default function WeekendGetawaysSection({
         .weekend-showcase-root {
           padding: 6rem 0 5rem 0;
           position: relative;
-          background: radial-gradient(circle at 12% 28%, rgba(16, 185, 129, 0.08) 0%, transparent 45%),
-                      radial-gradient(circle at 85% 65%, rgba(245, 158, 11, 0.07) 0%, transparent 45%),
-                      linear-gradient(180deg, #001233 0%, #031B15 18%, #06281D 50%, #031D16 82%, #001233 100%);
+          background: 
+            linear-gradient(180deg, #0B1120 0%, rgba(11, 17, 32, 0.82) 10%, rgba(10, 30, 25, 0.58) 50%, rgba(11, 17, 32, 0.84) 90%, #0B1120 100%),
+            url('/backgrounds/weekend-cappadocia-balloons.webp') center 40% / cover no-repeat;
           border-top: none;
           border-bottom: none;
           overflow-x: clip;

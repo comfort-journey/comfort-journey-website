@@ -456,11 +456,13 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
 
       <style>{`
         .google-reviews-section {
-          padding: 4.5rem 0 3.5rem 0;
+          padding: 5rem 0 4rem 0;
           position: relative;
-          background: linear-gradient(180deg, #001233 0%, #001F4D 50%, #001233 100%);
-          border-top: 1px solid rgba(111, 230, 252, 0.18);
-          border-bottom: 1px solid rgba(111, 230, 252, 0.18);
+          background: 
+            linear-gradient(180deg, #0B1120 0%, rgba(11, 17, 32, 0.76) 12%, rgba(11, 17, 32, 0.58) 50%, rgba(11, 17, 32, 0.78) 88%, #0B1120 100%),
+            url('/backgrounds/reviews-alpine-flowers.webp') center 35% / cover no-repeat;
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
           overflow: hidden;
         }
 

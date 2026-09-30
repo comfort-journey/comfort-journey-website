@@ -519,9 +519,9 @@ export default function InternationalTripsSection({
         .intl-showcase-root {
           padding: 6.5rem 0 5.5rem 0;
           position: relative;
-          background: radial-gradient(circle at 88% 22%, rgba(111, 230, 252, 0.08) 0%, transparent 45%),
-                      radial-gradient(circle at 10% 68%, rgba(56, 189, 248, 0.07) 0%, transparent 45%),
-                      linear-gradient(180deg, #001233 0%, #001944 18%, #00225E 50%, #00163C 82%, #001233 100%);
+          background: 
+            linear-gradient(180deg, #0B1120 0%, rgba(11, 17, 32, 0.82) 10%, rgba(0, 25, 68, 0.60) 50%, rgba(11, 17, 32, 0.84) 90%, #0B1120 100%),
+            url('/backgrounds/global-escapes-iceland-waterfall.webp') center 40% / cover no-repeat;
           border-top: none;
           border-bottom: none;
           overflow-x: clip;

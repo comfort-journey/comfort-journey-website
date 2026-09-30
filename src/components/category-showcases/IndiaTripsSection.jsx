@@ -512,9 +512,9 @@ export default function IndiaTripsSection({
         .india-showcase-root {
           padding: 6.5rem 0 5.5rem 0;
           position: relative;
-          background: radial-gradient(circle at 12% 25%, rgba(255, 137, 47, 0.1) 0%, transparent 45%),
-                      radial-gradient(circle at 88% 55%, rgba(231, 111, 81, 0.08) 0%, transparent 45%),
-                      linear-gradient(180deg, #001233 0%, #150824 16%, #190A2C 50%, #100620 84%, #001233 100%);
+          background: 
+            linear-gradient(180deg, #0B1120 0%, rgba(15, 23, 42, 0.82) 10%, rgba(21, 10, 36, 0.62) 50%, rgba(15, 23, 42, 0.84) 90%, #0B1120 100%),
+            url('/backgrounds/incredible-india-misty-terraces.webp') center 30% / cover no-repeat;
           border-top: none;
           border-bottom: none;
           overflow-x: clip;

@@ -1,11 +1,12 @@
 import React, { useState, useRef } from 'react';
-import { Upload, Link2, X, Image as ImageIcon, Check, RefreshCw, FolderOpen } from 'lucide-react';
+import { Upload, Link2, X, Image as ImageIcon, Check, RefreshCw, FolderOpen, Loader2, Sparkles } from 'lucide-react';
 
 // ═══════════════════════════════════════════════════════════════════
 // COMFORT JOURNEY — REUSABLE IMAGE UPLOAD & URL COMPONENT
 // 1. Instant File Explorer Trigger on "Upload / Replace Image"
-// 2. Clear Visual Controls for Existing & New Images
-// 3. Dual Mode: Device File Upload (Base64) & External Image URL
+// 2. Client-Side Auto-Conversion to Optimized WebP / SVG
+// 3. Clear Visual Controls for Existing & New Images
+// 4. Dual Mode: Device File Upload & External Image URL
 // ═══════════════════════════════════════════════════════════════════
 
 export default function ImageUploadField({
@@ -21,27 +22,82 @@ export default function ImageUploadField({
   const [showUrlInput, setShowUrlInput] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const [previewError, setPreviewError] = useState(false);
+  const [isConverting, setIsConverting] = useState(false);
   const fileInputRef = useRef(null);
 
-  // Convert uploaded file to base64 Data URL
+  // Automatically convert uploaded files to optimized WebP format
   const handleFile = (file) => {
     if (!file) return;
     if (!file.type.startsWith('image/')) {
-      alert('Please select a valid image file (PNG, JPG, WebP, SVG, etc.)');
+      alert('Please select a valid image file (WebP, SVG, JPG, PNG, etc.)');
       return;
     }
-    // Limit to 8MB
-    if (file.size > 8 * 1024 * 1024) {
-      alert('Image size exceeds 8MB. Please choose a smaller image.');
+    // Limit to 15MB
+    if (file.size > 15 * 1024 * 1024) {
+      alert('Image size exceeds 15MB. Please choose a smaller image.');
       return;
     }
 
+    // 1. If already SVG, preserve pure vector format
+    if (file.type === 'image/svg+xml') {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setPreviewError(false);
+        setShowUrlInput(false);
+        onChange?.(e.target.result);
+      };
+      reader.readAsDataURL(file);
+      return;
+    }
+
+    // 2. Automatically convert any raster image (JPG, PNG, GIF) to optimized WebP via Canvas
+    setIsConverting(true);
     const reader = new FileReader();
     reader.onload = (e) => {
-      const dataUrl = e.target.result;
-      setPreviewError(false);
-      setShowUrlInput(false);
-      onChange?.(dataUrl);
+      const img = new Image();
+      img.onload = () => {
+        try {
+          // Scale down gracefully if resolution exceeds 1920px (standard full HD)
+          let width = img.width;
+          let height = img.height;
+          const maxDim = 1920;
+          if (width > maxDim || height > maxDim) {
+            if (width > height) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            } else {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Convert to Google WebP format with 86% quality
+          const webpDataUrl = canvas.toDataURL('image/webp', 0.86);
+          setPreviewError(false);
+          setShowUrlInput(false);
+          onChange?.(webpDataUrl);
+        } catch (err) {
+          console.warn('[ImageUploadField] WebP canvas conversion fallback:', err);
+          setPreviewError(false);
+          setShowUrlInput(false);
+          onChange?.(e.target.result);
+        } finally {
+          setIsConverting(false);
+        }
+      };
+      img.onerror = () => {
+        setPreviewError(false);
+        setShowUrlInput(false);
+        setIsConverting(false);
+        onChange?.(e.target.result);
+      };
+      img.src = e.target.result;
     };
     reader.readAsDataURL(file);
   };
@@ -148,7 +204,14 @@ export default function ImageUploadField({
       )}
 
       {/* Main Preview & Dropzone */}
-      {value && !previewError ? (
+      {isConverting ? (
+        <div className="upload-dropzone is-converting" style={{ minHeight: '140px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.65rem' }}>
+          <Loader2 size={28} className="animate-spin text-amber" />
+          <p style={{ margin: 0, fontSize: '0.85rem', color: '#FFB800', fontWeight: 600 }}>
+            ⚡ Converting to optimized WebP for lightning-fast loading...
+          </p>
+        </div>
+      ) : value && !previewError ? (
         <div className="uploaded-preview-container">
           <img
             src={value}
@@ -159,7 +222,15 @@ export default function ImageUploadField({
           <div className="uploaded-overlay-bar">
             <div className="preview-status-pill">
               <Check size={12} className="text-emerald" />
-              <span>{value.startsWith('data:') ? 'Uploaded File' : 'Linked URL'}</span>
+              <span>
+                {value.startsWith('data:image/webp') || value.endsWith('.webp')
+                  ? '⚡ Optimized WebP'
+                  : value.startsWith('data:image/svg') || value.endsWith('.svg')
+                  ? '📐 Vector SVG'
+                  : value.startsWith('data:')
+                  ? 'Uploaded File'
+                  : 'Linked Photo'}
+              </span>
             </div>
             <div className="preview-btn-group">
               <button
