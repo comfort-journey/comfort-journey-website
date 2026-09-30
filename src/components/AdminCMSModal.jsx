@@ -67,7 +67,10 @@ export default function AdminCMSModal({ isOpen, onClose }) {
   };
 
   useEffect(() => {
-    if (isOpen) testDirectusConnection();
+    if (isOpen) {
+      testDirectusConnection();
+      contentService.checkRemoteLiveContent(true);
+    }
   }, [isOpen]);
 
   const testDirectusConnection = async () => {
@@ -306,15 +309,16 @@ export default function AdminCMSModal({ isOpen, onClose }) {
   };
 
   const handlePublishToLiveGitHub = async () => {
+    const hasCloudflare = Boolean(getCloudflareWorkerUrl());
     const tokenToUse = githubToken.trim() || getActivePublishToken();
-    if (!tokenToUse) {
-      showToast('⚠️ Please enter your GitHub Personal Access Token (PAT) first.');
+    if (!hasCloudflare && !tokenToUse && !isLocalDev()) {
+      showToast('⚠️ Please configure the Cloudflare Worker URL or GitHub Token.');
       return;
     }
     setIsPublishingGitHub(true);
     setSyncFeedback({
       type: 'info',
-      message: '🚀 Pushing updated live content to GitHub repository...'
+      message: '🚀 Pushing updated live content to cloud and deploying worldwide...'
     });
     try {
       const res = await contentService.publishWorldwide({
@@ -419,9 +423,32 @@ export default function AdminCMSModal({ isOpen, onClose }) {
               <span className="admin-subtitle">Tour Manager · Blog Editor · SEO Assistant · Growth Hub Analytics</span>
             </div>
           </div>
-          <button className="admin-close-btn" onClick={onClose} aria-label="Close">
-            <X size={20} />
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            {isAuthenticated && (
+              <button
+                type="button"
+                className="btn-cms-header-publish"
+                onClick={handlePublishToLiveGitHub}
+                disabled={isPublishingGitHub}
+                title="Publish all tour and content changes live to the website worldwide"
+              >
+                {isPublishingGitHub ? (
+                  <>
+                    <Loader2 size={15} className="animate-spin" />
+                    <span>Deploying Live...</span>
+                  </>
+                ) : (
+                  <>
+                    <UploadCloud size={15} />
+                    <span>🚀 Publish to Live Site</span>
+                  </>
+                )}
+              </button>
+            )}
+            <button className="admin-close-btn" onClick={onClose} aria-label="Close">
+              <X size={20} />
+            </button>
+          </div>
         </div>
 
         {!isAuthenticated ? (
@@ -946,6 +973,33 @@ export default function AdminCMSModal({ isOpen, onClose }) {
             color: #94A3B8;
             display: block;
             margin-top: 0.15rem;
+          }
+
+          .btn-cms-header-publish {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: #FFFFFF;
+            border: 1px solid rgba(16, 185, 129, 0.6);
+            border-radius: 8px;
+            padding: 0.5rem 1.1rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+            transition: all 0.2s ease;
+          }
+
+          .btn-cms-header-publish:hover:not(:disabled) {
+            background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+          }
+
+          .btn-cms-header-publish:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
           }
 
           .admin-close-btn {

@@ -35,6 +35,7 @@ export default function CMSFeedbackModal({
   subtitle,
   metaDetails = [],
   statusBadge = 'published',
+  autoPublish = false,
   onClose,
   onKeepEditing,
   onBackToList,
@@ -51,30 +52,11 @@ export default function CMSFeedbackModal({
   const [tokenTestFeedback, setTokenTestFeedback] = useState(null);
   const [publishStatus, setPublishStatus] = useState({ isLocalDev: false, hasGithubToken: false });
 
-  // Reset local state when modal opens
-  useEffect(() => {
-    if (isOpen) {
-      const status = contentService.getPublishStatus();
-      setPublishStatus(status);
-      setAdminTokenInput(contentService.getGithubToken() || '');
-      setPublishResult(null);
-      setPublishError(null);
-      setShowAdminDrawer(false);
-      setIsPublishing(false);
-      setTokenTestFeedback(null);
-    }
-  }, [isOpen]);
-
-  if (!isOpen) return null;
-
-  const isWarning = type === 'unsaved_warning';
-  const isPublish = type === 'published';
-
-  // 1-Click Worldwide Deploy Handler (Uses Organization Master Token automatically)
+  // 1-Click Worldwide Deploy Handler (Uses Cloudflare Worker or Organization Master Token automatically)
   const handlePublishWorldwide = async (explicitToken = null) => {
     const tokenToUse = explicitToken || adminTokenInput.trim() || contentService.getGithubToken();
 
-    // If on live website without any token configured anywhere, show Admin setup
+    // If on live website without any token configured anywhere and without Cloudflare Worker, show Admin setup
     if (!isLocalDev() && !tokenToUse && !isPublishConfigured()) {
       setShowAdminDrawer(true);
       return;
@@ -91,7 +73,7 @@ export default function CMSFeedbackModal({
 
       const res = await contentService.publishWorldwide({
         token: tokenToUse,
-        commitMessage: `Content Studio [${title || 'Tour'}]: ${new Date().toLocaleString()}`
+        commitMessage: `Content Studio [${title || 'Item'}]: ${new Date().toLocaleString()}`
       });
 
       setPublishResult(res);
@@ -109,6 +91,53 @@ export default function CMSFeedbackModal({
       setIsPublishing(false);
     }
   };
+
+  // Reset local state & auto-publish when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      const status = contentService.getPublishStatus();
+      setPublishStatus(status);
+      setAdminTokenInput(contentService.getGithubToken() || '');
+      setPublishResult(null);
+      setPublishError(null);
+      setShowAdminDrawer(false);
+      setIsPublishing(false);
+      setTokenTestFeedback(null);
+
+      // Auto-trigger worldwide deploy if published action was clicked
+      if (type === 'published' || autoPublish) {
+        handlePublishWorldwide();
+      }
+    }
+  }, [isOpen]);
+
+  if (!isOpen) return null;
+
+  const isWarning = type === 'unsaved_warning';
+  const isPublish = type === 'published' || autoPublish;
+
+  // Dynamic header titles based on real publishing lifecycle
+  let displayTitle = '💾 Draft Saved Locally';
+  let displaySubtitle = subtitle || `"${title || 'Item'}" has been updated on this device.`;
+
+  if (isWarning) {
+    displayTitle = 'Unsaved Changes Detected';
+    displaySubtitle = `You have unsaved edits in "${title || 'this item'}". If you exit now without saving, your recent changes will be discarded.`;
+  } else if (isPublish) {
+    if (isPublishing) {
+      displayTitle = '🚀 Deploying Worldwide to Live Website...';
+      displaySubtitle = `Pushing "${title || 'Item'}" to live cloud so all employees, devices, and website visitors see the updates.`;
+    } else if (publishResult) {
+      displayTitle = '🎉 Published Live Worldwide!';
+      displaySubtitle = `"${title || 'Item'}" is now successfully published and live across all devices & website visitors!`;
+    } else if (publishError) {
+      displayTitle = '⚠️ Saved Locally (Cloud Deploy Issue)';
+      displaySubtitle = `Saved on this PC, but cloud live deployment encountered an error: ${publishError}`;
+    } else {
+      displayTitle = '🚀 Publishing to Live Website...';
+      displaySubtitle = `Initiating live cloud deployment for "${title || 'Item'}"...`;
+    }
+  }
 
   // Test token connection helper for admin
   const handleTestToken = async () => {
@@ -139,6 +168,18 @@ export default function CMSFeedbackModal({
             <div className="cms-confirm-icon-circle warning">
               <AlertTriangle size={32} className="text-amber" />
             </div>
+          ) : isPublishing ? (
+            <div className="cms-confirm-icon-circle publish" style={{ background: 'rgba(111, 230, 252, 0.15)' }}>
+              <Loader2 size={32} className="text-sky animate-spin" />
+            </div>
+          ) : publishResult ? (
+            <div className="cms-confirm-icon-circle save">
+              <CheckCircle2 size={32} className="text-emerald" />
+            </div>
+          ) : publishError ? (
+            <div className="cms-confirm-icon-circle warning">
+              <AlertTriangle size={32} className="text-amber" />
+            </div>
           ) : isPublish ? (
             <div className="cms-confirm-icon-circle publish">
               <Sparkles size={32} className="text-sky" />
@@ -151,16 +192,10 @@ export default function CMSFeedbackModal({
 
           <div className="cms-confirm-title-area">
             <h3 className="cms-confirm-title">
-              {isWarning
-                ? 'Unsaved Changes Detected'
-                : isPublish
-                ? '🚀 Published Live to Website!'
-                : '💾 Changes Saved Successfully'}
+              {displayTitle}
             </h3>
             <p className="cms-confirm-subtitle">
-              {isWarning
-                ? `You have unsaved edits in "${title || 'this item'}". If you exit now without saving, your recent changes will be discarded.`
-                : subtitle || `"${title || 'Item'}" has been updated in your catalog.`}
+              {displaySubtitle}
             </p>
           </div>
         </div>
@@ -170,8 +205,16 @@ export default function CMSFeedbackModal({
           <div className="cms-confirm-details-card">
             <div className="cms-confirm-details-top">
               <span className="cms-confirm-item-name">{title}</span>
-              <span className={`status-pill-inline ${statusBadge}`}>
-                {statusBadge === 'published' ? '● Live on Website' : '○ Saved as Draft'}
+              <span className={`status-pill-inline ${isPublishing ? 'deploying' : publishResult ? 'published' : publishError ? 'warning' : statusBadge}`}>
+                {isPublishing
+                  ? '⏳ Deploying Worldwide...'
+                  : publishResult
+                  ? '● Live Worldwide'
+                  : publishError
+                  ? '⚠️ Local Only'
+                  : statusBadge === 'published'
+                  ? '● Live Worldwide'
+                  : '○ Saved as Draft'}
               </span>
             </div>
 
@@ -186,12 +229,27 @@ export default function CMSFeedbackModal({
               </div>
             )}
 
-            {/* Clear, positive status notice (No error wording!) */}
+            {/* Clear, positive status notice */}
             <div className="cms-confirm-notice">
-              {isLocalDev() ? (
+              {isPublishing ? (
+                <span style={{ color: '#6FE6FC', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <Loader2 size={15} className="animate-spin" />
+                  <strong>Deploying Live:</strong> Synchronizing content to the worldwide repository. Once complete, all other PCs and live website visitors will see your changes.
+                </span>
+              ) : publishResult ? (
+                <span style={{ color: '#10B981', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <CheckCircle2 size={15} />
+                  <strong>Live Worldwide:</strong> Successfully deployed to live cloud! All employees and internet visitors on any device now see this exact content.
+                </span>
+              ) : publishError ? (
+                <span style={{ color: '#F59E0B', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <AlertTriangle size={15} />
+                  <strong>Saved Locally:</strong> Saved on your computer, but automatic cloud deployment failed. Click "Publish Worldwide Now" below to retry.
+                </span>
+              ) : isLocalDev() ? (
                 <span>🟢 <strong>Saved to Local Codebase:</strong> Synchronized directly to local disk. Changes are active across all website tabs.</span>
               ) : (
-                <span>✅ <strong>Saved to Active Catalog:</strong> Changes are immediately active on this device. Click <strong>"Publish Worldwide Now"</strong> below to deploy live for all internet visitors.</span>
+                <span>✅ <strong>Saved to Active Catalog:</strong> Changes are saved locally. Click <strong>"Publish Worldwide Now"</strong> below to deploy live for all internet visitors.</span>
               )}
             </div>
 

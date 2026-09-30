@@ -57,10 +57,10 @@ export default function ImageUploadField({
       const img = new Image();
       img.onload = () => {
         try {
-          // Scale down gracefully if resolution exceeds 1920px (standard full HD)
+          // Scale down gracefully to max 1200px (crisp HD for web & retina displays)
           let width = img.width;
           let height = img.height;
-          const maxDim = 1920;
+          const maxDim = 1200;
           if (width > maxDim || height > maxDim) {
             if (width > height) {
               height = Math.round((height * maxDim) / width);
@@ -77,8 +77,8 @@ export default function ImageUploadField({
           const ctx = canvas.getContext('2d');
           ctx.drawImage(img, 0, 0, width, height);
 
-          // Convert to Google WebP format with 86% quality
-          const webpDataUrl = canvas.toDataURL('image/webp', 0.86);
+          // Convert to Google WebP format with 78% quality (high visual fidelity, ~80-120KB footprint)
+          const webpDataUrl = canvas.toDataURL('image/webp', 0.78);
           setPreviewError(false);
           setShowUrlInput(false);
           onChange?.(webpDataUrl);

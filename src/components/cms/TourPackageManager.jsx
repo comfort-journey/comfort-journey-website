@@ -5,7 +5,8 @@ import {
   ArrowLeft, ImageIcon, DollarSign, List, Calendar, Globe, Video,
   Copy, ExternalLink, Sparkles, Star, Users, Palette, Undo2, Redo2,
   FolderTree, Layers, ChevronRight, Flame, Heart, Compass, Sun, Snowflake,
-  CloudRain, CheckSquare, Square, Ticket, Filter, AlertCircle, Sparkle
+  CloudRain, CheckSquare, Square, Ticket, Filter, AlertCircle, Sparkle,
+  UploadCloud, Loader2
 } from 'lucide-react';
 import ImageUploadField from './ImageUploadField';
 import RichTextEditor from './RichTextEditor';
@@ -254,6 +255,17 @@ export default function TourPackageManager({ onOpenGlobalSync }) {
       }, 400);
     }
   }, [editingTour, view, pushTourSnapshot]);
+
+  // Listen for live cloud sync events from other tabs or remote pulls
+  useEffect(() => {
+    const handleRemoteUpdate = (e) => {
+      if (e?.detail && Array.isArray(e.detail) && e.detail.length > 0) {
+        setToursList(e.detail);
+      }
+    };
+    window.addEventListener('cj_tours_updated', handleRemoteUpdate);
+    return () => window.removeEventListener('cj_tours_updated', handleRemoteUpdate);
+  }, []);
 
   const isTourDirty = useCallback(() => {
     if (!editingTour || !initialTourJsonRef.current) return false;
@@ -507,9 +519,27 @@ export default function TourPackageManager({ onOpenGlobalSync }) {
       type: 'published',
       title: publishedTour.name,
       statusBadge: 'published',
-      metaDetails: metaList
+      metaDetails: metaList,
+      autoPublish: true
     });
   }, [editingTour, toursList, persistTours]);
+
+  const [isPublishingLive, setIsPublishingLive] = useState(false);
+
+  const handlePublishAllToursLive = async () => {
+    setIsPublishingLive(true);
+    try {
+      const res = await contentService.publishWorldwide({
+        commitMessage: `Content Studio Tour Catalog Update (${toursList.length} tours)`
+      });
+      showToast('🎉 All tour packages successfully published live to website worldwide!');
+    } catch (err) {
+      console.error('Publish error:', err);
+      showToast(`❌ Publish failed: ${err.message}`);
+    } finally {
+      setIsPublishingLive(false);
+    }
+  };
 
   const handleBackClick = () => {
     if (isTourDirty()) {
@@ -679,8 +709,10 @@ export default function TourPackageManager({ onOpenGlobalSync }) {
             <span className={`status-pill-inline ${editingTour.status || 'draft'}`}>
               {editingTour.status === 'published' ? '● Live' : '○ Draft'}
             </span>
-            <button type="button" className="btn-secondary" onClick={() => handleSave()}><Save size={14} /> Save</button>
-            <button type="button" className="btn-primary" onClick={() => handlePublish()}><Sparkles size={14} /> Publish</button>
+            <button type="button" className="btn-secondary" onClick={() => handleSave()}><Save size={14} /> Save Draft</button>
+            <button type="button" className="btn-primary" onClick={() => handlePublish()} style={{ background: '#10B981', borderColor: '#059669', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <UploadCloud size={14} /> 🚀 Publish Live to Website
+            </button>
           </div>
         </div>
 
@@ -1509,6 +1541,7 @@ export default function TourPackageManager({ onOpenGlobalSync }) {
           subtitle={feedbackModal.subtitle}
           statusBadge={feedbackModal.statusBadge}
           metaDetails={feedbackModal.metaDetails}
+          autoPublish={feedbackModal.autoPublish}
           onClose={() => setFeedbackModal(prev => ({ ...prev, isOpen: false }))}
           onKeepEditing={() => setFeedbackModal(prev => ({ ...prev, isOpen: false }))}
           onBackToList={() => {
@@ -1781,6 +1814,37 @@ export default function TourPackageManager({ onOpenGlobalSync }) {
         </div>
 
         <div className="admin-actions-row">
+          <button
+            type="button"
+            className="btn-primary"
+            onClick={handlePublishAllToursLive}
+            disabled={isPublishingLive}
+            style={{
+              background: 'linear-gradient(135deg, #10B981, #059669)',
+              borderColor: '#059669',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.45rem',
+              fontWeight: 600,
+              boxShadow: '0 2px 10px rgba(16, 185, 129, 0.35)',
+              padding: '0.55rem 1rem',
+              borderRadius: '8px',
+              color: '#FFFFFF'
+            }}
+            title="Publish all tour packages live to the website worldwide"
+          >
+            {isPublishingLive ? (
+              <>
+                <Loader2 size={15} className="animate-spin" />
+                <span>Publishing Live...</span>
+              </>
+            ) : (
+              <>
+                <UploadCloud size={15} />
+                <span>🚀 Publish to Live Website</span>
+              </>
+            )}
+          </button>
           <button type="button" className="btn-primary btn-add-pkg" onClick={() => openNewTour(activeFocusCategory)}>
             <Plus size={15} /> Add Package
           </button>

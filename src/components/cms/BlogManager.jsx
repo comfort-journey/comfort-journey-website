@@ -3,7 +3,7 @@ import {
   FileText, Plus, Search, Edit3, Trash2, Eye, EyeOff, Copy,
   ExternalLink, Clock, Tag, AlertCircle, CheckCircle, ArrowLeft,
   Save, Sparkles, Calendar, X, ChevronDown, ImageIcon, Link2,
-  Undo2, Redo2
+  Undo2, Redo2, UploadCloud, Loader2
 } from 'lucide-react';
 import ImageUploadField from './ImageUploadField';
 import RichTextEditor from './RichTextEditor';
@@ -132,6 +132,17 @@ export default function BlogManager({ onViewBlog, onOpenGlobalSync }) {
     if (!editingBlog || !initialBlogJsonRef.current) return false;
     return JSON.stringify(editingBlog) !== initialBlogJsonRef.current;
   }, [editingBlog]);
+
+  // Listen for live cloud sync events from other tabs or remote pulls
+  useEffect(() => {
+    const handleRemoteUpdate = (e) => {
+      if (e?.detail && Array.isArray(e.detail) && e.detail.length > 0) {
+        setBlogs(e.detail.map(b => ({ ...b, status: b.status || 'published' })));
+      }
+    };
+    window.addEventListener('cj_blogs_updated', handleRemoteUpdate);
+    return () => window.removeEventListener('cj_blogs_updated', handleRemoteUpdate);
+  }, []);
 
   // Persist blogs
   const persistBlogs = useCallback((updated) => {
@@ -312,6 +323,7 @@ export default function BlogManager({ onViewBlog, onOpenGlobalSync }) {
       type: 'published',
       title: publishedBlog.title,
       statusBadge: 'published',
+      autoPublish: true,
       metaDetails: [
         { label: 'Category', value: publishedBlog.category || 'Destination Guides' },
         { label: 'Word Count', value: `${quality.words} words (${quality.label})` },
@@ -320,6 +332,23 @@ export default function BlogManager({ onViewBlog, onOpenGlobalSync }) {
       ]
     });
   }, [editingBlog, blogs, persistBlogs]);
+
+  const [isPublishingLive, setIsPublishingLive] = useState(false);
+
+  const handlePublishAllBlogsLive = async () => {
+    setIsPublishingLive(true);
+    try {
+      const res = await contentService.publishWorldwide({
+        commitMessage: `Content Studio Articles Update (${blogs.length} articles)`
+      });
+      showToast('🎉 All blog articles successfully published live to website worldwide!');
+    } catch (err) {
+      console.error('Publish error:', err);
+      showToast(`❌ Publish failed: ${err.message}`);
+    } finally {
+      setIsPublishingLive(false);
+    }
+  };
 
   const handleBackClick = () => {
     if (isBlogDirty()) {
@@ -393,8 +422,21 @@ export default function BlogManager({ onViewBlog, onOpenGlobalSync }) {
             <button type="button" className="btn-secondary" onClick={() => handleSaveBlog()}>
               <Save size={14} /> Save Draft
             </button>
-            <button type="button" className="btn-primary" onClick={() => handlePublishBlog()}>
-              <Sparkles size={14} /> Publish Live
+            <button
+              type="button"
+              className="btn-primary"
+              onClick={() => handlePublishBlog()}
+              style={{
+                background: 'linear-gradient(135deg, #10B981, #059669)',
+                borderColor: '#059669',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.45rem',
+                fontWeight: 600,
+                color: '#FFFFFF'
+              }}
+            >
+              <UploadCloud size={14} /> 🚀 Publish Live to Website
             </button>
           </div>
         </div>
@@ -581,6 +623,7 @@ export default function BlogManager({ onViewBlog, onOpenGlobalSync }) {
           subtitle={feedbackModal.subtitle}
           statusBadge={feedbackModal.statusBadge}
           metaDetails={feedbackModal.metaDetails}
+          autoPublish={feedbackModal.autoPublish}
           onClose={() => setFeedbackModal(prev => ({ ...prev, isOpen: false }))}
           onKeepEditing={() => setFeedbackModal(prev => ({ ...prev, isOpen: false }))}
           onBackToList={() => {
@@ -658,9 +701,42 @@ export default function BlogManager({ onViewBlog, onOpenGlobalSync }) {
             </button>
           ))}
         </div>
-        <button type="button" className="btn-primary btn-create-blog" onClick={handleCreateNew}>
-          <Plus size={15} /> New Blog Post
-        </button>
+        <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center' }}>
+          <button
+            type="button"
+            className="btn-primary"
+            onClick={handlePublishAllBlogsLive}
+            disabled={isPublishingLive}
+            style={{
+              background: 'linear-gradient(135deg, #10B981, #059669)',
+              borderColor: '#059669',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.45rem',
+              fontWeight: 600,
+              boxShadow: '0 2px 10px rgba(16, 185, 129, 0.35)',
+              padding: '0.55rem 1rem',
+              borderRadius: '8px',
+              color: '#FFFFFF'
+            }}
+            title="Publish all blog articles live to the website worldwide"
+          >
+            {isPublishingLive ? (
+              <>
+                <Loader2 size={15} className="animate-spin" />
+                <span>Publishing Live...</span>
+              </>
+            ) : (
+              <>
+                <UploadCloud size={15} />
+                <span>🚀 Publish to Live Website</span>
+              </>
+            )}
+          </button>
+          <button type="button" className="btn-primary btn-create-blog" onClick={handleCreateNew}>
+            <Plus size={15} /> New Blog Post
+          </button>
+        </div>
       </div>
 
       {/* Blog Table */}

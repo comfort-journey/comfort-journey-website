@@ -319,7 +319,7 @@ export const contentService = {
       const liveJsonUrl = `${basePrefix}live-content.json?_t=${Date.now()}`;
 
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 6000);
+      const timeoutId = setTimeout(() => controller.abort(), 25000);
 
       const res = await fetch(liveJsonUrl, { signal: controller.signal, cache: 'no-store' });
       clearTimeout(timeoutId);
@@ -334,11 +334,13 @@ export const contentService = {
         }
 
         const currentLocal = localStorage.getItem(STORAGE_KEY_TOURS);
+        const lastCloudSnapshot = localStorage.getItem('cj_cloud_snapshot_updated') || '';
         const remoteTime = new Date(remote.lastUpdated || 0).getTime();
         const localTime = Number(localStorage.getItem(STORAGE_KEY_LAST_SYNC) || 0);
 
         // Sync if forced, if local is empty, or if remote is newer / different
-        const shouldSync = force || !currentLocal || remoteTime > localTime;
+        const isCloudNewer = remote.lastUpdated && remote.lastUpdated !== lastCloudSnapshot;
+        const shouldSync = force || !currentLocal || isCloudNewer || remoteTime > localTime;
 
         if (shouldSync) {
           if (remote.tours && Array.isArray(remote.tours) && remote.tours.length > 0) {
@@ -368,6 +370,7 @@ export const contentService = {
           }
 
           if (remote.lastUpdated) {
+            localStorage.setItem('cj_cloud_snapshot_updated', remote.lastUpdated);
             localStorage.setItem(STORAGE_KEY_LAST_SYNC, String(new Date(remote.lastUpdated).getTime()));
           }
         }
@@ -544,7 +547,7 @@ export const contentService = {
       isLocalDev: isLocal,
       hasCloudflare,
       hasGithubToken: hasToken,
-      isMasterConfigured: hasToken,
+      isMasterConfigured: hasCloudflare || hasToken,
       hasDirectusConfigured,
       canPublishWorldwide: isLocal || hasCloudflare || hasToken || hasDirectusConfigured,
       activeRepo: this.getGithubRepo(),
@@ -592,6 +595,11 @@ export const contentService = {
       }
 
       const cfData = await cfRes.json();
+      const updatedTimestamp = cfData.timestamp || new Date().toISOString();
+      if (typeof window !== 'undefined' && window.localStorage) {
+        window.localStorage.setItem('cj_cloud_snapshot_updated', updatedTimestamp);
+        window.localStorage.setItem(STORAGE_KEY_LAST_SYNC, String(Date.now()));
+      }
       return {
         success: true,
         method: 'cloudflare_proxy',
