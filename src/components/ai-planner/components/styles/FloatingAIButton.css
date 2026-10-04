@@ -1,0 +1,154 @@
+/* =========================================================================
+   FLOATING AI BUTTON - Persistent Access to Chat
+   ========================================================================= */
+
+.floating-ai-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 50%, #F43F5E 100%);
+  background-size: 200% auto;
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 
+    0 8px 32px rgba(139, 92, 246, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  transition: all var(--transition-base);
+  animation: gradientShift 4s ease infinite;
+  z-index: var(--z-floating);
+}
+
+.floating-ai-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 12px 40px rgba(139, 92, 246, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.floating-ai-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.floating-ai-btn.chat-open {
+  background: linear-gradient(135deg, #EF4444 0%, #F97316 100%);
+  animation: none;
+}
+
+.floating-ai-btn.chat-open:hover {
+  box-shadow: 0 12px 40px rgba(239, 68, 68, 0.5);
+}
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  backdrop-filter: blur(8px);
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.floating-ai-btn:hover .btn-icon {
+  background: rgba(255, 255, 255, 0.25);
+  transform: rotate(6deg);
+}
+
+.btn-label {
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.btn-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  background: #10B981;
+  color: #FFFFFF;
+  border-radius: var(--radius-full);
+  font-size: 0.55rem;
+  font-weight: 800;
+  padding: 0 6px;
+  animation: pulse 2s infinite;
+}
+
+.btn-glow {
+  position: absolute;
+  inset: -4px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, #8B5CF6, #EC4899, #F43F5E);
+  background-size: 200% auto;
+  opacity: 0.4;
+  filter: blur(8px);
+  animation: gradientShift 4s ease infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.floating-ai-btn.chat-open .btn-glow {
+  background: linear-gradient(135deg, #EF4444, #F97316);
+  animation: none;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .floating-ai-btn {
+    padding: var(--space-3);
+    bottom: calc(var(--footer-height-mobile) + var(--space-4));
+    right: var(--space-3);
+  }
+  
+  .btn-label {
+    display: none;
+  }
+  
+  .btn-icon {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .floating-ai-btn.chat-open {
+    position: fixed;
+    bottom: calc(var(--footer-height-mobile) + var(--space-4));
+    right: var(--space-3);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .floating-ai-btn,
+  .btn-glow,
+  .btn-badge {
+    animation: none;
+  }
+  
+  .floating-ai-btn {
+    background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+  }
+  
+  .floating-ai-btn.chat-open {
+    background: linear-gradient(135deg, #EF4444 0%, #F97316 100%);
+  }
+}

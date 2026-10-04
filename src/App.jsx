@@ -28,6 +28,7 @@ import { directusService } from './services/directusClient';
 import ItineraryModal from './components/ItineraryModal';
 import QuickBookingModal from './components/QuickBookingModal';
 import AITripPlannerModal from './components/AITripPlannerModal';
+import AIPlannerPage from './components/ai-planner/AIPlannerPage';
 import PackageTierCompareModal from './components/PackageTierCompareModal';
 import WishlistDrawer from './components/WishlistDrawer';
 import CompareModal from './components/CompareModal';
@@ -54,7 +55,7 @@ export default function App() {
   const [isAdminCMSOpen, setIsAdminCMSOpen] = useState(false);
   const [isLPHubOpen, setIsLPHubOpen] = useState(false);
   const [policyModalType, setPolicyModalType] = useState(null); // 'cancellation' | 'privacy' | 'terms' | null
-  const [currentView, setCurrentView] = useState('home'); // 'home' | 'about' | 'landing' | 'magazine' | 'blog-reader'
+  const [currentView, setCurrentView] = useState('home'); // 'home' | 'about' | 'landing' | 'magazine' | 'blog-reader' | 'ai-planner'
   const [activeLandingPage, setActiveLandingPage] = useState(null);
   const [activeBlogSlug, setActiveBlogSlug] = useState(null);
 
@@ -93,6 +94,17 @@ export default function App() {
         setIsAdminCMSOpen(true);
       } else if (hash === '#/landing-hub' || hash === '#/all-landing-pages' || hash === '#landing-hub') {
         setIsLPHubOpen(true);
+      } else if (hash === '#/ai-planner' || hash === '#ai-planner') {
+        setCurrentView('ai-planner');
+        setActiveLandingPage(null);
+        setActiveBlogSlug(null);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        seoHeadManager.updateMetadata({
+          title: "Comfy.ai Travel Planner | Plan Your Dream Vacation with AI",
+          description: "Create personalized itineraries with interactive maps, real-time routing, and AI-powered suggestions. Comfort Journey (Est. 1992).",
+          url: "/#/ai-planner",
+          type: "website"
+        });
       } else if (hash === '#/about' || hash === '#/who-we-are' || hash === '#/about-us' || hash === '#about') {
         setCurrentView('about');
         setActiveLandingPage(null);
@@ -169,6 +181,11 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const navigateToAIPlanner = () => {
+    // Open in new tab for best experience (shareable, bookmarkable, full viewport)
+    window.open('/ai-planner', '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <CurrencyProvider>
       <WishlistCompareProvider>
@@ -183,7 +200,7 @@ export default function App() {
             {/* 1. Header Navigation with Currency Switcher & AI Trigger */}
             <Navbar 
               onOpenQuote={() => setIsQuickQuoteOpen(true)} 
-              onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+              onOpenAIPlanner={navigateToAIPlanner}
               onOpenAdmin={() => setIsAdminCMSOpen(true)}
               onOpenLandingHub={() => setIsLPHubOpen(true)}
               onNavigateMagazine={navigateToMagazine}
@@ -213,16 +230,19 @@ export default function App() {
                 onBackToHome={navigateToHome}
                 onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
                 onBookNow={(tour) => setSelectedBookingTour(tour)}
-                onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+                onOpenAIPlanner={navigateToAIPlanner}
                 onOpenQuote={() => setIsQuickQuoteOpen(true)}
               />
             ) : currentView === 'about' ? (
               /* DEDICATED ABOUT US / WHO WE ARE PAGE VIEW */
               <AboutUsPage 
                 onOpenQuote={() => setIsQuickQuoteOpen(true)}
-                onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+                onOpenAIPlanner={navigateToAIPlanner}
                 onNavigateHome={navigateToHome}
               />
+            ) : currentView === 'ai-planner' ? (
+              /* DEDICATED AI PLANNER PAGE VIEW */
+              <AIPlannerPage />
             ) : (
               /* HOMEPAGE VIEW */
               <>
@@ -230,7 +250,7 @@ export default function App() {
                 <Hero 
                   onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
                   onBookNow={(tour) => setSelectedBookingTour(tour)}
-                  onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+                  onOpenAIPlanner={navigateToAIPlanner}
                   onOpenQuote={() => setIsQuickQuoteOpen(true)}
                 />
 
@@ -241,7 +261,7 @@ export default function App() {
                 <IndiaTripsSection 
                   onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
                   onBookNow={(tour) => setSelectedBookingTour(tour)}
-                  onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+                  onOpenAIPlanner={navigateToAIPlanner}
                   onNavigateLanding={navigateToLandingPage}
                 />
 
@@ -249,7 +269,7 @@ export default function App() {
                 <InternationalTripsSection 
                   onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
                   onBookNow={(tour) => setSelectedBookingTour(tour)}
-                  onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+                  onOpenAIPlanner={navigateToAIPlanner}
                   onNavigateLanding={navigateToLandingPage}
                 />
 
@@ -257,7 +277,7 @@ export default function App() {
                 <WeekendGetawaysSection 
                   onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
                   onBookNow={(tour) => setSelectedBookingTour(tour)}
-                  onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+                  onOpenAIPlanner={navigateToAIPlanner}
                   onNavigateLanding={navigateToLandingPage}
                 />
 
@@ -265,7 +285,7 @@ export default function App() {
                 <FixedDeparturesSection 
                   onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
                   onBookNow={(tour) => setSelectedBookingTour(tour)}
-                  onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+                  onOpenAIPlanner={navigateToAIPlanner}
                   onNavigateLanding={navigateToLandingPage}
                 />
 
@@ -283,7 +303,7 @@ export default function App() {
                 />
 
                 {/* 11. Unified Comfort Journey Standard: 7 VIP Guarantees & 8 Bespoke Travel Desires */}
-                <WhyChooseUs onOpenAIPlanner={() => setIsAIPlannerOpen(true)} />
+                <WhyChooseUs onOpenAIPlanner={navigateToAIPlanner} />
 
                 {/* 12. Frequently Asked Questions */}
                 <FaqSection />
@@ -296,7 +316,7 @@ export default function App() {
               onOpenAdmin={() => setIsAdminCMSOpen(true)}
               onOpenLandingHub={() => setIsLPHubOpen(true)}
               onSelectLandingPage={navigateToLandingPage}
-              onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+              onOpenAIPlanner={navigateToAIPlanner}
             />
 
           {/* --- MODALS & OVERLAYS --- */}
@@ -337,7 +357,8 @@ export default function App() {
             />
           )}
 
-          {/* Interactive AI Smart Dream Trip Planner */}
+          {/* Interactive AI Smart Dream Trip Planner - Legacy Modal (kept for fallback) */}
+          {/* 
           {isAIPlannerOpen && (
             <AITripPlannerModal 
               isOpen={isAIPlannerOpen}
@@ -351,7 +372,8 @@ export default function App() {
                 setIsQuickQuoteOpen(true);
               }}
             />
-          )}
+          )} 
+          */}
 
           {/* Package Tier Comparison Modal (Standard vs Premium vs VIP) */}
           <PackageTierCompareModal

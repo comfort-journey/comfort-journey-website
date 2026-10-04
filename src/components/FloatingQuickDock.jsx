@@ -8,6 +8,13 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMascotHovered, setIsMascotHovered] = useState(false);
 
+  // Open AI Planner in new tab for better UX (shareable, bookmarkable, full viewport)
+  const handleOpenAIPlanner = (e) => {
+    e?.preventDefault();
+    // Open in new tab for full-page experience
+    window.open('/ai-planner', '_blank', 'noopener,noreferrer');
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -30,7 +37,7 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
         className="comfy-mascot-dock-companion"
         onMouseEnter={() => setIsMascotHovered(true)}
         onMouseLeave={() => setIsMascotHovered(false)}
-        onClick={onOpenAIPlanner}
+        onClick={handleOpenAIPlanner}
         title="Hi! I am Comfy.ai. Click me to plan your dream vacation!"
       >
         <div className="mascot-speech-bubble">
@@ -63,7 +70,7 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
           <button
             type="button"
             className="dock-btn ai-quick-btn"
-            onClick={onOpenAIPlanner}
+            onClick={handleOpenAIPlanner}
             title="Ask Comfy.ai Travel Assistant"
           >
             <Bot size={16} className="text-ai" />
@@ -107,7 +114,7 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
         <div className="dock-minimized-wrap">
           <button
             className="dock-expand-trigger"
-            onClick={onOpenAIPlanner}
+            onClick={handleOpenAIPlanner}
             aria-label="Ask Comfy.ai"
           >
             <Bot size={15} className="text-primary" />

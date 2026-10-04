@@ -1,0 +1,221 @@
+/* =========================================================================
+   BOTTOM ACTION BAR - Sticky Footer with Primary Actions
+   ========================================================================= */
+
+.bottom-action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-3) var(--space-5);
+  background: rgba(0, 14, 40, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--planner-border);
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.bar-left {
+  flex: 1;
+  min-width: 200px;
+}
+
+.bar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.price-box {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  background: linear-gradient(135deg, rgba(255, 137, 47, 0.12) 0%, rgba(255, 137, 47, 0.06) 100%);
+  border: 1px solid rgba(255, 137, 47, 0.25);
+  border-radius: var(--radius-full);
+  padding: var(--space-2) var(--space-4);
+}
+
+.price-caption {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--planner-text-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.price-amount {
+  font-family: 'Fraunces', serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--planner-tangerine-500);
+}
+
+.price-unit {
+  font-size: 0.7rem;
+  color: var(--planner-text-muted);
+  font-weight: 500;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  border: none;
+}
+
+.action-btn.primary {
+  background: rgba(111, 230, 252, 0.12);
+  border: 1px solid rgba(111, 230, 252, 0.25);
+  color: var(--planner-aqua-500);
+}
+
+.action-btn.primary:hover {
+  background: rgba(111, 230, 252, 0.2);
+  border-color: var(--planner-aqua-500);
+  color: var(--planner-aqua-400);
+  transform: translateY(-1px);
+}
+
+.action-btn.dropdown-trigger {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--planner-text-muted);
+}
+
+.action-btn.dropdown-trigger:hover {
+  background: rgba(255, 137, 47, 0.1);
+  border-color: rgba(255, 137, 47, 0.3);
+  color: var(--planner-tangerine-500);
+}
+
+.action-btn.whatsapp {
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: #FFFFFF;
+  padding: var(--space-3) var(--space-5);
+  font-size: 0.82rem;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
+}
+
+.action-btn.whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.5);
+}
+
+.action-btn.whatsapp:active {
+  transform: translateY(0);
+}
+
+/* Dropdown */
+.export-dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  bottom: calc(100% + var(--space-2));
+  right: 0;
+  z-index: var(--z-floating);
+  background: var(--planner-navy-800);
+  border: 1px solid var(--planner-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--planner-shadow-lg);
+  overflow: hidden;
+  min-width: 180px;
+  animation: slideUp var(--transition-fast);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  background: none;
+  border: none;
+  color: var(--planner-text-body);
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: left;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 137, 47, 0.15);
+  color: var(--planner-tangerine-500);
+}
+
+.dropdown-item:focus-visible {
+  outline: 2px solid var(--planner-tangerine-500);
+  outline-offset: -2px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .bottom-action-bar {
+    padding: var(--space-3) var(--space-4);
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+
+  .bar-left {
+    width: 100%;
+  }
+
+  .price-box {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .bar-right {
+    width: 100%;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .action-btn .hidden-mobile {
+    display: inline;
+  }
+
+  .dropdown-menu {
+    position: fixed;
+    bottom: calc(var(--footer-height-mobile) + var(--space-2));
+    left: var(--space-4);
+    right: var(--space-4);
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .action-btn.whatsapp {
+    padding: var(--space-3) var(--space-4);
+  }
+}
+
+.hidden-mobile {
+  display: inline;
+}
+
+@media (max-width: 640px) {
+  .hidden-mobile {
+    display: none;
+  }
+}

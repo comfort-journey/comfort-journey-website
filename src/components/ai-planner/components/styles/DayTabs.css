@@ -1,0 +1,106 @@
+/* =========================================================================
+   DAY TABS - Sticky Horizontal Scroll Navigation
+   ========================================================================= */
+
+.day-tabs {
+  position: sticky;
+  top: var(--header-height);
+  z-index: var(--z-sticky);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: linear-gradient(180deg, var(--planner-bg) 0%, rgba(0, 18, 51, 0.95) 100%);
+  border-bottom: 1px solid var(--planner-border);
+  flex-shrink: 0;
+}
+
+.tabs-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--planner-tangerine-500);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tabs-scroll {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: var(--space-1) 0;
+  flex: 1;
+}
+
+.tabs-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.day-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-4);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--planner-text-muted);
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.day-tab:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--planner-text-heading);
+}
+
+.day-tab.active {
+  background: var(--planner-tangerine-500);
+  border-color: var(--planner-tangerine-500);
+  color: var(--planner-navy-950);
+  box-shadow: 0 4px 16px rgba(255, 137, 47, 0.35);
+}
+
+.day-tab.active .active-indicator {
+  opacity: 1;
+}
+
+.active-indicator {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--planner-tangerine-500);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+@media (max-width: 768px) {
+  .day-tabs {
+    top: calc(var(--header-height) - 1px);
+    padding: var(--space-2) var(--space-3);
+    gap: var(--space-2);
+  }
+  
+  .tabs-label {
+    display: none;
+  }
+  
+  .day-tab {
+    padding: var(--space-1) var(--space-3);
+    font-size: 0.72rem;
+  }
+}

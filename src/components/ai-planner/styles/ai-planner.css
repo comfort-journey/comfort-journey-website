@@ -1,0 +1,592 @@
+/* =========================================================================
+   COMFY.AI PLANNER - MAIN STYLESHEET
+   Modern, clean, mobile-first AI Trip Planner
+   Inspired by Trip.com, KAYAK, and modern travel UX patterns
+   ========================================================================= */
+
+:root {
+  /* Brand Colors - From Comfort Journey Palette */
+  --planner-navy-950: #001233;
+  --planner-navy-900: #001D51;
+  --planner-navy-800: #052669;
+  --planner-navy-700: #0A3282;
+  
+  --planner-tangerine-500: #FF892F;
+  --planner-tangerine-400: #FFA459;
+  --planner-tangerine-600: #E66F12;
+  
+  --planner-aqua-500: #6FE6FC;
+  --planner-aqua-400: #93EEFD;
+  --planner-aqua-600: #3DD7F3;
+  
+  --planner-lime-500: #DAF561;
+  --planner-lime-400: #E5F886;
+  
+  --planner-cream-50: #F9FBE7;
+  --planner-cream-100: #EDF3D2;
+  --planner-cream-200: #DEE9B8;
+  
+  --planner-text-heading: #F9FBE7;
+  --planner-text-body: #EDF3D2;
+  --planner-text-muted: #CBD5E1;
+  --planner-text-subtle: #94A3B8;
+  
+  /* Semantic Aliases */
+  --planner-bg: var(--planner-navy-950);
+  --planner-panel: var(--planner-navy-900);
+  --planner-card: var(--planner-navy-800);
+  --planner-border: rgba(111, 230, 252, 0.25);
+  --planner-border-strong: rgba(255, 137, 47, 0.4);
+  
+  /* Shadows & Glows */
+  --planner-shadow-sm: 0 2px 8px rgba(0, 18, 51, 0.3);
+  --planner-shadow-md: 0 8px 24px rgba(0, 18, 51, 0.5);
+  --planner-shadow-lg: 0 20px 48px rgba(0, 18, 51, 0.7);
+  --planner-glow-tangerine: 0 0 24px rgba(255, 137, 47, 0.35);
+  --planner-glow-aqua: 0 0 24px rgba(111, 230, 252, 0.3);
+  
+  /* Spacing Scale (8px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-base: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  
+  /* Z-Index Scale */
+  --z-base: 1;
+  --z-sticky: 10;
+  --z-header: 50;
+  --z-floating: 100;
+  --z-sheet: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+  
+  /* Layout Dimensions */
+  --header-height: 64px;
+  --footer-height: 72px;
+  --footer-height-mobile: 88px;
+  --left-panel-width: 420px;
+  --left-panel-width-tablet: 360px;
+  --map-bottom-sheet-height: 50vh;
+  --map-bottom-sheet-min: 350px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.ai-planner-root {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  background: var(--planner-bg);
+  color: var(--planner-text-body);
+  font-family: 'Outfit', 'Noto Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Prevent horizontal scroll on mobile */
+@media (max-width: 768px) {
+  .ai-planner-root {
+    overscroll-behavior: none;
+  }
+}
+
+/* =========================================================================
+   HEADER
+   ========================================================================= */
+
+.planner-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-4);
+  background: rgba(0, 18, 51, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--planner-border);
+  gap: var(--space-4);
+  flex-shrink: 0;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  flex: 1;
+}
+
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.mascot-avatar {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 137, 47, 0.2) 0%, rgba(111, 230, 252, 0.15) 100%);
+  border: 1.5px solid rgba(255, 137, 47, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mascot-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.online-indicator {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #10B981;
+  border: 2px solid var(--planner-navy-950);
+}
+
+.est-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--planner-tangerine-500);
+  text-transform: uppercase;
+}
+
+.planner-title {
+  margin: 0;
+  font-family: 'Fraunces', 'Noto Serif', serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--planner-text-heading);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.planner-title .text-amber {
+  color: var(--planner-tangerine-500);
+}
+
+.planner-subtitle {
+  margin: 2px 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  color: var(--planner-text-muted);
+  font-weight: 500;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--planner-lime-500);
+  box-shadow: 0 0 8px var(--planner-lime-500);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.9); }
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+.hotline-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(37, 211, 102, 0.12);
+  border: 1px solid rgba(37, 211, 102, 0.35);
+  color: #25D366;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.hotline-pill:hover {
+  background: rgba(37, 211, 102, 0.2);
+  border-color: #25D366;
+  color: #34D399;
+}
+
+.hidden-mobile {
+  display: inline;
+}
+
+@media (max-width: 640px) {
+  .hidden-mobile {
+    display: none;
+  }
+  
+  .planner-header {
+    padding: 0 var(--space-3);
+  }
+  
+  .planner-title {
+    font-size: 1rem;
+  }
+  
+  .est-tag {
+    font-size: 0.58rem;
+  }
+}
+
+/* =========================================================================
+   MAIN CONTENT AREA
+   ========================================================================= */
+
+.planner-main {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Desktop: True 50/50 Split */
+.planner-split-view {
+  display: grid;
+  grid-template-columns: var(--left-panel-width) 1fr;
+  height: 100%;
+  overflow: hidden;
+}
+
+.planner-left-column {
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+  border-right: 1px solid var(--planner-border);
+  background: var(--planner-bg);
+  scrollbar-width: thin;
+  scrollbar-color: var(--planner-navy-700) transparent;
+}
+
+.planner-left-column::-webkit-scrollbar {
+  width: 8px;
+}
+
+.planner-left-column::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.planner-left-column::-webkit-scrollbar-thumb {
+  background: var(--planner-navy-700);
+  border-radius: 4px;
+}
+
+.planner-left-column::-webkit-scrollbar-thumb:hover {
+  background: var(--planner-tangerine-500);
+}
+
+.planner-right-column {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  background: var(--planner-navy-950);
+}
+
+/* Tablet: Collapsible Left Panel */
+.planner-split-view.tablet-layout {
+  grid-template-columns: var(--left-panel-width-tablet) 1fr;
+}
+
+.planner-left-column.collapsible {
+  /* Tablet-specific: can be toggled */
+}
+
+/* Mobile: Stacked Layout */
+.planner-stacked-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.planner-left-column.mobile-full {
+  flex: 1;
+  overflow-y: auto;
+  border-right: none;
+  border-bottom: 1px solid var(--planner-border);
+}
+
+/* =========================================================================
+   FOOTER / BOTTOM ACTION BAR
+   ========================================================================= */
+
+.planner-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: var(--z-sticky);
+  height: var(--footer-height);
+  background: rgba(0, 14, 40, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--planner-border);
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .planner-footer {
+    height: var(--footer-height-mobile);
+  }
+}
+
+/* =========================================================================
+   FLOATING AI BUTTON
+   ========================================================================= */
+
+.floating-ai-container {
+  position: fixed;
+  bottom: calc(var(--footer-height) + var(--space-4));
+  right: var(--space-4);
+  z-index: var(--z-floating);
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .floating-ai-container {
+    bottom: calc(var(--footer-height-mobile) + var(--space-4));
+    right: var(--space-3);
+  }
+}
+
+.floating-ai-container > * {
+  pointer-events: auto;
+}
+
+/* =========================================================================
+   OVERLAYS & SHEETS
+   ========================================================================= */
+
+.planner-overlays {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-sheet);
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.planner-overlays > * {
+  pointer-events: auto;
+}
+
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: calc(var(--z-sheet) - 1);
+  animation: fadeIn var(--transition-fast);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* =========================================================================
+   ANIMATIONS
+   ========================================================================= */
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes slideDown {
+  from { 
+    opacity: 0; 
+    transform: translateY(-20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes slideInRight {
+  from { 
+    opacity: 0; 
+    transform: translateX(100%); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes slideOutRight {
+  from { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+  to { 
+    opacity: 0; 
+    transform: translateX(100%); 
+  }
+}
+
+.animate-in {
+  animation: slideUp var(--transition-base) forwards;
+}
+
+.sheet-enter {
+  animation: slideUp var(--transition-base) forwards;
+}
+
+.sheet-exit {
+  animation: slideDown var(--transition-fast) forwards;
+}
+
+.panel-enter {
+  animation: slideInRight var(--transition-base) forwards;
+}
+
+.panel-exit {
+  animation: slideOutRight var(--transition-fast) forwards;
+}
+
+/* =========================================================================
+   REDUCED MOTION
+   ========================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =========================================================================
+   FOCUS STATES (Accessibility)
+   ========================================================================= */
+
+*:focus-visible {
+  outline: 2px solid var(--planner-tangerine-500);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--planner-tangerine-500);
+  outline-offset: 2px;
+}
+
+/* =========================================================================
+   UTILITY CLASSES
+   ========================================================================= */
+
+.text-amber { color: var(--planner-tangerine-500) !important; }
+.text-aqua { color: var(--planner-aqua-500) !important; }
+.text-lime { color: var(--planner-lime-500) !important; }
+.text-muted { color: var(--planner-text-muted) !important; }
+.text-subtle { color: var(--planner-text-subtle) !important; }
+.text-heading { color: var(--planner-text-heading) !important; }
+
+.bg-card { background: var(--planner-card); }
+.bg-panel { background: var(--planner-panel); }
+
+.glass-panel {
+  background: rgba(0, 29, 81, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--planner-border);
+}
+
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.flex-gap-2 { display: flex; gap: var(--space-2); }
+.flex-gap-3 { display: flex; gap: var(--space-3); }
+.flex-gap-4 { display: flex; gap: var(--space-4); }
+
+/* =========================================================================
+   PRINT STYLES
+   ========================================================================= */
+
+@media print {
+  .planner-header,
+  .planner-footer,
+  .floating-ai-container,
+  .planner-overlays,
+  .sheet-backdrop {
+    display: none !important;
+  }
+  
+  .planner-main {
+    height: auto;
+    overflow: visible;
+  }
+  
+  .planner-split-view {
+    display: block;
+  }
+  
+  .planner-left-column,
+  .planner-right-column {
+    height: auto;
+    border: none;
+    page-break-inside: avoid;
+  }
+}
