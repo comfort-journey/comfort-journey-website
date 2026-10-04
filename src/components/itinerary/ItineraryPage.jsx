@@ -20,9 +20,14 @@ export default function ItineraryPage() {
   
   // Get tour ID from URL hash
   const getTourIdFromHash = () => {
-    const hash = window.location.hash;
-    const match = hash.match(/#\/itinerary\/([^?#]+)/);
-    return match ? match[1] : null;
+    try {
+      const hash = window.location.hash;
+      const match = hash.match(/#\/itinerary\/([^?#]+)/);
+      return match ? match[1] : null;
+    } catch (e) {
+      console.error('Error parsing hash:', e);
+      return null;
+    }
   };
   
   const tourId = getTourIdFromHash();
@@ -54,14 +59,13 @@ export default function ItineraryPage() {
     if (dayParam) setActiveDay(parseInt(dayParam, 10));
     if (tabParam) setActiveTab(tabParam);
     if (routeParam) setRouteMode(routeParam);
-    // stopParam will be applied after tour loads
   }, [getURLParam]);
   
   // Load tour data
   useEffect(() => {
     const loadTour = async () => {
       if (!tourId) {
-        setError('No tour specified');
+        setError('No tour specified in URL');
         setLoading(false);
         return;
       }
@@ -70,14 +74,15 @@ export default function ItineraryPage() {
       setError(null);
       
       try {
+        console.log('[ItineraryPage] Loading tour:', tourId);
         const tourData = await directusService.fetchTourBySlug(tourId);
+        console.log('[ItineraryPage] Tour data:', tourData);
+        
         if (tourData) {
           setTour(tourData);
-          // Set default active day to first day
           const firstDay = tourData.itinerary?.[0]?.day || 1;
           setActiveDay(firstDay);
           
-          // Apply stop from URL after tour loads
           const stopParam = getURLParam('stop');
           if (stopParam && tourData.itinerary) {
             const dayData = tourData.itinerary.find(d => d.day === activeDay);
@@ -92,11 +97,11 @@ export default function ItineraryPage() {
             }
           }
         } else {
-          setError('Tour not found');
+          setError(`Tour not found: ${tourId}`);
         }
       } catch (err) {
-        console.error('Failed to load tour:', err);
-        setError('Failed to load itinerary');
+        console.error('[ItineraryPage] Failed to load tour:', err);
+        setError('Failed to load itinerary: ' + err.message);
       } finally {
         setLoading(false);
       }
@@ -105,100 +110,7 @@ export default function ItineraryPage() {
     loadTour();
   }, [tourId]);
   
-  // Prepare enriched itinerary data with waypoints
-  const { enrichedItinerary, waypointsMap } = useItineraryData(tour);
-  
-  // Map synchronization
-  const { 
-    mapInstance, 
-    setMapInstance, 
-    flyToStop, 
-    updateMapForDay, 
-    updateMapForRouteMode,
-    highlightStop 
-  } = useMapSync(enrichedItinerary, activeDay, routeMode);
-  
-  // Sync URL when state changes
-  useEffect(() => {
-    if (!tour) return;
-    const state = { day: activeDay, tab: activeTab, route: routeMode };
-    if (selectedStop) state.stop = selectedStop.title;
-    updateURL(state);
-  }, [activeDay, activeTab, routeMode, selectedStop, tour, updateURL]);
-  
-  // Handle day change
-  const handleDayChange = useCallback((day) => {
-    setActiveDay(day);
-    setSelectedStop(null);
-    setShowStopDrawer(false);
-    updateMapForDay(day);
-  }, [updateMapForDay]);
-  
-  // Handle stop selection
-  const handleStopSelect = useCallback((stop) => {
-    setSelectedStop(stop);
-    setShowStopDrawer(true);
-    flyToStop(stop);
-  }, [flyToStop]);
-  
-  // Handle map day change
-  const handleMapDayChange = useCallback((day) => {
-    setActiveDay(day);
-    setSelectedStop(null);
-    setShowStopDrawer(false);
-  }, []);
-  
-  // Handle route mode change
-  const handleRouteModeChange = useCallback((mode) => {
-    setRouteMode(mode);
-    updateMapForRouteMode(mode);
-  }, [updateMapForRouteMode]);
-  
-  // Handle tab change
-  const handleTabChange = useCallback((tab) => {
-    setActiveTab(tab);
-    if (tab === 'map') {
-      // Ensure map is initialized
-    }
-  }, []);
-  
-  // Get current day data
-  const currentDayData = enrichedItinerary?.find(d => d.day === activeDay) || enrichedItinerary?.[0];
-  
-  // Get all stops for current day (for map)
-  const currentDayStops = currentDayData?.stops || [];
-  
-  // Compute route polyline for current day
-  const currentDayRoute = useMemo(() => {
-    if (!currentDayStops.length) return null;
-    return currentDayStops
-      .filter(s => s.lat && s.lng)
-      .map(s => [s.lat, s.lng]);
-  }, [currentDayStops]);
-  
-  // Compute full tour route
-  const fullTourRoute = useMemo(() => {
-    if (!enrichedItinerary) return null;
-    const allCoords = [];
-    enrichedItinerary.forEach(day => {
-      (day.stops || []).forEach(stop => {
-        if (stop.lat && stop.lng) allCoords.push([stop.lat, stop.lng]);
-      });
-    });
-    return allCoords;
-  }, [enrichedItinerary]);
-  
-  if (loading) {
-    return (
-      <ItineraryLayout isLoading={true}>
-        <div className="itin-loading-overlay">
-          <div className="loading-spinner" />
-          <p>Loading your personalized itinerary...</p>
-        </div>
-      </ItineraryLayout>
-    );
-  }
-  
+  // Error boundary render
   if (error) {
     return (
       <ItineraryLayout>
@@ -206,9 +118,20 @@ export default function ItineraryPage() {
           <div className="error-icon">⚠️</div>
           <h2>Unable to Load Itinerary</h2>
           <p>{error}</p>
-          <button className="btn-primary" onClick={() => navigate(-1)}>
+          <button className="btn-primary" onClick={() => window.history.back()}>
             Back to Tours
           </button>
+        </div>
+      </ItineraryLayout>
+    );
+  }
+  
+  if (loading) {
+    return (
+      <ItineraryLayout isLoading={true}>
+        <div className="itin-loading-overlay">
+          <div className="loading-spinner" />
+          <p>Loading your personalized itinerary...</p>
         </div>
       </ItineraryLayout>
     );
