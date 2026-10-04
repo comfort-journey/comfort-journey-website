@@ -5,7 +5,10 @@
 .customize-sheet-overlay {
   position: fixed;
   inset: 0;
-  z-index: var(--z-modal);
+  z-index: 99999;
+  background: rgba(0, 8, 24, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: flex-end;
   animation: fadeIn var(--transition-fast);
@@ -16,8 +19,8 @@
   max-width: 100%;
   background: var(--planner-navy-900);
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-  border-top: 1px solid var(--planner-border);
-  box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 137, 47, 0.35);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 137, 47, 0.2);
   display: flex;
   flex-direction: column;
   max-height: 85vh;
@@ -33,7 +36,7 @@
   }
 
   .customize-sheet {
-    max-width: 540px;
+    max-width: 580px;
     margin: auto;
     border-radius: var(--radius-xl);
     max-height: 85vh;

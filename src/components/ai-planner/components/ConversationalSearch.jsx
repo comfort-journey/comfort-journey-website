@@ -10,7 +10,7 @@ export default function ConversationalSearch({
   hasActiveTrip = false
 }) {
   const [query, setQuery] = useState('');
-  const [showPrompts, setShowPrompts] = useState(!hasActiveTrip);
+  const [showPrompts, setShowPrompts] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();

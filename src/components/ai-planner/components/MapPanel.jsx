@@ -532,7 +532,7 @@ export default function MapPanel({
 
         .comfy-modern-pin:hover, .comfy-modern-pin.is-selected {
           transform: scale(1.22) translateY(-4px);
-          z-index: 9999;
+          z-index: 800;
         }
 
         .comfy-modern-pin.is-selected {

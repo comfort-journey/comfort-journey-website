@@ -67,21 +67,23 @@
   --transition-base: 250ms cubic-bezier(0.16, 1, 0.3, 1);
   --transition-slow: 350ms cubic-bezier(0.16, 1, 0.3, 1);
   
-  /* Z-Index Scale */
+  /* Z-Index Scale - Must strictly exceed Leaflet's highest panes and controls (1000) */
   --z-base: 1;
-  --z-sticky: 10;
-  --z-header: 50;
-  --z-floating: 100;
-  --z-sheet: 200;
-  --z-modal: 300;
-  --z-toast: 400;
+  --z-sticky: 100;
+  --z-header: 1200;
+  --z-footer: 1200;
+  --z-floating: 2000;
+  --z-dropdown: 5000;
+  --z-sheet: 9000;
+  --z-modal: 99999;
+  --z-toast: 100000;
   
   /* Layout Dimensions */
   --header-height: 60px;
   --footer-height: 64px;
   --footer-height-mobile: 60px;
-  --left-panel-width: 460px;
-  --left-panel-width-tablet: 380px;
+  --left-panel-width: clamp(500px, 38vw, 620px);
+  --left-panel-width-tablet: 420px;
   --map-bottom-sheet-height: 50vh;
   --map-bottom-sheet-min: 350px;
 }
@@ -408,7 +410,7 @@
 .planner-footer {
   position: sticky;
   bottom: 0;
-  z-index: var(--z-sticky);
+  z-index: var(--z-footer);
   height: var(--footer-height);
   background: rgba(0, 14, 40, 0.98);
   backdrop-filter: blur(16px);
@@ -447,13 +449,13 @@
 }
 
 /* =========================================================================
-   OVERLAYS & SHEETS
+   OVERLAYS & SHEETS (MUST BE TOPMOST ABOVE LEAFLET AT ALL TIMES)
    ========================================================================= */
 
 .planner-overlays {
   position: fixed;
   inset: 0;
-  z-index: var(--z-sheet);
+  z-index: var(--z-modal);
   pointer-events: none;
   display: flex;
   flex-direction: column;
@@ -466,16 +468,91 @@
 .sheet-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  z-index: calc(var(--z-sheet) - 1);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: calc(var(--z-modal) - 1);
   animation: fadeIn var(--transition-fast);
 }
 
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+/* =========================================================================
+   ITINERARY TIMELINE & ACTIVE DAY BANNER
+   ========================================================================= */
+
+.planner-left-panel {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 90px;
+}
+
+.active-day-header {
+  margin: var(--space-3) var(--space-4) var(--space-1);
+  padding: 14px 18px;
+  background: linear-gradient(135deg, rgba(255, 137, 47, 0.1) 0%, rgba(0, 24, 64, 0.7) 100%);
+  border: 1px solid rgba(255, 137, 47, 0.28);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.day-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.active-day-title {
+  margin: 0;
+  font-family: 'Fraunces', 'Noto Serif', serif;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.day-travel-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: rgba(111, 230, 252, 0.14);
+  border: 1px solid rgba(111, 230, 252, 0.3);
+  color: var(--planner-aqua-400);
+  border-radius: var(--radius-full);
+  font-size: 0.74rem;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(111, 230, 252, 0.15);
+}
+
+.day-travel-badge svg {
+  color: var(--planner-aqua-400);
+}
+
+.active-day-summary {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.active-day-summary svg {
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
 /* =========================================================================

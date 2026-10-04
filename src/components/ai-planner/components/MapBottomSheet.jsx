@@ -488,7 +488,7 @@ export default function MapBottomSheet({
         }
         .pin-anchor-dot { position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%);
           width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #FFFFFF; }
-        .comfy-modern-pin:hover, .comfy-modern-pin.is-selected { transform: scale(1.22) translateY(-4px); z-index: 9999; }
+        .comfy-modern-pin:hover, .comfy-modern-pin.is-selected { transform: scale(1.22) translateY(-4px); z-index: 800; }
         .comfy-modern-pin.is-selected { border-color: var(--planner-tangerine-500); box-shadow: 0 0 0 4px rgba(255,137,47,0.45), 0 8px 24px rgba(0,0,0,0.55); }
         .comfy-modern-pin.is-selected .pin-anchor-dot { border-top-color: var(--planner-tangerine-500); }
         .pin-badge-seq { position: absolute; top: -6px; right: -6px; background: var(--planner-navy-950); color: var(--planner-tangerine-500); font-weight: 800; font-size: 0.6rem;

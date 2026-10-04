@@ -359,7 +359,7 @@ export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
       onSocialCard={handleSocialCard}
       onExcelExport={handleExcelExport}
       onPDFExport={handlePDFExport}
-      onExportMenuToggle={setShowExportMenu}
+      onExportMenuToggle={() => setShowExportMenu(prev => !prev)}
       showExportMenu={showExportMenu}
     />
   );

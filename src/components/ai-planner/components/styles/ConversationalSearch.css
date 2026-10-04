@@ -218,9 +218,8 @@
 }
 
 .prompt-text {
-  max-width: 200px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  max-width: none;
+  white-space: nowrap;
 }
 
 @media (max-width: 768px) {
@@ -257,6 +256,6 @@
   }
   
   .prompt-text {
-    max-width: 140px;
+    max-width: none;
   }
 }

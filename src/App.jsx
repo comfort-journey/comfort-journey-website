@@ -29,6 +29,7 @@ import ItineraryModal from './components/ItineraryModal';
 import QuickBookingModal from './components/QuickBookingModal';
 import AITripPlannerModal from './components/AITripPlannerModal';
 import AIPlannerPage from './components/ai-planner/AIPlannerPage';
+import ItineraryPage from './components/itinerary/ItineraryPage';
 import PackageTierCompareModal from './components/PackageTierCompareModal';
 import WishlistDrawer from './components/WishlistDrawer';
 import CompareModal from './components/CompareModal';
@@ -55,7 +56,7 @@ export default function App() {
   const [isAdminCMSOpen, setIsAdminCMSOpen] = useState(false);
   const [isLPHubOpen, setIsLPHubOpen] = useState(false);
   const [policyModalType, setPolicyModalType] = useState(null); // 'cancellation' | 'privacy' | 'terms' | null
-  const [currentView, setCurrentView] = useState('home'); // 'home' | 'about' | 'landing' | 'magazine' | 'blog-reader' | 'ai-planner'
+  const [currentView, setCurrentView] = useState('home'); // 'home' | 'about' | 'landing' | 'magazine' | 'blog-reader' | 'ai-planner' | 'itinerary'
   const [activeLandingPage, setActiveLandingPage] = useState(null);
   const [activeBlogSlug, setActiveBlogSlug] = useState(null);
 
@@ -104,6 +105,16 @@ export default function App() {
           description: "Create personalized itineraries with interactive maps, real-time routing, and AI-powered suggestions. Comfort Journey (Est. 1992).",
           url: "/#/ai-planner",
           type: "website"
+        });
+      } else if (hash.startsWith('#/itinerary/') || hash.startsWith('#itinerary/')) {
+        const tourSlug = rawHash.replace(/^#\/?itinerary\//, '').trim();
+        directusService.fetchTourBySlug(tourSlug).then(matchedTour => {
+          if (matchedTour) {
+            setCurrentView('itinerary');
+            setActiveLandingPage(null);
+            setActiveBlogSlug(null);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
         });
       } else if (hash === '#/about' || hash === '#/who-we-are' || hash === '#/about-us' || hash === '#about') {
         setCurrentView('about');
@@ -203,6 +214,9 @@ export default function App() {
                 onBackToHome={navigateToHome}
                 onOpenQuote={() => setIsQuickQuoteOpen(true)}
               />
+            ) : currentView === 'itinerary' ? (
+              /* DEDICATED ITINERARY PAGE VIEW */
+              <ItineraryPage />
             ) : (
               <>
                 {/* 1. Header Navigation with Currency Switcher & AI Trigger */}

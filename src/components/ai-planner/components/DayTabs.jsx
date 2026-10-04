@@ -6,7 +6,10 @@ export default function DayTabs({ days, activeDay, onDayChange }) {
 
   return (
     <nav className="day-tabs" aria-label="Trip days" role="tablist">
-      <span className="tabs-label" aria-hidden="true">Schedule:</span>
+      <div className="tabs-label-badge" aria-hidden="true">
+        <span>📅</span>
+        <span>Schedule</span>
+      </div>
       <div className="tabs-scroll" role="presentation">
         {days.map((day) => (
           <button

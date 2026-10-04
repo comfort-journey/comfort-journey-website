@@ -1,5 +1,5 @@
-import React from 'react';
-import { MapPin, Clock, Users, Car, Utensils, Star, ChevronRight, Settings } from 'lucide-react';
+import React, { useState } from 'react';
+import { MapPin, Clock, Users, Car, Utensils, Star, Settings, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
 import './styles/TripSummaryCard.css';
 
 export default function TripSummaryCard({
@@ -9,6 +9,8 @@ export default function TripSummaryCard({
   onViewOnMap,
   isMobile
 }) {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
   const vehicleShort = tripPlan.vehicle
     .replace('Private Toyota ', '')
     .replace(' (AC)', '')
@@ -24,49 +26,65 @@ export default function TripSummaryCard({
   ];
 
   return (
-    <article className="trip-summary-card glass-panel" aria-label="Trip overview">
+    <article className={`trip-summary-card glass-panel ${isCollapsed ? 'is-collapsed' : ''}`} aria-label="Trip overview">
       <div className="summary-header">
-        <h2 className="trip-title">{tripPlan.title}</h2>
-        <div className="trip-price">
-          <span className="price-label">Starting from</span>
-          <span className="price-value">{formatPrice(tripPlan.price)}</span>
-          <span className="price-unit">/ person</span>
+        <div className="summary-title-group">
+          <div className="summary-eyebrow">
+            <Sparkles size={11} className="text-amber" />
+            <span>AI-OPTIMIZED VACATION PLAN</span>
+          </div>
+          <h2 className="trip-title">{tripPlan.title}</h2>
+        </div>
+
+        <div className="summary-header-actions">
+          <button
+            type="button"
+            className="customize-btn-compact"
+            onClick={onCustomizeClick}
+            aria-label="Customize trip preferences"
+          >
+            <Settings size={13} />
+            <span>Customize</span>
+          </button>
+          
+          <button
+            type="button"
+            className="toggle-collapse-btn"
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            aria-label={isCollapsed ? "Expand overview" : "Collapse overview"}
+            title={isCollapsed ? "Show details" : "Minimize header"}
+          >
+            {isCollapsed ? <ChevronDown size={14} /> : <ChevronUp size={14} />}
+          </button>
         </div>
       </div>
 
-      <div className="summary-chips" role="list" aria-label="Trip details">
-        {chips.map((chip, idx) => (
-          <span key={idx} className={`info-chip chip-${chip.color}`} role="listitem">
-            <chip.icon size={12} aria-hidden="true" />
-            <span>{chip.label}</span>
-          </span>
-        ))}
-      </div>
+      {!isCollapsed && (
+        <>
+          <div className="summary-chips-row" role="list" aria-label="Trip details">
+            {chips.map((chip, idx) => (
+              <span key={idx} className={`info-chip chip-${chip.color}`} role="listitem">
+                <chip.icon size={11} aria-hidden="true" />
+                <span>{chip.label}</span>
+              </span>
+            ))}
+          </div>
 
-      <div className="summary-actions-row">
-        <button
-          type="button"
-          className="customize-trigger"
-          onClick={onCustomizeClick}
-          aria-label="Customize trip preferences"
-        >
-          <Settings size={14} aria-hidden="true" />
-          <span>Customize Preferences</span>
-          <ChevronRight size={12} aria-hidden="true" />
-        </button>
-
-        {isMobile && onViewOnMap && (
-          <button
-            type="button"
-            className="view-map-pill-btn"
-            onClick={onViewOnMap}
-            aria-label="View interactive map"
-          >
-            <MapPin size={13} aria-hidden="true" />
-            <span>View Map 🗺️</span>
-          </button>
-        )}
-      </div>
+          {isMobile && onViewOnMap && (
+            <div className="summary-mobile-map-row">
+              <button
+                type="button"
+                className="view-map-pill-btn"
+                onClick={onViewOnMap}
+                aria-label="View interactive map"
+              >
+                <MapPin size={13} aria-hidden="true" />
+                <span>View Route on Map 🗺️</span>
+              </button>
+            </div>
+          )}
+        </>
+      )}
     </article>
   );
 }
