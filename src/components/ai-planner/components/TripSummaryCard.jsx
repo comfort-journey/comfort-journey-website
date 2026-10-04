@@ -5,7 +5,9 @@ import './styles/TripSummaryCard.css';
 export default function TripSummaryCard({
   tripPlan,
   formatPrice,
-  onCustomizeClick
+  onCustomizeClick,
+  onViewOnMap,
+  isMobile
 }) {
   const vehicleShort = tripPlan.vehicle
     .replace('Private Toyota ', '')
@@ -41,16 +43,30 @@ export default function TripSummaryCard({
         ))}
       </div>
 
-      <button
-        type="button"
-        className="customize-trigger"
-        onClick={onCustomizeClick}
-        aria-label="Customize trip preferences"
-      >
-        <Settings size={14} aria-hidden="true" />
-        <span>Customize</span>
-        <ChevronRight size={12} aria-hidden="true" />
-      </button>
+      <div className="summary-actions-row">
+        <button
+          type="button"
+          className="customize-trigger"
+          onClick={onCustomizeClick}
+          aria-label="Customize trip preferences"
+        >
+          <Settings size={14} aria-hidden="true" />
+          <span>Customize Preferences</span>
+          <ChevronRight size={12} aria-hidden="true" />
+        </button>
+
+        {isMobile && onViewOnMap && (
+          <button
+            type="button"
+            className="view-map-pill-btn"
+            onClick={onViewOnMap}
+            aria-label="View interactive map"
+          >
+            <MapPin size={13} aria-hidden="true" />
+            <span>View Map 🗺️</span>
+          </button>
+        )}
+      </div>
     </article>
   );
 }

@@ -26,11 +26,17 @@
 }
 
 @media (min-width: 769px) {
+  .customize-sheet-overlay {
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-4);
+  }
+
   .customize-sheet {
-    max-width: 520px;
-    margin: 0 auto;
+    max-width: 540px;
+    margin: auto;
     border-radius: var(--radius-xl);
-    max-height: 90vh;
+    max-height: 85vh;
   }
 }
 
@@ -250,11 +256,11 @@
 }
 
 .option-desc {
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   color: var(--planner-text-muted);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.35;
+  margin-top: 2px;
 }
 
 .option-check {
@@ -270,9 +276,13 @@
 }
 
 .sheet-footer {
-  padding-top: var(--space-3);
+  padding: var(--space-3) var(--space-5);
+  background: var(--planner-navy-900);
   border-top: 1px solid var(--planner-border);
   flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
 }
 
 .btn-apply {

@@ -4,13 +4,15 @@
 
 .day-tabs {
   position: sticky;
-  top: var(--header-height);
+  top: 0;
   z-index: var(--z-sticky);
   display: flex;
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-3) var(--space-4);
-  background: linear-gradient(180deg, var(--planner-bg) 0%, rgba(0, 18, 51, 0.95) 100%);
+  background: rgba(0, 18, 51, 0.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--planner-border);
   flex-shrink: 0;
 }

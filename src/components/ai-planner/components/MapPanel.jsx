@@ -48,7 +48,9 @@ export default function MapPanel({
   activeDay,
   selectedStop,
   onStopSelect,
-  setMapInstance
+  setMapInstance,
+  isMobile = false,
+  onBackToItinerary
 }) {
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);
@@ -238,6 +240,13 @@ export default function MapPanel({
     });
   }, [selectedStop]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      mapInstanceRef.current?.invalidateSize();
+    }, 250);
+    return () => clearTimeout(timer);
+  }, [activeDay, tripPlan, isMobile]);
+
   const activeStops = currentDayData?.stops || [];
 
   return (
@@ -302,10 +311,32 @@ export default function MapPanel({
       </div>
 
       {/* Map Hint */}
-      <div className="map-hint" aria-hidden="true">
-        <Navigation2 size={12} />
-        <span>Click any stop or pin to explore</span>
-      </div>
+      {!isMobile && (
+        <div className="map-hint" aria-hidden="true">
+          <Navigation2 size={12} />
+          <span>Click any stop or pin to explore</span>
+        </div>
+      )}
+
+      {/* Mobile Floating Stop Card */}
+      {isMobile && selectedStop && (
+        <div className="map-mobile-selected-card">
+          <div className="card-info">
+            <span className="card-time">{selectedStop.time || 'Day Activity'}</span>
+            <h4 className="card-name">{selectedStop.title}</h4>
+            {selectedStop.subtitle && <p className="card-desc">{selectedStop.subtitle}</p>}
+          </div>
+          {onBackToItinerary && (
+            <button
+              type="button"
+              className="card-switch-btn"
+              onClick={onBackToItinerary}
+            >
+              <span>View List</span>
+            </button>
+          )}
+        </div>
+      )}
 
       <style>{`
         .map-panel {
@@ -548,6 +579,112 @@ export default function MapPanel({
           padding: var(--space-1) var(--space-2) !important;
           box-shadow: var(--planner-shadow-lg) !important;
           font-size: 0.7rem !important;
+        }
+
+        @media (max-width: 768px) {
+          .map-floating-badge {
+            top: 10px;
+            left: 10px;
+            min-width: unset;
+            max-width: 175px;
+            padding: 6px 10px;
+          }
+
+          .badge-title {
+            font-size: 0.58rem;
+          }
+
+          .route-toggle {
+            padding: 2px 6px;
+            font-size: 0.58rem;
+          }
+
+          .map-style-switcher {
+            top: 10px;
+            right: 10px;
+            padding: 2px;
+            gap: 2px;
+          }
+
+          .style-btn {
+            padding: 4px 6px;
+            font-size: 0.58rem;
+          }
+
+          .style-btn span {
+            display: none;
+          }
+
+          .map-mobile-selected-card {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            z-index: 1000;
+            background: rgba(0, 14, 40, 0.96);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 137, 47, 0.45);
+            border-radius: var(--radius-md);
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+            animation: slideUp 0.2s ease;
+          }
+
+          .card-info {
+            flex: 1;
+            min-width: 0;
+          }
+
+          .card-time {
+            font-size: 0.62rem;
+            font-weight: 700;
+            color: var(--planner-aqua-500);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+          }
+
+          .card-name {
+            margin: 2px 0 0 0;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--planner-text-heading);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .card-desc {
+            margin: 0;
+            font-size: 0.68rem;
+            color: var(--planner-text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .card-switch-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: linear-gradient(135deg, var(--planner-tangerine-500), var(--planner-tangerine-600));
+            color: var(--planner-navy-950);
+            border: none;
+            border-radius: var(--radius-full);
+            padding: 6px 12px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            cursor: pointer;
+            white-space: nowrap;
+            flex-shrink: 0;
+          }
+
+          .leaflet-bottom.leaflet-right {
+            margin-bottom: 75px !important;
+          }
         }
       `}</style>
     </div>

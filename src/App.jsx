@@ -196,59 +196,61 @@ export default function App() {
           {/* Ambient Parallax Gradient Orbs */}
           <AmbientBackgroundOrbs />
 
-          <div className="app-root">
-            {/* 1. Header Navigation with Currency Switcher & AI Trigger */}
-            <Navbar 
-              onOpenQuote={() => setIsQuickQuoteOpen(true)} 
-              onOpenAIPlanner={navigateToAIPlanner}
-              onOpenAdmin={() => setIsAdminCMSOpen(true)}
-              onOpenLandingHub={() => setIsLPHubOpen(true)}
-              onNavigateMagazine={navigateToMagazine}
-            />
-
-            {currentView === 'magazine' ? (
-              /* DEDICATED BLOG MAGAZINE / JOURNAL VIEW */
-              <BlogMagazinePage 
-                onNavigateHome={navigateToHome}
-                onSelectBlog={navigateToBlog}
-                onOpenQuote={() => setIsQuickQuoteOpen(true)}
-              />
-            ) : currentView === 'blog-reader' && activeBlogSlug ? (
-              /* DEDICATED SINGLE BLOG POST READER VIEW */
-              <BlogPostReader 
-                slug={activeBlogSlug}
-                onNavigateHome={navigateToHome}
-                onNavigateMagazine={navigateToMagazine}
-                onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
-                onBookNow={(tour) => setSelectedBookingTour(tour)}
-                onOpenQuote={() => setIsQuickQuoteOpen(true)}
-              />
-            ) : currentView === 'landing' && activeLandingPage ? (
-              /* DEDICATED CAMPAIGN / SEO LANDING PAGE VIEW */
-              <LandingPageTemplate 
-                pageData={activeLandingPage}
-                onBackToHome={navigateToHome}
-                onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
-                onBookNow={(tour) => setSelectedBookingTour(tour)}
-                onOpenAIPlanner={navigateToAIPlanner}
-                onOpenQuote={() => setIsQuickQuoteOpen(true)}
-              />
-            ) : currentView === 'about' ? (
-              /* DEDICATED ABOUT US / WHO WE ARE PAGE VIEW */
-              <AboutUsPage 
-                onOpenQuote={() => setIsQuickQuoteOpen(true)}
-                onOpenAIPlanner={navigateToAIPlanner}
-                onNavigateHome={navigateToHome}
-              />
-            ) : currentView === 'ai-planner' ? (
-              /* DEDICATED AI PLANNER PAGE VIEW */
+          <div className={`app-root ${currentView === 'ai-planner' ? 'ai-planner-active-view' : ''}`}>
+            {currentView === 'ai-planner' ? (
+              /* DEDICATED FULL-VIEWPORT AI PLANNER EXPERIENCE */
               <AIPlannerPage 
                 onBackToHome={navigateToHome}
                 onOpenQuote={() => setIsQuickQuoteOpen(true)}
               />
             ) : (
-              /* HOMEPAGE VIEW */
               <>
+                {/* 1. Header Navigation with Currency Switcher & AI Trigger */}
+                <Navbar 
+                  onOpenQuote={() => setIsQuickQuoteOpen(true)} 
+                  onOpenAIPlanner={navigateToAIPlanner}
+                  onOpenAdmin={() => setIsAdminCMSOpen(true)}
+                  onOpenLandingHub={() => setIsLPHubOpen(true)}
+                  onNavigateMagazine={navigateToMagazine}
+                />
+
+                {currentView === 'magazine' ? (
+                  /* DEDICATED BLOG MAGAZINE / JOURNAL VIEW */
+                  <BlogMagazinePage 
+                    onNavigateHome={navigateToHome}
+                    onSelectBlog={navigateToBlog}
+                    onOpenQuote={() => setIsQuickQuoteOpen(true)}
+                  />
+                ) : currentView === 'blog-reader' && activeBlogSlug ? (
+                  /* DEDICATED SINGLE BLOG POST READER VIEW */
+                  <BlogPostReader 
+                    slug={activeBlogSlug}
+                    onNavigateHome={navigateToHome}
+                    onNavigateMagazine={navigateToMagazine}
+                    onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
+                    onBookNow={(tour) => setSelectedBookingTour(tour)}
+                    onOpenQuote={() => setIsQuickQuoteOpen(true)}
+                  />
+                ) : currentView === 'landing' && activeLandingPage ? (
+                  /* DEDICATED CAMPAIGN / SEO LANDING PAGE VIEW */
+                  <LandingPageTemplate 
+                    pageData={activeLandingPage}
+                    onBackToHome={navigateToHome}
+                    onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
+                    onBookNow={(tour) => setSelectedBookingTour(tour)}
+                    onOpenAIPlanner={navigateToAIPlanner}
+                    onOpenQuote={() => setIsQuickQuoteOpen(true)}
+                  />
+                ) : currentView === 'about' ? (
+                  /* DEDICATED ABOUT US / WHO WE ARE PAGE VIEW */
+                  <AboutUsPage 
+                    onOpenQuote={() => setIsQuickQuoteOpen(true)}
+                    onOpenAIPlanner={navigateToAIPlanner}
+                    onNavigateHome={navigateToHome}
+                  />
+                ) : (
+                  /* HOMEPAGE VIEW */
+                  <>
                 {/* 2. In-Place Interactive Hero Studio: "How Do You Want to Travel?" (7 Continents Map, Weather/Season, Travel Styles) */}
                 <Hero 
                   onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
@@ -429,11 +431,13 @@ export default function App() {
           {/* Floating Glassmorphism Action Dock */}
           <FloatingQuickDock 
             onOpenQuote={() => setIsQuickQuoteOpen(true)} 
-            onOpenAIPlanner={() => setIsAIPlannerOpen(true)}
+            onOpenAIPlanner={navigateToAIPlanner}
           />
 
           {/* Live Booking Social Proof Ticker */}
           <LiveBookingToast />
+        </>
+      )}
 
           <style>{`
             .app-root {
@@ -442,6 +446,11 @@ export default function App() {
               flex-direction: column;
               background-color: var(--cj-navy-950, #001233);
               position: relative;
+            }
+            .app-root.ai-planner-active-view {
+              height: 100vh;
+              max-height: 100vh;
+              overflow: hidden;
             }
           `}</style>
         </div>

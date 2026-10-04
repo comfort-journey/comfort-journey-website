@@ -77,11 +77,11 @@
   --z-toast: 400;
   
   /* Layout Dimensions */
-  --header-height: 64px;
-  --footer-height: 72px;
-  --footer-height-mobile: 88px;
-  --left-panel-width: 420px;
-  --left-panel-width-tablet: 360px;
+  --header-height: 60px;
+  --footer-height: 64px;
+  --footer-height-mobile: 60px;
+  --left-panel-width: 460px;
+  --left-panel-width-tablet: 380px;
   --map-bottom-sheet-height: 50vh;
   --map-bottom-sheet-min: 350px;
 }
@@ -337,19 +337,68 @@
   /* Tablet-specific: can be toggled */
 }
 
-/* Mobile: Stacked Layout */
-.planner-stacked-view {
+/* Mobile Segmented View Switcher */
+.planner-mobile-tabs {
+  display: flex;
+  background: rgba(0, 14, 40, 0.98);
+  padding: 6px 12px;
+  gap: 8px;
+  border-bottom: 1px solid var(--planner-border);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  flex-shrink: 0;
+}
+
+.mobile-tab-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--planner-text-muted);
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.mobile-tab-btn.active {
+  background: linear-gradient(135deg, rgba(255, 137, 47, 0.25), rgba(255, 137, 47, 0.1));
+  border-color: var(--planner-tangerine-500);
+  color: var(--planner-tangerine-500);
+  box-shadow: 0 2px 8px rgba(255, 137, 47, 0.2);
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 6px #10B981;
+}
+
+/* Mobile View Container */
+.planner-mobile-view {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  height: 100%;
   overflow: hidden;
 }
 
-.planner-left-column.mobile-full {
-  flex: 1;
+.planner-mobile-view .planner-left-column.mobile-full,
+.planner-mobile-view .planner-right-column.mobile-full {
+  width: 100%;
+  height: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
   border-right: none;
-  border-bottom: 1px solid var(--planner-border);
 }
 
 /* =========================================================================
