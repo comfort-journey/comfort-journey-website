@@ -1,0 +1,96 @@
+/* =========================================================================
+   PROXIMITY INLINE STYLES
+   ========================================================================= */
+
+.proximity-inline {
+  background: rgba(0, 18, 51, 0.5);
+  border: 1px solid rgba(255, 137, 47, 0.15);
+  border-top: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  margin: 0 calc(var(--space-3) * -1) calc(var(--space-3) * -1);
+  padding: var(--space-3) var(--space-3) var(--space-4);
+  animation: slideDown var(--transition-fast);
+}
+
+.proximity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-3);
+}
+
+.proximity-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-bottom: var(--space-1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.column-header h5 {
+  margin: 0;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--itin-text-muted);
+}
+
+.count-badge {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--itin-tangerine-500);
+  background: rgba(255, 137, 47, 0.1);
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+}
+
+.places-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.place-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font-size: 0.7rem;
+  color: var(--itin-text-muted);
+}
+
+.place-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.place-distance {
+  font-weight: 600;
+  color: var(--itin-tangerine-500);
+  font-size: 0.65rem;
+  flex-shrink: 0;
+}
+
+.place-item.more {
+  color: var(--itin-text-subtle);
+  font-style: italic;
+  font-size: 0.65rem;
+}
+
+@media (max-width: 768px) {
+  .proximity-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+  }
+}

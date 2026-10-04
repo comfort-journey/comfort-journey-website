@@ -1,0 +1,684 @@
+/* =========================================================================
+   ITINERARY PAGE - MAIN STYLESHEET
+   Modern, clean, mobile-first itinerary experience
+   ========================================================================= */
+
+:root {
+  /* Brand Colors - From Comfort Journey Palette */
+  --itin-navy-950: #001233;
+  --itin-navy-900: #001D51;
+  --itin-navy-800: #052669;
+  --itin-navy-700: #0A3282;
+  
+  --itin-tangerine-500: #FF892F;
+  --itin-tangerine-400: #FFA459;
+  --itin-tangerine-600: #E66F12;
+  
+  --itin-aqua-500: #6FE6FC;
+  --itin-aqua-400: #93EEFD;
+  --itin-aqua-600: #3DD7F3;
+  
+  --itin-lime-500: #DAF561;
+  --itin-lime-400: #E5F886;
+  
+  --itin-cream-50: #F9FBE7;
+  --itin-cream-100: #EDF3D2;
+  --itin-cream-200: #DEE9B8;
+  
+  --itin-gold-500: #FFB800;
+  --itin-purple-500: #A78BFA;
+  --itin-pink-500: #F472B6;
+  --itin-emerald-500: #10B981;
+  
+  --itin-text-heading: #F9FBE7;
+  --itin-text-body: #EDF3D2;
+  --itin-text-muted: #CBD5E1;
+  --itin-text-subtle: #94A3B8;
+  
+  /* Semantic Aliases */
+  --itin-bg: var(--itin-navy-950);
+  --itin-panel: var(--itin-navy-900);
+  --itin-card: var(--itin-navy-800);
+  --itin-border: rgba(111, 230, 252, 0.25);
+  --itin-border-strong: rgba(255, 137, 47, 0.4);
+  
+  /* Shadows & Glows */
+  --itin-shadow-sm: 0 2px 8px rgba(0, 18, 51, 0.3);
+  --itin-shadow-md: 0 8px 24px rgba(0, 18, 51, 0.5);
+  --itin-shadow-lg: 0 20px 48px rgba(0, 18, 51, 0.7);
+  --itin-glow-tangerine: 0 0 24px rgba(255, 137, 47, 0.35);
+  --itin-glow-aqua: 0 0 24px rgba(111, 230, 252, 0.3);
+  
+  /* Spacing Scale (8px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-base: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  
+  /* Z-Index Scale */
+  --z-base: 1;
+  --z-sticky: 10;
+  --z-header: 50;
+  --z-floating: 100;
+  --z-sheet: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+  
+  /* Layout Dimensions */
+  --header-height: 72px;
+  --footer-height: 88px;
+  --selector-height: 60px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.itin-page-root {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--itin-bg);
+  color: var(--itin-text-body);
+  font-family: 'Outfit', 'Noto Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Prevent horizontal scroll on mobile */
+@media (max-width: 768px) {
+  .itin-page-root {
+    overscroll-behavior: none;
+  }
+}
+
+/* =========================================================================
+   HEADER
+   ========================================================================= */
+
+.itin-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-4);
+  background: rgba(0, 18, 51, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--itin-border);
+  gap: var(--space-4);
+  flex-shrink: 0;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  flex: 1;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--itin-text-muted);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.back-btn:hover {
+  background: rgba(255, 137, 47, 0.15);
+  border-color: var(--itin-tangerine-500);
+  color: var(--itin-tangerine-500);
+}
+
+.tour-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--itin-text-subtle);
+  font-size: 0.8rem;
+}
+
+.breadcrumb-sep {
+  opacity: 0.4;
+}
+
+.breadcrumb-tour {
+  color: var(--itin-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.header-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.itin-tabs-nav {
+  display: flex;
+  gap: var(--space-1);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  padding: var(--space-1);
+}
+
+.itin-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: none;
+  border: none;
+  color: var(--itin-text-muted);
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.itin-tab:hover {
+  color: var(--itin-text-heading);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.itin-tab.active {
+  background: var(--itin-tangerine-500);
+  color: var(--itin-navy-950);
+  box-shadow: 0 2px 8px rgba(255, 137, 47, 0.3);
+}
+
+.tab-icon {
+  font-size: 1rem;
+}
+
+.tab-label {
+  font-weight: 700;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.header-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--itin-text-muted);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.header-action-btn:hover {
+  background: rgba(255, 137, 47, 0.15);
+  border-color: var(--itin-tangerine-500);
+  color: var(--itin-tangerine-500);
+}
+
+/* =========================================================================
+   MAIN CONTENT
+   ========================================================================= */
+
+.itin-main {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.itin-loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--itin-bg);
+  z-index: var(--z-floating);
+  gap: var(--space-4);
+}
+
+.loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(255, 137, 47, 0.2);
+  border-top-color: var(--itin-tangerine-500);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.itin-error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-10) var(--space-6);
+  text-align: center;
+  gap: var(--space-4);
+  color: var(--itin-text-muted);
+}
+
+.error-icon {
+  font-size: 4rem;
+  opacity: 0.5;
+}
+
+.itin-error-state h2 {
+  margin: 0;
+  font-family: 'Fraunces', serif;
+  font-size: 1.5rem;
+  color: var(--itin-text-heading);
+}
+
+.itin-error-state p {
+  margin: 0;
+  max-width: 300px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background: linear-gradient(135deg, var(--itin-tangerine-500) 0%, var(--itin-tangerine-600) 100%);
+  color: var(--itin-navy-950);
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 16px rgba(255, 137, 47, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 137, 47, 0.45);
+}
+
+/* =========================================================================
+   STICKY BOOKING BAR
+   ========================================================================= */
+
+.sticky-booking-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: var(--z-sticky);
+  height: var(--footer-height);
+  background: rgba(0, 14, 40, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--itin-border);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-5);
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.bar-left {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.price-box {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  background: linear-gradient(135deg, rgba(255, 137, 47, 0.12) 0%, rgba(255, 137, 47, 0.06) 100%);
+  border: 1px solid rgba(255, 137, 47, 0.25);
+  border-radius: var(--radius-full);
+  padding: var(--space-2) var(--space-4);
+}
+
+.price-caption {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--itin-text-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.price-amount {
+  font-family: 'Fraunces', serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--itin-tangerine-500);
+}
+
+.price-unit {
+  font-size: 0.7rem;
+  color: var(--itin-text-muted);
+  font-weight: 500;
+}
+
+.quick-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.meta-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--itin-text-muted);
+  border-radius: var(--radius-full);
+  font-size: 0.68rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.bar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  border: none;
+}
+
+.action-btn.share-btn {
+  background: rgba(111, 230, 252, 0.12);
+  border: 1px solid rgba(111, 230, 252, 0.25);
+  color: var(--itin-aqua-500);
+}
+
+.action-btn.share-btn:hover {
+  background: rgba(111, 230, 252, 0.2);
+  border-color: var(--itin-aqua-500);
+  color: var(--itin-aqua-400);
+}
+
+.action-btn.whatsapp-btn {
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: #FFFFFF;
+  padding: var(--space-3) var(--space-5);
+  font-size: 0.82rem;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
+}
+
+.action-btn.whatsapp-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.5);
+}
+
+.action-btn.book-btn {
+  background: linear-gradient(135deg, var(--itin-tangerine-500) 0%, var(--itin-tangerine-600) 100%);
+  color: var(--itin-navy-950);
+  padding: var(--space-3) var(--space-5);
+  font-size: 0.82rem;
+  box-shadow: 0 4px 16px rgba(255, 137, 47, 0.35);
+}
+
+.action-btn.book-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 137, 47, 0.5);
+}
+
+.hidden-mobile {
+  display: inline;
+}
+
+@media (max-width: 640px) {
+  .hidden-mobile {
+    display: none;
+  }
+}
+
+/* =========================================================================
+   OVERLAYS & DRAWERS
+   ========================================================================= */
+
+.itin-overlays {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-sheet);
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.itin-overlays > * {
+  pointer-events: auto;
+}
+
+.itin-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: calc(var(--z-sheet) - 1);
+  animation: fadeIn var(--transition-fast);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* =========================================================================
+   ANIMATIONS
+   ========================================================================= */
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes slideDown {
+  from { 
+    opacity: 0; 
+    transform: translateY(-20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes slideInRight {
+  from { 
+    opacity: 0; 
+    transform: translateX(100%); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes slideOutRight {
+  from { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+  to { 
+    opacity: 0; 
+    transform: translateX(100%); 
+  }
+}
+
+.animate-in {
+  animation: slideUp var(--transition-base) forwards;
+}
+
+.sheet-enter {
+  animation: slideUp var(--transition-base) forwards;
+}
+
+.sheet-exit {
+  animation: slideDown var(--transition-fast) forwards;
+}
+
+.panel-enter {
+  animation: slideInRight var(--transition-base) forwards;
+}
+
+.panel-exit {
+  animation: slideOutRight var(--transition-fast) forwards;
+}
+
+/* =========================================================================
+   REDUCED MOTION
+   ========================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =========================================================================
+   FOCUS STATES (Accessibility)
+   ========================================================================= */
+
+*:focus-visible {
+  outline: 2px solid var(--itin-tangerine-500);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--itin-tangerine-500);
+  outline-offset: 2px;
+}
+
+/* =========================================================================
+   UTILITY CLASSES
+   ========================================================================= */
+
+.text-amber { color: var(--itin-tangerine-500) !important; }
+.text-aqua { color: var(--itin-aqua-500) !important; }
+.text-lime { color: var(--itin-lime-500) !important; }
+.text-emerald { color: var(--itin-emerald-500) !important; }
+.text-gold { color: var(--itin-gold-500) !important; }
+.text-purple { color: var(--itin-purple-500) !important; }
+.text-pink { color: var(--itin-pink-500) !important; }
+.text-cyan { color: var(--itin-aqua-500) !important; }
+.text-muted { color: var(--itin-text-muted) !important; }
+.text-subtle { color: var(--itin-text-subtle) !important; }
+.text-heading { color: var(--itin-text-heading) !important; }
+
+.bg-card { background: var(--itin-card); }
+.bg-panel { background: var(--itin-panel); }
+
+.glass-panel {
+  background: rgba(0, 29, 81, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--itin-border);
+}
+
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.flex-gap-2 { display: flex; gap: var(--space-2); }
+.flex-gap-3 { display: flex; gap: var(--space-3); }
+.flex-gap-4 { display: flex; gap: var(--space-4); }
+
+/* =========================================================================
+   PRINT STYLES
+   ========================================================================= */
+
+@media print {
+  .itin-header,
+  .sticky-booking-bar,
+  .itin-overlays,
+  .itin-backdrop {
+    display: none !important;
+  }
+  
+  .itin-main {
+    height: auto;
+    overflow: visible;
+  }
+}
