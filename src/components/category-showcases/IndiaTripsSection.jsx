@@ -109,10 +109,45 @@ export default function IndiaTripsSection({
 
   const scrollCarousel = (direction) => {
     if (carouselRef.current) {
-      const scrollAmount = direction === 'left' ? -350 : 350;
+      const scrollAmount = direction === 'left' ? -300 : 300;
       carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
+
+  // Automatic Horizontal Scrolling for India Tour Packages
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (!el || filteredTours.length <= 1) return;
+
+    let isPaused = false;
+    let resumeTimeout = null;
+
+    const interval = setInterval(() => {
+      if (isPaused) return;
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      if (el.scrollLeft >= maxScroll - 30) {
+        el.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        el.scrollBy({ left: 275, behavior: 'smooth' });
+      }
+    }, 4000);
+
+    const onUserInteract = () => {
+      isPaused = true;
+      if (resumeTimeout) clearTimeout(resumeTimeout);
+      resumeTimeout = setTimeout(() => { isPaused = false; }, 6000);
+    };
+
+    el.addEventListener('touchstart', onUserInteract, { passive: true });
+    el.addEventListener('mousedown', onUserInteract);
+
+    return () => {
+      clearInterval(interval);
+      if (resumeTimeout) clearTimeout(resumeTimeout);
+      el.removeEventListener('touchstart', onUserInteract);
+      el.removeEventListener('mousedown', onUserInteract);
+    };
+  }, [filteredTours]);
 
   return (
     <section id="india-trips" className="india-showcase-root">
@@ -876,9 +911,9 @@ export default function IndiaTripsSection({
             -webkit-mask-image: linear-gradient(to right, transparent, black 10px, black calc(100% - 16px), transparent);
           }
           .carousel-card-slide {
-            flex: 0 0 83vw;
-            max-width: 310px;
-            scroll-snap-align: center;
+            flex: 0 0 68vw;
+            max-width: 270px;
+            scroll-snap-align: start;
           }
           .card-media {
             height: 145px;

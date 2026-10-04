@@ -47,13 +47,47 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
   const [countryRegionFilter, setCountryRegionFilter] = useState('All');
 
   // Mobile layout state: 'carousel' (Horizontal 3D slider - Default) | 'vertical' (max 4 cards)
+  // Mobile layout state: 'carousel' (Horizontal 3D slider - Default) | 'vertical' (max 4 cards)
   const [mobileLayoutMode, setMobileLayoutMode] = useState('carousel');
   const [mobileVisibleCount, setMobileVisibleCount] = useState(4);
   const heroToursTrackRef = useRef(null);
 
+  // Automatic Horizontal Scrolling for Tour Package Cards in Carousel Mode
+  const [isAutoScrollPaused, setIsAutoScrollPaused] = useState(false);
+  const autoScrollResumeTimerRef = useRef(null);
+
+  useEffect(() => {
+    if (mobileLayoutMode !== 'carousel' || isAutoScrollPaused) return;
+
+    const interval = setInterval(() => {
+      if (heroToursTrackRef.current) {
+        const el = heroToursTrackRef.current;
+        const maxScroll = el.scrollWidth - el.clientWidth;
+        if (el.scrollLeft >= maxScroll - 30) {
+          el.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          el.scrollBy({ left: 280, behavior: 'smooth' });
+        }
+      }
+    }, 3600);
+
+    return () => clearInterval(interval);
+  }, [mobileLayoutMode, isAutoScrollPaused, activeCountryId, discoveryMode, countrySearchQuery]);
+
+  const handleTrackUserInteraction = () => {
+    setIsAutoScrollPaused(true);
+    if (autoScrollResumeTimerRef.current) {
+      clearTimeout(autoScrollResumeTimerRef.current);
+    }
+    autoScrollResumeTimerRef.current = setTimeout(() => {
+      setIsAutoScrollPaused(false);
+    }, 6000);
+  };
+
   const scrollHeroTours = (direction) => {
+    handleTrackUserInteraction();
     if (heroToursTrackRef.current) {
-      const scrollAmount = direction === 'left' ? -310 : 310;
+      const scrollAmount = direction === 'left' ? -280 : 280;
       heroToursTrackRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
@@ -300,7 +334,10 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
             <button
               type="button"
               className={`mode-tab-btn ${discoveryMode === 'continent' ? 'active' : ''}`}
-              onClick={() => setDiscoveryMode('continent')}
+              onClick={() => {
+                setDiscoveryMode('continent');
+                setCountrySearchQuery('');
+              }}
             >
               <Globe size={18} className="text-amber" />
               <span>7 Continents World Map</span>
@@ -309,7 +346,10 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
             <button
               type="button"
               className={`mode-tab-btn ${discoveryMode === 'weather' ? 'active' : ''}`}
-              onClick={() => setDiscoveryMode('weather')}
+              onClick={() => {
+                setDiscoveryMode('weather');
+                setCountrySearchQuery('');
+              }}
             >
               <Sun size={18} className="text-cyan" />
               <span>By Weather <span className="font-ampersand">&</span> Season</span>
@@ -318,11 +358,69 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
             <button
               type="button"
               className={`mode-tab-btn ${discoveryMode === 'style' ? 'active' : ''}`}
-              onClick={() => setDiscoveryMode('style')}
+              onClick={() => {
+                setDiscoveryMode('style');
+                setCountrySearchQuery('');
+              }}
             >
               <Users size={18} className="text-emerald" />
               <span>By Travel Style (Solo, Couple, Family, Group)</span>
             </button>
+          </div>
+
+          {/* Universal Top Search Bar for Instant Global Filtering (Mobile & PC) */}
+          <div className="hero-top-universal-search">
+            <div className="top-search-glass-shell">
+              <Search size={18} className="text-amber flex-shrink-0" />
+              <input
+                type="text"
+                placeholder="Search 2,000+ tour packages & destinations (e.g. Kashmir, Dubai, Bali, Switzerland, Kerala, Ladakh)..."
+                value={countrySearchQuery}
+                onChange={(e) => {
+                  setCountrySearchQuery(e.target.value);
+                  if (e.target.value) {
+                    setShowAllCountryTours(true);
+                  }
+                }}
+                className="top-search-input"
+                aria-label="Search destinations and tour packages worldwide"
+              />
+              {countrySearchQuery && (
+                <button
+                  type="button"
+                  className="top-search-clear-btn"
+                  onClick={() => setCountrySearchQuery('')}
+                  title="Clear search"
+                  aria-label="Clear search"
+                >
+                  <X size={15} />
+                </button>
+              )}
+            </div>
+
+            {/* Quick Trending Searches */}
+            <div className="hero-trending-tags-row">
+              <span className="trending-tags-label">Trending:</span>
+              <div className="trending-tags-track">
+                {['Kashmir', 'Bali', 'Dubai', 'Switzerland', 'Kerala', 'Himachal', 'Goa', 'Thailand'].map((tag) => (
+                  <button
+                    key={tag}
+                    type="button"
+                    className={`trending-tag-pill ${countrySearchQuery.toLowerCase() === tag.toLowerCase() ? 'active' : ''}`}
+                    onClick={() => {
+                      if (countrySearchQuery.toLowerCase() === tag.toLowerCase()) {
+                        setCountrySearchQuery('');
+                      } else {
+                        setCountrySearchQuery(tag);
+                        setShowAllCountryTours(true);
+                      }
+                    }}
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -575,59 +673,42 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
                 return (
                   <div className="country-packages-wrapper">
-                    {/* Universal Top Search Bar for Easy Search across ALL live tour packages */}
-                    <div className="country-search-bar-unified">
-                      <div className="country-search-box">
-                        <Search size={16} className="text-amber flex-shrink-0" />
-                        <input
-                          type="text"
-                          placeholder={isGlobalSearch 
-                            ? "Search all 100+ live tour packages worldwide..." 
-                            : `Search all live tour packages in ${activeCountry.name} or worldwide (e.g. Kashmir, Dubai, Bali, Switzerland, Honeymoon)...`}
-                          value={countrySearchQuery}
-                          onChange={(e) => {
-                            setCountrySearchQuery(e.target.value);
-                            if (e.target.value) setShowAllCountryTours(true);
-                          }}
-                          className="country-search-input"
-                        />
-                        {countrySearchQuery && (
-                          <button
-                            type="button"
-                            className="country-search-clear-btn"
-                            onClick={() => setCountrySearchQuery('')}
-                            title="Clear search"
-                          >
-                            <X size={14} />
-                          </button>
-                        )}
+                    {/* Search Confirmation Feedback Strip */}
+                    {countrySearchQuery && (
+                      <div className="search-live-feedback-strip mb-3">
+                        <span className="feedback-text">
+                          {filteredTours.length > 0 
+                            ? `✨ Found ${filteredTours.length} live tour package${filteredTours.length > 1 ? 's' : ''} matching "${countrySearchQuery}" across our global catalog` 
+                            : `No packages match "${countrySearchQuery}" worldwide`}
+                        </span>
+                        <button
+                          type="button"
+                          className="btn-reset-country-search"
+                          onClick={() => setCountrySearchQuery('')}
+                        >
+                          Clear Search
+                        </button>
                       </div>
+                    )}
 
-                      {/* Search confirmation feedback */}
-                      {countrySearchQuery && (
-                        <div className="search-live-feedback-strip">
-                          <span className="feedback-text">
-                            {filteredTours.length > 0 
-                              ? `✨ Found ${filteredTours.length} live tour package${filteredTours.length > 1 ? 's' : ''} matching "${countrySearchQuery}" across our global catalog` 
-                              : `No packages match "${countrySearchQuery}" worldwide`}
-                          </span>
-                          <button
-                            type="button"
-                            className="btn-reset-country-search"
-                            onClick={() => setCountrySearchQuery('')}
-                          >
-                            Clear Search
-                          </button>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Mobile Packages Toolbar: Live Count & 3D Slider vs Vertical Toggle */}
+                    {/* Mobile Packages Toolbar: Live Count, Auto-Slide Status & 3D Slider vs Vertical Toggle */}
                     <div className="hero-packages-toolbar">
                       <div className="packages-count-badge">
                         <span className="live-dot-pulse" />
                         <span>{filteredTours.length} {activeCountry.name} Packages</span>
                       </div>
+
+                      {mobileLayoutMode === 'carousel' && filteredTours.length > 1 && (
+                        <button
+                          type="button"
+                          className={`autoscroll-badge-btn ${isAutoScrollPaused ? 'paused' : 'running'}`}
+                          onClick={() => setIsAutoScrollPaused(!isAutoScrollPaused)}
+                          title={isAutoScrollPaused ? "Tap to play auto-scroll" : "Tap to pause auto-scroll"}
+                        >
+                          <span className="autoscroll-dot" />
+                          <span>{isAutoScrollPaused ? '▶ Auto-Slide' : '❚❚ Auto-Slide'}</span>
+                        </button>
+                      )}
 
                       <div className="mobile-view-mode-toggle">
                         <button 
@@ -655,6 +736,9 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                     <div 
                       className={`stage-cities-grid ${mobileLayoutMode === 'carousel' ? 'carousel-mode' : 'vertical-mode'}`}
                       ref={heroToursTrackRef}
+                      onTouchStart={handleTrackUserInteraction}
+                      onMouseDown={handleTrackUserInteraction}
+                      onWheel={handleTrackUserInteraction}
                     >
                       {displayedTours.map((tour) => {
                         const origPrice = tour.originalPrice || Math.round(tour.price * 1.25);
@@ -1259,6 +1343,170 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           color: #FFFFFF;
           box-shadow: 0 0 28px rgba(255, 137, 47, 0.55);
           transform: translateY(-2px);
+        }
+
+        /* Universal Top Search Bar */
+        .hero-top-universal-search {
+          width: 100%;
+          max-width: 820px;
+          margin: 1.15rem auto 1.35rem auto;
+          display: flex;
+          flex-direction: column;
+          gap: 0.65rem;
+          padding: 0 0.5rem;
+        }
+
+        .top-search-glass-shell {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.6rem 1.15rem;
+          border-radius: 9999px;
+          background: rgba(10, 24, 56, 0.75);
+          border: 1.5px solid rgba(255, 137, 47, 0.45);
+          box-shadow: 
+            0 8px 30px rgba(0, 0, 0, 0.4),
+            0 0 20px rgba(255, 137, 47, 0.2),
+            inset 0 1px 2px rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          transition: all 0.3s ease;
+        }
+
+        .top-search-glass-shell:focus-within {
+          border-color: #6FE6FC;
+          box-shadow: 
+            0 12px 35px rgba(0, 0, 0, 0.5),
+            0 0 25px rgba(111, 230, 252, 0.4),
+            inset 0 1px 2px rgba(255, 255, 255, 0.25);
+        }
+
+        .top-search-input {
+          flex: 1;
+          background: transparent;
+          border: none;
+          outline: none;
+          color: #FFFFFF;
+          font-size: 0.95rem;
+          font-family: inherit;
+        }
+
+        .top-search-input::placeholder {
+          color: rgba(226, 232, 240, 0.65);
+          font-size: 0.9rem;
+        }
+
+        .top-search-clear-btn {
+          background: rgba(255, 255, 255, 0.12);
+          border: none;
+          color: #E2E8F0;
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .top-search-clear-btn:hover {
+          background: rgba(255, 137, 47, 0.3);
+          color: #FFFFFF;
+        }
+
+        .hero-trending-tags-row {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          overflow-x: auto;
+          scrollbar-width: none;
+          padding-bottom: 2px;
+        }
+
+        .hero-trending-tags-row::-webkit-scrollbar {
+          display: none;
+        }
+
+        .trending-tags-label {
+          font-size: 0.76rem;
+          color: #94A3B8;
+          font-weight: 700;
+          white-space: nowrap;
+        }
+
+        .trending-tags-track {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+        }
+
+        .trending-tag-pill {
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: #CBD5E1;
+          border-radius: 9999px;
+          padding: 0.22rem 0.65rem;
+          font-size: 0.76rem;
+          font-weight: 600;
+          cursor: pointer;
+          white-space: nowrap;
+          transition: all 0.2s ease;
+        }
+
+        .trending-tag-pill:hover {
+          background: rgba(255, 137, 47, 0.15);
+          border-color: rgba(255, 137, 47, 0.4);
+          color: #FFFFFF;
+        }
+
+        .trending-tag-pill.active {
+          background: linear-gradient(135deg, #FF892F, #E65100);
+          border-color: #FFA459;
+          color: #FFFFFF;
+          font-weight: 700;
+          box-shadow: 0 2px 10px rgba(255, 137, 47, 0.35);
+        }
+
+        .autoscroll-badge-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          background: rgba(111, 230, 252, 0.12);
+          border: 1px solid rgba(111, 230, 252, 0.35);
+          color: #6FE6FC;
+          font-size: 0.72rem;
+          font-weight: 700;
+          padding: 0.25rem 0.6rem;
+          border-radius: 9999px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .autoscroll-badge-btn.paused {
+          background: rgba(255, 255, 255, 0.08);
+          border-color: rgba(255, 255, 255, 0.2);
+          color: #94A3B8;
+        }
+
+        .autoscroll-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #6FE6FC;
+          box-shadow: 0 0 6px #6FE6FC;
+          animation: pulseDot 1.8s infinite;
+        }
+
+        .autoscroll-badge-btn.paused .autoscroll-dot {
+          background: #94A3B8;
+          box-shadow: none;
+          animation: none;
+        }
+
+        @keyframes pulseDot {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.4; transform: scale(0.8); }
         }
 
         /* In-Place Interactive Stage */
@@ -2352,23 +2600,24 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
         @media (max-width: 768px) {
           .hero-headline-block {
-            margin-bottom: 1.25rem;
+            margin-bottom: 0.75rem;
           }
           .hero-title {
-            font-size: 1.85rem !important;
+            font-size: 1.65rem !important;
             line-height: 1.2;
           }
           .hero-subline {
-            font-size: 0.85rem !important;
-            margin-bottom: 0.85rem !important;
-            line-height: 1.45;
+            font-size: 0.8rem !important;
+            margin-bottom: 0.65rem !important;
+            line-height: 1.4;
           }
           .question-text {
-            font-size: 1.25rem !important;
+            font-size: 1.15rem !important;
           }
           .hero-interactive-stage {
-            padding: 0.85rem 0.65rem !important;
+            padding: 0.85rem 0.65rem 3.5rem 0.65rem !important;
             border-radius: 18px !important;
+            margin-bottom: 2.25rem !important;
           }
 
           /* Master mode tabs: clean horizontal touch slider without awkward wrapping */
@@ -2449,13 +2698,13 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
             font-size: 0.8rem;
           }
 
-          /* 3D CAROUSEL MODE: Horizontal Swipe Track with Depth & Snap */
+          /* 3D CAROUSEL MODE: Horizontal Swipe Track with Depth & Snap - Compact width so next card peeks */
           .stage-cities-grid.carousel-mode {
             display: flex;
             grid-template-columns: none !important;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            gap: 1rem;
+            gap: 0.85rem;
             padding: 0.4rem 0.65rem 0.95rem 0.65rem;
             scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
@@ -2467,9 +2716,16 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           }
           .stage-cities-grid.carousel-mode .city-in-place-card,
           .stage-cities-grid.carousel-mode .seasonal-stage-card {
-            flex: 0 0 83vw;
-            max-width: 310px;
-            scroll-snap-align: center;
+            flex: 0 0 68vw;
+            max-width: 270px;
+            scroll-snap-align: start;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+          }
+          .stage-cities-grid.carousel-mode .c-card-media-pane {
+            height: 145px;
+          }
+          .stage-cities-grid.carousel-mode .city-headline {
+            font-size: 0.95rem;
           }
 
           /* VERTICAL MODE: Max 4 Cards with Compact Layout */
