@@ -1,0 +1,51 @@
+# =========================================================================
+# COMFORT JOURNEY - ROBOTS.TXT
+# Configured for Search Engine Crawlers and AI Answer Engines
+# =========================================================================
+
+User-agent: *
+Allow: /
+Disallow: /#/admin
+Disallow: /admin
+Disallow: /cms/
+
+# Google AI & Search Crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-Mobile
+Allow: /
+
+# Bing & Copilot
+User-agent: Bingbot
+Allow: /
+
+# Apple Search & Siri Suggestions
+User-agent: Applebot
+Allow: /
+
+# OpenAI / ChatGPT
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Perplexity AI Search
+User-agent: PerplexityBot
+Allow: /
+
+# Anthropic / Claude
+User-agent: ClaudeBot
+Allow: /
+
+# Common Crawl
+User-agent: CCBot
+Allow: /
+
+# Host & Sitemap location
+Host: https://www.comfortjourneyy.com
+Sitemap: https://www.comfortjourneyy.com/sitemap.xml
