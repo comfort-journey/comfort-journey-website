@@ -1308,17 +1308,38 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
 
         @media (max-width: 600px) {
           .google-reviews-section {
-            padding: 3rem 0 2rem 0;
+            padding: 2.5rem 0 1.5rem 0;
+            overflow: hidden;
           }
 
           .header-text-block .section-title {
             font-size: 1.75rem;
+            line-height: 1.25;
+          }
+
+          .reviews-filter-bar {
+            width: 100%;
+            overflow-x: auto;
+            flex-wrap: nowrap;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 0.35rem;
+          }
+          .reviews-filter-bar::-webkit-scrollbar {
+            display: none;
+          }
+          .filter-pill-btn {
+            flex-shrink: 0;
+            white-space: nowrap;
+            padding: 0.4rem 0.85rem;
+            font-size: 0.78rem;
           }
 
           .google-trophy-card {
             flex-direction: column;
             align-items: flex-start;
             gap: 1rem;
+            padding: 1.15rem;
           }
 
           .trophy-actions {
@@ -1328,15 +1349,65 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
 
           .btn-google-action {
             flex: 1;
+            font-size: 0.78rem;
+            padding: 0.5rem 0.75rem;
           }
 
           .luminous-review-card-wrap {
-            width: 320px;
+            width: 86vw;
+            max-width: 320px;
           }
 
           .luminous-review-card {
-            height: 230px;
-            padding: 1.15rem;
+            height: auto;
+            min-height: 195px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          }
+
+          .reviewer-fullname {
+            font-size: 0.86rem;
+            max-width: 140px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .card-quote-body {
+            margin: 0.4rem 0;
+          }
+
+          .quote-text-content {
+            font-size: 0.82rem;
+            line-height: 1.45;
+            -webkit-line-clamp: 3;
+          }
+
+          /* Trust Proof Banner: Clean 1-column list with no dangling dots */
+          .trust-proof-banner {
+            padding: 1.15rem 1rem;
+            border-radius: 16px;
+            width: 100%;
+            box-sizing: border-box;
+            gap: 1rem;
+          }
+
+          .trust-badges-cluster {
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+            width: 100%;
+          }
+
+          .trust-badge-divider {
+            display: none !important;
+          }
+
+          .trust-badge-item {
+            font-size: 0.8rem;
+            width: 100%;
           }
         }
       `}</style>

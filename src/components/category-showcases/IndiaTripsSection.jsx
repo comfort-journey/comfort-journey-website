@@ -813,26 +813,107 @@ export default function IndiaTripsSection({
 
         /* ═══ RESPONSIVE ═══ */
         @media (max-width: 768px) {
+          .india-showcase-root {
+            padding: 2.5rem 0 1.5rem 0;
+          }
+          .showcase-title {
+            font-size: 1.85rem !important;
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+          }
+          .showcase-subtitle {
+            font-size: 0.85rem;
+            line-height: 1.45;
+            margin-bottom: 0.75rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+
+          /* Hide redundant vibe badges on mobile to prevent screen clutter */
+          .vibe-badges-strip {
+            display: none !important;
+          }
+
           .controls-and-tabs-bar {
             flex-direction: column;
             align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
           }
+
+          /* Smooth horizontal swipe sub-region tabs */
+          .sub-region-tabs {
+            display: flex;
+            overflow-x: auto;
+            flex-wrap: nowrap;
+            width: 100%;
+            gap: 0.45rem;
+            padding-bottom: 0.4rem;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+          }
+          .sub-region-tabs::-webkit-scrollbar {
+            display: none;
+          }
+          .sub-tab-btn {
+            flex-shrink: 0;
+            padding: 0.45rem 0.85rem;
+            font-size: 0.8rem;
+            white-space: nowrap;
+          }
+
+          .carousel-nav-arrows {
+            display: none;
+          }
+
+          /* 3D Curved Gradient Mask Carousel Track */
+          .showcase-carousel-track {
+            padding: 0.25rem 0.5rem 1rem 0.5rem;
+            gap: 0.95rem;
+            mask-image: linear-gradient(to right, transparent, black 10px, black calc(100% - 16px), transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10px, black calc(100% - 16px), transparent);
+          }
+          .carousel-card-slide {
+            flex: 0 0 83vw;
+            max-width: 310px;
+            scroll-snap-align: center;
+          }
+          .card-media {
+            height: 145px;
+          }
+
           .showcase-bottom-dock {
             flex-direction: column;
             align-items: flex-start;
+            padding: 1rem 1.15rem;
+            margin-top: 1rem;
+            gap: 0.75rem;
+          }
+          .bottom-dock-info .dock-highlight {
+            font-size: 0.9rem;
+          }
+          .bottom-dock-info p {
+            font-size: 0.78rem;
           }
           .bottom-dock-actions {
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
           }
           .btn-explore-all-india, .btn-custom-india-ai {
             width: 100%;
             justify-content: center;
+            padding: 0.65rem 1rem;
+            font-size: 0.84rem;
           }
-          .india-monument-taj { width: 240px; }
-          .india-monument-hawa { width: 100px; }
-          .india-monument-gateway { width: 90px; }
-          .india-monument-lotus { width: 110px; }
-          .india-mandala-ring { width: 350px; height: 350px; }
+          .india-monument-taj { width: 200px; opacity: 0.2; }
+          .india-monument-hawa { width: 80px; opacity: 0.15; }
+          .india-monument-gateway { width: 75px; opacity: 0.15; }
+          .india-monument-lotus { width: 90px; opacity: 0.15; }
+          .india-mandala-ring { width: 280px; height: 280px; opacity: 0.25; }
         }
       `}</style>
     </section>

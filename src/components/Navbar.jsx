@@ -1724,15 +1724,19 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
             display: none;
           }
           .title-comfort, .title-journey {
-            font-size: 1.15rem;
+            font-size: 1.05rem;
+          }
+          .sub-est-clean {
+            font-size: 0.58rem;
+            letter-spacing: 0.06em;
           }
           .brand-emblem-badge {
-            width: 34px;
-            height: 34px;
+            width: 32px;
+            height: 32px;
           }
           .brand-emblem-badge svg {
-            width: 34px;
-            height: 34px;
+            width: 32px;
+            height: 32px;
           }
         }
 

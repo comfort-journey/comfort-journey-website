@@ -140,20 +140,63 @@ export default function StatsBar() {
 
         @media (max-width: 768px) {
           .stats-root {
-            padding: 1.75rem 0;
+            padding: 1.15rem 0;
+            overflow: hidden;
           }
           .stats-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.85rem;
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 0.75rem;
+            padding: 0.25rem 0.85rem 0.5rem 0.85rem;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            mask-image: linear-gradient(to right, transparent, black 10px, black calc(100% - 15px), transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10px, black calc(100% - 15px), transparent);
+          }
+          .stats-grid::-webkit-scrollbar {
+            display: none;
+          }
+          .stat-tilt-wrapper {
+            flex: 0 0 205px;
+            scroll-snap-align: start;
           }
           .stat-card {
-            flex-direction: column;
-            text-align: center;
-            padding: 1.15rem 0.75rem;
+            padding: 0.75rem 0.85rem;
+            border-radius: 16px;
+            min-height: 76px;
+          }
+          .stat-card-inner {
+            flex-direction: row;
+            text-align: left;
             gap: 0.65rem;
           }
+          .stat-icon-wrapper {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+          }
+          .stat-icon {
+            width: 18px !important;
+            height: 18px !important;
+          }
           .stat-value {
-            font-size: 1.65rem;
+            font-size: 1.25rem;
+            line-height: 1.15;
+            white-space: nowrap;
+          }
+          .stat-label {
+            font-size: 0.72rem;
+            font-weight: 800;
+            white-space: normal;
+            line-height: 1.2;
+            color: #FFFFFF;
+          }
+          .stat-sub {
+            font-size: 0.66rem;
+            white-space: normal;
+            line-height: 1.15;
+            color: #94A3B8;
           }
         }
       `}</style>

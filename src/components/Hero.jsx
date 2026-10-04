@@ -4,7 +4,8 @@ import {
   ChevronRight, ArrowRight, CheckCircle2, Heart, ShieldCheck, 
   MessageCircle, ExternalLink, Flame, ArrowLeft, Landmark, 
   Building2, Palmtree, Waves, Snowflake, CloudRain, Leaf, Flower2,
-  Hotel, Car, Utensils, Ticket, Clock, Star, Briefcase, Search, X
+  Hotel, Car, Utensils, Ticket, Clock, Star, Briefcase, Search, X,
+  SlidersHorizontal, LayoutGrid, ChevronDown
 } from 'lucide-react';
 import { CONTINENTS_TREE_DATA, SEASONS_DATA, TRAVELER_STYLES_DATA } from '../data/continentHierarchyData';
 import { HERO_SLIDES } from '../data/toursData';
@@ -44,6 +45,18 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
   const [showAllCountryTours, setShowAllCountryTours] = useState(false);
   const [countrySearchQuery, setCountrySearchQuery] = useState('');
   const [countryRegionFilter, setCountryRegionFilter] = useState('All');
+
+  // Mobile layout state: 'carousel' (Horizontal 3D slider - Default) | 'vertical' (max 4 cards)
+  const [mobileLayoutMode, setMobileLayoutMode] = useState('carousel');
+  const [mobileVisibleCount, setMobileVisibleCount] = useState(4);
+  const heroToursTrackRef = useRef(null);
+
+  const scrollHeroTours = (direction) => {
+    if (heroToursTrackRef.current) {
+      const scrollAmount = direction === 'left' ? -310 : 310;
+      heroToursTrackRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
 
   // Helper to retrieve all packages for a country (e.g. all 80 National Packages for India, exact matches for UAE, Thailand, Bali, Japan, etc.)
   const getCountryTours = (countryId, countryName) => {
@@ -555,7 +568,10 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                   );
                 }
 
-                const displayedTours = showAllCountryTours ? filteredTours : filteredTours.slice(0, 8);
+                const isMobileVertical = mobileLayoutMode === 'vertical';
+                const displayedTours = isMobileVertical 
+                  ? filteredTours.slice(0, mobileVisibleCount) 
+                  : (showAllCountryTours ? filteredTours : filteredTours.slice(0, 12));
 
                 return (
                   <div className="country-packages-wrapper">
@@ -606,7 +622,40 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                       )}
                     </div>
 
-                    <div className="stage-cities-grid">
+                    {/* Mobile Packages Toolbar: Live Count & 3D Slider vs Vertical Toggle */}
+                    <div className="hero-packages-toolbar">
+                      <div className="packages-count-badge">
+                        <span className="live-dot-pulse" />
+                        <span>{filteredTours.length} {activeCountry.name} Packages</span>
+                      </div>
+
+                      <div className="mobile-view-mode-toggle">
+                        <button 
+                          type="button" 
+                          className={`view-toggle-btn ${mobileLayoutMode === 'carousel' ? 'active' : ''}`}
+                          onClick={() => setMobileLayoutMode('carousel')}
+                          title="Horizontal 3D Slider"
+                        >
+                          <SlidersHorizontal size={13} />
+                          <span>3D Slider</span>
+                        </button>
+                        <button 
+                          type="button" 
+                          className={`view-toggle-btn ${mobileLayoutMode === 'vertical' ? 'active' : ''}`}
+                          onClick={() => setMobileLayoutMode('vertical')}
+                          title="Compact View (Max 4)"
+                        >
+                          <LayoutGrid size={13} />
+                          <span>Grid (Max 4)</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Horizontal 3D Swipe Track (Default) or Vertical Progressive Grid */}
+                    <div 
+                      className={`stage-cities-grid ${mobileLayoutMode === 'carousel' ? 'carousel-mode' : 'vertical-mode'}`}
+                      ref={heroToursTrackRef}
+                    >
                       {displayedTours.map((tour) => {
                         const origPrice = tour.originalPrice || Math.round(tour.price * 1.25);
                         const discountPct = Math.round(((origPrice - tour.price) / origPrice) * 100) || 20;
@@ -628,10 +677,10 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
                               {/* Overlaid Badges */}
                               <div className="c-media-top-badges">
-                                  <span className="c-tag-pill c-tag-highlight">
-                                    <Flame size={12} className="text-amber-glow animate-pulse" />
-                                    <span>{tour.badge ? tour.badge.replace(/^[🔥✨👑🌟\s]+/, '').trim() || 'Filling Fast' : 'Filling Fast'}</span>
-                                  </span>
+                                <span className="c-tag-pill c-tag-highlight">
+                                  <Flame size={12} className="text-amber-glow animate-pulse" />
+                                  <span>{tour.badge ? tour.badge.replace(/^[🔥✨👑🌟\s]+/, '').trim() || 'Filling Fast' : 'Filling Fast'}</span>
+                                </span>
                                 {discountPct > 0 && (
                                   <span className="c-tag-pill c-tag-discount">
                                     {discountPct}% OFF
@@ -699,9 +748,38 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                       })}
                     </div>
 
-                    {/* View All Packages button */}
+                    {/* Carousel Mode Swipe Helper Row (Mobile only) */}
+                    {mobileLayoutMode === 'carousel' && filteredTours.length > 1 && (
+                      <div className="carousel-mobile-arrows-row">
+                        <span className="swipe-hint-text">← Swipe cards horizontally ({filteredTours.length} packages) →</span>
+                        <div className="carousel-nav-arrows mini">
+                          <button type="button" className="btn-carousel-arrow mini" onClick={() => scrollHeroTours('left')} aria-label="Previous">
+                            <ArrowLeft size={14} />
+                          </button>
+                          <button type="button" className="btn-carousel-arrow mini" onClick={() => scrollHeroTours('right')} aria-label="Next">
+                            <ArrowRight size={14} />
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Vertical Mode: Progressive Show More (Never more than 4 initially) */}
+                    {mobileLayoutMode === 'vertical' && filteredTours.length > mobileVisibleCount && (
+                      <div className="vertical-show-more-row text-center mt-3">
+                        <button
+                          type="button"
+                          className="btn-expand-mobile-vertical"
+                          onClick={() => setMobileVisibleCount(prev => prev + 4)}
+                        >
+                          <ChevronDown size={15} />
+                          <span>Show 4 More Packages ({filteredTours.length - mobileVisibleCount} remaining)</span>
+                        </button>
+                      </div>
+                    )}
+
+                    {/* Desktop View All Packages button */}
                     {filteredTours.length > 8 && (
-                      <div className="country-expand-cta-row text-center mt-3">
+                      <div className="country-expand-cta-row text-center mt-3 desktop-only-expand">
                         <button
                           type="button"
                           className="btn-expand-country-packages"
@@ -770,7 +848,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               })()}
 
               {/* In-Place Seasonal Tour Cards */}
-              <div className="stage-cities-grid">
+              <div className={`stage-cities-grid ${mobileLayoutMode === 'carousel' ? 'carousel-mode' : 'vertical-mode'}`}>
                 {getSeasonalTours().map((tour) => {
                   const origPrice = tour.originalPrice || Math.round(tour.price * 1.25);
 
@@ -865,7 +943,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               })()}
 
               {/* In-Place Style Tour Cards */}
-              <div className="stage-cities-grid">
+              <div className={`stage-cities-grid ${mobileLayoutMode === 'carousel' ? 'carousel-mode' : 'vertical-mode'}`}>
                 {getStyleTours().map((tour) => {
                   const origPrice = tour.originalPrice || Math.round(tour.price * 1.25);
 
@@ -2173,18 +2251,288 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           box-shadow: 0 4px 15px rgba(255, 137, 47, 0.25);
         }
 
-        @media (max-width: 860px) {
+        /* ── HERO PACKAGES MOBILE TOOLBAR & 3D SLIDER STYLES ── */
+        .hero-packages-toolbar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0.65rem 0.5rem;
+          margin-bottom: 0.65rem;
+          gap: 0.75rem;
+          flex-wrap: wrap;
+        }
+
+        .packages-count-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.45rem;
+          font-size: 0.82rem;
+          font-weight: 800;
+          color: #FFB070;
+          background: rgba(255, 137, 47, 0.12);
+          border: 1px solid rgba(255, 137, 47, 0.3);
+          padding: 0.25rem 0.75rem;
+          border-radius: 9999px;
+        }
+
+        .live-dot-pulse {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: #22C55E;
+          box-shadow: 0 0 8px #22C55E;
+          animation: pulseGreen 1.5s infinite;
+        }
+
+        @keyframes pulseGreen {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.4; transform: scale(1.3); }
+        }
+
+        .mobile-view-mode-toggle {
+          display: inline-flex;
+          align-items: center;
+          background: rgba(0, 18, 51, 0.75);
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          border-radius: 9999px;
+          padding: 3px;
+          gap: 3px;
+        }
+
+        .view-toggle-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          padding: 0.32rem 0.7rem;
+          border-radius: 9999px;
+          font-size: 0.76rem;
+          font-weight: 700;
+          color: #CBD5E1;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .view-toggle-btn.active {
+          background: linear-gradient(135deg, #FF892F, #E65100);
+          color: #FFFFFF;
+          box-shadow: 0 2px 8px rgba(255, 137, 47, 0.4);
+        }
+
+        .carousel-mobile-arrows-row {
+          display: none;
+        }
+
+        .btn-expand-mobile-vertical {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.45rem;
+          padding: 0.75rem 1.6rem;
+          border-radius: 9999px;
+          background: linear-gradient(135deg, rgba(255, 137, 47, 0.2), rgba(255, 107, 0, 0.1));
+          border: 1.5px solid rgba(255, 137, 47, 0.5);
+          color: #FFA459;
+          font-size: 0.86rem;
+          font-weight: 800;
+          cursor: pointer;
+          transition: all 0.25s ease;
+          box-shadow: 0 4px 15px rgba(255, 137, 47, 0.25);
+          width: 100%;
+          max-width: 360px;
+          justify-content: center;
+          margin: 0.5rem auto 0 auto;
+        }
+
+        .btn-expand-mobile-vertical:hover {
+          background: linear-gradient(135deg, #FF892F, #E65100);
+          color: #FFFFFF;
+          border-color: #FFA459;
+        }
+
+        @media (max-width: 768px) {
+          .hero-headline-block {
+            margin-bottom: 1.25rem;
+          }
           .hero-title {
-            font-size: 2.35rem;
+            font-size: 1.85rem !important;
+            line-height: 1.2;
           }
-          .continents-deck-strip {
-            grid-template-columns: repeat(2, 1fr);
+          .hero-subline {
+            font-size: 0.85rem !important;
+            margin-bottom: 0.85rem !important;
+            line-height: 1.45;
           }
-          .seasons-selector-bar, .styles-selector-bar {
-            grid-template-columns: 1fr 1fr;
+          .question-text {
+            font-size: 1.25rem !important;
           }
           .hero-interactive-stage {
-            padding: 1.15rem;
+            padding: 0.85rem 0.65rem !important;
+            border-radius: 18px !important;
+          }
+
+          /* Master mode tabs: clean horizontal touch slider without awkward wrapping */
+          .master-mode-tabs {
+            display: flex;
+            overflow-x: auto;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.25rem 0.25rem 0.6rem 0.25rem;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+          }
+          .master-mode-tabs::-webkit-scrollbar {
+            display: none;
+          }
+          .mode-tab-btn {
+            flex-shrink: 0;
+            padding: 0.55rem 0.95rem;
+            font-size: 0.82rem;
+            white-space: nowrap;
+            border-radius: 9999px;
+          }
+          .mode-tab-btn svg {
+            width: 15px;
+            height: 15px;
+          }
+
+          /* Continents deck: smooth horizontal swipe cards */
+          .continents-deck-strip {
+            display: flex !important;
+            grid-template-columns: none !important;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 0.65rem;
+            padding: 0.25rem 0.25rem 0.65rem 0.25rem;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            mask-image: linear-gradient(to right, transparent, black 8px, black calc(100% - 14px), transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 8px, black calc(100% - 14px), transparent);
+          }
+          .continents-deck-strip::-webkit-scrollbar {
+            display: none;
+          }
+          .continent-chip-card {
+            flex: 0 0 140px;
+            scroll-snap-align: start;
+            padding: 0.6rem 0.75rem;
+          }
+
+          /* Country pills bar */
+          .country-pills-bar {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.45rem;
+            margin: 0.75rem 0;
+          }
+          .pills-label {
+            font-size: 0.76rem;
+            color: #94A3B8;
+          }
+          .pills-scroll-row {
+            width: 100%;
+            display: flex;
+            overflow-x: auto;
+            gap: 0.45rem;
+            padding-bottom: 0.35rem;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+          }
+          .pills-scroll-row::-webkit-scrollbar {
+            display: none;
+          }
+          .country-pill-btn {
+            flex-shrink: 0;
+            padding: 0.4rem 0.75rem;
+            font-size: 0.8rem;
+          }
+
+          /* 3D CAROUSEL MODE: Horizontal Swipe Track with Depth & Snap */
+          .stage-cities-grid.carousel-mode {
+            display: flex;
+            grid-template-columns: none !important;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 1rem;
+            padding: 0.4rem 0.65rem 0.95rem 0.65rem;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            mask-image: linear-gradient(to right, transparent, black 12px, black calc(100% - 18px), transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 12px, black calc(100% - 18px), transparent);
+          }
+          .stage-cities-grid.carousel-mode::-webkit-scrollbar {
+            display: none;
+          }
+          .stage-cities-grid.carousel-mode .city-in-place-card,
+          .stage-cities-grid.carousel-mode .seasonal-stage-card {
+            flex: 0 0 83vw;
+            max-width: 310px;
+            scroll-snap-align: center;
+          }
+
+          /* VERTICAL MODE: Max 4 Cards with Compact Layout */
+          .stage-cities-grid.vertical-mode {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+          }
+          .stage-cities-grid.vertical-mode .city-in-place-card,
+          .stage-cities-grid.vertical-mode .seasonal-stage-card {
+            width: 100%;
+            max-width: 100%;
+          }
+
+          /* Mobile Swipe helper row */
+          .carousel-mobile-arrows-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.4rem 0.5rem;
+            font-size: 0.76rem;
+            color: #94A3B8;
+          }
+          .swipe-hint-text {
+            font-style: italic;
+          }
+          .carousel-nav-arrows.mini {
+            display: flex;
+            gap: 0.4rem;
+          }
+          .btn-carousel-arrow.mini {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #F8FAFC;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+          }
+
+          /* Card media pane scaled for phone ergonomics */
+          .c-card-media-pane {
+            height: 145px;
+          }
+
+          /* Hide desktop-only expand button on mobile */
+          .desktop-only-expand {
+            display: none !important;
+          }
+
+          .seasons-selector-bar, .styles-selector-bar {
+            display: flex;
+            overflow-x: auto;
+            gap: 0.5rem;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+          }
+          .season-pill-tab, .style-pill-tab {
+            flex-shrink: 0;
+            padding: 0.55rem 0.85rem;
           }
         }
       `}</style>

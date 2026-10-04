@@ -360,29 +360,72 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
 
         @media (max-width: 860px) {
           .why-us-root {
-            padding: 2.5rem 0 2rem 0;
+            padding: 2.25rem 0 1.5rem 0;
           }
+          .section-title {
+            font-size: 1.85rem;
+            line-height: 1.25;
+          }
+          .why-us-tab-switcher {
+            width: 100%;
+            display: flex;
+            overflow-x: auto;
+            flex-wrap: nowrap;
+            gap: 0.45rem;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 0.4rem;
+          }
+          .why-us-tab-switcher::-webkit-scrollbar {
+            display: none;
+          }
+          .switcher-pill-btn {
+            flex-shrink: 0;
+            white-space: nowrap;
+            padding: 0.5rem 0.85rem;
+            font-size: 0.8rem;
+          }
+
+          /* 3D Horizontal Carousel for Pillars & Services on Mobile */
           .pillars-grid {
-            grid-template-columns: 1fr;
-            gap: 1.15rem;
+            display: flex !important;
+            grid-template-columns: none !important;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 0.85rem;
+            padding: 0.25rem 0.5rem 1rem 0.5rem;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            mask-image: linear-gradient(to right, transparent, black 10px, black calc(100% - 16px), transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10px, black calc(100% - 16px), transparent);
+          }
+          .pillars-grid::-webkit-scrollbar {
+            display: none;
+          }
+          .pillar-tilt-wrapper {
+            flex: 0 0 82vw;
+            max-width: 290px;
+            scroll-snap-align: center;
           }
           .pillar-card {
-            padding: 1.5rem 1.25rem;
+            padding: 1.15rem 1rem;
+            min-height: 210px;
           }
+
           .why-us-banner {
-            padding: 1.75rem 1.25rem;
+            padding: 1.5rem 1.15rem;
             flex-direction: column;
             text-align: center;
           }
           .banner-actions {
             width: 100%;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 0.65rem;
           }
           .banner-actions button, .banner-actions a {
             width: 100%;
             justify-content: center;
-            min-height: 48px;
+            min-height: 44px;
           }
         }
       `}</style>

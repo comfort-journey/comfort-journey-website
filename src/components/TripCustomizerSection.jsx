@@ -1695,21 +1695,62 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
 
         @media (max-width: 768px) {
           .studio-root {
-            padding: 2.5rem 0 2rem 0;
+            padding: 2.25rem 0 1.5rem 0;
           }
           .studio-controls {
-            padding: 1.25rem;
-            gap: 1.5rem;
+            padding: 1rem 0.85rem;
+            gap: 1.25rem;
           }
           .section-title {
-            font-size: 2.1rem;
+            font-size: 1.85rem;
+            line-height: 1.25;
           }
           .cards-selection-row {
             grid-template-columns: 1fr;
           }
+          .category-chips-scroll {
+            -webkit-overflow-scrolling: touch;
+            padding: 0.25rem 0.25rem 0.5rem 0.25rem;
+          }
+          .cat-chip-btn {
+            padding: 0.3rem 0.75rem;
+            font-size: 0.78rem;
+          }
+
+          /* Step 5 Mobile Overflow Fix */
           .addons-grid-redesigned {
             grid-template-columns: 1fr;
+            width: 100%;
           }
+          .addon-tile {
+            width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+            padding: 0.65rem 0.75rem;
+            gap: 0.55rem;
+          }
+          .addon-content {
+            min-width: 0;
+            flex: 1;
+            overflow: hidden;
+          }
+          .addon-name {
+            font-size: 0.82rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+          }
+          .addon-price-col {
+            flex-shrink: 0;
+            margin-left: auto;
+            padding-left: 0.25rem;
+          }
+          .addon-price-tag {
+            font-size: 0.82rem;
+            white-space: nowrap;
+          }
+
           .dest-trigger-text {
             max-width: 140px;
           }
@@ -1717,10 +1758,10 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
             display: none;
           }
           .big-calc-price {
-            font-size: 2.3rem;
+            font-size: 2.1rem;
           }
           .studio-summary-pane {
-            padding: 1.5rem 1.25rem;
+            padding: 1.25rem 1rem;
           }
         }
       `}</style>

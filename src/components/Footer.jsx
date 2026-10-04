@@ -1133,27 +1133,73 @@ export default function Footer({
 
         @media (max-width: 768px) {
           .footer-cinematic-root {
-            padding: 5.5rem 0 7.5rem 0; /* Clear Apple floating bottom dock */
+            padding: 3.5rem 0 7.5rem 0; /* Clear Apple floating bottom dock */
+          }
+
+          .footer-hero-canvas {
+            padding: 1.5rem 1rem;
+            border-radius: 20px;
+            gap: 1.25rem;
+          }
+
+          .hero-canvas-title {
+            font-size: 1.85rem !important;
+            line-height: 1.25;
+            margin-bottom: 0.65rem;
+          }
+
+          .hero-canvas-desc {
+            font-size: 0.88rem;
+            line-height: 1.45;
+            margin-bottom: 1.15rem;
+          }
+
+          /* Hide complex desktop scenic theme switcher on mobile */
+          .scenic-switcher-card {
+            display: none !important;
           }
 
           .footer-glass-deck {
-            padding: 1.75rem 1.25rem;
+            padding: 1.5rem 1rem 5.5rem 1rem; /* Extra bottom clearance for dock */
             border-radius: 20px;
           }
 
           .deck-columns-grid {
             grid-template-columns: 1fr;
-            gap: 1.75rem;
+            gap: 1.5rem;
           }
 
           .hero-canvas-actions {
+            display: flex;
             flex-direction: column;
-            align-items: stretch;
+            gap: 0.6rem;
             width: 100%;
           }
 
-          .btn-hero-primary, .btn-hero-secondary, .btn-hero-ghost {
+          .btn-hero-primary {
+            width: 100%;
             justify-content: center;
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+          }
+
+          .btn-hero-secondary, .btn-hero-ghost {
+            display: inline-flex;
+            width: calc(50% - 0.3rem);
+            justify-content: center;
+            padding: 0.65rem 0.75rem;
+            font-size: 0.82rem;
+            white-space: nowrap;
+          }
+
+          .hero-canvas-actions {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: space-between;
+          }
+
+          .hero-canvas-actions .btn-hero-primary {
             width: 100%;
           }
 
@@ -1170,6 +1216,7 @@ export default function Footer({
             flex-direction: column;
             text-align: center;
             gap: 0.75rem;
+            padding-bottom: 1rem;
           }
 
           .bottom-left {
@@ -1181,7 +1228,7 @@ export default function Footer({
           }
 
           .deck-links-list a, .deck-action-link, .deck-contact-item a {
-            min-height: 44px;
+            min-height: 40px;
             display: inline-flex;
             align-items: center;
           }

@@ -440,6 +440,27 @@
     text-align: center;
   }
 
+  .top-marquee-strip {
+    height: 26px;
+    font-size: 0.7rem;
+    z-index: 10002;
+  }
+  .marquee-content-chunk {
+    gap: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  .marquee-item {
+    gap: 0.35rem;
+  }
+  .marquee-badge {
+    font-size: 0.58rem;
+    padding: 0.08rem 0.35rem;
+  }
+  .marquee-cta {
+    font-size: 0.66rem;
+    padding: 0.1rem 0.35rem;
+  }
+
   /* Show the Ergonomic 1-Handed Apple Liquid Glass Bottom Dock */
   .mobile-bottom-glass-dock {
     display: block;
