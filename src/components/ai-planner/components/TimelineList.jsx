@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Clock, MapPin, Utensils, BedDouble, ShoppingBag, Camera, ChevronDown, ChevronUp } from 'lucide-react';
+import { Clock, MapPin, Utensils, BedDouble, ShoppingBag, Camera, ChevronDown, ChevronUp, Car } from 'lucide-react';
 import TimelineStop from './TimelineStop';
 import './styles/TimelineList.css';
 

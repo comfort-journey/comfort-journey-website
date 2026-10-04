@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Send, Bot, MessageCircle, ChevronRight, Loader2, Sparkles, Download, Share2, FileSpreadsheet, Printer } from 'lucide-react';
+import { Send, Bot, MessageCircle, ChevronRight, Loader2, Sparkles, Download, Share2, FileSpreadsheet, Printer, BedDouble, Utensils } from 'lucide-react';
 import './styles/ChatPanel.css';
 
 const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';

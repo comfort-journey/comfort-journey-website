@@ -27,7 +27,7 @@ const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
 const mascotDefaultSrc = `${basePrefix}mascot-default.png`;
 const mascotReactionSrc = `${basePrefix}mascot-reaction.png`;
 
-export default function AIPlannerPage() {
+export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
   const { formatPrice } = useCurrency();
   const { isMobile, isTablet, isDesktop, mapHeight, layoutMode } = useResponsiveLayout();
   
@@ -91,7 +91,11 @@ export default function AIPlannerPage() {
   // Initialize with default trip or from URL
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const savedPlan = urlParams.get('plan');
+    let savedPlan = urlParams.get('plan');
+    if (!savedPlan && window.location.hash.includes('?')) {
+      const hashQuery = window.location.hash.split('?')[1];
+      savedPlan = new URLSearchParams(hashQuery).get('plan');
+    }
     
     if (savedPlan) {
       try {
@@ -372,6 +376,8 @@ export default function AIPlannerPage() {
       isTablet={isTablet}
       isDesktop={isDesktop}
       layoutMode={layoutMode}
+      onBackToHome={onBackToHome}
+      onOpenQuote={onOpenQuote}
       leftPanel={renderLeftPanel()}
       rightPanel={renderRightPanel()}
       bottomActionBar={renderBottomActionBar()}

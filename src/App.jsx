@@ -182,8 +182,8 @@ export default function App() {
   };
 
   const navigateToAIPlanner = () => {
-    // Open in new tab for best experience (shareable, bookmarkable, full viewport)
-    window.open('/ai-planner', '_blank', 'noopener,noreferrer');
+    window.location.hash = '#/ai-planner';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -242,7 +242,10 @@ export default function App() {
               />
             ) : currentView === 'ai-planner' ? (
               /* DEDICATED AI PLANNER PAGE VIEW */
-              <AIPlannerPage />
+              <AIPlannerPage 
+                onBackToHome={navigateToHome}
+                onOpenQuote={() => setIsQuickQuoteOpen(true)}
+              />
             ) : (
               /* HOMEPAGE VIEW */
               <>

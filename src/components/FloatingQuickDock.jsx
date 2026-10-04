@@ -8,11 +8,15 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMascotHovered, setIsMascotHovered] = useState(false);
 
-  // Open AI Planner in new tab for better UX (shareable, bookmarkable, full viewport)
+  // Open AI Planner view
   const handleOpenAIPlanner = (e) => {
     e?.preventDefault();
-    // Open in new tab for full-page experience
-    window.open('/ai-planner', '_blank', 'noopener,noreferrer');
+    if (onOpenAIPlanner) {
+      onOpenAIPlanner();
+    } else {
+      window.location.hash = '#/ai-planner';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   useEffect(() => {

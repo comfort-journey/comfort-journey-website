@@ -110,5 +110,6 @@ function getDefaultProximity(type) {
 export function generateShareableURL(tripPlan, baseUrl = window.location.origin) {
   const serialized = serializeTripPlan(tripPlan);
   if (!serialized) return baseUrl;
-  return `${baseUrl}/ai-planner?plan=${encodeURIComponent(serialized)}`;
+  const path = window.location.pathname.replace(/\/$/, '');
+  return `${baseUrl}${path}/#/ai-planner?plan=${encodeURIComponent(serialized)}`;
 }
