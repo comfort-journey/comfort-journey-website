@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-06T08:30:52.091Z",
+  "lastUpdated": "2026-10-06T16:03:53.448Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -4013,9 +4013,9 @@
       ],
       "duration": "5N/6D",
       "durationDays": 6,
-      "price": 282452,
+      "price": 44963,
       "origPrice": 389783,
-      "originalPrice": 389783,
+      "originalPrice": 49959,
       "tagline": "Discover Singapore Urban Escape, blending futuristic skylines, vibrant culture, tropical islands, and unforgettable experiences.",
       "description": "<!--StartFragment-->Discover Singapore Urban Escape, blending futuristic skylines, vibrant culture, tropical islands, and unforgettable experiences.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85",
@@ -4046,48 +4046,54 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Day 1: Arrival in Singapore",
+          "title": " Arrival in Singapore",
           "desc": "On arrival at Singapore Airport, meet our representative and get transferred to hotel. (Check in time 2pm). In the night if you have time, you can visit the Clarke Quay, its a area bustling with eateries and lights. You can have dinner there and return back to your hotel for stay. Notes: As Jewel Changi Airport is a popular attraction we kindly request that any changes or delays to your airport pick-up be communicated to us at least 72 hours prior to your travel date or once the flight details are updated. This advance notice allows us to make the necessary arrangements and ensure a smooth experience for you upon arrival. Porter services for luggage handling are not included and will be chargeable directly if availed. Overnight stay at Hotel Traveltine Downtown Singapore, Trademark Collection by Wyndham.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 2,
-          "title": "Day 2: Full day Universal Studios Tour",
+          "title": "Full day Universal Studios Tour",
           "desc": "Live The Movies at the many exclusive attractions found only at the region’s first Hollywood movie theme park, Universal Studios Singapore. Featuring movie-themed rides and attractions, which are unique to Singapore, thrill seekers and families will be the first to experience many new rides and shows based on blockbuster hits. The young and young at heart will be entertained by Shrek and gang on an incredible 4-D adventure in the world’s first Far Far Away Castle. Thrill seekers can face warrior mummies on Revenge of the Mummy a psychological thrill ride in total darkness. Notes: Guide is mandatory for groups of 15 or more participants and is not included in your quote by default. For groups with fewer than 15 participants, the guide is optional. If you require a guide, please select this option from the system. Note that if a group of more than 15 travels without a guide and is approached by the authorities, the traveling customer will be responsible for any fines incurred. Overnight stay at Hotel Traveltine Downtown Singapore, Trademark Collection by Wyndham.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 3,
-          "title": "Day 3: Singapore Flyer + Time Capsule + Gardens by the Bay Flower Dome & Cloud Forest - Jurassic World: The Exhibition + Marina Bay Sands",
+          "title": " Singapore Flyer + Time Capsule + Gardens by the Bay Flower Dome & Cloud Forest - Jurassic World: The Exhibition + Marina Bay Sands",
           "desc": "The Singapore Flyer, a giant observation wheel that features brilliant engineering breakthroughs a world apart from the traditional ferries wheel, is set to be Asia's most visible iconic visitor attraction. It provides breathtaking, panoramic views of Singapore and beyond. The Singapore Flyer will transform the visual landscape of the surrounding Marina Bay area. Gardens by the Bay, features more than 500,000 plants from over 2,200 species. Flower Dome - The Flower Dome replicates the cool and dry Mediterranean climate featuring 9 different gardens from 5 continents. Notes: Timeslot booking is now required before visiting Skypark Observation Deck from 4:00pm to 9:00pm (evening session) ONLY, and is not applicable for given booking. Time entry reservation is every 15 minutes from 4pm till 8:30pm. Use this link for booking https://ticket.marinabaysands.com/mbs/booking/skypark Guests can enter anytime without reservation from 11am till before 5pm Transfers included to and from MBS. From MBS to GBB they need to walk , and from there to Flyer also they need to walk and come back for the return pickup. Guide is mandatory for groups of 15 or more participants and is not included in your quote by default. For groups with fewer than 15 participants, the guide is optional. If you require a guide, please select this option from the system. Note that if a group of more than 15 travels without a guide and is approached by the authorities, the traveling customer will be responsible for any fines incurred. Overnight stay at Hotel Traveltine Downtown Singapore, Trademark Collection by Wyndham.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 4,
-          "title": "Day 4: Full Day Sentosa Island Tour",
+          "title": " Full Day Sentosa Island Tour",
           "desc": "Enjoy your day at Sentosa Island. Enjoy Go Green Segway - One Ride. After Go Green Segway step in Merlion , standing at 37-metre-tall half Lion and half Fish structure has a Mouth Gallery Viewing Deck .Sit through a short animation that tells you the story of the origin of the Merlion.. At the viewing decks enjoy the bird eye view of Sentosa. There's no better way to complete a fabulous day at Sentosa than to take in a spectacular night show set outdoors against the backdrop of an open sea. Come, discover an awe-inspiring display of water, laser and fire effects, set to majestic music and a panorama of breathtaking vistas - Wings of Time. Weaved together by a tale of friendship and courage that will linger with you long after you leave the magical isle. Notes: Guide is mandatory for groups of 15 or more participants and is not included in your quote by default. For groups with fewer than 15 participants, the guide is optional. If you require a guide, please select this option from the system. Note that if a group of more than 15 travels without a guide and is approached by the authorities, the traveling customer will be responsible for any fines incurred. Overnight stay at Hotel Traveltine Downtown Singapore, Trademark Collection by Wyndham.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         },
         {
           "day": 5,
-          "title": "Day 5: Departure from Singapore",
+          "title": "Departure from Singapore",
           "desc": "After check out, please meet our representative who will transfer you to the airport. Note: Porter services for luggage handling are not included and will be chargeable directly if availed.",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast & Dinner"
+          "meals": "Daily Breakfast unless specified."
         }
       ],
       "status": "published",
       "isVisible": true,
-      "heroTagline": "Discover Singapore Urban Escape, blending futuristic skylines, vibrant culture, tropical islands, and unforgettable experiences."
+      "heroTagline": "Discover Singapore Urban Escape, blending futuristic skylines, vibrant culture, tropical islands, and unforgettable experiences.",
+      "itinerarySectionTitle": "5 Days of City Lights, Gardens, Culture & Island Adventures",
+      "discountBadge": "10% OFF",
+      "seo": {
+        "focusKeyword": "Singapore ",
+        "metaDescription": "Discover Singapore Escape, blending futuristic skylines, vibrant culture, tropical islands, and unforgettable experiences."
+      }
     },
     {
       "id": "tour-wix-asian-extravaganza",
