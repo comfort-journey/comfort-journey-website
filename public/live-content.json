@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-06T17:12:35.449Z",
+  "lastUpdated": "2026-10-06T17:12:44.450Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -4323,8 +4323,8 @@
     {
       "id": "tour-wix-essence-of-europe",
       "wixId": "d1a6535d-d223-45a2-aef0-e682dcf08fc3",
-      "name": "Rome, Milan, Ferrara & Zurich — Renaissance Streets & Alpine Retreats",
-      "slug": "rome-milan-ferrara-zurich-renaissance-streets-alpine-retreats",
+      "name": "Essence of Europe",
+      "slug": "essence-of-europe",
       "location": "Rome, Milan, Ferrara, Zurich",
       "city": "Rome, Milan, Ferrara, Zurich",
       "state": "Switzerland & Italy",
@@ -4339,18 +4339,12 @@
         "Family & Group",
         "Family Tours",
         "Friends Travel",
+        "Solo Trips",
+        "Adventure & Trekking",
         "Heritage & Palaces",
         "Culture & Heritage",
         "Europe",
-        "Luxury Signature",
-        "Winter",
-        "Autumn",
-        "Spring",
-        "Couple & Honeymoon",
-        "Family Trips",
-        "Group Tours",
-        "Heritage & Culture",
-        "Pilgrimage & Spiritual"
+        "Luxury Signature"
       ],
       "tags": [
         "International",
@@ -4369,11 +4363,11 @@
       ],
       "duration": "7N/8D",
       "durationDays": 8,
-      "price": 52249,
+      "price": 387104,
       "origPrice": 455417,
-      "originalPrice": 54999,
-      "tagline": "Discover Rome Milan Ferrara Zurich, blending historic landmarks, Renaissance art, elegant cities, and Alpine scenery.",
-      "description": "<!--StartFragment-->Discover Rome Milan Ferrara Zurich, blending historic landmarks, Renaissance art, elegant cities, and Alpine scenery.<!--EndFragment-->",
+      "originalPrice": 455417,
+      "tagline": "Embark on a captivating European adventure, exploring iconic cities, cultural landmarks, and breathtaking landscapes. Your journey begins in Rome, the Eternal City, where ancient history, timeless architecture, and vibrant culture await. Day two immerses you in the grandeur of Rome and the spiritual majesty of Vatican City. Traveling north, visit Pisa to witness the Leaning Tower and the architectural wonders of Piazza dei Miracoli. Continue to Florence, the cradle of the Renaissance.\n\nExperience the romance of Venice with a private boat ride through the canals, St. Mark’s Square, St. Mark’s Basilica, and a memorable Gondola ride. Later, journey to Milan to explore the Duomo, Galleria Vittorio Emanuele II, and picturesque Lake Como’s Bellagio village before crossing into Zurich, Switzerland.\n\nSwitzerland offers alpine thrills and scenic beauty with excursions to Mt. Titlis’ Rotair cable car, the Cliff Walk, Lucerne city tour, and an optional trip to Jungfraujoch – the Top of Europe. Interlaken’s lakeside charm provides a serene escape before returning to Zurich. Conclude your journey with memories of stunning architecture, picturesque landscapes, and cultural treasures.",
+      "description": "Embark on a captivating European adventure, exploring iconic cities, cultural landmarks, and breathtaking landscapes. Your journey begins in Rome, the Eternal City, where ancient history, timeless architecture, and vibrant culture await. Day two immerses you in the grandeur of Rome and the spiritual majesty of Vatican City. Traveling north, visit Pisa to witness the Leaning Tower and the architectural wonders of Piazza dei Miracoli. Continue to Florence, the cradle of the Renaissance.\n\nExperience the romance of Venice with a private boat ride through the canals, St. Mark’s Square, St. Mark’s Basilica, and a memorable Gondola ride. Later, journey to Milan to explore the Duomo, Galleria Vittorio Emanuele II, and picturesque Lake Como’s Bellagio village before crossing into Zurich, Switzerland.\n\nSwitzerland offers alpine thrills and scenic beauty with excursions to Mt. Titlis’ Rotair cable car, the Cliff Walk, Lucerne city tour, and an optional trip to Jungfraujoch – the Top of Europe. Interlaken’s lakeside charm provides a serene escape before returning to Zurich. Conclude your journey with memories of stunning architecture, picturesque landscapes, and cultural treasures.",
       "image": "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/nsplsh_f24526f1c4dd4c7b9e2ba8aac3dc6b4e~mv2.jpg/Image%20by%20Luis%20Javier%20Tello%20Cendal.jpg#originWidth=4608&originHeight=2592",
       "badge": "International Signature",
@@ -4381,13 +4375,47 @@
       "reviews": 96,
       "reviewsCount": 96,
       "inclusions": [
+        "Rome",
+        "Stay for 2 nights at Hampton By Hilton Rome North Fiano Romano or similar",
         "Standard Room",
         "Breakfast",
         "Guided city tour of Rome covering iconic sights like the Colosseum & Roman Forum",
+        "Visit the magnificent St. Peter’s Basilica",
+        "Photo stop at the Iconic Trevi Fountain",
         "Services of an experienced Hindi & English-speaking Tour Manager throughout the tour",
         "All Driver and Tour Manager Tips Included",
         "1 Indian Lunch",
+        "Daily Indian Dinners",
+        "Ferrara",
+        "Stay for 1 night at Radisson Hotel Ferrara or similar",
+        "Standard Room",
+        "Breakfast",
+        "Photo-stop at the Leaning Tower of Pisa",
+        "Visit Square of Miracles",
         "Guided city tour Florence",
+        "St. Mark’s Square by Private Boat",
+        "Enjoy a classic Venetian Gondola Ride",
+        "1 Indian Lunch",
+        "Daily Indian Dinners",
+        "Milan",
+        "Stay for 1 night at Zeus Essence Dolce by Wyndham Milan Malpensa or similar",
+        "Standard Room",
+        "Breakfast",
+        "Milan Orientation Tour of Duomo and Galleria Vittorio Emanuelle",
+        "Visit the beautiful Lake Como and Bellagio",
+        "Daily Indian Dinners",
+        "Zurich",
+        "Stay for 3 nights at Radisson Hotel & Suites Zurich or similar",
+        "Standard Room",
+        "Breakfast",
+        "Witness breath-taking mountain peaks and glaciers at Mt. Titlis",
+        "Ride in the world’s first revolving cable car",
+        "Orientation tour of Interlaken",
+        "Optional excursion to Jungfraujoch – Top of Europe (extra cost)",
+        "Explore the charming lakeside town of Lucerne",
+        "1 Indian Lunch on top of Mt. Titlis",
+        "Daily Indian Dinners",
+        "Flights",
         "To and Fro Flights Included (Into Rome Out of Zurich)"
       ],
       "exclusions": [
@@ -4406,78 +4434,71 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Rome Awaits – A Grand Beginning to Your European Journey",
+          "title": "Day 1: Rome Awaits – A Grand Beginning to Your European Journey",
           "desc": "Arrival in Rome. Meet and greet at the airport and transfer to the hotel. Leisure time after check-in. Overnight Stay - Hampton By Hilton Rome North Fiano Romano Meals - Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast unless specified."
+          "meals": "Daily Breakfast & Dinner"
         },
         {
           "day": 2,
-          "title": "Rome Guided City Tour with Vatican City and St. Peter’s Basilica",
+          "title": "Day 2: Rome Guided City Tour with Vatican City and St. Peter’s Basilica",
           "desc": "Visit: Vatican City St. Peter’s Basilica Colosseum (Exterior) Piazza Venezia Victor Emmanuel II Monument Trevi Fountain Overnight Stay - Hampton By Hilton Rome North Fiano Romano Meals - Breakfast, Lunch, Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast unless specified."
+          "meals": "Daily Breakfast & Dinner"
         },
         {
           "day": 3,
-          "title": "Visit Leaning Tower of Pisa – Florence City Tour & Piazzale Michelangelo",
+          "title": "Day 3: Visit Leaning Tower of Pisa – Florence City Tour & Piazzale Michelangelo",
           "desc": "Visit: Piazza dei Miracoli Leaning Tower of Pisa Florence Piazzale Michelangelo Florence Duomo Baptistery Giotto’s Campanile Piazza della Signoria Palazzo Vecchio Ponte Vecchio Overnight Stay - Raddison Hotel Ferrara Meals - Breakfast, Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast unless specified."
+          "meals": "Daily Breakfast & Dinner"
         },
         {
           "day": 4,
-          "title": "Transfer To Venice – The Floating City Of Italy With Gondola Ride",
+          "title": "Day 4: Transfer To Venice – The Floating City Of Italy With Gondola Ride",
           "desc": "Visit: Venice Private Boat Ride St. Mark’s Square St. Mark’s Basilica Clock Tower Bell Tower Bridge of Sighs Gondola Ride Transfer to Milan. Overnight Stay - Zeus Essence Dolce by Wyndham Milan Malpensa Meals - Breakfast, Lunch, Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast unless specified."
+          "meals": "Daily Breakfast & Dinner"
         },
         {
           "day": 5,
-          "title": " Discover Milan’s Elegance & Experience the Serenity of Lake Como – Drive to Zurich",
+          "title": "Day 5: Discover Milan’s Elegance & Experience the Serenity of Lake Como – Drive to Zurich",
           "desc": "Visit: Milan Cathedral (Duomo di Milano) Galleria Vittorio Emanuele II Lake Como Bellagio (subject to road/weather conditions) Transfer to Zurich Overnight Stay - Radisson Hotel & Suites Zurich Meals - Breakfast, Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast unless specified."
+          "meals": "Daily Breakfast & Dinner"
         },
         {
           "day": 6,
-          "title": "World’s First Rotating Cable Car Rotair Up Mt. Titlis Peak At 3,020m - Orientation Tour of Lucerne",
+          "title": "Day 6: World’s First Rotating Cable Car Rotair Up Mt. Titlis Peak At 3,020m - Orientation Tour of Lucerne",
           "desc": "Visit: Engelberg Mt. Titlis Rotair Cable Car Cliff Walk Lucerne Chapel Bridge Lion Monument Overnight Stay - Radisson Hotel & Suites Zurich Meals - Breakfast, Lunch, Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast unless specified."
+          "meals": "Daily Breakfast & Dinner"
         },
         {
           "day": 7,
-          "title": "Magical Alpine Excursion To The Top Of Europe – The Amazing Jungfraujoch And Scenic Interlaken (Extra Cost)",
+          "title": "Day 7: Magical Alpine Excursion To The Top Of Europe – The Amazing Jungfraujoch And Scenic Interlaken (Extra Cost)",
           "desc": "Optional excursion: Jungfraujoch – Top of Europe Eiger Express Gondola Ice Palace Sphinx Observatory Alternative: Interlaken Overnight Stay - Radisson Hotel & Suites Zurich Meals - Breakfast, Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast unless specified."
+          "meals": "Daily Breakfast & Dinner"
         },
         {
           "day": 8,
-          "title": "Adieu Europe – A Grand Journey Concludes",
+          "title": "Day 8: Adieu Europe – A Grand Journey Concludes",
           "desc": "Check-out and transfer to Zurich Airport for departure. Meals - Breakfast",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast unless specified."
+          "meals": "Daily Breakfast & Dinner"
         }
       ],
       "status": "published",
-      "isVisible": true,
-      "heroTagline": "Discover Rome Milan Ferrara Zurich, blending historic landmarks, Renaissance art, elegant cities, and Alpine scenery.",
-      "itinerarySectionTitle": "A Tapestry of Culture & Landscapes",
-      "discountBadge": "5% OFF",
-      "seo": {
-        "focusKeyword": "Rome, Milan, Ferrara & Zurich",
-        "metaDescription": "Discover Rome, Milan, Ferrara & Zurich, blending historic landmarks, Renaissance art, elegant cities, and Alpine scenery."
-      }
+      "isVisible": true
     },
     {
       "id": "tour-wix-dubai-city-sands",
