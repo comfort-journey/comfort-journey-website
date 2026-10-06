@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-06T08:30:45.487Z",
+  "lastUpdated": "2026-10-06T08:30:52.091Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -3983,8 +3983,8 @@
     {
       "id": "tour-wix-singapore-city-gardens",
       "wixId": "b9caf2fa-c516-4ba3-bd70-2db26f961890",
-      "name": "Singapore City & Gardens",
-      "slug": "singapore-city-gardens",
+      "name": "Singapore City: From Marina Lights to Tropical Shores",
+      "slug": "singapore-city-from-marina-lights-to-tropical-shores",
       "location": "Singapore",
       "city": "Singapore",
       "state": "Singapore & Malaysia",
@@ -4016,8 +4016,8 @@
       "price": 282452,
       "origPrice": 389783,
       "originalPrice": 389783,
-      "tagline": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
-      "description": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
+      "tagline": "Discover Singapore Urban Escape, blending futuristic skylines, vibrant culture, tropical islands, and unforgettable experiences.",
+      "description": "<!--StartFragment-->Discover Singapore Urban Escape, blending futuristic skylines, vibrant culture, tropical islands, and unforgettable experiences.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/nsplsh_48539ea723294d3bb48324e23d9731c6~mv2.jpg/Image%20by%20Joshua%20Ang.jpg#originWidth=5768&originHeight=3845",
       "badge": "International Signature",
@@ -4086,7 +4086,8 @@
         }
       ],
       "status": "published",
-      "isVisible": true
+      "isVisible": true,
+      "heroTagline": "Discover Singapore Urban Escape, blending futuristic skylines, vibrant culture, tropical islands, and unforgettable experiences."
     },
     {
       "id": "tour-wix-asian-extravaganza",
