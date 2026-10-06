@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-06T16:19:08.328Z",
+  "lastUpdated": "2026-10-06T16:19:55.271Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -4107,13 +4107,13 @@
     {
       "id": "tour-wix-asian-extravaganza",
       "wixId": "c3827d9b-0a67-4c27-9d56-fd7587163ff5",
-      "name": "Asian Horizons: Singapore, Phuket, Bangkok & Kuala Lumpur",
-      "slug": "asian-horizons-singapore-phuket-bangkok-kuala-lumpur",
+      "name": "Asian Extravaganza",
+      "slug": "asian-extravaganza",
       "location": "Singapore, Phuket, Bangkok, Kuala Lumpur",
       "city": "Singapore, Phuket, Bangkok, Kuala Lumpur",
       "state": "Thailand",
       "continent": "Asia",
-      "country": "Thailand, Singapore ,Malaysia",
+      "country": "Thailand",
       "category": "International Tours",
       "categories": [
         "International",
@@ -4131,14 +4131,10 @@
         "Adventure & Trekking",
         "Wildlife & Nature",
         "Backwaters & Nature",
+        "Monsoon",
         "Thailand",
         "Singapore",
-        "Luxury Signature",
-        "Spring",
-        "Winter",
-        "Couple & Honeymoon",
-        "Group Tours",
-        "Heritage & Culture"
+        "Luxury Signature"
       ],
       "tags": [
         "International",
@@ -4163,11 +4159,11 @@
       ],
       "duration": "10N/11D",
       "durationDays": 11,
-      "price": 50999,
+      "price": 294705,
       "origPrice": 368382,
-      "originalPrice": 59999,
-      "tagline": "Experience Singapore Phuket Bangkok Kuala Lumpur, blending dazzling cities, tropical beaches, culture and adventure.",
-      "description": "<!--StartFragment-->Experience Singapore Phuket Bangkok Kuala Lumpur, blending dazzling cities, tropical beaches, culture and adventure.<!--EndFragment-->",
+      "originalPrice": 368382,
+      "tagline": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
+      "description": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
       "image": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85",
       "legacyWixUrl": "wix:image://v1/nsplsh_077016ef20a9464b9420b016dc8d2a8f~mv2.jpg/Image%20by%20Anh%20Tuan%20To.jpg#originWidth=4032&originHeight=3024",
       "badge": "International Signature",
@@ -4178,7 +4174,10 @@
         "Flights",
         "To and Fro Flights included (into Singapore out of Bangkok)",
         "Internal Flight from Kuala Lumpur to Bangkok",
+        "Singapore",
         "Stay for 3 Nights at Aqueen Prestige Hotel Jalan Besar or Similar",
+        "Standard Room",
+        "Breakfast",
         "Guided City Tour of Singapore (Little India, Merlion Statue, Chinatown, Sri Mariamman Temple, Esplanade)",
         "Gardens By The Bay & Marina Bay Sands Entrance Ticket (Cloud Forest & Flower Dome with Light and Sound Show)",
         "Sentosa Island (Cable Car + Madame Tussauds 5-in-1 + Wings of Time)",
@@ -4188,28 +4187,57 @@
         "Transfer from Singapore to Kuala Lumpur by Coach",
         "Travel Insurance for passengers up to 69 years",
         "River Cruise (Bum Boat Ride)",
+        "High Tea & Snacks in Sentosa",
         "Water Bottle",
+        "Services of an English Speaking Tour Manager",
         "Singapore Tourist Visa (Single Entry)",
+        "Kuala Lumpur",
+        "Stay for 3 Nights at Regalia Upper View Hotel or Similar",
+        "Standard Room",
+        "Breakfast",
         "Putrajaya Orientation Tour with Photo-stop",
         "Full Day at Genting Highlands with Two-way Cable Car Ride",
         "National Mosque",
+        "King's Palace",
+        "Sultan Abdul Samad Building",
+        "Merdeka Square",
+        "Menara KL Tower",
+        "Visit Batu Caves",
         "Coach Transfer from Hotel to Airport Departure",
         "All Sightseeing and Transfers on Shared Transport",
+        "Daily Indian Veg / Non-Veg Lunches and Dinners",
+        "KL Tower Tour (Observation Deck and Sky-deck)",
         "Gala Dinner with Music (If Provided)",
         "Entry Tickets for KL Museum and Art Gallery",
+        "Water Bottles",
+        "Services of an English Speaking Tour Manager",
+        "Pattaya",
+        "Stay for 2 Nights at Centara Pattaya Hotel or Similar",
+        "Standard Room",
+        "Breakfast",
+        "Alcazar Show",
         "Coral Island Tour with Lunch",
         "Nong Nooch Village with all Entrance + Sightseeing Bus / Tram Ride",
+        "Daily Breakfast, Lunch and Dinner",
         "Services of an English Speaking Tour Manager",
+        "Transfers from Bangkok Airport to Pattaya Hotel",
         "All Sightseeing and Transfers on Shared Transport",
         "Transfers from Pattaya Hotel to Bangkok Hotel",
+        "Bangkok",
         "Stay for 2 Nights at A-One Bangkok Hotel or Similar",
+        "Standard Room",
+        "Breakfast",
         "Bangkok City Tour with Golden Buddha and Marble Buddha + Mini Reclining Buddha",
-        "Safari World with Marine Park"
+        "Chao Phraya Dinner Cruise",
+        "Safari World with Marine Park",
+        "Daily Breakfast, Lunch and Dinner",
+        "Services of an English Speaking Tour Manager"
       ],
       "exclusions": [
         "Any services not mentioned in the itinerary.",
         "Cost of USD 10000 granted by RBI under Basic Travel Quota Scheme.",
         "Porterage.",
+        "Laundry.",
         "Wines.",
         "Mineral Water.",
         "Telephone Charges.",
@@ -4223,102 +4251,95 @@
       "itinerary": [
         {
           "day": 1,
-          "title": "Arrival In Singapore",
+          "title": "Day 1: Arrival In Singapore",
           "desc": "(City Tour, Marina Bay, Gardens By The Bay) Arrival at Singapore International Airport followed by Singapore City Tour covering Little India, Merlion Statue, Singapore River, Chinatown, Sri Mariamman Temple and Esplanade. Visit Marina Bay Sands Sky Park Observation Deck and Gardens By The Bay including Cloud Forest and Super Trees. Overnight stay at Aqueen Prestige Hotel Jalan Besar. Meals - Breakfast, Lunch and Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast unless specified."
+          "meals": "Daily Breakfast & Dinner"
         },
         {
           "day": 2,
-          "title": "Afternoon Sentosa Island Tour",
+          "title": "Day 2: Afternoon Sentosa Island Tour",
           "desc": "Visit Sentosa Island including Cable Car Ride, Madame Tussauds and Wings Of Time. High Tea & Snacks in Sentosa. Overnight stay at Aqueen Prestige Hotel Jalan Besar. Meals - Breakfast, Lunch and Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast unless specified."
+          "meals": "Daily Breakfast & Dinner"
         },
         {
           "day": 3,
-          "title": "Full Day Universal Studios, Singapore River Cruise",
+          "title": "Day 3: Full Day Universal Studios, Singapore River Cruise",
           "desc": "Full Day Universal Studios Singapore with SGD 20 Lunch Coupon. Enjoy Singapore River Cruise and Bum Boat Ride. Overnight stay at Aqueen Prestige Hotel Jalan Besar. Meals - Breakfast, Lunch and Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast unless specified."
+          "meals": "Daily Breakfast & Dinner"
         },
         {
           "day": 4,
-          "title": "Transfer From Singapore To Kuala Lumpur – En-route Putrajaya Tour",
+          "title": "Day 4: Transfer From Singapore To Kuala Lumpur – En-route Putrajaya Tour",
           "desc": "Transfer from Singapore to Kuala Lumpur. En-route Putrajaya Tour. Overnight stay at Regalia Upper View Hotel. Meals - Breakfast, Lunch and Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast unless specified."
+          "meals": "Daily Breakfast & Dinner"
         },
         {
           "day": 5,
-          "title": " Full-Day Genting Highlands Tour With Batu Caves",
+          "title": "Day 5: Full-Day Genting Highlands Tour With Batu Caves",
           "desc": "Visit Batu Caves and Genting Highlands including Genting Skyway Cable Car. Overnight stay at Regalia Upper View Hotel. Meals - Breakfast, Lunch and Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast unless specified."
+          "meals": "Daily Breakfast & Dinner"
         },
         {
           "day": 6,
-          "title": " Kuala Lumpur City Tour With KL Tower",
+          "title": "Day 6: Kuala Lumpur City Tour With KL Tower",
           "desc": "Visit KL Tower Observation Deck, National Mosque, Sultan Abdul Samad Building, Merdeka Square, National Monument, Art Gallery, KL Museum, Railway Station, Railway Administration Building, Cocoa House and Kings Place. Overnight stay at Regalia Upper View Hotel. Meals - Breakfast, Lunch and Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast unless specified."
+          "meals": "Daily Breakfast & Dinner"
         },
         {
           "day": 7,
-          "title": "Fly From Kuala Lumpur To Bangkok And Transfer To Pattaya With Alcazar Show",
+          "title": "Day 7: Fly From Kuala Lumpur To Bangkok And Transfer To Pattaya With Alcazar Show",
           "desc": "Flight from Kuala Lumpur to Bangkok. Transfer to Pattaya and enjoy Alcazar Show. Overnight stay at Centara Pattaya Hotel. Meals - Breakfast, Lunch and Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast unless specified."
+          "meals": "Daily Breakfast & Dinner"
         },
         {
           "day": 8,
-          "title": " Excursion To Coral Island With Lunch",
+          "title": "Day 8: Excursion To Coral Island With Lunch",
           "desc": "Visit Coral Island (Koh Larn) by Speedboat and enjoy lunch. Overnight stay at Centara Pattaya Hotel. Meals - Breakfast, Lunch and Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast unless specified."
+          "meals": "Daily Breakfast & Dinner"
         },
         {
           "day": 9,
-          "title": " Nong Nooch Village With Bus Ride And Transfer To Bangkok With Chao Phraya Dinner Cruise",
+          "title": "Day 9: Nong Nooch Village With Bus Ride And Transfer To Bangkok With Chao Phraya Dinner Cruise",
           "desc": "Visit Nong Nooch Village with Bus / Tram Ride. Transfer to Bangkok and enjoy Chao Phraya Dinner Cruise. Overnight stay at A-One Bangkok Hotel. Meals - Breakfast, Lunch and Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast unless specified."
+          "meals": "Daily Breakfast & Dinner"
         },
         {
           "day": 10,
-          "title": "Full-Day Safari World With Marine Park",
+          "title": "Day 10: Full-Day Safari World With Marine Park",
           "desc": "Visit Safari World and Marine Park including wildlife attractions and shows. Overnight stay at A-One Bangkok Hotel. Meals - Breakfast, Lunch and Dinner",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast unless specified."
+          "meals": "Daily Breakfast & Dinner"
         },
         {
           "day": 11,
-          "title": "City And Temple Tour Of Bangkok And Departure",
+          "title": "Day 11: City And Temple Tour Of Bangkok And Departure",
           "desc": "Visit Golden Buddha, Marble Buddha and Mini Reclining Buddha. Shopping time subject to flight schedule. Transfer to airport for departure. Meals - Breakfast and Lunch",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
-          "meals": "Daily Breakfast unless specified."
+          "meals": "Daily Breakfast & Dinner"
         }
       ],
       "status": "published",
-      "isVisible": true,
-      "heroTagline": "Experience Singapore Phuket Bangkok Kuala Lumpur, blending dazzling cities, tropical beaches, culture and adventure.",
-      "itinerarySectionTitle": "The Asian Horizon Tour",
-      "discountBadge": "15% OFF",
-      "seo": {
-        "focusKeyword": "Singapore, Phuket, Bangkok & Kuala Lumpur",
-        "metaDescription": "Experience Singapore, Phuket, Bangkok, Kuala Lumpur, blending dazzling cities, tropical beaches, culture and adventure."
-      }
+      "isVisible": true
     },
     {
       "id": "tour-wix-essence-of-europe",
