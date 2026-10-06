@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-06T17:31:35.441Z",
+  "lastUpdated": "2026-10-06T17:31:47.274Z",
   "updatedBy": "Comfort Journey Content Studio (via Secure Cloudflare Proxy)",
   "tours": [
     {
@@ -4504,22 +4504,20 @@
         "Family Tours",
         "Friends Travel",
         "Solo Trips",
+        "Adventure & Trekking",
         "Heritage & Palaces",
         "Culture & Heritage",
         "Desert Safari & Dunes",
         "Ultra Luxury",
         "Dubai",
         "Luxury Signature",
-        "Winter",
         "Summer",
         "Spring",
+        "Autumn",
         "Family Trips",
-        "Group Tours",
         "Couple & Honeymoon",
-        "Budget Friendly Trips",
-        "Adventure & Trekking",
-        "Beach & Coastal",
-        "Heritage & Culture"
+        "Group Tours",
+        "Budget Friendly Trips"
       ],
       "tags": [
         "International",
@@ -4540,7 +4538,7 @@
       "durationDays": 5,
       "price": 41399,
       "origPrice": 136204,
-      "originalPrice": 44999,
+      "originalPrice": 136204,
       "tagline": "Discover Dubai Arabian Escape, blending dazzling skylines, golden deserts, beaches, luxury and Arabian culture.",
       "description": "<!--StartFragment-->Discover Dubai Arabian Escape, blending dazzling skylines, golden deserts, beaches, luxury and Arabian culture.<!--EndFragment-->",
       "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85",
@@ -4552,12 +4550,14 @@
       "inclusions": [
         "1 x Standard Room",
         "Bed and Breakfast, Non-refundable",
+        "Private Transfers",
         "Transfers - With Upper Deck Seating",
         "Upper Desk Seating for Marina Cruise",
+        "Shared Transfers",
         "Meal Included",
-        "Dubai Frame Tickets's type Dubai Frame Tickets",
         "Private Transfers",
-        "Desert Safari Deluxe Camp Dinner Ticket"
+        "Deluxe Camp",
+        "Ferrari World General Admission Ticket"
       ],
       "exclusions": [
         "Passport fees, immunization costs, city taxes at the hotel and local departure taxes (wherever applicable)",
@@ -4582,7 +4582,7 @@
         },
         {
           "day": 2,
-          "title": " Dubai Frame - Desert Safari",
+          "title": "Dubai Frame - Desert Safari",
           "desc": "Proceed for a visit to the Dubai Frame. The frame measures 150 metres high and 93 metres wide is the latest attraction. The two towers are connected by a 100-squaremetre bridge, which has a 25-square-metre glass panel in the middle offering a great 360 degree view. You can visit a museum on the ground floor that will showcase Dubai’s transformation from fishing village to metropolis. The Evening Desert Safari is a must-do for any adventure seekers visiting Dubai. Convenient round trip transportation will pick you up from your hotel and take you out to explore the Arabian desert. Test your balancing skills in an exhilarating sand boarding experience or try out the other many fun activities available for you to do including camel riding, dune bashing and henna painting. Take time to look around and take pictures, this tour is a great opportunity to capture breathtaking views of the desert during sunset. End the night with belly dancing show under the stars while indulging in a delicious BBQ dinner with unlimited soft drinks and shisha smoking (at extra cost). Ride the quad bikes during desert safari (at extra cost) once you reach the camp. Notes: Please bring a valid Photo ID/passport with you as it is required to be displayed at the entrance. Food and beverage will not be permitted at the Dubai Frame. Please wear respectful attire. Please avoid touching Items displayed in exhibitions. Children under the age of 12 must be accompanied by an adult. The food served on the desert safari camp comes from the catering facility in the city hence it may not be of the best standard Premium Quality food upgrades are available at additional cost. As part of regular seat booked, seating is on cushions around tables. You can upgrade to VIP seating by paying extra directly, which allows you to sit on comfortable cushioned chairs, and have food and drinks served on the table. Dune bashing can get bumpy. For safety purposes, we do not recommend that children aged 0-2, pregnant women or the elderly to take part in this activity Infant seats are not available for dune bashing During the month of Ramadan there will be no belly dance performances or servings of alcohol Please be aware that shared safari experiences involve seating arrangements with other guests, and specific seats (e.g., front or middle) are subject to availability. The last row may also feel slightly cozier compared to other seats. If there are any conditions where auto-assigned seats are not preferred, please consider upgrading to a Private vehicle for an additional charge. Overnight stay at Fortune Pearl Hotel, Deira Breakfast Included at Hotel",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
@@ -4590,7 +4590,7 @@
         },
         {
           "day": 3,
-          "title": "Dubai Mall + Burj Khalifa + Aquarium",
+          "title": " Dubai Mall + Burj Khalifa + Aquarium",
           "desc": "Transfer to Dubai Mall, one of the largest malls in the world and home to over 1200 stores. Discover Dubai Aquarium and visit the underwater zoo. Rising to the third floor of The Dubai Mall, the aquarium is home to 140 species of sea life and has several ways to experience underwater life, starting with a stroll through a 48-metre walk-through tunnel. It's a complete fish-eye view, with sand tiger sharks and stingrays swimming overhead. Later proceed to the Top of Burj Khalifa, World's Tallest Tower. You will be taken to the 124th Floor Observation Deck at Burj Khalifa from where you can admire panoramic views entire Dubai. Spend half an hour at the top and then come down, and at 7 pm watch the Dubai Fountains come alive. There is a 10 minute show every 20 minutes and its lovely to watch the largest fountain in the world. Overnight stay at Fortune Pearl Hotel, Deira Breakfast - Included at Hotel",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
@@ -4606,7 +4606,7 @@
         },
         {
           "day": 5,
-          "title": " Departure from Dubai",
+          "title": "Departure from Dubai",
           "desc": "You will be picked up from Hotel's lobby at the time confirmed. Please be available at the lobby 15 minutes before the time given and you will be transferred to the airport for your flight. Breakfast Included at Hotel",
           "stayTier": "4-Star / 5-Star Luxury Stay",
           "transport": "Dedicated Private AC Cab & Chauffeur",
@@ -4615,19 +4615,12 @@
       ],
       "status": "published",
       "isVisible": true,
+      "discountBadge": "8% OFF",
       "heroTagline": "Discover Dubai Arabian Escape, blending dazzling skylines, golden deserts, beaches, luxury and Arabian culture.",
       "itinerarySectionTitle": "5 Days of Skylines, Desert Adventures & Arabian Culture",
-      "discountBadge": "8% OFF",
       "seo": {
-        "focusKeyword": "Dubai Arabian"
-      },
-      "revisions": [
-        {
-          "timestamp": "2026-10-06T17:24:47.270Z",
-          "name": "Dubai Arabian Odyssey",
-          "price": 41399
-        }
-      ]
+        "focusKeyword": "Dubai"
+      }
     }
   ],
   "blogs": [
