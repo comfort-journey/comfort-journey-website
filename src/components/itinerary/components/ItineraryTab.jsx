@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useEffect } from 'react';
-import { Calendar, MapPin, ChevronRight, MoreVertical, Clock, ChevronDown, ChevronUp, Image as ImageIcon } from 'lucide-react';
+import { Calendar, MapPin, ChevronRight, ChevronLeft, MoreVertical, Clock, ChevronDown, ChevronUp, Image as ImageIcon, Car, Camera, Utensils, BedDouble, ShoppingBag } from 'lucide-react';
 import DayTimeline from './DayTimeline';
 import './styles/ItineraryTab.css';
 
