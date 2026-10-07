@@ -42,11 +42,11 @@ export default function Testimonials() {
         .testimonials-root {
           padding: 6rem 0;
           background: #0F172A;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .testimonials-root .section-title {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .rating-pill {
@@ -69,12 +69,12 @@ export default function Testimonials() {
 
         .rating-pill .score {
           font-weight: 700;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .rating-pill .reviews-text {
           font-size: 0.85rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-weight: 600;
         }
 
@@ -112,7 +112,7 @@ export default function Testimonials() {
           font-family: var(--font-fraunces);
           font-size: 0.98rem;
           line-height: 1.65;
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           font-style: italic;
           margin-bottom: 1.75rem;
           flex: 1;
@@ -141,7 +141,7 @@ export default function Testimonials() {
 
         .author-info .name {
           font-size: 1.05rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin-bottom: 0.15rem;
         }
 
@@ -171,7 +171,19 @@ export default function Testimonials() {
             font-size: 0.82rem;
           }
         }
+
+        /* LIGHT THEME — paper root (dark keeps slate) */
+        :root:not([data-theme="dark"]) .testimonials-root,
+        [data-theme="light"] .testimonials-root {
+          background: var(--cj-bg-base, #FFFDF7);
+        }
+        :root:not([data-theme="dark"]) .rating-pill,
+        [data-theme="light"] .rating-pill {
+          background: #FFFFFF;
+          border-color: var(--cj-line, #E8E0CF);
+        }
       `}</style>
     </section>
   );
 }
+

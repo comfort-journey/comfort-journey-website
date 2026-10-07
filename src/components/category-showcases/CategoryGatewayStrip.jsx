@@ -185,14 +185,14 @@ export default function CategoryGatewayStrip({ onNavigateLanding }) {
 
         .gateway-title {
           font-size: clamp(2.1rem, 4vw, 2.9rem);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin-bottom: 0.65rem;
           line-height: 1.15;
         }
 
         .gateway-subtitle {
           font-size: 0.98rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           line-height: 1.6;
           margin: 0 auto;
         }
@@ -362,6 +362,20 @@ export default function CategoryGatewayStrip({ onNavigateLanding }) {
           .gateway-pillar-card {
             height: 280px;
           }
+        }
+
+        /* LIGHT THEME — section goes cream; over-photo pillar cards keep
+           dark cinematic gradient + white text in BOTH themes (approved) */
+        :root:not([data-theme="dark"]) .category-gateway-root,
+        [data-theme="light"] .category-gateway-root {
+          background: linear-gradient(180deg, var(--cj-bg-alt, #F9FBE7) 0%, var(--cj-bg-base, #FFFDF7) 100%);
+          border-top-color: var(--cj-line, #E8E0CF);
+          border-bottom-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .gateway-badge,
+        [data-theme="light"] .gateway-badge {
+          color: var(--cj-cta-deep, #D65A00);
+          background: #FFFFFF;
         }
       `}</style>
     </section>

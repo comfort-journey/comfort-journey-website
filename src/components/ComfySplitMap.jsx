@@ -355,7 +355,7 @@ export default function ComfySplitMap({
           border: 1px solid rgba(255, 137, 47, 0.4);
           border-radius: 12px;
           padding: 8px 12px;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-size: 0.78rem;
           box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
         }
@@ -407,7 +407,7 @@ export default function ComfySplitMap({
         }
 
         .route-toggle-btn:hover {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .route-toggle-btn.active {
@@ -460,7 +460,7 @@ export default function ComfySplitMap({
         }
 
         .map-style-btn:hover {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .map-style-btn.active {
@@ -569,7 +569,7 @@ export default function ComfySplitMap({
         }
 
         .pin-icon-inner {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -590,7 +590,7 @@ export default function ComfySplitMap({
           100% { transform: scale(1.6); opacity: 0; }
         }
 
-        /* Marker Tooltip */
+        /* Marker Tooltip — dark navy in BOTH themes (readable on map tiles) */
         .leaflet-tooltip.comfy-marker-tooltip {
           background: #001233 !important;
           color: #FFFFFF !important;
@@ -600,7 +600,19 @@ export default function ComfySplitMap({
           box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
           font-size: 0.75rem !important;
         }
+
+        /* LIGHT THEME — white map control chips (tooltips stay dark) */
+        :root:not([data-theme="dark"]) .comfy-map-floating-badge,
+        [data-theme="light"] .comfy-map-floating-badge,
+        :root:not([data-theme="dark"]) .route-toggle-btn,
+        [data-theme="light"] .route-toggle-btn,
+        :root:not([data-theme="dark"]) .map-style-btn,
+        [data-theme="light"] .map-style-btn {
+          background: #FFFFFF;
+          border-color: var(--cj-line, #E8E0CF);
+        }
       `}</style>
     </div>
   );
 }
+

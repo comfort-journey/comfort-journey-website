@@ -546,7 +546,7 @@ export default function InternationalTripsSection({
         }
 
         .intl-tab:hover {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           border-color: rgba(56, 189, 248, 0.5);
           background: rgba(56, 189, 248, 0.15);
         }
@@ -642,7 +642,7 @@ export default function InternationalTripsSection({
           gap: 0.45rem;
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
           font-size: 0.82rem;
           font-weight: 700;
           padding: 0.6rem 1.15rem;
@@ -758,6 +758,80 @@ export default function InternationalTripsSection({
             padding: 0.65rem 1rem;
             font-size: 0.84rem;
           }
+        }
+
+        /* LIGHT THEME — warm cream panels (dark keeps original navy) */
+        :root:not([data-theme="dark"]) .intl-showcase-root,
+        [data-theme="light"] .intl-showcase-root {
+          background:
+            radial-gradient(640px 320px at 12% 6%, rgba(14,116,144,0.10), transparent 70%),
+            radial-gradient(720px 360px at 88% 12%, rgba(56,189,248,0.10), transparent 70%),
+            linear-gradient(180deg, #FFFDF7 0%, #F9FBE7 100%);
+          border-top: 1px solid var(--cj-line, #E8E0CF);
+          border-bottom: 1px solid var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .intl-badge,
+        [data-theme="light"] .intl-badge {
+          color: var(--cj-link-deep, #0E7490);
+          background: #FFFFFF;
+        }
+        /* Ghost tower watermark — light only, mature line-art */
+        :root:not([data-theme="dark"]) .intl-showcase-root::before,
+        [data-theme="light"] .intl-showcase-root::before {
+          content: '';
+          position: absolute;
+          top: 48px;
+          right: 3%;
+          width: min(360px, 38vw);
+          aspect-ratio: 1;
+          background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%238A7F66' stroke-width='2'%3E%3Cpath d='M82,172 L94,40 L106,40 L118,172'/%3E%3Cline x1='88' y1='130' x2='112' y2='130'/%3E%3Cline x1='91' y1='95' x2='109' y2='95'/%3E%3Cline x1='94' y1='62' x2='106' y2='62'/%3E%3Cpath d='M70,172 Q100,150 130,172'/%3E%3Cline x1='60' y1='172' x2='140' y2='172'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+          opacity: 0.07;
+          pointer-events: none;
+          z-index: 0;
+        }
+        :root:not([data-theme="dark"]) .intl-card-border,
+        [data-theme="light"] .intl-card-border {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .intl-bottom-dock,
+        [data-theme="light"] .intl-bottom-dock {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .intl-inclusions,
+        [data-theme="light"] .intl-inclusions {
+          background: var(--cj-bg-soft, #F5F0E1);
+        }
+        :root:not([data-theme="dark"]) .btn-custom-intl-ai,
+        [data-theme="light"] .btn-custom-intl-ai {
+          background: #FFFFFF;
+          border-color: var(--cj-text-heading, #14264A);
+        }
+        :root:not([data-theme="dark"]) .intl-dur,
+        [data-theme="light"] .intl-dur {
+          background: rgba(255,255,255,0.92);
+          color: var(--cj-link-deep, #0E7490);
+          border-color: rgba(14,116,144,0.4);
+        }
+        :root:not([data-theme="dark"]) .text-cyan-price,
+        [data-theme="light"] .text-cyan-price {
+          color: var(--cj-link-deep, #0E7490);
+        }
+        :root:not([data-theme="dark"]) .gradient-text-cyan-emerald,
+        [data-theme="light"] .gradient-text-cyan-emerald {
+          background: linear-gradient(135deg, #0E7490 0%, #0284C7 50%, #059669 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
         }
       `}</style>
     </section>

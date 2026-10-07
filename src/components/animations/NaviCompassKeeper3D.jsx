@@ -255,7 +255,7 @@ export default function NaviCompassKeeper3D({ onOpenAIPlanner, onOpenQuote }) {
           max-width: 270px;
           box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 137, 47, 0.15);
           animation: luxuryScaleFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
         }
 
         .bubble-top {
@@ -277,7 +277,7 @@ export default function NaviCompassKeeper3D({ onOpenAIPlanner, onOpenQuote }) {
         .bubble-close-btn {
           background: none;
           border: none;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           cursor: pointer;
           padding: 2px;
           display: flex;
@@ -285,14 +285,14 @@ export default function NaviCompassKeeper3D({ onOpenAIPlanner, onOpenQuote }) {
         }
 
         .bubble-close-btn:hover {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .bubble-text {
           font-family: var(--font-ui, sans-serif);
           font-size: 0.78rem;
           line-height: 1.4;
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           margin-bottom: 8px;
         }
 
@@ -302,7 +302,7 @@ export default function NaviCompassKeeper3D({ onOpenAIPlanner, onOpenQuote }) {
           gap: 5px;
           background: linear-gradient(135deg, rgba(255, 137, 47, 0.25), rgba(218, 245, 97, 0.2));
           border: 1px solid rgba(255, 137, 47, 0.5);
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
           font-family: var(--font-ui, sans-serif);
           font-size: 0.72rem;
           font-weight: 700;
@@ -464,7 +464,7 @@ export default function NaviCompassKeeper3D({ onOpenAIPlanner, onOpenQuote }) {
           font-size: 0.62rem;
           font-weight: 900;
           letter-spacing: 0.08em;
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
           white-space: nowrap;
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
           z-index: 5;
@@ -492,7 +492,7 @@ export default function NaviCompassKeeper3D({ onOpenAIPlanner, onOpenQuote }) {
           padding: 16px;
           box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
           animation: luxuryScaleFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
         }
 
         .panel-header {
@@ -507,19 +507,19 @@ export default function NaviCompassKeeper3D({ onOpenAIPlanner, onOpenQuote }) {
           align-items: center;
           gap: 6px;
           font-size: 0.88rem;
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
         }
 
         .panel-close-btn {
           background: none;
           border: none;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           cursor: pointer;
         }
 
         .panel-sub {
           font-size: 0.78rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           line-height: 1.4;
           margin-bottom: 14px;
         }
@@ -538,7 +538,7 @@ export default function NaviCompassKeeper3D({ onOpenAIPlanner, onOpenQuote }) {
           background: rgba(5, 38, 105, 0.6);
           border: 1px solid rgba(111, 230, 252, 0.25);
           border-radius: 12px;
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
           font-family: var(--font-ui, sans-serif);
           font-size: 0.8rem;
           font-weight: 700;
@@ -560,7 +560,24 @@ export default function NaviCompassKeeper3D({ onOpenAIPlanner, onOpenQuote }) {
             right: -8px;
           }
         }
+
+        /* LIGHT THEME — white compass cards (dark keeps navy) */
+        :root:not([data-theme="dark"]) .navi-insight-bubble,
+        [data-theme="light"] .navi-insight-bubble,
+        :root:not([data-theme="dark"]) .navi-quick-panel,
+        [data-theme="light"] .navi-quick-panel,
+        :root:not([data-theme="dark"]) .navi-live-status,
+        [data-theme="light"] .navi-live-status {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+          box-shadow: var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10));
+        }
       `}</style>
     </aside>
   );
 }
+

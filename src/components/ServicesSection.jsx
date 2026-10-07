@@ -48,7 +48,7 @@ export default function ServicesSection({ onOpenAIPlanner }) {
         .services-root {
           padding: 3.5rem 0 2.5rem 0;
           background: var(--cj-bg-panel);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .section-header {
@@ -65,7 +65,7 @@ export default function ServicesSection({ onOpenAIPlanner }) {
         .section-subtitle {
           max-width: 680px;
           margin: 0 auto;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-size: 1.05rem;
         }
 
@@ -93,14 +93,14 @@ export default function ServicesSection({ onOpenAIPlanner }) {
         .service-title {
           font-family: var(--font-serif);
           font-size: 1.3rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           line-height: 1.3;
         }
 
         .service-desc {
           font-family: var(--font-body);
           font-size: 0.92rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           line-height: 1.6;
         }
 
@@ -142,3 +142,4 @@ export default function ServicesSection({ onOpenAIPlanner }) {
     </section>
   );
 }
+

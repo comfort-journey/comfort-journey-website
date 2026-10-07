@@ -108,13 +108,13 @@ export default function FaqSection() {
         .section-title {
           font-size: clamp(2.2rem, 4.5vw, 3.2rem);
           margin: 0.85rem 0;
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
         }
 
         .section-subtitle {
           max-width: 680px;
           margin: 0 auto;
-          color: #93B2D2;
+          color: var(--cj-text-muted);
           font-size: 1.05rem;
           line-height: 1.6;
         }
@@ -154,7 +154,7 @@ export default function FaqSection() {
           justify-content: space-between;
           background: transparent;
           text-align: left;
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
           cursor: pointer;
           border: none;
           gap: 1rem;
@@ -182,7 +182,7 @@ export default function FaqSection() {
           font-family: var(--font-ui, 'Outfit', sans-serif);
           font-size: 1.08rem;
           font-weight: 700;
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
           line-height: 1.4;
         }
 
@@ -209,7 +209,7 @@ export default function FaqSection() {
 
         .faq-answer {
           padding: 0 1.75rem 1.5rem 1.75rem;
-          color: #EDF3D2;
+          color: var(--cj-text-body);
           font-size: 0.95rem;
           line-height: 1.7;
           animation: faqSlideIn 0.25s ease-out;
@@ -243,13 +243,13 @@ export default function FaqSection() {
         .faq-help-content h4 {
           font-family: var(--font-serif);
           font-size: 1.35rem;
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
           margin-bottom: 0.35rem;
         }
 
         .faq-help-content p {
           font-family: var(--font-body);
-          color: #93B2D2;
+          color: var(--cj-text-muted);
           font-size: 0.92rem;
         }
 
@@ -289,6 +289,41 @@ export default function FaqSection() {
             min-height: 48px;
             font-size: 0.98rem;
           }
+        }
+
+        /* LIGHT THEME — warm paper, no photo (dark keeps fairy-pools cinema) */
+        :root:not([data-theme="dark"]) .faq-root,
+        [data-theme="light"] .faq-root {
+          background:
+            radial-gradient(700px 320px at 85% 0%, rgba(255,137,47,0.10), transparent 70%),
+            radial-gradient(640px 300px at 8% 100%, rgba(14,116,144,0.08), transparent 70%),
+            linear-gradient(180deg, #FFFDF7 0%, #F9FBE7 100%);
+          border-top-color: var(--cj-line, #E8E0CF);
+          border-bottom-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .faq-item,
+        [data-theme="light"] .faq-item,
+        :root:not([data-theme="dark"]) .faq-item.open,
+        [data-theme="light"] .faq-item.open,
+        :root:not([data-theme="dark"]) .faq-help-box,
+        [data-theme="light"] .faq-help-box {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+          box-shadow: var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10));
+        }
+        :root:not([data-theme="dark"]) .chevron-box,
+        [data-theme="light"] .chevron-box {
+          background: var(--cj-bg-soft, #F5F0E1);
+          border-color: var(--cj-line, #E8E0CF);
+          color: var(--cj-link-deep, #0E7490);
+        }
+        :root:not([data-theme="dark"]) .answer-divider,
+        [data-theme="light"] .answer-divider {
+          background: var(--cj-line, #E8E0CF);
         }
       `}</style>
     </section>

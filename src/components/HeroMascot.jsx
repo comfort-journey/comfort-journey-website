@@ -271,7 +271,7 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
           backdrop-filter: blur(12px);
           -webkit-backdrop-filter: blur(12px);
           border: 1px solid rgba(255, 137, 47, 0.5);
-          color: #FFF;
+          color: var(--cj-text-heading);
           font-size: 0.76rem;
           font-weight: 600;
           padding: 0.38rem 0.85rem;
@@ -329,7 +329,7 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
           border: 1px solid rgba(255, 137, 47, 0.6);
           border-radius: 20px;
           padding: 1.15rem;
-          color: #FFF;
+          color: var(--cj-text-heading);
           box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), 0 0 30px rgba(255, 137, 47, 0.25);
           z-index: 9999;
           pointer-events: auto;
@@ -355,7 +355,7 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
         .buddy-name-title {
           font-size: 0.88rem;
           font-weight: 700;
-          color: #FFF;
+          color: var(--cj-text-heading);
         }
 
         .buddy-status-sub {
@@ -367,7 +367,7 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
         .buddy-close-btn {
           background: rgba(255, 255, 255, 0.1);
           border: none;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           border-radius: 50%;
           width: 24px;
           height: 24px;
@@ -380,12 +380,12 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
 
         .buddy-close-btn:hover {
           background: rgba(255, 255, 255, 0.2);
-          color: #FFF;
+          color: var(--cj-text-heading);
         }
 
         .buddy-popover-desc {
           font-size: 0.75rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           line-height: 1.4;
           margin: 0 0 0.85rem 0;
         }
@@ -404,7 +404,7 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 12px;
           padding: 0.5rem 0.75rem;
-          color: #F1F5F9;
+          color: var(--cj-text-body);
           font-size: 0.78rem;
           font-weight: 600;
           text-decoration: none;
@@ -416,7 +416,7 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
           background: rgba(255, 137, 47, 0.18);
           border-color: rgba(255, 137, 47, 0.5);
           transform: translateX(3px);
-          color: #FFF;
+          color: var(--cj-text-heading);
         }
 
         .buddy-popover-footer {
@@ -478,7 +478,27 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
             width: 290px;
           }
         }
+
+        /* LIGHT THEME — white mascot cards (dark keeps navy) */
+        :root:not([data-theme="dark"]) .buddy-speech-chip,
+        [data-theme="light"] .buddy-speech-chip,
+        :root:not([data-theme="dark"]) .buddy-concierge-popover,
+        [data-theme="light"] .buddy-concierge-popover {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+          box-shadow: var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10));
+        }
+        :root:not([data-theme="dark"]) .buddy-chip-btn,
+        [data-theme="light"] .buddy-chip-btn {
+          background: #FFFFFF;
+          border-color: var(--cj-line, #E8E0CF);
+        }
       `}</style>
     </div>
   );
 }
+

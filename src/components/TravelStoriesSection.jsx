@@ -261,7 +261,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           background: 
             linear-gradient(180deg, #0B1120 0%, rgba(11, 17, 32, 0.80) 12%, rgba(0, 26, 64, 0.58) 50%, rgba(11, 17, 32, 0.82) 88%, #0B1120 100%),
             url('${basePrefix}backgrounds/tropical-turquoise-lake-boat.webp') center 40% / cover no-repeat;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           position: relative;
           border-top: 1px solid rgba(255, 255, 255, 0.05);
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -296,7 +296,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           align-items: center;
           gap: 0.5rem;
           font-size: 0.86rem;
-          color: #93B2D2;
+          color: var(--cj-text-muted);
           font-weight: 700;
         }
 
@@ -326,7 +326,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           border-radius: 50%;
           background: rgba(0, 40, 85, 0.6);
           border: 1px solid rgba(111, 230, 252, 0.25);
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -689,12 +689,12 @@ export default function TravelStoriesSection({ onOpenQuote }) {
 
         .cta-left h3 {
           font-size: 1.5rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin-bottom: 0.35rem;
         }
 
         .cta-left p {
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-size: 0.92rem;
           margin: 0;
         }
@@ -745,6 +745,29 @@ export default function TravelStoriesSection({ onOpenQuote }) {
             justify-content: center;
             min-height: 48px;
           }
+        }
+
+        /* LIGHT THEME — warm paper, no photo; reel cards + modal video pane keep
+           cinematic dark + white text in BOTH themes (approved over-photo) */
+        :root:not([data-theme="dark"]) .stories-root,
+        [data-theme="light"] .stories-root {
+          background:
+            radial-gradient(700px 320px at 10% 0%, rgba(225,48,108,0.08), transparent 70%),
+            radial-gradient(640px 300px at 90% 100%, rgba(255,137,47,0.10), transparent 70%),
+            linear-gradient(180deg, #FFFDF7 0%, #F9FBE7 100%);
+          border-top-color: var(--cj-line, #E8E0CF);
+          border-bottom-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .reel-nav-btn,
+        [data-theme="light"] .reel-nav-btn {
+          background: #FFFFFF;
+          border-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .stories-cta-banner,
+        [data-theme="light"] .stories-cta-banner {
+          background: #FFFFFF !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+          box-shadow: var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)) !important;
         }
       `}</style>
     </section>

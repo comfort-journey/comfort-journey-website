@@ -66,7 +66,7 @@ export default function StatsBar() {
           background: linear-gradient(180deg, #001233 0%, #001233 100%);
           padding: 2.2rem 0;
           border-bottom: none;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .stats-grid {
@@ -128,13 +128,13 @@ export default function StatsBar() {
           font-family: var(--font-ui);
           font-weight: 800;
           font-size: 0.95rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .stat-sub {
           font-family: var(--font-body);
           font-size: 0.8rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-weight: 500;
         }
 
@@ -190,14 +190,24 @@ export default function StatsBar() {
             font-weight: 800;
             white-space: normal;
             line-height: 1.2;
-            color: #FFFFFF;
+            color: var(--cj-text-heading);
           }
           .stat-sub {
             font-size: 0.66rem;
             white-space: normal;
             line-height: 1.15;
-            color: #94A3B8;
+            color: var(--cj-text-muted);
           }
+        }
+
+        /* LIGHT THEME — cream strip (dark keeps navy) */
+        :root:not([data-theme="dark"]) .stats-root,
+        [data-theme="light"] .stats-root {
+          background: linear-gradient(180deg, var(--cj-bg-alt, #F9FBE7) 0%, var(--cj-bg-base, #FFFDF7) 100%);
+        }
+        :root:not([data-theme="dark"]) .stat-value,
+        [data-theme="light"] .stat-value {
+          color: var(--cj-cta-deep, #D65A00);
         }
       `}</style>
     </section>

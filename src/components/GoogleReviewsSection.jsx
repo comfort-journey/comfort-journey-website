@@ -498,7 +498,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
           border-radius: var(--radius-full, 9999px);
           background: rgba(255, 255, 255, 0.1);
           border: 1px solid rgba(255, 255, 255, 0.22);
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
           font-size: 0.78rem;
           font-weight: 800;
           letter-spacing: 0.06em;
@@ -510,7 +510,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
         .header-text-block .section-title {
           font-size: 2.25rem;
           font-family: var(--font-serif);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0 0 0.45rem 0;
           line-height: 1.2;
         }
@@ -523,7 +523,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
         }
 
         .header-text-block .section-subtitle {
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-size: 0.95rem;
           margin: 0;
           max-width: 600px;
@@ -552,7 +552,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
           font-family: var(--font-serif);
           font-size: 2.4rem;
           font-weight: 900;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           line-height: 1;
           text-shadow: 0 2px 12px rgba(255, 188, 5, 0.5);
         }
@@ -574,7 +574,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
 
         .trophy-count-tag {
           font-size: 0.76rem;
-          color: #F8FAFC;
+          color: var(--cj-text-heading);
           font-weight: 700;
           white-space: nowrap;
         }
@@ -614,7 +614,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
         .btn-google-action.secondary {
           background: rgba(255, 255, 255, 0.1);
           border: 1px solid rgba(255, 255, 255, 0.25);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .btn-google-action.secondary:hover {
@@ -644,7 +644,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
           border-radius: var(--radius-full, 9999px);
           background: rgba(0, 35, 80, 0.6);
           border: 1px solid rgba(111, 230, 252, 0.2);
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-weight: 700;
           font-size: 0.8rem;
           cursor: pointer;
@@ -652,7 +652,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
         }
 
         .filter-pill-btn:hover {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           border-color: #FF892F;
           background: rgba(0, 45, 100, 0.8);
         }
@@ -672,7 +672,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
           border-radius: var(--radius-full, 9999px);
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.18);
-          color: #F8FAFC;
+          color: var(--cj-text-heading);
           font-size: 0.76rem;
           font-weight: 700;
           cursor: pointer;
@@ -681,7 +681,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
 
         .pause-toggle-btn:hover {
           background: rgba(255, 255, 255, 0.16);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         /* Dual Stream Parallax Wrapper */
@@ -853,7 +853,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
           font-family: var(--font-ui);
           font-size: 0.92rem;
           font-weight: 800;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0;
           white-space: nowrap;
           overflow: hidden;
@@ -884,11 +884,11 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
         }
 
         .dot-mid {
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .trip-time-tag {
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-weight: 600;
         }
 
@@ -925,7 +925,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
           font-family: var(--font-fraunces);
           font-style: italic;
           font-size: 0.86rem;
-          color: #F1F5F9;
+          color: var(--cj-text-body);
           line-height: 1.5;
           margin: 0;
           display: -webkit-box;
@@ -950,7 +950,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
           gap: 0.35rem;
           background: transparent;
           border: none;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           font-size: 0.74rem;
           font-weight: 700;
           cursor: pointer;
@@ -973,7 +973,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
         }
 
         .luminous-review-card:hover .read-story-hint {
-          color: #FFFFFF;
+          color: var(--cj-link-deep);
           transform: translateX(3px);
         }
 
@@ -1002,7 +1002,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
           display: inline-flex;
           align-items: center;
           gap: 0.45rem;
-          color: #F8FAFC;
+          color: var(--cj-text-heading);
           font-size: 0.85rem;
           font-weight: 700;
         }
@@ -1100,7 +1100,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
           border-radius: 50%;
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -1110,7 +1110,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
 
         .story-modal-close:hover {
           background: rgba(255, 255, 255, 0.22);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           transform: rotate(90deg);
         }
 
@@ -1149,7 +1149,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
 
         .story-user-name-line h3 {
           font-size: 1.25rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0;
           font-family: var(--font-serif);
         }
@@ -1181,7 +1181,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
         }
 
         .story-time-ago {
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .story-rating-score-strip {
@@ -1205,7 +1205,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
           align-items: center;
           gap: 0.4rem;
           font-size: 0.78rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-weight: 700;
         }
 
@@ -1224,7 +1224,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
         .story-quote-body p {
           font-family: var(--font-fraunces);
           font-style: italic;
-          color: #F1F5F9;
+          color: var(--cj-text-body);
           font-size: 1.05rem;
           line-height: 1.65;
           margin: 0;
@@ -1267,7 +1267,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
           border-radius: var(--radius-full, 9999px);
           background: rgba(255, 255, 255, 0.1);
           border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-weight: 800;
           font-size: 0.85rem;
           cursor: pointer;
@@ -1409,6 +1409,104 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
             font-size: 0.8rem;
             width: 100%;
           }
+        }
+
+        /* LIGHT THEME — warm paper, no photo (dark keeps alpine cinema) */
+        :root:not([data-theme="dark"]) .google-reviews-section,
+        [data-theme="light"] .google-reviews-section {
+          background:
+            radial-gradient(700px 320px at 88% 0%, rgba(255,137,47,0.10), transparent 70%),
+            radial-gradient(640px 300px at 6% 100%, rgba(14,116,144,0.08), transparent 70%),
+            linear-gradient(180deg, #FFFDF7 0%, #F9FBE7 100%);
+          border-top-color: var(--cj-line, #E8E0CF);
+          border-bottom-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .google-trophy-card,
+        [data-theme="light"] .google-trophy-card,
+        :root:not([data-theme="dark"]) .trust-proof-banner,
+        [data-theme="light"] .trust-proof-banner {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+          box-shadow: var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10));
+        }
+        :root:not([data-theme="dark"]) .luminous-review-card,
+        [data-theme="light"] .luminous-review-card {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+          box-shadow: var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10));
+        }
+        :root:not([data-theme="dark"]) .luminous-review-card:hover,
+        [data-theme="light"] .luminous-review-card:hover {
+          border-color: rgba(214,90,0,0.45);
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+        }
+        :root:not([data-theme="dark"]) .filter-pill-btn,
+        [data-theme="light"] .filter-pill-btn,
+        :root:not([data-theme="dark"]) .pause-toggle-btn,
+        [data-theme="light"] .pause-toggle-btn,
+        :root:not([data-theme="dark"]) .btn-google-action.secondary,
+        [data-theme="light"] .btn-google-action.secondary,
+        :root:not([data-theme="dark"]) .btn-story-close,
+        [data-theme="light"] .btn-story-close,
+        :root:not([data-theme="dark"]) .story-modal-close,
+        [data-theme="light"] .story-modal-close {
+          background: #FFFFFF;
+          border-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .google-official-badge,
+        [data-theme="light"] .google-official-badge {
+          background: #FFFFFF;
+          border-color: var(--cj-line, #E8E0CF);
+          box-shadow: var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10));
+        }
+        :root:not([data-theme="dark"]) .story-modal-box,
+        [data-theme="light"] .story-modal-box {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+          box-shadow: var(--shadow-lg, 0 20px 45px rgba(20,38,74,0.14));
+        }
+        :root:not([data-theme="dark"]) .story-rating-score-strip,
+        [data-theme="light"] .story-rating-score-strip {
+          background: var(--cj-bg-soft, #F5F0E1);
+          border-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .card-footer-strip,
+        [data-theme="light"] .card-footer-strip,
+        :root:not([data-theme="dark"]) .story-modal-footer,
+        [data-theme="light"] .story-modal-footer {
+          border-top-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .trip-tag-line,
+        [data-theme="light"] .trip-tag-line,
+        :root:not([data-theme="dark"]) .story-tour-pill,
+        [data-theme="light"] .story-tour-pill {
+          color: var(--cj-cta-deep, #D65A00);
+        }
+        :root:not([data-theme="dark"]) .read-story-hint,
+        [data-theme="light"] .read-story-hint {
+          color: var(--cj-link-deep, #0E7490);
+        }
+        :root:not([data-theme="dark"]) .verified-shield-pill,
+        [data-theme="light"] .verified-shield-pill,
+        :root:not([data-theme="dark"]) .story-verified-badge,
+        [data-theme="light"] .story-verified-badge {
+          color: #047857;
         }
       `}</style>
     </section>

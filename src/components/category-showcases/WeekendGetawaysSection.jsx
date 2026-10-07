@@ -377,7 +377,7 @@ export default function WeekendGetawaysSection({
         }
 
         .weekend-tab:hover {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           border-color: rgba(16, 185, 129, 0.5);
           background: rgba(16, 185, 129, 0.15);
         }
@@ -477,7 +477,7 @@ export default function WeekendGetawaysSection({
           gap: 0.45rem;
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
           font-size: 0.82rem;
           font-weight: 700;
           padding: 0.6rem 1.15rem;
@@ -590,6 +590,80 @@ export default function WeekendGetawaysSection({
             padding: 0.65rem 1rem;
             font-size: 0.84rem;
           }
+        }
+
+        /* LIGHT THEME — warm cream panels (dark keeps original navy) */
+        :root:not([data-theme="dark"]) .weekend-showcase-root,
+        [data-theme="light"] .weekend-showcase-root {
+          background:
+            radial-gradient(640px 320px at 10% 6%, rgba(4,120,87,0.10), transparent 70%),
+            radial-gradient(720px 360px at 90% 10%, rgba(16,185,129,0.10), transparent 70%),
+            linear-gradient(180deg, #FFFDF7 0%, #F9FBE7 100%);
+          border-top: 1px solid var(--cj-line, #E8E0CF);
+          border-bottom: 1px solid var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .weekend-card-border,
+        [data-theme="light"] .weekend-card-border {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .weekend-bottom-dock,
+        [data-theme="light"] .weekend-bottom-dock {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .weekend-inclusions,
+        [data-theme="light"] .weekend-inclusions {
+          background: var(--cj-bg-soft, #F5F0E1);
+        }
+        :root:not([data-theme="dark"]) .btn-custom-weekend-ai,
+        [data-theme="light"] .btn-custom-weekend-ai {
+          background: #FFFFFF;
+          border-color: var(--cj-text-heading, #14264A);
+        }
+        :root:not([data-theme="dark"]) .weekend-dur,
+        [data-theme="light"] .weekend-dur {
+          background: rgba(255,255,255,0.92);
+          color: #047857;
+          border-color: rgba(4,120,87,0.4);
+        }
+        :root:not([data-theme="dark"]) .weekend-badge,
+        [data-theme="light"] .weekend-badge {
+          color: #047857;
+          background: #FFFFFF;
+        }
+        :root:not([data-theme="dark"]) .gradient-text-emerald,
+        [data-theme="light"] .gradient-text-emerald {
+          background: linear-gradient(135deg, #047857 0%, #059669 60%, #065F46 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        :root:not([data-theme="dark"]) .btn-custom-weekend-ai:hover,
+        [data-theme="light"] .btn-custom-weekend-ai:hover {
+          color: #047857;
+        }
+        /* Ghost ridgeline watermark — light only, mature line-art */
+        :root:not([data-theme="dark"]) .weekend-showcase-root::before,
+        [data-theme="light"] .weekend-showcase-root::before {
+          content: '';
+          position: absolute;
+          top: 48px;
+          right: 3%;
+          width: min(380px, 40vw);
+          aspect-ratio: 2;
+          background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Cg fill='none' stroke='%238A7F66' stroke-width='2'%3E%3Cpath d='M10,85 L55,30 L85,62 L115,25 L150,65 L175,40 L192,60'/%3E%3Ccircle cx='160' cy='22' r='8'/%3E%3Cline x1='10' y1='90' x2='192' y2='90'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+          opacity: 0.07;
+          pointer-events: none;
+          z-index: 0;
         }
       `}</style>
     </section>

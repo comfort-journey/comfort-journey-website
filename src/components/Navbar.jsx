@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useWishlistCompare } from '../context/WishlistCompareContext';
+import ThemeToggle from './ThemeToggle';
 import { siteSettingsService, EVENT_SETTINGS_UPDATED } from '../services/siteSettingsService';
 
 const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
@@ -476,6 +477,9 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
                 <span className="ai-btn-text">Comfy.ai</span>
               </button>
 
+              {/* Light/Dark Theme Toggle — follows OS by default */}
+              <ThemeToggle variant="pill" />
+
               {/* Phone VIP Link (Desktop) */}
               <a href="tel:+918770403315" className="phone-btn liquid-glass-btn" title="Call 24/7 VIP Concierge">
                 <Phone size={14} />
@@ -855,7 +859,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           display: flex;
           align-items: center;
           gap: 0.75rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           flex-shrink: 0;
           white-space: nowrap;
           text-decoration: none;
@@ -935,7 +939,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           font-weight: 800;
           font-size: 1.32rem;
           letter-spacing: -0.01em;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           text-shadow: 0 1px 8px rgba(255, 255, 255, 0.15);
         }
 
@@ -1013,7 +1017,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         }
 
         .nav-link:hover {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .nav-link:hover::after {
@@ -1045,7 +1049,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
 
         .nav-dna-btn:hover {
           background: #FF892F;
-          color: #FFFFFF;
+          color: #FFFFFF; /* on tangerine fill: white in both themes */
           border-color: #FF892F;
           box-shadow: 0 0 15px rgba(255, 137, 47, 0.4);
           transform: translateY(-1px);
@@ -1062,7 +1066,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           border-radius: 50%;
           background: rgba(255, 255, 255, 0.07);
           border: 1px solid var(--cj-glass-border);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -1086,7 +1090,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           top: -4px;
           right: -4px;
           background: var(--cj-amber-500);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-family: var(--font-ui);
           font-size: 0.68rem;
           font-weight: 900;
@@ -1118,7 +1122,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           gap: 0.35rem;
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid var(--cj-glass-border);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           padding: 0.5rem 0.85rem;
           border-radius: var(--radius-full);
           font-family: var(--font-ui);
@@ -1156,7 +1160,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           gap: 0.6rem;
           padding: 0.6rem 0.85rem;
           border-radius: var(--radius-xs);
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           font-family: var(--font-ui);
           font-size: 0.85rem;
           font-weight: 600;
@@ -1172,7 +1176,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
 
         .curr-option.active {
           background: var(--cj-amber-500);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .c-symbol {
@@ -1192,7 +1196,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           display: inline-flex;
           align-items: center;
           gap: 0.35rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-family: var(--font-ui);
           font-weight: 700;
           font-size: 0.82rem;
@@ -1222,7 +1226,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           border-radius: 50%;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid var(--cj-glass-border);
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -1231,7 +1235,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         }
 
         .admin-trigger-btn:hover {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           border-color: rgba(255, 255, 255, 0.3);
         }
 
@@ -1242,7 +1246,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           gap: 0.5rem;
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid var(--cj-glass-border);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           cursor: pointer;
           padding: 0.5rem 0.9rem;
           border-radius: var(--radius-full);
@@ -1334,7 +1338,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         }
 
         .drawer-brand-comfort {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-family: var(--font-display);
         }
 
@@ -1357,7 +1361,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           border-radius: 50%;
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid var(--cj-glass-border);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -1383,7 +1387,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           font-size: 0.72rem;
           font-weight: 800;
           letter-spacing: 1px;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .flex-between {
@@ -1417,7 +1421,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           background: rgba(255, 255, 255, 0.03);
           border: 1px solid rgba(255, 255, 255, 0.07);
           border-radius: 8px;
-          color: #F1F5F9;
+          color: var(--cj-text-body);
           font-size: 0.85rem;
           font-weight: 700;
           text-decoration: none;
@@ -1427,7 +1431,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         .drawer-nav-card:hover {
           background: rgba(255, 137, 47, 0.15);
           border-color: rgba(255, 137, 47, 0.4);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           transform: translateY(-1px);
         }
 
@@ -1469,7 +1473,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           border: none;
           cursor: pointer;
           text-align: left;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           transition: background 0.2s ease;
         }
 
@@ -1498,13 +1502,13 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         .accordion-main-title {
           font-size: 0.88rem;
           font-weight: 700;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           letter-spacing: 0.2px;
         }
 
         .accordion-desc {
           font-size: 0.72rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           margin-top: 0.1rem;
         }
 
@@ -1555,7 +1559,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           border-radius: 8px;
           background: rgba(255, 255, 255, 0.02);
           border: 1px solid transparent;
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           text-decoration: none;
           transition: all 0.2s ease;
         }
@@ -1563,7 +1567,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         .accordion-tour-link:hover {
           background: rgba(255, 137, 47, 0.15);
           border-color: rgba(255, 137, 47, 0.35);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           transform: translateX(4px);
         }
 
@@ -1586,7 +1590,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         .tour-link-title {
           font-size: 0.82rem;
           font-weight: 700;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -1594,7 +1598,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
 
         .tour-link-sub {
           font-size: 0.7rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -1628,7 +1632,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           align-items: center;
           font-size: 0.85rem;
           font-weight: 700;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .drawer-curr-pills-row {
@@ -1641,7 +1645,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           border-radius: var(--radius-full);
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid var(--cj-glass-border);
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           font-size: 0.78rem;
           font-weight: 700;
           cursor: pointer;
@@ -1677,7 +1681,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           background: rgba(255, 255, 255, 0.03);
           border: 1px dashed rgba(255, 255, 255, 0.18);
           border-radius: var(--radius-sm);
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           font-size: 0.8rem;
           cursor: pointer;
           transition: color 0.2s ease;
@@ -1685,7 +1689,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         }
 
         .drawer-admin-trigger:hover {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           border-color: rgba(255, 255, 255, 0.35);
         }
 
@@ -1751,7 +1755,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         }
         .announcement-badge-pill {
           background: #FF892F;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-size: 0.68rem;
           font-weight: 700;
           text-transform: uppercase;
@@ -1762,8 +1766,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         }
         .announcement-text-content {
           font-weight: 500;
-          color: #F1F5F9;
-        }
+          color: #F1F5F9; /* on navy marquee strip: stays light in both themes */
         .announcement-cta-link {
           color: #FFB800;
           font-weight: 700;
@@ -1784,7 +1787,40 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
             padding: 0.25rem 0.65rem;
           }
         }
+
+        /* LIGHT THEME — white drawer + menu panels (dark keeps navy) */
+        :root:not([data-theme="dark"]) .luxury-nav-drawer,
+        [data-theme="light"] .luxury-nav-drawer {
+          background: linear-gradient(180deg, #FFFFFF 0%, var(--cj-bg-alt, #F9FBE7) 100%);
+          border-left-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .drawer-nav-card,
+        [data-theme="light"] .drawer-nav-card,
+        :root:not([data-theme="dark"]) .accordion-tour-link,
+        [data-theme="light"] .accordion-tour-link {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .drawer-header,
+        [data-theme="light"] .drawer-header {
+          border-bottom-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .drawer-curr-pill,
+        [data-theme="light"] .drawer-curr-pill {
+          background: #FFFFFF;
+          border-color: var(--cj-line, #E8E0CF);
+        }
+        /* Light-only brand word deepening */
+        :root:not([data-theme="dark"]) .title-journey,
+        [data-theme="light"] .title-journey {
+          color: var(--cj-cta-deep, #D65A00);
+        }
       `}</style>
     </>
   );
 }
+

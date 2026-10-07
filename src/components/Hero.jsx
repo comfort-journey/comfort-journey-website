@@ -1169,7 +1169,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           font-size: 0.82rem;
           font-weight: 800;
           letter-spacing: 0.15em;
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
         }
 
         .brand-dot {
@@ -1179,7 +1179,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
         .brand-est {
           font-size: 0.75rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-weight: 700;
         }
 
@@ -1194,7 +1194,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           z-index: 5;
           font-size: 3.4rem;
           font-weight: 900;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin-bottom: 0.65rem;
           line-height: 1.15;
           letter-spacing: -0.02em;
@@ -1205,7 +1205,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           font-family: var(--font-righteous) !important;
           text-transform: uppercase !important;
           letter-spacing: 0.02em !important;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .hero-comfort-text {
@@ -1226,7 +1226,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
         .hero-subline {
           font-size: 1.1rem;
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           line-height: 1.6;
           max-width: 720px;
           margin: 0 auto 1.15rem auto;
@@ -1243,7 +1243,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         .question-text {
           font-size: clamp(1.85rem, 3.6vw, 2.6rem);
           font-weight: 900;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0;
           font-family: var(--font-editorial, serif);
           line-height: 1.15;
@@ -1289,7 +1289,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         .question-text {
           font-size: clamp(2.1rem, 4.2vw, 3.2rem);
           font-weight: 900;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0;
           font-family: var(--font-editorial, serif);
           line-height: 1.15;
@@ -1299,7 +1299,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
         .question-subtext {
           font-size: 1.05rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-weight: 500;
           margin: 0 0 1.25rem 0;
           text-align: center;
@@ -1320,7 +1320,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           border-radius: 9999px;
           background: rgba(255, 255, 255, 0.08);
           border: 1.5px solid rgba(255, 255, 255, 0.18);
-          color: #F8FAFC;
+          color: var(--cj-text-heading);
           font-size: 0.95rem;
           font-weight: 800;
           cursor: pointer;
@@ -1332,7 +1332,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         .mode-tab-btn:hover {
           background: rgba(255, 137, 47, 0.2);
           border-color: #FF892F;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           transform: translateY(-2px);
           box-shadow: 0 8px 25px rgba(255, 137, 47, 0.35);
         }
@@ -1386,7 +1386,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           background: transparent;
           border: none;
           outline: none;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-size: 0.95rem;
           font-family: inherit;
         }
@@ -1399,7 +1399,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         .top-search-clear-btn {
           background: rgba(255, 255, 255, 0.12);
           border: none;
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           width: 26px;
           height: 26px;
           border-radius: 50%;
@@ -1412,7 +1412,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
         .top-search-clear-btn:hover {
           background: rgba(255, 137, 47, 0.3);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .hero-trending-tags-row {
@@ -1430,7 +1430,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
         .trending-tags-label {
           font-size: 0.76rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           font-weight: 700;
           white-space: nowrap;
         }
@@ -1444,7 +1444,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         .trending-tag-pill {
           background: rgba(255, 255, 255, 0.06);
           border: 1px solid rgba(255, 255, 255, 0.12);
-          color: #CBD5E1;
+          color: var(--cj-text-body);
           border-radius: 9999px;
           padding: 0.22rem 0.65rem;
           font-size: 0.76rem;
@@ -1457,7 +1457,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         .trending-tag-pill:hover {
           background: rgba(255, 137, 47, 0.15);
           border-color: rgba(255, 137, 47, 0.4);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .trending-tag-pill.active {
@@ -1486,7 +1486,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         .autoscroll-badge-btn.paused {
           background: rgba(255, 255, 255, 0.08);
           border-color: rgba(255, 255, 255, 0.2);
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .autoscroll-dot {
@@ -1550,7 +1550,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           border-radius: 16px;
           background: rgba(255, 255, 255, 0.04);
           border: 1px solid rgba(255, 255, 255, 0.08);
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           cursor: pointer;
           transition: all 0.25s ease;
           text-align: left;
@@ -1602,12 +1602,12 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
         .c-title {
           font-size: 0.9rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .c-subtext {
           font-size: 0.72rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-weight: 600;
         }
 
@@ -1626,7 +1626,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         .country-code-badge {
           font-size: 0.68rem;
           font-weight: 800;
-          color: #6FE6FC;
+          color: var(--cj-link-deep);
           background: rgba(0, 18, 51, 0.8);
           border: 1px solid rgba(111, 230, 252, 0.4);
           padding: 0.15rem 0.45rem;
@@ -1643,7 +1643,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         .pills-label {
           font-size: 0.85rem;
           font-weight: 800;
-          color: #E2E8F0;
+          color: var(--cj-text-body);
         }
 
         .pills-scroll-row {
@@ -1661,7 +1661,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           border-radius: 9999px;
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.18);
-          color: #F8FAFC;
+          color: var(--cj-text-body);
           font-size: 0.82rem;
           font-weight: 700;
           cursor: pointer;
@@ -1672,7 +1672,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         .country-pill-btn:hover {
           background: rgba(111, 230, 252, 0.2);
           border-color: #6FE6FC;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           transform: translateY(-1px);
         }
 
@@ -1847,7 +1847,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         .city-headline {
           font-size: 1.05rem;
           font-weight: 800;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0 0 0.15rem 0;
           white-space: nowrap;
           overflow: hidden;
@@ -1856,7 +1856,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
         .city-state-sub {
           font-size: 0.78rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-weight: 600;
           display: flex;
           align-items: center;
@@ -1886,7 +1886,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           align-items: center;
           gap: 0.35rem;
           font-size: 0.8rem;
-          color: #E2E8F0;
+          color: var(--cj-text-body);
         }
 
         .c-card-footer-action {
@@ -1902,7 +1902,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         .start-lbl {
           display: block;
           font-size: 0.72rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-weight: 600;
         }
 
@@ -1913,7 +1913,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
         .price-unit-tag {
           font-size: 0.72rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           margin-left: 0.25rem;
         }
 
@@ -1958,7 +1958,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
         .inc-text {
           font-size: 0.68rem;
-          color: #F1F5F9;
+          color: var(--cj-text-body);
           font-weight: 700;
         }
 
@@ -1983,7 +1983,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         .orig-price-strike {
           font-size: 0.82rem;
           text-decoration: line-through;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           font-weight: 600;
         }
 
@@ -2019,7 +2019,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
         .price-per-person {
           font-size: 0.75rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-weight: 600;
           white-space: nowrap;
         }
@@ -2032,26 +2032,28 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           box-sizing: border-box;
         }
 
-        .btn-itinerary-inline {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
-          min-height: 38px;
-          padding: 0.48rem 0.65rem;
-          border-radius: 9999px;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1.2px solid rgba(255, 255, 255, 0.2);
-          color: #FFFFFF;
-          font-family: var(--font-ui, system-ui, sans-serif);
-          font-size: 0.8rem;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-          white-space: nowrap;
-          box-sizing: border-box;
-          text-align: center;
-        }
+.btn-itinerary-inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 38px;
+  padding: 0.48rem 0.65rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.2px solid rgba(255, 255, 255, 0.2);
+  color: var(--cj-text-heading);
+  font-family: var(--font-ui, system-ui, sans-serif);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
 
         .btn-itinerary-inline:hover {
           background: rgba(111, 230, 252, 0.2);
@@ -2104,7 +2106,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           border-radius: 16px;
           background: rgba(255, 255, 255, 0.04);
           border: 1px solid rgba(255, 255, 255, 0.08);
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           cursor: pointer;
           transition: all 0.2s ease;
           text-align: left;
@@ -2126,7 +2128,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
         .season-temp {
           font-size: 0.7rem;
-          color: #6FE6FC;
+          color: var(--cj-link-deep);
           font-weight: 700;
         }
 
@@ -2139,7 +2141,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           background: rgba(0, 29, 81, 0.6);
           border: 1px solid rgba(255, 137, 47, 0.25);
           font-size: 0.85rem;
-          color: #CBD5E1;
+          color: var(--cj-text-body);
           margin-bottom: 1.25rem;
           flex-wrap: wrap;
           gap: 0.5rem;
@@ -2156,7 +2158,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           padding: 0.2rem 0.55rem;
           border-radius: 9999px;
           font-size: 0.75rem;
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
         }
 
         .seasonal-stage-card {
@@ -2213,13 +2215,13 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
         .st-country {
           font-size: 0.76rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-weight: 600;
         }
 
         .st-title {
           font-size: 0.98rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0.25rem 0 0.75rem 0;
         }
 
@@ -2249,7 +2251,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           align-items: center;
           gap: 0.35rem;
           font-size: 0.8rem;
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           font-weight: 600;
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.12);
@@ -2306,20 +2308,20 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           background: transparent;
           border: none;
           outline: none;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-size: 0.88rem;
           font-weight: 600;
           width: 100%;
         }
 
         .country-search-input::placeholder {
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .country-search-clear-btn {
           background: rgba(255, 255, 255, 0.1);
           border: none;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           width: 22px;
           height: 22px;
           border-radius: 50%;
@@ -2351,7 +2353,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         .btn-reset-country-search {
           background: none;
           border: none;
-          color: #6FE6FC;
+          color: var(--cj-link-deep);
           font-size: 0.8rem;
           font-weight: 700;
           cursor: pointer;
@@ -2392,13 +2394,13 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
         .no-exact-country-title {
           font-size: 1.6rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin-bottom: 0.75rem;
         }
 
         .no-exact-country-desc {
           font-size: 0.92rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           line-height: 1.6;
           max-width: 680px;
           margin: 0 auto 1.5rem auto;
@@ -2450,7 +2452,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
         .btn-ai-pill-large:hover {
           background: rgba(255, 137, 47, 0.3);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           border-color: #FF892F;
           transform: translateY(-2px);
         }
@@ -2469,7 +2471,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
         .similar-subline {
           font-size: 0.84rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .country-expand-cta-row {
@@ -2493,7 +2495,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
         .btn-expand-country-packages:hover {
           background: rgba(255, 137, 47, 0.25);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           border-color: #FFA459;
           transform: translateY(-2px);
           box-shadow: 0 4px 15px rgba(255, 137, 47, 0.25);
@@ -2555,7 +2557,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           border-radius: 9999px;
           font-size: 0.76rem;
           font-weight: 700;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           background: transparent;
           border: none;
           cursor: pointer;
@@ -2678,7 +2680,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           }
           .pills-label {
             font-size: 0.76rem;
-            color: #94A3B8;
+            color: var(--cj-text-muted);
           }
           .pills-scroll-row {
             width: 100%;
@@ -2747,7 +2749,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
             justify-content: space-between;
             padding: 0.4rem 0.5rem;
             font-size: 0.76rem;
-            color: #94A3B8;
+            color: var(--cj-text-muted);
           }
           .swipe-hint-text {
             font-style: italic;
@@ -2762,7 +2764,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #F8FAFC;
+            color: var(--cj-text-heading);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -2786,10 +2788,156 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
             scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
           }
-          .season-pill-tab, .style-pill-tab {
-            flex-shrink: 0;
-            padding: 0.55rem 0.85rem;
-          }
+        .season-pill-tab, .style-pill-tab {
+          flex-shrink: 0;
+          padding: 0.55rem 0.85rem;
+        }
+        }
+
+        /* LIGHT THEME — brighten slides, white glass stage (dark keeps navy cinema) */
+        :root:not([data-theme="dark"]) .hero-gradient-overlay,
+        [data-theme="light"] .hero-gradient-overlay {
+          background: linear-gradient(180deg, rgba(255,253,247,0.55) 0%, rgba(249,251,231,0.35) 45%, rgba(255,253,247,0.88) 100%);
+        }
+        :root:not([data-theme="dark"]) .hero-bg-video,
+        [data-theme="light"] .hero-bg-video {
+          opacity: 0.5;
+        }
+        :root:not([data-theme="dark"]) .hero-question-container .question-text,
+        [data-theme="light"] .hero-question-container .question-text {
+          text-shadow: none;
+        }
+        :root:not([data-theme="dark"]) .text-orange-glow,
+        [data-theme="light"] .text-orange-glow {
+          color: var(--cj-cta-deep, #D65A00);
+          text-shadow: none;
+        }
+        :root:not([data-theme="dark"]) .hero-interactive-stage,
+        [data-theme="light"] .hero-interactive-stage,
+        :root:not([data-theme="dark"]) .hero-top-universal-search .hero-search-glass-bar,
+        [data-theme="light"] .hero-top-universal-search .hero-search-glass-bar {
+          background: rgba(255,255,255,0.94);
+          border-color: var(--cj-line, #E8E0CF);
+          box-shadow: var(--shadow-lg, 0 20px 45px rgba(20,38,74,0.14));
+        }
+        :root:not([data-theme="dark"]) .mode-tab-btn,
+        [data-theme="light"] .mode-tab-btn,
+        :root:not([data-theme="dark"]) .trending-tag-pill,
+        [data-theme="light"] .trending-tag-pill,
+        :root:not([data-theme="dark"]) .continent-chip-card,
+        [data-theme="light"] .continent-chip-card,
+        :root:not([data-theme="dark"]) .season-pill-tab,
+        [data-theme="light"] .season-pill-tab,
+        :root:not([data-theme="dark"]) .style-pill-tab,
+        [data-theme="light"] .style-pill-tab,
+        :root:not([data-theme="dark"]) .country-pill-btn,
+        [data-theme="light"] .country-pill-btn,
+        :root:not([data-theme="dark"]) .chip-item,
+        [data-theme="light"] .chip-item,
+        :root:not([data-theme="dark"]) .perk-pill,
+        [data-theme="light"] .perk-pill,
+        :root:not([data-theme="dark"]) .view-toggle-btn,
+        [data-theme="light"] .view-toggle-btn {
+          background: #FFFFFF;
+          border-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .mobile-view-mode-toggle,
+        [data-theme="light"] .mobile-view-mode-toggle,
+        :root:not([data-theme="dark"]) .country-search-box,
+        [data-theme="light"] .country-search-box {
+          background: rgba(255,255,255,0.94);
+          border-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .country-search-box:focus-within,
+        [data-theme="light"] .country-search-box:focus-within {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-cta-deep, #D65A00);
+        }
+        :root:not([data-theme="dark"]) .city-in-place-card,
+        [data-theme="light"] .city-in-place-card,
+        :root:not([data-theme="dark"]) .seasonal-stage-card,
+        [data-theme="light"] .seasonal-stage-card,
+        :root:not([data-theme="dark"]) .no-exact-country-card,
+        [data-theme="light"] .no-exact-country-card,
+        :root:not([data-theme="dark"]) .season-summary-strip,
+        [data-theme="light"] .season-summary-strip,
+        :root:not([data-theme="dark"]) .style-perks-banner,
+        [data-theme="light"] .style-perks-banner {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+          box-shadow: var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10));
+        }
+        :root:not([data-theme="dark"]) .c-card-media-pane,
+        [data-theme="light"] .c-card-media-pane {
+          background: #F5F0E1;
+        }
+        :root:not([data-theme="dark"]) .c-media-gradient-overlay,
+        [data-theme="light"] .c-media-gradient-overlay {
+          background: linear-gradient(to top, rgba(255,253,247,0.92) 0%, rgba(255,253,247,0.15) 50%, rgba(0,0,0,0.08) 100%);
+        }
+        :root:not([data-theme="dark"]) .c-dur-pill,
+        [data-theme="light"] .c-dur-pill,
+        :root:not([data-theme="dark"]) .st-dur,
+        [data-theme="light"] .st-dur {
+          background: rgba(255,255,255,0.92);
+          color: var(--cj-link-deep, #0E7490);
+          border-color: rgba(14,116,144,0.4);
+        }
+        :root:not([data-theme="dark"]) .price-bold,
+        [data-theme="light"] .price-bold,
+        :root:not([data-theme="dark"]) .current-offer-price,
+        [data-theme="light"] .current-offer-price,
+        :root:not([data-theme="dark"]) .c-theme-badge,
+        [data-theme="light"] .c-theme-badge,
+        :root:not([data-theme="dark"]) .packages-count-badge,
+        [data-theme="light"] .packages-count-badge,
+        :root:not([data-theme="dark"]) .btn-expand-country-packages,
+        [data-theme="light"] .btn-expand-country-packages,
+        :root:not([data-theme="dark"]) .btn-expand-mobile-vertical,
+        [data-theme="light"] .btn-expand-mobile-vertical,
+        :root:not([data-theme="dark"]) .search-live-feedback-strip,
+        [data-theme="light"] .search-live-feedback-strip,
+        :root:not([data-theme="dark"]) .question-pill-prebadge,
+        [data-theme="light"] .question-pill-prebadge {
+          color: var(--cj-cta-deep, #D65A00);
+        }
+        :root:not([data-theme="dark"]) .btn-itinerary-inline,
+        [data-theme="light"] .btn-itinerary-inline {
+          background: #FFFFFF;
+          border-color: var(--cj-text-heading, #14264A);
+        }
+        :root:not([data-theme="dark"]) .btn-itinerary-inline:hover,
+        [data-theme="light"] .btn-itinerary-inline:hover {
+          border-color: var(--cj-link-deep, #0E7490);
+          color: var(--cj-link-deep, #0E7490);
+          background: #FFFFFF;
+        }
+        :root:not([data-theme="dark"]) .price-save-badge,
+        [data-theme="light"] .price-save-badge {
+          color: #047857;
+          border-color: #16A34A;
+        }
+        :root:not([data-theme="dark"]) .badge-custom,
+        [data-theme="light"] .badge-custom {
+          background: rgba(14,116,144,0.12) !important;
+          color: var(--cj-link-deep, #0E7490) !important;
+          border-color: rgba(14,116,144,0.35) !important;
+        }
+        :root:not([data-theme="dark"]) .autoscroll-badge-btn,
+        [data-theme="light"] .autoscroll-badge-btn {
+          color: var(--cj-link-deep, #0E7490);
+        }
+        :root:not([data-theme="dark"]) .hero-divider-dot,
+        [data-theme="light"] .hero-divider-dot {
+          color: var(--cj-cta-deep, #D65A00);
         }
       `}</style>
     </section>

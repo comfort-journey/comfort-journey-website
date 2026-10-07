@@ -497,7 +497,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         .tours-root {
           padding: 3.5rem 0 2.5rem 0;
           background: var(--cj-bg-panel);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .section-header {
@@ -524,14 +524,14 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
         .section-title {
           font-size: clamp(2.4rem, 4.8vw, 3.4rem);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin-bottom: 0.85rem;
         }
 
         .section-subtitle {
           max-width: 720px;
           margin: 0 auto;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           font-size: 1.05rem;
           line-height: 1.6;
         }
@@ -569,7 +569,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           background: transparent;
           border: none;
           outline: none;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-family: var(--font-ui);
           font-size: 0.95rem;
           font-weight: 500;
@@ -577,14 +577,14 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         }
 
         .catalog-search-input::placeholder {
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           font-size: 0.88rem;
         }
 
         .btn-clear-search {
           background: rgba(255, 255, 255, 0.12);
           border: none;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           width: 24px;
           height: 24px;
           border-radius: 50%;
@@ -599,7 +599,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
         .btn-clear-search:hover {
           background: rgba(255, 137, 47, 0.4);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .destination-status-banner {
@@ -632,7 +632,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           flex-wrap: wrap;
           justify-content: center;
           font-size: 0.88rem;
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
         }
 
         .status-banner-content strong {
@@ -676,7 +676,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           transition: all 0.2s ease;
           background: rgba(0, 29, 81, 0.7);
           border: 1px solid rgba(111, 230, 252, 0.25);
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
         }
 
         .tool-pill-btn:hover {
@@ -744,7 +744,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           gap: 0.42rem;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.12);
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-family: var(--font-ui);
           font-size: 0.76rem;
           font-weight: 700;
@@ -762,7 +762,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         }
 
         .season-chip:hover {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           border-color: rgba(111, 230, 252, 0.4);
           background: rgba(111, 230, 252, 0.12);
         }
@@ -791,7 +791,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           border-radius: var(--radius-full, 9999px);
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid var(--cj-glass-border);
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           font-family: var(--font-ui);
           font-weight: 700;
           font-size: 0.84rem;
@@ -808,14 +808,14 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
         .tab-btn:hover {
           border-color: var(--cj-amber-500);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           background: rgba(255, 107, 0, 0.15);
         }
 
         .tab-btn.active {
           background: linear-gradient(135deg, var(--cj-amber-500), var(--cj-amber-700));
           border-color: var(--cj-amber-500);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           box-shadow: var(--shadow-amber-glow);
         }
 
@@ -841,7 +841,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           gap: 0.42rem;
           background: rgba(255, 255, 255, 0.06);
           border: 1px solid rgba(255, 255, 255, 0.12);
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           font-family: var(--font-ui);
           font-size: 0.8rem;
           font-weight: 700;
@@ -860,7 +860,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
         .vibe-pill:hover {
           background: rgba(255, 255, 255, 0.12);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .vibe-pill.active {
@@ -889,7 +889,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           font-family: var(--font-ui);
           font-size: 0.78rem;
           font-weight: 800;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           text-transform: uppercase;
         }
 
@@ -897,7 +897,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           border: none;
           outline: none;
           background: transparent;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-family: var(--font-ui);
           font-size: 0.82rem;
           font-weight: 700;
@@ -906,7 +906,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
         .select-pill select option {
           background: var(--cj-bg-card);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .results-counter-strip {
@@ -920,11 +920,11 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
         .count-text {
           font-size: 0.9rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
         }
 
         .count-text strong {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .ai-help-link {
@@ -1014,7 +1014,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
         .ribbon-badge {
           background: linear-gradient(135deg, #FF892F, #E65100);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-family: var(--font-ui);
           font-size: 0.68rem;
           font-weight: 800;
@@ -1028,7 +1028,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         .discount-ribbon {
           background: linear-gradient(135deg, rgba(16, 185, 129, 0.95), rgba(5, 150, 105, 0.95));
           border: 1px solid #34D399;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-family: var(--font-ui);
           font-size: 0.74rem;
           font-weight: 900;
@@ -1090,7 +1090,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           background: rgba(0, 18, 51, 0.85);
           backdrop-filter: blur(8px);
           border: 1px solid rgba(255, 255, 255, 0.12);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-size: 0.7rem;
           font-weight: 800;
           padding: 0.15rem 0.5rem;
@@ -1113,14 +1113,14 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           gap: 0.35rem;
           font-size: 0.78rem;
           font-weight: 700;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
         }
 
         .compact-tour-title {
           font-size: 1.08rem;
           font-weight: 800;
           line-height: 1.32;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0;
           display: -webkit-box;
           -webkit-line-clamp: 2;
@@ -1165,7 +1165,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
         .inc-text {
           font-size: 0.68rem;
-          color: #F1F5F9;
+          color: var(--cj-text-body);
           font-weight: 700;
         }
 
@@ -1197,7 +1197,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         .orig-price-strike {
           font-size: 0.82rem;
           text-decoration: line-through;
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
           font-weight: 600;
           opacity: 0.92;
         }
@@ -1231,7 +1231,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
         .price-per-person {
           font-size: 0.75rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-weight: 600;
         }
 
@@ -1244,25 +1244,27 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           box-sizing: border-box;
         }
 
-        .btn-itinerary-compact {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
-          padding: 0.52rem 0.65rem;
-          border-radius: 9999px;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1.2px solid rgba(255, 255, 255, 0.2);
-          color: #FFFFFF;
-          font-family: var(--font-ui);
-          font-size: 0.8rem;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-          white-space: nowrap;
-          box-sizing: border-box;
-          text-align: center;
-        }
+.btn-itinerary-compact {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.52rem 0.65rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.2px solid rgba(255, 255, 255, 0.2);
+  color: var(--cj-text-heading);
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
 
         .btn-itinerary-compact:hover {
           background: rgba(111, 230, 252, 0.2);
@@ -1280,7 +1282,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           border-radius: 9999px;
           background: linear-gradient(135deg, #FF892F 0%, #E65100 100%);
           border: none;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-family: var(--font-ui);
           font-size: 0.82rem;
           font-weight: 800;
@@ -1316,7 +1318,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           background: linear-gradient(135deg, rgba(255, 137, 47, 0.18), rgba(255, 107, 0, 0.28));
           border: 1.5px solid rgba(255, 137, 47, 0.6);
           border-radius: var(--radius-full, 9999px);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-family: 'Outfit', sans-serif;
           font-size: 1rem;
           font-weight: 800;
@@ -1343,7 +1345,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
         .see-more-caption {
           font-size: 0.85rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           font-weight: 600;
         }
 
@@ -1361,11 +1363,11 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
         .no-results-box h3 {
           font-family: var(--font-serif);
           font-size: 1.65rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .no-results-box p {
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           font-size: 0.95rem;
         }
 
@@ -1480,18 +1482,18 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           background: transparent;
           border: none;
           outline: none;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-size: 0.95rem;
         }
 
         .catalog-search-input::placeholder {
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .btn-clear-search {
           background: rgba(255, 255, 255, 0.1);
           border: none;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           width: 24px;
           height: 24px;
           border-radius: 50%;
@@ -1504,7 +1506,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
 
         .btn-clear-search:hover {
           background: #FF892F;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         @media (max-width: 768px) {
@@ -1512,7 +1514,60 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
             border-radius: 16px;
           }
         }
+
+        /* LIGHT THEME — white explorer chrome (dark keeps navy) */
+        :root:not([data-theme="dark"]) .catalog-inline-search-dock,
+        [data-theme="light"] .catalog-inline-search-dock,
+        :root:not([data-theme="dark"]) .destination-status-banner,
+        [data-theme="light"] .destination-status-banner,
+        :root:not([data-theme="dark"]) .tool-pill-btn,
+        [data-theme="light"] .tool-pill-btn,
+        :root:not([data-theme="dark"]) .seasonal-radar-bar,
+        [data-theme="light"] .seasonal-radar-bar,
+        :root:not([data-theme="dark"]) .tour-card,
+        [data-theme="light"] .tour-card {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+          box-shadow: var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10));
+        }
+        :root:not([data-theme="dark"]) .action-circle-btn,
+        [data-theme="light"] .action-circle-btn {
+          background: #FFFFFF;
+          border-color: var(--cj-line, #E8E0CF);
+          color: var(--cj-text-heading, #14264A);
+        }
+        /* Light-only accent deepening — vivid-on-navy hues fail on paper */
+        :root:not([data-theme="dark"]) .dna-pill:hover,
+        [data-theme="light"] .dna-pill:hover {
+          color: var(--cj-cta-deep, #D65A00);
+        }
+        :root:not([data-theme="dark"]) .tier-pill:hover,
+        [data-theme="light"] .tier-pill:hover {
+          color: var(--cj-link-deep, #0E7490);
+        }
+        :root:not([data-theme="dark"]) .guide-pill:hover,
+        [data-theme="light"] .guide-pill:hover {
+          color: var(--cj-lime-ink, #4D7C0F);
+        }
+        :root:not([data-theme="dark"]) .season-chip.active,
+        [data-theme="light"] .season-chip.active {
+          color: var(--cj-cta-deep, #D65A00);
+        }
+        :root:not([data-theme="dark"]) .btn-itinerary-compact:hover,
+        [data-theme="light"] .btn-itinerary-compact:hover {
+          color: var(--cj-link-deep, #0E7490);
+          border-color: var(--cj-link-deep, #0E7490);
+        }
+        :root:not([data-theme="dark"]) .ai-help-link,
+        [data-theme="light"] .ai-help-link {
+          color: #7C3AED;
+        }
       `}</style>
     </section>
   );
 }
+

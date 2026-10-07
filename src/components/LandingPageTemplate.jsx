@@ -562,7 +562,7 @@ export default function LandingPageTemplate({
         .landing-page-root {
           min-height: 100vh;
           background: #000B1D;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-family: var(--font-body);
           padding-bottom: 3rem;
         }
@@ -590,7 +590,7 @@ export default function LandingPageTemplate({
           gap: 0.4rem;
           background: rgba(255, 255, 255, 0.06);
           border: 1px solid rgba(255, 255, 255, 0.12);
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           font-size: 0.82rem;
           font-weight: 700;
           padding: 0.45rem 0.95rem;
@@ -602,7 +602,7 @@ export default function LandingPageTemplate({
         .lp-back-btn:hover {
           background: var(--lp-accent);
           border-color: var(--lp-accent);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .lp-nav-brand {
@@ -621,7 +621,7 @@ export default function LandingPageTemplate({
         .lp-brand-name {
           font-size: 1.15rem;
           font-weight: 800;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           letter-spacing: 0.02em;
         }
 
@@ -635,14 +635,14 @@ export default function LandingPageTemplate({
           display: inline-flex;
           align-items: center;
           gap: 0.35rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           font-size: 0.82rem;
           font-weight: 600;
           text-decoration: none;
         }
 
         .lp-phone-link:hover {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .btn-lp-whatsapp {
@@ -650,7 +650,7 @@ export default function LandingPageTemplate({
           align-items: center;
           gap: 0.4rem;
           background: #25D366;
-          color: #FFFFFF;
+          color: #FFFFFF; /* on green fill: white in both themes */
           font-size: 0.82rem;
           font-weight: 700;
           padding: 0.45rem 1rem;
@@ -742,7 +742,7 @@ export default function LandingPageTemplate({
         .lp-persona-text {
           font-size: 0.78rem;
           font-weight: 700;
-          color: #E2E8F0;
+          color: #E2E8F0; /* over-photo hero: stays light in both themes */
           letter-spacing: 0.04em;
         }
 
@@ -759,7 +759,7 @@ export default function LandingPageTemplate({
         .lp-hero-title {
           font-size: 3.4rem;
           font-weight: 900;
-          color: #FFFFFF;
+          color: #FFFFFF; /* over-photo hero: stays white in both themes */
           line-height: 1.15;
           margin-bottom: 1.15rem;
           letter-spacing: -0.02em;
@@ -768,7 +768,7 @@ export default function LandingPageTemplate({
 
         .lp-hero-subline {
           font-size: 1.22rem;
-          color: #CBD5E1;
+          color: #E2E8F0; /* over-photo hero: stays light in both themes */
           line-height: 1.6;
           max-width: 740px;
           margin: 0 auto 1.5rem auto;
@@ -792,7 +792,7 @@ export default function LandingPageTemplate({
           border-radius: 9999px;
           font-size: 0.82rem;
           font-weight: 700;
-          color: #F8FAFC;
+          color: #F9FBE7; /* over-photo hero: stays cream in both themes */
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
           transition: all 0.25s ease;
         }
@@ -809,7 +809,7 @@ export default function LandingPageTemplate({
           justify-content: center;
           gap: 1.25rem;
           font-size: 0.88rem;
-          color: #94A3B8;
+          color: #CBD5E1; /* over-photo hero: stays light in both themes */
           margin-bottom: 2rem;
           background: rgba(0, 18, 51, 0.6);
           border: 1px solid rgba(255, 255, 255, 0.08);
@@ -839,7 +839,7 @@ export default function LandingPageTemplate({
           display: inline-flex;
           align-items: center;
           gap: 0.55rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-family: var(--font-righteous);
           font-size: 1rem;
           font-weight: 400;
@@ -863,7 +863,7 @@ export default function LandingPageTemplate({
           font-family: var(--font-ui);
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-size: 0.95rem;
           font-weight: 700;
           padding: 0.85rem 1.5rem;
@@ -874,7 +874,7 @@ export default function LandingPageTemplate({
 
         .btn-lp-secondary:hover {
           background: rgba(255, 255, 255, 0.15);
-          border-color: #FFFFFF;
+          border-color: var(--cj-text-heading);
         }
 
         /* Persona Spotlight Quote Section */
@@ -902,7 +902,7 @@ export default function LandingPageTemplate({
         .quote-body {
           font-size: 1.15rem;
           line-height: 1.6;
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           margin: 0;
           font-style: italic;
         }
@@ -929,7 +929,7 @@ export default function LandingPageTemplate({
         .quote-author-name {
           font-size: 0.85rem;
           font-weight: 700;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           display: block;
         }
 
@@ -961,7 +961,7 @@ export default function LandingPageTemplate({
         .lp-story-body p {
           font-size: 1.02rem;
           line-height: 1.7;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           margin-bottom: 1rem;
         }
 
@@ -990,13 +990,13 @@ export default function LandingPageTemplate({
 
         .lp-section-title {
           font-size: 2.35rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0 0 0.5rem 0;
         }
 
         .lp-section-desc {
           font-size: 0.98rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           margin: 0;
         }
 
@@ -1035,13 +1035,13 @@ export default function LandingPageTemplate({
 
         .lp-feat-title {
           font-size: 1.2rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0;
         }
 
         .lp-feat-desc {
           font-size: 0.88rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           line-height: 1.55;
           margin: 0;
         }
@@ -1063,7 +1063,7 @@ export default function LandingPageTemplate({
           border-radius: 9999px;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           font-size: 0.88rem;
           font-weight: 700;
           cursor: pointer;
@@ -1071,7 +1071,7 @@ export default function LandingPageTemplate({
         }
 
         .lp-dest-tab.active {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .lp-tours-grid {
@@ -1123,7 +1123,7 @@ export default function LandingPageTemplate({
           top: 0.65rem;
           left: 0.65rem;
           background: #10B981;
-          color: #FFFFFF;
+          color: #FFFFFF; /* on green fill over photo: white in both themes */
           font-size: 0.68rem;
           font-weight: 800;
           padding: 0.2rem 0.55rem;
@@ -1137,7 +1137,7 @@ export default function LandingPageTemplate({
           left: 0.65rem;
           background: rgba(0, 18, 51, 0.85);
           border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #FFFFFF;
+          color: #6FE6FC; /* over-photo pill: aqua in both themes */
           font-size: 0.7rem;
           font-weight: 700;
           padding: 0.15rem 0.5rem;
@@ -1160,19 +1160,19 @@ export default function LandingPageTemplate({
           gap: 0.3rem;
           font-size: 0.75rem;
           font-weight: 700;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .lp-card-title {
           font-size: 1.12rem;
           font-weight: 800;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0;
         }
 
         .lp-card-tag {
           font-size: 0.82rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           margin: 0;
           line-height: 1.4;
         }
@@ -1216,7 +1216,7 @@ export default function LandingPageTemplate({
 
         .inc-text {
           font-size: 0.65rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           font-weight: 600;
           letter-spacing: 0.02em;
         }
@@ -1262,7 +1262,7 @@ export default function LandingPageTemplate({
 
         .price-per-person {
           font-size: 0.7rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .lp-card-footer {
@@ -1283,29 +1283,31 @@ export default function LandingPageTemplate({
           box-sizing: border-box;
         }
 
-        .btn-lp-itinerary {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
-          padding: 0.52rem 0.65rem;
-          border-radius: 9999px;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1.2px solid rgba(255, 255, 255, 0.2);
-          color: #FFFFFF;
-          font-family: var(--font-ui);
-          font-size: 0.8rem;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-          white-space: nowrap;
-          box-sizing: border-box;
-          text-align: center;
-        }
+.btn-lp-itinerary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.52rem 0.65rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.2px solid rgba(255, 255, 255, 0.2);
+  color: var(--cj-text-heading);
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
 
         .btn-lp-itinerary:hover {
           background: rgba(255, 255, 255, 0.2);
-          border-color: #FFFFFF;
+          border-color: var(--cj-text-heading);
         }
 
         .btn-lp-book {
@@ -1316,7 +1318,7 @@ export default function LandingPageTemplate({
           padding: 0.52rem 0.75rem;
           border-radius: 9999px;
           border: none;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-family: var(--font-ui);
           font-size: 0.82rem;
           font-weight: 800;
@@ -1360,7 +1362,7 @@ export default function LandingPageTemplate({
           width: 36px;
           height: 36px;
           border-radius: 50%;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-weight: 900;
           display: flex;
           align-items: center;
@@ -1371,13 +1373,13 @@ export default function LandingPageTemplate({
         .pillar-title {
           font-size: 1.05rem;
           font-weight: 800;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0 0 0.3rem 0;
         }
 
         .pillar-desc {
           font-size: 0.86rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           line-height: 1.5;
           margin: 0;
         }
@@ -1416,7 +1418,7 @@ export default function LandingPageTemplate({
           justify-content: space-between;
           background: transparent;
           border: none;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-size: 1rem;
           font-weight: 700;
           text-align: left;
@@ -1426,7 +1428,7 @@ export default function LandingPageTemplate({
         .lp-faq-answer {
           padding: 0 1.5rem 1.25rem 1.5rem;
           font-size: 0.92rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           line-height: 1.6;
         }
 
@@ -1453,13 +1455,13 @@ export default function LandingPageTemplate({
 
         .lp-final-title {
           font-size: 1.85rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0 0 0.4rem 0;
         }
 
         .lp-final-desc {
           font-size: 0.95rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           margin: 0;
         }
 
@@ -1490,7 +1492,43 @@ export default function LandingPageTemplate({
             justify-content: center;
           }
         }
+
+        /* LIGHT THEME — white body cards; hero + media overlays keep cinematic
+           dark + white text in BOTH themes (approved over-photo) */
+        :root:not([data-theme="dark"]) .lp-persona-quote-card,
+        [data-theme="light"] .lp-persona-quote-card,
+        :root:not([data-theme="dark"]) .lp-story-card,
+        [data-theme="light"] .lp-story-card,
+        :root:not([data-theme="dark"]) .lp-feature-card,
+        [data-theme="light"] .lp-feature-card,
+        :root:not([data-theme="dark"]) .lp-tour-card,
+        [data-theme="light"] .lp-tour-card,
+        :root:not([data-theme="dark"]) .lp-pillars-card,
+        [data-theme="light"] .lp-pillars-card,
+        :root:not([data-theme="dark"]) .lp-faq-item,
+        [data-theme="light"] .lp-faq-item {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+          box-shadow: var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10));
+        }
+:root:not([data-theme="dark"]) .btn-lp-secondary,
+[data-theme="light"] .btn-lp-secondary {
+background: #FFFFFF;
+border-color: var(--cj-text-heading, #14264A);
+}
+:root:not([data-theme="dark"]) .btn-lp-itinerary,
+[data-theme="light"] .btn-lp-itinerary {
+background: #FFFFFF;
+border-color: var(--cj-text-heading, #14264A);
+position: relative;
+z-index: 2;
+}
       `}</style>
     </div>
   );
 }
+

@@ -25,7 +25,7 @@ import WeekendGetawaysSection from './components/category-showcases/WeekendGetaw
 import FixedDeparturesSection from './components/category-showcases/FixedDeparturesSection';
 import { getLandingPageBySlug, LANDING_PAGES_DATA } from './data/landingPagesData';
 import { directusService } from './services/directusClient';
-import ItineraryModal from './components/ItineraryModal';
+
 import QuickBookingModal from './components/QuickBookingModal';
 import AITripPlannerModal from './components/AITripPlannerModal';
 import AIPlannerPage from './components/ai-planner/AIPlannerPage';
@@ -41,13 +41,18 @@ import LiveBookingToast from './components/LiveBookingToast';
 import { seoHeadManager } from './utils/seoHeadManager';
 import { jsonLdSchemaGenerator } from './utils/jsonLdSchemaGenerator';
 import { usePageSEO } from './hooks/usePageSEO';
+import { applyTheme, getStoredTheme } from './hooks/useTheme';
 
 export default function App() {
   // Activate high-performance scroll reveals
   useScrollAnimation();
 
+  // Enforce stored theme or follow OS (early script in index.html already set it pre-paint)
+  useEffect(() => {
+    applyTheme(getStoredTheme());
+  }, []);
+
   const [searchFilters, setSearchFilters] = useState({ destination: '', category: 'All' });
-  const [selectedItineraryTour, setSelectedItineraryTour] = useState(null);
   const [selectedBookingTour, setSelectedBookingTour] = useState(null);
   const [isQuickQuoteOpen, setIsQuickQuoteOpen] = useState(false);
   const [isAIPlannerOpen, setIsAIPlannerOpen] = useState(false);
@@ -70,20 +75,6 @@ export default function App() {
 
   usePageSEO(activeSeoKey);
 
-  // Inject TouristTrip schema whenever an itinerary is viewed
-  useEffect(() => {
-    if (selectedItineraryTour) {
-      const tourSchema = jsonLdSchemaGenerator.getTouristTripSchema(selectedItineraryTour);
-      seoHeadManager.updateMetadata({
-        title: `${selectedItineraryTour.name} | Comfort Journey Tour Packages`,
-        description: selectedItineraryTour.tagline || `Handcrafted ${selectedItineraryTour.duration} tour to ${selectedItineraryTour.location}.`,
-        image: selectedItineraryTour.image,
-        url: `/#/tour/${selectedItineraryTour.slug || selectedItineraryTour.id}`,
-        type: "product",
-        schema: tourSchema
-      });
-    }
-  }, [selectedItineraryTour]);
 
   // Hash-based URL routing: Directus Blogs, Admin CMS, About Us, Landing Pages, or Tour Details
   useEffect(() => {
@@ -142,7 +133,7 @@ export default function App() {
         const tourSlug = rawHash.replace(/^#\/?(tour|package)\//, '').trim();
         directusService.fetchTourBySlug(tourSlug).then(matchedTour => {
           if (matchedTour) {
-            setSelectedItineraryTour(matchedTour);
+            window.location.hash = '#/itinerary/' + (matchedTour.slug || matchedTour.id);
           }
         });
       } else {
@@ -250,7 +241,7 @@ export default function App() {
                     slug={activeBlogSlug}
                     onNavigateHome={navigateToHome}
                     onNavigateMagazine={navigateToMagazine}
-                    onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
+                    onSelectItinerary={navigateToItinerary}
                     onBookNow={(tour) => setSelectedBookingTour(tour)}
                     onOpenQuote={() => setIsQuickQuoteOpen(true)}
                   />
@@ -272,50 +263,50 @@ pageData={activeLandingPage}
                     onNavigateHome={navigateToHome}
                   />
                 ) : (
-                  /* HOMEPAGE VIEW */
-                  <>
-                  {/* 2. In-Place Interactive Hero Studio: "How Do You Want to Travel?" (7 Continents Map, Weather/Season, Travel Styles) */}
-                  <Hero 
-                    onSelectItinerary={navigateToItinerary}
-                    onBookNow={(tour) => setSelectedBookingTour(tour)}
-                    onOpenAIPlanner={navigateToAIPlanner}
-                    onOpenQuote={() => setIsQuickQuoteOpen(true)}
-                  />
+/* HOMEPAGE VIEW */
+<>
+{/* 2. In-Place Interactive Hero Studio: "How Do You Want to Travel?" (7 Continents Map, Weather/Season, Travel Styles) */}
+<Hero
+  onSelectItinerary={navigateToItinerary}
+  onBookNow={(tour) => setSelectedBookingTour(tour)}
+  onOpenAIPlanner={navigateToAIPlanner}
+  onOpenQuote={() => setIsQuickQuoteOpen(true)}
+/>
 
-                  {/* 3. Trust & Experience Stats Bar with Anime.js Elastic Counters */}
-                  <StatsBar />
+{/* 3. Trust & Experience Stats Bar with Anime.js Elastic Counters */}
+<StatsBar />
 
-                  {/* 4. India Luxury & Heritage Showcase (Royal Desi Heritage) */}
-                  <IndiaTripsSection 
-                    onSelectItinerary={navigateToItinerary}
-                    onBookNow={(tour) => setSelectedBookingTour(tour)}
-                    onOpenAIPlanner={navigateToAIPlanner}
-                    onNavigateLanding={navigateToLandingPage}
-                  />
+{/* 4. India Luxury & Heritage Showcase (Royal Desi Heritage) */}
+<IndiaTripsSection
+  onSelectItinerary={navigateToItinerary}
+  onBookNow={(tour) => setSelectedBookingTour(tour)}
+  onOpenAIPlanner={navigateToAIPlanner}
+  onNavigateLanding={navigateToLandingPage}
+/>
 
-                  {/* 5. World Passport Signature Collection (International Luxury Escapes) */}
-                  <InternationalTripsSection 
-                    onSelectItinerary={navigateToItinerary}
-                    onBookNow={(tour) => setSelectedBookingTour(tour)}
-                    onOpenAIPlanner={navigateToAIPlanner}
-                    onNavigateLanding={navigateToLandingPage}
-                  />
+{/* 5. World Passport Signature Collection (International Luxury Escapes) */}
+<InternationalTripsSection
+  onSelectItinerary={navigateToItinerary}
+  onBookNow={(tour) => setSelectedBookingTour(tour)}
+  onOpenAIPlanner={navigateToAIPlanner}
+  onNavigateLanding={navigateToLandingPage}
+/>
 
-                  {/* 6. 48-Hour Weekend Getaways (Quick Friday-to-Sunday Resets) */}
-                  <WeekendGetawaysSection 
-                    onSelectItinerary={navigateToItinerary}
-                    onBookNow={(tour) => setSelectedBookingTour(tour)}
-                    onOpenAIPlanner={navigateToAIPlanner}
-                    onNavigateLanding={navigateToLandingPage}
-                  />
+{/* 6. 48-Hour Weekend Getaways (Quick Friday-to-Sunday Resets) */}
+<WeekendGetawaysSection
+  onSelectItinerary={navigateToItinerary}
+  onBookNow={(tour) => setSelectedBookingTour(tour)}
+  onOpenAIPlanner={navigateToAIPlanner}
+  onNavigateLanding={navigateToLandingPage}
+/>
 
-                  {/* 7. Fixed Departure Travel Tribe (Guaranteed Dates & Community Group Batches) */}
-                  <FixedDeparturesSection 
-                    onSelectItinerary={navigateToItinerary}
-                    onBookNow={(tour) => setSelectedBookingTour(tour)}
-                    onOpenAIPlanner={navigateToAIPlanner}
-                    onNavigateLanding={navigateToLandingPage}
-                  />
+{/* 7. Fixed Departure Travel Tribe (Guaranteed Dates & Community Group Batches) */}
+<FixedDeparturesSection
+  onSelectItinerary={navigateToItinerary}
+  onBookNow={(tour) => setSelectedBookingTour(tour)}
+  onOpenAIPlanner={navigateToAIPlanner}
+  onNavigateLanding={navigateToLandingPage}
+/>
 
                 {/* 8. Interactive Trip Studio & Live Price Estimator */}
                 <TripCustomizerSection />
@@ -361,18 +352,7 @@ pageData={activeLandingPage}
             onSelectLandingPage={navigateToLandingPage}
           />
 
-          {/* Day-by-Day Detailed Itinerary Modal */}
-          {selectedItineraryTour && (
-            <ItineraryModal 
-              tour={selectedItineraryTour} 
-              onClose={() => setSelectedItineraryTour(null)} 
-              onBookTour={(tour) => setSelectedBookingTour(tour)}
-              onOpenTierCompare={(tour) => {
-                setTierCompareTour(tour);
-                setIsTierCompareOpen(true);
-              }}
-            />
-          )}
+          
 
           {/* Quick Quote / 5-Step Booking Modal */}
           {(selectedBookingTour || isQuickQuoteOpen) && (
@@ -419,13 +399,13 @@ pageData={activeLandingPage}
 
           {/* Saved Wishlist Drawer */}
           <WishlistDrawer 
-            onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
+            onSelectItinerary={navigateToItinerary}
             onBookTour={(tour) => setSelectedBookingTour(tour)}
           />
 
           {/* Side-by-Side Tour Comparison Modal */}
           <CompareModal 
-            onSelectItinerary={(tour) => setSelectedItineraryTour(tour)}
+            onSelectItinerary={navigateToItinerary}
             onBookTour={(tour) => setSelectedBookingTour(tour)}
           />
 
@@ -467,7 +447,8 @@ pageData={activeLandingPage}
               min-height: 100vh;
               display: flex;
               flex-direction: column;
-              background-color: var(--cj-navy-950, #001233);
+              background-color: var(--cj-bg-base);
+              color: var(--cj-text-body);
               position: relative;
             }
             .app-root.ai-planner-active-view {

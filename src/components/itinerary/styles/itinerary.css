@@ -682,3 +682,14 @@ input:focus-visible,
     overflow: visible;
   }
 }
+/* DUAL-THEME BRIDGE — light itinerary uses warm cream */
+:root:not([data-theme="dark"]) {
+  --itin-text-heading: #14264A;
+  --itin-text-body: #334155;
+  --itin-text-muted: #64748B;
+  --itin-bg: #FFFDF7;
+  --itin-panel: #FFFFFF;
+  --itin-card: #FFFFFF;
+  --itin-border: #E8E0CF;
+}
+

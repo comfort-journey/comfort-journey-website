@@ -146,7 +146,7 @@ export default function CompareModal({ onBookTour, onSelectItinerary }) {
         .compare-heading {
           font-family: var(--font-ui);
           font-size: 1.5rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin-top: 0.35rem;
         }
 
@@ -160,7 +160,7 @@ export default function CompareModal({ onBookTour, onSelectItinerary }) {
           display: inline-flex;
           align-items: center;
           gap: 0.35rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           font-family: var(--font-ui);
           font-size: 0.85rem;
           font-weight: 700;
@@ -179,7 +179,7 @@ export default function CompareModal({ onBookTour, onSelectItinerary }) {
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #E2E8F0;
+          color: var(--cj-text-body);
         }
 
         .compare-grid-wrapper {
@@ -212,7 +212,7 @@ export default function CompareModal({ onBookTour, onSelectItinerary }) {
           height: 28px;
           border-radius: 50%;
           background: rgba(0, 0, 0, 0.75);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -235,7 +235,7 @@ export default function CompareModal({ onBookTour, onSelectItinerary }) {
         .card-tour-title {
           font-family: var(--font-ui);
           font-size: 1.1rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           line-height: 1.3;
         }
 
@@ -244,7 +244,7 @@ export default function CompareModal({ onBookTour, onSelectItinerary }) {
           align-items: center;
           gap: 0.3rem;
           font-size: 0.8rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .compare-spec-row {
@@ -257,11 +257,11 @@ export default function CompareModal({ onBookTour, onSelectItinerary }) {
         }
 
         .spec-label {
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .spec-val {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-family: var(--font-ui);
           font-weight: 700;
           display: flex;
@@ -291,13 +291,13 @@ export default function CompareModal({ onBookTour, onSelectItinerary }) {
           font-size: 0.75rem;
           font-weight: 800;
           text-transform: uppercase;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .spec-list {
           list-style: none;
           font-size: 0.8rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           display: flex;
           flex-direction: column;
           gap: 0.2rem;
@@ -317,13 +317,13 @@ export default function CompareModal({ onBookTour, onSelectItinerary }) {
           display: flex;
           align-items: center;
           gap: 0.25rem;
-          color: #E2E8F0;
+          color: var(--cj-text-body);
         }
 
         .compare-heading {
           font-family: var(--font-serif);
           font-size: 1.5rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin-top: 0.35rem;
         }
 
@@ -332,7 +332,7 @@ export default function CompareModal({ onBookTour, onSelectItinerary }) {
           height: 44px;
           border-radius: 50%;
           background: rgba(255, 255, 255, 0.08);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -365,3 +365,4 @@ export default function CompareModal({ onBookTour, onSelectItinerary }) {
     </div>
   );
 }
+

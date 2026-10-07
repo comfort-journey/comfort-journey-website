@@ -716,3 +716,15 @@ input:focus-visible,
     page-break-inside: avoid;
   }
 }
+/* DUAL-THEME BRIDGE — light planner uses warm cream, dark keeps navy */
+:root:not([data-theme="dark"]) {
+  --planner-text-heading: #14264A;
+  --planner-text-body: #334155;
+  --planner-text-muted: #64748B;
+  --planner-bg: #FFFDF7;
+  --planner-panel: #FFFFFF;
+  --planner-card: #FFFFFF;
+  --planner-border: #E8E0CF;
+  --planner-shadow-md: 0 10px 30px rgba(20,38,74,0.10);
+}
+

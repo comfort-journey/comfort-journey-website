@@ -504,7 +504,7 @@ export default function FixedDeparturesSection({
         }
 
         .fixed-tab:hover {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           border-color: rgba(249, 115, 22, 0.5);
           background: rgba(249, 115, 22, 0.15);
         }
@@ -579,7 +579,7 @@ export default function FixedDeparturesSection({
           align-items: center;
           gap: 0.35rem;
           font-size: 0.72rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
         }
 
         .batch-dates-text strong {
@@ -615,7 +615,7 @@ export default function FixedDeparturesSection({
         }
 
         .seats-left-counter strong {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .fixed-inclusions {
@@ -669,7 +669,7 @@ export default function FixedDeparturesSection({
           gap: 0.45rem;
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
           font-size: 0.82rem;
           font-weight: 700;
           padding: 0.6rem 1.15rem;
@@ -782,6 +782,83 @@ export default function FixedDeparturesSection({
             padding: 0.65rem 1rem;
             font-size: 0.84rem;
           }
+        }
+
+        /* LIGHT THEME — warm cream panels (dark keeps original navy) */
+        :root:not([data-theme="dark"]) .fixed-showcase-root,
+        [data-theme="light"] .fixed-showcase-root {
+          background:
+            radial-gradient(640px 320px at 12% 6%, rgba(214,90,0,0.10), transparent 70%),
+            radial-gradient(720px 360px at 88% 10%, rgba(124,58,237,0.08), transparent 70%),
+            linear-gradient(180deg, #FFFDF7 0%, #F9FBE7 100%);
+          border-top: 1px solid var(--cj-line, #E8E0CF);
+          border-bottom: 1px solid var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .fixed-card-border,
+        [data-theme="light"] .fixed-card-border {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .fixed-card-border .card-media,
+        [data-theme="light"] .fixed-card-border .card-media {
+          background: #F5F0E1;
+        }
+        :root:not([data-theme="dark"]) .fixed-bottom-dock,
+        [data-theme="light"] .fixed-bottom-dock {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .fixed-inclusions,
+        [data-theme="light"] .fixed-inclusions {
+          background: var(--cj-bg-soft, #F5F0E1);
+        }
+        :root:not([data-theme="dark"]) .btn-custom-fixed-ai,
+        [data-theme="light"] .btn-custom-fixed-ai {
+          background: #FFFFFF;
+          border-color: var(--cj-text-heading, #14264A);
+        }
+        :root:not([data-theme="dark"]) .fixed-dur,
+        [data-theme="light"] .fixed-dur {
+          background: rgba(255,255,255,0.92);
+          color: var(--cj-cta-deep, #D65A00);
+        }
+        :root:not([data-theme="dark"]) .fixed-badge,
+        [data-theme="light"] .fixed-badge {
+          color: var(--cj-cta-deep, #D65A00);
+          background: #FFFFFF;
+        }
+        :root:not([data-theme="dark"]) .gradient-text-orange-purple,
+        [data-theme="light"] .gradient-text-orange-purple {
+          background: linear-gradient(135deg, #C2410C 0%, #D65A00 45%, #7C3AED 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        /* Ghost summit-flag watermark — light only, mature line-art */
+        :root:not([data-theme="dark"]) .fixed-showcase-root::before,
+        [data-theme="light"] .fixed-showcase-root::before {
+          content: '';
+          position: absolute;
+          top: 48px;
+          right: 3%;
+          width: min(360px, 38vw);
+          aspect-ratio: 2;
+          background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Cg fill='none' stroke='%238A7F66' stroke-width='2'%3E%3Cpath d='M15,85 L70,30 L120,85 Z'/%3E%3Cline x1='70' y1='30' x2='70' y2='12'/%3E%3Cpath d='M70,12 L95,18 L70,25 Z'/%3E%3Cpath d='M110,85 L155,45 L190,85'/%3E%3Cline x1='15' y1='90' x2='190' y2='90'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+          opacity: 0.07;
+          pointer-events: none;
+          z-index: 0;
+        }
+        :root:not([data-theme="dark"]) .seats-progress-bg,
+        [data-theme="light"] .seats-progress-bg {
+          background: rgba(20,38,74,0.12);
         }
       `}</style>
     </section>

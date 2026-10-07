@@ -135,17 +135,17 @@ export default function LiveBookingToast() {
 
         .user-info {
           font-size: 0.82rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .time-ago {
           font-size: 0.7rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .tour-booked {
           font-size: 0.78rem;
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           display: flex;
           align-items: center;
           gap: 0.35rem;
@@ -163,7 +163,7 @@ export default function LiveBookingToast() {
         }
 
         .toast-close:hover {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         @keyframes slideInToast {
@@ -186,3 +186,4 @@ export default function LiveBookingToast() {
     </div>
   );
 }
+

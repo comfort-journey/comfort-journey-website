@@ -698,7 +698,7 @@
   border-radius: var(--radius-full, 9999px);
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 
+  box-shadow:
     inset 0 1px 1px rgba(255, 255, 255, 0.4),
     0 2px 8px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(12px);
@@ -706,4 +706,82 @@
   font-size: 0.75rem;
   font-weight: 700;
   color: #FFFFFF;
+}
+
+/* =======================================================
+   DUAL-THEME BRIDGE — Light glass for navbar / dock / pills.
+   Dark (original) preserved via [data-theme="dark"] + OS dark.
+   ======================================================= */
+:root:not([data-theme="dark"]) .liquid-glass-dock .liquidGlass-tint,
+:root:not([data-theme="dark"]) .liquid-glass-card .liquidGlass-tint,
+[data-theme="light"] .liquid-glass-dock .liquidGlass-tint,
+[data-theme="light"] .liquid-glass-card .liquidGlass-tint {
+  background: linear-gradient(135deg, rgba(255,255,255,0.88) 0%, rgba(249,251,231,0.84) 100%);
+}
+:root:not([data-theme="dark"]) .liquid-glass-dock,
+:root:not([data-theme="dark"]) .liquid-glass-card,
+[data-theme="light"] .liquid-glass-dock,
+[data-theme="light"] .liquid-glass-card {
+  box-shadow: 0 0 0 1px var(--cj-glass-hairline, rgba(20,38,74,0.08)), 0 12px 32px rgba(20,38,74,0.12);
+}
+:root:not([data-theme="dark"]) .desktop-nav-liquid-track,
+[data-theme="light"] .desktop-nav-liquid-track {
+  background: #F5F0E1;
+  border-color: var(--cj-line, #E8E0CF);
+  box-shadow: inset 0 2px 5px rgba(20,38,74,0.08);
+}
+:root:not([data-theme="dark"]) .desktop-nav-liquid-track .nav-link,
+[data-theme="light"] .desktop-nav-liquid-track .nav-link {
+  color: #64748B;
+}
+:root:not([data-theme="dark"]) .desktop-nav-liquid-track .nav-link:hover,
+:root:not([data-theme="dark"]) .desktop-nav-liquid-track .nav-link.active,
+[data-theme="light"] .desktop-nav-liquid-track .nav-link:hover,
+[data-theme="light"] .desktop-nav-liquid-track .nav-link.active {
+  color: #14264A;
+  text-shadow: none;
+}
+:root:not([data-theme="dark"]) .nav-liquid-bubble,
+[data-theme="light"] .nav-liquid-bubble {
+  background: linear-gradient(135deg, rgba(255,137,47,0.22) 0%, rgba(14,116,144,0.16) 100%);
+  border-color: rgba(20,38,74,0.16);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.9), 0 4px 14px rgba(255,137,47,0.22);
+}
+:root:not([data-theme="dark"]) .liquid-glass-btn,
+[data-theme="light"] .liquid-glass-btn {
+  background: #FFFFFF;
+  border-color: var(--cj-line, #E8E0CF);
+  color: #14264A;
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.9), 0 4px 12px rgba(20,38,74,0.08);
+}
+:root:not([data-theme="dark"]) .liquid-glass-btn:hover,
+[data-theme="light"] .liquid-glass-btn:hover {
+  border-color: #D65A00;
+  color: #D65A00;
+  box-shadow: 0 6px 18px rgba(255,137,47,0.25);
+}
+:root:not([data-theme="dark"]) .liquid-glass-pill,
+[data-theme="light"] .liquid-glass-pill {
+  background: #FFFFFF;
+  border-color: var(--cj-line, #E8E0CF);
+  color: #14264A;
+}
+:root:not([data-theme="dark"]) .top-marquee-strip,
+[data-theme="light"] .top-marquee-strip {
+  background: #001D51;
+  border-bottom-color: rgba(255,137,47,0.4);
+}
+@media (max-width: 768px) {
+  :root:not([data-theme="dark"]) .mobile-bottom-glass-dock .liquidGlass-tint,
+  [data-theme="light"] .mobile-bottom-glass-dock .liquidGlass-tint {
+    background: linear-gradient(135deg, rgba(255,255,255,0.94) 0%, rgba(249,251,231,0.92) 100%);
+  }
+  :root:not([data-theme="dark"]) .mobile-dock-btn,
+  [data-theme="light"] .mobile-dock-btn {
+    color: #64748B;
+  }
+  :root:not([data-theme="dark"]) .mobile-dock-btn.active,
+  [data-theme="light"] .mobile-dock-btn.active {
+    color: #14264A;
+  }
 }

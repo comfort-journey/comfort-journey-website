@@ -163,7 +163,7 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
           background: 
             linear-gradient(180deg, #0B1120 0%, rgba(11, 17, 32, 0.82) 12%, rgba(11, 17, 32, 0.62) 50%, rgba(11, 17, 32, 0.82) 88%, #0B1120 100%),
             url('${basePrefix}backgrounds/faq-coastal-roadtrip.webp') center 45% / cover no-repeat;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           position: relative;
           border-top: 1px solid rgba(255, 255, 255, 0.05);
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -183,7 +183,7 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
         .section-subtitle {
           max-width: 680px;
           margin: 0 auto;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-size: 1.05rem;
         }
 
@@ -209,7 +209,7 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
           border-radius: 50px;
           border: none;
           background: transparent;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           font-family: var(--font-ui);
           font-size: 0.88rem;
           font-weight: 600;
@@ -218,7 +218,7 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
         }
 
         .switcher-pill-btn:hover {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           background: rgba(255, 255, 255, 0.05);
         }
 
@@ -305,14 +305,14 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
         .pillar-title {
           font-family: var(--font-serif);
           font-size: 1.25rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           line-height: 1.3;
         }
 
         .pillar-desc {
           font-family: var(--font-body);
           font-size: 0.92rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           line-height: 1.6;
         }
 
@@ -342,12 +342,12 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
         .banner-text h3 {
           font-family: var(--font-serif);
           font-size: 1.45rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin-bottom: 0.35rem;
         }
 
         .banner-text p {
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-size: 0.95rem;
         }
 
@@ -427,6 +427,50 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
             justify-content: center;
             min-height: 44px;
           }
+        }
+
+        /* LIGHT THEME — warm paper, no photo (dark keeps coastal cinema) */
+        :root:not([data-theme="dark"]) .why-us-root,
+        [data-theme="light"] .why-us-root {
+          background:
+            radial-gradient(700px 320px at 10% 0%, rgba(255,137,47,0.10), transparent 70%),
+            radial-gradient(640px 300px at 92% 100%, rgba(77,124,15,0.08), transparent 70%),
+            linear-gradient(180deg, #FFFDF7 0%, #F9FBE7 100%);
+          border-top-color: var(--cj-line, #E8E0CF);
+          border-bottom-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .pillar-card,
+        [data-theme="light"] .pillar-card,
+        :root:not([data-theme="dark"]) .why-us-banner,
+        [data-theme="light"] .why-us-banner {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+          box-shadow: var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10));
+        }
+        :root:not([data-theme="dark"]) .why-us-tab-switcher,
+        [data-theme="light"] .why-us-tab-switcher {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .service-whatsapp-inquire-btn:hover,
+        [data-theme="light"] .service-whatsapp-inquire-btn:hover {
+          color: #047857;
+        }
+        :root:not([data-theme="dark"]) .pillar-check,
+        [data-theme="light"] .pillar-check {
+          color: #047857;
+        }
+        :root:not([data-theme="dark"]) .service-whatsapp-inquire-btn,
+        [data-theme="light"] .service-whatsapp-inquire-btn {
+          color: #047857;
         }
       `}</style>
     </section>
