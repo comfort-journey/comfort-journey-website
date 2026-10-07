@@ -370,7 +370,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
         .blog-reader-root {
           min-height: 100vh;
           background: #000B1D;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-family: var(--font-body);
           padding-bottom: 5rem;
         }
@@ -397,13 +397,13 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
           align-items: center;
           gap: 0.45rem;
           font-size: 0.8rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .crumb-link {
           background: transparent;
           border: none;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           cursor: pointer;
           font-size: 0.8rem;
           padding: 0;
@@ -430,7 +430,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
           gap: 0.4rem;
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.15);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-size: 0.8rem;
           font-weight: 700;
           padding: 0.4rem 0.95rem;
@@ -443,7 +443,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
           align-items: center;
           gap: 0.4rem;
           background: #25D366;
-          color: #FFFFFF;
+          color: #FFFFFF; /* on brand fill: white in both themes */
           font-size: 0.8rem;
           font-weight: 700;
           padding: 0.4rem 0.95rem;
@@ -488,7 +488,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
         .reader-cat-badge {
           display: inline-block;
           background: #FF892F;
-          color: #FFFFFF;
+          color: #FFFFFF; /* on tangerine fill: white in both themes */
           font-size: 0.72rem;
           font-weight: 800;
           padding: 0.25rem 0.75rem;
@@ -501,14 +501,14 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
         .reader-title {
           font-size: 2.85rem;
           font-weight: 900;
-          color: #FFFFFF;
+          color: #FFFFFF; /* over-photo hero: stays white in both themes */
           line-height: 1.2;
           margin-bottom: 1rem;
         }
 
         .reader-excerpt {
           font-size: 1.15rem;
-          color: #CBD5E1;
+          color: #E2E8F0; /* over-photo hero: stays light in both themes */
           line-height: 1.6;
           margin-bottom: 1.75rem;
         }
@@ -539,7 +539,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
         .author-name {
           font-size: 0.95rem;
           font-weight: 800;
-          color: #FFFFFF;
+          color: #FFFFFF; /* over-photo hero: stays white in both themes */
           display: block;
         }
 
@@ -553,7 +553,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
           align-items: center;
           gap: 0.65rem;
           font-size: 0.85rem;
-          color: #94A3B8;
+          color: #CBD5E1; /* over-photo hero: stays light in both themes */
         }
 
         /* Layout Container */
@@ -578,7 +578,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
         .reader-paragraph {
           font-size: 1.05rem;
           line-height: 1.8;
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           margin-bottom: 1.5rem;
         }
 
@@ -603,7 +603,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
           background: rgba(255, 137, 47, 0.08);
           border-left: 4px solid #FF892F;
           border-radius: 0 16px 16px 0;
-          color: #F8FAFC;
+          color: var(--cj-text-heading);
           font-size: 1.05rem;
           line-height: 1.6;
         }
@@ -623,7 +623,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
           gap: 0.65rem;
           font-size: 1rem;
           line-height: 1.6;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
         }
 
         .list-dot {
@@ -650,7 +650,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
         .tags-label {
           font-size: 0.8rem;
           font-weight: 700;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .tags-list {
@@ -662,7 +662,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
         .tag-pill {
           background: rgba(255, 255, 255, 0.06);
           border: 1px solid rgba(255, 255, 255, 0.12);
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-size: 0.74rem;
           padding: 0.2rem 0.6rem;
           border-radius: 9999px;
@@ -689,13 +689,13 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
 
         .sig-name {
           font-size: 1.15rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0 0 0.25rem 0;
         }
 
         .sig-desc {
           font-size: 0.84rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           line-height: 1.5;
           margin: 0;
         }
@@ -753,13 +753,13 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
 
         .tour-title {
           font-size: 1.1rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0 0 0.35rem 0;
         }
 
         .tour-tagline {
           font-size: 0.8rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           line-height: 1.4;
           margin: 0 0 0.85rem 0;
         }
@@ -795,7 +795,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
 
         .inc-text {
           font-size: 0.62rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           font-weight: 600;
         }
 
@@ -809,7 +809,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
 
         .tour-starting {
           font-size: 0.68rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           display: block;
         }
 
@@ -825,23 +825,25 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
           gap: 0.35rem;
         }
 
-        .btn-tour-itinerary {
-          padding: 0.35rem 0.75rem;
-          border-radius: 9999px;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          color: #FFFFFF;
-          font-size: 0.74rem;
-          font-weight: 700;
-          cursor: pointer;
-        }
+.btn-tour-itinerary {
+padding: 0.35rem 0.75rem;
+border-radius: 9999px;
+background: rgba(255, 255, 255, 0.08);
+border: 1px solid rgba(255, 255, 255, 0.15);
+color: var(--cj-text-heading);
+font-size: 0.74rem;
+font-weight: 700;
+cursor: pointer;
+position: relative;
+z-index: 2;
+}
 
         .btn-tour-book {
           padding: 0.35rem 0.85rem;
           border-radius: 9999px;
           background: linear-gradient(135deg, #FF892F, #E65100);
           border: none;
-          color: #FFFFFF;
+          color: #FFFFFF; /* on brand fill: white in both themes */
           font-size: 0.74rem;
           font-weight: 800;
           cursor: pointer;
@@ -869,13 +871,13 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
 
         .concierge-title {
           font-size: 1.2rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0 0 0.35rem 0;
         }
 
         .concierge-desc {
           font-size: 0.82rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           line-height: 1.5;
           margin: 0 0 1.15rem 0;
         }
@@ -887,7 +889,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
           gap: 0.45rem;
           width: 100%;
           background: #25D366;
-          color: #FFFFFF;
+          color: #FFFFFF; /* on brand fill: white in both themes */
           font-size: 0.82rem;
           font-weight: 800;
           padding: 0.65rem 1rem;
@@ -924,13 +926,13 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
 
         .suggested-title {
           font-size: 2.25rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0 0 0.75rem 0;
         }
 
         .suggested-sub {
           font-size: 0.95rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           line-height: 1.6;
           margin: 0;
         }
@@ -985,7 +987,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
           border-radius: 9999px;
           font-size: 0.75rem;
           font-weight: 700;
-          color: #FFFFFF;
+          color: #FFFFFF; /* on brand fill: white in both themes */
         }
 
         .suggested-vibe-badge {
@@ -993,7 +995,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
           top: 12px;
           right: 12px;
           background: linear-gradient(135deg, #FF892F, #E65100);
-          color: #FFFFFF;
+          color: #FFFFFF; /* on brand fill: white in both themes */
           padding: 0.25rem 0.65rem;
           border-radius: 9999px;
           font-size: 0.72rem;
@@ -1013,20 +1015,20 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
           align-items: center;
           gap: 0.4rem;
           font-size: 0.78rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           margin-bottom: 0.5rem;
         }
 
         .suggested-card-name {
           font-size: 1.35rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0 0 0.5rem 0;
           line-height: 1.25;
         }
 
         .suggested-card-tagline {
           font-size: 0.84rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           line-height: 1.5;
           margin: 0 0 1rem 0;
           display: -webkit-box;
@@ -1052,7 +1054,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
           border-radius: 6px;
           padding: 0.2rem 0.5rem;
           font-size: 0.72rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
         }
 
         .suggested-card-footer {
@@ -1068,7 +1070,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
         .price-label {
           display: block;
           font-size: 0.68rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           text-transform: uppercase;
         }
 
@@ -1096,17 +1098,19 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
           gap: 0.4rem;
         }
 
-        .btn-suggested-itinerary {
-          padding: 0.45rem 0.85rem;
-          border-radius: 9999px;
-          background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          color: #FFFFFF;
-          font-size: 0.76rem;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.2s;
-        }
+.btn-suggested-itinerary {
+padding: 0.45rem 0.85rem;
+border-radius: 9999px;
+background: rgba(255, 255, 255, 0.06);
+border: 1px solid rgba(255, 255, 255, 0.15);
+color: var(--cj-text-heading);
+font-size: 0.76rem;
+font-weight: 700;
+cursor: pointer;
+transition: all 0.2s;
+position: relative;
+z-index: 2;
+}
 
         .btn-suggested-itinerary:hover {
           background: rgba(255, 255, 255, 0.14);
@@ -1117,7 +1121,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
           border-radius: 9999px;
           background: linear-gradient(135deg, #FF892F, #E65100);
           border: none;
-          color: #FFFFFF;
+          color: #FFFFFF; /* on brand fill: white in both themes */
           font-size: 0.76rem;
           font-weight: 800;
           cursor: pointer;
@@ -1143,7 +1147,47 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
             grid-template-columns: 1fr;
           }
         }
+
+        /* LIGHT THEME — white article/cards; reader hero keeps cinematic
+           dark scrim + white title in BOTH themes (approved over-photo) */
+        :root:not([data-theme="dark"]) .reader-main-content,
+        [data-theme="light"] .reader-main-content,
+        :root:not([data-theme="dark"]) .suggested-tour-card,
+        [data-theme="light"] .suggested-tour-card,
+        :root:not([data-theme="dark"]) .author-signature-card,
+        [data-theme="light"] .author-signature-card {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+          box-shadow: var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10));
+        }
+        :root:not([data-theme="dark"]) .suggested-card-media,
+        [data-theme="light"] .suggested-card-media {
+          background: #F5F0E1;
+        }
+:root:not([data-theme="dark"]) .tag-pill,
+[data-theme="light"] .tag-pill,
+:root:not([data-theme="dark"]) .inc-pill,
+[data-theme="light"] .inc-pill,
+:root:not([data-theme="dark"]) .btn-share-article,
+[data-theme="light"] .btn-share-article {
+background: #FFFFFF;
+border-color: var(--cj-line, #E8E0CF);
+}
+:root:not([data-theme="dark"]) .btn-suggested-itinerary,
+[data-theme="light"] .btn-suggested-itinerary,
+:root:not([data-theme="dark"]) .btn-tour-itinerary,
+[data-theme="light"] .btn-tour-itinerary {
+background: #FFFFFF;
+border-color: var(--cj-line, #E8E0CF);
+position: relative;
+z-index: 2;
+}
       `}</style>
     </div>
   );
 }
+

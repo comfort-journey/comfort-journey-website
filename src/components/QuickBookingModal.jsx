@@ -384,14 +384,14 @@ Please share a detailed day-wise itinerary & quote!`;
 
           .step-count-text {
             font-size: 0.84rem;
-            color: #93B2D2;
+            color: var(--cj-text-muted);
             font-weight: 700;
           }
 
           .close-btn-round {
             background: rgba(255, 255, 255, 0.08);
             border: none;
-            color: #F9FBE7;
+            color: var(--cj-text-heading);
             width: 32px;
             height: 32px;
             border-radius: 50%;
@@ -404,7 +404,7 @@ Please share a detailed day-wise itinerary & quote!`;
 
           .close-btn-round:hover {
             background: #FF892F;
-            color: #FFFFFF;
+            color: var(--cj-text-heading);
             transform: rotate(90deg);
           }
 
@@ -433,13 +433,13 @@ Please share a detailed day-wise itinerary & quote!`;
 
           .step-heading {
             font-size: 1.35rem;
-            color: #F9FBE7;
+            color: var(--cj-text-heading);
             margin-bottom: 0.2rem;
           }
 
           .step-desc {
             font-size: 0.84rem;
-            color: #93B2D2;
+            color: var(--cj-text-muted);
           }
 
           .quick-dest-buttons {
@@ -452,7 +452,7 @@ Please share a detailed day-wise itinerary & quote!`;
           .dest-select-btn {
             background: rgba(0, 29, 81, 0.6);
             border: 1px solid rgba(111, 230, 252, 0.2);
-            color: #F9FBE7;
+            color: var(--cj-text-heading);
             padding: 0.45rem 0.85rem;
             border-radius: var(--radius-full);
             font-size: 0.8rem;
@@ -494,7 +494,7 @@ Please share a detailed day-wise itinerary & quote!`;
           .grid-select-btn {
             background: rgba(0, 29, 81, 0.6);
             border: 1.5px solid rgba(111, 230, 252, 0.2);
-            color: #F9FBE7;
+            color: var(--cj-text-heading);
             padding: 0.75rem;
             border-radius: 14px;
             font-size: 0.84rem;
@@ -519,7 +519,7 @@ Please share a detailed day-wise itinerary & quote!`;
           .tier-choice-btn {
             background: rgba(0, 29, 81, 0.6);
             border: 1.5px solid rgba(111, 230, 252, 0.2);
-            color: #F9FBE7;
+            color: var(--cj-text-heading);
             padding: 0.85rem;
             border-radius: 16px;
             cursor: pointer;
@@ -541,12 +541,12 @@ Please share a detailed day-wise itinerary & quote!`;
 
           .tier-choice-btn strong {
             font-size: 0.88rem;
-            color: #F9FBE7;
+            color: var(--cj-text-heading);
           }
 
           .tier-choice-btn small {
             font-size: 0.74rem;
-            color: #93B2D2;
+            color: var(--cj-text-muted);
           }
 
           .form-group {
@@ -557,7 +557,7 @@ Please share a detailed day-wise itinerary & quote!`;
 
           .form-group label {
             font-size: 0.82rem;
-            color: #93B2D2;
+            color: var(--cj-text-muted);
             font-weight: 700;
           }
 
@@ -566,7 +566,7 @@ Please share a detailed day-wise itinerary & quote!`;
             border: 1px solid rgba(111, 230, 252, 0.25);
             border-radius: 12px;
             padding: 0.75rem 1rem;
-            color: #F9FBE7;
+            color: var(--cj-text-heading);
             font-family: var(--font-ui);
             font-size: 0.9rem;
             outline: none;
@@ -597,7 +597,7 @@ Please share a detailed day-wise itinerary & quote!`;
             border-radius: 12px;
             padding: 0.75rem 1rem;
             font-size: 0.8rem;
-            color: #93B2D2;
+            color: var(--cj-text-muted);
             margin-top: 1rem;
             display: flex;
             flex-direction: column;
@@ -627,13 +627,13 @@ Please share a detailed day-wise itinerary & quote!`;
 
           .submitted-title {
             font-size: 1.8rem;
-            color: #F9FBE7;
+            color: var(--cj-text-heading);
             margin-bottom: 0.5rem;
           }
 
           .submitted-sub {
             font-size: 0.9rem;
-            color: #93B2D2;
+            color: var(--cj-text-muted);
             max-width: 480px;
             margin: 0 auto 1.5rem auto;
             line-height: 1.5;
@@ -643,3 +643,5 @@ Please share a detailed day-wise itinerary & quote!`;
     </div>
   );
 }
+
+

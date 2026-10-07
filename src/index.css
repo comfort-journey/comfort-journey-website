@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,100..900,7.7;1,9..144,100..900,7.7&family=Outfit:wght@100..900&family=Righteous&family=Noto+Sans:ital,wght@0,400..700;1,400..700&family=Noto+Serif:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Devanagari:wght@400..700&family=Noto+Sans+Arabic:wght@400..700&display=swap');
 
-:root {
+:root,
+[data-theme="light"] {
   /* =======================================================
      OFFICIAL COMFORT JOURNEY COLOR PALETTE MEMORY
      1. Vivid Tangerine: #FF892F (Primary Action / Highlights)
@@ -8,18 +9,24 @@
      3. Electric Aqua:   #6FE6FC (Secondary Tropical / Sky / AI)
      4. Lime Cream:       #DAF561 (Tertiary Energy / Verified)
      5. Deep Navy:        #001D51 (Primary Dark Base / Replaces Black)
+     LIGHT DEFAULT — warm cream, Deep Navy becomes ink.
      ======================================================= */
 
-  /* Dark Base Tokens (Deep Navy Shades replacing flat black) */
-  --cj-navy-950: #001233;
-  --cj-navy-900: #001D51; /* Official Deep Navy */
-  --cj-navy-800: #052669;
-  --cj-navy-700: #0A3282;
-  --cj-navy-600: #0E3E9C;
+  /* Light Base — Warm Cream Paper */
+  --cj-bg-base: #FFFDF7;
+  --cj-bg-alt: #F9FBE7;
+  --cj-bg-soft: #F5F0E1;
+  --cj-bg-panel: #FFFFFF;
+  --cj-bg-card: #FFFFFF;
+  --cj-line: #E8E0CF;
 
-  --cj-bg-obsidian: #001233;
-  --cj-bg-panel: #001D51;
-  --cj-bg-card: #052669;
+  /* Backward-compat aliases flip to light so old components adapt */
+  --cj-navy-950: #FFFDF7;
+  --cj-navy-900: #FFFFFF;
+  --cj-navy-800: #F9FBE7;
+  --cj-navy-700: #EDF3D2;
+  --cj-navy-600: #0E3E9C;
+  --cj-bg-obsidian: #FFFDF7;
   --cj-bg-light: #F9FBE7;
 
   /* Light Base Tokens (Beige Cream replacing harsh pure white) */
@@ -28,15 +35,18 @@
   --cj-cream-200: #DEE9B8;
   --cj-cream-300: #C8D796;
 
-  --cj-text-heading: #F9FBE7;
-  --cj-text-body: #EDF3D2;
-  --cj-text-muted: #CBD5E1; /* High-contrast readable off-white/silver, replacing dull grey */
-  --cj-text-subtle: #E2E8F0;
+  /* Ink text derived from Deep Navy #001D51 for AA on cream */
+  --cj-text-heading: #14264A;
+  --cj-text-body: #334155;
+  --cj-text-muted: #64748B;
+  --cj-text-subtle: #64748B;
+  --cj-link-deep: #0E7490; /* Electric Aqua deepened for text on light */
 
   /* Vivid Tangerine Tokens (Primary Brand Action / Glow) */
   --cj-tangerine-400: #FFA459;
   --cj-tangerine-500: #FF892F; /* Official Vivid Tangerine */
   --cj-tangerine-600: #E66F12;
+  --cj-cta-deep: #D65A00; /* Tangerine deepened for text on light 4.6:1 */
 
   --cj-amber-400: #FFA459;
   --cj-amber-500: #FF892F;
@@ -51,21 +61,22 @@
   --cj-lime-400: #E5F886;
   --cj-lime-500: #DAF561; /* Official Lime Cream */
   --cj-lime-600: #BFE032;
+  --cj-lime-ink: #4D7C0F; /* Lime deepened for text on light */
 
   --cj-gold-400: #DAF561;
   --cj-gold-500: #FF892F;
-  --cj-emerald-500: #DAF561;
-  --cj-emerald-50: #052669;
+  --cj-emerald-500: #15803D;
+  --cj-emerald-50: #EFF6C8;
 
   /* AI Gradient Tokens (Electric Aqua -> Tangerine -> Lime Cream) */
-  --cj-ai-1: #6FE6FC;
-  --cj-ai-2: #FF892F;
-  --cj-ai-3: #DAF561;
+  --cj-ai-1: #0E7490;
+  --cj-ai-2: #D65A00;
+  --cj-ai-3: #4D7C0F;
 
-  /* Deep Navy Glassmorphism Tokens */
-  --cj-glass-from: rgba(0, 29, 81, 0.88);
-  --cj-glass-to: rgba(5, 38, 105, 0.82);
-  --cj-glass-border: rgba(111, 230, 252, 0.25);
+  /* Light Glassmorphism Tokens — white glass, navy hairline */
+  --cj-glass-from: rgba(255, 255, 255, 0.86);
+  --cj-glass-to: rgba(249, 251, 231, 0.82);
+  --cj-glass-border: rgba(20, 38, 74, 0.12);
 
   --cj-blur-desktop: 16px;
   --cj-blur-mobile: 8px;
@@ -90,13 +101,112 @@
   --radius-xl: 36px;
   --radius-full: 9999px;
 
-  /* Shadow & Glow Tokens with Brand Colors */
+  /* Shadow & Glow Tokens — soft elevation for light */
+  --shadow-sm: 0 2px 8px rgba(20, 38, 74, 0.08);
+  --shadow-md: 0 10px 30px rgba(20, 38, 74, 0.10);
+  --shadow-lg: 0 20px 45px rgba(20, 38, 74, 0.14);
+  --shadow-amber-glow: 0 8px 22px rgba(230, 111, 18, 0.30);
+  --shadow-gold-glow: 0 8px 22px rgba(77, 124, 15, 0.22);
+  --shadow-ai-glow: 0 8px 22px rgba(14, 116, 144, 0.22);
+
+  /* Frosted glass tokens — milky readable glass over travel canvas */
+  --cj-glass-card: linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(249, 251, 231, 0.58) 100%);
+  --cj-glass-card-solid: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(249, 251, 231, 0.88) 100%);
+  --cj-glass-blur: blur(18px) saturate(160%);
+  --cj-glass-blur-mobile: blur(10px) saturate(150%);
+  --cj-glass-rim: rgba(255, 255, 255, 0.65);
+  --cj-glass-hairline: rgba(20, 38, 74, 0.08);
+
+  /* Ambient orb tints per theme */
+  --cj-orb-a: rgba(255, 137, 47, 0.14);
+  --cj-orb-b: rgba(14, 116, 144, 0.10);
+  --cj-orb-c: rgba(77, 124, 15, 0.10);
+  --cj-orb-base-from: #FFFDF7;
+  --cj-orb-base-to: #F9FBE7;
+}
+
+/* ============ DARK THEME — original Deep Navy luxury ============ */
+[data-theme="dark"] {
+  --cj-bg-base: #001233;
+  --cj-bg-alt: #001D51;
+  --cj-bg-soft: rgba(0, 24, 64, 0.6);
+  --cj-bg-panel: #001D51;
+  --cj-bg-card: #052669;
+  --cj-line: rgba(255, 255, 255, 0.1);
+
+  --cj-navy-950: #001233;
+  --cj-navy-900: #001D51;
+  --cj-navy-800: #052669;
+  --cj-navy-700: #0A3282;
+  --cj-navy-600: #0E3E9C;
+  --cj-bg-obsidian: #001233;
+  --cj-bg-light: #F9FBE7;
+
+  --cj-text-heading: #F9FBE7;
+  --cj-text-body: #EDF3D2;
+  --cj-text-muted: #CBD5E1;
+  --cj-text-subtle: #E2E8F0;
+  --cj-link-deep: #6FE6FC;
+  --cj-cta-deep: #FF892F;
+
+  --cj-emerald-500: #DAF561;
+  --cj-emerald-50: #052669;
+  --cj-ai-1: #6FE6FC;
+  --cj-ai-2: #FF892F;
+  --cj-ai-3: #DAF561;
+
+  --cj-glass-from: rgba(0, 29, 81, 0.88);
+  --cj-glass-to: rgba(5, 38, 105, 0.82);
+  --cj-glass-border: rgba(111, 230, 252, 0.25);
+
   --shadow-sm: 0 2px 8px rgba(0, 18, 51, 0.2);
   --shadow-md: 0 10px 25px rgba(0, 18, 51, 0.45);
   --shadow-lg: 0 20px 45px rgba(0, 18, 51, 0.65);
   --shadow-amber-glow: 0 10px 30px rgba(255, 137, 47, 0.4);
   --shadow-gold-glow: 0 10px 30px rgba(218, 245, 97, 0.35);
   --shadow-ai-glow: 0 10px 30px rgba(111, 230, 252, 0.45);
+
+  --cj-orb-a: rgba(56, 189, 248, 0.22);
+  --cj-orb-b: rgba(255, 137, 47, 0.18);
+  --cj-orb-c: rgba(52, 211, 153, 0.16);
+  --cj-orb-base-from: #001233;
+  --cj-orb-base-to: #001D51;
+}
+
+/* Follow OS when user has not chosen manually */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    --cj-bg-base: #001233;
+    --cj-bg-alt: #001D51;
+    --cj-bg-soft: rgba(0, 24, 64, 0.6);
+    --cj-bg-panel: #001D51;
+    --cj-bg-card: #052669;
+    --cj-line: rgba(255, 255, 255, 0.1);
+    --cj-navy-950: #001233;
+    --cj-navy-900: #001D51;
+    --cj-navy-800: #052669;
+    --cj-bg-obsidian: #001233;
+    --cj-text-heading: #F9FBE7;
+    --cj-text-body: #EDF3D2;
+    --cj-text-muted: #CBD5E1;
+    --cj-text-subtle: #E2E8F0;
+    --cj-link-deep: #6FE6FC;
+    --cj-cta-deep: #FF892F;
+    --cj-emerald-500: #DAF561;
+    --cj-emerald-50: #052669;
+    --cj-ai-1: #6FE6FC;
+    --cj-ai-2: #FF892F;
+    --cj-ai-3: #DAF561;
+    --cj-glass-from: rgba(0, 29, 81, 0.88);
+    --cj-glass-to: rgba(5, 38, 105, 0.82);
+    --cj-glass-border: rgba(111, 230, 252, 0.25);
+    --shadow-md: 0 10px 25px rgba(0, 18, 51, 0.45);
+    --cj-orb-a: rgba(56, 189, 248, 0.22);
+    --cj-orb-b: rgba(255, 137, 47, 0.18);
+    --cj-orb-c: rgba(52, 211, 153, 0.16);
+    --cj-orb-base-from: #001233;
+    --cj-orb-base-to: #001D51;
+  }
 }
 
 * {
@@ -107,8 +217,8 @@
 
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
-  background-color: var(--cj-bg-obsidian);
+  color-scheme: light dark;
+  background-color: var(--cj-bg-base);
   width: 100%;
   max-width: 100vw;
   overflow-x: hidden;
@@ -118,9 +228,10 @@ html {
 /* Ambient Background with High-Performance CSS Radial Gradients */
 body {
   font-family: var(--font-body);
-  background-color: var(--cj-bg-obsidian);
+  background-color: var(--cj-bg-base);
   color: var(--cj-text-body);
-  line-height: 1.65;
+  line-height: 1.7;
+  font-size: 17px;
   width: 100%;
   max-width: 100vw;
   overflow-x: hidden;
@@ -1426,6 +1537,232 @@ s {
   background: linear-gradient(135deg, #FFA459 0%, #FF892F 100%) !important;
   box-shadow: 0 6px 20px rgba(255, 137, 47, 0.6) !important;
   transform: translateY(-1px) !important;
+}
+
+/* =======================================================
+   DUAL-THEME BRIDGE — Light overrides for hardcoded dark surfaces.
+   Base (:root) is light; dark is preserved via [data-theme="dark"]
+   + prefers-color-scheme media above. These rules make the old
+   navy/white hardcodes readable on warm cream without rewrites.
+   Future code: use var(--cj-bg-*) / var(--cj-text-*) directly.
+   ======================================================= */
+:root:not([data-theme="dark"]),
+[data-theme="light"] {
+  --cj-surface-fix: #FFFFFF;
+}
+
+:root:not([data-theme="dark"]) .glass-card,
+[data-theme="light"] .glass-card {
+  background: var(--cj-glass-card);
+  -webkit-backdrop-filter: var(--cj-glass-blur);
+  backdrop-filter: var(--cj-glass-blur);
+  border: 1px solid var(--cj-glass-rim);
+  box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+:root:not([data-theme="dark"]) .glass-panel,
+[data-theme="light"] .glass-panel {
+  background: var(--cj-glass-card);
+  -webkit-backdrop-filter: var(--cj-glass-blur);
+  backdrop-filter: var(--cj-glass-blur);
+  border: 1px solid var(--cj-glass-rim);
+  box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+:root:not([data-theme="dark"]) .tour-card,
+[data-theme="light"] .tour-card {
+  background: var(--cj-glass-card);
+  -webkit-backdrop-filter: var(--cj-glass-blur);
+  backdrop-filter: var(--cj-glass-blur);
+  border: 1px solid var(--cj-glass-rim);
+  box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  isolation: isolate;
+}
+:root:not([data-theme="dark"]) .tour-card:hover,
+[data-theme="light"] .tour-card:hover {
+  border-color: rgba(214, 90, 0, 0.45);
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(255, 137, 47, 0.18);
+}
+:root:not([data-theme="dark"]) .card-media,
+[data-theme="light"] .card-media {
+  background: #F5F0E1;
+}
+:root:not([data-theme="dark"]) .media-overlay,
+[data-theme="light"] .media-overlay {
+  background: linear-gradient(180deg, rgba(0,0,0,0.18) 0%, transparent 40%, rgba(255,253,247,0.15) 100%);
+}
+:root:not([data-theme="dark"]) .compact-tour-title,
+[data-theme="light"] .compact-tour-title,
+:root:not([data-theme="dark"]) .compact-rating-pill,
+[data-theme="light"] .compact-rating-pill {
+  color: var(--cj-text-heading);
+}
+:root:not([data-theme="dark"]) .compact-rating-pill,
+[data-theme="light"] .compact-rating-pill {
+  background: rgba(255,255,255,0.92);
+  border-color: var(--cj-line);
+}
+:root:not([data-theme="dark"]) .compact-dur-pill,
+[data-theme="light"] .compact-dur-pill {
+  background: rgba(255,255,255,0.92);
+  border-color: rgba(14,116,144,0.4);
+  color: var(--cj-link-deep);
+}
+:root:not([data-theme="dark"]) .compact-location-tag,
+[data-theme="light"] .compact-location-tag,
+:root:not([data-theme="dark"]) .price-per-person,
+[data-theme="light"] .price-per-person {
+  color: var(--cj-text-muted);
+}
+:root:not([data-theme="dark"]) .compact-inclusions-icon-bar,
+[data-theme="light"] .compact-inclusions-icon-bar {
+  background: var(--cj-bg-soft) !important;
+  border-color: var(--cj-line) !important;
+}
+:root:not([data-theme="dark"]) .inc-svg-badge,
+[data-theme="light"] .inc-svg-badge {
+  background: #FFFFFF !important;
+  border-color: var(--cj-line) !important;
+}
+:root:not([data-theme="dark"]) .inc-text,
+[data-theme="light"] .inc-text {
+  color: var(--cj-text-body) !important;
+}
+:root:not([data-theme="dark"]) .compact-card-footer,
+[data-theme="light"] .compact-card-footer {
+  border-top-color: var(--cj-line);
+}
+:root:not([data-theme="dark"]) .orig-price-strike,
+[data-theme="light"] .orig-price-strike,
+:root:not([data-theme="dark"]) del,
+[data-theme="light"] del,
+:root:not([data-theme="dark"]) s,
+[data-theme="light"] s {
+  color: var(--cj-text-muted) !important;
+}
+:root:not([data-theme="dark"]) .current-offer-price,
+[data-theme="light"] .current-offer-price {
+  color: var(--cj-cta-deep);
+}
+:root:not([data-theme="dark"]) .price-save-badge,
+[data-theme="light"] .price-save-badge {
+  color: #15803D;
+  border-color: #16A34A;
+}
+:root:not([data-theme="dark"]) .btn-secondary,
+[data-theme="light"] .btn-secondary {
+  background: #FFFFFF;
+  border-color: var(--cj-text-heading);
+  color: var(--cj-text-heading);
+}
+:root:not([data-theme="dark"]) .btn-secondary:hover,
+[data-theme="light"] .btn-secondary:hover {
+  background: var(--cj-bg-alt);
+  border-color: var(--cj-cta-deep);
+  color: var(--cj-cta-deep);
+}
+:root:not([data-theme="dark"]) .btn-itinerary-compact,
+[data-theme="light"] .btn-itinerary-compact {
+  background: #FFFFFF !important;
+  border-color: var(--cj-text-heading) !important;
+  color: var(--cj-text-heading) !important;
+}
+:root:not([data-theme="dark"]) .btn-itinerary-compact:hover,
+[data-theme="light"] .btn-itinerary-compact:hover {
+  border-color: var(--cj-link-deep, #0E7490) !important;
+  color: var(--cj-link-deep, #0E7490) !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 0 12px rgba(14, 116, 144, 0.25) !important;
+}
+:root:not([data-theme="dark"]) .modal-overlay,
+[data-theme="light"] .modal-overlay {
+  background: rgba(20, 38, 74, 0.5);
+}
+:root:not([data-theme="dark"]) .modal-content,
+[data-theme="light"] .modal-content {
+  background: var(--cj-glass-card-solid);
+  -webkit-backdrop-filter: var(--cj-glass-blur);
+  backdrop-filter: var(--cj-glass-blur);
+  border: 1px solid var(--cj-glass-rim);
+  color: var(--cj-text-body);
+  box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+:root:not([data-theme="dark"]) ::-webkit-scrollbar-track,
+[data-theme="light"] ::-webkit-scrollbar-track {
+  background: var(--cj-bg-alt);
+}
+:root:not([data-theme="dark"]) ::-webkit-scrollbar-thumb,
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+}
+:root:not([data-theme="dark"]) .text-muted,
+:root:not([data-theme="dark"]) .text-dim,
+:root:not([data-theme="dark"]) .subtext,
+[data-theme="light"] .text-muted,
+[data-theme="light"] .text-dim,
+[data-theme="light"] .subtext {
+  color: var(--cj-text-muted) !important;
+}
+:root:not([data-theme="dark"]) .text-readable-silver,
+:root:not([data-theme="dark"]) .text-readable-white,
+:root:not([data-theme="dark"]) .illuminate-text,
+[data-theme="light"] .text-readable-silver,
+[data-theme="light"] .text-readable-white,
+[data-theme="light"] .illuminate-text {
+  color: var(--cj-text-heading) !important;
+}
+@media (max-width: 768px) {
+  :root:not([data-theme="dark"]) .glass-card,
+  :root:not([data-theme="dark"]) .glass-panel,
+  [data-theme="light"] .glass-card,
+  [data-theme="light"] .glass-panel {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(249, 251, 231, 0.8) 100%);
+    -webkit-backdrop-filter: var(--cj-glass-blur-mobile);
+    backdrop-filter: var(--cj-glass-blur-mobile);
+  }
+  :root:not([data-theme="dark"]) .tour-card,
+  [data-theme="light"] .tour-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(249, 251, 231, 0.8) 100%);
+    -webkit-backdrop-filter: var(--cj-glass-blur-mobile);
+    backdrop-filter: var(--cj-glass-blur-mobile);
+  }
+}
+
+:root:not([data-theme="dark"]) .gradient-text-gold,
+[data-theme="light"] .gradient-text-gold {
+  background: linear-gradient(135deg, #B45309 0%, #D65A00 50%, #B45309 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Footer stays Deep Navy anchor in BOTH themes per approval */
+.footer-dark-anchor {
+  background: #001D51 !important;
+  color: #F9FBE7 !important;
+}
+.footer-dark-anchor h1, .footer-dark-anchor h2, .footer-dark-anchor h3,
+.footer-dark-anchor h4, .footer-dark-anchor .font-editorial {
+  color: #F9FBE7 !important;
+}
+
+/* Hero mixed treatment — text-below panels go white in light, over-photo keeps scrim */
+:root:not([data-theme="dark"]) .hero-interactive-stage,
+[data-theme="light"] .hero-interactive-stage {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: var(--cj-line);
+  box-shadow: var(--shadow-lg);
+  color: var(--cj-text-body);
+}
+:root:not([data-theme="dark"]) .hero-interactive-stage h1,
+:root:not([data-theme="dark"]) .hero-interactive-stage h2,
+:root:not([data-theme="dark"]) .hero-interactive-stage h3,
+:root:not([data-theme="dark"]) .hero-interactive-stage .c-title,
+:root:not([data-theme="dark"]) .hero-interactive-stage .continent-title,
+[data-theme="light"] .hero-interactive-stage h1,
+[data-theme="light"] .hero-interactive-stage h2,
+[data-theme="light"] .hero-interactive-stage h3,
+[data-theme="light"] .hero-interactive-stage .c-title,
+[data-theme="light"] .hero-interactive-stage .continent-title {
+  color: var(--cj-text-heading);
 }
 
 

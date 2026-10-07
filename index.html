@@ -3,6 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      // Early theme bootstrap: ALWAYS set explicit data-theme before paint.
+      // Follow OS by default, respect manual override. No FOUC, no mixed state.
+      try {
+        var stored = localStorage.getItem('cj-theme');
+        var sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = (stored === 'light' || stored === 'dark') ? stored : (sysDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.style.colorScheme = theme;
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    </script>
     <title>Comfort Journey | Tour Packages Worldwide | Since 1992</title>
     <meta name="description" content="Comfort Journey is a trusted travel agency with 30+ years of expertise based in Bhopal. We offer customized tour packages for 2,000+ destinations worldwide. Flights, hotels, visas, and 24/7 support included." />
     

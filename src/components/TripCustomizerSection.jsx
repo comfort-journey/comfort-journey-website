@@ -720,7 +720,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           background: 
             linear-gradient(180deg, #0B1120 0%, rgba(11, 17, 32, 0.82) 12%, rgba(11, 17, 32, 0.62) 50%, rgba(11, 17, 32, 0.82) 88%, #0B1120 100%),
             url('${basePrefix}backgrounds/trip-studio-dolomites-daisies.webp') center 40% / cover no-repeat;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           position: relative;
           border-top: 1px solid rgba(255, 255, 255, 0.05);
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -740,7 +740,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
         .section-subtitle {
           max-width: 720px;
           margin: 0 auto;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           font-size: 1.05rem;
           line-height: 1.6;
         }
@@ -780,7 +780,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           font-family: var(--font-ui);
           font-size: 0.95rem;
           font-weight: 800;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           text-transform: uppercase;
           letter-spacing: 0.04em;
           display: flex;
@@ -805,13 +805,13 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
         .rate-hint,
         .addons-active-count {
           font-size: 0.78rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           font-weight: 600;
         }
 
         .block-sub-hint {
           font-size: 0.8rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           margin: 0.15rem 0 0 0;
         }
 
@@ -837,7 +837,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           border-radius: 20px;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.08);
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-size: 0.82rem;
           font-weight: 600;
           cursor: pointer;
@@ -847,13 +847,13 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
 
         .cat-chip-btn:hover {
           background: rgba(255, 255, 255, 0.1);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .cat-chip-btn.active {
           background: rgba(255, 137, 47, 0.2);
           border-color: #FF892F;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .cat-chip-icon {
@@ -916,7 +916,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           font-family: var(--font-serif);
           font-size: 1.15rem;
           font-weight: 700;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -924,7 +924,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
 
         .dest-trigger-sub {
           font-size: 0.8rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           display: flex;
           align-items: center;
           gap: 0.3rem;
@@ -949,7 +949,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
 
         .price-tag-sub {
           font-size: 0.68rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           text-transform: uppercase;
           font-weight: 700;
         }
@@ -962,7 +962,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
         }
 
         .chevron-icon {
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           transition: transform 0.25s ease;
         }
 
@@ -996,7 +996,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
         }
 
         .search-icon {
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           flex-shrink: 0;
         }
 
@@ -1005,7 +1005,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           background: transparent;
           border: none;
           outline: none;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-size: 0.9rem;
         }
 
@@ -1016,7 +1016,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
         .search-clear-btn {
           background: transparent;
           border: none;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           cursor: pointer;
           padding: 0.2rem;
         }
@@ -1028,7 +1028,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           padding: 0.4rem 1rem;
           background: rgba(0, 0, 0, 0.3);
           font-size: 0.72rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
@@ -1087,7 +1087,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
         .dest-opt-name {
           font-size: 0.92rem;
           font-weight: 700;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -1095,7 +1095,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
 
         .dest-opt-location {
           font-size: 0.75rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           display: flex;
           align-items: center;
           gap: 0.25rem;
@@ -1118,7 +1118,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
         .dest-no-results {
           padding: 2rem 1rem;
           text-align: center;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           font-size: 0.88rem;
           display: flex;
           flex-direction: column;
@@ -1146,7 +1146,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.08);
           border-radius: 20px;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-size: 0.78rem;
           padding: 0.25rem 0.65rem;
           cursor: pointer;
@@ -1155,13 +1155,13 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
 
         .preset-chip:hover {
           background: rgba(255, 255, 255, 0.1);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .preset-chip.active {
           background: rgba(255, 184, 0, 0.2);
           border-color: #FFB800;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .slider-label-row {
@@ -1193,7 +1193,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           display: flex;
           justify-content: space-between;
           font-size: 0.75rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           font-weight: 600;
         }
 
@@ -1218,12 +1218,12 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
         .counter-left strong {
           display: block;
           font-size: 0.88rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .counter-left .subtext {
           font-size: 0.75rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .counter-controls {
@@ -1242,7 +1242,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           border-radius: 6px;
           background: rgba(255, 255, 255, 0.08);
           border: none;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-size: 1.1rem;
           font-weight: 700;
           cursor: pointer;
@@ -1288,7 +1288,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           align-items: flex-start;
           gap: 0.5rem;
           text-align: left;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           transition: all 0.25s ease;
           position: relative;
         }
@@ -1348,19 +1348,19 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           padding: 0.15rem 0.5rem;
           border-radius: 6px;
           background: rgba(255, 255, 255, 0.08);
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
         }
 
         .tier-card-title {
           font-size: 0.95rem;
           font-weight: 800;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin-top: 0.15rem;
         }
 
         .tier-card-desc {
           font-size: 0.78rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           line-height: 1.35;
           flex: 1;
         }
@@ -1461,7 +1461,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
         .addon-name {
           font-size: 0.85rem;
           font-weight: 700;
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -1479,7 +1479,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
 
         .addon-desc {
           font-size: 0.72rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           margin: 0.15rem 0 0 0;
           line-height: 1.25;
           display: -webkit-box;
@@ -1551,7 +1551,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
 
         .banner-loc {
           font-size: 0.75rem;
-          color: #CBD5E1;
+          color: #E2E8F0; /* over-photo: stays light in both themes */
           display: flex;
           align-items: center;
           gap: 0.25rem;
@@ -1562,7 +1562,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           font-family: var(--font-serif);
           font-size: 1.25rem;
           font-weight: 700;
-          color: #FFFFFF;
+          color: #FFFFFF; /* over-photo: stays white in both themes */
           margin: 0;
           line-height: 1.2;
           white-space: nowrap;
@@ -1596,11 +1596,11 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
         }
 
         .breakdown-row span {
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .breakdown-row strong {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-family: var(--font-ui);
           text-align: right;
         }
@@ -1624,7 +1624,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           font-family: var(--font-ui);
           font-size: 0.75rem;
           font-weight: 800;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           text-transform: uppercase;
           letter-spacing: 0.05em;
         }
@@ -1643,7 +1643,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           align-items: center;
           gap: 0.4rem;
           font-size: 0.82rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           margin-bottom: 0.35rem;
         }
 
@@ -1676,7 +1676,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           align-items: center;
           gap: 0.5rem;
           font-size: 0.76rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
         }
 
         /* ── RESPONSIVE ADAPTATIONS ── */
@@ -1763,6 +1763,68 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           .studio-summary-pane {
             padding: 1.25rem 1rem;
           }
+        }
+
+        /* LIGHT THEME — bright photo wash, white studio panels (dark keeps navy) */
+        :root:not([data-theme="dark"]) .studio-root,
+        [data-theme="light"] .studio-root {
+          background:
+            radial-gradient(720px 340px at 88% 0%, rgba(14,116,144,0.09), transparent 70%),
+            radial-gradient(640px 300px at 8% 100%, rgba(255,137,47,0.10), transparent 70%),
+            linear-gradient(180deg, #FFFDF7 0%, #F9FBE7 100%);
+          border-top-color: var(--cj-line, #E8E0CF);
+          border-bottom-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .studio-controls,
+        [data-theme="light"] .studio-controls,
+        :root:not([data-theme="dark"]) .studio-summary-pane,
+        [data-theme="light"] .studio-summary-pane {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+          box-shadow: var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10));
+        }
+        :root:not([data-theme="dark"]) .cat-chip-btn,
+        [data-theme="light"] .cat-chip-btn,
+        :root:not([data-theme="dark"]) .luxury-dest-trigger,
+        [data-theme="light"] .luxury-dest-trigger {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .cat-chip-btn.active,
+        [data-theme="light"] .cat-chip-btn.active {
+          background: rgba(255,137,47,0.16);
+          border-color: var(--cj-cta-deep, #D65A00);
+          color: var(--cj-cta-deep, #D65A00);
+        }
+        :root:not([data-theme="dark"]) .live-price-box,
+        [data-theme="light"] .live-price-box {
+          background: var(--cj-bg-soft, #F5F0E1);
+        }
+        :root:not([data-theme="dark"]) .summary-breakdown,
+        [data-theme="light"] .summary-breakdown {
+          border-top-color: var(--cj-line, #E8E0CF);
+          border-bottom-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .summary-badge,
+        [data-theme="light"] .summary-badge {
+          color: #7C3AED;
+        }
+        :root:not([data-theme="dark"]) .text-emerald,
+        [data-theme="light"] .text-emerald {
+          color: #047857 !important;
+        }
+        /* summary banner stays cinematic dark + light text in both themes */
+        :root:not([data-theme="dark"]) .summary-dest-banner .banner-overlay,
+        [data-theme="light"] .summary-dest-banner .banner-overlay {
+          background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(11,17,32,0.95) 90%);
         }
       `}</style>
     </section>

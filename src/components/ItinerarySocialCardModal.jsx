@@ -137,14 +137,14 @@ export default function ItinerarySocialCardModal({ isOpen = false, onClose, trip
         .modal-header-left h3 {
           margin: 0;
           font-size: 0.95rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-weight: 700;
         }
 
         .card-modal-close {
           background: rgba(255, 255, 255, 0.08);
           border: none;
-          color: #FFFFFF;
+          color: var(--cj-text-muted);
           border-radius: 50%;
           width: 28px;
           height: 28px;
@@ -235,7 +235,7 @@ export default function ItinerarySocialCardModal({ isOpen = false, onClose, trip
 
         .copy-btn {
           background: rgba(255, 255, 255, 0.1);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           border: 1px solid rgba(255, 255, 255, 0.2);
         }
       `}</style>

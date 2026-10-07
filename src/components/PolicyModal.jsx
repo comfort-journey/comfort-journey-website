@@ -96,7 +96,7 @@ export default function PolicyModal({ type, isOpen, onClose }) {
         .policy-title {
           font-family: var(--font-serif);
           font-size: 1.35rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .policy-close-btn {
@@ -104,7 +104,7 @@ export default function PolicyModal({ type, isOpen, onClose }) {
           height: 44px;
           border-radius: 50%;
           background: rgba(255, 255, 255, 0.08);
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -113,7 +113,7 @@ export default function PolicyModal({ type, isOpen, onClose }) {
 
         .policy-text-content {
           font-size: 0.92rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           line-height: 1.7;
           display: flex;
           flex-direction: column;
@@ -126,7 +126,7 @@ export default function PolicyModal({ type, isOpen, onClose }) {
         .policy-text-content h3 {
           font-family: var(--font-serif);
           font-size: 1.2rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .policy-text-content h4 {
@@ -172,3 +172,4 @@ export default function PolicyModal({ type, isOpen, onClose }) {
     </div>
   );
 }
+

@@ -62,7 +62,7 @@ export const BRAND_COLORS = {
     hex: '#001D51',
     rgb: '0, 29, 81',
     name: 'Deep Navy',
-    role: 'Primary Dark Base (replaces flat pure black for deep royal navy luxury), Panels, Card Surfaces',
+    role: 'Dark mode base + Light mode ink + Footer anchor in both themes',
     shades: {
       deepest: '#001233',
       main: '#001D51',
@@ -70,6 +70,21 @@ export const BRAND_COLORS = {
       surface: '#0A3282',
       border: 'rgba(111, 230, 252, 0.2)',
     }
+  },
+
+  // 6. Dual-Theme Functional Tokens (derived from the 5 above, AA-compliant on light)
+  lightTheme: {
+    pageBase: '#FFFDF7', // Beige lightened — page bg
+    pageAlt: '#F9FBE7', // Full Beige — alt sections
+    card: '#FFFFFF',
+    sand: '#F5F0E1', // Inclusion strips
+    line: '#E8E0CF',
+    headingInk: '#14264A', // Navy ink 13:1 on paper
+    bodyInk: '#334155', // 7.1:1
+    mutedInk: '#64748B', // 4.8:1
+    ctaText: '#D65A00', // Tangerine deepened 4.6:1
+    linkText: '#0E7490', // Aqua deepened 4.9:1
+    limeText: '#4D7C0F', // Lime deepened
   }
 };
 

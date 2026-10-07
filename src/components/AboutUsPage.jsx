@@ -818,7 +818,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
         .who-we-are-page-root {
           padding-top: 100px;
           padding-bottom: 80px;
-          color: #E2E8F0;
+          color: var(--cj-text-body);
         }
 
         .about-hero-section {
@@ -828,13 +828,13 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
 
         .about-hero-heading {
           font-size: 3.5rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin-bottom: 1rem;
         }
 
         .about-hero-subheading {
           font-size: 1.25rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           max-width: 720px;
           margin: 0 auto 2.5rem auto;
           line-height: 1.6;
@@ -866,7 +866,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
           border-radius: 0 16px 16px 0;
           font-family: var(--font-editorial, 'Fraunces', Georgia, serif);
           font-size: 1.25rem;
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
           margin: 1.5rem 0;
           line-height: 1.5;
         }
@@ -874,13 +874,13 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
         .story-lead {
           font-size: 1.05rem;
           line-height: 1.7;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
         }
 
         .story-body {
           font-size: 0.95rem;
           line-height: 1.7;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           margin-bottom: 1rem;
         }
 
@@ -896,13 +896,13 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
 
         .care-title {
           font-size: 1.1rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin-bottom: 0.25rem;
         }
 
         .care-desc {
           font-size: 0.88rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           line-height: 1.5;
           margin: 0;
         }
@@ -938,13 +938,13 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
 
         .overlay-head {
           font-size: 1.4rem;
-          color: #FFFFFF;
+          color: #FFFFFF; /* over-photo: stays white in both themes */
           margin: 0.2rem 0;
         }
 
         .overlay-sub {
           font-size: 0.85rem;
-          color: #94A3B8;
+          color: #E2E8F0; /* over-photo: stays light in both themes */
           margin: 0;
         }
 
@@ -977,13 +977,13 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
 
         .s-title {
           font-size: 1.1rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin-bottom: 0.5rem;
         }
 
         .s-desc {
           font-size: 0.85rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           line-height: 1.55;
           margin: 0;
         }
@@ -1013,13 +1013,13 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
 
         .t-offer {
           font-size: 1.05rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin-bottom: 0.3rem;
         }
 
         .t-meaning {
           font-size: 0.84rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           line-height: 1.5;
           margin: 0;
         }
@@ -1051,7 +1051,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
           display: block;
           font-size: 0.95rem;
           font-weight: 700;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .counter-context {
@@ -1102,7 +1102,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
           right: 14px;
           background: rgba(255, 137, 47, 0.9);
           backdrop-filter: blur(10px);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-size: 0.76rem;
           font-weight: 800;
           padding: 0.35rem 0.85rem;
@@ -1117,7 +1117,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
 
         .member-name {
           font-size: 1.75rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin-bottom: 0.2rem;
         }
 
@@ -1131,7 +1131,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
 
         .member-bio {
           font-size: 0.9rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           line-height: 1.6;
           margin-bottom: 0.75rem;
         }
@@ -1151,7 +1151,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
           border-radius: 9999px;
           background: rgba(255, 255, 255, 0.06);
           border: 1px solid rgba(255, 255, 255, 0.12);
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           font-size: 0.78rem;
           font-weight: 700;
           text-decoration: none;
@@ -1197,7 +1197,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
           align-items: center;
           gap: 0.5rem;
           font-size: 0.92rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .partner-pill.highlight {
@@ -1207,7 +1207,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
 
         .p-sub {
           font-size: 0.72rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         /* Philosophy */
@@ -1236,7 +1236,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
 
         .p-text {
           font-size: 0.92rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           line-height: 1.6;
           margin: 0;
         }
@@ -1259,13 +1259,13 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
 
         .contact-head {
           font-size: 2rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin-bottom: 0.5rem;
         }
 
         .contact-sub {
           font-size: 0.92rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           line-height: 1.6;
           margin-bottom: 1.5rem;
         }
@@ -1285,7 +1285,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
           border-radius: 16px;
           background: rgba(255, 255, 255, 0.04);
           border: 1px solid rgba(255, 255, 255, 0.08);
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           text-decoration: none;
           transition: all 0.2s ease;
         }
@@ -1298,12 +1298,12 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
         .c-method-item strong {
           display: block;
           font-size: 0.92rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .c-method-item span {
           font-size: 0.82rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .office-address-block {
@@ -1322,13 +1322,13 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
 
         .address-head h4 {
           font-size: 1rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0;
         }
 
         .address-text {
           font-size: 0.85rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           line-height: 1.5;
           margin-bottom: 0.75rem;
         }
@@ -1336,18 +1336,18 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
         .timing-note {
           display: block;
           font-size: 0.78rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .form-title {
           font-size: 1.75rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin-bottom: 0.3rem;
         }
 
         .form-sub {
           font-size: 0.88rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           margin-bottom: 1.5rem;
         }
 
@@ -1373,7 +1373,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
           display: block;
           font-size: 0.78rem;
           font-weight: 700;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           margin-bottom: 0.35rem;
         }
 
@@ -1384,13 +1384,13 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
 
         .form-success-box h4 {
           font-size: 1.35rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin-bottom: 0.5rem;
         }
 
         .form-success-box p {
           font-size: 0.9rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         /* Map */
@@ -1409,7 +1409,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
           justify-content: space-between;
           padding: 0.85rem 1rem 0.25rem 1rem;
           font-size: 0.85rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           flex-wrap: wrap;
           gap: 0.5rem;
         }
@@ -1421,7 +1421,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
           padding: 0.45rem 1rem;
           border-radius: 9999px;
           background: #FF892F;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-size: 0.8rem;
           font-weight: 800;
           text-decoration: none;
@@ -1459,7 +1459,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
 
         .faq-question-header h4 {
           font-size: 1rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0;
         }
 
@@ -1474,7 +1474,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
           padding-top: 0.85rem;
           border-top: 1px solid rgba(255, 255, 255, 0.08);
           font-size: 0.88rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           line-height: 1.6;
         }
 
@@ -1492,13 +1492,13 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
 
         .cta-head {
           font-size: 2.4rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin-bottom: 0.75rem;
         }
 
         .cta-body {
           font-size: 1.05rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           line-height: 1.6;
           margin-bottom: 2rem;
         }
@@ -1524,7 +1524,35 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
             grid-template-columns: 1fr;
           }
         }
+
+        /* LIGHT THEME — white panels; story overlay keeps cinematic dark +
+           white text in BOTH themes (approved over-photo) */
+        :root:not([data-theme="dark"]) .care-box,
+        [data-theme="light"] .care-box,
+        :root:not([data-theme="dark"]) .office-address-block,
+        [data-theme="light"] .office-address-block,
+        :root:not([data-theme="dark"]) .faq-item-card.open,
+        [data-theme="light"] .faq-item-card.open,
+        :root:not([data-theme="dark"]) .team-card-profile,
+        [data-theme="light"] .team-card-profile {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+          box-shadow: var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10));
+        }
+        :root:not([data-theme="dark"]) .contact-chip:hover,
+        [data-theme="light"] .contact-chip:hover {
+          color: var(--cj-link-deep, #0E7490);
+        }
+        :root:not([data-theme="dark"]) .contact-chip.whatsapp:hover,
+        [data-theme="light"] .contact-chip.whatsapp:hover {
+          color: #047857;
+        }
       `}</style>
     </div>
   );
 }
+

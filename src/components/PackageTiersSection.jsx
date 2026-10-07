@@ -164,7 +164,7 @@ export default function PackageTiersSection({ onOpenQuote }) {
 
         .tier-card-title {
           font-size: 1.45rem;
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
           margin-top: 0.65rem;
           margin-bottom: 0.25rem;
         }
@@ -193,7 +193,7 @@ export default function PackageTiersSection({ onOpenQuote }) {
           align-items: center;
           gap: 0.45rem;
           font-size: 0.78rem;
-          color: #93B2D2;
+          color: var(--cj-text-muted);
           text-transform: uppercase;
           letter-spacing: 0.05em;
           font-weight: 700;
@@ -203,13 +203,13 @@ export default function PackageTiersSection({ onOpenQuote }) {
         .tier-item-value {
           font-size: 0.95rem;
           font-weight: 700;
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
           margin-bottom: 0.15rem;
         }
 
         .tier-item-note {
           font-size: 0.78rem;
-          color: #93B2D2;
+          color: var(--cj-text-muted);
           line-height: 1.4;
         }
 
@@ -221,7 +221,7 @@ export default function PackageTiersSection({ onOpenQuote }) {
           gap: 0.5rem;
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(111, 230, 252, 0.3);
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
           padding: 0.85rem 1.25rem;
           border-radius: var(--radius-full);
           font-size: 0.92rem;
@@ -233,14 +233,14 @@ export default function PackageTiersSection({ onOpenQuote }) {
         .btn-tier-cta:hover {
           background: #FF892F;
           border-color: #FF892F;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           box-shadow: 0 4px 15px rgba(255, 137, 47, 0.4);
         }
 
         .popular-cta {
           background: #FF892F;
           border-color: #FF892F;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .popular-cta:hover {
@@ -257,14 +257,15 @@ export default function PackageTiersSection({ onOpenQuote }) {
           border-radius: 20px;
           padding: 1.25rem 2rem;
           font-size: 0.88rem;
-          color: #93B2D2;
+          color: var(--cj-text-muted);
           line-height: 1.5;
         }
 
         .tiers-custom-banner strong {
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
         }
       `}</style>
     </section>
   );
 }
+

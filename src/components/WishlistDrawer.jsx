@@ -149,7 +149,7 @@ export default function WishlistDrawer({ onSelectItinerary, onBookTour }) {
         .title-row h3 {
           font-family: var(--font-serif);
           font-size: 1.3rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .close-drawer-btn {
@@ -157,7 +157,7 @@ export default function WishlistDrawer({ onSelectItinerary, onBookTour }) {
           height: 44px;
           border-radius: 50%;
           background: rgba(255, 255, 255, 0.08);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -207,7 +207,7 @@ export default function WishlistDrawer({ onSelectItinerary, onBookTour }) {
         .saved-name {
           font-family: var(--font-serif);
           font-size: 1.05rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           line-height: 1.3;
         }
 
@@ -216,7 +216,7 @@ export default function WishlistDrawer({ onSelectItinerary, onBookTour }) {
           align-items: center;
           justify-content: space-between;
           font-size: 0.8rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .saved-price {
@@ -240,7 +240,7 @@ export default function WishlistDrawer({ onSelectItinerary, onBookTour }) {
         }
 
         .delete-btn {
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           padding: 0.45rem;
           transition: color 0.2s ease;
           display: flex;
@@ -259,13 +259,13 @@ export default function WishlistDrawer({ onSelectItinerary, onBookTour }) {
           flex-direction: column;
           align-items: center;
           gap: 1rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .empty-wishlist h4 {
           font-family: var(--font-serif);
           font-size: 1.4rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .drawer-footer {
@@ -287,3 +287,4 @@ export default function WishlistDrawer({ onSelectItinerary, onBookTour }) {
     </div>
   );
 }
+

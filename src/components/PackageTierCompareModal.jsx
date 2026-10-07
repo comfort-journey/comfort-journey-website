@@ -129,17 +129,17 @@ export default function PackageTierCompareModal({ isOpen, onClose, selectedTour,
 
           .tier-tour-context {
             font-size: 0.86rem;
-            color: #93B2D2;
+            color: var(--cj-text-muted);
           }
 
           .tier-tour-context strong {
-            color: #F9FBE7;
+            color: var(--cj-text-heading);
           }
 
           .tier-close-btn {
             background: rgba(255, 255, 255, 0.08);
             border: none;
-            color: #F9FBE7;
+            color: var(--cj-text-heading);
             width: 34px;
             height: 34px;
             border-radius: 50%;
@@ -152,7 +152,7 @@ export default function PackageTierCompareModal({ isOpen, onClose, selectedTour,
 
           .tier-close-btn:hover {
             background: #FF892F;
-            color: #FFFFFF;
+            color: var(--cj-text-heading);
             transform: rotate(90deg);
           }
 
@@ -168,13 +168,13 @@ export default function PackageTierCompareModal({ isOpen, onClose, selectedTour,
 
           .tier-heading {
             font-size: 1.8rem;
-            color: #F9FBE7;
+            color: var(--cj-text-heading);
             margin-bottom: 0.35rem;
           }
 
           .tier-sub {
             font-size: 0.92rem;
-            color: #93B2D2;
+            color: var(--cj-text-muted);
             max-width: 620px;
             margin: 0 auto;
           }
@@ -244,7 +244,7 @@ export default function PackageTierCompareModal({ isOpen, onClose, selectedTour,
 
           .tier-name {
             font-size: 1.3rem;
-            color: #F9FBE7;
+            color: var(--cj-text-heading);
             margin-top: 0.6rem;
             margin-bottom: 0.25rem;
           }
@@ -273,7 +273,7 @@ export default function PackageTierCompareModal({ isOpen, onClose, selectedTour,
             align-items: center;
             gap: 0.4rem;
             font-size: 0.76rem;
-            color: #93B2D2;
+            color: var(--cj-text-muted);
             text-transform: uppercase;
             letter-spacing: 0.05em;
             font-weight: 700;
@@ -283,13 +283,13 @@ export default function PackageTierCompareModal({ isOpen, onClose, selectedTour,
           .tier-feat-val {
             font-size: 0.88rem;
             font-weight: 700;
-            color: #F9FBE7;
+            color: var(--cj-text-heading);
             margin-bottom: 0.15rem;
           }
 
           .tier-feat-note {
             font-size: 0.74rem;
-            color: #93B2D2;
+            color: var(--cj-text-muted);
             line-height: 1.35;
           }
 
@@ -301,7 +301,7 @@ export default function PackageTierCompareModal({ isOpen, onClose, selectedTour,
             gap: 0.45rem;
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(111, 230, 252, 0.3);
-            color: #F9FBE7;
+            color: var(--cj-text-heading);
             padding: 0.75rem 1rem;
             border-radius: var(--radius-full);
             font-size: 0.86rem;
@@ -313,13 +313,13 @@ export default function PackageTierCompareModal({ isOpen, onClose, selectedTour,
           .btn-tier-select:hover {
             background: #FF892F;
             border-color: #FF892F;
-            color: #FFFFFF;
+            color: var(--cj-text-heading);
           }
 
           .btn-popular {
             background: #FF892F;
             border-color: #FF892F;
-            color: #FFFFFF;
+            color: var(--cj-text-heading);
           }
 
           .btn-popular:hover {
@@ -332,7 +332,7 @@ export default function PackageTierCompareModal({ isOpen, onClose, selectedTour,
             padding: 0.85rem 1.25rem;
             border-radius: var(--radius-lg);
             font-size: 0.82rem;
-            color: #93B2D2;
+            color: var(--cj-text-muted);
           }
 
           .tier-custom-note p {
@@ -345,3 +345,5 @@ export default function PackageTierCompareModal({ isOpen, onClose, selectedTour,
     </div>
   );
 }
+
+

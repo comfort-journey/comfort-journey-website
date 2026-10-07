@@ -125,20 +125,20 @@ export default function LandingPagesHubModal({ isOpen, onClose, onSelectLandingP
 
           .lp-hub-title {
             font-size: 1.85rem;
-            color: #FFFFFF;
+            color: var(--cj-text-heading);
             margin: 0 0 0.35rem 0;
           }
 
           .lp-hub-subtitle {
             font-size: 0.92rem;
-            color: #94A3B8;
+            color: var(--cj-text-muted);
             margin: 0;
           }
 
           .lp-hub-close {
             background: rgba(255, 255, 255, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.12);
-            color: #E2E8F0;
+            color: var(--cj-text-body);
             width: 38px;
             height: 38px;
             border-radius: 50%;
@@ -213,14 +213,14 @@ export default function LandingPagesHubModal({ isOpen, onClose, onSelectLandingP
 
           .lp-hub-card-headline {
             font-size: 1.15rem;
-            color: #FFFFFF;
+            color: var(--cj-text-heading);
             margin: 0;
             line-height: 1.35;
           }
 
           .lp-hub-card-desc {
             font-size: 0.82rem;
-            color: #94A3B8;
+            color: var(--cj-text-muted);
             line-height: 1.45;
             margin: 0;
             display: -webkit-box;
@@ -250,7 +250,7 @@ export default function LandingPagesHubModal({ isOpen, onClose, onSelectLandingP
             gap: 0.3rem;
             font-size: 0.78rem;
             font-weight: 700;
-            color: #CBD5E1;
+            color: var(--cj-text-muted);
           }
 
           .lp-hub-card:hover .lp-hub-open-btn {
@@ -261,3 +261,4 @@ export default function LandingPagesHubModal({ isOpen, onClose, onSelectLandingP
     </div>
   );
 }
+

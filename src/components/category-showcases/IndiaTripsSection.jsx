@@ -611,7 +611,7 @@ export default function IndiaTripsSection({
 
         .showcase-title {
           font-size: clamp(2.3rem, 4.2vw, 3.2rem);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin-bottom: 0.65rem;
           line-height: 1.15;
         }
@@ -619,7 +619,7 @@ export default function IndiaTripsSection({
         .showcase-subtitle {
           max-width: 720px;
           margin: 0 auto 1.15rem auto;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           font-size: 1.02rem;
           line-height: 1.6;
         }
@@ -639,7 +639,7 @@ export default function IndiaTripsSection({
           gap: 0.35rem;
           font-size: 0.76rem;
           font-weight: 700;
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
           background: rgba(245, 158, 11, 0.1);
           border: 1px solid rgba(245, 158, 11, 0.25);
           padding: 0.28rem 0.75rem;
@@ -671,7 +671,7 @@ export default function IndiaTripsSection({
           border-radius: 9999px;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.12);
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-size: 0.82rem;
           font-weight: 700;
           cursor: pointer;
@@ -680,7 +680,7 @@ export default function IndiaTripsSection({
         }
 
         .sub-tab-btn:hover {
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           border-color: rgba(245, 158, 11, 0.5);
           background: rgba(245, 158, 11, 0.12);
         }
@@ -791,7 +791,7 @@ export default function IndiaTripsSection({
         }
 
         .bottom-dock-info p {
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           font-size: 0.85rem;
           margin: 0;
         }
@@ -831,7 +831,7 @@ export default function IndiaTripsSection({
           gap: 0.45rem;
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #F9FBE7;
+          color: var(--cj-text-heading);
           font-size: 0.82rem;
           font-weight: 700;
           padding: 0.6rem 1.15rem;
@@ -949,6 +949,70 @@ export default function IndiaTripsSection({
           .india-monument-gateway { width: 75px; opacity: 0.15; }
           .india-monument-lotus { width: 90px; opacity: 0.15; }
           .india-mandala-ring { width: 280px; height: 280px; opacity: 0.25; }
+        }
+
+        /* LIGHT THEME — warm cream panels (dark keeps original navy) */
+        :root:not([data-theme="dark"]) .india-showcase-root,
+        [data-theme="light"] .india-showcase-root {
+          background:
+            radial-gradient(640px 320px at 10% 6%, rgba(245,158,11,0.12), transparent 70%),
+            radial-gradient(720px 360px at 90% 10%, rgba(214,90,0,0.08), transparent 70%),
+            linear-gradient(180deg, #FFFDF7 0%, #F9FBE7 100%);
+          border-top: 1px solid var(--cj-line, #E8E0CF);
+          border-bottom: 1px solid var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .india-badge,
+        [data-theme="light"] .india-badge {
+          color: var(--cj-cta-deep, #D65A00);
+          background: #FFFFFF;
+        }
+        /* Ghost Mughal-arch watermark — light only, mature line-art */
+        :root:not([data-theme="dark"]) .india-showcase-root::before,
+        [data-theme="light"] .india-showcase-root::before {
+          content: '';
+          position: absolute;
+          top: 48px;
+          right: 3%;
+          width: min(360px, 38vw);
+          aspect-ratio: 1;
+          background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%238A7F66' stroke-width='2'%3E%3Cpath d='M40,172 L40,92 Q40,52 100,30 Q160,52 160,92 L160,172'/%3E%3Cpath d='M66,172 L66,102 Q66,74 100,60 Q134,74 134,102 L134,172'/%3E%3Cline x1='20' y1='172' x2='180' y2='172'/%3E%3Ccircle cx='100' cy='44' r='4'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+          opacity: 0.07;
+          pointer-events: none;
+          z-index: 0;
+        }
+        :root:not([data-theme="dark"]) .india-card-border,
+        [data-theme="light"] .india-card-border {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+        }
+        :root:not([data-theme="dark"]) .showcase-bottom-dock,
+        [data-theme="light"] .showcase-bottom-dock {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+        }
+        :root:not([data-theme="dark"]) .sub-tab-btn,
+        [data-theme="light"] .sub-tab-btn {
+          background: #FFFFFF;
+          border-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .btn-carousel-arrow,
+        [data-theme="light"] .btn-carousel-arrow {
+          background: #FFFFFF;
+        }
+        :root:not([data-theme="dark"]) .btn-custom-india-ai,
+        [data-theme="light"] .btn-custom-india-ai {
+          background: #FFFFFF;
+          border-color: var(--cj-text-heading, #14264A);
+        }
+        :root:not([data-theme="dark"]) .vibe-micro-badge,
+        [data-theme="light"] .vibe-micro-badge {
+          background: var(--cj-bg-soft, #F5F0E1);
         }
       `}</style>
     </section>

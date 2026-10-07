@@ -21,6 +21,8 @@ import {
   Waves
 } from 'lucide-react';
 
+import ThemeToggle from './ThemeToggle';
+
 const basePrefix = import.meta.env.BASE_URL.endsWith('/')
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
@@ -91,7 +93,7 @@ export default function Footer({
   return (
     <footer 
       id="contact" 
-      className="footer-cinematic-root"
+      className="footer-cinematic-root footer-dark-anchor"
       onMouseEnter={() => setIsAutoPaused(true)}
       onMouseLeave={() => setIsAutoPaused(false)}
     >
@@ -414,6 +416,9 @@ export default function Footer({
             </div>
 
             <div className="bottom-right-touchpoints">
+              <span title="Light / Dark theme (follows your device)">
+                <ThemeToggle variant="icon" />
+              </span>
               <a 
                 href="https://wa.me/918770403315" 
                 target="_blank" 

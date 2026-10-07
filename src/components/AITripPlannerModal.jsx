@@ -711,7 +711,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
           flex-direction: column;
           overflow: hidden;
           padding: 0;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         /* Top Brand Bar */
@@ -776,7 +776,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
           margin: 0;
           font-size: 1.15rem;
           font-weight: 800;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           line-height: 1.2;
         }
 
@@ -820,7 +820,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
         .comfy-close-btn {
           background: rgba(255, 255, 255, 0.08);
           border: none;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           border-radius: 50%;
           width: 32px;
           height: 32px;
@@ -860,7 +860,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
           flex: 1;
           background: none;
           border: none;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-size: 0.88rem;
           outline: none;
         }
@@ -917,7 +917,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
         .query-suggestion-chip:hover {
           background: rgba(255, 137, 47, 0.15);
           border-color: #FF892F;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         /* Mode Tabs Bar */
@@ -1075,7 +1075,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
         .planner-day-pill {
           background: rgba(255, 255, 255, 0.07);
           border: 1px solid rgba(255, 255, 255, 0.14);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           padding: 6px 14px;
           border-radius: 20px;
           font-size: 0.76rem;
@@ -1111,7 +1111,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
           margin: 0;
           font-size: 0.92rem;
           font-weight: 700;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .day-travel-badge {
@@ -1193,7 +1193,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
           justify-content: center;
           flex-shrink: 0;
           margin-top: 2px;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .type-bg-transport { background: linear-gradient(135deg, #0284C7, #0369A1); }
@@ -1241,7 +1241,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
           margin: 0 0 3px 0;
           font-size: 0.88rem;
           font-weight: 700;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .stop-subtitle {
@@ -1316,7 +1316,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
         .assistant-bubble {
           background: #001A44;
           border: 1px solid rgba(255, 137, 47, 0.3);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           border-top-left-radius: 4px;
         }
 
@@ -1482,7 +1482,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
           flex: 1;
           background: none;
           border: none;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-size: 0.85rem;
           outline: none;
         }
@@ -1528,7 +1528,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
           gap: 6px;
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.16);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           padding: 7px 12px;
           border-radius: 8px;
           font-size: 0.75rem;
@@ -1576,7 +1576,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
           align-items: center;
           gap: 7px;
           background: #25D366;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           border: none;
           padding: 9px 18px;
           border-radius: 24px;
@@ -1620,7 +1620,36 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
             justify-content: space-between;
           }
         }
+
+        /* LIGHT THEME — white planner sheet (dark keeps navy) */
+        :root:not([data-theme="dark"]) .comfy-ai-planner-modal,
+        [data-theme="light"] .comfy-ai-planner-modal {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+          box-shadow: var(--shadow-lg, 0 20px 45px rgba(20,38,74,0.14));
+        }
+        /* Light-only accent deepening — vivid-on-navy hues fail on paper */
+        :root:not([data-theme="dark"]) .comfy-hotline-pill,
+        [data-theme="light"] .comfy-hotline-pill {
+          color: #047857;
+        }
+        :root:not([data-theme="dark"]) .chip-cyan,
+        [data-theme="light"] .chip-cyan {
+          color: var(--cj-link-deep, #0E7490) !important;
+          border-color: rgba(14,116,144,0.35) !important;
+        }
+        :root:not([data-theme="dark"]) .day-travel-badge,
+        [data-theme="light"] .day-travel-badge,
+        :root:not([data-theme="dark"]) .stop-time,
+        [data-theme="light"] .stop-time {
+          color: var(--cj-link-deep, #0E7490);
+        }
       `}</style>
     </div>
   );
 }
+

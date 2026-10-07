@@ -224,7 +224,7 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
         .blog-magazine-root {
           min-height: 100vh;
           background: #000B1D;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-family: var(--font-body);
           padding-bottom: 5rem;
         }
@@ -252,7 +252,7 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
           gap: 0.45rem;
           background: rgba(255, 255, 255, 0.06);
           border: 1px solid rgba(255, 255, 255, 0.12);
-          color: #E2E8F0;
+          color: var(--cj-text-body);
           font-size: 0.82rem;
           font-weight: 700;
           padding: 0.45rem 1rem;
@@ -264,7 +264,7 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
         .btn-back-home:hover {
           background: #FF892F;
           border-color: #FF892F;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .cms-status-indicator {
@@ -276,7 +276,7 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
           padding: 0.35rem 0.85rem;
           border-radius: 9999px;
           font-size: 0.76rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
         }
 
         .status-dot {
@@ -313,14 +313,14 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
         .blog-main-title {
           font-size: 3rem;
           font-weight: 900;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0 0 0.85rem 0;
           line-height: 1.15;
         }
 
         .blog-main-subline {
           font-size: 1.1rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           max-width: 680px;
           margin: 0 auto 2rem auto;
           line-height: 1.6;
@@ -337,7 +337,7 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
         .search-icon {
           position: absolute;
           left: 1.25rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           pointer-events: none;
         }
 
@@ -345,7 +345,7 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
           width: 100%;
           background: rgba(0, 18, 51, 0.85);
           border: 1px solid rgba(255, 255, 255, 0.15);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           padding: 0.9rem 3rem 0.9rem 3rem;
           border-radius: 9999px;
           font-size: 0.92rem;
@@ -364,7 +364,7 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
           right: 1.25rem;
           background: transparent;
           border: none;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           font-size: 0.78rem;
           cursor: pointer;
         }
@@ -379,7 +379,7 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
         .category-pill {
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-size: 0.82rem;
           font-weight: 700;
           padding: 0.45rem 1.15rem;
@@ -390,13 +390,13 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
 
         .category-pill:hover {
           background: rgba(255, 255, 255, 0.12);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
         }
 
         .category-pill.active {
           background: #FF892F;
           border-color: #FF892F;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           box-shadow: 0 4px 15px rgba(255, 137, 47, 0.35);
         }
 
@@ -439,7 +439,7 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
           top: 1rem;
           left: 1rem;
           background: #FF892F;
-          color: #FFFFFF;
+          color: #FFFFFF; /* on tangerine fill over photo: white in both themes */
           font-size: 0.72rem;
           font-weight: 800;
           padding: 0.3rem 0.75rem;
@@ -470,20 +470,20 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
 
         .meta-readtime {
           font-size: 0.78rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .featured-title {
           font-size: 1.85rem;
           font-weight: 800;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           line-height: 1.25;
           margin: 0;
         }
 
         .featured-excerpt {
           font-size: 0.95rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           line-height: 1.6;
           margin: 0;
         }
@@ -512,13 +512,13 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
         .author-name {
           font-size: 0.85rem;
           font-weight: 700;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           display: block;
         }
 
         .publish-date {
           font-size: 0.74rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .btn-read-story {
@@ -527,7 +527,7 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
           gap: 0.4rem;
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.15);
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           font-size: 0.85rem;
           font-weight: 700;
           padding: 0.55rem 1.15rem;
@@ -542,7 +542,7 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
 
         .section-title {
           font-size: 1.6rem;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           margin: 0;
         }
 
@@ -614,20 +614,20 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
           align-items: center;
           justify-content: space-between;
           font-size: 0.74rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
         }
 
         .article-title {
           font-size: 1.22rem;
           font-weight: 800;
-          color: #FFFFFF;
+          color: var(--cj-text-heading);
           line-height: 1.35;
           margin: 0;
         }
 
         .article-excerpt {
           font-size: 0.85rem;
-          color: #94A3B8;
+          color: var(--cj-text-muted);
           line-height: 1.55;
           margin: 0;
           display: -webkit-box;
@@ -658,7 +658,7 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
 
         .author-mini-name {
           font-size: 0.76rem;
-          color: #CBD5E1;
+          color: var(--cj-text-muted);
           font-weight: 600;
         }
 
@@ -686,7 +686,39 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
             font-size: 2.2rem;
           }
         }
+
+        /* LIGHT THEME — paper root, white cards (dark keeps midnight) */
+        :root:not([data-theme="dark"]) .blog-magazine-root,
+        [data-theme="light"] .blog-magazine-root {
+          background: var(--cj-bg-base, #FFFDF7);
+        }
+        :root:not([data-theme="dark"]) .article-card,
+        [data-theme="light"] .article-card,
+        :root:not([data-theme="dark"]) .featured-story-card,
+        [data-theme="light"] .featured-story-card {
+          background: var(--cj-glass-card);
+          -webkit-backdrop-filter: var(--cj-glass-blur);
+          backdrop-filter: var(--cj-glass-blur);
+          border: 1px solid var(--cj-glass-rim);
+          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: var(--cj-line, #E8E0CF);
+          box-shadow: var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10));
+        }
+        :root:not([data-theme="dark"]) .article-media,
+        [data-theme="light"] .article-media,
+        :root:not([data-theme="dark"]) .featured-media,
+        [data-theme="light"] .featured-media {
+          background: #F5F0E1;
+        }
+        /* Light-only accent deepening */
+        :root:not([data-theme="dark"]) .meta-category,
+        [data-theme="light"] .meta-category,
+        :root:not([data-theme="dark"]) .article-cat-badge,
+        [data-theme="light"] .article-cat-badge {
+          color: var(--cj-link-deep, #0E7490);
+        }
       `}</style>
     </div>
   );
 }
+
