@@ -182,6 +182,17 @@ export default function LiveBookingToast() {
             display: none !important;
           }
         }
+
+        :root:not([data-theme="dark"]) .live-toast-card,
+        [data-theme="light"] .live-toast-card {
+          background: rgba(255, 255, 255, 0.96);
+          border-color: var(--cj-line, #E8E0CF);
+          box-shadow: 0 16px 36px rgba(20, 38, 74, 0.14);
+        }
+        :root:not([data-theme="dark"]) .tour-booked strong,
+        [data-theme="light"] .tour-booked strong {
+          color: var(--cj-cta-deep, #D65A00);
+        }
       `}</style>
     </div>
   );

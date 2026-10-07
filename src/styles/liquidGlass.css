@@ -724,6 +724,26 @@
 [data-theme="light"] .liquid-glass-card {
   box-shadow: 0 0 0 1px var(--cj-glass-hairline, rgba(20,38,74,0.08)), 0 12px 32px rgba(20,38,74,0.12);
 }
+:root:not([data-theme="dark"]) .navbar-root.scrolled .liquidGlass-tint,
+[data-theme="light"] .navbar-root.scrolled .liquidGlass-tint {
+  background: linear-gradient(135deg, rgba(255,255,255,0.96) 0%, rgba(249,251,231,0.94) 100%) !important;
+}
+:root:not([data-theme="dark"]) .navbar-root.scrolled .navbar-floating-bar,
+[data-theme="light"] .navbar-root.scrolled .navbar-floating-bar {
+  box-shadow: 0 0 0 1px var(--cj-glass-hairline, rgba(20,38,74,0.08)), 0 16px 40px rgba(20,38,74,0.14) !important;
+}
+:root:not([data-theme="dark"]) .btn-ai-liquid,
+[data-theme="light"] .btn-ai-liquid {
+  background: linear-gradient(135deg, rgba(255,137,47,0.18) 0%, rgba(14,116,144,0.18) 100%);
+  border-color: rgba(14,116,144,0.45);
+  color: #14264A;
+  box-shadow: inset 0 1px 1.5px rgba(255,255,255,0.8), 0 4px 14px rgba(14,116,144,0.15);
+}
+:root:not([data-theme="dark"]) .btn-ai-liquid:hover,
+[data-theme="light"] .btn-ai-liquid:hover {
+  background: linear-gradient(135deg, #FF892F, #0E7490);
+  color: #FFFFFF;
+}
 :root:not([data-theme="dark"]) .desktop-nav-liquid-track,
 [data-theme="light"] .desktop-nav-liquid-track {
   background: #F5F0E1;

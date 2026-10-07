@@ -1435,25 +1435,26 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
         }
         :root:not([data-theme="dark"]) .luminous-review-card,
         [data-theme="light"] .luminous-review-card {
-          background: var(--cj-glass-card);
-          -webkit-backdrop-filter: var(--cj-glass-blur);
-          backdrop-filter: var(--cj-glass-blur);
-          border: 1px solid var(--cj-glass-rim);
-          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
-          border-color: var(--cj-line, #E8E0CF);
-          box-shadow: var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10));
+          background: #FFFFFF;
+          border: 1.5px solid rgba(232, 224, 207, 0.9);
+          box-shadow: 0 10px 28px rgba(20, 38, 74, 0.07), 0 2px 6px rgba(20, 38, 74, 0.04);
         }
         :root:not([data-theme="dark"]) .luminous-review-card:hover,
         [data-theme="light"] .luminous-review-card:hover {
-          border-color: rgba(214,90,0,0.45);
-          background: var(--cj-glass-card);
-          -webkit-backdrop-filter: var(--cj-glass-blur);
-          backdrop-filter: var(--cj-glass-blur);
-          border: 1px solid var(--cj-glass-rim);
-          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
+          border-color: #FF892F;
+          box-shadow: 0 16px 36px rgba(20, 38, 74, 0.12), 0 0 20px rgba(255, 137, 47, 0.18);
+          background: #FFFFFF;
         }
-        :root:not([data-theme="dark"]) .filter-pill-btn,
-        [data-theme="light"] .filter-pill-btn,
+        :root:not([data-theme="dark"]) .stream-edge-mask.mask-left,
+        [data-theme="light"] .stream-edge-mask.mask-left {
+          background: linear-gradient(90deg, #FFFDF7 15%, rgba(255, 253, 247, 0.85) 50%, transparent 100%) !important;
+        }
+        :root:not([data-theme="dark"]) .stream-edge-mask.mask-right,
+        [data-theme="light"] .stream-edge-mask.mask-right {
+          background: linear-gradient(270deg, #FFFDF7 15%, rgba(255, 253, 247, 0.85) 50%, transparent 100%) !important;
+        }
+        :root:not([data-theme="dark"]) .filter-pill-btn:not(.active),
+        [data-theme="light"] .filter-pill-btn:not(.active),
         :root:not([data-theme="dark"]) .pause-toggle-btn,
         [data-theme="light"] .pause-toggle-btn,
         :root:not([data-theme="dark"]) .btn-google-action.secondary,
@@ -1464,6 +1465,20 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
         [data-theme="light"] .story-modal-close {
           background: #FFFFFF;
           border-color: var(--cj-line, #E8E0CF);
+          color: var(--cj-text-body, #334155);
+        }
+        :root:not([data-theme="dark"]) .filter-pill-btn:hover:not(.active),
+        [data-theme="light"] .filter-pill-btn:hover:not(.active) {
+          background: #F5F0E1;
+          color: var(--cj-text-heading, #14264A);
+          border-color: #D65A00;
+        }
+        :root:not([data-theme="dark"]) .filter-pill-btn.active,
+        [data-theme="light"] .filter-pill-btn.active {
+          background: linear-gradient(135deg, #FF892F 0%, #E66F12 100%) !important;
+          color: #FFFFFF !important;
+          border-color: #E66F12 !important;
+          box-shadow: 0 4px 14px rgba(230, 111, 18, 0.35) !important;
         }
         :root:not([data-theme="dark"]) .google-official-badge,
         [data-theme="light"] .google-official-badge {
@@ -1473,12 +1488,8 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
         }
         :root:not([data-theme="dark"]) .story-modal-box,
         [data-theme="light"] .story-modal-box {
-          background: var(--cj-glass-card);
-          -webkit-backdrop-filter: var(--cj-glass-blur);
-          backdrop-filter: var(--cj-glass-blur);
-          border: 1px solid var(--cj-glass-rim);
-          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
-          border-color: var(--cj-line, #E8E0CF);
+          background: #FFFFFF;
+          border: 1px solid var(--cj-line, #E8E0CF);
           box-shadow: var(--shadow-lg, 0 20px 45px rgba(20,38,74,0.14));
         }
         :root:not([data-theme="dark"]) .story-rating-score-strip,
@@ -1498,6 +1509,16 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
         [data-theme="light"] .story-tour-pill {
           color: var(--cj-cta-deep, #D65A00);
         }
+        :root:not([data-theme="dark"]) .quote-accent-svg,
+        [data-theme="light"] .quote-accent-svg {
+          color: #D65A00;
+          opacity: 0.8;
+        }
+        :root:not([data-theme="dark"]) .quote-text-content,
+        [data-theme="light"] .quote-text-content {
+          color: var(--cj-text-body, #334155);
+          font-weight: 500;
+        }
         :root:not([data-theme="dark"]) .read-story-hint,
         [data-theme="light"] .read-story-hint {
           color: var(--cj-link-deep, #0E7490);
@@ -1507,6 +1528,8 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
         :root:not([data-theme="dark"]) .story-verified-badge,
         [data-theme="light"] .story-verified-badge {
           color: #047857;
+          background: #ECFDF5;
+          border-color: rgba(16, 185, 129, 0.4);
         }
       `}</style>
     </section>

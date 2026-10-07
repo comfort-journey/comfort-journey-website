@@ -1767,6 +1767,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         .announcement-text-content {
           font-weight: 500;
           color: #F1F5F9; /* on navy marquee strip: stays light in both themes */
+        }
         .announcement-cta-link {
           color: #FFB800;
           font-weight: 700;

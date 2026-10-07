@@ -996,10 +996,19 @@ export default function IndiaTripsSection({
           border: 1px solid var(--cj-glass-rim);
           box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
         }
-        :root:not([data-theme="dark"]) .sub-tab-btn,
-        [data-theme="light"] .sub-tab-btn {
-          background: #FFFFFF;
-          border-color: var(--cj-line, #E8E0CF);
+        :root:not([data-theme="dark"]) .india-showcase-root .sub-tab-btn:not(.active),
+        [data-theme="light"] .india-showcase-root .sub-tab-btn:not(.active) {
+          background: #FFFFFF !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+          color: var(--cj-text-body, #334155) !important;
+        }
+        :root:not([data-theme="dark"]) .india-showcase-root .sub-tab-btn.active,
+        [data-theme="light"] .india-showcase-root .sub-tab-btn.active {
+          background: linear-gradient(135deg, #FF892F 0%, #D97706 100%) !important;
+          border-color: #FF892F !important;
+          color: #FFFFFF !important;
+          font-weight: 800 !important;
+          box-shadow: 0 4px 16px rgba(255, 137, 47, 0.45) !important;
         }
         :root:not([data-theme="dark"]) .btn-carousel-arrow,
         [data-theme="light"] .btn-carousel-arrow {

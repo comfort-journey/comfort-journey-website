@@ -447,7 +447,7 @@ pageData={activeLandingPage}
               min-height: 100vh;
               display: flex;
               flex-direction: column;
-              background-color: var(--cj-bg-base);
+              background-color: transparent;
               color: var(--cj-text-body);
               position: relative;
             }

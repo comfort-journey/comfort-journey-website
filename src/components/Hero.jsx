@@ -2820,26 +2820,48 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           border-color: var(--cj-line, #E8E0CF);
           box-shadow: var(--shadow-lg, 0 20px 45px rgba(20,38,74,0.14));
         }
-        :root:not([data-theme="dark"]) .mode-tab-btn,
-        [data-theme="light"] .mode-tab-btn,
-        :root:not([data-theme="dark"]) .trending-tag-pill,
-        [data-theme="light"] .trending-tag-pill,
-        :root:not([data-theme="dark"]) .continent-chip-card,
-        [data-theme="light"] .continent-chip-card,
-        :root:not([data-theme="dark"]) .season-pill-tab,
-        [data-theme="light"] .season-pill-tab,
-        :root:not([data-theme="dark"]) .style-pill-tab,
-        [data-theme="light"] .style-pill-tab,
-        :root:not([data-theme="dark"]) .country-pill-btn,
-        [data-theme="light"] .country-pill-btn,
-        :root:not([data-theme="dark"]) .chip-item,
-        [data-theme="light"] .chip-item,
-        :root:not([data-theme="dark"]) .perk-pill,
-        [data-theme="light"] .perk-pill,
-        :root:not([data-theme="dark"]) .view-toggle-btn,
-        [data-theme="light"] .view-toggle-btn {
-          background: #FFFFFF;
-          border-color: var(--cj-line, #E8E0CF);
+        :root:not([data-theme="dark"]) .mode-tab-btn:not(.active),
+        [data-theme="light"] .mode-tab-btn:not(.active),
+        :root:not([data-theme="dark"]) .trending-tag-pill:not(.active),
+        [data-theme="light"] .trending-tag-pill:not(.active),
+        :root:not([data-theme="dark"]) .continent-chip-card:not(.active),
+        [data-theme="light"] .continent-chip-card:not(.active),
+        :root:not([data-theme="dark"]) .season-pill-tab:not(.active),
+        [data-theme="light"] .season-pill-tab:not(.active),
+        :root:not([data-theme="dark"]) .style-pill-tab:not(.active),
+        [data-theme="light"] .style-pill-tab:not(.active),
+        :root:not([data-theme="dark"]) .country-pill-btn:not(.active),
+        [data-theme="light"] .country-pill-btn:not(.active),
+        :root:not([data-theme="dark"]) .chip-item:not(.active),
+        [data-theme="light"] .chip-item:not(.active),
+        :root:not([data-theme="dark"]) .perk-pill:not(.active),
+        [data-theme="light"] .perk-pill:not(.active),
+        :root:not([data-theme="dark"]) .view-toggle-btn:not(.active),
+        [data-theme="light"] .view-toggle-btn:not(.active) {
+          background: #FFFFFF !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+          color: var(--cj-text-body, #334155) !important;
+        }
+        :root:not([data-theme="dark"]) .mode-tab-btn.active,
+        [data-theme="light"] .mode-tab-btn.active,
+        :root:not([data-theme="dark"]) .trending-tag-pill.active,
+        [data-theme="light"] .trending-tag-pill.active,
+        :root:not([data-theme="dark"]) .season-pill-tab.active,
+        [data-theme="light"] .season-pill-tab.active,
+        :root:not([data-theme="dark"]) .style-pill-tab.active,
+        [data-theme="light"] .style-pill-tab.active,
+        :root:not([data-theme="dark"]) .view-toggle-btn.active,
+        [data-theme="light"] .view-toggle-btn.active {
+          background: linear-gradient(135deg, #FF892F, #E65100) !important;
+          border-color: #FFA459 !important;
+          color: #FFFFFF !important;
+          box-shadow: 0 4px 18px rgba(255, 137, 47, 0.45) !important;
+        }
+        :root:not([data-theme="dark"]) .continent-chip-card.active,
+        [data-theme="light"] .continent-chip-card.active {
+          background: rgba(255, 137, 47, 0.14) !important;
+          border-color: var(--cj-cta, #FF892F) !important;
+          color: var(--cj-cta-deep, #D65A00) !important;
         }
         :root:not([data-theme="dark"]) .mobile-view-mode-toggle,
         [data-theme="light"] .mobile-view-mode-toggle,

@@ -396,6 +396,41 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
             display: none !important;
           }
         }
+
+        :root:not([data-theme="dark"]) .glass-dock-card,
+        [data-theme="light"] .glass-dock-card {
+          background: rgba(255, 255, 255, 0.95);
+          border: 1px solid var(--cj-line, #E8E0CF);
+          box-shadow: 0 16px 36px rgba(20, 38, 74, 0.16);
+        }
+        :root:not([data-theme="dark"]) .dock-expand-trigger,
+        [data-theme="light"] .dock-expand-trigger {
+          background: rgba(255, 255, 255, 0.96);
+          border-color: var(--cj-line, #E8E0CF);
+          color: var(--cj-text-heading, #14264A);
+          box-shadow: 0 8px 24px rgba(20, 38, 74, 0.12);
+        }
+        :root:not([data-theme="dark"]) .dock-expand-trigger:hover,
+        [data-theme="light"] .dock-expand-trigger:hover {
+          background: #FFFFFF;
+          border-color: #FF892F;
+          box-shadow: 0 10px 28px rgba(255, 137, 47, 0.22);
+        }
+        :root:not([data-theme="dark"]) .quote-btn,
+        [data-theme="light"] .quote-btn {
+          background: #F5F0E1;
+          border-color: var(--cj-line, #E8E0CF);
+          color: var(--cj-text-heading, #14264A);
+        }
+        :root:not([data-theme="dark"]) .quote-btn:hover,
+        [data-theme="light"] .quote-btn:hover {
+          background: #EDE4D0;
+        }
+        :root:not([data-theme="dark"]) .chevron-trigger-box,
+        [data-theme="light"] .chevron-trigger-box {
+          background: rgba(20, 38, 74, 0.08);
+          color: var(--cj-text-heading, #14264A);
+        }
       `}</style>
     </div>
   );

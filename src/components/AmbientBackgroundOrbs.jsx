@@ -113,9 +113,18 @@ export default function AmbientBackgroundOrbs() {
           pointer-events: none;
           z-index: 0;
           overflow: hidden;
-          background: linear-gradient(180deg, var(--cj-orb-base-from, #FFFDF7) 0%, var(--cj-orb-base-to, #F9FBE7) 100%);
+          background: 
+            radial-gradient(1200px 750px at 15% 10%, rgba(255, 137, 47, 0.08) 0%, transparent 60%),
+            radial-gradient(1100px 700px at 85% 25%, rgba(14, 116, 144, 0.07) 0%, transparent 55%),
+            radial-gradient(1000px 800px at 20% 65%, rgba(16, 185, 129, 0.06) 0%, transparent 60%),
+            radial-gradient(1200px 800px at 80% 85%, rgba(255, 137, 47, 0.07) 0%, transparent 55%),
+            linear-gradient(180deg, var(--cj-orb-base-from, #FFFDF7) 0%, #FAF7EC 35%, #F7F3E5 65%, var(--cj-orb-base-to, #F9FBE7) 100%);
           transform: translateZ(0);
           will-change: transform;
+        }
+
+        html[data-theme="dark"] .ambient-orbs-wrapper {
+          background: linear-gradient(180deg, #001233 0%, #001D51 100%);
         }
 
         .ambient-gradient-layer {
@@ -245,13 +254,17 @@ export default function AmbientBackgroundOrbs() {
         .ambient-noise-layer {
           position: absolute;
           inset: 0;
-          opacity: 0.035;
-          background-image: radial-gradient(rgba(20, 38, 74, 0.55) 1px, transparent 0);
-          background-size: 28px 28px;
+          opacity: 0.045;
+          background-image: 
+            radial-gradient(rgba(20, 38, 74, 0.45) 1px, transparent 1px),
+            linear-gradient(to right, rgba(20, 38, 74, 0.03) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(20, 38, 74, 0.03) 1px, transparent 1px);
+          background-size: 28px 28px, 112px 112px, 112px 112px;
         }
         html[data-theme="dark"] .ambient-noise-layer {
           opacity: 0.02;
           background-image: radial-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 0);
+          background-size: 28px 28px;
         }
 
         @media (prefers-reduced-motion: reduce) {

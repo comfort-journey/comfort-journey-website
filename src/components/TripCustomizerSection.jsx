@@ -726,15 +726,20 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .section-header {
+        .studio-root .section-header {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
           text-align: center;
-          margin-bottom: 2.25rem;
+          max-width: 820px;
+          margin: 0 auto 2.5rem auto;
         }
 
-        .section-title {
+        .studio-root .section-title {
           font-size: clamp(2.2rem, 4.5vw, 3.2rem);
           margin: 0.85rem 0;
-          line-height: 1.2;
+          line-height: 1.22;
+          text-wrap: balance;
         }
 
         .section-subtitle {
@@ -1825,6 +1830,69 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
         :root:not([data-theme="dark"]) .summary-dest-banner .banner-overlay,
         [data-theme="light"] .summary-dest-banner .banner-overlay {
           background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(11,17,32,0.95) 90%);
+        }
+        :root:not([data-theme="dark"]) .tier-card,
+        [data-theme="light"] .tier-card,
+        :root:not([data-theme="dark"]) .travelers-counter-card,
+        [data-theme="light"] .travelers-counter-card,
+        :root:not([data-theme="dark"]) .addon-tile,
+        [data-theme="light"] .addon-tile {
+          background: #FFFFFF !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+          box-shadow: 0 4px 12px rgba(20, 38, 74, 0.05);
+        }
+        :root:not([data-theme="dark"]) .tier-card:hover,
+        [data-theme="light"] .tier-card:hover,
+        :root:not([data-theme="dark"]) .addon-tile:hover,
+        [data-theme="light"] .addon-tile:hover {
+          border-color: var(--cj-cta, #FF892F) !important;
+          box-shadow: 0 8px 24px rgba(20, 38, 74, 0.08);
+        }
+        :root:not([data-theme="dark"]) .tier-card.active,
+        [data-theme="light"] .tier-card.active,
+        :root:not([data-theme="dark"]) .addon-tile.active,
+        [data-theme="light"] .addon-tile.active {
+          background: #FFFDF7 !important;
+          border-color: var(--cj-cta, #FF892F) !important;
+          box-shadow: 0 0 0 1.5px var(--cj-cta, #FF892F), 0 8px 20px rgba(255, 137, 47, 0.16) !important;
+        }
+        :root:not([data-theme="dark"]) .preset-chip,
+        [data-theme="light"] .preset-chip {
+          background: #FFFFFF !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+          color: var(--cj-text-body, #334155) !important;
+        }
+        :root:not([data-theme="dark"]) .preset-chip.active,
+        [data-theme="light"] .preset-chip.active {
+          background: rgba(255, 137, 47, 0.16) !important;
+          border-color: var(--cj-cta-deep, #D65A00) !important;
+          color: var(--cj-cta-deep, #D65A00) !important;
+          font-weight: 700;
+        }
+        :root:not([data-theme="dark"]) .counter-controls,
+        [data-theme="light"] .counter-controls {
+          background: var(--cj-bg-soft, #F5F0E1) !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+        }
+        :root:not([data-theme="dark"]) .counter-btn,
+        [data-theme="light"] .counter-btn {
+          background: #FFFFFF;
+          color: var(--cj-text-heading, #14264A);
+        }
+        :root:not([data-theme="dark"]) .addon-checkbox-box,
+        [data-theme="light"] .addon-checkbox-box {
+          background: #FFFFFF;
+          border-color: var(--cj-line, #E8E0CF);
+        }
+        :root:not([data-theme="dark"]) .addon-tile.active .addon-checkbox-box,
+        [data-theme="light"] .addon-tile.active .addon-checkbox-box {
+          background: var(--cj-cta, #FF892F);
+          border-color: var(--cj-cta, #FF892F);
+          color: #FFFFFF;
+        }
+        :root:not([data-theme="dark"]) .addon-icon-wrap,
+        [data-theme="light"] .addon-icon-wrap {
+          background: var(--cj-bg-soft, #F5F0E1);
         }
       `}</style>
     </section>

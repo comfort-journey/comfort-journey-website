@@ -860,6 +860,26 @@ export default function FixedDeparturesSection({
         [data-theme="light"] .seats-progress-bg {
           background: rgba(20,38,74,0.12);
         }
+        :root:not([data-theme="dark"]) .fixed-showcase-root .sub-tab-btn:not(.active),
+        [data-theme="light"] .fixed-showcase-root .sub-tab-btn:not(.active) {
+          background: #FFFFFF !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+          color: var(--cj-text-body, #334155) !important;
+        }
+        :root:not([data-theme="dark"]) .fixed-showcase-root .sub-tab-btn.active,
+        [data-theme="light"] .fixed-showcase-root .sub-tab-btn.active {
+          background: linear-gradient(135deg, #FF892F 0%, #EA580C 100%) !important;
+          border-color: #FF892F !important;
+          color: #FFFFFF !important;
+          font-weight: 800 !important;
+          box-shadow: 0 4px 18px rgba(249, 115, 22, 0.45) !important;
+        }
+        :root:not([data-theme="dark"]) .fixed-arrow,
+        [data-theme="light"] .fixed-arrow {
+          background: #FFFFFF;
+          border-color: var(--cj-line, #E8E0CF);
+          color: var(--cj-cta-deep, #D65A00);
+        }
       `}</style>
     </section>
   );

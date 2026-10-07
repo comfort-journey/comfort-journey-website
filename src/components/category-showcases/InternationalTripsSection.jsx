@@ -833,6 +833,26 @@ export default function InternationalTripsSection({
           background-clip: text;
           -webkit-text-fill-color: transparent;
         }
+        :root:not([data-theme="dark"]) .intl-showcase-root .sub-tab-btn:not(.active),
+        [data-theme="light"] .intl-showcase-root .sub-tab-btn:not(.active) {
+          background: #FFFFFF !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+          color: var(--cj-text-body, #334155) !important;
+        }
+        :root:not([data-theme="dark"]) .intl-showcase-root .sub-tab-btn.active,
+        [data-theme="light"] .intl-showcase-root .sub-tab-btn.active {
+          background: linear-gradient(135deg, #0E7490 0%, #0284C7 100%) !important;
+          border-color: #0E7490 !important;
+          color: #FFFFFF !important;
+          font-weight: 800 !important;
+          box-shadow: 0 4px 18px rgba(14, 116, 144, 0.45) !important;
+        }
+        :root:not([data-theme="dark"]) .intl-arrow,
+        [data-theme="light"] .intl-arrow {
+          background: #FFFFFF;
+          border-color: var(--cj-line, #E8E0CF);
+          color: var(--cj-link-deep, #0E7490);
+        }
       `}</style>
     </section>
   );

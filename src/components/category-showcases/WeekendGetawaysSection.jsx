@@ -661,9 +661,25 @@ export default function WeekendGetawaysSection({
           width: min(380px, 40vw);
           aspect-ratio: 2;
           background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Cg fill='none' stroke='%238A7F66' stroke-width='2'%3E%3Cpath d='M10,85 L55,30 L85,62 L115,25 L150,65 L175,40 L192,60'/%3E%3Ccircle cx='160' cy='22' r='8'/%3E%3Cline x1='10' y1='90' x2='192' y2='90'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
-          opacity: 0.07;
-          pointer-events: none;
-          z-index: 0;
+        :root:not([data-theme="dark"]) .weekend-showcase-root .sub-tab-btn:not(.active),
+        [data-theme="light"] .weekend-showcase-root .sub-tab-btn:not(.active) {
+          background: #FFFFFF !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+          color: var(--cj-text-body, #334155) !important;
+        }
+        :root:not([data-theme="dark"]) .weekend-showcase-root .sub-tab-btn.active,
+        [data-theme="light"] .weekend-showcase-root .sub-tab-btn.active {
+          background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
+          border-color: #10B981 !important;
+          color: #FFFFFF !important;
+          font-weight: 800 !important;
+          box-shadow: 0 4px 18px rgba(16, 185, 129, 0.45) !important;
+        }
+        :root:not([data-theme="dark"]) .weekend-arrow,
+        [data-theme="light"] .weekend-arrow {
+          background: #FFFFFF;
+          border-color: var(--cj-line, #E8E0CF);
+          color: #047857;
         }
       `}</style>
     </section>
