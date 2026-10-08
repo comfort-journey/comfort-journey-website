@@ -320,8 +320,8 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
 
                   <div className="dest-trigger-right">
                     <div className="dest-trigger-price-badge">
-                      <span className="price-tag-sub">From</span>
-                      <strong className="price-tag-val">{formatPrice(currentTour.basePricePerDay)}/day</strong>
+                      <span className="price-tag-sub">Starting from</span>
+                      <strong className="price-tag-val">{formatPrice(currentTour.basePricePerDay)}</strong>
                     </div>
                     <ChevronDown size={18} className={`chevron-icon ${isDropdownOpen ? 'rotated' : ''}`} />
                   </div>
@@ -382,7 +382,6 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
                                 </span>
                               </div>
                               <div className="dest-opt-end">
-                                <span className="dest-opt-price">{formatPrice(d.basePricePerDay)}/day</span>
                                 {isSelected && <CheckCircle2 size={16} className="text-amber" />}
                               </div>
                             </div>
@@ -1893,6 +1892,138 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
         :root:not([data-theme="dark"]) .addon-icon-wrap,
         [data-theme="light"] .addon-icon-wrap {
           background: var(--cj-bg-soft, #F5F0E1);
+        }
+        :root:not([data-theme="dark"]) .luxury-dest-trigger,
+        [data-theme="light"] .luxury-dest-trigger {
+          background: #FFFFFF !important;
+          border: 1px solid var(--cj-line, #E8E0CF) !important;
+          box-shadow: 0 4px 14px rgba(20, 38, 74, 0.05) !important;
+        }
+        :root:not([data-theme="dark"]) .luxury-dest-trigger.open,
+        [data-theme="light"] .luxury-dest-trigger.open {
+          background: #FFFDF9 !important;
+          border-color: #FF892F !important;
+          box-shadow: 0 0 20px rgba(255, 137, 47, 0.18) !important;
+        }
+        :root:not([data-theme="dark"]) .dest-trigger-title,
+        [data-theme="light"] .dest-trigger-title {
+          color: var(--cj-text-heading, #14264A) !important;
+        }
+        :root:not([data-theme="dark"]) .dest-trigger-sub,
+        [data-theme="light"] .dest-trigger-sub {
+          color: var(--cj-text-muted, #64748B) !important;
+        }
+        :root:not([data-theme="dark"]) .price-tag-sub,
+        [data-theme="light"] .price-tag-sub {
+          color: var(--cj-text-muted, #64748B) !important;
+        }
+        :root:not([data-theme="dark"]) .price-tag-val,
+        [data-theme="light"] .price-tag-val {
+          color: var(--cj-cta-deep, #D65A00) !important;
+        }
+        :root:not([data-theme="dark"]) .block-label,
+        [data-theme="light"] .block-label {
+          color: var(--cj-text-heading, #14264A) !important;
+        }
+        :root:not([data-theme="dark"]) .dest-count-tag,
+        [data-theme="light"] .dest-count-tag {
+          background: #F1F5F9 !important;
+          color: #475569 !important;
+        }
+        :root:not([data-theme="dark"]) .cat-chip-btn:not(.active),
+        [data-theme="light"] .cat-chip-btn:not(.active) {
+          background: #FFFFFF !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+          color: var(--cj-text-body, #475569) !important;
+        }
+        :root:not([data-theme="dark"]) .cat-chip-btn:hover:not(.active),
+        [data-theme="light"] .cat-chip-btn:hover:not(.active) {
+          background: #F8F9FA !important;
+          border-color: var(--cj-cta, #FF892F) !important;
+          color: var(--cj-text-heading, #14264A) !important;
+        }
+        :root:not([data-theme="dark"]) .duration-bubble,
+        [data-theme="light"] .duration-bubble {
+          background: #FFF8F0 !important;
+          color: var(--cj-cta-deep, #D65A00) !important;
+          border: 1px solid rgba(255, 137, 47, 0.3) !important;
+        }
+        :root:not([data-theme="dark"]) .slider-marks span,
+        [data-theme="light"] .slider-marks span {
+          color: var(--cj-text-muted, #64748B) !important;
+        }
+        :root:not([data-theme="dark"]) .luxury-dest-dropdown-menu,
+        [data-theme="light"] .luxury-dest-dropdown-menu {
+          background: #FFFFFF !important;
+          border: 1px solid var(--cj-line, #E8E0CF) !important;
+          box-shadow: 0 20px 45px rgba(20, 38, 74, 0.14), 0 4px 16px rgba(20, 38, 74, 0.08) !important;
+        }
+        :root:not([data-theme="dark"]) .dropdown-search-wrap,
+        [data-theme="light"] .dropdown-search-wrap {
+          background: #FDFBF7 !important;
+          border-bottom: 1px solid var(--cj-line, #E8E0CF) !important;
+        }
+        :root:not([data-theme="dark"]) .dest-search-input,
+        [data-theme="light"] .dest-search-input {
+          background: transparent !important;
+          color: var(--cj-text-heading, #14264A) !important;
+          border: none !important;
+        }
+        :root:not([data-theme="dark"]) .dest-search-input::placeholder,
+        [data-theme="light"] .dest-search-input::placeholder {
+          color: #94A3B8 !important;
+        }
+        :root:not([data-theme="dark"]) .dropdown-results-bar,
+        [data-theme="light"] .dropdown-results-bar {
+          background: #F8F6F0 !important;
+          border-bottom: 1px solid var(--cj-line, #E8E0CF) !important;
+          color: var(--cj-text-muted, #64748B) !important;
+        }
+        :root:not([data-theme="dark"]) .dest-options-list,
+        [data-theme="light"] .dest-options-list {
+          background: #FFFFFF !important;
+        }
+        :root:not([data-theme="dark"]) .dest-option-item,
+        [data-theme="light"] .dest-option-item {
+          background: #FFFFFF !important;
+          border-color: transparent !important;
+        }
+        :root:not([data-theme="dark"]) .dest-option-item:hover,
+        [data-theme="light"] .dest-option-item:hover {
+          background: #F8F9FA !important;
+          border-color: rgba(255, 137, 47, 0.3) !important;
+        }
+        :root:not([data-theme="dark"]) .dest-option-item.selected,
+        [data-theme="light"] .dest-option-item.selected {
+          background: rgba(255, 137, 47, 0.08) !important;
+          border-color: var(--cj-cta, #FF892F) !important;
+        }
+        :root:not([data-theme="dark"]) .dest-opt-name,
+        [data-theme="light"] .dest-opt-name {
+          color: var(--cj-text-heading, #14264A) !important;
+        }
+        :root:not([data-theme="dark"]) .dest-opt-location,
+        [data-theme="light"] .dest-opt-location {
+          color: var(--cj-text-muted, #64748B) !important;
+        }
+        :root:not([data-theme="dark"]) .dest-trigger-thumb,
+        [data-theme="light"] .dest-trigger-thumb {
+          border-color: var(--cj-line, #E8E0CF) !important;
+        }
+        :root:not([data-theme="dark"]) .tier-card-footer,
+        [data-theme="light"] .tier-card-footer {
+          border-top-color: var(--cj-line, #E8E0CF) !important;
+        }
+        :root:not([data-theme="dark"]) .multiplier-badge,
+        [data-theme="light"] .multiplier-badge,
+        :root:not([data-theme="dark"]) .vehicle-rate-badge,
+        [data-theme="light"] .vehicle-rate-badge {
+          color: var(--cj-cta-deep, #D65A00) !important;
+        }
+        :root:not([data-theme="dark"]) .capacity-badge,
+        [data-theme="light"] .capacity-badge {
+          background: #F1F5F9 !important;
+          color: #475569 !important;
         }
       `}</style>
     </section>

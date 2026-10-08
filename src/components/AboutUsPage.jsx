@@ -1551,6 +1551,52 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
         [data-theme="light"] .contact-chip.whatsapp:hover {
           color: #047857;
         }
+        :root:not([data-theme="dark"]) .service-card-item,
+        [data-theme="light"] .service-card-item,
+        :root:not([data-theme="dark"]) .trust-card-box,
+        [data-theme="light"] .trust-card-box,
+        :root:not([data-theme="dark"]) .stat-counter-card,
+        [data-theme="light"] .stat-counter-card,
+        :root:not([data-theme="dark"]) .contact-form-card,
+        [data-theme="light"] .contact-form-card,
+        :root:not([data-theme="dark"]) .faq-item-card,
+        [data-theme="light"] .faq-item-card {
+          background: #FFFFFF !important;
+          border: 1px solid var(--cj-line, #E8E0CF) !important;
+          box-shadow: 0 4px 14px rgba(20, 38, 74, 0.05) !important;
+        }
+        :root:not([data-theme="dark"]) .final-cta-card,
+        [data-theme="light"] .final-cta-card {
+          background: linear-gradient(135deg, #FFFDF7 0%, #F5F0E1 100%) !important;
+          border: 1px solid var(--cj-line, #E8E0CF) !important;
+          box-shadow: 0 10px 30px rgba(20, 38, 74, 0.08) !important;
+        }
+        :root:not([data-theme="dark"]) .form-input-lux,
+        [data-theme="light"] .form-input-lux,
+        :root:not([data-theme="dark"]) .form-select-lux,
+        [data-theme="light"] .form-select-lux,
+        :root:not([data-theme="dark"]) .form-textarea-lux,
+        [data-theme="light"] .form-textarea-lux {
+          background: #FFFDF7 !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+          color: var(--cj-text-heading, #14264A) !important;
+        }
+        :root:not([data-theme="dark"]) .founder-quote-banner,
+        [data-theme="light"] .founder-quote-banner {
+          background: #FFF8F0 !important;
+          border: 1px solid rgba(255, 137, 47, 0.3) !important;
+          color: var(--cj-text-heading, #14264A) !important;
+        }
+        :root:not([data-theme="dark"]) .office-address-block,
+        [data-theme="light"] .office-address-block {
+          background: #F8FAFC !important;
+          border: 1px solid var(--cj-line, #E8E0CF) !important;
+        }
+        :root:not([data-theme="dark"]) .faq-item-card.open,
+        [data-theme="light"] .faq-item-card.open {
+          background: #FFFDF9 !important;
+          border-color: #FF892F !important;
+        }
       `}</style>
     </div>
   );

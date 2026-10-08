@@ -699,19 +699,19 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
           position: absolute;
           top: 0;
           bottom: 0;
-          width: clamp(90px, 14vw, 240px);
+          width: clamp(24px, 4vw, 56px);
           z-index: 10;
           pointer-events: none;
         }
 
         .stream-edge-mask.mask-left {
           left: 0;
-          background: linear-gradient(90deg, #001233 15%, rgba(0, 18, 51, 0.85) 50%, transparent 100%);
+          background: linear-gradient(90deg, #001233 0%, rgba(0, 18, 51, 0.7) 40%, transparent 100%);
         }
 
         .stream-edge-mask.mask-right {
           right: 0;
-          background: linear-gradient(270deg, #001233 15%, rgba(0, 18, 51, 0.85) 50%, transparent 100%);
+          background: linear-gradient(270deg, #001233 0%, rgba(0, 18, 51, 0.7) 40%, transparent 100%);
         }
 
         .stream-track {
@@ -1409,6 +1409,17 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
             font-size: 0.8rem;
             width: 100%;
           }
+
+          .stream-edge-mask {
+            width: 8px !important;
+            opacity: 0.3 !important;
+          }
+
+          @media (max-width: 600px) {
+            .stream-edge-mask {
+              display: none !important;
+            }
+          }
         }
 
         /* LIGHT THEME — warm paper, no photo (dark keeps alpine cinema) */
@@ -1447,11 +1458,11 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
         }
         :root:not([data-theme="dark"]) .stream-edge-mask.mask-left,
         [data-theme="light"] .stream-edge-mask.mask-left {
-          background: linear-gradient(90deg, #FFFDF7 15%, rgba(255, 253, 247, 0.85) 50%, transparent 100%) !important;
+          background: linear-gradient(90deg, #FFFDF7 0%, rgba(255, 253, 247, 0.7) 40%, transparent 100%) !important;
         }
         :root:not([data-theme="dark"]) .stream-edge-mask.mask-right,
         [data-theme="light"] .stream-edge-mask.mask-right {
-          background: linear-gradient(270deg, #FFFDF7 15%, rgba(255, 253, 247, 0.85) 50%, transparent 100%) !important;
+          background: linear-gradient(270deg, #FFFDF7 0%, rgba(255, 253, 247, 0.7) 40%, transparent 100%) !important;
         }
         :root:not([data-theme="dark"]) .filter-pill-btn:not(.active),
         [data-theme="light"] .filter-pill-btn:not(.active),

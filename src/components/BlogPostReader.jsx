@@ -1148,44 +1148,125 @@ z-index: 2;
           }
         }
 
-        /* LIGHT THEME — white article/cards; reader hero keeps cinematic
-           dark scrim + white title in BOTH themes (approved over-photo) */
+        /* LIGHT THEME — warm paper canvas, white cards, deep navy ink */
+        :root:not([data-theme="dark"]) .blog-reader-root,
+        [data-theme="light"] .blog-reader-root {
+          background: 
+            radial-gradient(1100px 600px at 15% 5%, rgba(255, 137, 47, 0.07) 0%, transparent 60%),
+            radial-gradient(1000px 550px at 85% 20%, rgba(14, 116, 144, 0.06) 0%, transparent 55%),
+            linear-gradient(180deg, #FFFDF7 0%, #FAF8F0 30%, #F5F0E1 70%, #FFFDF7 100%) !important;
+          color: var(--cj-text-body, #334155) !important;
+        }
+
+        :root:not([data-theme="dark"]) .reader-top-bar,
+        [data-theme="light"] .reader-top-bar {
+          background: rgba(255, 255, 255, 0.94) !important;
+          border-bottom: 1px solid var(--cj-line, #E8E0CF) !important;
+          box-shadow: 0 4px 20px rgba(20, 38, 74, 0.05) !important;
+        }
+
+        :root:not([data-theme="dark"]) .btn-reader-back,
+        [data-theme="light"] .btn-reader-back {
+          background: #FFFFFF !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+          color: var(--cj-text-heading, #14264A) !important;
+          box-shadow: 0 2px 8px rgba(20, 38, 74, 0.04) !important;
+        }
+
+        :root:not([data-theme="dark"]) .btn-reader-back:hover,
+        [data-theme="light"] .btn-reader-back:hover {
+          background: #FF892F !important;
+          color: #FFFFFF !important;
+          border-color: #FF892F !important;
+        }
+
+        :root:not([data-theme="dark"]) .reader-hero-scrim,
+        [data-theme="light"] .reader-hero-scrim {
+          background: linear-gradient(180deg, rgba(255, 253, 247, 0.85) 0%, rgba(255, 253, 247, 0.98) 100%) !important;
+        }
+
+        :root:not([data-theme="dark"]) .reader-title,
+        [data-theme="light"] .reader-title {
+          color: var(--cj-text-heading, #14264A) !important;
+          text-shadow: none !important;
+        }
+
+        :root:not([data-theme="dark"]) .reader-subtitle,
+        [data-theme="light"] .reader-subtitle {
+          color: var(--cj-text-body, #334155) !important;
+        }
+
         :root:not([data-theme="dark"]) .reader-main-content,
         [data-theme="light"] .reader-main-content,
         :root:not([data-theme="dark"]) .suggested-tour-card,
         [data-theme="light"] .suggested-tour-card,
         :root:not([data-theme="dark"]) .author-signature-card,
-        [data-theme="light"] .author-signature-card {
-          background: var(--cj-glass-card);
-          -webkit-backdrop-filter: var(--cj-glass-blur);
-          backdrop-filter: var(--cj-glass-blur);
-          border: 1px solid var(--cj-glass-rim);
-          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
-          border-color: var(--cj-line, #E8E0CF);
-          box-shadow: var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10));
+        [data-theme="light"] .author-signature-card,
+        :root:not([data-theme="dark"]) .sidebar-box,
+        [data-theme="light"] .sidebar-box {
+          background: #FFFFFF !important;
+          border: 1px solid var(--cj-line, #E8E0CF) !important;
+          box-shadow: 0 10px 30px rgba(20, 38, 74, 0.06), 0 1px 3px rgba(20, 38, 74, 0.04) !important;
         }
+
+        :root:not([data-theme="dark"]) .reader-paragraph,
+        [data-theme="light"] .reader-paragraph {
+          color: var(--cj-text-body, #334155) !important;
+        }
+
+        :root:not([data-theme="dark"]) .reader-h2,
+        [data-theme="light"] .reader-h2 {
+          color: var(--cj-text-heading, #14264A) !important;
+        }
+
+        :root:not([data-theme="dark"]) .reader-h3,
+        [data-theme="light"] .reader-h3 {
+          color: #0E7490 !important;
+        }
+
+        :root:not([data-theme="dark"]) .reader-blockquote,
+        [data-theme="light"] .reader-blockquote {
+          background: #FFF8F0 !important;
+          border-left: 4px solid #FF892F !important;
+          color: #14264A !important;
+        }
+
+        :root:not([data-theme="dark"]) .reader-list li,
+        [data-theme="light"] .reader-list li {
+          color: var(--cj-text-body, #475569) !important;
+        }
+
         :root:not([data-theme="dark"]) .suggested-card-media,
         [data-theme="light"] .suggested-card-media {
           background: #F5F0E1;
         }
-:root:not([data-theme="dark"]) .tag-pill,
-[data-theme="light"] .tag-pill,
-:root:not([data-theme="dark"]) .inc-pill,
-[data-theme="light"] .inc-pill,
-:root:not([data-theme="dark"]) .btn-share-article,
-[data-theme="light"] .btn-share-article {
-background: #FFFFFF;
-border-color: var(--cj-line, #E8E0CF);
-}
-:root:not([data-theme="dark"]) .btn-suggested-itinerary,
-[data-theme="light"] .btn-suggested-itinerary,
-:root:not([data-theme="dark"]) .btn-tour-itinerary,
-[data-theme="light"] .btn-tour-itinerary {
-background: #FFFFFF;
-border-color: var(--cj-line, #E8E0CF);
-position: relative;
-z-index: 2;
-}
+
+        :root:not([data-theme="dark"]) .tag-pill,
+        [data-theme="light"] .tag-pill,
+        :root:not([data-theme="dark"]) .inc-pill,
+        [data-theme="light"] .inc-pill,
+        :root:not([data-theme="dark"]) .btn-share-article,
+        [data-theme="light"] .btn-share-article {
+          background: #FFFFFF !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+          color: var(--cj-text-heading, #14264A) !important;
+        }
+
+        :root:not([data-theme="dark"]) .btn-suggested-itinerary,
+        [data-theme="light"] .btn-suggested-itinerary,
+        :root:not([data-theme="dark"]) .btn-tour-itinerary,
+        [data-theme="light"] .btn-tour-itinerary {
+          background: #FFFFFF !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+          color: var(--cj-text-heading, #14264A) !important;
+          position: relative;
+          z-index: 2;
+        }
+
+        :root:not([data-theme="dark"]) .price-start-label,
+        [data-theme="light"] .price-start-label {
+          color: var(--cj-text-muted, #64748B) !important;
+        }
       `}</style>
     </div>
   );

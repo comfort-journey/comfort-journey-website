@@ -275,9 +275,12 @@ export default function InternationalTripsSection({
                             <span className="orig-price-strike">{formatPrice(origPrice)}</span>
                             <span className="price-save-badge">Save {formatPrice(origPrice - tour.price)}</span>
                           </div>
-                          <div className="price-main-row">
-                            <strong className="current-offer-price font-editorial text-cyan-price">{formatPrice(tour.price)}</strong>
-                            <span className="price-per-person">/ person</span>
+                          <div className="price-main-col">
+                            <span className="price-start-label">Starting from</span>
+                            <div className="price-main-row">
+                              <strong className="current-offer-price font-editorial text-cyan-price">{formatPrice(tour.price)}</strong>
+                              <span className="price-per-person">/ person</span>
+                            </div>
                           </div>
                         </div>
 

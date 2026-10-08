@@ -632,9 +632,12 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                                         <span className="orig-price-strike">{formatPrice(origPrice)}</span>
                                         <span className="price-save-badge">Save {formatPrice(origPrice - tour.price)}</span>
                                       </div>
-                                      <div className="price-main-row">
-                                        <strong className="current-offer-price">{formatPrice(tour.price)}</strong>
-                                        <span className="price-per-person">/ person</span>
+                                      <div className="price-main-col">
+                                        <span className="price-start-label">Starting from</span>
+                                        <div className="price-main-row">
+                                          <strong className="current-offer-price">{formatPrice(tour.price)}</strong>
+                                          <span className="price-per-person">/ person</span>
+                                        </div>
                                       </div>
                                     </div>
 
@@ -802,9 +805,12 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                                     <span className="orig-price-strike">{formatPrice(origPrice)}</span>
                                     <span className="price-save-badge">Save {formatPrice(origPrice - tour.price)}</span>
                                   </div>
-                                  <div className="price-main-row">
-                                    <strong className="current-offer-price">{formatPrice(tour.price)}</strong>
-                                    <span className="price-per-person">/ person</span>
+                                  <div className="price-main-col">
+                                    <span className="price-start-label">Starting from</span>
+                                    <div className="price-main-row">
+                                      <strong className="current-offer-price">{formatPrice(tour.price)}</strong>
+                                      <span className="price-per-person">/ person</span>
+                                    </div>
                                   </div>
                                 </div>
 
@@ -959,7 +965,10 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                         <div className="st-footer">
                           <div className="compact-price-box">
                             <span className="orig-price-strike">{formatPrice(origPrice)}</span>
-                            <strong className="current-offer-price">{formatPrice(tour.price)}</strong>
+                            <div className="price-main-col">
+                              <span className="price-start-label">Starting from</span>
+                              <strong className="current-offer-price">{formatPrice(tour.price)}</strong>
+                            </div>
                           </div>
                           <button
                             type="button"
@@ -1054,7 +1063,10 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                         <div className="st-footer">
                           <div className="compact-price-box">
                             <span className="orig-price-strike">{formatPrice(origPrice)}</span>
-                            <strong className="current-offer-price">{formatPrice(tour.price)}</strong>
+                            <div className="price-main-col">
+                              <span className="price-start-label">Starting from</span>
+                              <strong className="current-offer-price">{formatPrice(tour.price)}</strong>
+                            </div>
                           </div>
                           <button
                             type="button"
@@ -2960,6 +2972,42 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         :root:not([data-theme="dark"]) .hero-divider-dot,
         [data-theme="light"] .hero-divider-dot {
           color: var(--cj-cta-deep, #D65A00);
+        }
+        :root:not([data-theme="dark"]) .country-pill-btn:not(.active),
+        [data-theme="light"] .country-pill-btn:not(.active) {
+          background: #FFFFFF !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+          color: var(--cj-text-heading, #14264A) !important;
+          box-shadow: 0 2px 8px rgba(20, 38, 74, 0.05) !important;
+        }
+        :root:not([data-theme="dark"]) .country-pill-btn:hover:not(.active),
+        [data-theme="light"] .country-pill-btn:hover:not(.active) {
+          background: #FFFDF9 !important;
+          border-color: #FF892F !important;
+          color: #D65A00 !important;
+        }
+        :root:not([data-theme="dark"]) .country-code-badge,
+        [data-theme="light"] .country-code-badge {
+          background: #EFF6FF !important;
+          color: #1E40AF !important;
+          border: 1px solid #BFDBFE !important;
+          font-weight: 800 !important;
+        }
+        :root:not([data-theme="dark"]) .country-pill-btn.active .country-code-badge,
+        [data-theme="light"] .country-pill-btn.active .country-code-badge {
+          background: rgba(255, 255, 255, 0.28) !important;
+          color: #FFFFFF !important;
+          border-color: rgba(255, 255, 255, 0.65) !important;
+        }
+        :root:not([data-theme="dark"]) .badge-count,
+        [data-theme="light"] .badge-count {
+          background: #F1F5F9 !important;
+          color: #475569 !important;
+        }
+        :root:not([data-theme="dark"]) .country-pill-btn.active .badge-count,
+        [data-theme="light"] .country-pill-btn.active .badge-count {
+          background: rgba(255, 255, 255, 0.28) !important;
+          color: #FFFFFF !important;
         }
       `}</style>
     </section>

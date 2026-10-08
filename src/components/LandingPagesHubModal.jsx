@@ -256,6 +256,79 @@ export default function LandingPagesHubModal({ isOpen, onClose, onSelectLandingP
           .lp-hub-card:hover .lp-hub-open-btn {
             color: #6FE6FC;
           }
+
+          /* LIGHT THEME */
+          :root:not([data-theme="dark"]) .lp-hub-overlay,
+          [data-theme="light"] .lp-hub-overlay {
+            background: rgba(20, 38, 74, 0.45) !important;
+          }
+
+          :root:not([data-theme="dark"]) .lp-hub-modal,
+          [data-theme="light"] .lp-hub-modal {
+            background: #FFFFFF !important;
+            border: 1px solid var(--cj-line, #E8E0CF) !important;
+            box-shadow: 0 25px 70px rgba(20, 38, 74, 0.22) !important;
+          }
+
+          :root:not([data-theme="dark"]) .lp-hub-header,
+          [data-theme="light"] .lp-hub-header {
+            border-bottom: 1px solid var(--cj-line, #E8E0CF) !important;
+            background: #FFFDF7 !important;
+          }
+
+          :root:not([data-theme="dark"]) .lp-hub-title,
+          [data-theme="light"] .lp-hub-title {
+            color: var(--cj-text-heading, #14264A) !important;
+          }
+
+          :root:not([data-theme="dark"]) .lp-hub-close,
+          [data-theme="light"] .lp-hub-close {
+            background: #F1F5F9 !important;
+            border-color: var(--cj-line, #E8E0CF) !important;
+            color: var(--cj-text-heading, #14264A) !important;
+          }
+
+          :root:not([data-theme="dark"]) .lp-hub-card,
+          [data-theme="light"] .lp-hub-card {
+            background: #FFFFFF !important;
+            border: 1px solid var(--cj-line, #E8E0CF) !important;
+            box-shadow: 0 4px 14px rgba(20, 38, 74, 0.05) !important;
+          }
+
+          :root:not([data-theme="dark"]) .lp-hub-card:hover,
+          [data-theme="light"] .lp-hub-card:hover {
+            background: #FFFDF9 !important;
+            border-color: #FF892F !important;
+            box-shadow: 0 12px 30px rgba(20, 38, 74, 0.10) !important;
+          }
+
+          :root:not([data-theme="dark"]) .lp-hub-card-headline,
+          [data-theme="light"] .lp-hub-card-headline {
+            color: var(--cj-text-heading, #14264A) !important;
+          }
+
+          :root:not([data-theme="dark"]) .lp-hub-card-desc,
+          [data-theme="light"] .lp-hub-card-desc {
+            color: var(--cj-text-body, #475569) !important;
+          }
+
+          :root:not([data-theme="dark"]) .lp-hub-icon-badge,
+          [data-theme="light"] .lp-hub-icon-badge {
+            background: #FFF8F0 !important;
+            border-color: rgba(255, 137, 47, 0.2) !important;
+          }
+
+          :root:not([data-theme="dark"]) .lp-hub-tag,
+          [data-theme="light"] .lp-hub-tag {
+            background: #EFF6FF !important;
+            color: #0284C7 !important;
+            border-color: #BAE6FD !important;
+          }
+
+          :root:not([data-theme="dark"]) .lp-hub-card-footer,
+          [data-theme="light"] .lp-hub-card-footer {
+            border-top: 1px solid var(--cj-line, #E8E0CF) !important;
+          }
         `}</style>
       </div>
     </div>

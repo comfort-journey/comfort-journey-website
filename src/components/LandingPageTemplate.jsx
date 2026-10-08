@@ -421,11 +421,14 @@ export default function LandingPageTemplate({
                           <span className="orig-price-strike">{formatPrice(tour.origPrice || tour.price * 1.25)}</span>
                           <span className="price-save-badge">Save {formatPrice((tour.origPrice || tour.price * 1.25) - tour.price)}</span>
                         </div>
-                        <div className="price-main-row">
-                          <span className="current-offer-price" style={{ color: theme.accentColor }}>
-                            {formatPrice(tour.price)}
-                          </span>
-                          <span className="price-per-person">/ person</span>
+                        <div className="price-main-col">
+                          <span className="price-start-label">Starting from</span>
+                          <div className="price-main-row">
+                            <span className="current-offer-price" style={{ color: theme.accentColor }}>
+                              {formatPrice(tour.price)}
+                            </span>
+                            <span className="price-per-person">/ person</span>
+                          </div>
                         </div>
                       </div>
 
@@ -1493,8 +1496,155 @@ export default function LandingPageTemplate({
           }
         }
 
-        /* LIGHT THEME — white body cards; hero + media overlays keep cinematic
-           dark + white text in BOTH themes (approved over-photo) */
+        /* LIGHT THEME — Complete luxury bright palette across all 20+ landing pages */
+        :root:not([data-theme="dark"]) .landing-page-root,
+        [data-theme="light"] .landing-page-root {
+          background: 
+            radial-gradient(1100px 600px at 15% 5%, rgba(255, 137, 47, 0.07) 0%, transparent 60%),
+            radial-gradient(1000px 550px at 85% 20%, rgba(14, 116, 144, 0.06) 0%, transparent 55%),
+            radial-gradient(900px 700px at 20% 60%, rgba(16, 185, 129, 0.05) 0%, transparent 60%),
+            linear-gradient(180deg, #FFFDF7 0%, #FAF8F0 30%, #F5F0E1 70%, #FFFDF7 100%) !important;
+          color: var(--cj-text-body, #334155) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-top-nav,
+        [data-theme="light"] .lp-top-nav {
+          background: rgba(255, 255, 255, 0.94) !important;
+          backdrop-filter: blur(16px) !important;
+          border-bottom: 1px solid var(--cj-line, #E8E0CF) !important;
+          box-shadow: 0 4px 20px rgba(20, 38, 74, 0.05) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-hero-scrim,
+        [data-theme="light"] .lp-hero-scrim {
+          background: linear-gradient(180deg, rgba(255, 253, 247, 0.85) 0%, rgba(255, 253, 247, 0.98) 100%) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-hero-radial-glow,
+        [data-theme="light"] .lp-hero-radial-glow {
+          opacity: 0.15 !important;
+          mix-blend-mode: multiply !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-hero-title,
+        [data-theme="light"] .lp-hero-title {
+          color: var(--cj-text-heading, #14264A) !important;
+          text-shadow: none !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-hero-subline,
+        [data-theme="light"] .lp-hero-subline {
+          color: var(--cj-text-body, #334155) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-persona-badge,
+        [data-theme="light"] .lp-persona-badge {
+          background: rgba(255, 255, 255, 0.95) !important;
+          border: 1px solid var(--cj-line, #E8E0CF) !important;
+          box-shadow: 0 4px 14px rgba(20, 38, 74, 0.06) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-persona-text,
+        [data-theme="light"] .lp-persona-text {
+          color: var(--cj-text-heading, #14264A) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-category-tag,
+        [data-theme="light"] .lp-category-tag {
+          background: rgba(255, 137, 47, 0.12) !important;
+          color: #D65A00 !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-vibe-pill,
+        [data-theme="light"] .lp-vibe-pill {
+          background: rgba(255, 255, 255, 0.92) !important;
+          border: 1px solid var(--cj-line, #E8E0CF) !important;
+          color: var(--cj-text-heading, #14264A) !important;
+          box-shadow: 0 2px 8px rgba(20, 38, 74, 0.05) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-vibe-pill:hover,
+        [data-theme="light"] .lp-vibe-pill:hover {
+          background: #FFFDF9 !important;
+          border-color: var(--lp-accent) !important;
+          color: var(--lp-accent) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-hero-trust-bar,
+        [data-theme="light"] .lp-hero-trust-bar {
+          background: rgba(255, 255, 255, 0.92) !important;
+          border: 1px solid var(--cj-line, #E8E0CF) !important;
+          color: var(--cj-text-body, #334155) !important;
+          box-shadow: 0 2px 8px rgba(20, 38, 74, 0.05) !important;
+        }
+
+        :root:not([data-theme="dark"]) .trust-divider,
+        [data-theme="light"] .trust-divider {
+          color: var(--cj-line, #E8E0CF) !important;
+        }
+
+        :root:not([data-theme="dark"]) .btn-lp-primary,
+        [data-theme="light"] .btn-lp-primary {
+          color: #FFFFFF !important;
+          box-shadow: 0 4px 16px rgba(255, 137, 47, 0.35) !important;
+        }
+
+        :root:not([data-theme="dark"]) .price-start-label,
+        [data-theme="light"] .price-start-label {
+          color: var(--cj-text-muted, #64748B) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-back-btn,
+        [data-theme="light"] .lp-back-btn {
+          background: #FFFFFF !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+          color: var(--cj-text-heading, #14264A) !important;
+          box-shadow: 0 2px 8px rgba(20, 38, 74, 0.04) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-back-btn:hover,
+        [data-theme="light"] .lp-back-btn:hover {
+          background: var(--lp-accent) !important;
+          color: #FFFFFF !important;
+          border-color: var(--lp-accent) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-brand-name,
+        [data-theme="light"] .lp-brand-name {
+          color: var(--cj-text-heading, #14264A) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-phone-link,
+        [data-theme="light"] .lp-phone-link {
+          color: var(--cj-text-muted, #64748B) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-phone-link:hover,
+        [data-theme="light"] .lp-phone-link:hover {
+          color: var(--cj-text-heading, #14264A) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-dest-tab:not(.active),
+        [data-theme="light"] .lp-dest-tab:not(.active) {
+          background: #FFFFFF !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+          color: var(--cj-text-body, #334155) !important;
+          box-shadow: 0 2px 8px rgba(20, 38, 74, 0.04) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-dest-tab:hover:not(.active),
+        [data-theme="light"] .lp-dest-tab:hover:not(.active) {
+          background: #FDFBF7 !important;
+          border-color: var(--lp-accent) !important;
+          color: var(--cj-text-heading, #14264A) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-dest-tab.active,
+        [data-theme="light"] .lp-dest-tab.active {
+          color: #FFFFFF !important;
+          box-shadow: 0 4px 16px rgba(255, 137, 47, 0.35) !important;
+        }
+
         :root:not([data-theme="dark"]) .lp-persona-quote-card,
         [data-theme="light"] .lp-persona-quote-card,
         :root:not([data-theme="dark"]) .lp-story-card,
@@ -1507,26 +1657,178 @@ export default function LandingPageTemplate({
         [data-theme="light"] .lp-pillars-card,
         :root:not([data-theme="dark"]) .lp-faq-item,
         [data-theme="light"] .lp-faq-item {
-          background: var(--cj-glass-card);
-          -webkit-backdrop-filter: var(--cj-glass-blur);
-          backdrop-filter: var(--cj-glass-blur);
-          border: 1px solid var(--cj-glass-rim);
-          box-shadow: 0 0 0 1px var(--cj-glass-hairline), var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)), inset 0 1px 0 rgba(255,255,255,0.8);
-          border-color: var(--cj-line, #E8E0CF);
-          box-shadow: var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10));
+          background: #FFFFFF !important;
+          border: 1px solid var(--cj-line, #E8E0CF) !important;
+          box-shadow: 0 10px 30px rgba(20, 38, 74, 0.06), 0 1px 3px rgba(20, 38, 74, 0.04) !important;
         }
-:root:not([data-theme="dark"]) .btn-lp-secondary,
-[data-theme="light"] .btn-lp-secondary {
-background: #FFFFFF;
-border-color: var(--cj-text-heading, #14264A);
-}
-:root:not([data-theme="dark"]) .btn-lp-itinerary,
-[data-theme="light"] .btn-lp-itinerary {
-background: #FFFFFF;
-border-color: var(--cj-text-heading, #14264A);
-position: relative;
-z-index: 2;
-}
+
+        :root:not([data-theme="dark"]) .lp-tour-card:hover,
+        [data-theme="light"] .lp-tour-card:hover,
+        :root:not([data-theme="dark"]) .lp-feature-card:hover,
+        [data-theme="light"] .lp-feature-card:hover {
+          border-color: var(--lp-accent) !important;
+          box-shadow: 0 16px 40px rgba(20, 38, 74, 0.10) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-card-body,
+        [data-theme="light"] .lp-card-body {
+          background: #FFFFFF !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-card-title,
+        [data-theme="light"] .lp-card-title {
+          color: var(--cj-text-heading, #14264A) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-card-tag,
+        [data-theme="light"] .lp-card-tag,
+        :root:not([data-theme="dark"]) .lp-location-tag,
+        [data-theme="light"] .lp-location-tag {
+          color: var(--cj-text-muted, #64748B) !important;
+        }
+
+        :root:not([data-theme="dark"]) .compact-inclusions-icon-bar,
+        [data-theme="light"] .compact-inclusions-icon-bar {
+          background: #FDFBF7 !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+        }
+
+        :root:not([data-theme="dark"]) .inc-svg-badge,
+        [data-theme="light"] .inc-svg-badge {
+          background: #FFFFFF !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+        }
+
+        :root:not([data-theme="dark"]) .inc-text,
+        [data-theme="light"] .inc-text {
+          color: #475569 !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-card-footer,
+        [data-theme="light"] .lp-card-footer {
+          border-top-color: var(--cj-line, #E8E0CF) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-feat-icon-badge,
+        [data-theme="light"] .lp-feat-icon-badge {
+          background: #FFF8F0 !important;
+          border-color: rgba(255, 137, 47, 0.25) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-feat-title,
+        [data-theme="light"] .lp-feat-title,
+        :root:not([data-theme="dark"]) .lp-section-title,
+        [data-theme="light"] .lp-section-title,
+        :root:not([data-theme="dark"]) .lp-story-title,
+        [data-theme="light"] .lp-story-title {
+          color: var(--cj-text-heading, #14264A) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-feat-desc,
+        [data-theme="light"] .lp-feat-desc,
+        :root:not([data-theme="dark"]) .lp-section-desc,
+        [data-theme="light"] .lp-section-desc,
+        :root:not([data-theme="dark"]) .lp-story-body p,
+        [data-theme="light"] .lp-story-body p {
+          color: var(--cj-text-body, #475569) !important;
+        }
+
+        :root:not([data-theme="dark"]) .quote-body,
+        [data-theme="light"] .quote-body {
+          color: var(--cj-text-body, #334155) !important;
+        }
+
+        :root:not([data-theme="dark"]) .quote-author-name,
+        [data-theme="light"] .quote-author-name {
+          color: var(--cj-text-heading, #14264A) !important;
+        }
+
+        :root:not([data-theme="dark"]) .quote-author-row,
+        [data-theme="light"] .quote-author-row {
+          border-top-color: var(--cj-line, #E8E0CF) !important;
+        }
+
+        :root:not([data-theme="dark"]) .quote-author-badge,
+        [data-theme="light"] .quote-author-badge {
+          background: #FDFBF7 !important;
+        }
+
+        :root:not([data-theme="dark"]) .pillar-num,
+        [data-theme="light"] .pillar-num {
+          background: var(--lp-accent) !important;
+          color: #FFFFFF !important;
+        }
+
+        :root:not([data-theme="dark"]) .pillar-title,
+        [data-theme="light"] .pillar-title {
+          color: var(--cj-text-heading, #14264A) !important;
+        }
+
+        :root:not([data-theme="dark"]) .pillar-desc,
+        [data-theme="light"] .pillar-desc {
+          color: var(--cj-text-body, #475569) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-faqs-accordion,
+        [data-theme="light"] .lp-faqs-accordion {
+          gap: 0.85rem;
+        }
+
+        :root:not([data-theme="dark"]) .lp-faq-trigger,
+        [data-theme="light"] .lp-faq-trigger {
+          color: var(--cj-text-heading, #14264A) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-faq-answer,
+        [data-theme="light"] .lp-faq-answer {
+          color: var(--cj-text-body, #475569) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-faq-item.active,
+        [data-theme="light"] .lp-faq-item.active {
+          border-color: var(--lp-accent) !important;
+          background: #FFFDF9 !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-final-cta-banner,
+        [data-theme="light"] .lp-final-cta-banner {
+          background: linear-gradient(180deg, #FAF8F0 0%, #F5F0E1 100%) !important;
+          border-top: 1px solid var(--cj-line, #E8E0CF) !important;
+          border-bottom: 1px solid var(--cj-line, #E8E0CF) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-final-title,
+        [data-theme="light"] .lp-final-title {
+          color: var(--cj-text-heading, #14264A) !important;
+        }
+
+        :root:not([data-theme="dark"]) .lp-final-desc,
+        [data-theme="light"] .lp-final-desc {
+          color: var(--cj-text-body, #475569) !important;
+        }
+
+        :root:not([data-theme="dark"]) .btn-lp-secondary,
+        [data-theme="light"] .btn-lp-secondary {
+          background: #FFFFFF !important;
+          border-color: var(--cj-text-heading, #14264A) !important;
+          color: var(--cj-text-heading, #14264A) !important;
+        }
+
+        :root:not([data-theme="dark"]) .btn-lp-itinerary,
+        [data-theme="light"] .btn-lp-itinerary {
+          background: #FFFFFF !important;
+          border-color: var(--cj-text-heading, #14264A) !important;
+          color: var(--cj-text-heading, #14264A) !important;
+          position: relative;
+          z-index: 2;
+        }
+
+        :root:not([data-theme="dark"]) .btn-lp-itinerary:hover,
+        [data-theme="light"] .btn-lp-itinerary:hover {
+          background: #F8F9FA !important;
+          border-color: var(--lp-accent) !important;
+          color: var(--lp-accent) !important;
+        }
       `}</style>
     </div>
   );
