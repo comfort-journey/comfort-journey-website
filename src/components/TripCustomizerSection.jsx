@@ -319,11 +319,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
                   </div>
 
                   <div className="dest-trigger-right">
-                    <div className="dest-trigger-price-badge">
-                      <span className="price-tag-sub">Starting from</span>
-                      <strong className="price-tag-val">{formatPrice(currentTour.basePricePerDay)}</strong>
-                    </div>
-                    <ChevronDown size={18} className={`chevron-icon ${isDropdownOpen ? 'rotated' : ''}`} />
+                    <ChevronDown size={20} className={`chevron-icon ${isDropdownOpen ? 'rotated' : ''}`} />
                   </div>
                 </button>
 
@@ -730,23 +726,31 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           flex-direction: column;
           align-items: center;
           text-align: center;
-          max-width: 820px;
-          margin: 0 auto 2.5rem auto;
+          max-width: 840px;
+          margin: 0 auto 1.75rem auto;
+          width: 100%;
         }
 
         .studio-root .section-title {
-          font-size: clamp(2.2rem, 4.5vw, 3.2rem);
-          margin: 0.85rem 0;
-          line-height: 1.22;
-          text-wrap: balance;
+          display: block !important;
+          text-align: center;
+          font-size: clamp(1.85rem, 3.4vw, 2.5rem);
+          margin: 0.65rem 0;
+          line-height: 1.25;
+          letter-spacing: -0.01em;
+          width: 100%;
+        }
+
+        .studio-root .section-title .gradient-text-gold {
+          display: inline;
         }
 
         .section-subtitle {
           max-width: 720px;
           margin: 0 auto;
           color: var(--cj-text-muted);
-          font-size: 1.05rem;
-          line-height: 1.6;
+          font-size: 1rem;
+          line-height: 1.55;
         }
 
         .studio-grid {
@@ -1705,8 +1709,11 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
             padding: 1rem 0.85rem;
             gap: 1.25rem;
           }
+          .studio-root .section-title,
           .section-title {
-            font-size: 1.85rem;
+            display: block !important;
+            text-align: center;
+            font-size: 1.6rem;
             line-height: 1.25;
           }
           .cards-selection-row {

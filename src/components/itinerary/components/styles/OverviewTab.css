@@ -130,7 +130,7 @@
   gap: var(--space-6);
 }
 
-.section-title {
+.overview-tab .section-title {
   margin: 0 0 var(--space-4) 0;
   font-family: 'Fraunces', serif;
   font-size: 1.35rem;
@@ -141,13 +141,13 @@
   gap: var(--space-2);
 }
 
-.section-subtitle {
+.overview-tab .section-subtitle {
   margin: var(--space-1) 0 0 0;
   font-size: 0.9rem;
   color: var(--itin-text-muted);
 }
 
-.section-label {
+.overview-tab .section-label {
   font-size: 0.65rem;
   font-weight: 700;
   color: var(--itin-text-subtle);
