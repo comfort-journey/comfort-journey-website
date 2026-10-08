@@ -299,11 +299,6 @@ export default function ItineraryLayout({
           {stopDrawer}
           {shareMenu}
         </div>
-        
-        {/* Mobile backdrop for drawers */}
-        {(stopDrawer || shareMenu) && (
-          <div className="itin-backdrop" onClick={() => {}} aria-hidden="true" />
-        )}
       </div>
     </div>
   );

@@ -514,13 +514,7 @@
 }
 
 .itin-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  z-index: calc(var(--z-sheet) - 1);
-  animation: fadeIn var(--transition-fast);
+  display: none !important;
 }
 
 @keyframes fadeIn {
@@ -674,15 +668,15 @@ input:focus-visible,
   .sticky-booking-bar,
   .itin-overlays,
   .itin-backdrop {
-    display: none !important;
-  }
+  display: none !important;
+}
   
   .itin-main {
     height: auto;
     overflow: visible;
   }
 }
-/* DUAL-THEME BRIDGE — light itinerary uses warm cream */
+/* DUAL-THEME BRIDGE ï¿½ light itinerary uses warm cream */
 :root:not([data-theme="dark"]) {
   --itin-text-heading: #14264A;
   --itin-text-body: #334155;
