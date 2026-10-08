@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useCurrency } from '../../context/CurrencyContext';
 import { directusService } from '../../services/directusClient';
+import { contentService } from '../../services/contentService';
+import { TOURS_DATA } from '../../data/toursData';
 import { resolveDestinationWaypoints } from '../../data/destinationWaypoints';
 import ItineraryLayout from './components/ItineraryLayout';
 import OverviewTab from './components/OverviewTab';
@@ -15,26 +17,77 @@ import { useShareableURL } from './hooks/useShareableURL';
 import { serializeItineraryState, deserializeItineraryState } from './utils/itinerarySerializer';
 import './styles/itinerary.css';
 
-export default function ItineraryPage() {
+function ensureTourItinerary(rawTour) {
+  if (!rawTour) return null;
+  const tour = { ...rawTour };
+  if (tour.itinerary && Array.isArray(tour.itinerary) && tour.itinerary.length > 0) {
+    return tour;
+  }
+  const numDays = tour.durationDays || parseInt(tour.duration, 10) || 5;
+  const loc = tour.location || tour.name || 'Destination';
+  const generatedItinerary = Array.from({ length: numDays }, (_, i) => ({
+    day: i + 1,
+    title: i === 0 
+      ? `Arrival & Royal Welcome in ${loc}` 
+      : (i === numDays - 1 
+        ? `Leisure & VIP Departure from ${loc}` 
+        : `Curated Heritage & Scenic Excursions in ${loc} - Day ${i + 1}`),
+    desc: i === 0 
+      ? `Arrive at the destination. Chauffeur meets you at the airport/station for VIP transfer to your luxury stay. Evening leisure and welcome briefing.`
+      : (i === numDays - 1 
+        ? `Leisure breakfast. Souvenir shopping and private chauffeur transfer for your onward journey with unforgettable memories.`
+        : `Private guided excursions, scenic panoramic sights, local cuisine tasting, and curated cultural experiences across ${loc}.`),
+    stops: [
+      {
+        title: `${loc} Scenic Viewpoint ${i + 1}`,
+        description: `Immerse in the breathtaking landscapes and cultural landmarks of ${loc}.`,
+        time: '10:00 AM',
+        duration: '2.5 Hours',
+        type: 'sightseeing'
+      },
+      {
+        title: `${loc} Royal Dining & Leisure`,
+        description: `Curated local tasting and royal relaxation.`,
+        time: '02:30 PM',
+        duration: '2 Hours',
+        type: 'meal'
+      }
+    ]
+  }));
+  return { ...tour, itinerary: generatedItinerary };
+}
+
+export default function ItineraryPage({ initialTour, onBackToHome, onBookNow, onOpenQuote }) {
   const { formatPrice } = useCurrency();
   
   // Get tour ID from URL hash
   const getTourIdFromHash = () => {
     try {
-      const hash = window.location.hash;
-      const match = hash.match(/#\/itinerary\/([^?#]+)/);
-      return match ? match[1] : null;
+      const hash = window.location.hash || '';
+      const match = hash.match(/#\/?itinerary\/([^?#]+)/);
+      return match ? decodeURIComponent(match[1].trim()) : null;
     } catch (e) {
       console.error('Error parsing hash:', e);
       return null;
     }
   };
   
-  const tourId = getTourIdFromHash();
-  
+  const [currentTourId, setCurrentTourId] = useState(getTourIdFromHash());
+
+  useEffect(() => {
+    const handleHash = () => {
+      const id = getTourIdFromHash();
+      if (id !== currentTourId) {
+        setCurrentTourId(id);
+      }
+    };
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, [currentTourId]);
+
   // State
-  const [tour, setTour] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [tour, setTour] = useState(() => ensureTourItinerary(initialTour) || null);
+  const [loading, setLoading] = useState(() => !initialTour);
   const [error, setError] = useState(null);
   
   // UI State
@@ -64,28 +117,57 @@ export default function ItineraryPage() {
   // Load tour data
   useEffect(() => {
     const loadTour = async () => {
-      if (!tourId) {
-        setError('No tour specified in URL');
+      const id = currentTourId || getTourIdFromHash();
+
+      // If initialTour is present and matches this tour or no ID specified, use it
+      if (initialTour && (!id || initialTour.slug === id || initialTour.id === id)) {
+        const enriched = ensureTourItinerary(initialTour);
+        setTour(enriched);
+        setActiveDay(enriched.itinerary?.[0]?.day || 1);
         setLoading(false);
         return;
       }
-      
+
       setLoading(true);
       setError(null);
       
       try {
-        console.log('[ItineraryPage] Loading tour:', tourId);
-        const tourData = await directusService.fetchTourBySlug(tourId);
-        console.log('[ItineraryPage] Tour data:', tourData);
+        let tourData = null;
+
+        if (id) {
+          // 1. Instant local lookup (0ms)
+          tourData = contentService.getTourBySlug(id) || contentService.getTourById(id);
+
+          // 2. Fall back to directusService if not found
+          if (!tourData) {
+            tourData = await directusService.fetchTourBySlug(id);
+          }
+
+          // 3. Fall back to fuzzy match in TOURS_DATA
+          if (!tourData) {
+            const cleanKey = id.replace(/[-_]/g, ' ').toLowerCase();
+            tourData = TOURS_DATA.find(t => 
+              (t.name && t.name.toLowerCase().includes(cleanKey)) ||
+              (t.location && t.location.toLowerCase().includes(cleanKey))
+            );
+          }
+        }
+
+        // 4. Fallback to first available tour if nothing matched
+        if (!tourData) {
+          const all = contentService.getTours();
+          tourData = all[0] || TOURS_DATA[0];
+        }
         
         if (tourData) {
-          setTour(tourData);
-          const firstDay = tourData.itinerary?.[0]?.day || 1;
+          const enriched = ensureTourItinerary(tourData);
+          setTour(enriched);
+          const firstDay = enriched.itinerary?.[0]?.day || 1;
           setActiveDay(firstDay);
           
           const stopParam = getURLParam('stop');
-          if (stopParam && tourData.itinerary) {
-            const dayData = tourData.itinerary.find(d => d.day === activeDay);
+          if (stopParam && enriched.itinerary) {
+            const dayData = enriched.itinerary.find(d => d.day === firstDay);
             if (dayData?.stops) {
               const stop = dayData.stops.find(s => 
                 s.title?.toLowerCase().includes(stopParam.toLowerCase())
@@ -97,7 +179,7 @@ export default function ItineraryPage() {
             }
           }
         } else {
-          setError(`Tour not found: ${tourId}`);
+          setError(`Tour not found: ${id}`);
         }
       } catch (err) {
         console.error('[ItineraryPage] Failed to load tour:', err);
@@ -108,17 +190,17 @@ export default function ItineraryPage() {
     };
     
     loadTour();
-  }, [tourId]);
+  }, [currentTourId, initialTour]);
   
   // Error boundary render
   if (error) {
     return (
-      <ItineraryLayout>
+      <ItineraryLayout onBackToHome={onBackToHome}>
         <div className="itin-error-state">
           <div className="error-icon">⚠️</div>
           <h2>Unable to Load Itinerary</h2>
           <p>{error}</p>
-          <button className="btn-primary" onClick={() => window.history.back()}>
+          <button className="btn-primary" onClick={() => onBackToHome ? onBackToHome() : (window.location.hash = '')}>
             Back to Tours
           </button>
         </div>
@@ -128,7 +210,7 @@ export default function ItineraryPage() {
   
   if (loading) {
     return (
-      <ItineraryLayout isLoading={true}>
+      <ItineraryLayout isLoading={true} onBackToHome={onBackToHome}>
         <div className="itin-loading-overlay">
           <div className="loading-spinner" />
           <p>Loading your personalized itinerary...</p>
@@ -137,6 +219,70 @@ export default function ItineraryPage() {
     );
   }
   
+  // Itinerary and Map sync hooks
+  const { enrichedItinerary, waypointsMap } = useItineraryData(tour);
+  const { setMapInstance, flyToStop, highlightStop } = useMapSync(enrichedItinerary, activeDay, routeMode);
+
+  // Derived current day data
+  const currentDayData = useMemo(() => {
+    if (!enrichedItinerary?.length) return null;
+    return enrichedItinerary.find(d => d.day === activeDay) || enrichedItinerary[0];
+  }, [enrichedItinerary, activeDay]);
+
+  const currentDayStops = useMemo(() => {
+    return currentDayData?.stops || [];
+  }, [currentDayData]);
+
+  const currentDayRoute = useMemo(() => {
+    return currentDayStops
+      .filter(s => s.lat && s.lng)
+      .map(s => [s.lat, s.lng]);
+  }, [currentDayStops]);
+
+  const fullTourRoute = useMemo(() => {
+    if (!enrichedItinerary?.length) return [];
+    const allStops = [];
+    enrichedItinerary.forEach(d => {
+      (d.stops || []).forEach(s => {
+        if (s.lat && s.lng) allStops.push([s.lat, s.lng]);
+      });
+    });
+    return allStops;
+  }, [enrichedItinerary]);
+
+  // Handlers
+  const handleTabChange = useCallback((tab) => {
+    setActiveTab(tab);
+    updateURL({ tab });
+  }, [updateURL]);
+
+  const handleDayChange = useCallback((day) => {
+    setActiveDay(day);
+    updateURL({ day });
+  }, [updateURL]);
+
+  const handleStopSelect = useCallback((stop) => {
+    setSelectedStop(stop);
+    setShowStopDrawer(true);
+    if (stop) {
+      flyToStop(stop);
+      highlightStop(stop.title);
+      updateURL({ stop: stop.title });
+    } else {
+      updateURL({ stop: null });
+    }
+  }, [flyToStop, highlightStop, updateURL]);
+
+  const handleMapDayChange = useCallback((day) => {
+    setActiveDay(day);
+    updateURL({ day });
+  }, [updateURL]);
+
+  const handleRouteModeChange = useCallback((mode) => {
+    setRouteMode(mode);
+    updateURL({ route: mode });
+  }, [updateURL]);
+
   if (!tour) return null;
   
   const renderOverviewTab = () => (
@@ -194,6 +340,12 @@ export default function ItineraryPage() {
       tour={tour}
       activeTab={activeTab}
       onTabChange={handleTabChange}
+      onBackToHome={onBackToHome}
+      activeDay={activeDay}
+      onDayChange={handleDayChange}
+      routeMode={routeMode}
+      onRouteModeChange={handleRouteModeChange}
+      enrichedItinerary={enrichedItinerary}
       tabContent={renderTabContent()}
       stickyBookingBar={
         <StickyBookingBar
@@ -209,8 +361,11 @@ export default function ItineraryPage() {
             window.open(`https://wa.me/918770403315?text=${msg}`, '_blank');
           }}
           onBookNow={() => {
-            // Trigger booking modal via parent app
-            window.dispatchEvent(new CustomEvent('open-booking', { detail: tour }));
+            if (onBookNow) {
+              onBookNow(tour);
+            } else {
+              window.dispatchEvent(new CustomEvent('open-booking', { detail: tour }));
+            }
           }}
           onShare={() => setShowShareMenu(true)}
         />

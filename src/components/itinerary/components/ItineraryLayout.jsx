@@ -25,7 +25,8 @@ export default function ItineraryLayout({
   currentDayRoute,
   fullTourRoute,
   selectedStop,
-  onStopSelect
+  onStopSelect,
+  onBackToHome
 }) {
   const [isMobile, setIsMobile] = useState(false);
   const [mapExpanded, setMapExpanded] = useState(false);
@@ -50,7 +51,7 @@ export default function ItineraryLayout({
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const day = parseInt(entry.target.dataset.day, 10);
-            if (day && day !== activeDay) {
+            if (day && day !== activeDay && typeof onDayChange === 'function') {
               onDayChange(day);
             }
           }
@@ -67,11 +68,11 @@ export default function ItineraryLayout({
     dayElements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, [activeDay, isMobile]);
+  }, [activeDay, isMobile, onDayChange]);
 
   // Sync map viewport when activeDay changes
   useEffect(() => {
-    if (mapRef.current && enrichedItinerary) {
+    if (mapRef?.current && enrichedItinerary) {
       const dayData = enrichedItinerary?.find((d) => d.day === activeDay);
       if (dayData?.bounds) {
         mapRef.current.fitBounds(dayData.bounds, { padding: [40, 40], duration: 1.2 });
@@ -85,8 +86,16 @@ export default function ItineraryLayout({
 
   const handleMobileMapToggle = () => setMapCollapsed((c) => !c);
   const handleMapExpand = () => setMapExpanded((e) => !e);
-  const handleRouteModeChange = () => setRouteMode((m) => (m === 'day' ? 'full' : 'day'));
-  const handleMapStyleChange = (style) => setMapStyle((s) => style);
+  const handleRouteModeChange = () => {
+    if (typeof onRouteModeChange === 'function') {
+      onRouteModeChange(routeMode === 'day' ? 'full' : 'day');
+    }
+  };
+  const handleMapStyleChange = (style) => {
+    if (typeof onMapStyleChange === 'function') {
+      onMapStyleChange(style);
+    }
+  };
 
   return (
     <div className={`itin-page-root ${isMobile ? 'mobile' : ''} ${mapExpanded ? 'map-expanded' : ''} ${mapCollapsed ? 'map-collapsed' : ''}`} data-active-tab={activeTab}>
@@ -123,7 +132,15 @@ export default function ItineraryLayout({
           <div className="header-left">
             <button 
               className="back-btn" 
-              onClick={() => window.history.back()}
+              onClick={() => {
+                if (onBackToHome) {
+                  onBackToHome();
+                } else if (window.history.length > 1) {
+                  window.history.back();
+                } else {
+                  window.location.hash = '';
+                }
+              }}
               aria-label="Back to tour details"
             >
               <ChevronLeft size={20} />

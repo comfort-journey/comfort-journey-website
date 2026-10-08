@@ -64,6 +64,7 @@ export default function App() {
   const [currentView, setCurrentView] = useState('home'); // 'home' | 'about' | 'landing' | 'magazine' | 'blog-reader' | 'ai-planner' | 'itinerary'
   const [activeLandingPage, setActiveLandingPage] = useState(null);
   const [activeBlogSlug, setActiveBlogSlug] = useState(null);
+  const [selectedItineraryTour, setSelectedItineraryTour] = useState(null);
 
   // Dynamic 2026 Page SEO, AEO & GEO injection
   const activeSeoKey = 
@@ -99,13 +100,15 @@ export default function App() {
         });
       } else if (hash.startsWith('#/itinerary/') || hash.startsWith('#itinerary/')) {
         const tourSlug = rawHash.replace(/^#\/?itinerary\//, '').trim();
-        directusService.fetchTourBySlug(tourSlug).then(matchedTour => {
-          if (matchedTour) {
-            setCurrentView('itinerary');
-            setActiveLandingPage(null);
-            setActiveBlogSlug(null);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }
+        setCurrentView('itinerary');
+        setActiveLandingPage(null);
+        setActiveBlogSlug(null);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        seoHeadManager.updateMetadata({
+          title: "Detailed Tour Itinerary | Comfort Journey",
+          description: "Explore the comprehensive day-by-day luxury travel plan, route maps, hotel stays, and inclusions curated by Comfort Journey.",
+          url: `/#/itinerary/${tourSlug}`,
+          type: "website"
         });
       } else if (hash === '#/about' || hash === '#/who-we-are' || hash === '#/about-us' || hash === '#about') {
         setCurrentView('about');
@@ -131,11 +134,11 @@ export default function App() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else if (hash.startsWith('#/tour/') || hash.startsWith('#tour/') || hash.startsWith('#/package/')) {
         const tourSlug = rawHash.replace(/^#\/?(tour|package)\//, '').trim();
-        directusService.fetchTourBySlug(tourSlug).then(matchedTour => {
-          if (matchedTour) {
-            window.location.hash = '#/itinerary/' + (matchedTour.slug || matchedTour.id);
-          }
-        });
+        window.location.hash = '#/itinerary/' + tourSlug;
+        setCurrentView('itinerary');
+        setActiveLandingPage(null);
+        setActiveBlogSlug(null);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         // Check if hash matches any of our 15 dedicated Campaign Landing Pages
         const matchedPage = getLandingPageBySlug(hash);
@@ -176,7 +179,10 @@ export default function App() {
   };
 
   const navigateToHome = () => {
-    history.pushState(null, '', window.location.pathname);
+    window.location.hash = '';
+    try {
+      history.pushState(null, '', window.location.pathname);
+    } catch (e) {}
     setCurrentView('home');
     setActiveLandingPage(null);
     setActiveBlogSlug(null);
@@ -189,11 +195,14 @@ export default function App() {
   };
 
   const navigateToItinerary = (tour) => {
-    if (tour?.slug) {
-      window.location.hash = `#/itinerary/${tour.slug}`;
-    } else if (tour?.id) {
-      window.location.hash = `#/itinerary/${tour.id}`;
+    setSelectedItineraryTour(tour);
+    const slug = tour?.slug || tour?.id;
+    if (slug) {
+      window.location.hash = `#/itinerary/${slug}`;
     }
+    setCurrentView('itinerary');
+    setActiveLandingPage(null);
+    setActiveBlogSlug(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -216,7 +225,12 @@ export default function App() {
               />
             ) : currentView === 'itinerary' ? (
               /* DEDICATED ITINERARY PAGE VIEW */
-              <ItineraryPage />
+              <ItineraryPage 
+                initialTour={selectedItineraryTour}
+                onBackToHome={navigateToHome}
+                onBookNow={(tour) => setSelectedBookingTour(tour)}
+                onOpenQuote={() => setIsQuickQuoteOpen(true)}
+              />
             ) : (
               <>
                 {/* 1. Header Navigation with Currency Switcher & AI Trigger */}

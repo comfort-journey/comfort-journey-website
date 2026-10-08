@@ -456,12 +456,22 @@ export const directusService = {
 
   async fetchTourBySlug(slug) {
     if (!slug) return null;
-    const cleanSlug = slug.replace(/^#\/?/, '').replace(/^tour\/?/, '').toLowerCase().trim();
+    const cleanSlug = slug.replace(/^#\/?/, '').replace(/^tour\//, '').toLowerCase().trim();
+    const rawSlug = slug.toLowerCase().trim();
 
+    // 1. Instant check in local store & TOURS_DATA (0ms)
+    const localTours = [...this.getLocalCustomTours(), ...TOURS_DATA];
+    const match = localTours.find(t => 
+      (t.slug && (t.slug.toLowerCase() === cleanSlug || t.slug.toLowerCase() === rawSlug)) || 
+      (t.id && (t.id.toLowerCase() === cleanSlug || t.id.toLowerCase() === rawSlug))
+    );
+    if (match) return match;
+
+    // 2. Fall back to fetchTourPackages (which queries Directus)
     const allTours = await this.fetchTourPackages();
     return allTours.find(t => 
-      (t.slug && t.slug.toLowerCase() === cleanSlug) || 
-      (t.id && t.id.toLowerCase() === cleanSlug)
+      (t.slug && (t.slug.toLowerCase() === cleanSlug || t.slug.toLowerCase() === rawSlug)) || 
+      (t.id && (t.id.toLowerCase() === cleanSlug || t.id.toLowerCase() === rawSlug))
     ) || null;
   },
 
