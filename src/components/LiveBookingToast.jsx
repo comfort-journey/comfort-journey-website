@@ -185,13 +185,64 @@ export default function LiveBookingToast() {
 
         :root:not([data-theme="dark"]) .live-toast-card,
         [data-theme="light"] .live-toast-card {
-          background: rgba(255, 255, 255, 0.96);
-          border-color: var(--cj-line, #E8E0CF);
-          box-shadow: 0 16px 36px rgba(20, 38, 74, 0.14);
+          background: #FFFFFF !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+          box-shadow: 0 16px 36px rgba(20, 38, 74, 0.16), 0 2px 8px rgba(20, 38, 74, 0.08) !important;
+        }
+        :root:not([data-theme="dark"]) .user-info,
+        [data-theme="light"] .user-info {
+          color: #14264A !important;
+          font-weight: 600;
+        }
+        :root:not([data-theme="dark"]) .user-info strong,
+        [data-theme="light"] .user-info strong {
+          color: #0A192F !important;
+          font-weight: 800;
+        }
+        :root:not([data-theme="dark"]) .time-ago,
+        [data-theme="light"] .time-ago {
+          color: #64748B !important;
+          font-weight: 600;
+        }
+        :root:not([data-theme="dark"]) .tour-booked,
+        [data-theme="light"] .tour-booked {
+          color: #334155 !important;
         }
         :root:not([data-theme="dark"]) .tour-booked strong,
         [data-theme="light"] .tour-booked strong {
-          color: var(--cj-cta-deep, #D65A00);
+          color: var(--cj-cta-deep, #D65A00) !important;
+          font-weight: 800;
+        }
+        :root:not([data-theme="dark"]) .toast-close,
+        [data-theme="light"] .toast-close {
+          color: #64748B !important;
+        }
+        :root:not([data-theme="dark"]) .toast-close:hover,
+        [data-theme="light"] .toast-close:hover {
+          color: #0F172A !important;
+        }
+
+        [data-theme="dark"] .live-toast-card {
+          background: rgba(15, 23, 42, 0.95) !important;
+          border-color: rgba(255, 137, 47, 0.35) !important;
+          box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5) !important;
+        }
+        [data-theme="dark"] .user-info {
+          color: #F8FAFC !important;
+        }
+        [data-theme="dark"] .user-info strong {
+          color: #FFFFFF !important;
+          font-weight: 800;
+        }
+        [data-theme="dark"] .time-ago {
+          color: #94A3B8 !important;
+        }
+        [data-theme="dark"] .tour-booked {
+          color: #CBD5E1 !important;
+        }
+        [data-theme="dark"] .tour-booked strong {
+          color: #FFB800 !important;
+          font-weight: 800;
         }
       `}</style>
     </div>

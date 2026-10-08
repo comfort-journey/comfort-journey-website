@@ -15,6 +15,20 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
+  const currencyRef = useRef(null);
+
+  // Close currency dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (currencyRef.current && !currencyRef.current.contains(e.target)) {
+        setCurrencyDropdownOpen(false);
+      }
+    };
+    if (currencyDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [currencyDropdownOpen]);
   
   // Accordion state for categories inside the hamburger menu
   const [openCategories, setOpenCategories] = useState({
@@ -65,15 +79,15 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
     };
   }, [mobileMenuOpen]);
 
-  // Clean Desktop Navigation Links (Specialty Trips removed to save space)
+  // Clean Desktop Navigation Links (with responsive secondary priority)
   const navLinks = [
     { label: 'Destinations', href: '#tours' },
     { label: 'Trip Studio', href: '#custom-builder' },
     { label: 'Journal', href: '#/blog' },
     { label: 'Reviews', href: '#google-reviews' },
-    { label: 'Reels', href: '#stories' },
-    { label: 'Why Us', href: '#why-us' },
-    { label: 'Who We Are', href: '#/about' },
+    { label: 'Reels', href: '#stories', secondary: true },
+    { label: 'Why Us', href: '#why-us', secondary: true },
+    { label: 'Who We Are', href: '#/about', secondary: true },
   ];
 
   // PC Nav Liquid Indicator State & Refs
@@ -392,7 +406,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
                   key={idx} 
                   ref={el => (navLinksRef.current[idx] = el)}
                   href={link.href} 
-                  className={`nav-link ${(hoveredNavIdx !== null ? hoveredNavIdx === idx : activeNavIdx === idx) ? 'active' : ''}`}
+                  className={`nav-link ${link.secondary ? 'nav-link-secondary' : ''} ${(hoveredNavIdx !== null ? hoveredNavIdx === idx : activeNavIdx === idx) ? 'active' : ''}`}
                   onMouseEnter={() => setHoveredNavIdx(idx)}
                   onClick={() => setActiveNavIdx(idx)}
                 >
@@ -429,24 +443,22 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
               )}
 
               {/* Multi-Currency Dropdown */}
-              <div className="currency-selector-rel">
+              <div className="currency-selector-rel" ref={currencyRef}>
                 <button 
                   type="button"
                   className="currency-btn liquid-glass-btn"
                   onClick={() => setCurrencyDropdownOpen(!currencyDropdownOpen)}
                   title="Select Global Currency"
+                  aria-expanded={currencyDropdownOpen}
                 >
                   <Globe size={14} />
                   <span>{currency}</span>
-                  <ChevronDown size={12} />
+                  <ChevronDown size={12} className={`curr-chevron ${currencyDropdownOpen ? 'rotated' : ''}`} />
                 </button>
 
                 {currencyDropdownOpen && (
-                  <div className="currency-menu liquid-glass-dock">
-                    <div className="liquidGlass-effect" aria-hidden="true" />
-                    <div className="liquidGlass-tint" aria-hidden="true" />
-                    <div className="liquidGlass-shine" aria-hidden="true" />
-                    <div className="currency-menu-content" style={{ position: 'relative', zIndex: 3 }}>
+                  <div className="currency-menu">
+                    <div className="currency-menu-content">
                       {Object.keys(currencies).map((currKey) => (
                         <button
                           key={currKey}
@@ -483,7 +495,8 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
               {/* Phone VIP Link (Desktop) */}
               <a href="tel:+918770403315" className="phone-btn liquid-glass-btn" title="Call 24/7 VIP Concierge">
                 <Phone size={14} />
-                <span className="phone-text">+91 8770403315</span>
+                <span className="phone-text-full">+91 8770403315</span>
+                <span className="phone-text-short">Call</span>
               </a>
 
               {/* Quick Mobile Top Phone Shortcut */}
@@ -504,13 +517,13 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
 
               {/* Universal Menu Hamburger Toggle */}
               <button 
-                type="button"
+                type="button" 
                 className="nav-menu-toggle liquid-glass-btn" 
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 aria-label="Toggle Navigation & Specialty Trips Menu"
                 title="Explore All Journeys & Special Packages"
               >
-                {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+                {mobileMenuOpen ? <X size={17} /> : <Menu size={17} />}
                 <span className="menu-btn-label">Menu</span>
               </button>
             </div>
@@ -1027,7 +1040,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         .nav-actions {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.35rem;
           flex-shrink: 0;
         }
 
@@ -1138,28 +1151,46 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           border-color: var(--cj-amber-500);
         }
 
+        .currency-selector-rel {
+          position: relative;
+          z-index: 100;
+        }
+
+        .curr-chevron {
+          transition: transform 0.2s ease;
+        }
+        .curr-chevron.rotated {
+          transform: rotate(180deg);
+        }
+
         .currency-menu {
           position: absolute;
-          top: calc(100% + 8px);
+          top: calc(100% + 10px);
           right: 0;
-          background: var(--cj-bg-card);
-          border: 1px solid var(--cj-glass-border);
-          border-radius: var(--radius-sm);
-          padding: 0.4rem;
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+          background: #001D51;
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          border-radius: 14px;
+          padding: 0.45rem;
+          box-shadow: 0 20px 48px rgba(0, 8, 25, 0.75), 0 4px 16px rgba(0, 0, 0, 0.4);
           display: flex;
           flex-direction: column;
           gap: 0.2rem;
-          min-width: 160px;
-          z-index: 100;
+          min-width: 175px;
+          z-index: 9999999 !important;
+          animation: popMenu 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes popMenu {
+          from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .curr-option {
           display: flex;
           align-items: center;
           gap: 0.6rem;
-          padding: 0.6rem 0.85rem;
-          border-radius: var(--radius-xs);
+          padding: 0.55rem 0.8rem;
+          border-radius: 8px;
           color: var(--cj-text-body);
           font-family: var(--font-ui);
           font-size: 0.85rem;
@@ -1167,16 +1198,20 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           width: 100%;
           text-align: left;
           transition: all 0.15s ease;
+          background: transparent;
+          border: none;
+          cursor: pointer;
         }
 
         .curr-option:hover {
-          background: rgba(255, 107, 0, 0.15);
-          color: var(--cj-amber-500);
+          background: rgba(255, 137, 47, 0.18);
+          color: #FF892F;
         }
 
         .curr-option.active {
-          background: var(--cj-amber-500);
-          color: var(--cj-text-heading);
+          background: #FF892F;
+          color: #FFFFFF;
+          font-weight: 800;
         }
 
         .c-symbol {
@@ -1185,8 +1220,8 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         }
 
         .nav-ai-btn {
-          padding: 0.5rem 1rem;
-          font-size: 0.85rem;
+          padding: 0.45rem 0.85rem;
+          font-size: 0.84rem;
           white-space: nowrap;
           flex-shrink: 0;
           min-height: 38px;
@@ -1201,7 +1236,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           font-weight: 700;
           font-size: 0.82rem;
           background: rgba(255, 255, 255, 0.08);
-          padding: 0.5rem 0.85rem;
+          padding: 0.45rem 0.75rem;
           border-radius: var(--radius-full);
           border: 1px solid var(--cj-glass-border);
           transition: all 0.2s ease;
@@ -1216,8 +1251,24 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           color: var(--cj-amber-500);
         }
 
-        .phone-text {
+        .phone-text-full {
           white-space: nowrap;
+        }
+        .phone-text-short {
+          display: none;
+          white-space: nowrap;
+        }
+
+        @media (max-width: 1440px) {
+          .nav-link-secondary {
+            display: none !important;
+          }
+          .phone-text-full {
+            display: none !important;
+          }
+          .phone-text-short {
+            display: inline !important;
+          }
         }
 
         .admin-trigger-btn {
@@ -1243,19 +1294,21 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         .nav-menu-toggle {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.35rem;
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid var(--cj-glass-border);
           color: var(--cj-text-heading);
           cursor: pointer;
-          padding: 0.5rem 0.9rem;
+          padding: 0.45rem 0.8rem;
           border-radius: var(--radius-full);
           font-family: var(--font-ui);
-          font-size: 0.84rem;
+          font-size: 0.82rem;
           font-weight: 700;
           transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
           white-space: nowrap;
           min-height: 38px;
+          flex-shrink: 0;
+          margin-right: 0.2rem;
         }
 
         .nav-menu-toggle:hover {
@@ -1268,7 +1321,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
 
         .menu-btn-label {
           font-weight: 800;
-          letter-spacing: 0.5px;
+          letter-spacing: 0.4px;
         }
 
         /* Backdrop Overlay */
@@ -1819,6 +1872,26 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         :root:not([data-theme="dark"]) .title-journey,
         [data-theme="light"] .title-journey {
           color: var(--cj-cta-deep, #D65A00);
+        }
+        :root:not([data-theme="dark"]) .currency-menu,
+        [data-theme="light"] .currency-menu {
+          background: #FFFFFF !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+          box-shadow: 0 20px 48px rgba(20, 38, 74, 0.18), 0 4px 16px rgba(20, 38, 74, 0.08) !important;
+        }
+        :root:not([data-theme="dark"]) .curr-option,
+        [data-theme="light"] .curr-option {
+          color: #14264A !important;
+        }
+        :root:not([data-theme="dark"]) .curr-option:hover,
+        [data-theme="light"] .curr-option:hover {
+          background: #FFF8F0 !important;
+          color: #D65A00 !important;
+        }
+        :root:not([data-theme="dark"]) .curr-option.active,
+        [data-theme="light"] .curr-option.active {
+          background: #FF892F !important;
+          color: #FFFFFF !important;
         }
       `}</style>
     </>

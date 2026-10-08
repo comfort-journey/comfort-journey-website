@@ -1357,6 +1357,14 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           transform: translateY(-2px);
         }
 
+        .mode-tab-btn.active svg,
+        .mode-tab-btn.active .text-amber,
+        .mode-tab-btn.active .text-cyan,
+        .mode-tab-btn.active .text-emerald {
+          color: #FFFFFF !important;
+          stroke: #FFFFFF !important;
+        }
+
         /* Universal Top Search Bar */
         .hero-top-universal-search {
           width: 100%;

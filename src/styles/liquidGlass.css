@@ -201,15 +201,23 @@
 /* Floating Rounded Glass Navbar Bar */
 .navbar-floating-bar {
   pointer-events: auto;
-  margin: 36px auto 0 auto;
-  width: min(98%, 1480px);
+  margin: 34px auto 0 auto;
+  width: min(98%, 1520px);
   border-radius: var(--radius-full, 9999px);
   transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+  overflow: visible !important;
+}
+
+.navbar-floating-bar .liquidGlass-effect,
+.navbar-floating-bar .liquidGlass-tint,
+.navbar-floating-bar .liquidGlass-shine {
+  border-radius: var(--radius-full, 9999px);
+  overflow: hidden;
 }
 
 .navbar-root.scrolled .navbar-floating-bar {
-  margin-top: 34px;
-  width: min(98.5%, 1500px);
+  margin-top: 32px;
+  width: min(98.5%, 1520px);
   box-shadow: 
     0 20px 48px rgba(0, 8, 25, 0.65), 
     0 0 30px rgba(255, 137, 47, 0.18),
@@ -228,12 +236,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.55rem 1.25rem;
-  gap: 0.75rem;
+  padding: 0.42rem 1.25rem 0.42rem 0.95rem;
+  gap: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .navbar-root.scrolled .navbar-glass-content {
-  padding: 0.45rem 1.15rem;
+  padding: 0.36rem 1.15rem 0.36rem 0.9rem;
 }
 
 @media (max-width: 1320px) {
