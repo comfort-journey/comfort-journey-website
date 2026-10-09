@@ -185,7 +185,7 @@ export default function OverviewTab({
                     <p className="day-summary-desc">{day.summary}</p>
                   )}
                   <span className="day-arrow">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
                   </span>
                 </button>
               ))}

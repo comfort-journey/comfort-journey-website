@@ -2,44 +2,40 @@ import React from 'react';
 import { Car, Landmark, UtensilsCrossed, ShoppingBag, MapPin } from 'lucide-react';
 import './styles/ProximityInline.css';
 
+const CATEGORY_CONFIG = {
+  landmarks: { icon: Landmark, label: 'Landmark', color: 'amber' },
+  transport: { icon: Car, label: 'Transit', color: 'cyan' },
+  dining: { icon: UtensilsCrossed, label: 'Dining', color: 'emerald' },
+  shopping: { icon: ShoppingBag, label: 'Market', color: 'purple' },
+};
+
 export default function ProximityInline({ proximity }) {
+  if (!proximity) return null;
   const { transport = [], landmarks = [], dining = [], shopping = [] } = proximity;
-  const totalPlaces = transport.length + landmarks.length + dining.length + shopping.length;
-  
-  if (totalPlaces === 0) return null;
-  
-  const columns = [
-    { key: 'transport', label: 'Transport', icon: Car, color: 'cyan', items: transport },
-    { key: 'landmarks', label: 'Landmarks', icon: Landmark, color: 'amber', items: landmarks },
-    { key: 'dining', label: 'Dining', icon: UtensilsCrossed, color: 'lime', items: dining },
-    { key: 'shopping', label: 'Shopping', icon: ShoppingBag, color: 'pink', items: shopping },
-  ].filter(col => col.items.length > 0);
-  
+
+  // Pick top relevant places to keep it compact and clean
+  const items = [];
+  landmarks.slice(0, 2).forEach(item => items.push({ ...item, type: 'landmarks' }));
+  dining.slice(0, 1).forEach(item => items.push({ ...item, type: 'dining' }));
+  transport.slice(0, 1).forEach(item => items.push({ ...item, type: 'transport' }));
+  shopping.slice(0, 1).forEach(item => items.push({ ...item, type: 'shopping' }));
+
+  if (items.length === 0) return null;
+
   return (
-    <div className="proximity-inline" role="region" aria-label="Nearby places">
-      <div className="proximity-grid">
-        {columns.map((col) => (
-          <div key={col.key} className="proximity-column">
-            <div className="column-header">
-              <col.icon size={11} className={`text-${col.color}`} aria-hidden="true" />
-              <h5>{col.label}</h5>
-              <span className="count-badge">{col.items.length}</span>
+    <div className="proximity-inline-compact" role="region" aria-label="Nearby landmarks and proximity">
+      <div className="proximity-chips-row">
+        {items.map((item, idx) => {
+          const cfg = CATEGORY_CONFIG[item.type] || { icon: MapPin, label: 'Nearby', color: 'amber' };
+          const Icon = cfg.icon;
+          return (
+            <div key={idx} className={`proximity-chip type-${item.type}`}>
+              <Icon size={12} className={`chip-icon text-${cfg.color}`} />
+              <span className="chip-name" title={item.name}>{item.name}</span>
+              <span className="chip-dist">{item.dist}</span>
             </div>
-            <ul className="places-list" role="list">
-              {col.items.slice(0, 6).map((item, idx) => (
-                <li key={idx} className="place-item" role="listitem">
-                  <span className="place-name">{item.name}</span>
-                  <span className="place-distance">{item.dist}</span>
-                </li>
-              ))}
-              {col.items.length > 6 && (
-                <li className="place-item more">
-                  <span>+{col.items.length - 6} more nearby</span>
-                </li>
-              )}
-            </ul>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

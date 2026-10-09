@@ -38,12 +38,6 @@ export default function StopDetailDrawer({
   const [showImages, setShowImages] = useState(false);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
-  if (!isOpen || !stop) return null;
-
-  const images = stop.images || (stop.image ? [stop.image] : []);
-  const typeColor = TYPE_COLORS[stop.type] || TYPE_COLORS.sightseeing;
-  const Icon = STOP_ICONS[stop.type] || MapPin;
-
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -52,6 +46,12 @@ export default function StopDetailDrawer({
       document.body.style.overflow = '';
     };
   }, [isOpen]);
+
+  if (!isOpen || !stop) return null;
+
+  const images = stop.images || (stop.image ? [stop.image] : []);
+  const typeColor = TYPE_COLORS[stop.type] || TYPE_COLORS.sightseeing;
+  const Icon = STOP_ICONS[stop.type] || MapPin;
 
   const handleImageClick = (idx) => {
     setActiveImageIndex(idx);
@@ -89,69 +89,57 @@ export default function StopDetailDrawer({
 
         {/* Content */}
         <div className="drawer-content">
-          {/* Meta Info */}
-          <div className="stop-meta-grid">
+          {/* Highlights & Timing Strip */}
+          <div className="stop-highlights-strip">
             {stop.time && (
-              <div className="meta-item">
-                <Clock size={16} className="text-aqua" />
-                <div>
-                  <span className="meta-label">Time</span>
-                  <span className="meta-value">{stop.time}</span>
-                </div>
+              <div className="strip-item">
+                <Clock size={15} className="text-aqua" />
+                <span className="strip-label">Time:</span>
+                <span className="strip-val">{stop.time}</span>
               </div>
             )}
             {stop.duration && (
-              <div className="meta-item">
-                <Clock size={16} className="text-amber" />
-                <div>
-                  <span className="meta-label">Duration</span>
-                  <span className="meta-value">{stop.duration}</span>
-                </div>
+              <div className="strip-item">
+                <Clock size={15} className="text-amber" />
+                <span className="strip-label">Duration:</span>
+                <span className="strip-val">{stop.duration}</span>
               </div>
             )}
             {stop.ticketStatus && (
-              <div className="meta-item">
-                <Star size={16} className="text-gold" />
-                <div>
-                  <span className="meta-label">Ticket</span>
-                  <span className="meta-value">{stop.ticketStatus}</span>
-                </div>
+              <div className="strip-item highlight">
+                <Star size={15} className="text-gold" />
+                <span className="strip-label">Inclusions:</span>
+                <span className="strip-val">{stop.ticketStatus}</span>
               </div>
             )}
             {stop.type === 'hotel' && currentDayData?.stayTier && (
-              <div className="meta-item">
-                <BedDouble size={16} className="text-purple" />
-                <div>
-                  <span className="meta-label">Stay</span>
-                  <span className="meta-value">{currentDayData.stayTier}</span>
-                </div>
+              <div className="strip-item">
+                <BedDouble size={15} className="text-purple" />
+                <span className="strip-label">Stay:</span>
+                <span className="strip-val">{currentDayData.stayTier}</span>
               </div>
             )}
             {stop.type === 'meal' && tour?.dietary && (
-              <div className="meta-item">
-                <Utensils size={16} className="text-emerald" />
-                <div>
-                  <span className="meta-label">Meals</span>
-                  <span className="meta-value">{tour.dietary}</span>
-                </div>
+              <div className="strip-item">
+                <Utensils size={15} className="text-emerald" />
+                <span className="strip-label">Meals:</span>
+                <span className="strip-val">{tour.dietary}</span>
               </div>
             )}
             {stop.type === 'transport' && tour?.vehicle && (
-              <div className="meta-item">
-                <Car size={16} className="text-cyan" />
-                <div>
-                  <span className="meta-label">Vehicle</span>
-                  <span className="meta-value">{tour.vehicle.replace('Private Toyota ', '').replace(' (AC)', '')}</span>
-                </div>
+              <div className="strip-item">
+                <Car size={15} className="text-cyan" />
+                <span className="strip-label">Vehicle:</span>
+                <span className="strip-val">{tour.vehicle.replace('Private Toyota ', '').replace(' (AC)', '')}</span>
               </div>
             )}
           </div>
 
-          {/* Description */}
-          {stop.desc && (
-            <div className="stop-description">
-              <h3>About This Stop</h3>
-              <div dangerouslySetInnerHTML={{ __html: stop.desc }} />
+          {/* Experience Description */}
+          {(stop.description || stop.desc) && (
+            <div className="stop-description-card">
+              <h3 className="stop-desc-title">Experience & Route Highlights</h3>
+              <p className="stop-desc-text">{stop.description || stop.desc}</p>
             </div>
           )}
 

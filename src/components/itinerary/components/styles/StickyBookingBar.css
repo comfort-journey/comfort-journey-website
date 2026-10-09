@@ -1,183 +1,330 @@
 /* =========================================================================
-   STICKY BOOKING BAR STYLES
+   STICKY BOOKING BAR V3 - High Converting & Perfectly Aligned
    ========================================================================= */
 
 .sticky-booking-bar {
-  position: sticky;
+  position: fixed;
   bottom: 0;
-  z-index: var(--z-sticky);
-  height: var(--footer-height);
-  background: rgba(0, 14, 40, 0.98);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid var(--itin-border);
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(10, 19, 36, 0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-top: 1.5px solid rgba(251, 146, 60, 0.45);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4);
+  padding: 12px 24px;
   flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.sticky-booking-bar.is-scrolled {
+  box-shadow: 0 -12px 48px rgba(0, 0, 0, 0.55);
+  border-top-color: rgba(251, 146, 60, 0.7);
+  background: rgba(8, 15, 28, 0.98);
+}
+
+.sticky-bar-inner {
+  max-width: 1320px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-3) var(--space-5);
-  gap: var(--space-4);
+  gap: 24px;
+  width: 100%;
+}
+
+/* Pricing Column */
+.bar-pricing-col {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.bar-pricing-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.price-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #CBD5E1;
+}
+
+.original-price {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #94A3B8;
+  text-decoration: line-through;
+}
+
+.discount-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  background: rgba(234, 88, 12, 0.25);
+  border: 1px solid rgba(251, 146, 60, 0.6);
+  color: #FDBA74;
+  font-size: 0.74rem;
+  font-weight: 800;
+  border-radius: 9999px;
+  letter-spacing: 0.03em;
+}
+
+.bar-pricing-main {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
-.bar-left {
-  flex: 1;
-  min-width: 200px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.price-box {
-  display: inline-flex;
-  align-items: baseline;
-  gap: var(--space-2);
-  background: linear-gradient(135deg, rgba(255, 137, 47, 0.12) 0%, rgba(255, 137, 47, 0.06) 100%);
-  border: 1px solid rgba(255, 137, 47, 0.25);
-  border-radius: var(--radius-full);
-  padding: var(--space-2) var(--space-4);
-}
-
-.price-caption {
-  font-size: 0.62rem;
-  font-weight: 600;
-  color: var(--itin-text-subtle);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.price-amount {
-  font-family: 'Fraunces', serif;
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: var(--itin-tangerine-500);
+.current-price-val {
+  font-family: var(--font-heading, 'Outfit', 'Fraunces', serif);
+  font-size: 1.85rem;
+  font-weight: 900;
+  color: #FB923C;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 14px rgba(234, 88, 12, 0.35);
 }
 
 .price-unit {
-  font-size: 0.7rem;
-  color: var(--itin-text-muted);
-  font-weight: 500;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #E2E8F0;
 }
 
-.quick-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-}
-
-.meta-chip {
+.price-inclusive-badge {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-1);
-  padding: var(--space-1) var(--space-2);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: var(--itin-text-muted);
-  border-radius: var(--radius-full);
-  font-size: 0.68rem;
-  font-weight: 600;
-  white-space: nowrap;
+  gap: 4px;
+  padding: 3px 9px;
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #34D399;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  margin-left: 4px;
 }
 
-.bar-right {
+.bar-pricing-sub {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: 7px;
+  font-size: 0.76rem;
+  color: #CBD5E1;
+  font-weight: 600;
+}
+
+.dot-sep {
+  opacity: 0.45;
+  font-size: 0.6rem;
+}
+
+/* Actions Column */
+.bar-actions-col {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   flex-shrink: 0;
 }
 
-.action-btn {
+.bar-btn {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-full);
+  justify-content: center;
+  gap: 9px;
+  border-radius: 9999px;
   font-family: inherit;
-  font-size: 0.78rem;
   font-weight: 700;
   cursor: pointer;
-  transition: all var(--transition-fast);
-  white-space: nowrap;
   border: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
 }
 
-.action-btn.share-btn {
-  background: rgba(111, 230, 252, 0.12);
-  border: 1px solid rgba(111, 230, 252, 0.25);
-  color: var(--itin-aqua-500);
+/* Share Button */
+.bar-share-btn {
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
+  font-size: 0.84rem;
 }
 
-.action-btn.share-btn:hover {
-  background: rgba(111, 230, 252, 0.2);
-  border-color: var(--itin-aqua-500);
-  color: var(--itin-aqua-400);
+.bar-share-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
 }
 
-.action-btn.whatsapp-btn {
+/* Quick Enquiry Button */
+.bar-enquire-btn {
+  padding: 10px 20px;
+  background: rgba(251, 146, 60, 0.16);
+  border: 1.5px solid #FB923C;
+  color: #FDBA74;
+  font-size: 0.84rem;
+}
+
+.bar-enquire-btn:hover {
+  background: #FB923C;
+  color: #0F1E36;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 18px rgba(251, 146, 60, 0.4);
+}
+
+/* WhatsApp Button */
+.bar-whatsapp-btn {
+  padding: 10px 20px;
   background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
   color: #FFFFFF;
-  padding: var(--space-3) var(--space-5);
-  font-size: 0.82rem;
-  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.32);
+  min-width: 175px;
 }
 
-.action-btn.whatsapp-btn:hover {
+.bar-whatsapp-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.5);
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.46);
+  filter: brightness(1.05);
 }
 
-.action-btn.book-btn {
-  background: linear-gradient(135deg, var(--itin-tangerine-500) 0%, var(--itin-tangerine-600) 100%);
-  color: var(--itin-navy-950);
-  padding: var(--space-3) var(--space-5);
-  font-size: 0.82rem;
-  box-shadow: 0 4px 16px rgba(255, 137, 47, 0.35);
+/* Book Now Button */
+.bar-book-btn {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #EA580C 0%, #C2410C 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 18px rgba(234, 88, 12, 0.36);
+  min-width: 180px;
 }
 
-.action-btn.book-btn:hover {
+.bar-book-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(255, 137, 47, 0.5);
+  box-shadow: 0 8px 28px rgba(234, 88, 12, 0.5);
+  filter: brightness(1.06);
 }
 
-.hidden-mobile {
-  display: inline;
+.btn-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
 }
 
-@media (max-width: 640px) {
-  .hidden-mobile {
+.btn-main-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.btn-sub-caption {
+  font-size: 0.65rem;
+  font-weight: 500;
+  opacity: 0.88;
+}
+
+/* =========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================= */
+@media (max-width: 900px) {
+  .bar-pricing-sub {
     display: none;
   }
+  
+  .btn-sub-caption {
+    display: none;
+  }
+
+  .bar-whatsapp-btn,
+  .bar-book-btn {
+    min-width: auto;
+    padding: 10px 16px;
+  }
 }
 
-/* Mobile adjustments */
 @media (max-width: 768px) {
   .sticky-booking-bar {
-    padding: var(--space-2) var(--space-3);
-    height: auto;
-    min-height: var(--footer-height);
+    padding: 10px 14px;
   }
-  
-  .price-box {
-    width: 100%;
-    justify-content: center;
-  }
-  
-  .quick-meta {
-    justify-content: center;
-  }
-  
-  .bar-right {
-    width: 100%;
+
+  .sticky-bar-inner {
     flex-direction: column;
-    gap: var(--space-2);
+    align-items: stretch;
+    gap: 10px;
   }
-  
-  .action-btn {
+
+  .bar-pricing-col {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
+  }
+
+  .bar-pricing-top {
+    gap: 6px;
+  }
+
+  .current-price-val {
+    font-size: 1.35rem;
+  }
+
+  .bar-actions-col {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr 1fr;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .bar-share-btn {
+    padding: 10px 11px;
+    border-radius: 12px;
+  }
+
+  .bar-enquire-btn {
+    padding: 10px 10px;
+    border-radius: 12px;
+    justify-content: center;
+    font-size: 0.76rem;
+  }
+
+  .bar-whatsapp-btn,
+  .bar-book-btn {
+    padding: 10px 10px;
+    border-radius: 12px;
     justify-content: center;
   }
-  
-  .action-btn .hidden-mobile {
-    display: inline;
+
+  .btn-main-title {
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bar-actions-col {
+    grid-template-columns: auto 1fr 1fr;
+  }
+
+  .bar-share-btn {
+    grid-column: span 1;
+  }
+
+  .bar-enquire-btn {
+    grid-column: span 1;
+  }
+
+  .bar-whatsapp-btn {
+    grid-column: span 1;
+  }
+
+  .bar-book-btn {
+    grid-column: 1 / -1;
   }
 }

@@ -5,9 +5,7 @@ import { contentService } from '../../services/contentService';
 import { TOURS_DATA } from '../../data/toursData';
 import { resolveDestinationWaypoints } from '../../data/destinationWaypoints';
 import ItineraryLayout from './components/ItineraryLayout';
-import OverviewTab from './components/OverviewTab';
-import ItineraryTab from './components/ItineraryTab';
-import MapTab from './components/MapTab';
+import UnifiedOnePageItinerary from './components/UnifiedOnePageItinerary';
 import StickyBookingBar from './components/StickyBookingBar';
 import ShareExportMenu from './components/ShareExportMenu';
 import StopDetailDrawer from './components/StopDetailDrawer';
@@ -91,13 +89,12 @@ export default function ItineraryPage({ initialTour, onBackToHome, onBookNow, on
   const [error, setError] = useState(null);
   
   // UI State
-  const [activeTab, setActiveTab] = useState('itinerary');
   const [activeDay, setActiveDay] = useState(1);
   const [selectedStop, setSelectedStop] = useState(null);
   const [showStopDrawer, setShowStopDrawer] = useState(false);
   const [showShareMenu, setShowShareMenu] = useState(false);
   const [mapStyle, setMapStyle] = useState('streets');
-  const [routeMode, setRouteMode] = useState('day'); // 'day' | 'full'
+  const [routeMode, setRouteMode] = useState('day'); // 'day' | 'all'
   
   // Shareable URL state
   const { updateURL, getURLParam } = useShareableURL();
@@ -105,12 +102,9 @@ export default function ItineraryPage({ initialTour, onBackToHome, onBookNow, on
   // Initialize from URL params
   useEffect(() => {
     const dayParam = getURLParam('day');
-    const stopParam = getURLParam('stop');
-    const tabParam = getURLParam('tab');
     const routeParam = getURLParam('route');
     
     if (dayParam) setActiveDay(parseInt(dayParam, 10));
-    if (tabParam) setActiveTab(tabParam);
     if (routeParam) setRouteMode(routeParam);
   }, [getURLParam]);
   
@@ -135,7 +129,7 @@ export default function ItineraryPage({ initialTour, onBackToHome, onBookNow, on
         let tourData = null;
 
         if (id) {
-          // 1. Instant local lookup (0ms)
+          // 1. Instant local lookup
           tourData = contentService.getTourBySlug(id) || contentService.getTourById(id);
 
           // 2. Fall back to directusService if not found
@@ -192,6 +186,61 @@ export default function ItineraryPage({ initialTour, onBackToHome, onBookNow, on
     loadTour();
   }, [currentTourId, initialTour]);
   
+  // Itinerary and Map sync hooks (MUST be called unconditionally before early returns)
+  const { enrichedItinerary } = useItineraryData(tour);
+  const { setMapInstance, flyToStop, highlightStop } = useMapSync(enrichedItinerary, activeDay, routeMode);
+
+  // Derived current day data
+  const currentDayData = useMemo(() => {
+    if (!enrichedItinerary?.length) return null;
+    return enrichedItinerary.find(d => d.day === activeDay) || enrichedItinerary[0];
+  }, [enrichedItinerary, activeDay]);
+
+  // Handlers
+  const handleDayChange = useCallback((day) => {
+    setActiveDay(day);
+    updateURL({ day });
+  }, [updateURL]);
+
+  const handleStopSelect = useCallback((stop) => {
+    setSelectedStop(stop);
+    setShowStopDrawer(true);
+    if (stop) {
+      flyToStop(stop);
+      highlightStop(stop.title);
+      updateURL({ stop: stop.title });
+    } else {
+      updateURL({ stop: null });
+    }
+  }, [flyToStop, highlightStop, updateURL]);
+
+  const handleRouteModeChange = useCallback((mode) => {
+    setRouteMode(mode);
+    updateURL({ route: mode });
+  }, [updateURL]);
+
+  const handleWhatsAppInquiry = useCallback(() => {
+    if (!tour) return;
+    const msg = encodeURIComponent(
+      `Hi Comfort Journey! I'm interested in booking the "${tour.name}" tour package.\n` +
+      `📅 Duration: ${tour.duration} (${enrichedItinerary?.length || 5} Days)\n` +
+      `💰 Price: ${formatPrice(tour.price)}/person\n` +
+      `🚗 Cab: ${tour.vehicle || 'Private AC Cab'}\n` +
+      `Please share availability and customized quote for our dates!`
+    );
+    window.open(`https://wa.me/918770403315?text=${msg}`, '_blank');
+  }, [tour, enrichedItinerary, formatPrice]);
+
+  const handleBookNowClick = useCallback(() => {
+    if (onBookNow) {
+      onBookNow(tour);
+    } else if (onOpenQuote) {
+      onOpenQuote(tour);
+    } else {
+      window.dispatchEvent(new CustomEvent('open-booking', { detail: tour }));
+    }
+  }, [onBookNow, onOpenQuote, tour]);
+
   // Error boundary render
   if (error) {
     return (
@@ -213,160 +262,45 @@ export default function ItineraryPage({ initialTour, onBackToHome, onBookNow, on
       <ItineraryLayout isLoading={true} onBackToHome={onBackToHome}>
         <div className="itin-loading-overlay">
           <div className="loading-spinner" />
-          <p>Loading your personalized itinerary...</p>
+          <p>Loading your curated one-page itinerary...</p>
         </div>
       </ItineraryLayout>
     );
   }
-  
-  // Itinerary and Map sync hooks
-  const { enrichedItinerary, waypointsMap } = useItineraryData(tour);
-  const { setMapInstance, flyToStop, highlightStop } = useMapSync(enrichedItinerary, activeDay, routeMode);
-
-  // Derived current day data
-  const currentDayData = useMemo(() => {
-    if (!enrichedItinerary?.length) return null;
-    return enrichedItinerary.find(d => d.day === activeDay) || enrichedItinerary[0];
-  }, [enrichedItinerary, activeDay]);
-
-  const currentDayStops = useMemo(() => {
-    return currentDayData?.stops || [];
-  }, [currentDayData]);
-
-  const currentDayRoute = useMemo(() => {
-    return currentDayStops
-      .filter(s => s.lat && s.lng)
-      .map(s => [s.lat, s.lng]);
-  }, [currentDayStops]);
-
-  const fullTourRoute = useMemo(() => {
-    if (!enrichedItinerary?.length) return [];
-    const allStops = [];
-    enrichedItinerary.forEach(d => {
-      (d.stops || []).forEach(s => {
-        if (s.lat && s.lng) allStops.push([s.lat, s.lng]);
-      });
-    });
-    return allStops;
-  }, [enrichedItinerary]);
-
-  // Handlers
-  const handleTabChange = useCallback((tab) => {
-    setActiveTab(tab);
-    updateURL({ tab });
-  }, [updateURL]);
-
-  const handleDayChange = useCallback((day) => {
-    setActiveDay(day);
-    updateURL({ day });
-  }, [updateURL]);
-
-  const handleStopSelect = useCallback((stop) => {
-    setSelectedStop(stop);
-    setShowStopDrawer(true);
-    if (stop) {
-      flyToStop(stop);
-      highlightStop(stop.title);
-      updateURL({ stop: stop.title });
-    } else {
-      updateURL({ stop: null });
-    }
-  }, [flyToStop, highlightStop, updateURL]);
-
-  const handleMapDayChange = useCallback((day) => {
-    setActiveDay(day);
-    updateURL({ day });
-  }, [updateURL]);
-
-  const handleRouteModeChange = useCallback((mode) => {
-    setRouteMode(mode);
-    updateURL({ route: mode });
-  }, [updateURL]);
 
   if (!tour) return null;
-  
-  const renderOverviewTab = () => (
-    <OverviewTab
-      tour={tour}
-      enrichedItinerary={enrichedItinerary}
-      formatPrice={formatPrice}
-      activeDay={activeDay}
-      onDayChange={handleDayChange}
-    />
-  );
-  
-  const renderItineraryTab = () => (
-    <ItineraryTab
-      tour={tour}
-      enrichedItinerary={enrichedItinerary}
-      activeDay={activeDay}
-      selectedStop={selectedStop}
-      onDayChange={handleDayChange}
-      onStopSelect={handleStopSelect}
-      formatPrice={formatPrice}
-    />
-  );
-  
-  const renderMapTab = () => (
-    <MapTab
-      tour={tour}
-      enrichedItinerary={enrichedItinerary}
-      activeDay={activeDay}
-      routeMode={routeMode}
-      selectedStop={selectedStop}
-      currentDayStops={currentDayStops}
-      currentDayRoute={currentDayRoute}
-      fullTourRoute={fullTourRoute}
-      mapStyle={mapStyle}
-      setMapInstance={setMapInstance}
-      onDayChange={handleMapDayChange}
-      onStopSelect={handleStopSelect}
-      onRouteModeChange={handleRouteModeChange}
-      onMapStyleChange={setMapStyle}
-    />
-  );
-  
-  const renderTabContent = () => {
-    switch (activeTab) {
-      case 'overview': return renderOverviewTab();
-      case 'itinerary': return renderItineraryTab();
-      case 'map': return renderMapTab();
-      default: return renderItineraryTab();
-    }
-  };
   
   return (
     <ItineraryLayout
       tour={tour}
-      activeTab={activeTab}
-      onTabChange={handleTabChange}
       onBackToHome={onBackToHome}
-      activeDay={activeDay}
-      onDayChange={handleDayChange}
-      routeMode={routeMode}
-      onRouteModeChange={handleRouteModeChange}
-      enrichedItinerary={enrichedItinerary}
-      tabContent={renderTabContent()}
+      onShare={() => setShowShareMenu(true)}
+      tabContent={
+        <UnifiedOnePageItinerary
+          tour={tour}
+          enrichedItinerary={enrichedItinerary}
+          activeDay={activeDay}
+          onDayChange={handleDayChange}
+          selectedStop={selectedStop}
+          onStopSelect={handleStopSelect}
+          formatPrice={formatPrice}
+          routeMode={routeMode}
+          onRouteModeChange={handleRouteModeChange}
+          mapStyle={mapStyle}
+          onMapStyleChange={setMapStyle}
+          setMapInstance={setMapInstance}
+          onBookNow={handleBookNowClick}
+          onWhatsApp={handleWhatsAppInquiry}
+          onShare={() => setShowShareMenu(true)}
+        />
+      }
       stickyBookingBar={
         <StickyBookingBar
           tour={tour}
           currentDayData={currentDayData}
           formatPrice={formatPrice}
-          onWhatsApp={() => {
-            const msg = encodeURIComponent(
-              `Hi Comfort Journey! I'm reviewing the "${tour.name}" itinerary.\n` +
-              `📅 ${tour.duration} | 💰 ${formatPrice(tour.price)}/person\n` +
-              `Please share availability and booking details!`
-            );
-            window.open(`https://wa.me/918770403315?text=${msg}`, '_blank');
-          }}
-          onBookNow={() => {
-            if (onBookNow) {
-              onBookNow(tour);
-            } else {
-              window.dispatchEvent(new CustomEvent('open-booking', { detail: tour }));
-            }
-          }}
+          onWhatsApp={handleWhatsAppInquiry}
+          onBookNow={handleBookNowClick}
           onShare={() => setShowShareMenu(true)}
         />
       }

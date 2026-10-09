@@ -353,7 +353,8 @@
   position: sticky;
   bottom: 0;
   z-index: var(--z-sticky);
-  height: var(--footer-height);
+  height: auto;
+  min-height: fit-content;
   background: rgba(0, 14, 40, 0.98);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);

@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Clock, MapPin, ChevronDown, ChevronUp, Car, Camera, Utensils, BedDouble, ShoppingBag, MapPin as MapPinIcon, Image, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { Clock, MapPin, ChevronDown, ChevronUp, Car, Camera, Utensils, BedDouble, ShoppingBag, Star, ExternalLink, Navigation2 } from 'lucide-react';
 import ProximityInline from './ProximityInline';
 import './styles/TimelineStop.css';
 
@@ -19,222 +19,160 @@ const TYPE_LABELS = {
   shopping: 'Shopping',
 };
 
-export default function TimelineStop({ stop, onSelect, routeMode, activeDay, stopDay }) {
-  const { Icon, typeColor, isSelected, index, ...stopData } = stop;
+export default function TimelineStop({ stop, onSelect, stopNumber, totalStops }) {
+  const { Icon, typeColor, typeLabel, isSelected, isFirst, isLast, index, ...stopData } = stop;
+  const [expanded, setExpanded] = useState(false);
   const [showProximity, setShowProximity] = useState(false);
-  const [showImages, setShowImages] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [showFullscreen, setShowFullscreen] = useState(false);
-  const carouselRef = useRef(null);
+  const cardRef = useRef(null);
   
-  const images = stopData.images || (stopData.image ? [stopData.image] : []);
-  
-  const handleClick = () => {
+  const handleCardClick = () => {
     onSelect?.(stopData);
   };
   
+  const handleExpandToggle = (e) => {
+    e.stopPropagation();
+    setExpanded(!expanded);
+  };
+
   const handleProximityToggle = (e) => {
     e.stopPropagation();
     setShowProximity(!showProximity);
   };
   
-  const handleImagesToggle = (e) => {
-    e.stopPropagation();
-    setShowImages(!showImages);
-  };
-  
-  const handleImageSelect = (idx) => {
-    setCurrentImageIndex(idx);
-    setShowFullscreen(true);
-  };
-  
-  const handleFullscreenNav = (dir) => {
-    setCurrentImageIndex((prev) => (prev + dir + images.length) % images.length);
-  };
-  
-  const handleKeyDown = (e) => {
-    if (!showFullscreen) return;
-    if (e.key === 'ArrowLeft') handleFullscreenNav(-1);
-    if (e.key === 'ArrowRight') handleFullscreenNav(1);
-    if (e.key === 'Escape') setShowFullscreen(false);
-  };
-  
-  useEffect(() => {
-    if (showFullscreen) {
-      document.addEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'hidden';
-    }
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
-    };
-  }, [showFullscreen]);
-  
-  const isStopVisible = routeMode === 'day' ? stopDay === activeDay : true;
-
-  if (!isStopVisible) return null;
+  const hasDescription = stopData.desc || stopData.description;
+  const hasExtras = Boolean(hasDescription || stopData.proximity || (stopData.lat && stopData.lng));
 
   return (
     <>
       <article
-        ref={carouselRef}
-        className={`timeline-stop ${isSelected ? 'selected' : ''} ${showProximity ? 'proximity-open' : ''}`}
+        ref={cardRef}
+        className={`stop-card-v2 ${isSelected ? 'selected' : ''} ${expanded ? 'expanded' : ''}`}
         role="listitem"
-        onClick={handleClick}
-        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick(); } }}
         tabIndex={0}
         aria-selected={isSelected}
-        aria-expanded={showProximity}
-        data-day={stopDay}
+        style={{ '--stop-color': typeColor }}
       >
-        {/* Timeline Pin */}
-        <div className="stop-pin" style={{ '--pin-color': typeColor }} aria-hidden="true">
-          <div className="pin-inner">
-            <Icon size={14} color="white" aria-hidden="true" />
+        {/* Stop Number & Type Indicator */}
+        <div className="stop-indicator">
+          <div className="stop-number-ring" style={{ borderColor: typeColor, color: typeColor }}>
+            {stopNumber}
           </div>
-          <span className="pin-sequence">{index + 1}</span>
+          <div className="stop-type-label" style={{ background: typeColor }}>
+            <Icon size={10} color="white" />
+            <span>{typeLabel}</span>
+          </div>
         </div>
-        
-        {/* Stop Content */}
-        <div className="stop-content">
-          <div className="stop-header">
-            <div className="stop-meta">
-              <span className="stop-time">
-                <Clock size={12} aria-hidden="true" />
-                <span>{stopData.time}</span>
-              </span>
-              <span className="stop-type-badge" style={{ background: typeColor }}>
-                <Icon size={10} aria-hidden="true" />
-                <span>{TYPE_LABELS[stopData.type] || stopData.type}</span>
-              </span>
-              {stopData.duration && (
-                <span className="stop-duration">
-                  <Clock size={11} /> {stopData.duration}
-                </span>
-              )}
-              {stopData.ticketStatus && (
-                <span className="stop-ticket">
-                  <Star size={11} className="text-gold" /> {stopData.ticketStatus}
-                </span>
+
+        {/* Main Content */}
+        <div className="stop-main">
+          {/* Header Row */}
+          <div className="stop-top-row" onClick={handleCardClick}>
+            <div className="stop-info">
+              <h3 className="stop-name">{stopData.title}</h3>
+              {stopData.subtitle && (
+                <p className="stop-location-hint">{stopData.subtitle}</p>
               )}
             </div>
-            
-            {stopData.proximity && (
-              <button
-                type="button"
-                className="proximity-trigger"
-                onClick={handleProximityToggle}
-                aria-label={showProximity ? 'Hide nearby places' : 'Show nearby places'}
-                aria-expanded={showProximity}
-              >
-                <MapPinIcon size={12} aria-hidden="true" />
-                <span>{showProximity ? 'Hide' : 'Nearby'}</span>
-                {showProximity ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
-              </button>
+            <button
+              className="stop-detail-btn"
+              onClick={handleCardClick}
+              aria-label="View details"
+            >
+              <ExternalLink size={14} />
+            </button>
+          </div>
+
+          {/* Meta Tags Row */}
+          <div className="stop-tags">
+            {stopData.time && (
+              <span className="tag time-tag">
+                <Clock size={12} />
+                {stopData.time}
+              </span>
+            )}
+            {stopData.duration && (
+              <span className="tag duration-tag">
+                <Clock size={12} />
+                {stopData.duration}
+              </span>
+            )}
+            {stopData.ticketStatus && (
+              <span className="tag ticket-tag">
+                <Star size={12} />
+                {stopData.ticketStatus}
+              </span>
+            )}
+            {stopData.lat && stopData.lng && (
+              <span className="tag location-tag">
+                <MapPin size={12} />
+                Location
+              </span>
             )}
           </div>
           
-          <h3 className="stop-title">{stopData.title}</h3>
-          
-          {stopData.subtitle && (
-            <p className="stop-subtitle">{stopData.subtitle}</p>
+          {/* Quick Description Preview */}
+          {hasDescription && !expanded && (
+            <p className="stop-preview-desc">
+              {(stopData.description || '').substring(0, 100)}{(stopData.description || '').length > 100 ? '...' : ''}
+            </p>
           )}
-          
-          {stopData.desc && (
-            <div className="stop-desc" dangerouslySetInnerHTML={{ __html: stopData.desc }} />
+
+          {/* Expandable Details */}
+          {hasExtras && (
+            <button className="expand-toggle" onClick={handleExpandToggle}>
+              <span>{expanded ? 'Less Details' : 'More Details'}</span>
+              {expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+            </button>
           )}
-          
-          {/* Images Carousel */}
-          {images.length > 0 && (
-            <div className="stop-images">
-              <button
-                type="button"
-                className="images-trigger"
-                onClick={handleImagesToggle}
-                aria-label={showImages ? 'Hide photos' : 'View photos'}
-                aria-expanded={showImages}
-              >
-                <ImageIcon size={14} />
-                <span>{showImages ? 'Hide Photos' : `${images.length} Photo${images.length > 1 ? 's' : ''}`}</span>
-                {showImages ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
-              </button>
-              
-              {showImages && (
-                <div className="images-carousel" ref={carouselRef}>
-                  {images.map((img, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      className="image-slide"
-                      onClick={() => handleImageSelect(idx)}
-                      aria-label={`View photo ${idx + 1} of ${images.length}`}
-                    >
-                      <img 
-                        src={img} 
-                        alt={`${stopData.title} - Photo ${idx + 1}`} 
-                        loading="lazy"
-                        className="carousel-image"
-                      />
-                      {images.length > 1 && (
-                        <span className="image-counter">{idx + 1} / {images.length}</span>
-                      )}
-                    </button>
-                  ))}
+
+          {expanded && (
+            <div className="stop-expanded-content">
+              {/* Full Description */}
+              {hasDescription && (
+                <div className="stop-full-desc">
+                  <div dangerouslySetInnerHTML={{ __html: stopData.desc || stopData.description }} />
                 </div>
               )}
+
+              {/* Proximity / Nearby */}
+              {stopData.proximity && (
+                <div className="stop-proximity-section">
+                  <button className="proximity-header" onClick={handleProximityToggle}>
+                    <MapPin size={14} />
+                    <span>Nearby Places</span>
+                    {showProximity ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                  </button>
+                  {showProximity && <ProximityInline proximity={stopData.proximity} />}
+                </div>
+              )}
+
+              {/* Actions / Map Link */}
+              <div className="stop-action-row">
+                {stopData.lat && stopData.lng && (
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${stopData.lat},${stopData.lng}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="stop-map-link"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Navigation2 size={14} />
+                    <span>Open in Google Maps</span>
+                    <ExternalLink size={12} />
+                  </a>
+                )}
+                <button
+                  type="button"
+                  className="stop-details-btn"
+                  onClick={handleCardClick}
+                >
+                  <span>Full Stop Details</span>
+                </button>
+              </div>
             </div>
           )}
         </div>
-        
-        {/* Inline Proximity Expansion */}
-        {showProximity && stopData.proximity && (
-          <ProximityInline proximity={stopData.proximity} />
-        )}
       </article>
-      
-      {/* Fullscreen Image Modal */}
-      {showFullscreen && (
-        <div className="image-fullscreen" role="dialog" aria-modal="true" aria-label="Fullscreen photo view">
-          <button
-            className="fullscreen-close"
-            onClick={() => setShowFullscreen(false)}
-            aria-label="Close fullscreen"
-          >
-            <ChevronLeft size={24} />
-          </button>
-          
-          {images.length > 1 && (
-            <>
-              <button
-                className="fullscreen-nav prev"
-                onClick={() => handleFullscreenNav(-1)}
-                aria-label="Previous photo"
-              >
-                <ChevronLeft size={24} />
-              </button>
-              <button
-                className="fullscreen-nav next"
-                onClick={() => handleFullscreenNav(1)}
-                aria-label="Next photo"
-              >
-                <ChevronRight size={24} />
-              </button>
-            </>
-          )}
-          
-          <img
-            className="fullscreen-image"
-            src={images[currentImageIndex]}
-            alt={`${stopData.title} - Photo ${currentImageIndex + 1}`}
-          />
-          
-          {images.length > 1 && (
-            <div className="fullscreen-counter">
-              {currentImageIndex + 1} / {images.length}
-            </div>
-          )}
-        </div>
-      )}
     </>
   );
 }
