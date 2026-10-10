@@ -1,24 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Send, MessageCircle, PhoneCall, CheckCircle2, ArrowRight, ArrowLeft, Calendar, Users, Hotel, Car, MapPin, Sparkles } from 'lucide-react';
 import { TOURS_DATA } from '../data/toursData';
+import { getTravelerProfile, saveLead } from '../services/leadStorageService';
 
 export default function QuickBookingModal({ selectedTour, onClose }) {
+  const profile = getTravelerProfile();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     destination: selectedTour ? (selectedTour.name || selectedTour.title) : (TOURS_DATA[0]?.name || 'Peace In The Pines'),
     travelMonth: 'Next 30 Days (Immediate)',
     exactDate: '',
     duration: '5–7 Days',
-    travelers: '2 Persons (Couple)',
+    travelers: profile.guests || '2 Persons (Couple)',
     pace: 'Moderate & Scenic',
     hotelTier: '4-Star Premium Deluxe',
     transportType: 'Private SUV (Toyota Innova Crysta)',
-    name: '',
-    phone: '',
+    name: profile.name || '',
+    phone: profile.phone || '',
     specialNotes: ''
   });
 
   const [submitted, setSubmitted] = useState(false);
+
+  // Sync profile if filled elsewhere
+  useEffect(() => {
+    const fresh = getTravelerProfile();
+    if (fresh.name && !formData.name) {
+      setFormData(prev => ({
+        ...prev,
+        name: fresh.name,
+        phone: fresh.phone || prev.phone,
+        travelers: fresh.guests || prev.travelers
+      }));
+    }
+  }, []);
 
   const updateField = (field, val) => {
     setFormData(prev => ({ ...prev, [field]: val }));
@@ -36,6 +51,23 @@ export default function QuickBookingModal({ selectedTour, onClose }) {
   const handleFinalSubmit = (e) => {
     if (e) e.preventDefault();
     if (!formData.name || !formData.phone) return;
+
+    // Save lead centrally in CRM and persist user profile for returning auto-fill
+    saveLead({
+      destination: formData.destination,
+      tourName: formData.destination,
+      travelDate: `${formData.travelMonth} ${formData.exactDate ? `(${formData.exactDate})` : ''}`,
+      duration: formData.duration,
+      travelers: formData.travelers,
+      guests: formData.travelers,
+      pace: formData.pace,
+      hotelTier: formData.hotelTier,
+      transportType: formData.transportType,
+      name: formData.name,
+      phone: formData.phone,
+      specialNotes: formData.specialNotes,
+      source: '5-Step Bespoke Enquiry Modal'
+    });
 
     const message = `Hi Comfort Journey! I would like to request a bespoke tour proposal:
 📍 *Destination:* ${formData.destination}

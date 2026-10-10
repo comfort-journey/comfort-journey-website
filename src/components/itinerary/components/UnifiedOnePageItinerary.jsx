@@ -54,6 +54,36 @@ export default function UnifiedOnePageItinerary({
 
   if (!tour || !enrichedItinerary?.length) return null;
 
+  // Extract clean, compact 1-2 word theme label for day selector buttons
+  const getShortDayTheme = (dayObj, count) => {
+    if (dayObj.shortTheme) return dayObj.shortTheme;
+    const dayNum = dayObj.day;
+    if (dayNum === 1) return 'Arrival';
+    if (dayNum === count && count > 1) return 'Departure';
+
+    const raw = (dayObj.title || '')
+      .replace(new RegExp(`^Day\\s*${dayNum}\\s*[:\\-]\\s*`, 'i'), '')
+      .trim();
+
+    // Strip long boilerplate location tails & repetitive words
+    let clean = raw
+      .replace(/\s+in\s+.*$/i, '')
+      .replace(/\s+from\s+.*$/i, '')
+      .replace(/\s+-\s*Day\s*\d+.*$/i, '')
+      .replace(/^Curated\s+/i, '')
+      .replace(/^Scenic\s+/i, '')
+      .replace(/^Royal\s+/i, '')
+      .replace(/^Heritage\s*&\s*Scenic\s+/i, 'Excursion ')
+      .trim();
+
+    if (!clean || clean.length < 3) return 'Sightseeing';
+    const words = clean.split(' ').filter(Boolean);
+    if (words.length > 2) {
+      return words.slice(0, 2).join(' ');
+    }
+    return clean;
+  };
+
   const totalDays = enrichedItinerary.length;
   const currentDayData = enrichedItinerary.find(d => d.day === activeDay) || enrichedItinerary[0];
 
@@ -351,7 +381,8 @@ export default function UnifiedOnePageItinerary({
       <section id="itinerary-plan" className="onepage-schedule-section">
         <div className="onepage-container">
           {/* Section Heading */}
-          <div className="schedule-header-row">
+          {/* Section Heading & Mobile Switcher */}
+          <div className="schedule-header">
             <div>
               <span className="section-eyebrow">Handcrafted Day-by-Day</span>
               <h2 className="section-heading">Curated Daily Itinerary</h2>
@@ -360,14 +391,14 @@ export default function UnifiedOnePageItinerary({
               </p>
             </div>
 
-            {/* Mobile Switcher (Timeline vs Enquiry Form) */}
+            {/* Mobile Switcher (Timeline vs Enquiry Form - Hidden on Desktop) */}
             <div className="mobile-view-toggle">
               <button
                 type="button"
                 className={`toggle-btn ${mobileViewMode === 'timeline' ? 'active' : ''}`}
                 onClick={() => setMobileViewMode('timeline')}
               >
-                <List size={16} />
+                <List size={15} />
                 <span>Day Timeline</span>
               </button>
               <button
@@ -375,32 +406,55 @@ export default function UnifiedOnePageItinerary({
                 className={`toggle-btn ${mobileViewMode === 'enquiry' ? 'active' : ''}`}
                 onClick={() => setMobileViewMode('enquiry')}
               >
-                <Send size={16} />
+                <Send size={15} />
                 <span>Enquire Now</span>
               </button>
             </div>
           </div>
 
-          {/* Interactive Day Horizontal Pill Bar */}
-          <div className="day-selector-track" ref={dayScrollRef}>
-            {enrichedItinerary.map((d) => {
-              const isActive = d.day === activeDay;
-              return (
-                <button
-                  key={d.day}
-                  type="button"
-                  id={`day-pill-${d.day}`}
-                  className={`day-pill ${isActive ? 'active' : ''}`}
-                  onClick={() => onDayChange(d.day)}
-                >
-                  <span className="day-pill-num">Day {d.day}</span>
-                  <span className="day-pill-title" title={d.title}>
-                    {d.title?.replace(new RegExp(`^Day\\s*${d.day}\\s*[:\\-]\\s*`, 'i'), '') || `Day ${d.day}`}
-                  </span>
-                  {isActive && <span className="active-dot" />}
-                </button>
-              );
-            })}
+          {/* Interactive Day Horizontal Pill Bar with Navigation Arrows */}
+          <div className="onepage-day-selector">
+            <button
+              type="button"
+              className="day-nav-arrow prev"
+              onClick={() => onDayChange(Math.max(1, activeDay - 1))}
+              disabled={activeDay === 1}
+              aria-label="Previous day"
+              title="Previous Day"
+            >
+              <ChevronLeft size={16} />
+            </button>
+
+            <div className="day-pills-row" ref={dayScrollRef}>
+              {enrichedItinerary.map((d) => {
+                const isActive = d.day === activeDay;
+                const shortLabel = getShortDayTheme(d, totalDays);
+                return (
+                  <button
+                    key={d.day}
+                    type="button"
+                    id={`day-pill-${d.day}`}
+                    className={`day-pill ${isActive ? 'active' : ''}`}
+                    onClick={() => onDayChange(d.day)}
+                    title={`Day ${d.day}: ${d.title || shortLabel}`}
+                  >
+                    <span className="pill-day-num">Day {d.day}</span>
+                    <span className="pill-stops-num">{shortLabel}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <button
+              type="button"
+              className="day-nav-arrow next"
+              onClick={() => onDayChange(Math.min(totalDays, activeDay + 1))}
+              disabled={activeDay === totalDays}
+              aria-label="Next day"
+              title="Next Day"
+            >
+              <ChevronRight size={16} />
+            </button>
           </div>
 
           {/* Two-Column Grid: Left Day Timeline (65%) + Right Sticky Enquiry Form (35%) */}

@@ -1,18 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Send, MessageCircle, CheckCircle2, User, Phone, Calendar, Users, FileText, Sparkles } from 'lucide-react';
+import { getTravelerProfile, saveLead } from '../../../services/leadStorageService';
 import './styles/QuickEnquiryCard.css';
 
 export default function QuickEnquiryCard({ tour, onClose }) {
+  const profile = getTravelerProfile();
   const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
+    name: profile.name || '',
+    phone: profile.phone || '',
     travelDate: '',
-    guests: '2 Persons (Couple)',
+    guests: profile.guests || '2 Persons (Couple)',
     notes: ''
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Re-sync if profile changes in another tab
+  useEffect(() => {
+    const fresh = getTravelerProfile();
+    if (fresh.name && !formData.name) {
+      setFormData(prev => ({
+        ...prev,
+        name: fresh.name,
+        phone: fresh.phone || prev.phone,
+        guests: fresh.guests || prev.guests
+      }));
+    }
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,17 +51,11 @@ export default function QuickEnquiryCard({ tour, onClose }) {
       destination: tour?.destination || tour?.location,
       duration: tour?.duration,
       ...formData,
-      timestamp: new Date().toISOString()
+      source: 'Quick Enquiry Card'
     };
 
-    // Save lead to localStorage
-    try {
-      const existing = JSON.parse(localStorage.getItem('cj_enquiries') || '[]');
-      existing.unshift(leadData);
-      localStorage.setItem('cj_enquiries', JSON.stringify(existing.slice(0, 50)));
-    } catch (err) {
-      console.warn('Failed to save enquiry locally:', err);
-    }
+    // Save lead centrally to CRM and update traveler profile for returning visits
+    saveLead(leadData);
 
     // Dispatch custom event for CMS or global listeners
     window.dispatchEvent(new CustomEvent('tour-enquiry-submitted', { detail: leadData }));

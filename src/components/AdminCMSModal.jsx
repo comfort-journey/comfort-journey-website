@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   X, Lock, LayoutDashboard, FileText, Search, Database,
   UploadCloud, TrendingUp, Image as ImageIcon, Settings, FileSpreadsheet,
-  CheckCircle2, AlertTriangle, Loader2, Key, RefreshCw, Globe, ExternalLink, Sliders, Sparkles
+  CheckCircle2, AlertTriangle, Loader2, Key, RefreshCw, Globe, ExternalLink, Sliders, Sparkles, Users
 } from 'lucide-react';
 import { directusService, slugify, parseWixCsv, transformWixTourRow } from '../services/directusClient';
 import { TOURS_DATA } from '../data/toursData';
@@ -27,6 +27,7 @@ import BlogManager from './cms/BlogManager';
 import AnalyticsDashboard from './cms/AnalyticsDashboard';
 import DataHubManager from './cms/DataHubManager';
 import SiteCustomizer from './cms/SiteCustomizer';
+import LeadsInquiriesManager from './cms/LeadsInquiriesManager';
 import './cms/ContentStudio.css';
 
 // ═══════════════════════════════════════════════════════════════════
@@ -403,6 +404,7 @@ export default function AdminCMSModal({ isOpen, onClose }) {
   // ─── Tab Definitions ───
   const tabs = [
     { id: 'manage-tours', label: 'Tour Packages', icon: LayoutDashboard },
+    { id: 'leads-inquiries', label: 'Leads & Inquiries CRM', icon: Users },
     { id: 'manage-blogs', label: 'Blog & Magazine', icon: FileText },
     { id: 'site-customizer', label: 'Site & SEO Customizer', icon: Sliders },
     { id: 'global-sync', label: 'Global Live Sync', icon: UploadCloud },
@@ -499,6 +501,9 @@ export default function AdminCMSModal({ isOpen, onClose }) {
             <div className="cs-tab-content">
               {/* ── Tour Package Manager ── */}
               {activeTab === 'manage-tours' && <TourPackageManager onOpenGlobalSync={() => setActiveTab('global-sync')} />}
+
+              {/* ── Leads & Inquiries CRM Dashboard ── */}
+              {activeTab === 'leads-inquiries' && <LeadsInquiriesManager showToast={showToast} />}
 
               {/* ── Blog Manager ── */}
               {activeTab === 'manage-blogs' && <BlogManager onOpenGlobalSync={() => setActiveTab('global-sync')} />}

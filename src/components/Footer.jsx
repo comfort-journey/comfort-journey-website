@@ -27,35 +27,8 @@ const basePrefix = import.meta.env.BASE_URL.endsWith('/')
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
 
-const SCENIC_THEMES = [
-  {
-    id: 'golden-terrace',
-    name: 'Golden Terrace',
-    icon: Sun,
-    label: 'Sunset Glow',
-    file: 'images/footer/footer-bg-golden-terrace.jpg',
-    accentColor: '#FF9F1C',
-    overlayGradient: 'linear-gradient(180deg, #001233 0%, rgba(0, 18, 51, 0.4) 18%, rgba(0, 18, 51, 0.22) 42%, rgba(3, 11, 28, 0.78) 78%, #000c22 100%)'
-  },
-  {
-    id: 'misty-valley',
-    name: 'Misty Valley',
-    icon: Mountain,
-    label: 'Sunlit Peaks',
-    file: 'images/footer/footer-bg-misty-valley.jpg',
-    accentColor: '#6FE6FC',
-    overlayGradient: 'linear-gradient(180deg, #001233 0%, rgba(0, 18, 51, 0.45) 18%, rgba(0, 18, 51, 0.25) 42%, rgba(3, 11, 28, 0.8) 78%, #000c22 100%)'
-  },
-  {
-    id: 'waterfall-stream',
-    name: 'Alpine Falls',
-    icon: Waves,
-    label: 'Pure Waters',
-    file: 'images/footer/footer-bg-waterfall-stream.jpg',
-    accentColor: '#A78BFA',
-    overlayGradient: 'linear-gradient(180deg, #001233 0%, rgba(0, 18, 51, 0.5) 18%, rgba(0, 18, 51, 0.3) 42%, rgba(3, 11, 28, 0.82) 78%, #000c22 100%)'
-  }
-];
+const FOOTER_BACKGROUND_IMAGE = 'images/footer/footer-bg-golden-terrace.jpg';
+const FOOTER_GRADIENT_OVERLAY = 'linear-gradient(180deg, #001233 0%, rgba(0, 18, 51, 0.48) 18%, rgba(0, 18, 51, 0.25) 45%, rgba(3, 11, 28, 0.88) 80%, #000c22 100%)';
 
 export default function Footer({ 
   onOpenPolicy, 
@@ -64,23 +37,6 @@ export default function Footer({
   onSelectLandingPage,
   onOpenAIPlanner 
 }) {
-  const [activeThemeId, setActiveThemeId] = useState('golden-terrace');
-  const [isAutoPaused, setIsAutoPaused] = useState(false);
-  const currentTheme = SCENIC_THEMES.find(t => t.id === activeThemeId) || SCENIC_THEMES[0];
-
-  // Optional gentle automated wallpaper rotation every 14s (resets if user clicks a chip)
-  useEffect(() => {
-    if (isAutoPaused) return;
-    const timer = setInterval(() => {
-      setActiveThemeId((prev) => {
-        const currentIndex = SCENIC_THEMES.findIndex(t => t.id === prev);
-        const nextIndex = (currentIndex + 1) % SCENIC_THEMES.length;
-        return SCENIC_THEMES[nextIndex].id;
-      });
-    }, 14000);
-    return () => clearInterval(timer);
-  }, [isAutoPaused]);
-
   const handleLaunchPlanner = () => {
     if (onOpenAIPlanner) {
       onOpenAIPlanner();
@@ -94,27 +50,19 @@ export default function Footer({
     <footer 
       id="contact" 
       className="footer-cinematic-root footer-dark-anchor"
-      onMouseEnter={() => setIsAutoPaused(true)}
-      onMouseLeave={() => setIsAutoPaused(false)}
     >
-      {/* Background Scenic Layers with Cross-Fade */}
+      {/* Background Scenic Layer with Permanent Luxury Sunset Backdrop */}
       <div className="scenic-bg-container" aria-hidden="true">
-        {SCENIC_THEMES.map((theme) => {
-          const isActive = theme.id === activeThemeId;
-          return (
-            <div
-              key={theme.id}
-              className={`scenic-bg-layer ${isActive ? 'active' : ''}`}
-              style={{
-                backgroundImage: `url(${basePrefix}${theme.file})`
-              }}
-            />
-          );
-        })}
+        <div
+          className="scenic-bg-layer active"
+          style={{
+            backgroundImage: `url(${basePrefix}${FOOTER_BACKGROUND_IMAGE})`
+          }}
+        />
         {/* Cinematic Vignette & Royal Navy Gradient Fade */}
         <div 
           className="scenic-gradient-overlay"
-          style={{ background: currentTheme.overlayGradient }}
+          style={{ background: FOOTER_GRADIENT_OVERLAY }}
         />
         <div className="scenic-light-beam" />
       </div>
@@ -172,31 +120,25 @@ export default function Footer({
           </div>
 
           <div className="hero-canvas-right">
-            {/* Quick Scenic Wallpaper Switcher */}
-            <div className="scenic-switcher-card">
-              <div className="switcher-header">
-                <Sliders size={13} className="switcher-icon" />
-                <span>Scenic Vista Backdrop</span>
+            {/* VIP Brand Credibility & Direct Assurance Card */}
+            <div className="hero-trust-assurance-card">
+              <div className="assurance-header">
+                <ShieldCheck size={16} className="text-amber" />
+                <span className="assurance-title">Comfort Journey Signature Care</span>
               </div>
-              <div className="switcher-buttons">
-                {SCENIC_THEMES.map((theme) => {
-                  const isActive = theme.id === activeThemeId;
-                  return (
-                    <button
-                      key={theme.id}
-                      type="button"
-                      className={`theme-chip ${isActive ? 'active' : ''}`}
-                      onClick={() => {
-                        setActiveThemeId(theme.id);
-                        setIsAutoPaused(true);
-                      }}
-                    >
-                      <theme.icon size={13} className="chip-icon" />
-                      <span className="chip-name">{theme.name}</span>
-                      {isActive && <CheckCircle2 size={12} className="chip-check" />}
-                    </button>
-                  );
-                })}
+              <div className="assurance-pills-row">
+                <div className="assurance-item">
+                  <CheckCircle2 size={13} className="text-emerald" />
+                  <span>100% Bespoke Private Escapes</span>
+                </div>
+                <div className="assurance-item">
+                  <CheckCircle2 size={13} className="text-emerald" />
+                  <span>24/7 Dedicated On-Trip Concierge</span>
+                </div>
+                <div className="assurance-item">
+                  <CheckCircle2 size={13} className="text-emerald" />
+                  <span>Direct Tour Operator Best Rates</span>
+                </div>
               </div>
             </div>
 
@@ -656,67 +598,43 @@ export default function Footer({
           gap: 1.15rem;
         }
 
-        /* Scenic Switcher Card */
-        .scenic-switcher-card {
-          background: rgba(4, 14, 34, 0.65);
+        /* VIP Brand Trust Assurance Card */
+        .hero-trust-assurance-card {
+          background: rgba(4, 14, 34, 0.75);
           backdrop-filter: blur(20px);
-          border: 1px solid rgba(255, 255, 255, 0.14);
-          border-radius: 20px;
-          padding: 0.85rem 1.1rem;
-          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 159, 28, 0.28);
+          border-radius: 18px;
+          padding: 0.95rem 1.25rem;
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+          max-width: 380px;
         }
 
-        .switcher-header {
+        .assurance-header {
           display: flex;
           align-items: center;
-          gap: 0.45rem;
-          color: #94A3B8;
-          font-size: 0.74rem;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.06em;
-          margin-bottom: 0.6rem;
-        }
-
-        .switcher-icon {
+          gap: 0.5rem;
           color: #FF9F1C;
+          font-size: 0.78rem;
+          font-weight: 800;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          margin-bottom: 0.65rem;
         }
 
-        .switcher-buttons {
+        .assurance-pills-row {
           display: flex;
+          flex-direction: column;
           gap: 0.45rem;
         }
 
-        .theme-chip {
-          display: inline-flex;
+        .assurance-item {
+          display: flex;
           align-items: center;
-          gap: 0.35rem;
-          padding: 0.4rem 0.75rem;
-          border-radius: 9999px;
-          background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: #CBD5E1;
-          font-family: var(--font-ui);
+          gap: 0.5rem;
           font-size: 0.8rem;
           font-weight: 600;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .theme-chip:hover {
-          background: rgba(255, 255, 255, 0.12);
-          color: #FFFFFF;
-        }
-
-        .theme-chip.active {
-          background: rgba(255, 159, 28, 0.22);
-          border-color: #FF9F1C;
-          color: #FFFFFF;
-          box-shadow: 0 2px 10px rgba(255, 159, 28, 0.3);
-        }
-
-        .chip-check {
-          color: #FF9F1C;
+          color: #E2E8F0;
         }
 
         /* Google Proof Pill */
@@ -1159,9 +1077,9 @@ export default function Footer({
             margin-bottom: 1.15rem;
           }
 
-          /* Hide complex desktop scenic theme switcher on mobile */
-          .scenic-switcher-card {
-            display: none !important;
+          .hero-trust-assurance-card {
+            width: 100%;
+            max-width: 100%;
           }
 
           .footer-glass-deck {

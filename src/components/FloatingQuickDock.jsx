@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { MessageCircle, PhoneCall, Compass, ChevronUp, ChevronDown, Bot, Minus } from 'lucide-react';
 
 const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
 
 export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
   const [isMinimized, setIsMinimized] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [isMascotHovered, setIsMascotHovered] = useState(false);
-  const autoMinimizeTimerRef = useRef(null);
 
   // Open AI Planner view
   const handleOpenAIPlanner = (e) => {
@@ -20,46 +18,8 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
     }
   };
 
-  // Auto-minimize after 10s of inactivity so dock doesn't obscure content
-  const startAutoMinimizeTimer = () => {
-    if (autoMinimizeTimerRef.current) clearTimeout(autoMinimizeTimerRef.current);
-    autoMinimizeTimerRef.current = setTimeout(() => {
-      setIsMinimized(true);
-    }, 10000);
-  };
-
-  const clearAutoMinimizeTimer = () => {
-    if (autoMinimizeTimerRef.current) clearTimeout(autoMinimizeTimerRef.current);
-  };
-
-  useEffect(() => {
-    if (!isMinimized) {
-      startAutoMinimizeTimer();
-    }
-    return () => clearAutoMinimizeTimer();
-  }, [isMinimized]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > 400 && currentScrollY > lastScrollY + 20) {
-        setIsMinimized(true);
-      }
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
-
   return (
-    <div 
-      className={`quick-dock-wrapper ${isMinimized ? 'minimized' : ''}`}
-      onMouseEnter={clearAutoMinimizeTimer}
-      onMouseLeave={() => {
-        if (!isMinimized) startAutoMinimizeTimer();
-      }}
-    >
+    <div className={`quick-dock-wrapper ${isMinimized ? 'minimized' : ''}`}>
       {/* Pickyourtrail-style Cute Animated Wolf Mascot */}
       {!isMinimized && (
         <div 
@@ -335,19 +295,30 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
         }
 
         .ai-quick-btn {
-          background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(236, 72, 153, 0.3));
-          border: 1px solid rgba(192, 132, 252, 0.5);
-          color: #F3E8FF;
+          background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%) !important;
+          border: 1.5px solid rgba(255, 255, 255, 0.6) !important;
+          color: #FFFFFF !important;
+          font-weight: 800;
+          letter-spacing: 0.02em;
+          box-shadow: 0 4px 20px rgba(139, 92, 246, 0.55), 0 0 10px rgba(236, 72, 153, 0.35) !important;
+          animation: aiBtnGlow 3s infinite ease-in-out;
+        }
+
+        @keyframes aiBtnGlow {
+          0%, 100% { box-shadow: 0 4px 20px rgba(139, 92, 246, 0.55), 0 0 10px rgba(236, 72, 153, 0.35); }
+          50% { box-shadow: 0 6px 24px rgba(139, 92, 246, 0.75), 0 0 16px rgba(236, 72, 153, 0.55); transform: translateY(-1px); }
         }
 
         .ai-quick-btn:hover {
-          background: linear-gradient(135deg, #8B5CF6, #EC4899);
-          transform: translateY(-2px);
-          color: #FFFFFF;
+          background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #DB2777 100%) !important;
+          transform: translateY(-2px) scale(1.03);
+          box-shadow: 0 8px 28px rgba(139, 92, 246, 0.8), 0 0 20px rgba(236, 72, 153, 0.7) !important;
+          color: #FFFFFF !important;
         }
 
         .text-ai {
-          color: #C084FC;
+          color: #FFFFFF !important;
+          filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8));
         }
 
         .call-btn {
@@ -372,27 +343,33 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
 
         .quote-btn {
           background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.25);
+          color: #FFFFFF;
         }
 
         .quote-btn:hover {
-          background: rgba(255, 255, 255, 0.2);
+          background: rgba(255, 255, 255, 0.25);
           transform: translateY(-2px);
         }
 
         .minimize-dock-btn {
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.16);
-          padding: 0.5rem 0.58rem;
-          color: rgba(255, 255, 255, 0.7);
+          background: #0F172A !important;
+          border: 1.5px solid #475569 !important;
+          padding: 0.5rem 0.65rem;
+          color: #F8FAFC !important;
           cursor: pointer;
+          font-weight: 800;
+          border-radius: var(--radius-full);
+          transition: all 0.2s ease;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
         }
 
         .minimize-dock-btn:hover {
-          background: rgba(255, 255, 255, 0.22);
-          color: #FFFFFF;
-          transform: translateY(-2px);
-          border-color: rgba(255, 255, 255, 0.35);
+          background: #EA580C !important;
+          color: #FFFFFF !important;
+          border-color: #EA580C !important;
+          transform: scale(1.1);
+          box-shadow: 0 4px 16px rgba(234, 88, 12, 0.6);
         }
 
         .dock-minimized-wrap {
@@ -404,39 +381,46 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
         .dock-expand-trigger {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
-          padding: 0.6rem 1.1rem;
-          background: rgba(7, 11, 20, 0.95);
-          backdrop-filter: blur(16px);
-          border: 1px solid var(--color-primary);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+          gap: 0.65rem;
+          padding: 0.7rem 1.3rem;
+          background: #0B1120 !important;
+          border: 2px solid #FF892F !important;
+          box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55), 0 0 20px rgba(255, 137, 47, 0.35) !important;
           border-radius: var(--radius-full);
-          color: #FFFFFF;
-          font-weight: 700;
-          font-size: 0.84rem;
+          color: #FFFFFF !important;
+          font-weight: 800;
+          font-size: 0.9rem;
           cursor: pointer;
           transition: all 0.25s ease;
         }
 
         .dock-expand-trigger:hover {
-          background: #001A4D;
-          border-color: #FFA559;
+          background: #111C33 !important;
           transform: translateY(-2px);
-          box-shadow: 0 12px 35px rgba(255, 107, 0, 0.25);
+          box-shadow: 0 16px 42px rgba(0, 0, 0, 0.65), 0 0 26px rgba(255, 137, 47, 0.5) !important;
+        }
+
+        .dock-expand-trigger .text-ai {
+          color: #C084FC !important;
+          filter: drop-shadow(0 0 6px rgba(192, 132, 252, 0.9));
         }
 
         .chevron-trigger-box {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          padding: 2px 4px;
-          border-radius: 6px;
-          background: rgba(255, 255, 255, 0.1);
-          transition: background 0.2s ease;
+          padding: 4px 7px;
+          border-radius: 8px;
+          background: #EA580C !important;
+          border: 1px solid #F97316 !important;
+          color: #FFFFFF !important;
+          font-weight: bold;
+          transition: all 0.2s ease;
         }
 
-        .chevron-trigger-box:hover {
-          background: rgba(255, 255, 255, 0.25);
+        .dock-expand-trigger:hover .chevron-trigger-box {
+          background: #FF892F !important;
+          transform: scale(1.08);
         }
 
         @media (max-width: 768px) {
@@ -447,37 +431,19 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
 
         :root:not([data-theme="dark"]) .glass-dock-card,
         [data-theme="light"] .glass-dock-card {
-          background: rgba(255, 255, 255, 0.95);
-          border: 1px solid var(--cj-line, #E8E0CF);
-          box-shadow: 0 16px 36px rgba(20, 38, 74, 0.16);
-        }
-        :root:not([data-theme="dark"]) .dock-expand-trigger,
-        [data-theme="light"] .dock-expand-trigger {
-          background: rgba(255, 255, 255, 0.96);
-          border-color: var(--cj-line, #E8E0CF);
-          color: var(--cj-text-heading, #14264A);
-          box-shadow: 0 8px 24px rgba(20, 38, 74, 0.12);
-        }
-        :root:not([data-theme="dark"]) .dock-expand-trigger:hover,
-        [data-theme="light"] .dock-expand-trigger:hover {
-          background: #FFFFFF;
-          border-color: #FF892F;
-          box-shadow: 0 10px 28px rgba(255, 137, 47, 0.22);
+          background: rgba(15, 23, 42, 0.96) !important;
+          border: 1.5px solid rgba(255, 107, 0, 0.45) !important;
+          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4), 0 0 25px rgba(255, 107, 0, 0.18) !important;
         }
         :root:not([data-theme="dark"]) .quote-btn,
         [data-theme="light"] .quote-btn {
-          background: #F5F0E1;
-          border-color: var(--cj-line, #E8E0CF);
-          color: var(--cj-text-heading, #14264A);
+          background: rgba(255, 255, 255, 0.12) !important;
+          border-color: rgba(255, 255, 255, 0.25) !important;
+          color: #FFFFFF !important;
         }
         :root:not([data-theme="dark"]) .quote-btn:hover,
         [data-theme="light"] .quote-btn:hover {
-          background: #EDE4D0;
-        }
-        :root:not([data-theme="dark"]) .chevron-trigger-box,
-        [data-theme="light"] .chevron-trigger-box {
-          background: rgba(20, 38, 74, 0.08);
-          color: var(--cj-text-heading, #14264A);
+          background: rgba(255, 255, 255, 0.25) !important;
         }
       `}</style>
     </div>
