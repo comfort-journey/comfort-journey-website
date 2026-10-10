@@ -11,8 +11,20 @@ import QRCode from 'qrcode';
 /**
  * 1. Export Itinerary to Excel-compatible CSV format
  */
-export function exportItineraryToExcel(tripPlan) {
-  if (!tripPlan || !tripPlan.days) return;
+export function exportItineraryToExcel(rawPlan) {
+  if (!rawPlan) return;
+  const days = rawPlan.days || rawPlan.itinerary || [];
+  if (!days.length) return;
+
+  const tripPlan = {
+    title: rawPlan.name || rawPlan.title || 'Curated Vacation Itinerary',
+    destination: rawPlan.destination || rawPlan.location || 'Vacation Destination',
+    duration: rawPlan.duration || `${days.length} Days`,
+    party: rawPlan.party || 'Private Tour',
+    vehicle: rawPlan.vehicle || 'Dedicated AC Private Cab',
+    dietary: rawPlan.dietary || 'Daily Breakfast & Stays',
+    days
+  };
 
   const headers = [
     'Day',
@@ -29,17 +41,28 @@ export function exportItineraryToExcel(tripPlan) {
   const rows = [];
 
   tripPlan.days.forEach(d => {
-    d.stops.forEach(s => {
+    const stops = d.stops && Array.isArray(d.stops) && d.stops.length > 0 ? d.stops : [
+      {
+        time: '09:30 AM',
+        type: 'Sightseeing',
+        title: d.title || `Day ${d.day} Excursion`,
+        subtitle: d.desc || d.summary || '',
+        duration: 'Full Day',
+        ticketStatus: 'Included'
+      }
+    ];
+
+    stops.forEach(s => {
       const nearby = s.proximity?.landmarks ? s.proximity.landmarks.map(l => `${l.name} (${l.dist})`).join('; ') : '';
       rows.push([
         `Day ${d.day}`,
-        `"${s.time || ''}"`,
-        `"${s.type || ''}"`,
-        `"${(s.title || '').replace(/"/g, '""')}"`,
-        `"${(s.subtitle || '').replace(/"/g, '""')}"`,
-        `"${s.duration || ''}"`,
-        `"${s.ticketStatus || ''}"`,
-        `"${tripPlan.dietary || ''}"`,
+        `"${s.time || '09:00 AM'}"`,
+        `"${s.type || 'Sightseeing'}"`,
+        `"${(s.title || d.title || '').replace(/"/g, '""')}"`,
+        `"${(s.subtitle || s.description || d.desc || '').replace(/"/g, '""')}"`,
+        `"${s.duration || '2-3 Hours'}"`,
+        `"${s.ticketStatus || 'Included'}"`,
+        `"${tripPlan.dietary}"`,
         `"${nearby.replace(/"/g, '""')}"`
       ]);
     });
@@ -74,7 +97,21 @@ export function exportItineraryToExcel(tripPlan) {
  * 2. Generate Visual Social Share Card using HTML5 Canvas
  * Features real-time GPS route map projection and authentic scannable QR code.
  */
-export async function generateSocialCardDataUrl(tripPlan) {
+export async function generateSocialCardDataUrl(rawPlan) {
+  if (!rawPlan) return '';
+  const days = rawPlan.days || rawPlan.itinerary || [];
+  const tripPlan = {
+    title: rawPlan.name || rawPlan.title || 'Curated Vacation Holiday',
+    destination: rawPlan.destination || rawPlan.location || 'Vacation',
+    duration: rawPlan.duration || `${days.length} Days`,
+    party: rawPlan.party || 'Private Tour',
+    pacing: rawPlan.pacing || 'Relaxed Pace',
+    vehicle: rawPlan.vehicle || 'Private AC Chauffeur Cab',
+    dietary: rawPlan.dietary || 'Daily Breakfast & Stays',
+    stayTier: rawPlan.stayTier || rawPlan.hotelTier || 'Handpicked 4★ Stays',
+    days
+  };
+
   const canvas = document.createElement('canvas');
   const width = 640;
   const height = 1200;
@@ -440,8 +477,24 @@ export async function generateSocialCardDataUrl(tripPlan) {
  * 3. Print PDF Travel Brochure
  * Matches Trip.com's 6-page itinerary brochure (user's 2nd screenshot).
  */
-export function printPdfBrochure(tripPlan) {
-  if (!tripPlan) return;
+export function printPdfBrochure(rawPlan) {
+  if (!rawPlan) return;
+  const days = rawPlan.days || rawPlan.itinerary || [];
+  const tripPlan = {
+    title: rawPlan.name || rawPlan.title || 'Curated Vacation Itinerary',
+    destination: rawPlan.destination || rawPlan.location || 'Vacation Destination',
+    duration: rawPlan.duration || `${days.length} Days`,
+    party: rawPlan.party || 'Private Tour (2-4 Travelers)',
+    vehicle: rawPlan.vehicle || 'Dedicated AC Chauffeur Cab',
+    dietary: rawPlan.dietary || 'Daily Breakfast & Stays Included',
+    highlights: rawPlan.highlights || rawPlan.inclusions || [
+      'Private dedicated AC vehicle with experienced local chauffeur',
+      'Handpicked 4★ Deluxe accommodation with scenic views',
+      'Daily breakfast and scheduled local heritage sightseeing',
+      'All toll taxes, parking fees, and driver allowances included'
+    ],
+    days
+  };
 
   const printWindow = window.open('', '_blank');
   if (!printWindow) {

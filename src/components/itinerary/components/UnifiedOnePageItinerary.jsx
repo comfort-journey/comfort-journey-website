@@ -3,11 +3,16 @@ import {
   Calendar, MapPin, Users, Car, Utensils, Star, ShieldCheck, 
   Clock, CheckCircle2, ChevronRight, ChevronLeft, Navigation, 
   Sparkles, MessageCircle, Share2, Compass, Check, ArrowRight,
-  Route, Map, List, Send
+  Route, Map, List, Send, Globe, PhoneCall, ChevronDown
 } from 'lucide-react';
+import { useCurrency } from '../../../context/CurrencyContext';
 import DayTimeline from './DayTimeline';
 import MapTab from './MapTab';
 import QuickEnquiryCard from './QuickEnquiryCard';
+import HeroGalleryMosaic from './HeroGalleryMosaic';
+import WeatherMonthlySection from './WeatherMonthlySection';
+import TourPoliciesSection from './TourPoliciesSection';
+import TourFaqSection from './TourFaqSection';
 import './styles/UnifiedOnePageItinerary.css';
 
 export default function UnifiedOnePageItinerary({
@@ -27,9 +32,26 @@ export default function UnifiedOnePageItinerary({
   onWhatsApp,
   onShare
 }) {
+  const { currency, setCurrency, currencies } = useCurrency();
+  const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
+  const currencyMenuRef = useRef(null);
+
   const [mobileViewMode, setMobileViewMode] = useState('timeline'); // 'timeline' | 'map' | 'enquiry'
   const [companionTab, setCompanionTab] = useState('map'); // 'map' | 'enquiry'
   const dayScrollRef = useRef(null);
+
+  // Close currency dropdown on outside click
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (currencyMenuRef.current && !currencyMenuRef.current.contains(e.target)) {
+        setCurrencyDropdownOpen(false);
+      }
+    };
+    if (currencyDropdownOpen) {
+      document.addEventListener('mousedown', handleOutsideClick);
+    }
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, [currencyDropdownOpen]);
 
   if (!tour || !enrichedItinerary?.length) return null;
 
@@ -94,68 +116,166 @@ export default function UnifiedOnePageItinerary({
       .trim();
   };
 
+  const handleBookClick = () => {
+    if (onBookNow) {
+      onBookNow(tour);
+    } else {
+      window.dispatchEvent(new CustomEvent('open-quick-quote', { detail: { tour } }));
+    }
+  };
+
+  const handleWhatsAppClick = () => {
+    if (onWhatsApp) {
+      onWhatsApp();
+    } else {
+      const msg = encodeURIComponent(
+        `Hi Comfort Journey! I'm interested in booking the "${tour.name}" package (${tour.duration}). Please share dates, customized stays, and best pricing!`
+      );
+      window.open(`https://wa.me/918770403315?text=${msg}`, '_blank');
+    }
+  };
+
   return (
     <div className="onepage-itin-root">
       {/* =========================================================================
-          SECTION 1: HERO (FULL-WIDTH SCENIC BACKGROUND IMAGE - NO DUPLICATE PILLS)
+          SECTION 1: HERO & GALLERY MOSAIC (MATURE, LUXURY, HIGH-CONVERTING)
           ========================================================================= */}
-      <section 
-        id="overview" 
-        className="onepage-hero-panoramic"
-        style={{ backgroundImage: `url(${tour.image})` }}
-      >
-        <div className="onepage-hero-scenic-overlay" />
-
-        <div className="onepage-hero-inner">
-          <div className="onepage-hero-text-block">
-            {/* Top Badges */}
-            <div className="onepage-badges-row">
+      <section id="overview" className="onepage-hero-mosaic-section">
+        <div className="onepage-container">
+          {/* Breadcrumb & Badges Bar */}
+          <div className="mosaic-header-bar">
+            <div className="mosaic-badges-left">
               <span className="hero-badge badge-signature">
-                <Sparkles size={12} />
+                <Sparkles size={13} />
                 Comfort Journey Signature Tour
               </span>
               <span className="hero-badge badge-rating">
-                <Star size={12} className="star-filled" />
+                <Star size={13} className="star-filled" />
                 {tour.rating || '4.95'} ({tour.reviews || '96'}+ Verified Reviews)
               </span>
               <span className="hero-badge badge-custom">
-                100% Customizable
+                100% Private & Tailorable
               </span>
             </div>
 
-            {/* Tour Title */}
-            <h1 className="onepage-hero-title">{tour.name}</h1>
-            
-            {/* Description */}
-            <p className="onepage-hero-description">
-              {cleanDescription(tour.description || tour.tagline) || `Experience ${tour.name} with luxury accommodations, picturesque valleys, and iconic attractions. A perfect blend of relaxation, adventure, and Himalayan elegance awaits.`}
-            </p>
+            {/* Quick Share Trigger */}
+            <div className="mosaic-header-actions">
+              <button
+                type="button"
+                className="mosaic-share-quick-btn"
+                onClick={onShare}
+                title="Share or Export Itinerary"
+              >
+                <Share2 size={15} />
+                <span>Share Dossier</span>
+              </button>
+            </div>
+          </div>
 
-            {/* Prominent Hero Pricing Showcase */}
-            <div className="hero-pricing-showcase">
-              <div className="pricing-showcase-row">
-                <span className="pill-from">Starting From</span>
+          {/* Tour Title & Headline */}
+          <div className="mosaic-title-row">
+            <h1 className="mosaic-tour-title">{tour.name}</h1>
+            <div className="mosaic-location-tag">
+              <MapPin size={16} className="text-amber" />
+              <span>{tour.destination || tour.location}</span>
+              <span className="loc-sep">•</span>
+              <span>{tour.duration} ({totalDays} Days / {Math.max(1, totalDays - 1)} Nights)</span>
+            </div>
+          </div>
+
+          <p className="mosaic-tour-tagline">
+            {cleanDescription(tour.description || tour.tagline) || `Experience ${tour.name} with luxury accommodations, picturesque valleys, and iconic attractions. A perfect blend of relaxation, adventure, and Himalayan elegance awaits.`}
+          </p>
+
+          {/* 5-Photo Mosaic Gallery with Lightbox (Thrillophilia Benchmark) */}
+          <HeroGalleryMosaic tour={tour} onShare={onShare} />
+
+          {/* Seductive, Mature Pricing & Booking Bar */}
+          <div className="mosaic-pricing-conversion-bar">
+            <div className="pricing-left-block">
+              <div className="pricing-tag-label">ALL-INCLUSIVE PRIVATE PACKAGE</div>
+              <div className="pricing-digits-row">
                 {originalPrice > currentPrice && (
-                  <span className="pill-orig">{formatPrice(originalPrice)}</span>
+                  <span className="pricing-strikethrough">{formatPrice(originalPrice)}</span>
                 )}
-                <span className="pill-curr">{formatPrice(currentPrice)}</span>
-                <span className="pill-unit">/ person</span>
-                <span className="pill-save">Save {discountPercent}%</span>
+                <span className="pricing-main-amount">{formatPrice(currentPrice)}</span>
+                <span className="pricing-unit-text">/ person</span>
+                <span className="pricing-discount-badge">SAVE {discountPercent}% OFF</span>
               </div>
-              <div className="pricing-showcase-perks">
-                <span className="perk-highlight">✓ All-Inclusive</span>
-                <span className="perk-dot">•</span>
-                <span>Verified 4★ Deluxe Stays</span>
-                <span className="perk-dot">•</span>
-                <span>Zero Hidden Fees</span>
+              <div className="pricing-guarantees-row">
+                <span className="guarantee-pill">✓ Best Price Guarantee</span>
+                <span className="guarantee-pill">✓ Instant Booking Voucher</span>
+                <span className="guarantee-pill">✓ Dedicated Private Chauffeur</span>
               </div>
+            </div>
+
+            {/* Currency Selector & Booking Action Buttons */}
+            <div className="pricing-actions-right">
+              {/* Currency Selector Dropdown */}
+              <div className="currency-selector-box" ref={currencyMenuRef}>
+                <button
+                  type="button"
+                  className="currency-dropdown-toggle-btn"
+                  onClick={() => setCurrencyDropdownOpen(!currencyDropdownOpen)}
+                  title="Switch Display Currency"
+                >
+                  <Globe size={15} />
+                  <span>{currency} ({currencies[currency]?.symbol})</span>
+                  <ChevronDown size={14} />
+                </button>
+
+                {currencyDropdownOpen && (
+                  <div className="currency-dropdown-popover">
+                    <div className="dropdown-title">Select Currency</div>
+                    {Object.keys(currencies).map((currCode) => {
+                      const c = currencies[currCode];
+                      return (
+                        <button
+                          key={currCode}
+                          type="button"
+                          className={`currency-option-item ${currency === currCode ? 'active' : ''}`}
+                          onClick={() => {
+                            setCurrency(currCode);
+                            setCurrencyDropdownOpen(false);
+                          }}
+                        >
+                          <span className="curr-sym">{c.symbol}</span>
+                          <span className="curr-code">{currCode}</span>
+                          <span className="curr-name">{c.name}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+
+              {/* WhatsApp Specialist Button */}
+              <button
+                type="button"
+                className="btn-action-whatsapp"
+                onClick={handleWhatsAppClick}
+                title="Chat with Tour Specialist"
+              >
+                <MessageCircle size={17} />
+                <span>Chat Specialist</span>
+              </button>
+
+              {/* Instant Book Now Button */}
+              <button
+                type="button"
+                className="btn-action-book-primary"
+                onClick={handleBookClick}
+              >
+                <span>Book This Tour</span>
+                <ArrowRight size={17} />
+              </button>
             </div>
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-          SECTION 2: TRIP AT A GLANCE (KEY FACTS - SINGLE SOURCE OF TRUTH)
+          SECTION 2: TRIP AT A GLANCE (KEY FACTS)
           ========================================================================= */}
       <section className="onepage-glance-section">
         <div className="onepage-container">
@@ -224,167 +344,101 @@ export default function UnifiedOnePageItinerary({
       </section>
 
       {/* =========================================================================
-          SECTION 3: DAY-BY-DAY ITINERARY WITH INTEGRATED MAP & QUICK ENQUIRY (#itinerary-plan)
+          SECTION 3: SCHEDULE & COMPANION (DAY-BY-DAY TIMELINE + MAP & ENQUIRY)
           ========================================================================= */}
       <section id="itinerary-plan" className="onepage-schedule-section">
         <div className="onepage-container">
-          <div className="schedule-header">
-            <div className="schedule-header-text">
-              <span className="section-eyebrow">Complete Day-by-Day Journey</span>
-              <h2 className="section-heading">Detailed Travel Itinerary & Route Map</h2>
+          {/* Section Heading */}
+          <div className="schedule-header-row">
+            <div>
+              <span className="section-eyebrow">Day-by-Day Experience</span>
+              <h2 className="section-heading">Curated Daily Itinerary</h2>
               <p className="section-subtext">
-                Browse through each day's curated schedule, transfer details, landmarks, and live interactive route map side-by-side.
+                Every morning to evening excursion crafted for relaxed pacing, scenic beauty, and authentic local flavor.
               </p>
             </div>
 
-            {/* Mobile View Toggle Switch */}
-            <div className="mobile-view-switch" role="tablist" aria-label="Toggle mobile view">
+            {/* Mobile Switcher (Timeline vs Map vs Enquiry) */}
+            <div className="mobile-view-toggle">
               <button
                 type="button"
-                className={`switch-btn ${mobileViewMode === 'timeline' ? 'active' : ''}`}
+                className={`toggle-btn ${mobileViewMode === 'timeline' ? 'active' : ''}`}
                 onClick={() => setMobileViewMode('timeline')}
               >
-                <List size={15} />
-                <span>Schedule ({currentDayData?.stops?.length || 0})</span>
+                <List size={16} />
+                <span>Timeline</span>
               </button>
               <button
                 type="button"
-                className={`switch-btn ${mobileViewMode === 'map' ? 'active' : ''}`}
-                onClick={() => setMobileViewMode('map')}
+                className={`toggle-btn ${mobileViewMode === 'map' ? 'active' : ''}`}
+                onClick={() => {
+                  setMobileViewMode('map');
+                  setCompanionTab('map');
+                }}
               >
-                <Map size={15} />
+                <Map size={16} />
                 <span>Route Map</span>
               </button>
               <button
                 type="button"
-                className={`switch-btn ${mobileViewMode === 'enquiry' ? 'active' : ''}`}
-                onClick={() => setMobileViewMode('enquiry')}
+                className={`toggle-btn ${mobileViewMode === 'enquiry' ? 'active' : ''}`}
+                onClick={() => {
+                  setMobileViewMode('enquiry');
+                  setCompanionTab('enquire');
+                }}
               >
-                <Send size={15} />
+                <Send size={16} />
                 <span>Enquire</span>
               </button>
             </div>
           </div>
 
-          {/* Day Selector Pills Bar */}
-          <nav className="onepage-day-selector" role="tablist" aria-label="Tour Days Navigation">
-            <button
-              type="button"
-              className="day-nav-arrow prev"
-              onClick={() => onDayChange(Math.max(1, activeDay - 1))}
-              disabled={activeDay === 1}
-              aria-label="Previous day"
-            >
-              <ChevronLeft size={18} />
-            </button>
+          {/* Interactive Day Horizontal Pill Bar */}
+          <div className="day-selector-track" ref={dayScrollRef}>
+            {enrichedItinerary.map((d) => {
+              const isActive = d.day === activeDay;
+              return (
+                <button
+                  key={d.day}
+                  type="button"
+                  id={`day-pill-${d.day}`}
+                  className={`day-pill ${isActive ? 'active' : ''}`}
+                  onClick={() => onDayChange(d.day)}
+                >
+                  <span className="day-pill-num">Day {d.day}</span>
+                  <span className="day-pill-title" title={d.title}>
+                    {d.title?.replace(`Day ${d.day}: `, '').replace(`Day ${d.day} - `, '') || `Day ${d.day}`}
+                  </span>
+                  {isActive && <span className="active-dot" />}
+                </button>
+              );
+            })}
+          </div>
 
-            <div className="day-pills-row" ref={dayScrollRef}>
-              {enrichedItinerary.map((day) => {
-                const isActive = activeDay === day.day;
-                return (
-                  <button
-                    key={day.day}
-                    role="tab"
-                    aria-selected={isActive}
-                    className={`day-pill ${isActive ? 'active' : ''} ${day.day < activeDay ? 'completed' : ''}`}
-                    onClick={() => {
-                      onRouteModeChange?.('day');
-                      onDayChange(day.day);
-                    }}
-                  >
-                    <span className="pill-day-num">Day {day.day}</span>
-                    <span className="pill-stops-num">{day.stops?.length || 0} stops</span>
-                  </button>
-                );
-              })}
-
-              {/* All Days Route Pill */}
-              <button
-                type="button"
-                className={`day-pill pill-all-days ${routeMode === 'all' ? 'active' : ''}`}
-                onClick={() => onRouteModeChange?.('all')}
-                title="View full tour route on map"
-              >
-                <Route size={14} />
-                <span className="pill-day-num">Full Route</span>
-                <span className="pill-stops-num">{totalStops} stops</span>
-              </button>
-            </div>
-
-            <button
-              type="button"
-              className="day-nav-arrow next"
-              onClick={() => onDayChange(Math.min(totalDays, activeDay + 1))}
-              disabled={activeDay === totalDays}
-              aria-label="Next day"
-            >
-              <ChevronRight size={18} />
-            </button>
-          </nav>
-
-          {/* Desktop Two-Column Split / Mobile Responsive View */}
-          <div className={`schedule-split-layout mode-${mobileViewMode}`}>
-            {/* Left Column: Timeline Stops */}
-            <div className="schedule-timeline-col">
-              {/* Active Day Banner */}
-              {currentDayData && (
-                <div className="day-banner-card">
-                  <div className="day-banner-top">
-                    <span className="day-badge-chip">
-                      <Calendar size={13} />
-                      Day {activeDay} of {totalDays}
-                    </span>
-                    <div className="day-meta-tags">
-                      {currentDayData.travelDistance && (
-                        <span className="meta-tag">
-                          <Navigation size={12} />
-                          {currentDayData.travelDistance}
-                        </span>
-                      )}
-                      {currentDayData.travelTime && (
-                        <span className="meta-tag">
-                          <Clock size={12} />
-                          {currentDayData.travelTime}
-                        </span>
-                      )}
-                      <span className="meta-tag highlight">
-                        <MapPin size={12} />
-                        {currentDayData.stops?.length || 0} Experiences
-                      </span>
-                    </div>
-                  </div>
-
-                  <h3 className="day-banner-title">{currentDayData.title}</h3>
-
-                  {(currentDayData.desc || currentDayData.summary) && (
-                    <p className="day-banner-desc">
-                      {currentDayData.desc || currentDayData.summary}
-                    </p>
-                  )}
-
-                  {/* Day Transport note */}
-                  {currentDayData.transport && (
-                    <div className="day-banner-transport">
-                      <Car size={15} className="text-cyan" />
-                      <span>
-                        Transport: {typeof currentDayData.transport === 'string' 
-                          ? currentDayData.transport 
-                          : (currentDayData.transport.mode || 'Dedicated Private AC Chauffeur Cab')}
-                      </span>
-                    </div>
-                  )}
+          {/* Two-Column Grid: Left Timeline + Right Sticky Companion */}
+          <div className="schedule-grid">
+            {/* Left Column: Day Timeline */}
+            <div className={`schedule-timeline-col ${mobileViewMode !== 'timeline' ? 'hidden-on-mobile' : ''}`}>
+              <div className="active-day-banner">
+                <div className="day-banner-header">
+                  <span className="banner-day-badge">Day {currentDayData.day} of {totalDays}</span>
+                  <span className="banner-stops-count">{currentDayData.stops?.length || 0} Curated Stops</span>
                 </div>
-              )}
+                <h3 className="banner-day-title">{currentDayData.title}</h3>
+                {currentDayData.desc && (
+                  <p className="banner-day-desc">{currentDayData.desc}</p>
+                )}
+              </div>
 
-              {/* Day Timeline Component */}
+              {/* Day Stops Timeline */}
               <DayTimeline
                 dayData={currentDayData}
                 selectedStop={selectedStop}
                 onStopSelect={onStopSelect}
               />
 
-              {/* Bottom Prev / Next Day Navigator */}
-              {enrichedItinerary.length > 1 && (
+              {/* Day Navigation Controls */}
+              {totalDays > 1 && (
                 <div className="day-bottom-nav">
                   <button
                     type="button"
@@ -393,7 +447,7 @@ export default function UnifiedOnePageItinerary({
                     disabled={activeDay === 1}
                   >
                     <ChevronLeft size={18} />
-                    <div className="nav-btn-text">
+                    <div className="nav-btn-text text-left">
                       <span className="nav-btn-sub">Previous</span>
                       <span className="nav-btn-title">
                         {activeDay > 1 ? `Day ${activeDay - 1}` : 'Start'}
@@ -426,7 +480,7 @@ export default function UnifiedOnePageItinerary({
             </div>
 
             {/* Right Column: Sticky Companion (Route Map & Quick Enquiry Tabs) */}
-            <div className="schedule-map-col">
+            <div className={`schedule-map-col ${mobileViewMode === 'timeline' ? 'desktop-only' : ''}`}>
               <div className="sticky-companion-card">
                 {/* Switcher Header: Map vs Enquiry */}
                 <div className="companion-nav-tabs">
@@ -496,13 +550,13 @@ export default function UnifiedOnePageItinerary({
       </section>
 
       {/* =========================================================================
-          SECTION 4: INCLUSIONS, EXCLUSIONS & COMFORT JOURNEY PROMISE (#inclusions)
+          SECTION 4: INCLUSIONS, EXCLUSIONS & 4 VIP GUARANTEES (#inclusions)
           ========================================================================= */}
       <section id="inclusions" className="onepage-inclusions-section">
         <div className="onepage-container">
           <div className="inclusions-heading-box">
-            <span className="section-eyebrow">Transparent Pricing & Value</span>
-            <h2 className="section-heading">Package Inclusions & Comfort Journey Promise</h2>
+            <span className="section-eyebrow">Transparent Value</span>
+            <h2 className="section-heading">Package Inclusions & Exclusions</h2>
             <p className="section-subtext">
               Zero hidden costs, verified deluxe hotels, and courteous dedicated mountain chauffeurs.
             </p>
@@ -595,6 +649,27 @@ export default function UnifiedOnePageItinerary({
             </div>
           </div>
         </div>
+      </section>
+
+      {/* =========================================================================
+          SECTION 5: MONTHLY WEATHER & BEST TIME TO VISIT (STIPPL.IO BENCHMARK)
+          ========================================================================= */}
+      <section className="onepage-container">
+        <WeatherMonthlySection tour={tour} />
+      </section>
+
+      {/* =========================================================================
+          SECTION 6: MANDATORY TRAVELER POLICIES (CONFIRMATION, CANCEL, REFUND, ETC)
+          ========================================================================= */}
+      <section className="onepage-container">
+        <TourPoliciesSection tour={tour} />
+      </section>
+
+      {/* =========================================================================
+          SECTION 7: UNIQUE TOUR PACKAGE FAQS
+          ========================================================================= */}
+      <section className="onepage-container">
+        <TourFaqSection tour={tour} />
       </section>
     </div>
   );

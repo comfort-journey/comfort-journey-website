@@ -1,0 +1,529 @@
+/* =========================================================================
+   WEATHER & MONTHLY CLIMATE INTELLIGENCE (STIPPL.IO INSPIRED DESIGN)
+   ========================================================================= */
+
+.weather-section-root {
+  margin: 2.5rem 0 3rem 0;
+  padding: 0;
+  font-family: inherit;
+}
+
+/* Eyebrow */
+.weather-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #10B981;
+  margin-bottom: 0.6rem;
+}
+
+.weather-eyebrow .eyebrow-icon {
+  color: #10B981;
+}
+
+/* Heading */
+.weather-heading {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0F172A;
+  line-height: 1.25;
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.02em;
+}
+
+[data-theme="dark"] .weather-heading,
+.dark-theme .weather-heading {
+  color: #F8FAFC;
+}
+
+/* Best Time Badge */
+.weather-best-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 185, 129, 0.09);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 6px 16px;
+  border-radius: 9999px;
+  margin-bottom: 1.8rem;
+  font-size: 0.95rem;
+  color: #065F46;
+}
+
+[data-theme="dark"] .weather-best-badge,
+.dark-theme .weather-best-badge {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.35);
+  color: #6EE7B7;
+}
+
+.weather-best-badge .badge-flower {
+  font-size: 1rem;
+}
+
+.weather-best-badge .badge-label {
+  font-weight: 700;
+}
+
+.weather-best-badge .badge-months {
+  font-weight: 800;
+}
+
+/* Weather by Month Card */
+.weather-chart-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 1.8rem 2rem;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  margin-bottom: 1.8rem;
+  transition: all 0.25s ease;
+}
+
+[data-theme="dark"] .weather-chart-card,
+.dark-theme .weather-chart-card {
+  background: #0F172A;
+  border-color: #334155;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+[data-theme="dark"] .chart-header,
+.dark-theme .chart-header {
+  border-bottom-color: #1E293B;
+}
+
+.chart-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+}
+
+[data-theme="dark"] .chart-title,
+.dark-theme .chart-title {
+  color: #F8FAFC;
+}
+
+/* Legend */
+.chart-legend {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748B;
+}
+
+[data-theme="dark"] .legend-item,
+.dark-theme .legend-item {
+  color: #94A3B8;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.dot-best { background: #10B981; }
+.dot-good { background: #34D399; }
+.dot-hot { background: #F59E0B; }
+.dot-rainy { background: #60A5FA; }
+
+/* 12-Month Bars Track */
+.chart-bars-track {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  height: 220px;
+  padding: 10px 0 0 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.month-col-btn {
+  flex: 1;
+  min-width: 48px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  position: relative;
+}
+
+.month-col-btn:hover {
+  transform: translateY(-4px);
+}
+
+.month-col-btn.selected {
+  transform: translateY(-6px);
+}
+
+.month-col-btn.selected .bar-pill {
+  filter: brightness(1.1) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
+}
+
+.month-col-btn.selected .month-name-label {
+  font-weight: 800;
+  color: #10B981;
+}
+
+/* Degree Label */
+.temp-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #475569;
+  margin-bottom: 8px;
+  transition: color 0.2s ease;
+}
+
+[data-theme="dark"] .temp-label,
+.dark-theme .temp-label {
+  color: #94A3B8;
+}
+
+.month-col-btn.selected .temp-label {
+  color: #0F172A;
+  font-weight: 800;
+}
+
+[data-theme="dark"] .month-col-btn.selected .temp-label,
+.dark-theme .month-col-btn.selected .temp-label {
+  color: #FFFFFF;
+}
+
+/* Bar Wrapper & Pill */
+.bar-wrapper {
+  width: 100%;
+  max-width: 44px;
+  height: 140px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.bar-pill {
+  width: 100%;
+  border-radius: 9999px;
+  transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s ease;
+}
+
+.status-best {
+  background: #10B981;
+}
+
+.status-good {
+  background: #34D399;
+}
+
+.status-hot {
+  background: #F59E0B;
+}
+
+.status-rainy {
+  background: #60A5FA;
+}
+
+/* Month Name Label */
+.month-name-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #64748B;
+  margin-top: 10px;
+  text-transform: capitalize;
+}
+
+[data-theme="dark"] .month-name-label,
+.dark-theme .month-name-label {
+  color: #94A3B8;
+}
+
+/* Month Live Inspector Box */
+.month-inspector-box {
+  margin-top: 1.8rem;
+  padding: 1.2rem 1.4rem;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+[data-theme="dark"] .month-inspector-box,
+.dark-theme .month-inspector-box {
+  background: #1E293B;
+  border-color: #334155;
+}
+
+.inspector-left {
+  flex: 1;
+  min-width: 240px;
+}
+
+.inspector-month-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.05rem;
+  color: #0F172A;
+  margin-bottom: 4px;
+}
+
+[data-theme="dark"] .inspector-month-tag,
+.dark-theme .inspector-month-tag {
+  color: #F8FAFC;
+}
+
+.inspector-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.inspector-status-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(15, 23, 42, 0.08);
+  padding: 2px 8px;
+  border-radius: 6px;
+  color: #475569;
+}
+
+[data-theme="dark"] .inspector-status-badge,
+.dark-theme .inspector-status-badge {
+  background: rgba(255, 255, 255, 0.1);
+  color: #E2E8F0;
+}
+
+.inspector-desc {
+  font-size: 0.88rem;
+  color: #64748B;
+  margin: 0;
+  line-height: 1.4;
+}
+
+[data-theme="dark"] .inspector-desc,
+.dark-theme .inspector-desc {
+  color: #94A3B8;
+}
+
+.inspector-stats-row {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+  flex-wrap: wrap;
+}
+
+.inspector-stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.inspector-stat .stat-icon {
+  color: #FF892F;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.stat-val {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+[data-theme="dark"] .stat-val,
+.dark-theme .stat-val {
+  color: #F8FAFC;
+}
+
+/* 3 Season Cards Grid */
+.season-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.season-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+[data-theme="dark"] .season-card,
+.dark-theme .season-card {
+  background: #0F172A;
+  border-color: #334155;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.season-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.season-card-top {
+  margin-bottom: 0.8rem;
+}
+
+.season-pill-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.6rem;
+}
+
+.season-pill-badge.shoulder {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+}
+
+.season-pill-badge.peak {
+  background: rgba(245, 158, 11, 0.14);
+  color: #D97706;
+}
+
+.season-pill-badge.low {
+  background: rgba(96, 165, 250, 0.14);
+  color: #2563EB;
+}
+
+.season-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 4px 0;
+}
+
+[data-theme="dark"] .season-title,
+.dark-theme .season-title {
+  color: #F8FAFC;
+}
+
+.season-months-highlight {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #059669;
+}
+
+.card-peak .season-months-highlight {
+  color: #D97706;
+}
+
+.card-low .season-months-highlight {
+  color: #2563EB;
+}
+
+.season-desc {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #64748B;
+  margin: 0;
+  flex: 1;
+}
+
+[data-theme="dark"] .season-desc,
+.dark-theme .season-desc {
+  color: #94A3B8;
+}
+
+/* Source Note */
+.weather-source-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: #94A3B8;
+  line-height: 1.4;
+  padding: 0 4px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .season-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .chart-bars-track {
+    gap: 6px;
+  }
+  .weather-heading {
+    font-size: 1.6rem;
+  }
+  .month-col-btn {
+    min-width: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .weather-chart-card {
+    padding: 1.2rem;
+  }
+  .chart-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .inspector-stats-row {
+    gap: 1rem;
+  }
+}

@@ -224,13 +224,22 @@ export default function App() {
                 onOpenQuote={() => setIsQuickQuoteOpen(true)}
               />
             ) : currentView === 'itinerary' ? (
-              /* DEDICATED ITINERARY PAGE VIEW */
-              <ItineraryPage 
-                initialTour={selectedItineraryTour}
-                onBackToHome={navigateToHome}
-                onBookNow={(tour) => setSelectedBookingTour(tour)}
-                onOpenQuote={() => setIsQuickQuoteOpen(true)}
-              />
+              /* DEDICATED ITINERARY PAGE VIEW WITH GLOBAL HEADER */
+              <>
+                <Navbar 
+                  onOpenQuote={() => setIsQuickQuoteOpen(true)} 
+                  onOpenAIPlanner={navigateToAIPlanner}
+                  onOpenAdmin={() => setIsAdminCMSOpen(true)}
+                  onOpenLandingHub={() => setIsLPHubOpen(true)}
+                  onNavigateMagazine={navigateToMagazine}
+                />
+                <ItineraryPage 
+                  initialTour={selectedItineraryTour}
+                  onBackToHome={navigateToHome}
+                  onBookNow={(tour) => setSelectedBookingTour(tour)}
+                  onOpenQuote={() => setIsQuickQuoteOpen(true)}
+                />
+              </>
             ) : (
               <>
                 {/* 1. Header Navigation with Currency Switcher & AI Trigger */}

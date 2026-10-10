@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import QRCode from 'qrcode';
 import { X, Share2, FileSpreadsheet, Printer, Download, QrCode, Link2, Check, MessageCircle, Sparkles } from 'lucide-react';
 import { exportItineraryToExcel, printPdfBrochure, generateSocialCardDataUrl } from '../../../services/itineraryExportService';
 import './styles/ShareExportMenu.css';
@@ -33,7 +34,16 @@ export default function ShareExportMenu({
       document.body.style.overflow = 'hidden';
       
       const shareUrl = window.location.href;
-      setQrCodeUrl(`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(shareUrl)}`);
+      QRCode.toDataURL(shareUrl, {
+        width: 200,
+        margin: 1,
+        color: { dark: '#0F172A', light: '#FFFFFF' }
+      }).then(url => {
+        setQrCodeUrl(url);
+      }).catch(err => {
+        console.warn('QR code fallback to external generator', err);
+        setQrCodeUrl(`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(shareUrl)}`);
+      });
     }
 
     return () => {
@@ -59,7 +69,8 @@ export default function ShareExportMenu({
     try {
       const dataUrl = await generateSocialCardDataUrl({
         ...tour,
-        itinerary: enrichedItinerary
+        itinerary: enrichedItinerary,
+        days: enrichedItinerary
       });
       const link = document.createElement('a');
       link.href = dataUrl;
@@ -78,7 +89,8 @@ export default function ShareExportMenu({
     if (!tour || !enrichedItinerary) return;
     exportItineraryToExcel({
       ...tour,
-      itinerary: enrichedItinerary
+      itinerary: enrichedItinerary,
+      days: enrichedItinerary
     });
     onClose();
   };
@@ -87,7 +99,8 @@ export default function ShareExportMenu({
     if (!tour || !enrichedItinerary) return;
     printPdfBrochure({
       ...tour,
-      itinerary: enrichedItinerary
+      itinerary: enrichedItinerary,
+      days: enrichedItinerary
     });
     onClose();
   };

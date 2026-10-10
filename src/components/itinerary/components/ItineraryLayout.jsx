@@ -1,5 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { MapPin, Calendar, Compass, Share2, ChevronLeft, MessageCircle, ShieldCheck } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { 
+  MapPin, Calendar, Compass, Share2, ChevronLeft, MessageCircle, 
+  ShieldCheck, Sun, FileCheck2, HelpCircle, Globe, ChevronDown 
+} from 'lucide-react';
+import { useCurrency } from '../../../context/CurrencyContext';
 import './styles/ItineraryLayout.css';
 
 export default function ItineraryLayout({
@@ -17,6 +21,21 @@ export default function ItineraryLayout({
 }) {
   const [isMobile, setIsMobile] = useState(false);
   const [currentSection, setCurrentSection] = useState(activeSection || 'itinerary');
+  const [currencyOpen, setCurrencyOpen] = useState(false);
+  const currencyRef = useRef(null);
+  const { currency, setCurrency, currencies } = useCurrency();
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (currencyRef.current && !currencyRef.current.contains(e.target)) {
+        setCurrencyOpen(false);
+      }
+    };
+    if (currencyOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [currencyOpen]);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -44,9 +63,12 @@ export default function ItineraryLayout({
   };
 
   const navSections = [
-    { id: 'overview', label: 'Overview', icon: Compass, targetId: 'overview' },
+    { id: 'overview', label: 'Photos & Overview', icon: Compass, targetId: 'overview' },
     { id: 'itinerary', label: 'Schedule & Map', icon: Calendar, targetId: 'itinerary-plan' },
     { id: 'inclusions', label: 'Inclusions', icon: ShieldCheck, targetId: 'inclusions' },
+    { id: 'weather', label: 'Best Time & Weather', icon: Sun, targetId: 'weather' },
+    { id: 'policies', label: 'Policies', icon: FileCheck2, targetId: 'policies' },
+    { id: 'faqs', label: 'FAQs', icon: HelpCircle, targetId: 'faqs' },
   ];
 
   const handleNavClick = (section) => {
@@ -55,7 +77,7 @@ export default function ItineraryLayout({
 
     const el = document.getElementById(section.targetId);
     if (el) {
-      const headerOffset = 76;
+      const headerOffset = 130;
       const elementPosition = el.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
       window.scrollTo({
@@ -112,8 +134,41 @@ export default function ItineraryLayout({
         </div>
         
         <div className="header-right">
+          {/* Header Currency Selector */}
+          <div className="header-currency-rel" ref={currencyRef}>
+            <button
+              type="button"
+              className="header-currency-btn"
+              onClick={() => setCurrencyOpen(!currencyOpen)}
+              title="Change Currency"
+            >
+              <Globe size={16} />
+              <span>{currency}</span>
+              <ChevronDown size={13} />
+            </button>
+
+            {currencyOpen && (
+              <div className="header-currency-dropdown">
+                {Object.keys(currencies).map((code) => (
+                  <button
+                    key={code}
+                    type="button"
+                    className={`curr-drop-item ${currency === code ? 'active' : ''}`}
+                    onClick={() => {
+                      setCurrency(code);
+                      setCurrencyOpen(false);
+                    }}
+                  >
+                    <span className="curr-sym">{currencies[code].symbol}</span>
+                    <span className="curr-code">{code}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
           <button 
-            type="button"
+            type="button" 
             className="header-action-btn share-action-btn"
             onClick={handleShareClick}
             aria-label="Share itinerary"
@@ -124,7 +179,7 @@ export default function ItineraryLayout({
           </button>
           
           <button 
-            type="button"
+            type="button" 
             className="header-action-btn expert-action-btn"
             onClick={() => {
               const msg = encodeURIComponent(

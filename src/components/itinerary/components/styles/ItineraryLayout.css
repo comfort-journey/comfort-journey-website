@@ -15,14 +15,15 @@
   color: var(--cj-text-body, #1E293B);
   font-family: var(--font-ui, 'Inter', system-ui, sans-serif);
   position: relative;
+  padding-top: 96px; /* Offset for floating global Navbar */
 }
 
 /* =========================================================================
-   HEADER
+   HEADER (STICKY SUB-NAVIGATION)
    ========================================================================= */
 .itin-header {
   position: sticky;
-  top: 0;
+  top: 90px;
   z-index: 80;
   height: var(--itin-header-h);
   display: flex;
@@ -369,4 +370,101 @@
   .itin-main.tab-view-map {
     height: calc(100vh - 120px - 90px);
   }
+}
+
+/* =========================================================================
+   HEADER CURRENCY SELECTOR
+   ========================================================================= */
+.header-currency-rel {
+  position: relative;
+}
+
+.header-currency-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #0F172A;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="dark"] .header-currency-btn,
+.dark-theme .header-currency-btn {
+  background: #1E293B;
+  border-color: #334155;
+  color: #F8FAFC;
+}
+
+.header-currency-btn:hover {
+  border-color: #FF892F;
+  color: #FF892F;
+}
+
+.header-currency-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 100;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 6px;
+  min-width: 140px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+  animation: fadeIn 0.15s ease-out;
+}
+
+[data-theme="dark"] .header-currency-dropdown,
+.dark-theme .header-currency-dropdown {
+  background: #0F172A;
+  border-color: #334155;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.curr-drop-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+  transition: background 0.15s ease;
+}
+
+[data-theme="dark"] .curr-drop-item,
+.dark-theme .curr-drop-item {
+  color: #E2E8F0;
+}
+
+.curr-drop-item:hover {
+  background: #F1F5F9;
+}
+
+[data-theme="dark"] .curr-drop-item:hover,
+.dark-theme .curr-drop-item:hover {
+  background: #1E293B;
+}
+
+.curr-drop-item.active {
+  background: rgba(255, 137, 47, 0.15);
+  color: #FF892F;
+}
+
+.curr-drop-item .curr-sym {
+  font-weight: 800;
+  color: #FF892F;
+  width: 20px;
 }
