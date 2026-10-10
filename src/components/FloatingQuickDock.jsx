@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { MessageCircle, PhoneCall, Compass, ChevronUp, Bot } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { MessageCircle, PhoneCall, Compass, ChevronUp, ChevronDown, Bot, Minus } from 'lucide-react';
 
 const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
 
@@ -7,6 +7,7 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
   const [isMinimized, setIsMinimized] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMascotHovered, setIsMascotHovered] = useState(false);
+  const autoMinimizeTimerRef = useRef(null);
 
   // Open AI Planner view
   const handleOpenAIPlanner = (e) => {
@@ -19,13 +20,30 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
     }
   };
 
+  // Auto-minimize after 10s of inactivity so dock doesn't obscure content
+  const startAutoMinimizeTimer = () => {
+    if (autoMinimizeTimerRef.current) clearTimeout(autoMinimizeTimerRef.current);
+    autoMinimizeTimerRef.current = setTimeout(() => {
+      setIsMinimized(true);
+    }, 10000);
+  };
+
+  const clearAutoMinimizeTimer = () => {
+    if (autoMinimizeTimerRef.current) clearTimeout(autoMinimizeTimerRef.current);
+  };
+
+  useEffect(() => {
+    if (!isMinimized) {
+      startAutoMinimizeTimer();
+    }
+    return () => clearAutoMinimizeTimer();
+  }, [isMinimized]);
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      if (currentScrollY > 300 && currentScrollY > lastScrollY) {
+      if (currentScrollY > 400 && currentScrollY > lastScrollY + 20) {
         setIsMinimized(true);
-      } else if (currentScrollY < lastScrollY - 10 || currentScrollY < 200) {
-        setIsMinimized(false);
       }
       setLastScrollY(currentScrollY);
     };
@@ -35,41 +53,50 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
   }, [lastScrollY]);
 
   return (
-    <div className={`quick-dock-wrapper ${isMinimized ? 'minimized' : ''}`}>
+    <div 
+      className={`quick-dock-wrapper ${isMinimized ? 'minimized' : ''}`}
+      onMouseEnter={clearAutoMinimizeTimer}
+      onMouseLeave={() => {
+        if (!isMinimized) startAutoMinimizeTimer();
+      }}
+    >
       {/* Pickyourtrail-style Cute Animated Wolf Mascot */}
-      <div 
-        className="comfy-mascot-dock-companion"
-        onMouseEnter={() => setIsMascotHovered(true)}
-        onMouseLeave={() => setIsMascotHovered(false)}
-        onClick={handleOpenAIPlanner}
-        title="Hi! I am Comfy.ai. Click me to plan your dream vacation!"
-      >
-        <div className="mascot-speech-bubble">
-          <span className="speech-text">
-            {isMascotHovered ? "Let's explore! ✈️" : "Ask Comfy.ai 💬"}
-          </span>
-          <div className="speech-arrow" />
-        </div>
+      {!isMinimized && (
+        <div 
+          className="comfy-mascot-dock-companion"
+          onMouseEnter={() => setIsMascotHovered(true)}
+          onMouseLeave={() => setIsMascotHovered(false)}
+          onClick={handleOpenAIPlanner}
+          title="Hi! I am Comfy.ai. Click me to plan your dream vacation!"
+        >
+          <div className="mascot-speech-bubble">
+            <span className="speech-text">
+              {isMascotHovered ? "Let's explore! ✈️" : "Ask Comfy.ai 💬"}
+            </span>
+            <div className="speech-arrow" />
+          </div>
 
-        <div className="mascot-avatar-container">
-          <img 
-            src={`${basePrefix}mascot-default-cropped.png`} 
-            alt="Comfort Journey Mascot" 
-            className={`mascot-dock-img default ${isMascotHovered ? 'hidden' : 'visible'}`}
-            onError={(e) => { e.currentTarget.src = './mascot-default.png'; }}
-          />
-          <img 
-            src={`${basePrefix}mascot-reaction-cropped.png`} 
-            alt="Comfort Journey Mascot Reacting" 
-            className={`mascot-dock-img reaction ${isMascotHovered ? 'visible' : 'hidden'}`}
-            onError={(e) => { e.currentTarget.src = './mascot-reaction.png'; }}
-          />
-          <span className="mascot-online-ping" />
+          <div className="mascot-avatar-container">
+            <img 
+              src={`${basePrefix}mascot-default-cropped.png`} 
+              alt="Comfort Journey Mascot" 
+              className={`mascot-dock-img default ${isMascotHovered ? 'hidden' : 'visible'}`}
+              onError={(e) => { e.currentTarget.src = './mascot-default.png'; }}
+            />
+            <img 
+              src={`${basePrefix}mascot-reaction-cropped.png`} 
+              alt="Comfort Journey Mascot Reacting" 
+              className={`mascot-dock-img reaction ${isMascotHovered ? 'visible' : 'hidden'}`}
+              onError={(e) => { e.currentTarget.src = './mascot-reaction.png'; }}
+            />
+            <span className="mascot-online-ping" />
+          </div>
         </div>
-      </div>
+      )}
 
+      {/* Main Glass Action Dock */}
       <div className="glass-dock-card">
-        {/* Action Buttons */}
+        {/* Action Buttons: Comfy.ai, Call, WhatsApp, Quote, Minimize */}
         <div className="dock-actions-row">
           <button
             type="button"
@@ -110,6 +137,17 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
             <Compass size={16} />
             <span className="btn-label">Quote</span>
           </button>
+
+          {/* Minimize / Hide Dock Button */}
+          <button
+            type="button"
+            className="dock-btn minimize-dock-btn"
+            onClick={() => setIsMinimized(true)}
+            title="Minimize Quick Dock"
+            aria-label="Minimize Quick Dock"
+          >
+            <ChevronDown size={15} />
+          </button>
         </div>
       </div>
 
@@ -117,20 +155,15 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
       {isMinimized && (
         <div className="dock-minimized-wrap">
           <button
+            type="button"
             className="dock-expand-trigger"
-            onClick={handleOpenAIPlanner}
-            aria-label="Ask Comfy.ai"
+            onClick={() => setIsMinimized(false)}
+            aria-label="Open Quick Support"
+            title="Click to expand Comfy.ai, Call, WhatsApp & Quote"
           >
-            <Bot size={15} className="text-primary" />
-            <span className="trigger-badge">Ask Comfy.ai</span>
-            <span 
-              className="chevron-trigger-box"
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsMinimized(false);
-              }}
-              title="Expand all quick contact options"
-            >
+            <Bot size={16} className="text-ai" />
+            <span className="trigger-badge">Ask Comfy & Concierge</span>
+            <span className="chevron-trigger-box">
               <ChevronUp size={14} />
             </span>
           </button>
@@ -345,6 +378,21 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
         .quote-btn:hover {
           background: rgba(255, 255, 255, 0.2);
           transform: translateY(-2px);
+        }
+
+        .minimize-dock-btn {
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.16);
+          padding: 0.5rem 0.58rem;
+          color: rgba(255, 255, 255, 0.7);
+          cursor: pointer;
+        }
+
+        .minimize-dock-btn:hover {
+          background: rgba(255, 255, 255, 0.22);
+          color: #FFFFFF;
+          transform: translateY(-2px);
+          border-color: rgba(255, 255, 255, 0.35);
         }
 
         .dock-minimized-wrap {

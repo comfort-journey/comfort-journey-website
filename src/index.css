@@ -1280,6 +1280,66 @@ s {
   white-space: nowrap;
 }
 
+/* Universal Interactive Tour Card Wishlist Like Button */
+.card-wishlist-btn {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 18, 51, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  pointer-events: auto;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  padding: 0;
+}
+
+.card-wishlist-btn:hover {
+  transform: scale(1.15);
+  background: rgba(0, 18, 51, 0.95);
+  border-color: rgba(255, 77, 109, 0.8);
+  box-shadow: 0 4px 16px rgba(255, 77, 109, 0.35);
+}
+
+.card-wishlist-btn.active-saved {
+  background: #FFFFFF;
+  border-color: #FF4D6D;
+  box-shadow: 0 4px 18px rgba(255, 77, 109, 0.55);
+}
+
+.card-wishlist-btn.active-saved:hover {
+  transform: scale(1.2);
+  background: #FFF0F3;
+}
+
+:root:not([data-theme="dark"]) .card-wishlist-btn,
+[data-theme="light"] .card-wishlist-btn {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(0, 18, 51, 0.15);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+
+:root:not([data-theme="dark"]) .card-wishlist-btn:hover,
+[data-theme="light"] .card-wishlist-btn:hover {
+  background: #FFFFFF;
+  border-color: rgba(255, 77, 109, 0.6);
+}
+
+:root:not([data-theme="dark"]) .card-wishlist-btn.active-saved,
+[data-theme="light"] .card-wishlist-btn.active-saved {
+  background: #FFFFFF;
+  border-color: #FF4D6D;
+}
+
 .media-bottom-strip {
   position: absolute;
   bottom: 0.65rem;

@@ -23,6 +23,7 @@ import IndiaTripsSection from './components/category-showcases/IndiaTripsSection
 import InternationalTripsSection from './components/category-showcases/InternationalTripsSection';
 import WeekendGetawaysSection from './components/category-showcases/WeekendGetawaysSection';
 import FixedDeparturesSection from './components/category-showcases/FixedDeparturesSection';
+import TourismBoardsMarquee from './components/TourismBoardsMarquee';
 import { getLandingPageBySlug, LANDING_PAGES_DATA } from './data/landingPagesData';
 import { directusService } from './services/directusClient';
 
@@ -239,6 +240,13 @@ export default function App() {
                   onBookNow={(tour) => setSelectedBookingTour(tour)}
                   onOpenQuote={() => setIsQuickQuoteOpen(true)}
                 />
+                <Footer 
+                  onOpenPolicy={(type) => setPolicyModalType(type)}
+                  onOpenAdmin={() => setIsAdminCMSOpen(true)}
+                  onOpenLandingHub={() => setIsLPHubOpen(true)}
+                  onSelectLandingPage={navigateToLandingPage}
+                  onOpenAIPlanner={navigateToAIPlanner}
+                />
               </>
             ) : (
               <>
@@ -298,6 +306,9 @@ pageData={activeLandingPage}
 
 {/* 3. Trust & Experience Stats Bar with Anime.js Elastic Counters */}
 <StatsBar />
+
+{/* Official Accredited Tourism Boards Marquee Showcase */}
+<TourismBoardsMarquee />
 
 {/* 4. India Luxury & Heritage Showcase (Royal Desi Heritage) */}
 <IndiaTripsSection
@@ -360,8 +371,10 @@ pageData={activeLandingPage}
               onSelectLandingPage={navigateToLandingPage}
               onOpenAIPlanner={navigateToAIPlanner}
             />
+          </>
+        )}
 
-          {/* --- MODALS & OVERLAYS --- */}
+        {/* --- GLOBAL MODALS & QUICK DOCK (RENDERED ON ALL PAGES) --- */}
 
           {/* All 15 Campaign & SEO Landing Pages Directory Modal */}
           <LandingPagesHubModal 
@@ -454,7 +467,7 @@ pageData={activeLandingPage}
 
 
 
-          {/* Floating Glassmorphism Action Dock */}
+          {/* Floating Glassmorphism Action Dock (Available on All Pages) */}
           <FloatingQuickDock 
             onOpenQuote={() => setIsQuickQuoteOpen(true)} 
             onOpenAIPlanner={navigateToAIPlanner}
@@ -462,8 +475,6 @@ pageData={activeLandingPage}
 
           {/* Live Booking Social Proof Ticker */}
           <LiveBookingToast />
-        </>
-      )}
 
           <style>{`
             .app-root {

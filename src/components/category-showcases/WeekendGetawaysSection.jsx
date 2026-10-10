@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useLiveTours } from '../../hooks/useLiveContent';
 import { useCurrency } from '../../context/CurrencyContext';
+import { useWishlistCompare } from '../../context/WishlistCompareContext';
 import { useParticleBurst } from '../../hooks/useParticleBurst';
 import Tilt3DCard from '../animations/Tilt3DCard';
 import { 
   Compass, MapPin, Clock, Star, Hotel, Car, Utensils, Ticket, 
   ShieldCheck, ChevronLeft, ChevronRight, ArrowRight, Sparkles, Coffee, Luggage, Trees,
-  Mountain, Waves, Landmark, BellOff
+  Mountain, Waves, Landmark, BellOff, Heart
 } from 'lucide-react';
 import CardInclusionsStrip from '../CardInclusionsStrip';
 
@@ -20,6 +21,7 @@ export default function WeekendGetawaysSection({
 }) {
   const TOURS_DATA = useLiveTours();
   const { formatPrice } = useCurrency();
+  const { isInWishlist, toggleWishlist } = useWishlistCompare();
   const { triggerBurst } = useParticleBurst();
   const carouselRef = useRef(null);
   const [activeSubTab, setActiveSubTab] = useState('All');
@@ -204,6 +206,25 @@ export default function WeekendGetawaysSection({
                           <span className="discount-ribbon">{discountPct}% OFF</span>
                         )}
                       </div>
+
+                      {/* Interactive Wishlist Heart Button */}
+                      <button
+                        type="button"
+                        className={`card-wishlist-btn ${isInWishlist(tour.id) ? 'active-saved' : ''}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          toggleWishlist(tour.id);
+                        }}
+                        title={isInWishlist(tour.id) ? 'Saved in Dreamboard' : 'Save to Dreamboard Wishlist'}
+                        aria-label="Wishlist"
+                      >
+                        <Heart 
+                          size={15} 
+                          fill={isInWishlist(tour.id) ? '#FF4D6D' : 'rgba(0,0,0,0.25)'} 
+                          color={isInWishlist(tour.id) ? '#FF4D6D' : '#FFFFFF'} 
+                        />
+                      </button>
 
                       <div className="media-bottom-strip">
                         <span className="compact-dur-pill weekend-dur">

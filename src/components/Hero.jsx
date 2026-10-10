@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Globe, Sun, Users, Sparkles, MapPin, Calendar, Compass, 
-  ChevronRight, ArrowRight, CheckCircle2, Heart, ShieldCheck, 
+  ChevronRight, ChevronLeft, ArrowRight, CheckCircle2, Heart, ShieldCheck, 
   MessageCircle, ExternalLink, Flame, ArrowLeft, Landmark, 
   Building2, Palmtree, Waves, Snowflake, CloudRain, Leaf, Flower2,
   Hotel, Car, Utensils, Ticket, Clock, Star, Briefcase, Search, X,
@@ -11,6 +11,7 @@ import { CONTINENTS_TREE_DATA, SEASONS_DATA, TRAVELER_STYLES_DATA } from '../dat
 import { HERO_SLIDES } from '../data/toursData';
 import { useLiveTours } from '../hooks/useLiveContent';
 import { useCurrency } from '../context/CurrencyContext';
+import { useWishlistCompare } from '../context/WishlistCompareContext';
 import VantaTravelSkyCanvas from './animations/VantaTravelSkyCanvas';
 import HeroMascot from './HeroMascot';
 import CardInclusionsStrip from './CardInclusionsStrip';
@@ -19,6 +20,7 @@ import { siteSettingsService, EVENT_SETTINGS_UPDATED } from '../services/siteSet
 export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, onOpenQuote }) {
   const TOURS_DATA = useLiveTours();
   const { formatPrice } = useCurrency();
+  const { isInWishlist, toggleWishlist } = useWishlistCompare();
   const heroRef = useRef(null);
 
   // Dynamic CMS Hero Settings
@@ -47,23 +49,21 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
   const [countryRegionFilter, setCountryRegionFilter] = useState('All');
 
   // Mobile layout state: 'carousel' (Horizontal 3D slider - Default) | 'vertical' (max 4 cards)
-  // Mobile layout state: 'carousel' (Horizontal 3D slider - Default) | 'vertical' (max 4 cards)
-  const [mobileLayoutMode, setMobileLayoutMode] = useState('carousel');
-  const [mobileVisibleCount, setMobileVisibleCount] = useState(4);
   const heroToursTrackRef = useRef(null);
 
-  // Automatic Horizontal Scrolling for Tour Package Cards in Carousel Mode
+  // Automatic Horizontal Scrolling for Tour Package Cards ONLY in mobile view
   const [isAutoScrollPaused, setIsAutoScrollPaused] = useState(false);
-  const autoScrollResumeTimerRef = useRef(null);
 
   useEffect(() => {
-    if (mobileLayoutMode !== 'carousel' || isAutoScrollPaused) return;
+    // Only auto-scroll in mobile view (< 768px) and when not paused
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    if (!isMobile || isAutoScrollPaused) return;
 
     const interval = setInterval(() => {
       if (heroToursTrackRef.current) {
         const el = heroToursTrackRef.current;
         const maxScroll = el.scrollWidth - el.clientWidth;
-        if (el.scrollLeft >= maxScroll - 30) {
+        if (el.scrollLeft >= maxScroll - 25) {
           el.scrollTo({ left: 0, behavior: 'smooth' });
         } else {
           el.scrollBy({ left: 280, behavior: 'smooth' });
@@ -72,20 +72,14 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
     }, 3600);
 
     return () => clearInterval(interval);
-  }, [mobileLayoutMode, isAutoScrollPaused, activeCountryId, discoveryMode, countrySearchQuery]);
+  }, [isAutoScrollPaused, activeCountryId, discoveryMode, countrySearchQuery]);
 
-  const handleTrackUserInteraction = () => {
+  const handleStopAutoScroll = () => {
     setIsAutoScrollPaused(true);
-    if (autoScrollResumeTimerRef.current) {
-      clearTimeout(autoScrollResumeTimerRef.current);
-    }
-    autoScrollResumeTimerRef.current = setTimeout(() => {
-      setIsAutoScrollPaused(false);
-    }, 6000);
   };
 
   const scrollHeroTours = (direction) => {
-    handleTrackUserInteraction();
+    handleStopAutoScroll();
     if (heroToursTrackRef.current) {
       const scrollAmount = direction === 'left' ? -280 : 280;
       heroToursTrackRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
@@ -604,6 +598,25 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                                     )}
                                   </div>
 
+                                  {/* Interactive Wishlist Heart Button */}
+                                  <button
+                                    type="button"
+                                    className={`card-wishlist-btn ${isInWishlist(tour.id) ? 'active-saved' : ''}`}
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      e.preventDefault();
+                                      toggleWishlist(tour.id);
+                                    }}
+                                    title={isInWishlist(tour.id) ? 'Saved in Dreamboard' : 'Save to Dreamboard Wishlist'}
+                                    aria-label="Wishlist"
+                                  >
+                                    <Heart 
+                                      size={15} 
+                                      fill={isInWishlist(tour.id) ? '#FF4D6D' : 'rgba(0,0,0,0.25)'} 
+                                      color={isInWishlist(tour.id) ? '#FF4D6D' : '#FFFFFF'} 
+                                    />
+                                  </button>
+
                                   <div className="c-media-bottom-badge">
                                     <span className="c-dur-pill">
                                       <Clock size={11} className="text-cyan flex-shrink-0" />
@@ -669,10 +682,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                   );
                 }
 
-                const isMobileVertical = mobileLayoutMode === 'vertical';
-                const displayedTours = isMobileVertical 
-                  ? filteredTours.slice(0, mobileVisibleCount) 
-                  : (showAllCountryTours ? filteredTours : filteredTours.slice(0, 12));
+                const displayedTours = showAllCountryTours ? filteredTours : filteredTours.slice(0, 12);
 
                 return (
                   <div className="country-packages-wrapper">
@@ -694,54 +704,43 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                       </div>
                     )}
 
-                    {/* Mobile Packages Toolbar: Live Count, Auto-Slide Status & 3D Slider vs Vertical Toggle */}
-                    <div className="hero-packages-toolbar">
+                    {/* Streamlined Packages Header: Live Count & Scroll Controls */}
+                    <div className="hero-packages-toolbar streamlined-toolbar">
                       <div className="packages-count-badge">
                         <span className="live-dot-pulse" />
                         <span>{filteredTours.length} {activeCountry.name} Packages</span>
                       </div>
 
-                      {mobileLayoutMode === 'carousel' && filteredTours.length > 1 && (
-                        <button
-                          type="button"
-                          className={`autoscroll-badge-btn ${isAutoScrollPaused ? 'paused' : 'running'}`}
-                          onClick={() => setIsAutoScrollPaused(!isAutoScrollPaused)}
-                          title={isAutoScrollPaused ? "Tap to play auto-scroll" : "Tap to pause auto-scroll"}
-                        >
-                          <span className="autoscroll-dot" />
-                          <span>{isAutoScrollPaused ? '▶ Auto-Slide' : '❚❚ Auto-Slide'}</span>
-                        </button>
+                      {filteredTours.length > 3 && (
+                        <div className="carousel-nav-arrows">
+                          <button 
+                            type="button" 
+                            className="btn-carousel-arrow" 
+                            onClick={() => scrollHeroTours('left')}
+                            aria-label="Scroll left"
+                          >
+                            <ChevronLeft size={16} />
+                          </button>
+                          <button 
+                            type="button" 
+                            className="btn-carousel-arrow" 
+                            onClick={() => scrollHeroTours('right')}
+                            aria-label="Scroll right"
+                          >
+                            <ChevronRight size={16} />
+                          </button>
+                        </div>
                       )}
-
-                      <div className="mobile-view-mode-toggle">
-                        <button 
-                          type="button" 
-                          className={`view-toggle-btn ${mobileLayoutMode === 'carousel' ? 'active' : ''}`}
-                          onClick={() => setMobileLayoutMode('carousel')}
-                          title="Horizontal 3D Slider"
-                        >
-                          <SlidersHorizontal size={13} />
-                          <span>3D Slider</span>
-                        </button>
-                        <button 
-                          type="button" 
-                          className={`view-toggle-btn ${mobileLayoutMode === 'vertical' ? 'active' : ''}`}
-                          onClick={() => setMobileLayoutMode('vertical')}
-                          title="Compact View (Max 4)"
-                        >
-                          <LayoutGrid size={13} />
-                          <span>Grid (Max 4)</span>
-                        </button>
-                      </div>
                     </div>
 
-                    {/* Horizontal 3D Swipe Track (Default) or Vertical Progressive Grid */}
+                    {/* Horizontal Streamlined Swipe Track */}
                     <div 
-                      className={`stage-cities-grid ${mobileLayoutMode === 'carousel' ? 'carousel-mode' : 'vertical-mode'}`}
+                      className="stage-cities-grid carousel-mode"
                       ref={heroToursTrackRef}
-                      onTouchStart={handleTrackUserInteraction}
-                      onMouseDown={handleTrackUserInteraction}
-                      onWheel={handleTrackUserInteraction}
+                      onMouseEnter={handleStopAutoScroll}
+                      onTouchStart={handleStopAutoScroll}
+                      onClick={handleStopAutoScroll}
+                      onMouseDown={handleStopAutoScroll}
                     >
                       {displayedTours.map((tour) => {
                         const origPrice = tour.originalPrice || Math.round(tour.price * 1.25);
@@ -774,6 +773,25 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                                   </span>
                                 )}
                               </div>
+
+                              {/* Interactive Wishlist Heart Button */}
+                              <button
+                                type="button"
+                                className={`card-wishlist-btn ${isInWishlist(tour.id) ? 'active-saved' : ''}`}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  e.preventDefault();
+                                  toggleWishlist(tour.id);
+                                }}
+                                title={isInWishlist(tour.id) ? 'Saved in Dreamboard' : 'Save to Dreamboard Wishlist'}
+                                aria-label="Wishlist"
+                              >
+                                <Heart 
+                                  size={15} 
+                                  fill={isInWishlist(tour.id) ? '#FF4D6D' : 'rgba(0,0,0,0.25)'} 
+                                  color={isInWishlist(tour.id) ? '#FF4D6D' : '#FFFFFF'} 
+                                />
+                              </button>
 
                               {/* Bottom Duration Badge on Image */}
                               <div className="c-media-bottom-badge">
@@ -839,7 +857,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                     </div>
 
                     {/* Carousel Mode Swipe Helper Row (Mobile only) */}
-                    {mobileLayoutMode === 'carousel' && filteredTours.length > 1 && (
+                    {filteredTours.length > 1 && (
                       <div className="carousel-mobile-arrows-row">
                         <span className="swipe-hint-text">← Swipe cards horizontally ({filteredTours.length} packages) →</span>
                         <div className="carousel-nav-arrows mini">
@@ -850,20 +868,6 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                             <ArrowRight size={14} />
                           </button>
                         </div>
-                      </div>
-                    )}
-
-                    {/* Vertical Mode: Progressive Show More (Never more than 4 initially) */}
-                    {mobileLayoutMode === 'vertical' && filteredTours.length > mobileVisibleCount && (
-                      <div className="vertical-show-more-row text-center mt-3">
-                        <button
-                          type="button"
-                          className="btn-expand-mobile-vertical"
-                          onClick={() => setMobileVisibleCount(prev => prev + 4)}
-                        >
-                          <ChevronDown size={15} />
-                          <span>Show 4 More Packages ({filteredTours.length - mobileVisibleCount} remaining)</span>
-                        </button>
                       </div>
                     )}
 
@@ -938,7 +942,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               })()}
 
               {/* In-Place Seasonal Tour Cards */}
-              <div className={`stage-cities-grid ${mobileLayoutMode === 'carousel' ? 'carousel-mode' : 'vertical-mode'}`}>
+              <div className="stage-cities-grid carousel-mode">
                 {getSeasonalTours().map((tour) => {
                   const origPrice = tour.originalPrice || Math.round(tour.price * 1.25);
 
@@ -947,6 +951,24 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                       <div className="st-img-pane">
                         <img src={tour.image} alt={tour.name} className="st-img" />
                         <span className="st-badge">{tour.badge}</span>
+                        {/* Interactive Wishlist Heart Button */}
+                        <button
+                          type="button"
+                          className={`card-wishlist-btn ${isInWishlist(tour.id) ? 'active-saved' : ''}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            toggleWishlist(tour.id);
+                          }}
+                          title={isInWishlist(tour.id) ? 'Saved in Dreamboard' : 'Save to Dreamboard Wishlist'}
+                          aria-label="Wishlist"
+                        >
+                          <Heart 
+                            size={14} 
+                            fill={isInWishlist(tour.id) ? '#FF4D6D' : 'rgba(0,0,0,0.25)'} 
+                            color={isInWishlist(tour.id) ? '#FF4D6D' : '#FFFFFF'} 
+                          />
+                        </button>
                         <span className="st-dur">
                           <Clock size={10} className="inline mr-1 text-cyan" />
                           {tour.duration}
@@ -1036,7 +1058,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               })()}
 
               {/* In-Place Style Tour Cards */}
-              <div className={`stage-cities-grid ${mobileLayoutMode === 'carousel' ? 'carousel-mode' : 'vertical-mode'}`}>
+              <div className="stage-cities-grid carousel-mode">
                 {getStyleTours().map((tour) => {
                   const origPrice = tour.originalPrice || Math.round(tour.price * 1.25);
 
@@ -1045,6 +1067,24 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                       <div className="st-img-pane">
                         <img src={tour.image} alt={tour.name} className="st-img" />
                         <span className="st-badge">{tour.badge}</span>
+                        {/* Interactive Wishlist Heart Button */}
+                        <button
+                          type="button"
+                          className={`card-wishlist-btn ${isInWishlist(tour.id) ? 'active-saved' : ''}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            toggleWishlist(tour.id);
+                          }}
+                          title={isInWishlist(tour.id) ? 'Saved in Dreamboard' : 'Save to Dreamboard Wishlist'}
+                          aria-label="Wishlist"
+                        >
+                          <Heart 
+                            size={14} 
+                            fill={isInWishlist(tour.id) ? '#FF4D6D' : 'rgba(0,0,0,0.25)'} 
+                            color={isInWishlist(tour.id) ? '#FF4D6D' : '#FFFFFF'} 
+                          />
+                        </button>
                         <span className="st-dur">
                           <Clock size={10} className="inline mr-1 text-cyan" />
                           {tour.duration}
@@ -1711,12 +1751,30 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           border-radius: 9999px;
         }
 
-        /* Cities In-Place Grid - Modern Non-Widespread Proportions */
+        /* Cities In-Place Track - Horizontal Cards Taking Minimal Space */
         .stage-cities-grid {
           display: grid;
           grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
           gap: 1.25rem;
           justify-content: center;
+        }
+
+        .stage-cities-grid.carousel-mode {
+          display: flex !important;
+          grid-template-columns: none !important;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          gap: 1.15rem;
+          padding: 0.5rem 0.25rem 1.1rem 0.25rem;
+          scrollbar-width: thin;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .stage-cities-grid.carousel-mode .city-in-place-card {
+          flex: 0 0 295px;
+          min-width: 295px;
+          max-width: 295px;
+          scroll-snap-align: start;
         }
 
         .city-in-place-card {

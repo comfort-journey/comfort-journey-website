@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
-  Phone, MessageCircle, Menu, X, Bot, ChevronDown, ChevronRight, 
-  Globe, Heart, Scale, Shield, Lock, Sun, Snowflake, Mountain, Palmtree, 
+  MessageCircle, Menu, X, ChevronDown, ChevronRight, 
+  Globe, Heart, Scale, Shield, Sun, Snowflake, Mountain, Palmtree, 
   Users, Briefcase, GraduationCap, Clock, Compass, MapPin, CloudSun, Sparkles 
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
@@ -85,7 +85,6 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
     { label: 'Trip Studio', href: '#custom-builder' },
     { label: 'Journal', href: '#/blog' },
     { label: 'Reviews', href: '#google-reviews' },
-    { label: 'Reels', href: '#stories', secondary: true },
     { label: 'Why Us', href: '#why-us', secondary: true },
     { label: 'Who We Are', href: '#/about', secondary: true },
   ];
@@ -478,42 +477,8 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
                 )}
               </div>
 
-              {/* Comfy.ai Trip Planner CTA with Liquid Shimmer */}
-              <button 
-                type="button" 
-                className="btn-ai-glow nav-ai-btn btn-ai-liquid"
-                onClick={onOpenAIPlanner}
-                title="Plan with Comfy.ai"
-              >
-                <Bot size={15} />
-                <span className="ai-btn-text">Comfy.ai</span>
-              </button>
-
               {/* Light/Dark Theme Toggle — follows OS by default */}
               <ThemeToggle variant="pill" />
-
-              {/* Phone VIP Link (Desktop) */}
-              <a href="tel:+918770403315" className="phone-btn liquid-glass-btn" title="Call 24/7 VIP Concierge">
-                <Phone size={14} />
-                <span className="phone-text-full">+91 8770403315</span>
-                <span className="phone-text-short">Call</span>
-              </a>
-
-              {/* Quick Mobile Top Phone Shortcut */}
-              <a href="tel:+918770403315" className="mobile-top-phone-btn liquid-glass-btn" title="Call 24/7 Concierge" aria-label="Call Concierge">
-                <Phone size={15} />
-              </a>
-
-              {/* Admin CMS Trigger (Discreet Lock) */}
-              <button
-                type="button"
-                className="admin-trigger-btn liquid-glass-btn"
-                onClick={onOpenAdmin}
-                title="Admin CMS & SEO Portal"
-                aria-label="Admin Portal"
-              >
-                <Lock size={13} />
-              </button>
 
               {/* Universal Menu Hamburger Toggle */}
               <button 

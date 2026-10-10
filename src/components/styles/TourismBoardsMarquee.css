@@ -1,0 +1,197 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   TOURISM BOARDS CONTINUOUS MARQUEE SECTION
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.tourism-boards-section {
+  position: relative;
+  width: 100%;
+  padding: 1.75rem 0 2rem 0;
+  background: linear-gradient(180deg, rgba(0, 18, 51, 0.45) 0%, rgba(5, 14, 38, 0.65) 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  z-index: 10;
+}
+
+.tb-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  box-sizing: border-box;
+}
+
+/* Header Row */
+.tb-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.tb-header-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 137, 47, 0.3) 50%, transparent 100%);
+  max-width: 180px;
+}
+
+.tb-badge-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.tb-label-kicker {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--cj-amber-500, #FF892F);
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+
+.tb-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: rgba(255, 255, 255, 0.92);
+  text-transform: uppercase;
+  margin: 0 0 0.3rem 0;
+}
+
+.tb-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.74rem;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.02em;
+}
+
+/* Marquee Viewport with Edge Fade Masks */
+.tb-marquee-viewport {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  padding: 0.35rem 0;
+}
+
+.tb-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  width: max-content;
+  animation: tbMarqueeScroll 42s linear infinite;
+  will-change: transform;
+}
+
+.tb-marquee-viewport:hover .tb-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes tbMarqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Individual Logo Card */
+.tb-logo-card {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  min-width: 145px;
+  padding: 0.5rem 1.15rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.tb-logo-card:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 137, 47, 0.45);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 137, 47, 0.15);
+  transform: translateY(-2px);
+}
+
+.tb-svg-logo {
+  height: 38px;
+  width: auto;
+  max-width: 155px;
+  display: block;
+}
+
+/* Light Theme Overrides */
+:root:not([data-theme="dark"]) .tourism-boards-section,
+[data-theme="light"] .tourism-boards-section {
+  background: linear-gradient(180deg, #F8FAFC 0%, #EDF2F7 100%);
+  border-top-color: rgba(0, 18, 51, 0.08);
+  border-bottom-color: rgba(0, 18, 51, 0.08);
+}
+
+:root:not([data-theme="dark"]) .tb-title,
+[data-theme="light"] .tb-title {
+  color: #001233;
+}
+
+:root:not([data-theme="dark"]) .tb-subtitle,
+[data-theme="light"] .tb-subtitle {
+  color: #64748B;
+}
+
+:root:not([data-theme="dark"]) .tb-logo-card,
+[data-theme="light"] .tb-logo-card {
+  background: #FFFFFF;
+  border-color: rgba(0, 18, 51, 0.08);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+:root:not([data-theme="dark"]) .tb-logo-card:hover,
+[data-theme="light"] .tb-logo-card:hover {
+  background: #FFFFFF;
+  border-color: rgba(255, 137, 47, 0.5);
+  box-shadow: 0 8px 24px rgba(0, 18, 51, 0.08), 0 0 12px rgba(255, 137, 47, 0.15);
+}
+
+@media (max-width: 768px) {
+  .tourism-boards-section {
+    padding: 1.25rem 0 1.5rem 0;
+  }
+
+  .tb-title {
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+  }
+
+  .tb-subtitle {
+    font-size: 0.68rem;
+    padding: 0 1rem;
+  }
+
+  .tb-logo-card {
+    height: 52px;
+    min-width: 130px;
+    padding: 0.4rem 0.85rem;
+  }
+
+  .tb-svg-logo {
+    height: 32px;
+  }
+
+  .tb-marquee-track {
+    animation-duration: 30s;
+  }
+}
