@@ -594,7 +594,7 @@
 
 .section-heading {
   margin: 0 0 6px 0;
-  font-family: var(--font-heading, 'Outfit', 'Fraunces', serif);
+  font-family: var(--font-heading, 'Baumans', cursive, sans-serif);
   font-size: clamp(1.6rem, 2.8vw, 2.2rem);
   font-weight: 800;
   color: var(--cj-text-heading, #0F1E36);
@@ -883,7 +883,7 @@
 
 .day-banner-title {
   margin: 0;
-  font-family: var(--font-heading, 'Outfit', 'Fraunces', serif);
+  font-family: var(--font-heading, 'Baumans', cursive, sans-serif);
   font-size: 1.35rem;
   font-weight: 800;
   color: var(--cj-text-heading, #0F1E36);

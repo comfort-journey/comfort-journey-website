@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,100..900,7.7;1,9..144,100..900,7.7&family=Outfit:wght@100..900&family=Righteous&family=Noto+Sans:ital,wght@0,400..700;1,400..700&family=Noto+Serif:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Devanagari:wght@400..700&family=Noto+Sans+Arabic:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baumans&family=Outfit:wght@100..900&family=Noto+Sans:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Devanagari:wght@400..700&family=Noto+Sans+Arabic:wght@400..700&display=swap');
 
 :root,
 [data-theme="light"] {
@@ -81,15 +81,19 @@
   --cj-blur-desktop: 16px;
   --cj-blur-mobile: 8px;
 
-  /* Brand Typography: Triple-Font System & Multilingual Fallbacks */
-  --font-fraunces: 'Fraunces', 'Noto Serif', 'Noto Serif Devanagari', Georgia, serif;
-  --font-righteous: 'Righteous', 'Noto Sans', 'Noto Sans Devanagari', 'Noto Sans Arabic', cursive, sans-serif;
+  /* Brand Typography: Approved 2-Font System — Baumans (Headings) & Outfit (Text/UI) */
+  --font-baumans: 'Baumans', cursive, sans-serif;
   --font-outfit: 'Outfit', 'Noto Sans', 'Noto Sans Devanagari', 'Noto Sans Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  --font-serif: var(--font-fraunces);
-  --font-heading: var(--font-fraunces);
-  --font-editorial: var(--font-fraunces);
-  --font-discovery: var(--font-righteous);
+  /* Primary Headings: Baumans */
+  --font-heading: var(--font-baumans);
+  --font-editorial: var(--font-baumans);
+  --font-serif: var(--font-baumans);
+  --font-discovery: var(--font-baumans);
+  --font-fraunces: var(--font-baumans);
+  --font-righteous: var(--font-baumans);
+
+  /* Secondary Body, Buttons & UI: Outfit */
   --font-ui: var(--font-outfit);
   --font-body: var(--font-outfit);
 
@@ -396,61 +400,46 @@ body {
   transform: translateY(0);
 }
 
-/* Typography Hierarchy: Triple-Font System (Fraunces, Righteous, Outfit) */
-h1, h2, .font-editorial, .font-fraunces {
-  font-family: var(--font-fraunces);
-  font-weight: 700;
-  letter-spacing: -0.01em;
+/* Typography Hierarchy: Approved 2-Font System (Baumans for Headings, Outfit for Body & UI) */
+h1, h2, h3, h4, h5, h6,
+.font-editorial, .font-fraunces, .font-righteous, .font-discovery, .font-baumans, .font-heading {
+  font-family: var(--font-heading) !important;
+  letter-spacing: 0.01em;
   color: var(--cj-text-heading);
 }
 
-h3, h4, h5, h6, .font-ui, .font-outfit {
-  font-family: var(--font-ui);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--cj-text-heading);
+.font-ui, .font-outfit {
+  font-family: var(--font-ui) !important;
 }
 
-.font-righteous, .font-discovery {
-  font-family: var(--font-righteous) !important;
-  letter-spacing: 0.02em;
-}
-
-/* Editorial Ampersands: Fraunces Italic for handcrafted elegance */
+/* Editorial Ampersands: Unified with Baumans heading font */
 .font-ampersand, .ampersand {
-  font-family: var(--font-fraunces) !important;
-  font-style: italic !important;
-  font-weight: 400 !important;
+  font-family: var(--font-heading) !important;
+  font-style: normal !important;
   display: inline-block;
-  padding: 0 0.08em;
+  padding: 0 0.06em;
 }
 
-/* Hero Title Split Identity */
-.hero-journey-text {
-  font-family: var(--font-righteous) !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.02em !important;
-  display: inline-block;
-}
-
+/* Hero Title: Both words unified with Baumans heading font */
+.hero-journey-text,
 .hero-comfort-text {
-  font-family: var(--font-fraunces) !important;
-  font-weight: 800 !important;
+  font-family: var(--font-heading) !important;
+  letter-spacing: 0.01em !important;
   display: inline-block;
 }
 
-/* Quotes, Testimonials & Blockquotes in Fraunces */
+/* Quotes, Testimonials & Blockquotes in Baumans */
 blockquote, .quote-text-content, .comment, .reader-blockquote, .quote-box-gold {
-  font-family: var(--font-fraunces) !important;
-  font-style: italic;
+  font-family: var(--font-heading) !important;
+  font-style: normal;
 }
 
-/* Continent & Discovery Region Titles in Righteous */
+/* Continent & Discovery Region Titles in Baumans */
 .continent-chip-meta .c-title,
 .continent-chip-card .c-title,
 .continent-title {
-  font-family: var(--font-righteous) !important;
-  letter-spacing: 0.02em !important;
+  font-family: var(--font-heading) !important;
+  letter-spacing: 0.01em !important;
 }
 
 p, span, li, input, textarea, select {
@@ -1100,7 +1089,7 @@ s {
   background: linear-gradient(135deg, rgba(20, 10, 5, 0.94) 0%, rgba(35, 15, 5, 0.96) 100%) !important;
   border: 1.5px solid #FF892F !important;
   color: #FFFFFF !important;
-  font-family: var(--font-righteous) !important;
+  font-family: var(--font-heading) !important;
   font-size: 0.68rem !important;
   font-weight: 400 !important;
   padding: 0.22rem 0.65rem !important;
@@ -1253,7 +1242,7 @@ s {
   gap: 0.25rem;
   background: linear-gradient(135deg, #FF892F, #E65100);
   color: #FFFFFF;
-  font-family: var(--font-righteous) !important;
+  font-family: var(--font-heading) !important;
   font-size: 0.68rem;
   font-weight: 400;
   padding: 0.22rem 0.6rem;
@@ -1270,7 +1259,7 @@ s {
   background: linear-gradient(135deg, rgba(16, 185, 129, 0.95), rgba(5, 150, 105, 0.95));
   border: 1px solid #34D399;
   color: #FFFFFF;
-  font-family: var(--font-righteous) !important;
+  font-family: var(--font-heading) !important;
   font-size: 0.72rem;
   font-weight: 400;
   padding: 0.22rem 0.6rem;
@@ -1604,7 +1593,7 @@ s {
   background: linear-gradient(135deg, #FF892F 0%, #E65100 100%) !important;
   border: none !important;
   color: #FFFFFF !important;
-  font-family: var(--font-righteous) !important;
+  font-family: var(--font-heading) !important;
   font-size: 0.84rem !important;
   font-weight: 400 !important;
   letter-spacing: 0.02em !important;

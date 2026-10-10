@@ -95,7 +95,7 @@
 
 .timeline-empty-v2 h3 {
   margin: 0 0 8px;
-  font-family: var(--font-serif, 'Fraunces', serif);
+  font-family: var(--font-heading, 'Baumans', cursive, sans-serif);
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--cj-text-heading, #14264A);

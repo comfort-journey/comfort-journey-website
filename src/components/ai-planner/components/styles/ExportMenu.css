@@ -47,7 +47,7 @@
 
 .menu-header h3 {
   margin: 0;
-  font-family: 'Fraunces', serif;
+  font-family: var(--font-heading, 'Baumans', cursive, sans-serif);
   font-size: 0.9rem;
   font-weight: 700;
   color: var(--planner-text-heading);

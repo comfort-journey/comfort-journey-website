@@ -74,7 +74,7 @@
   align-items: center;
   gap: var(--space-2);
   margin: 0;
-  font-family: 'Fraunces', serif;
+  font-family: var(--font-heading, 'Baumans', cursive, sans-serif);
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--planner-text-heading);

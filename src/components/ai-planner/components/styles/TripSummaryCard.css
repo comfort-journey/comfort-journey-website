@@ -47,7 +47,7 @@
 
 .trip-title {
   margin: 0;
-  font-family: 'Fraunces', 'Noto Serif', serif;
+  font-family: var(--font-heading, 'Baumans', cursive, sans-serif);
   font-size: 1.12rem;
   font-weight: 700;
   color: #FFFFFF;

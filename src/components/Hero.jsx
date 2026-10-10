@@ -1250,24 +1250,24 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           margin-bottom: 0.65rem;
           line-height: 1.15;
           letter-spacing: -0.02em;
-          font-family: var(--font-fraunces);
+          font-family: var(--font-heading);
         }
 
         .hero-journey-text {
-          font-family: var(--font-righteous) !important;
+          font-family: var(--font-heading) !important;
           text-transform: uppercase !important;
           letter-spacing: 0.02em !important;
           color: var(--cj-text-heading);
         }
 
         .hero-comfort-text {
-          font-family: var(--font-fraunces) !important;
+          font-family: var(--font-heading) !important;
           font-weight: 800 !important;
         }
 
         .hero-divider-dot {
           color: #FFA459;
-          font-family: var(--font-fraunces);
+          font-family: var(--font-heading);
           padding: 0 0.15rem;
         }
 

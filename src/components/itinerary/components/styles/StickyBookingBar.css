@@ -85,7 +85,7 @@
 }
 
 .current-price-val {
-  font-family: var(--font-heading, 'Outfit', 'Fraunces', serif);
+  font-family: var(--font-heading, 'Baumans', cursive, sans-serif);
   font-size: 1.85rem;
   font-weight: 900;
   color: #FB923C;

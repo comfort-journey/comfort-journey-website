@@ -596,7 +596,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
         }
 
         .reader-blockquote {
-          font-family: var(--font-fraunces);
+          font-family: var(--font-heading);
           font-style: italic;
           margin: 1.75rem 0;
           padding: 1.25rem 1.75rem;

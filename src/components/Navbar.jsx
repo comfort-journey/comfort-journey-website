@@ -913,7 +913,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         }
 
         .title-comfort {
-          font-family: var(--font-fraunces, 'Fraunces', Georgia, serif);
+          font-family: var(--font-heading, 'Baumans', cursive, sans-serif);
           font-weight: 800;
           font-size: 1.32rem;
           letter-spacing: -0.01em;
@@ -922,7 +922,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         }
 
         .title-journey {
-          font-family: var(--font-righteous, 'Righteous', sans-serif);
+          font-family: var(--font-heading, 'Baumans', cursive, sans-serif);
           font-weight: 400;
           font-size: 1.32rem;
           letter-spacing: 0.02em;

@@ -864,7 +864,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
           background: rgba(255, 137, 47, 0.08);
           padding: 1.25rem 1.5rem;
           border-radius: 0 16px 16px 0;
-          font-family: var(--font-editorial, 'Fraunces', Georgia, serif);
+          font-family: var(--font-heading, 'Baumans', cursive, sans-serif);
           font-size: 1.25rem;
           color: var(--cj-text-heading);
           margin: 1.5rem 0;

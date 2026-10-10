@@ -110,7 +110,7 @@
 
 .stop-drawer .stop-title {
   margin: 0 0 2px 0;
-  font-family: var(--font-serif, 'Fraunces', serif);
+  font-family: var(--font-heading, 'Baumans', cursive, sans-serif);
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--cj-text-heading, #14264A);

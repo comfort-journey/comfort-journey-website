@@ -922,7 +922,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
         }
 
         .quote-text-content {
-          font-family: var(--font-fraunces);
+          font-family: var(--font-ui);
           font-style: italic;
           font-size: 0.86rem;
           color: var(--cj-text-body);
@@ -1222,7 +1222,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
         }
 
         .story-quote-body p {
-          font-family: var(--font-fraunces);
+          font-family: var(--font-ui);
           font-style: italic;
           color: var(--cj-text-body);
           font-size: 1.05rem;

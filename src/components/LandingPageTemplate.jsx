@@ -843,9 +843,9 @@ export default function LandingPageTemplate({
           align-items: center;
           gap: 0.55rem;
           color: var(--cj-text-heading);
-          font-family: var(--font-righteous);
+          font-family: var(--font-ui);
           font-size: 1rem;
-          font-weight: 400;
+          font-weight: 700;
           letter-spacing: 0.02em;
           padding: 0.9rem 1.85rem;
           border-radius: 9999px;

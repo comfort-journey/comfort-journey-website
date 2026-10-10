@@ -288,7 +288,7 @@
 
 .hero-day-title {
   margin: 0 0 8px;
-  font-family: var(--font-serif, 'Fraunces', serif);
+  font-family: var(--font-heading, 'Baumans', cursive, sans-serif);
   font-size: 1.35rem;
   font-weight: 800;
   color: var(--cj-text-heading, #14264A);
@@ -369,7 +369,7 @@
 
 .empty-day-v2 h3 {
   margin: 0 0 8px;
-  font-family: var(--font-serif, 'Fraunces', serif);
+  font-family: var(--font-heading, 'Baumans', cursive, sans-serif);
   font-size: 1.2rem;
   font-weight: 700;
   color: var(--cj-text-heading, #14264A);

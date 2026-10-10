@@ -82,7 +82,7 @@
 
 .hero-title {
   margin: 0;
-  font-family: var(--font-serif, 'Fraunces', serif);
+  font-family: var(--font-heading, 'Baumans', cursive, sans-serif);
   font-size: clamp(1.6rem, 3.5vw, 2.5rem);
   font-weight: 800;
   color: #FFFFFF;
@@ -140,7 +140,7 @@
 
 .overview-tab .section-title {
   margin: 0 0 16px 0;
-  font-family: var(--font-serif, 'Fraunces', serif);
+  font-family: var(--font-heading, 'Baumans', cursive, sans-serif);
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--cj-text-heading, #14264A);
@@ -181,7 +181,7 @@
 
 .summary-header h2 {
   margin: 0;
-  font-family: var(--font-serif, 'Fraunces', serif);
+  font-family: var(--font-heading, 'Baumans', cursive, sans-serif);
   font-size: 1.2rem;
   font-weight: 700;
   color: var(--cj-text-heading, #14264A);
@@ -203,7 +203,7 @@
 }
 
 .price-value {
-  font-family: var(--font-serif, 'Fraunces', serif);
+  font-family: var(--font-heading, 'Baumans', cursive, sans-serif);
   font-size: 1.5rem;
   font-weight: 800;
   color: var(--cj-cta-deep, #E66F12);
