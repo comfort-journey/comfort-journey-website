@@ -52,13 +52,13 @@ export default function TimelineStop({ stop, onSelect, stopNumber, totalStops })
         aria-selected={isSelected}
         style={{ '--stop-color': typeColor }}
       >
-        {/* Stop Number & Type Indicator */}
+        {/* Stop Number & Type Indicator (Mature Thrillophilia Benchmark) */}
         <div className="stop-indicator">
-          <div className="stop-number-ring" style={{ borderColor: typeColor, color: typeColor }}>
-            {stopNumber}
+          <div className="stop-number-ring">
+            <span>{stopNumber}</span>
           </div>
-          <div className="stop-type-label" style={{ background: typeColor }}>
-            <Icon size={10} color="white" />
+          <div className="stop-type-label">
+            <Icon size={11} className="stop-type-icon" style={{ color: typeColor }} />
             <span>{typeLabel}</span>
           </div>
         </div>

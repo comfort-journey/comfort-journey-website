@@ -89,7 +89,8 @@ export default function MapTab({
         center: initialCenter,
         zoom: 12,
         zoomControl: false,
-        attributionControl: false
+        attributionControl: false,
+        scrollWheelZoom: false
       });
 
       const preset = TILE_PRESETS[mapStyle] || TILE_PRESETS.streets;

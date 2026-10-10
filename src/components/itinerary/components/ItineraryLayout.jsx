@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   MapPin, Calendar, Compass, Share2, ChevronLeft, MessageCircle, 
-  ShieldCheck, Sun, FileCheck2, HelpCircle, Globe, ChevronDown 
+  ShieldCheck, Sun, FileCheck2, HelpCircle 
 } from 'lucide-react';
-import { useCurrency } from '../../../context/CurrencyContext';
 import './styles/ItineraryLayout.css';
 
 export default function ItineraryLayout({
@@ -21,21 +20,6 @@ export default function ItineraryLayout({
 }) {
   const [isMobile, setIsMobile] = useState(false);
   const [currentSection, setCurrentSection] = useState(activeSection || 'itinerary');
-  const [currencyOpen, setCurrencyOpen] = useState(false);
-  const currencyRef = useRef(null);
-  const { currency, setCurrency, currencies } = useCurrency();
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (currencyRef.current && !currencyRef.current.contains(e.target)) {
-        setCurrencyOpen(false);
-      }
-    };
-    if (currencyOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [currencyOpen]);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -63,10 +47,11 @@ export default function ItineraryLayout({
   };
 
   const navSections = [
-    { id: 'overview', label: 'Photos & Overview', icon: Compass, targetId: 'overview' },
-    { id: 'itinerary', label: 'Schedule & Map', icon: Calendar, targetId: 'itinerary-plan' },
+    { id: 'overview', label: 'Overview', icon: Compass, targetId: 'overview' },
+    { id: 'itinerary', label: 'Day-by-Day', icon: Calendar, targetId: 'itinerary-plan' },
+    { id: 'map', label: 'Route Map', icon: MapPin, targetId: 'tour-map' },
     { id: 'inclusions', label: 'Inclusions', icon: ShieldCheck, targetId: 'inclusions' },
-    { id: 'weather', label: 'Best Time & Weather', icon: Sun, targetId: 'weather' },
+    { id: 'weather', label: 'Weather', icon: Sun, targetId: 'weather' },
     { id: 'policies', label: 'Policies', icon: FileCheck2, targetId: 'policies' },
     { id: 'faqs', label: 'FAQs', icon: HelpCircle, targetId: 'faqs' },
   ];
@@ -134,39 +119,6 @@ export default function ItineraryLayout({
         </div>
         
         <div className="header-right">
-          {/* Header Currency Selector */}
-          <div className="header-currency-rel" ref={currencyRef}>
-            <button
-              type="button"
-              className="header-currency-btn"
-              onClick={() => setCurrencyOpen(!currencyOpen)}
-              title="Change Currency"
-            >
-              <Globe size={16} />
-              <span>{currency}</span>
-              <ChevronDown size={13} />
-            </button>
-
-            {currencyOpen && (
-              <div className="header-currency-dropdown">
-                {Object.keys(currencies).map((code) => (
-                  <button
-                    key={code}
-                    type="button"
-                    className={`curr-drop-item ${currency === code ? 'active' : ''}`}
-                    onClick={() => {
-                      setCurrency(code);
-                      setCurrencyOpen(false);
-                    }}
-                  >
-                    <span className="curr-sym">{currencies[code].symbol}</span>
-                    <span className="curr-code">{code}</span>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
           <button 
             type="button" 
             className="header-action-btn share-action-btn"

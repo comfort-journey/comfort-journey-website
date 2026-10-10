@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Camera, Grid, X, ChevronLeft, ChevronRight, Share2, Sparkles, MapPin } from 'lucide-react';
+import { Camera, Grid, X, ChevronLeft, ChevronRight, Sparkles, MapPin } from 'lucide-react';
 import { getTourGalleryImages } from '../../../data/destinationGalleries';
 import './styles/HeroGalleryMosaic.css';
 
@@ -153,16 +153,6 @@ export default function HeroGalleryMosaic({ tour, onShare }) {
               </div>
 
               <div className="lightbox-actions">
-                {onShare && (
-                  <button 
-                    type="button" 
-                    className="lightbox-action-btn"
-                    onClick={onShare}
-                    title="Share Itinerary"
-                  >
-                    <Share2 size={18} />
-                  </button>
-                )}
                 <button 
                   type="button" 
                   className="lightbox-action-btn lightbox-close-btn"

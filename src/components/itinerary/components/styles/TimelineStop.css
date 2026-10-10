@@ -54,7 +54,7 @@
 }
 
 /* =========================================================================
-   STOP INDICATOR - Number + Type
+   STOP INDICATOR - Mature, High-End Benchmark (Thrillophilia / Luxury)
    ========================================================================= */
 .stop-indicator {
   display: flex;
@@ -62,43 +62,69 @@
   align-items: center;
   gap: 6px;
   flex-shrink: 0;
-  min-width: 42px;
+  min-width: 46px;
 }
 
 .stop-number-ring {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  border: 2.5px solid;
+  border: 1.5px solid #CBD5E1;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.82rem;
   font-weight: 800;
   font-family: var(--font-ui, 'Outfit', sans-serif);
-  background: #FFFFFF;
+  background: #0F172A;
+  color: #FFFFFF;
   flex-shrink: 0;
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.14);
+}
+
+[data-theme="dark"] .stop-number-ring,
+.dark-theme .stop-number-ring {
+  background: #1E293B;
+  border-color: #475569;
+  color: #F8FAFC;
 }
 
 .stop-card-v2:hover .stop-number-ring,
 .stop-card-v2.selected .stop-number-ring {
-  background: var(--stop-color, #F59E0B);
+  background: #FF892F;
+  border-color: #EA580C;
   color: #FFFFFF !important;
+  transform: scale(1.06);
+  box-shadow: 0 4px 14px rgba(255, 137, 47, 0.35);
 }
 
 .stop-type-label {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  font-size: 0.58rem;
+  gap: 4px;
+  padding: 2.5px 8px;
+  border-radius: 6px;
+  font-size: 0.62rem;
   font-weight: 700;
-  color: #FFFFFF;
+  background: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  color: #475569;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+[data-theme="dark"] .stop-type-label,
+.dark-theme .stop-type-label {
+  background: #1E293B;
+  border-color: #334155;
+  color: #CBD5E1;
+}
+
+.stop-type-icon {
+  flex-shrink: 0;
 }
 
 /* =========================================================================

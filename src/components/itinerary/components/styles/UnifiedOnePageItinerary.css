@@ -957,139 +957,78 @@
 /* =========================================================================
    RIGHT STICKY COMPANION CARD (MAP + ENQUIRY TABS)
    ========================================================================= */
-.schedule-map-col {
+/* =========================================================================
+   TWO-COLUMN SCHEDULE GRID: LEFT TIMELINE (65%) + RIGHT INQUIRY (35%)
+   ========================================================================= */
+.schedule-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 390px;
+  gap: 28px;
+  align-items: start;
+}
+
+.day-stops-count-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  background: var(--cj-bg-soft, #F5F1E9);
+  border: 1px solid var(--cj-line, #E8E0CF);
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--cj-text-muted, #64748B);
+}
+
+[data-theme="dark"] .day-stops-count-tag,
+.dark-theme .day-stops-count-tag {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #CBD5E1;
+}
+
+/* Right Column: Sticky Quick Enquiry Form */
+.schedule-enquiry-col {
   position: relative;
   min-width: 0;
 }
 
-.sticky-companion-card {
+.sticky-enquiry-wrapper {
   position: sticky;
-  top: 84px;
-  border-radius: 20px;
-  overflow: hidden;
-  border: 1px solid var(--cj-line, #E8E0CF);
-  box-shadow: 0 10px 32px rgba(15, 30, 54, 0.08);
-  background: #FFFFFF;
-  display: flex;
-  flex-direction: column;
+  top: 96px;
+  z-index: 20;
 }
 
-[data-theme="dark"] .sticky-companion-card,
-.dark-theme .sticky-companion-card {
-  background: #0F172A;
-  border-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.45);
-}
-
-/* Companion Switcher Tabs Header */
-.companion-nav-tabs {
-  display: flex;
-  align-items: center;
-  background: var(--cj-bg-soft, #FAF7F2);
-  border-bottom: 1px solid var(--cj-line, #E8E0CF);
-  padding: 6px 8px;
-  gap: 6px;
-}
-
-[data-theme="dark"] .companion-nav-tabs,
-.dark-theme .companion-nav-tabs {
-  background: rgba(255, 255, 255, 0.04);
-  border-bottom-color: rgba(255, 255, 255, 0.08);
-}
-
-.companion-tab {
-  flex: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  padding: 8px 14px;
-  border-radius: 12px;
-  border: none;
-  background: transparent;
-  font-family: inherit;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--cj-text-muted, #64748B);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.companion-tab:hover {
-  color: var(--cj-text-heading, #0F1E36);
-  background: rgba(0, 0, 0, 0.03);
-}
-
-.companion-tab.active {
-  background: #FFFFFF;
-  color: #EA580C;
-  box-shadow: 0 2px 8px rgba(15, 30, 54, 0.08);
-}
-
-[data-theme="dark"] .companion-tab.active,
-.dark-theme .companion-tab.active {
-  background: #1E293B;
-  color: #FB923C;
-}
-
-.tab-fast-badge {
-  font-size: 0.62rem;
-  font-weight: 800;
-  background: rgba(16, 185, 129, 0.15);
-  color: #059669;
-  padding: 1px 6px;
-  border-radius: 9999px;
-  text-transform: uppercase;
-}
-
-/* Map Frame inside companion */
-.companion-map-frame {
-  height: calc(100vh - 235px);
-  min-height: 480px;
-  position: relative;
-}
-
-.companion-enquire-prompt {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 16px;
-  background: var(--cj-bg-soft, #FAF7F2);
+/* =========================================================================
+   STANDALONE INTERACTIVE ROUTE & WAYPOINTS MAP SECTION
+   ========================================================================= */
+.onepage-map-section {
+  padding: 40px 0 20px 0;
   border-top: 1px solid var(--cj-line, #E8E0CF);
-  font-size: 0.74rem;
-  font-weight: 600;
-  color: var(--cj-text-muted, #64748B);
 }
 
-[data-theme="dark"] .companion-enquire-prompt,
-.dark-theme .companion-enquire-prompt {
-  background: rgba(255, 255, 255, 0.03);
+[data-theme="dark"] .onepage-map-section,
+.dark-theme .onepage-map-section {
   border-top-color: rgba(255, 255, 255, 0.08);
 }
 
-.btn-prompt-switch {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 10px;
-  background: rgba(234, 88, 12, 0.1);
-  border: 1px solid rgba(234, 88, 12, 0.25);
-  border-radius: 9999px;
-  color: #EA580C;
-  font-family: inherit;
-  font-size: 0.72rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.map-section-header {
+  margin-bottom: 20px;
 }
 
-.btn-prompt-switch:hover {
-  background: #EA580C;
-  color: #FFFFFF;
+.standalone-map-wrapper {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(15, 30, 54, 0.08);
+  border: 1px solid var(--cj-line, #E8E0CF);
+  height: 420px;
+  position: relative;
+  background: #E8E0CF;
 }
 
-.companion-enquiry-view {
-  padding: 4px;
+[data-theme="dark"] .standalone-map-wrapper,
+.dark-theme .standalone-map-wrapper {
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.4);
 }
 
 /* =========================================================================
@@ -1348,32 +1287,17 @@
     display: inline-flex;
   }
 
-  .schedule-split-layout {
-    display: block;
+  .schedule-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 
-  .schedule-split-layout.mode-timeline .schedule-map-col {
-    display: none;
+  .schedule-timeline-col.hidden-on-mobile,
+  .schedule-enquiry-col.hidden-on-mobile {
+    display: none !important;
   }
 
-  .schedule-split-layout.mode-map .schedule-timeline-col {
-    display: none;
-  }
-
-  .schedule-split-layout.mode-map .schedule-map-col {
-    display: block;
-  }
-
-  .schedule-split-layout.mode-enquiry .schedule-timeline-col {
-    display: none;
-  }
-
-  .schedule-split-layout.mode-enquiry .schedule-map-col {
-    display: block;
-  }
-
-  .schedule-split-layout.mode-map .sticky-companion-card,
-  .schedule-split-layout.mode-enquiry .sticky-companion-card {
+  .sticky-enquiry-wrapper {
     position: relative;
     top: 0;
   }

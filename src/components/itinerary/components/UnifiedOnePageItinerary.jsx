@@ -36,8 +36,7 @@ export default function UnifiedOnePageItinerary({
   const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
   const currencyMenuRef = useRef(null);
 
-  const [mobileViewMode, setMobileViewMode] = useState('timeline'); // 'timeline' | 'map' | 'enquiry'
-  const [companionTab, setCompanionTab] = useState('map'); // 'map' | 'enquiry'
+  const [mobileViewMode, setMobileViewMode] = useState('timeline'); // 'timeline' | 'enquiry'
   const dayScrollRef = useRef(null);
 
   // Close currency dropdown on outside click
@@ -70,8 +69,11 @@ export default function UnifiedOnePageItinerary({
   // Listen to open-enquiry-tab event triggered by sticky bar or CTA buttons
   useEffect(() => {
     const handleOpenEnquiry = () => {
-      setCompanionTab('enquire');
       setMobileViewMode('enquiry');
+      const box = document.getElementById('quick-enquiry-box');
+      if (box) {
+        box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
     };
     window.addEventListener('open-enquiry-tab', handleOpenEnquiry);
     return () => window.removeEventListener('open-enquiry-tab', handleOpenEnquiry);
@@ -351,14 +353,14 @@ export default function UnifiedOnePageItinerary({
           {/* Section Heading */}
           <div className="schedule-header-row">
             <div>
-              <span className="section-eyebrow">Day-by-Day Experience</span>
+              <span className="section-eyebrow">Handcrafted Day-by-Day</span>
               <h2 className="section-heading">Curated Daily Itinerary</h2>
               <p className="section-subtext">
-                Every morning to evening excursion crafted for relaxed pacing, scenic beauty, and authentic local flavor.
+                Private chauffeur transfers, scenic viewpoints, and authentic heritage experiences curated for relaxed pacing.
               </p>
             </div>
 
-            {/* Mobile Switcher (Timeline vs Map vs Enquiry) */}
+            {/* Mobile Switcher (Timeline vs Enquiry Form) */}
             <div className="mobile-view-toggle">
               <button
                 type="button"
@@ -366,29 +368,15 @@ export default function UnifiedOnePageItinerary({
                 onClick={() => setMobileViewMode('timeline')}
               >
                 <List size={16} />
-                <span>Timeline</span>
-              </button>
-              <button
-                type="button"
-                className={`toggle-btn ${mobileViewMode === 'map' ? 'active' : ''}`}
-                onClick={() => {
-                  setMobileViewMode('map');
-                  setCompanionTab('map');
-                }}
-              >
-                <Map size={16} />
-                <span>Route Map</span>
+                <span>Day Timeline</span>
               </button>
               <button
                 type="button"
                 className={`toggle-btn ${mobileViewMode === 'enquiry' ? 'active' : ''}`}
-                onClick={() => {
-                  setMobileViewMode('enquiry');
-                  setCompanionTab('enquire');
-                }}
+                onClick={() => setMobileViewMode('enquiry')}
               >
                 <Send size={16} />
-                <span>Enquire</span>
+                <span>Enquire Now</span>
               </button>
             </div>
           </div>
@@ -407,7 +395,7 @@ export default function UnifiedOnePageItinerary({
                 >
                   <span className="day-pill-num">Day {d.day}</span>
                   <span className="day-pill-title" title={d.title}>
-                    {d.title?.replace(`Day ${d.day}: `, '').replace(`Day ${d.day} - `, '') || `Day ${d.day}`}
+                    {d.title?.replace(new RegExp(`^Day\\s*${d.day}\\s*[:\\-]\\s*`, 'i'), '') || `Day ${d.day}`}
                   </span>
                   {isActive && <span className="active-dot" />}
                 </button>
@@ -415,18 +403,20 @@ export default function UnifiedOnePageItinerary({
             })}
           </div>
 
-          {/* Two-Column Grid: Left Timeline + Right Sticky Companion */}
+          {/* Two-Column Grid: Left Day Timeline (65%) + Right Sticky Enquiry Form (35%) */}
           <div className="schedule-grid">
             {/* Left Column: Day Timeline */}
-            <div className={`schedule-timeline-col ${mobileViewMode !== 'timeline' ? 'hidden-on-mobile' : ''}`}>
-              <div className="active-day-banner">
-                <div className="day-banner-header">
-                  <span className="banner-day-badge">Day {currentDayData.day} of {totalDays}</span>
-                  <span className="banner-stops-count">{currentDayData.stops?.length || 0} Curated Stops</span>
+            <div className={`schedule-timeline-col ${mobileViewMode === 'enquiry' ? 'hidden-on-mobile' : ''}`}>
+              <div className="day-banner-card active-day-banner">
+                <div className="day-banner-top">
+                  <span className="day-badge-chip">Day {currentDayData.day} of {totalDays}</span>
+                  <span className="day-stops-count-tag">{currentDayData.stops?.length || 0} Curated Waypoints</span>
                 </div>
-                <h3 className="banner-day-title">{currentDayData.title}</h3>
+                <h3 className="day-banner-title">
+                  {currentDayData.title?.replace(new RegExp(`^Day\\s*${currentDayData.day}\\s*[:\\-]\\s*`, 'i'), '')}
+                </h3>
                 {currentDayData.desc && (
-                  <p className="banner-day-desc">{currentDayData.desc}</p>
+                  <p className="day-banner-desc">{currentDayData.desc}</p>
                 )}
               </div>
 
@@ -479,72 +469,44 @@ export default function UnifiedOnePageItinerary({
               )}
             </div>
 
-            {/* Right Column: Sticky Companion (Route Map & Quick Enquiry Tabs) */}
-            <div className={`schedule-map-col ${mobileViewMode === 'timeline' ? 'desktop-only' : ''}`}>
-              <div className="sticky-companion-card">
-                {/* Switcher Header: Map vs Enquiry */}
-                <div className="companion-nav-tabs">
-                  <button
-                    type="button"
-                    className={`companion-tab ${companionTab === 'map' ? 'active' : ''}`}
-                    onClick={() => setCompanionTab('map')}
-                  >
-                    <Map size={15} />
-                    <span>Interactive Map</span>
-                  </button>
-                  <button
-                    type="button"
-                    className={`companion-tab ${companionTab === 'enquire' ? 'active' : ''}`}
-                    onClick={() => setCompanionTab('enquire')}
-                  >
-                    <Send size={15} />
-                    <span>Quick Enquiry</span>
-                    <span className="tab-fast-badge">Fast</span>
-                  </button>
-                </div>
-
-                {/* Tab 1: Interactive Map */}
-                {companionTab === 'map' && (
-                  <div className="companion-map-view">
-                    <div className="companion-map-frame">
-                      <MapTab
-                        tour={tour}
-                        enrichedItinerary={enrichedItinerary}
-                        activeDay={activeDay}
-                        routeMode={routeMode}
-                        selectedStop={selectedStop}
-                        currentDayStops={currentDayData?.stops || []}
-                        mapStyle={mapStyle}
-                        setMapInstance={setMapInstance}
-                        onDayChange={onDayChange}
-                        onStopSelect={onStopSelect}
-                        onRouteModeChange={onRouteModeChange}
-                        onMapStyleChange={onMapStyleChange}
-                      />
-                    </div>
-                    {/* Switch Prompt below Map */}
-                    <div className="companion-enquire-prompt">
-                      <span>Planning special dates or custom stays?</span>
-                      <button 
-                        type="button" 
-                        className="btn-prompt-switch"
-                        onClick={() => setCompanionTab('enquire')}
-                      >
-                        <Send size={13} />
-                        <span>Quick Enquiry Form</span>
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {/* Tab 2: Quick Enquiry Form */}
-                {companionTab === 'enquire' && (
-                  <div className="companion-enquiry-view">
-                    <QuickEnquiryCard tour={tour} />
-                  </div>
-                )}
+            {/* Right Column: Sticky Enquiry & Customization Form (Thrillophilia Benchmark) */}
+            <div className={`schedule-enquiry-col ${mobileViewMode === 'timeline' ? 'hidden-on-mobile' : ''}`}>
+              <div className="sticky-enquiry-wrapper" id="quick-enquiry-box">
+                <QuickEnquiryCard tour={tour} />
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          SECTION 3B: INTERACTIVE ROUTE & WAYPOINTS MAP (#tour-map)
+          ========================================================================= */}
+      <section id="tour-map" className="onepage-map-section">
+        <div className="onepage-container">
+          <div className="map-section-header">
+            <span className="section-eyebrow">Visual Journey</span>
+            <h2 className="section-heading">Interactive Tour Route & Map</h2>
+            <p className="section-subtext">
+              Trace your private vehicle routes, key scenic halts, and destinations across {tour.destination || tour.location}. Use manual controls to pan and zoom.
+            </p>
+          </div>
+
+          <div className="standalone-map-wrapper">
+            <MapTab
+              tour={tour}
+              enrichedItinerary={enrichedItinerary}
+              activeDay={activeDay}
+              routeMode={routeMode}
+              selectedStop={selectedStop}
+              currentDayStops={currentDayData?.stops || []}
+              mapStyle={mapStyle}
+              setMapInstance={setMapInstance}
+              onDayChange={onDayChange}
+              onStopSelect={onStopSelect}
+              onRouteModeChange={onRouteModeChange}
+              onMapStyleChange={onMapStyleChange}
+            />
           </div>
         </div>
       </section>

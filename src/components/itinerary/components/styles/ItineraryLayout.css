@@ -16,6 +16,7 @@
   font-family: var(--font-ui, 'Inter', system-ui, sans-serif);
   position: relative;
   padding-top: 96px; /* Offset for floating global Navbar */
+  padding-bottom: 90px; /* Offset for floating sticky booking bar & footer transition */
 }
 
 /* =========================================================================
