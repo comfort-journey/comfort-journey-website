@@ -482,3 +482,9 @@
   color: #FF892F;
   width: 20px;
 }
+
+/* Modals & Overlays Root Container */
+.itin-overlays {
+  position: relative;
+  z-index: 99990;
+}

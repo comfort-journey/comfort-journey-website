@@ -5,7 +5,7 @@
 .stop-drawer-overlay {
   position: fixed;
   inset: 0;
-  z-index: 500;
+  z-index: 99990;
   background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
@@ -27,7 +27,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 501;
+  z-index: 99995;
   background: #FFFFFF;
   border-radius: 20px 20px 0 0;
   border-top: 1px solid var(--cj-line, #E8E0CF);

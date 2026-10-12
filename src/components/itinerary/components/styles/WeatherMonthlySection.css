@@ -152,7 +152,8 @@
 .dot-best { background: #10B981; }
 .dot-good { background: #34D399; }
 .dot-hot { background: #F59E0B; }
-.dot-rainy { background: #60A5FA; }
+.dot-rainy { background: #2563EB; }
+.dot-cold { background: #38BDF8; }
 
 /* 12-Month Bars Track */
 .chart-bars-track {
@@ -253,7 +254,11 @@
 }
 
 .status-rainy {
-  background: #60A5FA;
+  background: #2563EB;
+}
+
+.status-cold {
+  background: #38BDF8;
 }
 
 /* Month Name Label */

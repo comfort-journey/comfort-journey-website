@@ -495,8 +495,15 @@
 
 .glance-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
+  width: 100%;
+}
+
+@media (min-width: 1401px) {
+  .glance-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
 }
 
 .glance-card {
@@ -504,6 +511,8 @@
   align-items: center;
   gap: 12px;
   padding: 14px 16px;
+  min-width: 0;
+  box-sizing: border-box;
   background: #FFFFFF;
   border: 1px solid var(--cj-line, #E8E0CF);
   border-radius: 14px;
@@ -1318,7 +1327,7 @@
   }
   
   .glance-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 

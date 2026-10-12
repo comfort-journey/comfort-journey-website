@@ -27,6 +27,8 @@ export default function WeatherMonthlySection({ tour }) {
       case 'good': return 'status-good';
       case 'hot': return 'status-hot';
       case 'rainy': return 'status-rainy';
+      case 'cold':
+      case 'winter': return 'status-cold';
       default: return 'status-good';
     }
   };
@@ -34,6 +36,10 @@ export default function WeatherMonthlySection({ tour }) {
   const activeMonthData = selectedMonth 
     ? climate.months.find(m => m.month === selectedMonth) 
     : (climate.months.find(m => m.status === 'best') || climate.months[4]);
+
+  const hasHot = climate.months.some(m => m.status === 'hot');
+  const hasRainy = climate.months.some(m => m.status === 'rainy');
+  const hasCold = climate.months.some(m => m.status === 'cold' || m.status === 'winter');
 
   return (
     <section id="weather" className="weather-section-root">
@@ -70,14 +76,24 @@ export default function WeatherMonthlySection({ tour }) {
               <span className="legend-dot dot-good" />
               <span>Good</span>
             </span>
-            <span className="legend-item" role="listitem">
-              <span className="legend-dot dot-hot" />
-              <span>Busy / hot</span>
-            </span>
-            <span className="legend-item" role="listitem">
-              <span className="legend-dot dot-rainy" />
-              <span>Rainy / extreme</span>
-            </span>
+            {hasHot && (
+              <span className="legend-item" role="listitem">
+                <span className="legend-dot dot-hot" />
+                <span>Warm / Summer</span>
+              </span>
+            )}
+            {hasRainy && (
+              <span className="legend-item" role="listitem">
+                <span className="legend-dot dot-rainy" />
+                <span>Monsoon / Showers</span>
+              </span>
+            )}
+            {hasCold && (
+              <span className="legend-item" role="listitem">
+                <span className="legend-dot dot-cold" />
+                <span>Crisp Winter / Snow</span>
+              </span>
+            )}
           </div>
         </div>
 

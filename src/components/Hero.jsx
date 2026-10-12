@@ -1844,11 +1844,12 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           position: absolute;
           top: 0.65rem;
           left: 0.65rem;
-          right: 3.35rem;
+          right: auto;
+          max-width: calc(100% - 3.4rem);
           display: flex;
-          justify-content: space-between;
+          justify-content: flex-start;
           align-items: center;
-          gap: 0.4rem;
+          gap: 0.35rem;
           z-index: 2;
           pointer-events: none;
         }
