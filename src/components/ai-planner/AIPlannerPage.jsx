@@ -334,6 +334,12 @@ export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
             }}
             onProximityToggle={handleProximityToggle}
           />
+
+          <div className="planner-ai-legal-disclaimer">
+            <p>
+              * AI-assisted itineraries & pricing estimates are indicative for trip planning. Final hotels, seasonal rates & room availability are verified & confirmed by Comfort Journey specialists via WhatsApp or call (+91 8770403315).
+            </p>
+          </div>
         </>
       )}
     </div>

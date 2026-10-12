@@ -580,3 +580,20 @@
   outline: 2px solid var(--planner-tangerine-500);
   outline-offset: 2px;
 }
+
+.planner-ai-legal-disclaimer {
+  padding: 12px 16px;
+  margin: 18px 0 28px 0;
+  border-radius: var(--radius-md);
+  background: rgba(255, 137, 47, 0.05);
+  border: 1px dashed rgba(255, 137, 47, 0.25);
+  text-align: center;
+}
+
+.planner-ai-legal-disclaimer p {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--planner-text-muted);
+  line-height: 1.45;
+}
+

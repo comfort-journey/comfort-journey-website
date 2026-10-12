@@ -156,6 +156,9 @@ export default function ChatPanel({
               {isTyping ? <Loader2 size={18} /> : <Send size={18} />}
             </button>
           </div>
+          <p className="chat-disclaimer-note">
+            * AI suggestions & estimates are indicative for trip planning. Final hotels, room availability & exact pricing are verified & confirmed by our team specialists via WhatsApp or call (+91 8770403315).
+          </p>
         </form>
       </div>
     </div>
@@ -211,24 +214,24 @@ function ChatBubble({ message }) {
 
 function TourCard({ tour }) {
   return (
-    <article className="tour-card glass-card">
-      <div className="card-image">
+    <article className="chat-tour-card">
+      <div className="chat-card-image">
         <img src={tour.image} alt={tour.name} loading="lazy" />
-        <span className="card-duration">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span className="chat-card-duration">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           <span>{tour.duration}</span>
         </span>
       </div>
-      <div className="card-info">
-        <span className="card-location">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <div className="chat-card-info">
+        <span className="chat-card-location">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           <span>{tour.location || tour.country}</span>
         </span>
-        <h4 className="card-name">{tour.name}</h4>
-        <div className="card-price">
-          <span className="price-from">From</span>
-          <span className="price-value">₹{tour.price?.toLocaleString('en-IN')}</span>
-          <span className="price-unit">/person</span>
+        <h4 className="chat-card-name" title={tour.name}>{tour.name}</h4>
+        <div className="chat-card-price">
+          <span className="chat-price-from">Starting From</span>
+          <span className="chat-price-value">₹{tour.price?.toLocaleString('en-IN')}</span>
+          <span className="chat-price-unit">/person</span>
         </div>
       </div>
     </article>

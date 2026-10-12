@@ -18,9 +18,10 @@ export default function BottomActionBar({
     <footer className="bottom-action-bar" role="contentinfo">
       <div className="bar-left">
         <div className="price-box">
-          <span className="price-caption">Starting from</span>
+          <span className="price-caption">Starting from*</span>
           <span className="price-amount">{formatPrice(tripPlan.price)}</span>
           <span className="price-unit">/ person</span>
+          <span className="price-indicative-tag" title="Verified live with hotel & car availability on WhatsApp">*Indicative estimate</span>
         </div>
       </div>
 

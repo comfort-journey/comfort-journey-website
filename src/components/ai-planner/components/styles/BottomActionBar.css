@@ -60,6 +60,16 @@
   font-weight: 600;
 }
 
+.price-indicative-tag {
+  font-size: 0.62rem;
+  color: var(--planner-text-muted);
+  font-weight: 500;
+  border-left: 1px solid rgba(255, 137, 47, 0.3);
+  padding-left: 8px;
+  margin-left: 4px;
+  white-space: nowrap;
+}
+
 .action-btn {
   display: inline-flex;
   align-items: center;

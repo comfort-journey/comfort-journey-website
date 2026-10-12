@@ -631,6 +631,9 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
                   <span>Send</span>
                 </button>
               </div>
+              <p className="ai-chat-disclaimer-note" style={{ fontSize: '0.68rem', color: 'var(--planner-text-muted, #64748B)', textAlign: 'center', margin: '6px 0 0 0', opacity: 0.85 }}>
+                * AI suggestions & estimates are indicative for trip planning. Final hotels, availability & exact pricing are verified & confirmed by our team specialists via WhatsApp or call (+91 8770403315).
+              </p>
             </div>
           </div>
         )}
@@ -671,7 +674,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
 
           <div className="pricing-and-whatsapp-group">
             <div className="bottom-price-box">
-              <span className="price-caption">Starting From</span>
+              <span className="price-caption">Starting From*</span>
               <span className="price-amount">{formatPrice(tripPlan.price)}</span>
               <span className="price-unit">/ person</span>
             </div>

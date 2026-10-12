@@ -654,52 +654,84 @@ function generateLocalSmartResponse(prompt, currentTrip = null) {
   const isHindi = /[\u0900-\u097F]/.test(prompt) || 
     /\b(kaise|kya|kab|jana|hoga|chahiye|kitna|kharcha|batao|kripya|namaste|kashmir|ghoomne)\b/i.test(prompt);
 
-  // 4. Hotel & Stay Recommendations (Direct, informative answer for traveler clarity)
+  // 4. Hotel & Stay Recommendations (Strict Itinerary Boundaries & Verified Pricing Rules)
   const isHotelQuery = q.includes('hotel') || q.includes('stay') || q.includes('resort') || q.includes('villa') || q.includes('accommodation') || q.includes('room');
+  const isHotelPricingQuery = isHotelQuery && (q.includes('price') || q.includes('cost') || q.includes('rate') || q.includes('tariff') || q.includes('kitna') || q.includes('how much') || q.includes('charge') || q.includes('paisa'));
+
+  if (isHotelPricingQuery) {
+    const text = `**Hotel Pricing & Seasonal Room Rates:** 🏨💳\n\n` +
+      `Hotel tariffs depend heavily on your exact travel dates, seasonal demand, room category (Deluxe, Mountain View, Private Villa), and live property inventory.\n\n` +
+      `🔒 **Comfort Journey Accuracy Guarantee:**\n` +
+      `To ensure you receive 100% correct information without automated mistakes or misleading low rates, our AI does not generate estimated standalone hotel prices.\n\n` +
+      `💬 **How to get confirmed pricing:**\n` +
+      `Our travel specialists in Bhopal (+91 8770403315) verify live rates directly with hotel reservations to secure the best package deal for your dates.\n\n` +
+      `📲 **Message our team on WhatsApp:** Click below or call **+91 8770403315** with your travel dates, and we will share exact, transparent prices!`;
+    return { reply: text, matchedTours: [], generatedTrip: null };
+  }
+
   if (isHotelQuery) {
     let targetDestKey = 'bali';
     let targetDestName = 'Bali, Indonesia';
+    const hasActiveTrip = Boolean(currentTrip && currentTrip.destination);
 
     // Prioritize active trip destination
-    if (currentTrip && currentTrip.destination) {
+    if (hasActiveTrip) {
       targetDestName = currentTrip.destination;
       targetDestKey = (currentTrip.destKey || '').toLowerCase();
     }
 
     const destLower = (targetDestName + ' ' + targetDestKey + ' ' + q).toLowerCase();
+    let isDifferentDestination = false;
+
     if (destLower.includes('kashmir') || destLower.includes('srinagar') || destLower.includes('gulmarg') || destLower.includes('pahalgam') || destLower.includes('son marg')) {
+      if (hasActiveTrip && !currentTrip.destination.toLowerCase().includes('kashmir')) isDifferentDestination = true;
       targetDestKey = 'kashmir';
+      targetDestName = 'Kashmir';
     } else if (destLower.includes('bali') || destLower.includes('indonesia') || destLower.includes('ubud') || destLower.includes('seminyak') || destLower.includes('kuta')) {
+      if (hasActiveTrip && !currentTrip.destination.toLowerCase().includes('bali')) isDifferentDestination = true;
       targetDestKey = 'bali';
+      targetDestName = 'Bali, Indonesia';
     } else if (destLower.includes('dubai') || destLower.includes('uae') || destLower.includes('burj')) {
+      if (hasActiveTrip && !currentTrip.destination.toLowerCase().includes('dubai')) isDifferentDestination = true;
       targetDestKey = 'dubai';
+      targetDestName = 'Dubai, UAE';
     } else if (destLower.includes('swiss') || destLower.includes('switzerland') || destLower.includes('lucerne') || destLower.includes('interlaken')) {
+      if (hasActiveTrip && !currentTrip.destination.toLowerCase().includes('swiss')) isDifferentDestination = true;
       targetDestKey = 'switzerland';
+      targetDestName = 'Switzerland';
     } else if (destLower.includes('rajasthan') || destLower.includes('jaipur') || destLower.includes('udaipur') || destLower.includes('jodhpur')) {
+      if (hasActiveTrip && !currentTrip.destination.toLowerCase().includes('rajasthan')) isDifferentDestination = true;
       targetDestKey = 'rajasthan';
+      targetDestName = 'Rajasthan Heritage';
     } else if (destLower.includes('kerala') || destLower.includes('munnar') || destLower.includes('alleppey')) {
+      if (hasActiveTrip && !currentTrip.destination.toLowerCase().includes('kerala')) isDifferentDestination = true;
       targetDestKey = 'kerala';
+      targetDestName = 'Kerala Backwaters';
     }
 
     const hotelData = DESTINATION_HOTELS[targetDestKey];
     let replyText = '';
 
-    if (hotelData) {
-      replyText = `**Handpicked Hotels & Stays for your ${hotelData.title} Trip:** 🏨\n\n` +
-        `Here are the verified properties included and recommended by **Comfort Journey (Est. 1992)** for maximum comfort, hygiene, and prime location:\n\n` +
-        hotelData.hotels.map(h => `• **${h.name}** (${h.area})\n  ${h.highlights}`).join('\n\n') +
-        `\n\n✨ **What is Always Included with Comfort Journey:**\n` +
-        hotelData.amenities.map(a => `✓ ${a}`).join('\n') +
-        `\n\n💡 **How to customize your stays:**\n` +
-        `You can click **"Customize"** in the top card of your itinerary to choose between 4★ Deluxe, 5★ Luxury Resort, or Private Pool Villa — or message our trip manager directly on WhatsApp (**+91 8770403315**) with any specific hotel choice!`;
+    if (hasActiveTrip && !isDifferentDestination) {
+      // STRICT ITINERARY BOUNDARY: User is asking about their currently opened itinerary
+      replyText = `📍 **Hotels from Your Active Tour Package ("${currentTrip.title}"):** 🏨\n\n` +
+        `These recommendations are strictly verified and included for your **${currentTrip.title}** vacation:\n\n` +
+        (hotelData ? hotelData.hotels.map(h => `• **${h.name}** (${h.area})\n  ${h.highlights}`).join('\n\n') : `• **${currentTrip.stayTier || '4★ Deluxe Boutique Hotel'}** in prime central location.\n  Verified bedding, spacious rooms, clean attached bathrooms & prompt service.`) +
+        `\n\n✨ **Verified Package Inclusions:**\n` +
+        (hotelData ? hotelData.amenities.map(a => `✓ ${a}`).join('\n') : `✓ Daily breakfast included\n✓ Private car and driver waiting at lobby for all transfers`) +
+        `\n\n💡 **Want a different hotel?**\n` +
+        `You can click **"Customize"** in the top card of your itinerary to toggle stay tiers, or speak with our team to swap properties!\n\n` +
+        `*Note: Exact room availability is verified live by our specialists upon booking to prevent wrong pricing.*`;
     } else {
-      replyText = `**Handpicked Hotels & Stays for your ${targetDestName} Trip:** 🏨\n\n` +
-        `For your **${targetDestName}** vacation, Comfort Journey provides verified **4★ Deluxe boutique hotels** and **5★ luxury resorts** featuring:\n` +
-        `• **Prime Central Location:** Easy access to key sightseeing spots with minimal travel time.\n` +
-        `• **Exceptional Hygiene & Bedding:** Verified cleanliness, spacious air-conditioned rooms, and picturesque views.\n` +
-        `• **Dietary Assurance:** Daily breakfast arranged with pure vegetarian and Indian options.\n` +
-        `• **Private Chauffeur Waiting at Lobby:** Your private car picks you up right at the hotel porch.\n\n` +
-        `💡 *You can select your preferred stay tier using the **Customize** button on your itinerary, or chat with us on WhatsApp at +91 8770403315!*`;
+      // CUSTOM / OFF-PACKAGE GUIDANCE: User asked about something not in the current itinerary or website package
+      replyText = `**Curated Hotel Options for ${targetDestName}:** 🏨\n\n` +
+        `To give you an idea of handpicked stays recommended by **Comfort Journey (Est. 1992)**:\n\n` +
+        (hotelData ? hotelData.hotels.map(h => `• **${h.name}** (${h.area})\n  ${h.highlights}`).join('\n\n') : `• Handpicked 4★ Deluxe Boutique Hotels & 5★ Luxury Resorts with verified comfort and prime locations.`) +
+        `\n\n📌 **Important Note:**\n` +
+        `This answer is **not mentioned in your active itinerary behind or standard website packages**. This is a customized recommendation to give you travel ideas.\n\n` +
+        `💰 **Pricing & Room Availability:**\n` +
+        `We do not display automated hotel prices here to avoid any incorrect or outdated rates. If you would like to add any of these properties to your customized itinerary, our team member will check live room tariffs and calculate the exact price for you!\n\n` +
+        `📲 **WhatsApp / Call our team:** **+91 8770403315** — let us know your travel dates and preferred hotel, and we will update your itinerary with confirmed pricing!`;
     }
 
     return {
