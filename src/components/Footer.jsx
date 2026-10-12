@@ -293,7 +293,7 @@ export default function Footer({
                 <li>
                   <a href="#/blog" className="deck-action-link journal-highlight">
                     <FileText size={14} className="text-cyan" />
-                    <span>Editorial Journal & Guides</span>
+                    <span>Blogs</span>
                   </a>
                 </li>
                 <li>

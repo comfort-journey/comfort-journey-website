@@ -345,6 +345,11 @@ export default function WeekendGetawaysSection({
           z-index: 2;
         }
 
+        .showcase-header {
+          position: relative;
+          z-index: 3;
+        }
+
         /* Ambient Forest Twilight Elements */
         .weekend-forest-orb-top {
           position: absolute;
@@ -680,11 +685,23 @@ export default function WeekendGetawaysSection({
         [data-theme="light"] .weekend-showcase-root::before {
           content: '';
           position: absolute;
-          top: 48px;
-          right: 3%;
-          width: min(380px, 40vw);
+          top: 20px;
+          right: 2%;
+          width: min(260px, 22vw);
           aspect-ratio: 2;
-          background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Cg fill='none' stroke='%238A7F66' stroke-width='2'%3E%3Cpath d='M10,85 L55,30 L85,62 L115,25 L150,65 L175,40 L192,60'/%3E%3Ccircle cx='160' cy='22' r='8'/%3E%3Cline x1='10' y1='90' x2='192' y2='90'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+          background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Cg fill='none' stroke='%238A7F66' stroke-width='1.5'%3E%3Cpath d='M10,85 L55,30 L85,62 L115,25 L150,65 L175,40 L192,60'/%3E%3Ccircle cx='160' cy='22' r='8'/%3E%3Cline x1='10' y1='90' x2='192' y2='90'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+          opacity: 0.15;
+          pointer-events: none;
+          z-index: 1;
+        }
+
+        @media (max-width: 1024px) {
+          :root:not([data-theme="dark"]) .weekend-showcase-root::before,
+          [data-theme="light"] .weekend-showcase-root::before {
+            display: none;
+          }
+        }
+
         :root:not([data-theme="dark"]) .weekend-showcase-root .sub-tab-btn:not(.active),
         [data-theme="light"] .weekend-showcase-root .sub-tab-btn:not(.active) {
           background: #FFFFFF !important;

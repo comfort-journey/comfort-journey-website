@@ -84,7 +84,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
   const navLinks = [
     { label: 'Destinations', href: '#tours' },
     { label: 'Trip Studio', href: '#custom-builder' },
-    { label: 'Journal', href: '#/blog' },
+    { label: 'Blogs', href: '#/blog' },
     { label: 'Reviews', href: '#google-reviews' },
     { label: 'Why Us', href: '#why-us', secondary: true },
     { label: 'Who We Are', href: '#/about', secondary: true },
@@ -1164,6 +1164,13 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           }
         }
 
+        @media (max-width: 1280px) {
+          .desktop-nav-liquid-track .nav-link {
+            padding: 0.42rem 0.72rem !important;
+            font-size: 0.82rem !important;
+          }
+        }
+
         .admin-trigger-btn {
           width: 38px;
           height: 38px;
@@ -1201,7 +1208,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           white-space: nowrap;
           min-height: 38px;
           flex-shrink: 0;
-          margin-right: 0.2rem;
+          margin-right: 0;
         }
 
         .nav-menu-toggle:hover {

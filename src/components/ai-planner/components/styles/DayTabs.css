@@ -1,5 +1,5 @@
 /* =========================================================================
-   DAY TABS - Sticky Horizontal Scroll Navigation
+   DAY TABS - Sticky Horizontal Scroll Navigation (Dual-Theme Aware)
    ========================================================================= */
 
 .day-tabs {
@@ -10,37 +10,38 @@
   align-items: center;
   gap: var(--space-3);
   padding: 10px var(--space-4);
-  background: rgba(0, 14, 40, 0.94);
+  background: var(--planner-panel);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--planner-border);
   flex-shrink: 0;
+  transition: background var(--transition-base), border-color var(--transition-base);
 }
 
 .tabs-label-badge {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  font-size: 0.68rem;
+  gap: 6px;
+  font-size: 0.7rem;
   font-weight: 800;
   color: var(--planner-tangerine-500);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   white-space: nowrap;
   flex-shrink: 0;
-  padding: 3px 8px;
+  padding: 4px 10px;
   background: rgba(255, 137, 47, 0.1);
-  border: 1px solid rgba(255, 137, 47, 0.2);
+  border: 1px solid rgba(255, 137, 47, 0.25);
   border-radius: var(--radius-full);
 }
 
 .tabs-scroll {
   display: flex;
-  gap: var(--space-2);
+  gap: 8px;
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding: var(--space-1) 0;
+  padding: 2px 0;
   flex: 1;
 }
 
@@ -52,10 +53,10 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  padding: var(--space-2) var(--space-4);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--planner-text-muted);
+  padding: 6px 16px;
+  background: var(--planner-tab-inactive-bg);
+  border: 1px solid var(--planner-border);
+  color: var(--planner-tab-inactive-color);
   border-radius: var(--radius-full);
   font-family: inherit;
   font-size: 0.78rem;
@@ -68,16 +69,17 @@
 }
 
 .day-tab:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: var(--planner-card-subtle-bg);
+  border-color: var(--planner-border-glow);
   color: var(--planner-text-heading);
+  transform: translateY(-1px);
 }
 
 .day-tab.active {
-  background: var(--planner-tangerine-500);
-  border-color: var(--planner-tangerine-500);
-  color: var(--planner-navy-950);
-  box-shadow: 0 4px 16px rgba(255, 137, 47, 0.35);
+  background: linear-gradient(135deg, #FF892F 0%, #EA580C 100%);
+  border-color: #EA580C;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(255, 137, 47, 0.4);
 }
 
 .day-tab.active .active-indicator {
@@ -92,24 +94,25 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--planner-tangerine-500);
+  background: #FFFFFF;
   opacity: 0;
   transition: opacity var(--transition-fast);
 }
 
 @media (max-width: 768px) {
   .day-tabs {
-    top: calc(var(--header-height) - 1px);
-    padding: var(--space-2) var(--space-3);
+    top: 0;
+    padding: 8px var(--space-3);
     gap: var(--space-2);
   }
   
-  .tabs-label {
-    display: none;
+  .tabs-label-badge {
+    padding: 3px 8px;
+    font-size: 0.65rem;
   }
   
   .day-tab {
-    padding: var(--space-1) var(--space-3);
+    padding: 5px 12px;
     font-size: 0.72rem;
   }
 }

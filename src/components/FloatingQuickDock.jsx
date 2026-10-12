@@ -122,7 +122,7 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
             title="Click to expand Comfy.ai, Call, WhatsApp & Quote"
           >
             <Bot size={16} className="text-ai" />
-            <span className="trigger-badge">Ask Comfy & Concierge</span>
+            <span className="trigger-badge">💬 Concierge</span>
             <span className="chevron-trigger-box">
               <ChevronUp size={14} />
             </span>
@@ -429,21 +429,72 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
           }
         }
 
+        /* LIGHT THEME — Crisp, bright white glass dock */
         :root:not([data-theme="dark"]) .glass-dock-card,
         [data-theme="light"] .glass-dock-card {
-          background: rgba(15, 23, 42, 0.96) !important;
-          border: 1.5px solid rgba(255, 107, 0, 0.45) !important;
-          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4), 0 0 25px rgba(255, 107, 0, 0.18) !important;
+          background: rgba(255, 255, 255, 0.96) !important;
+          border: 1.5px solid var(--cj-line, rgba(20, 38, 74, 0.12)) !important;
+          box-shadow: 0 16px 40px rgba(20, 38, 74, 0.14), 0 0 20px rgba(255, 137, 47, 0.15) !important;
         }
+
+        :root:not([data-theme="dark"]) .mascot-speech-bubble,
+        [data-theme="light"] .mascot-speech-bubble {
+          background: #FFFFFF !important;
+          color: #14264A !important;
+          border: 1.5px solid #FF892F !important;
+          box-shadow: 0 4px 18px rgba(20, 38, 74, 0.14), 0 0 12px rgba(255, 137, 47, 0.25) !important;
+        }
+
+        :root:not([data-theme="dark"]) .speech-arrow,
+        [data-theme="light"] .speech-arrow {
+          border-top-color: #FFFFFF !important;
+        }
+
         :root:not([data-theme="dark"]) .quote-btn,
         [data-theme="light"] .quote-btn {
-          background: rgba(255, 255, 255, 0.12) !important;
-          border-color: rgba(255, 255, 255, 0.25) !important;
-          color: #FFFFFF !important;
+          background: #F1F5F9 !important;
+          border: 1.5px solid #CBD5E1 !important;
+          color: #14264A !important;
         }
+
         :root:not([data-theme="dark"]) .quote-btn:hover,
         [data-theme="light"] .quote-btn:hover {
-          background: rgba(255, 255, 255, 0.25) !important;
+          background: #E2E8F0 !important;
+          border-color: #94A3B8 !important;
+          color: #0F172A !important;
+        }
+
+        :root:not([data-theme="dark"]) .minimize-dock-btn,
+        [data-theme="light"] .minimize-dock-btn {
+          background: #F1F5F9 !important;
+          border: 1.5px solid #CBD5E1 !important;
+          color: #475569 !important;
+          box-shadow: 0 1px 4px rgba(20, 38, 74, 0.08) !important;
+        }
+
+        :root:not([data-theme="dark"]) .minimize-dock-btn:hover,
+        [data-theme="light"] .minimize-dock-btn:hover {
+          background: #EA580C !important;
+          border-color: #EA580C !important;
+          color: #FFFFFF !important;
+        }
+
+        :root:not([data-theme="dark"]) .dock-expand-trigger,
+        [data-theme="light"] .dock-expand-trigger {
+          background: #FFFFFF !important;
+          border: 2px solid #FF892F !important;
+          color: #14264A !important;
+          box-shadow: 0 12px 36px rgba(20, 38, 74, 0.15), 0 0 20px rgba(255, 137, 47, 0.25) !important;
+        }
+
+        :root:not([data-theme="dark"]) .dock-expand-trigger:hover,
+        [data-theme="light"] .dock-expand-trigger:hover {
+          background: #FFF8F2 !important;
+        }
+
+        :root:not([data-theme="dark"]) .mascot-online-ping,
+        [data-theme="light"] .mascot-online-ping {
+          border-color: #FFFFFF !important;
         }
       `}</style>
     </div>

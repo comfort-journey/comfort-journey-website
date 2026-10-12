@@ -286,16 +286,16 @@ export default function MapBottomSheet({
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .map-bottom-sheet {
           position: fixed;
           bottom: 0;
           left: 0;
           right: 0;
-          background: var(--planner-navy-950);
+          background: var(--planner-modal-bg);
           border-radius: var(--radius-xl) var(--radius-xl) 0 0;
           border-top: 1px solid var(--planner-border);
-          box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.35);
           display: flex;
           flex-direction: column;
           z-index: var(--z-sheet);
@@ -313,26 +313,26 @@ export default function MapBottomSheet({
           display: flex;
           align-items: center;
           justify-content: center;
-          height: 32px;
+          height: 28px;
           cursor: grab;
-          background: rgba(255, 255, 255, 0.03);
+          background: var(--planner-modal-bg);
           border-bottom: 1px solid var(--planner-border);
         }
 
         .handle-bar {
           width: 40px;
           height: 4px;
-          background: var(--planner-text-subtle);
+          background: var(--planner-text-muted);
           border-radius: 2px;
-          opacity: 0.5;
+          opacity: 0.4;
         }
 
         .sheet-header {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: var(--space-3) var(--space-4);
-          background: rgba(0, 18, 51, 0.9);
+          padding: 10px 16px;
+          background: var(--planner-modal-bg);
           border-bottom: 1px solid var(--planner-border);
           flex-wrap: wrap;
           gap: var(--space-2);
@@ -354,7 +354,7 @@ export default function MapBottomSheet({
         }
 
         .badge-title {
-          font-weight: 700;
+          font-weight: 800;
           font-size: 0.7rem;
           color: var(--planner-tangerine-500);
           text-transform: uppercase;
@@ -369,8 +369,9 @@ export default function MapBottomSheet({
 
         .route-mode-toggle {
           display: flex;
-          gap: var(--space-1);
-          background: rgba(255, 255, 255, 0.06);
+          gap: 4px;
+          background: var(--planner-pill-bg);
+          border: 1px solid var(--planner-border);
           border-radius: var(--radius-full);
           padding: 2px;
         }
@@ -382,25 +383,25 @@ export default function MapBottomSheet({
           background: none;
           border: none;
           color: var(--planner-text-muted);
-          font-size: 0.6rem;
-          font-weight: 600;
-          padding: 4px 8px;
+          font-size: 0.65rem;
+          font-weight: 700;
+          padding: 3px 8px;
           border-radius: var(--radius-full);
           cursor: pointer;
           transition: all var(--transition-fast);
         }
 
         .route-toggle:hover { color: var(--planner-text-heading); }
-        .route-toggle.active { background: var(--planner-tangerine-500); color: var(--planner-navy-950); font-weight: 800; }
+        .route-toggle.active { background: linear-gradient(135deg, #FF892F 0%, #EA580C 100%); color: #FFFFFF; font-weight: 800; }
 
         .style-toggle {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 36px;
-          height: 36px;
-          background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          width: 32px;
+          height: 32px;
+          background: var(--planner-pill-bg);
+          border: 1px solid var(--planner-border);
           color: var(--planner-text-muted);
           border-radius: var(--radius-full);
           cursor: pointer;
@@ -433,13 +434,13 @@ export default function MapBottomSheet({
 
         .map-style-switcher {
           display: flex;
-          background: rgba(0, 18, 51, 0.9);
+          background: var(--planner-modal-bg);
           backdrop-filter: blur(8px);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          border: 1px solid var(--planner-border);
           border-radius: var(--radius-full);
-          padding: var(--space-1);
-          gap: var(--space-1);
-          box-shadow: var(--planner-shadow-md);
+          padding: 3px;
+          gap: 3px;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
           pointer-events: auto;
           align-self: flex-start;
         }
@@ -447,34 +448,35 @@ export default function MapBottomSheet({
         .style-btn {
           display: inline-flex;
           align-items: center;
-          gap: var(--space-1);
+          gap: 4px;
           background: none;
           border: none;
           color: var(--planner-text-muted);
-          font-size: 0.6rem;
-          font-weight: 600;
-          padding: var(--space-1) var(--space-2);
+          font-size: 0.65rem;
+          font-weight: 700;
+          padding: 4px 8px;
           border-radius: var(--radius-full);
           cursor: pointer;
           transition: all var(--transition-fast);
         }
 
         .style-btn:hover { color: var(--planner-text-heading); }
-        .style-btn.active { background: var(--planner-tangerine-500); color: var(--planner-navy-950); font-weight: 800; }
+        .style-btn.active { background: linear-gradient(135deg, #FF892F 0%, #EA580C 100%); color: #FFFFFF; font-weight: 800; }
 
         .map-hint {
           display: flex;
           align-items: center;
           gap: var(--space-2);
-          background: rgba(0, 18, 51, 0.88);
+          background: var(--planner-modal-bg);
           backdrop-filter: blur(6px);
-          padding: var(--space-1) var(--space-3);
+          padding: 4px 12px;
           border-radius: var(--radius-full);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: var(--planner-text-subtle);
-          font-size: 0.6rem;
+          border: 1px solid var(--planner-border);
+          color: var(--planner-text-muted);
+          font-size: 0.65rem;
           pointer-events: none;
           align-self: flex-end;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         /* Pin Styles */
@@ -491,11 +493,11 @@ export default function MapBottomSheet({
         .comfy-modern-pin:hover, .comfy-modern-pin.is-selected { transform: scale(1.22) translateY(-4px); z-index: 800; }
         .comfy-modern-pin.is-selected { border-color: var(--planner-tangerine-500); box-shadow: 0 0 0 4px rgba(255,137,47,0.45), 0 8px 24px rgba(0,0,0,0.55); }
         .comfy-modern-pin.is-selected .pin-anchor-dot { border-top-color: var(--planner-tangerine-500); }
-        .pin-badge-seq { position: absolute; top: -6px; right: -6px; background: var(--planner-navy-950); color: var(--planner-tangerine-500); font-weight: 800; font-size: 0.6rem;
+        .pin-badge-seq { position: absolute; top: -6px; right: -6px; background: var(--planner-card); color: var(--planner-tangerine-500); font-weight: 800; font-size: 0.6rem;
           min-width: 17px; height: 17px; border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; padding: 0 3px;
-          border: 1.5px solid var(--planner-tangerine-500); box-shadow: 0 2px 5px rgba(0,0,0,0.4); }
+          border: 1.5px solid var(--planner-tangerine-500); box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
         .pin-icon-inner { color: #FFFFFF; display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3)); }
-        .leaflet-tooltip.comfy-marker-tooltip { background: var(--planner-navy-950) !important; color: var(--planner-text-heading) !important; border: 1px solid rgba(255,137,47,0.5) !important; border-radius: var(--radius-sm) !important; padding: var(--space-1) var(--space-2) !important; box-shadow: var(--planner-shadow-lg) !important; font-size: 0.7rem !important; }
+        .leaflet-tooltip.comfy-marker-tooltip { background: var(--planner-modal-bg) !important; color: var(--planner-text-heading) !important; border: 1px solid var(--planner-border) !important; border-radius: var(--radius-sm) !important; padding: 4px 8px !important; box-shadow: 0 6px 18px rgba(0,0,0,0.2) !important; font-size: 0.72rem !important; font-weight: 700 !important; }
       `}</style>
     </div>
   );

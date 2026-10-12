@@ -1748,8 +1748,8 @@ s {
 [data-theme="light"] .modal-overlay {
   background: rgba(20, 38, 74, 0.5);
 }
-:root:not([data-theme="dark"]) .modal-content,
-[data-theme="light"] .modal-content {
+:root:not([data-theme="dark"]) .modal-content:not(.cms-theme-dark):not([data-cms-theme="dark"]),
+[data-theme="light"] .modal-content:not(.cms-theme-dark):not([data-cms-theme="dark"]) {
   background: var(--cj-glass-card-solid);
   -webkit-backdrop-filter: var(--cj-glass-blur);
   backdrop-filter: var(--cj-glass-blur);

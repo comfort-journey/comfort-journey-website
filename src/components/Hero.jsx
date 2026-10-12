@@ -63,16 +63,25 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
       if (heroToursTrackRef.current) {
         const el = heroToursTrackRef.current;
         const maxScroll = el.scrollWidth - el.clientWidth;
+        const card = el.querySelector('.city-in-place-card');
+        const scrollStep = card ? card.offsetWidth + 18.4 : 314;
         if (el.scrollLeft >= maxScroll - 25) {
           el.scrollTo({ left: 0, behavior: 'smooth' });
         } else {
-          el.scrollBy({ left: 280, behavior: 'smooth' });
+          el.scrollBy({ left: scrollStep, behavior: 'smooth' });
         }
       }
     }, 3600);
 
     return () => clearInterval(interval);
   }, [isAutoScrollPaused, activeCountryId, discoveryMode, countrySearchQuery]);
+
+  // Reset horizontal scroll cleanly on country, continent, discovery mode, or search change
+  useEffect(() => {
+    if (heroToursTrackRef.current) {
+      heroToursTrackRef.current.scrollTo({ left: 0, behavior: 'instant' });
+    }
+  }, [activeCountryId, activeContinentId, discoveryMode, countrySearchQuery]);
 
   const handleStopAutoScroll = () => {
     setIsAutoScrollPaused(true);
@@ -81,7 +90,10 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
   const scrollHeroTours = (direction) => {
     handleStopAutoScroll();
     if (heroToursTrackRef.current) {
-      const scrollAmount = direction === 'left' ? -280 : 280;
+      const container = heroToursTrackRef.current;
+      const card = container.querySelector('.city-in-place-card');
+      const cardWidth = card ? card.offsetWidth + 18.4 : 314;
+      const scrollAmount = direction === 'left' ? -cardWidth : cardWidth;
       heroToursTrackRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
@@ -300,9 +312,9 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
             onOpenQuote={onOpenQuote} 
           />
           <h1 className="hero-title">
-            <span className="hero-journey-text">{heroSettings.headlineMain || 'YOUR JOURNEY'}</span>
+            <span className="hero-journey-text">{heroSettings.headlineMain || 'Your journey'}</span>
             <span className="hero-divider-dot"> • </span>
-            <span className="hero-comfort-text text-orange-glow">{heroSettings.headlineHighlight || 'Your Comfort!'}</span>
+            <span className="hero-comfort-text text-orange-glow">{heroSettings.headlineHighlight || 'Our worry'}</span>
           </h1>
 
           {/* Description line placed between the two headings */}
@@ -1255,8 +1267,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
         .hero-journey-text {
           font-family: var(--font-heading) !important;
-          text-transform: uppercase !important;
-          letter-spacing: 0.02em !important;
+          letter-spacing: 0.01em !important;
           color: var(--cj-text-heading);
         }
 
@@ -1346,7 +1357,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           font-family: var(--font-editorial, serif);
           line-height: 1.15;
           letter-spacing: -0.01em;
-          text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 137, 47, 0.35);
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
         }
 
         .question-subtext {
@@ -1764,8 +1775,9 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           grid-template-columns: none !important;
           overflow-x: auto;
           scroll-snap-type: x mandatory;
+          scroll-padding: 0.75rem;
           gap: 1.15rem;
-          padding: 0.5rem 0.25rem 1.1rem 0.25rem;
+          padding: 0.5rem 0.75rem 1.1rem 0.75rem;
           scrollbar-width: thin;
           -webkit-overflow-scrolling: touch;
         }
@@ -1775,6 +1787,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           min-width: 295px;
           max-width: 295px;
           scroll-snap-align: start;
+          scroll-snap-stop: always;
         }
 
         .city-in-place-card {
@@ -1828,10 +1841,11 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           position: absolute;
           top: 0.65rem;
           left: 0.65rem;
-          right: 0.65rem;
+          right: 3.35rem;
           display: flex;
           justify-content: space-between;
           align-items: center;
+          gap: 0.4rem;
           z-index: 2;
           pointer-events: none;
         }
@@ -2881,6 +2895,8 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         [data-theme="light"] .hero-bg-video {
           opacity: 0.5;
         }
+        :root:not([data-theme="dark"]) .question-text,
+        [data-theme="light"] .question-text,
         :root:not([data-theme="dark"]) .hero-question-container .question-text,
         [data-theme="light"] .hero-question-container .question-text {
           text-shadow: none;
@@ -2891,12 +2907,29 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           text-shadow: none;
         }
         :root:not([data-theme="dark"]) .hero-interactive-stage,
-        [data-theme="light"] .hero-interactive-stage,
-        :root:not([data-theme="dark"]) .hero-top-universal-search .hero-search-glass-bar,
-        [data-theme="light"] .hero-top-universal-search .hero-search-glass-bar {
+        [data-theme="light"] .hero-interactive-stage {
           background: rgba(255,255,255,0.94);
           border-color: var(--cj-line, #E8E0CF);
           box-shadow: var(--shadow-lg, 0 20px 45px rgba(20,38,74,0.14));
+        }
+        :root:not([data-theme="dark"]) .top-search-glass-shell,
+        [data-theme="light"] .top-search-glass-shell {
+          background: rgba(255, 255, 255, 0.96);
+          border-color: var(--cj-line, #E8E0CF);
+          box-shadow: 0 8px 24px rgba(20, 38, 74, 0.08), 0 0 16px rgba(255, 137, 47, 0.1);
+        }
+        :root:not([data-theme="dark"]) .top-search-glass-shell:focus-within,
+        [data-theme="light"] .top-search-glass-shell:focus-within {
+          border-color: #FF892F;
+          box-shadow: 0 10px 28px rgba(255, 137, 47, 0.22), 0 0 0 3px rgba(255, 137, 47, 0.15);
+        }
+        :root:not([data-theme="dark"]) .top-search-input,
+        [data-theme="light"] .top-search-input {
+          color: var(--cj-text-heading, #14264A);
+        }
+        :root:not([data-theme="dark"]) .top-search-input::placeholder,
+        [data-theme="light"] .top-search-input::placeholder {
+          color: var(--cj-text-muted, #64748B);
         }
         :root:not([data-theme="dark"]) .mode-tab-btn:not(.active),
         [data-theme="light"] .mode-tab-btn:not(.active),

@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 import { Compass, ChevronRight, ChevronDown, Sparkles, Loader2, Lightbulb } from 'lucide-react';
 import './styles/ConversationalSearch.css';
 
+const DEFAULT_PROMPTS = [
+  '🏔️ Add 2 days in Gulmarg with luxury resort',
+  '✨ Upgrade hotels to 5★ Heritage Stay',
+  '🥗 Ensure 100% Pure Veg & Jain meals',
+  '🚗 Private Innova Hycross with chauffeur',
+  '👴 Relaxed gentle pacing for parents'
+];
+
 export default function ConversationalSearch({
   onSubmit,
   isGenerating,
@@ -10,7 +18,7 @@ export default function ConversationalSearch({
   hasActiveTrip = false
 }) {
   const [query, setQuery] = useState('');
-  const [showPrompts, setShowPrompts] = useState(false);
+  const displayPrompts = quickPrompts.length > 0 ? quickPrompts : DEFAULT_PROMPTS;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,39 +28,40 @@ export default function ConversationalSearch({
   };
 
   const handleQuickClick = (prompt) => {
-    setQuery(prompt);
-    onQuickPrompt?.(prompt);
+    // Strip leading emoji for cleaner query if needed, or use as is
+    const cleanPrompt = prompt.replace(/^[\p{Emoji}\s]+/u, '').trim();
+    setQuery(cleanPrompt || prompt);
+    onQuickPrompt?.(cleanPrompt || prompt);
   };
 
   return (
-    <section className={`conversational-search ${hasActiveTrip ? 'compact-mode' : ''}`} aria-labelledby="search-heading">
-      <div className="search-card glass-panel">
-        <div className="search-input-wrapper">
-          <svg className="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <circle cx="11" cy="11" r="8"/>
-            <path d="M21 21l-4.35-4.35"/>
-          </svg>
-          
-          <form onSubmit={handleSubmit} className="search-form">
+    <section className="conversational-search" aria-labelledby="search-heading">
+      <div className="search-card">
+        <form onSubmit={handleSubmit} className="search-form-container">
+          <div className="search-input-wrapper">
+            <span className="search-input-icon-badge" aria-hidden="true">
+              <Sparkles size={18} className="text-amber" />
+            </span>
+            
             <input
               type="text"
               className="search-input"
               placeholder={hasActiveTrip 
-                ? 'Ask Comfy.ai: e.g. "Add 2 days in Gulmarg with luxury stay and gondola tickets"'
-                : 'Speak naturally: e.g. "7 days in Kashmir for family with veg food and Innova"'}
+                ? 'Ask Comfy.ai to customize: e.g. "Add 2 days in Gulmarg with luxury stay"'
+                : 'Plan your trip with AI: e.g. "7 days in Kashmir for family with veg food and Innova"'}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               disabled={isGenerating}
-              aria-label="Describe your dream vacation"
+              aria-label="Describe your dream vacation to Comfy.ai"
               autoComplete="off"
               spellCheck="false"
             />
-            
+
             <button
               type="submit"
-              className="search-submit"
+              className="search-submit-btn"
               disabled={!query.trim() || isGenerating}
-              aria-label="Plan my vacation"
+              aria-label="Plan or modify vacation"
             >
               {isGenerating ? (
                 <>
@@ -66,43 +75,31 @@ export default function ConversationalSearch({
                 </>
               )}
             </button>
-          </form>
-        </div>
+          </div>
+        </form>
 
-        {quickPrompts.length > 0 && !isGenerating && (
-          <div className="prompts-container">
-            {hasActiveTrip ? (
-              <button 
-                type="button" 
-                className="prompts-toggle-btn"
-                onClick={() => setShowPrompts(!showPrompts)}
-                aria-expanded={showPrompts}
-              >
-                <Lightbulb size={12} />
-                <span>{showPrompts ? 'Hide prompt suggestions' : '💡 Need ideas? Click to see prompts'}</span>
-                <ChevronDown size={12} style={{ transform: showPrompts ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
-              </button>
-            ) : null}
-
-            {showPrompts && (
-              <div className="quick-prompts animate-in" role="list" aria-label="Suggested prompts">
-                <div className="prompts-scroll" role="listbox">
-                  {quickPrompts.map((prompt, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      className="prompt-chip"
-                      onClick={() => handleQuickClick(prompt)}
-                      role="option"
-                      tabIndex={0}
-                    >
-                      <span className="prompt-text">{prompt}</span>
-                      <ChevronRight size={12} aria-hidden="true" />
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
+        {/* Suggestion Prompt Chips */}
+        {!isGenerating && displayPrompts.length > 0 && (
+          <div className="prompts-suggestion-row" role="list" aria-label="Suggested prompt ideas">
+            <span className="prompts-suggestion-label">
+              <Lightbulb size={12} className="text-amber" />
+              <span>Try:</span>
+            </span>
+            <div className="prompts-chips-scroll">
+              {displayPrompts.map((prompt, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  className="quick-prompt-pill"
+                  onClick={() => handleQuickClick(prompt)}
+                  role="listitem"
+                  title={`Click to prompt: ${prompt}`}
+                >
+                  <span>{prompt}</span>
+                  <ChevronRight size={11} className="pill-arrow" aria-hidden="true" />
+                </button>
+              ))}
+            </div>
           </div>
         )}
       </div>

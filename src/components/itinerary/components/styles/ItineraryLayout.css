@@ -11,6 +11,11 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   background: var(--cj-bg-base, #FAF7F2);
   color: var(--cj-text-body, #1E293B);
   font-family: var(--font-ui, 'Inter', system-ui, sans-serif);
@@ -322,6 +327,14 @@
 }
 
 @media (max-width: 768px) {
+  .itin-page-root {
+    padding-top: 88px;
+    padding-bottom: 140px;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
   .itin-header {
     height: auto;
     padding: 10px 14px;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   X, Lock, LayoutDashboard, FileText, Search, Database,
   UploadCloud, TrendingUp, Image as ImageIcon, Settings, FileSpreadsheet,
-  CheckCircle2, AlertTriangle, Loader2, Key, RefreshCw, Globe, ExternalLink, Sliders, Sparkles, Users
+  CheckCircle2, AlertTriangle, Loader2, Key, RefreshCw, Globe, ExternalLink, Sliders, Sparkles, Users, Sun, Moon
 } from 'lucide-react';
 import { directusService, slugify, parseWixCsv, transformWixTourRow } from '../services/directusClient';
 import { TOURS_DATA } from '../data/toursData';
@@ -48,6 +48,15 @@ export default function AdminCMSModal({ isOpen, onClose }) {
   const [passwordInput, setPasswordInput] = useState('');
   const [authError, setAuthError] = useState('');
   const [activeTab, setActiveTab] = useState('manage-tours');
+  const [cmsTheme, setCmsTheme] = useState(() => {
+    return localStorage.getItem('cj_cms_theme') || (document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+  });
+
+  const toggleCmsTheme = () => {
+    const next = cmsTheme === 'dark' ? 'light' : 'dark';
+    setCmsTheme(next);
+    localStorage.setItem('cj_cms_theme', next);
+  };
 
   // Directus Connection State (preserved from v1)
   const [directusUrl, setDirectusUrl] = useState(directusService.getBaseUrl());
@@ -415,7 +424,11 @@ export default function AdminCMSModal({ isOpen, onClose }) {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content admin-modal-content content-studio-modal" onClick={(e) => e.stopPropagation()}>
+      <div 
+        className={`modal-content admin-modal-content content-studio-modal ${cmsTheme === 'light' ? 'cms-theme-light' : 'cms-theme-dark'}`} 
+        data-cms-theme={cmsTheme}
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* ═══ Header ═══ */}
         <div className="admin-header">
           <div className="admin-title-row">
@@ -425,7 +438,18 @@ export default function AdminCMSModal({ isOpen, onClose }) {
               <span className="admin-subtitle">Tour Manager · Blog Editor · SEO Assistant · Growth Hub Analytics</span>
             </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            {/* Studio Theme Switcher Button */}
+            <button
+              type="button"
+              className="btn-cms-theme-toggle"
+              onClick={toggleCmsTheme}
+              title={`Switch to ${cmsTheme === 'dark' ? 'Light' : 'Dark'} Studio Mode`}
+            >
+              {cmsTheme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
+              <span>{cmsTheme === 'dark' ? 'Light Studio' : 'Dark Studio'}</span>
+            </button>
+
             {isAuthenticated && (
               <button
                 type="button"
@@ -1005,6 +1029,47 @@ export default function AdminCMSModal({ isOpen, onClose }) {
           .btn-cms-header-publish:disabled {
             opacity: 0.6;
             cursor: not-allowed;
+          }
+
+          .btn-cms-theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 8px;
+            padding: 0.48rem 0.85rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #E2E8F0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+          }
+          .btn-cms-theme-toggle:hover {
+            background: rgba(255, 137, 47, 0.2);
+            border-color: #FF892F;
+            color: #FF892F;
+          }
+
+          .cms-theme-light .btn-cms-theme-toggle {
+            background: #F1F5F9;
+            border-color: #CBD5E1;
+            color: #1E293B;
+          }
+          .cms-theme-light .btn-cms-theme-toggle:hover {
+            background: #FFF7ED;
+            border-color: #FF892F;
+            color: #EA580C;
+          }
+          .cms-theme-light .admin-close-btn {
+            background: #F1F5F9;
+            border-color: #CBD5E1;
+            color: #475569;
+          }
+          .cms-theme-light .admin-close-btn:hover {
+            background: #FEE2E2;
+            color: #EF4444;
+            border-color: #FCA5A5;
           }
 
           .admin-close-btn {

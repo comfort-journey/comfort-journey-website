@@ -5,11 +5,15 @@
 
 .onepage-itin-root {
   width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   background: var(--cj-bg-base, #FAF7F2);
   color: var(--cj-text-body, #1E293B);
   padding-bottom: 74px; /* Snug clearance so bottom fixed bar never cuts off content without leaving empty gap */
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 .onepage-container {
@@ -17,6 +21,8 @@
   margin: 0 auto;
   padding: 0 24px;
   width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 /* =========================================================================
@@ -1342,18 +1348,121 @@
 }
 
 @media (max-width: 768px) {
+  .onepage-itin-root {
+    padding-bottom: 150px !important;
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
   .onepage-hero-panoramic {
-    padding: 40px 16px 56px;
-    min-height: 400px;
+    padding: 30px 14px 44px;
+    min-height: 360px;
   }
 
   .onepage-container {
-    padding: 0 16px;
+    padding: 0 12px !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
   }
 
+  /* Pricing & Conversion Bar Mobile Adaptation */
+  .mosaic-pricing-conversion-bar {
+    padding: 1.1rem 1rem !important;
+    gap: 1rem !important;
+    border-radius: 16px !important;
+    margin-top: 1rem !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+  }
+
+  .pricing-left-block {
+    width: 100% !important;
+  }
+
+  .pricing-digits-row {
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+    align-items: baseline !important;
+  }
+
+  .pricing-main-amount {
+    font-size: 2.1rem !important;
+  }
+
+  .pricing-actions-right {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .currency-selector-box,
+  .currency-dropdown-toggle-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+  }
+
+  .btn-action-whatsapp,
+  .btn-action-book-primary {
+    width: 100% !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    padding: 12px 16px !important;
+    font-size: 0.95rem !important;
+  }
+
+  /* Trip At A Glance: Fixed-Grid 2-Column with Safe minmax to eliminate horizontal overflow */
   .glance-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .glance-card {
+    padding: 10px 10px !important;
+    gap: 8px !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    border-radius: 12px !important;
+  }
+
+  .glance-icon-box {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 10px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .glance-icon-box svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .glance-details {
+    min-width: 0 !important;
+    flex: 1 !important;
+    overflow: hidden !important;
+  }
+
+  .glance-label {
+    font-size: 0.62rem !important;
+    line-height: 1.1 !important;
+  }
+
+  .glance-value {
+    font-size: 0.78rem !important;
+    white-space: normal !important;
+    line-height: 1.25 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    word-break: break-word !important;
   }
 
   .inclusions-cards-grid {
@@ -1366,11 +1475,47 @@
     gap: 12px;
   }
 
+  /* Day Selector Navigation Bar */
+  .schedule-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .mobile-view-toggle {
+    width: 100% !important;
+    display: flex !important;
+    box-sizing: border-box !important;
+    justify-content: center !important;
+  }
+
+  .toggle-btn {
+    flex: 1 !important;
+    justify-content: center !important;
+  }
+
   .onepage-day-selector {
-    padding: 6px 8px;
+    padding: 6px 8px !important;
+    gap: 6px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    margin-bottom: 18px !important;
+  }
+
+  .day-pills-row {
+    -webkit-overflow-scrolling: touch !important;
+    overflow-x: auto !important;
+    touch-action: pan-x !important;
   }
 
   .day-pill {
-    padding: 6px 12px;
+    padding: 6px 10px !important;
+    min-width: 80px !important;
+    font-size: 0.76rem !important;
+  }
+
+  .standalone-map-wrapper {
+    touch-action: pan-y !important;
   }
 }

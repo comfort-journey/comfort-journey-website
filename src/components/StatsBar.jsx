@@ -25,18 +25,16 @@ export default function StatsBar() {
         <div className="stats-grid">
           {STATS_DATA.map((stat, idx) => {
             const parsed = parseStat(stat.value);
+            const isLongVal = String(stat.value).length > 6;
             return (
-              <Tilt3DCard key={idx} maxTilt={6} scale={1.03} className="stat-tilt-wrapper">
-                <div className="stat-card liquid-glass-card">
-                  <div className="liquidGlass-effect" aria-hidden="true" />
-                  <div className="liquidGlass-tint" aria-hidden="true" />
-                  <div className="liquidGlass-shine" aria-hidden="true" />
-                  <div className="liquidGlass-content stat-card-inner">
+              <Tilt3DCard key={idx} maxTilt={5} scale={1.025} className="stat-tilt-wrapper">
+                <div className="stat-card">
+                  <div className="stat-card-inner">
                     <div className="stat-icon-wrapper">
                       {icons[idx]}
                     </div>
                     <div className="stat-info">
-                      <span className="stat-value font-editorial">
+                      <span className={`stat-value font-editorial ${isLongVal ? 'stat-value-compact' : ''}`}>
                         {parsed ? (
                           <AnimatedCounter
                             target={parsed.target}
@@ -71,69 +69,94 @@ export default function StatsBar() {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
           gap: 1.5rem;
+          align-items: stretch;
+        }
+
+        .stat-tilt-wrapper {
+          height: 100%;
+          display: flex;
         }
 
         .stat-card {
           position: relative;
-          padding: 1.25rem 1.5rem;
-          border-radius: var(--radius-md, 20px);
-          overflow: hidden;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          padding: 1.25rem 1.4rem;
+          border-radius: 20px;
+          background: rgba(0, 18, 51, 0.75);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          backdrop-filter: blur(14px);
+          -webkit-backdrop-filter: blur(14px);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+          display: flex;
+          align-items: center;
+          width: 100%;
+          box-sizing: border-box;
+          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
         .stat-card-inner {
           position: relative;
-          z-index: 3;
+          z-index: 2;
           display: flex;
           align-items: center;
-          gap: 1.25rem;
+          gap: 1.15rem;
           width: 100%;
         }
 
         .stat-card:hover {
           transform: translateY(-4px);
-          box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 137, 47, 0.25);
+          border-color: rgba(255, 137, 47, 0.5);
+          box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 137, 47, 0.2);
         }
 
         .stat-icon-wrapper {
-          width: 54px;
-          height: 54px;
-          border-radius: 16px;
-          background: rgba(255, 107, 0, 0.15);
+          width: 52px;
+          height: 52px;
+          border-radius: 14px;
+          background: rgba(255, 137, 47, 0.14);
           display: flex;
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
-          color: var(--color-primary);
-          border: 1px solid rgba(255, 107, 0, 0.3);
+          color: var(--color-primary, #FF892F);
+          border: 1px solid rgba(255, 137, 47, 0.3);
         }
 
         .stat-info {
           display: flex;
           flex-direction: column;
+          justify-content: center;
+          min-width: 0;
         }
 
         .stat-value {
           font-family: var(--font-serif);
           font-weight: 900;
-          font-size: 2.1rem;
+          font-size: 2rem;
           line-height: 1.1;
-          color: var(--cj-gold-500);
+          color: var(--cj-gold-500, #F59E0B);
           margin-bottom: 0.15rem;
+          letter-spacing: -0.02em;
+        }
+
+        .stat-value.stat-value-compact {
+          font-size: 1.42rem;
+          line-height: 1.15;
         }
 
         .stat-label {
           font-family: var(--font-ui);
           font-weight: 800;
-          font-size: 0.95rem;
+          font-size: 0.92rem;
           color: var(--cj-text-heading);
+          line-height: 1.25;
         }
 
         .stat-sub {
           font-family: var(--font-body);
-          font-size: 0.8rem;
+          font-size: 0.78rem;
           color: var(--cj-text-muted);
           font-weight: 500;
+          line-height: 1.2;
         }
 
         @media (max-width: 768px) {
@@ -202,6 +225,17 @@ export default function StatsBar() {
         :root:not([data-theme="dark"]) .stats-root,
         [data-theme="light"] .stats-root {
           background: linear-gradient(180deg, var(--cj-bg-alt, #F9FBE7) 0%, var(--cj-bg-base, #FFFDF7) 100%);
+        }
+        :root:not([data-theme="dark"]) .stat-card,
+        [data-theme="light"] .stat-card {
+          background: rgba(255, 255, 255, 0.92);
+          border: 1px solid var(--cj-line, rgba(20, 38, 74, 0.1));
+          box-shadow: 0 4px 18px rgba(20, 38, 74, 0.06);
+        }
+        :root:not([data-theme="dark"]) .stat-card:hover,
+        [data-theme="light"] .stat-card:hover {
+          border-color: rgba(255, 137, 47, 0.6);
+          box-shadow: 0 12px 28px rgba(20, 38, 74, 0.12), 0 0 16px rgba(255, 137, 47, 0.15);
         }
         :root:not([data-theme="dark"]) .stat-value,
         [data-theme="light"] .stat-value {

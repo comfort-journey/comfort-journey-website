@@ -670,6 +670,216 @@ Please share a detailed day-wise itinerary & quote!`;
             margin: 0 auto 1.5rem auto;
             line-height: 1.5;
           }
+
+          /* ══════════════════════════════════════════════════
+             DUAL THEME — Light & Dark theme support
+             ══════════════════════════════════════════════════ */
+          :root:not([data-theme="dark"]) .booking-modal-5step,
+          [data-theme="light"] .booking-modal-5step {
+            background: #FFFFFF !important;
+            border: 1px solid var(--cj-line, #E2E8F0) !important;
+            box-shadow: 0 25px 70px rgba(20, 38, 74, 0.18), 0 0 1px rgba(20, 38, 74, 0.1) !important;
+          }
+
+          :root:not([data-theme="dark"]) .modal-header-5step,
+          [data-theme="light"] .modal-header-5step {
+            background: #F8FAFC !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+          }
+
+          :root:not([data-theme="dark"]) .close-btn-round,
+          [data-theme="light"] .close-btn-round {
+            background: #E2E8F0 !important;
+            color: #475569 !important;
+          }
+          :root:not([data-theme="dark"]) .close-btn-round:hover,
+          [data-theme="light"] .close-btn-round:hover {
+            background: #FF892F !important;
+            color: #FFFFFF !important;
+          }
+
+          :root:not([data-theme="dark"]) .step-count-text,
+          [data-theme="light"] .step-count-text {
+            color: #64748B !important;
+          }
+
+          :root:not([data-theme="dark"]) .step-heading,
+          [data-theme="light"] .step-heading {
+            color: #0F172A !important;
+          }
+
+          :root:not([data-theme="dark"]) .step-desc,
+          [data-theme="light"] .step-desc {
+            color: #64748B !important;
+          }
+
+          :root:not([data-theme="dark"]) .dest-select-btn,
+          [data-theme="light"] .dest-select-btn {
+            background: #F8FAFC !important;
+            border: 1.5px solid #CBD5E1 !important;
+            color: #1E293B !important;
+            font-weight: 700 !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+          }
+          :root:not([data-theme="dark"]) .dest-select-btn:hover,
+          [data-theme="light"] .dest-select-btn:hover {
+            background: #FFF7ED !important;
+            border-color: #FF892F !important;
+            color: #EA580C !important;
+            transform: translateY(-1px);
+          }
+          :root:not([data-theme="dark"]) .dest-select-btn.active,
+          [data-theme="light"] .dest-select-btn.active {
+            background: linear-gradient(135deg, #FF892F, #FF6B00) !important;
+            border-color: #FF892F !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 4px 14px rgba(255, 107, 0, 0.35) !important;
+          }
+
+          :root:not([data-theme="dark"]) .grid-select-btn,
+          [data-theme="light"] .grid-select-btn {
+            background: #F8FAFC !important;
+            border: 1.5px solid #CBD5E1 !important;
+            color: #1E293B !important;
+            font-weight: 700 !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+          }
+          :root:not([data-theme="dark"]) .grid-select-btn:hover,
+          [data-theme="light"] .grid-select-btn:hover {
+            background: #FFF7ED !important;
+            border-color: #FF892F !important;
+            color: #EA580C !important;
+          }
+          :root:not([data-theme="dark"]) .grid-select-btn.active,
+          [data-theme="light"] .grid-select-btn.active {
+            background: #FFF7ED !important;
+            border-color: #EA580C !important;
+            color: #EA580C !important;
+            box-shadow: 0 0 0 2px rgba(234, 88, 12, 0.25) !important;
+            font-weight: 800 !important;
+          }
+
+          :root:not([data-theme="dark"]) .tier-choice-btn,
+          [data-theme="light"] .tier-choice-btn {
+            background: #F8FAFC !important;
+            border: 1.5px solid #CBD5E1 !important;
+            color: #1E293B !important;
+          }
+          :root:not([data-theme="dark"]) .tier-choice-btn:hover,
+          [data-theme="light"] .tier-choice-btn:hover {
+            border-color: #FF892F !important;
+            background: #FFF7ED !important;
+          }
+          :root:not([data-theme="dark"]) .tier-choice-btn.active,
+          [data-theme="light"] .tier-choice-btn.active {
+            border-color: #EA580C !important;
+            background: #FFF7ED !important;
+            box-shadow: 0 0 0 2px rgba(234, 88, 12, 0.25) !important;
+          }
+          :root:not([data-theme="dark"]) .tier-choice-btn strong,
+          [data-theme="light"] .tier-choice-btn strong {
+            color: #0F172A !important;
+          }
+          :root:not([data-theme="dark"]) .tier-choice-btn small,
+          [data-theme="light"] .tier-choice-btn small {
+            color: #64748B !important;
+          }
+
+          :root:not([data-theme="dark"]) .form-group label,
+          [data-theme="light"] .form-group label {
+            color: #334155 !important;
+            font-weight: 700 !important;
+          }
+
+          :root:not([data-theme="dark"]) .form-group input,
+          :root:not([data-theme="dark"]) .form-group select,
+          :root:not([data-theme="dark"]) .form-group textarea,
+          [data-theme="light"] .form-group input,
+          [data-theme="light"] .form-group select,
+          [data-theme="light"] .form-group textarea {
+            background: #FFFFFF !important;
+            border: 1.5px solid #CBD5E1 !important;
+            color: #0F172A !important;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+          }
+          :root:not([data-theme="dark"]) .form-group input:focus,
+          :root:not([data-theme="dark"]) .form-group select:focus,
+          :root:not([data-theme="dark"]) .form-group textarea:focus,
+          [data-theme="light"] .form-group input:focus,
+          [data-theme="light"] .form-group select:focus,
+          [data-theme="light"] .form-group textarea:focus {
+            border-color: #FF892F !important;
+            box-shadow: 0 0 0 3px rgba(255, 137, 47, 0.2) !important;
+          }
+          :root:not([data-theme="dark"]) .form-group input::placeholder,
+          :root:not([data-theme="dark"]) .form-group textarea::placeholder,
+          [data-theme="light"] .form-group input::placeholder,
+          [data-theme="light"] .form-group textarea::placeholder {
+            color: #94A3B8 !important;
+          }
+
+          :root:not([data-theme="dark"]) .summary-recap-box,
+          [data-theme="light"] .summary-recap-box {
+            background: #F1F5F9 !important;
+            border: 1px solid #CBD5E1 !important;
+            color: #334155 !important;
+          }
+          :root:not([data-theme="dark"]) .summary-recap-box strong,
+          [data-theme="light"] .summary-recap-box strong {
+            color: #D97706 !important;
+          }
+
+          :root:not([data-theme="dark"]) .step-nav-footer,
+          [data-theme="light"] .step-nav-footer {
+            border-top: 1px solid #E2E8F0 !important;
+          }
+
+          :root:not([data-theme="dark"]) .btn-secondary,
+          [data-theme="light"] .btn-secondary {
+            background: #F1F5F9 !important;
+            border: 1.5px solid #CBD5E1 !important;
+            color: #1E293B !important;
+            font-weight: 700 !important;
+          }
+
+          :root:not([data-theme="dark"]) .btn-primary,
+          [data-theme="light"] .btn-primary {
+            background: linear-gradient(135deg, #FF892F, #FF6B00) !important;
+            color: #FFFFFF !important;
+            font-weight: 800 !important;
+            border: none !important;
+            box-shadow: 0 4px 14px rgba(255, 107, 0, 0.35) !important;
+          }
+
+          :root:not([data-theme="dark"]) .btn-whatsapp,
+          [data-theme="light"] .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E) !important;
+            color: #FFFFFF !important;
+            font-weight: 800 !important;
+            box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35) !important;
+          }
+
+          :root:not([data-theme="dark"]) .submitted-title,
+          [data-theme="light"] .submitted-title {
+            color: #0F172A !important;
+          }
+
+          :root:not([data-theme="dark"]) .submitted-sub,
+          [data-theme="light"] .submitted-sub {
+            color: #475569 !important;
+          }
+
+          /* DARK THEME CONTRAST ASSURANCE */
+          [data-theme="dark"] .step-heading {
+            color: #FFFFFF !important;
+          }
+          [data-theme="dark"] .dest-select-btn {
+            color: #F8FAFC !important;
+          }
+          [data-theme="dark"] .form-group input,
+          [data-theme="dark"] .form-group textarea {
+            color: #FFFFFF !important;
+          }
         `}</style>
       </div>
     </div>

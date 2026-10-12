@@ -65,7 +65,7 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
         <div className="container text-center">
           <div className="blog-kicker animate-fade-in">
             <Sparkles size={15} className="text-amber inline mr-1" />
-            <span>COMFORT JOURNEY TRAVEL JOURNAL & GUIDES</span>
+            <span>COMFORT JOURNEY TRAVEL BLOGS & GUIDES</span>
           </div>
           <h1 className="blog-main-title font-editorial animate-fade-in-up">
             Stories, Guides & Curated Wanderlust
@@ -115,7 +115,7 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
         {loading ? (
           <div className="blog-loading-state">
             <div className="loading-spinner"></div>
-            <p>Loading curated journal stories...</p>
+            <p>Loading curated blog stories...</p>
           </div>
         ) : (
           <>
@@ -836,6 +836,75 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
         :root:not([data-theme="dark"]) .read-more-btn,
         [data-theme="light"] .read-more-btn {
           color: #D65A00 !important;
+        }
+
+        /* LIGHT THEME — Radiant, high-contrast blog header & elements */
+        :root:not([data-theme="dark"]) .blog-magazine-root,
+        [data-theme="light"] .blog-magazine-root {
+          background: var(--cj-bg-base, #FFFDF7) !important;
+        }
+
+        :root:not([data-theme="dark"]) .blog-top-bar,
+        [data-theme="light"] .blog-top-bar {
+          background: rgba(255, 255, 255, 0.94) !important;
+          border-bottom: 1px solid var(--cj-line, #E8E0CF) !important;
+        }
+
+        :root:not([data-theme="dark"]) .btn-back-home,
+        [data-theme="light"] .btn-back-home {
+          background: #FFFFFF !important;
+          border-color: var(--cj-line, #E8E0CF) !important;
+          color: var(--cj-text-heading, #14264A) !important;
+          box-shadow: 0 2px 8px rgba(20, 38, 74, 0.05) !important;
+        }
+
+        :root:not([data-theme="dark"]) .btn-back-home:hover,
+        [data-theme="light"] .btn-back-home:hover {
+          border-color: #FF892F !important;
+          color: #D65A00 !important;
+        }
+
+        :root:not([data-theme="dark"]) .blog-hero-header,
+        [data-theme="light"] .blog-hero-header {
+          background: linear-gradient(180deg, #F9FBE7 0%, #FFFDF7 100%) !important;
+          border-bottom: 1px solid var(--cj-line, #E8E0CF) !important;
+        }
+
+        :root:not([data-theme="dark"]) .blog-main-title,
+        [data-theme="light"] .blog-main-title {
+          color: var(--cj-text-heading, #14264A) !important;
+          text-shadow: none !important;
+        }
+
+        :root:not([data-theme="dark"]) .blog-main-subline,
+        [data-theme="light"] .blog-main-subline {
+          color: var(--cj-text-body, #475569) !important;
+        }
+
+        :root:not([data-theme="dark"]) .blog-search-input,
+        [data-theme="light"] .blog-search-input {
+          background: #FFFFFF !important;
+          border-color: var(--cj-line, #CBD5E1) !important;
+          color: var(--cj-text-heading, #14264A) !important;
+          box-shadow: 0 4px 20px rgba(20, 38, 74, 0.08) !important;
+        }
+
+        :root:not([data-theme="dark"]) .blog-search-input::placeholder,
+        [data-theme="light"] .blog-search-input::placeholder {
+          color: #94A3B8 !important;
+        }
+
+        :root:not([data-theme="dark"]) .search-icon,
+        [data-theme="light"] .search-icon {
+          color: #64748B !important;
+        }
+
+        /* DARK THEME — Crisp white text on dark background */
+        [data-theme="dark"] .blog-main-title {
+          color: #FFFFFF !important;
+        }
+        [data-theme="dark"] .blog-main-subline {
+          color: #94A3B8 !important;
         }
       `}</style>
     </div>

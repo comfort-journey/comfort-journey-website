@@ -1,35 +1,33 @@
 /* =========================================================================
-   FLOATING AI BUTTON - Persistent Access to Chat
+   FLOATING AI BUTTON - Persistent Access to Concierge Chat
    ========================================================================= */
 
 .floating-ai-btn {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-4);
-  background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 50%, #F43F5E 100%);
-  background-size: 200% auto;
+  gap: 8px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #FF892F 0%, #EA580C 100%);
   color: #FFFFFF;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: var(--radius-full);
   font-family: inherit;
   font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;
   box-shadow: 
-    0 8px 32px rgba(139, 92, 246, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
+    0 8px 24px rgba(255, 137, 47, 0.4),
+    0 2px 6px rgba(0, 0, 0, 0.1);
   transition: all var(--transition-base);
-  animation: gradientShift 4s ease infinite;
   z-index: var(--z-floating);
 }
 
 .floating-ai-btn:hover {
-  transform: translateY(-2px) scale(1.02);
+  transform: translateY(-2px) scale(1.03);
   box-shadow: 
-    0 12px 40px rgba(139, 92, 246, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.15);
+    0 12px 30px rgba(255, 137, 47, 0.55),
+    0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .floating-ai-btn:active {
@@ -37,21 +35,21 @@
 }
 
 .floating-ai-btn.chat-open {
-  background: linear-gradient(135deg, #EF4444 0%, #F97316 100%);
-  animation: none;
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4);
 }
 
 .floating-ai-btn.chat-open:hover {
-  box-shadow: 0 12px 40px rgba(239, 68, 68, 0.5);
+  box-shadow: 0 12px 30px rgba(239, 68, 68, 0.55);
 }
 
 .btn-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  background: rgba(255, 255, 255, 0.15);
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   backdrop-filter: blur(8px);
   flex-shrink: 0;
@@ -59,7 +57,7 @@
 }
 
 .floating-ai-btn:hover .btn-icon {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.3);
   transform: rotate(6deg);
 }
 
@@ -73,7 +71,7 @@
   align-items: center;
   justify-content: center;
   min-width: 20px;
-  height: 20px;
+  height: 18px;
   background: #10B981;
   color: #FFFFFF;
   border-radius: var(--radius-full);
@@ -85,39 +83,34 @@
 
 .btn-glow {
   position: absolute;
-  inset: -4px;
+  inset: -3px;
   border-radius: var(--radius-full);
-  background: linear-gradient(135deg, #8B5CF6, #EC4899, #F43F5E);
-  background-size: 200% auto;
-  opacity: 0.4;
-  filter: blur(8px);
-  animation: gradientShift 4s ease infinite;
+  background: linear-gradient(135deg, #FF892F, #EA580C);
+  opacity: 0.35;
+  filter: blur(6px);
   pointer-events: none;
   z-index: -1;
+  transition: opacity var(--transition-base);
+}
+
+.floating-ai-btn:hover .btn-glow {
+  opacity: 0.6;
 }
 
 .floating-ai-btn.chat-open .btn-glow {
-  background: linear-gradient(135deg, #EF4444, #F97316);
-  animation: none;
-}
-
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  background: linear-gradient(135deg, #EF4444, #DC2626);
 }
 
 @keyframes pulse {
   0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.1); opacity: 0.8; }
+  50% { transform: scale(1.08); opacity: 0.85; }
 }
 
 /* Mobile adjustments */
 @media (max-width: 768px) {
   .floating-ai-btn {
-    padding: var(--space-3);
-    bottom: calc(var(--footer-height-mobile) + var(--space-4));
-    right: var(--space-3);
+    padding: 8px;
+    border-radius: 50%;
   }
   
   .btn-label {
@@ -125,30 +118,15 @@
   }
   
   .btn-icon {
-    width: 44px;
-    height: 44px;
-  }
-  
-  .floating-ai-btn.chat-open {
-    position: fixed;
-    bottom: calc(var(--footer-height-mobile) + var(--space-4));
-    right: var(--space-3);
+    width: 32px;
+    height: 32px;
   }
 }
 
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .floating-ai-btn,
   .btn-glow,
   .btn-badge {
     animation: none;
-  }
-  
-  .floating-ai-btn {
-    background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
-  }
-  
-  .floating-ai-btn.chat-open {
-    background: linear-gradient(135deg, #EF4444 0%, #F97316 100%);
   }
 }

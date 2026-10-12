@@ -135,7 +135,7 @@ export default function App() {
         setActiveBlogSlug(null);
         window.scrollTo({ top: 0, behavior: 'smooth' });
         seoHeadManager.updateMetadata({
-          title: "Editorial Travel Journal & Luxury Guides | Comfort Journey",
+          title: "Travel Blogs & Luxury Guides | Comfort Journey",
           description: "Explore handcrafted destination guides, luxury stay reviews, and honeymoon tips curated by Comfort Journey since 1992.",
           url: "/#/blog",
           type: "website"
@@ -490,11 +490,13 @@ pageData={activeLandingPage}
 
 
 
-          {/* Floating Glassmorphism Action Dock (Available on All Pages) */}
-          <FloatingQuickDock 
-            onOpenQuote={() => setIsQuickQuoteOpen(true)} 
-            onOpenAIPlanner={navigateToAIPlanner}
-          />
+          {/* Floating Glassmorphism Action Dock (Available on All Pages except AI Planner) */}
+          {currentView !== 'ai-planner' && (
+            <FloatingQuickDock 
+              onOpenQuote={() => setIsQuickQuoteOpen(true)} 
+              onOpenAIPlanner={navigateToAIPlanner}
+            />
+          )}
 
           {/* Live Booking Social Proof Ticker */}
           {currentView !== 'landing' && <LiveBookingToast />}

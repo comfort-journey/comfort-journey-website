@@ -358,14 +358,14 @@ export default function MapPanel({
           top: var(--space-4);
           left: var(--space-4);
           z-index: 1000;
-          background: rgba(0, 18, 51, 0.94);
+          background: var(--planner-modal-bg);
           backdrop-filter: blur(12px);
-          border: 1px solid rgba(255, 137, 47, 0.4);
+          border: 1px solid var(--planner-border);
           border-radius: var(--radius-md);
-          padding: var(--space-2) var(--space-3);
+          padding: 8px 12px;
           color: var(--planner-text-heading);
           font-size: 0.75rem;
-          box-shadow: var(--planner-shadow-lg);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
           min-width: 220px;
         }
 
@@ -373,7 +373,7 @@ export default function MapPanel({
           display: flex;
           align-items: center;
           gap: var(--space-2);
-          margin-bottom: var(--space-2);
+          margin-bottom: 6px;
         }
 
         .badge-pulse {
@@ -386,8 +386,8 @@ export default function MapPanel({
         }
 
         .badge-title {
-          font-weight: 700;
-          letter-spacing: 0.02em;
+          font-weight: 800;
+          letter-spacing: 0.04em;
           font-size: 0.65rem;
           color: var(--planner-tangerine-500);
           text-transform: uppercase;
@@ -395,23 +395,24 @@ export default function MapPanel({
 
         .route-mode-toggle {
           display: flex;
-          gap: var(--space-1);
-          background: rgba(255, 255, 255, 0.06);
+          gap: 4px;
+          background: var(--planner-pill-bg);
+          border: 1px solid var(--planner-border);
           border-radius: var(--radius-full);
           padding: 2px;
-          margin-bottom: var(--space-2);
+          margin-bottom: 6px;
         }
 
         .route-toggle {
           display: inline-flex;
           align-items: center;
-          gap: var(--space-1);
+          gap: 4px;
           background: none;
           border: none;
           color: var(--planner-text-muted);
-          font-size: 0.62rem;
-          font-weight: 600;
-          padding: var(--space-1) var(--space-2);
+          font-size: 0.65rem;
+          font-weight: 700;
+          padding: 3px 8px;
           border-radius: var(--radius-full);
           cursor: pointer;
           transition: all var(--transition-fast);
@@ -422,17 +423,18 @@ export default function MapPanel({
         }
 
         .route-toggle.active {
-          background: var(--planner-tangerine-500);
-          color: var(--planner-navy-950);
+          background: linear-gradient(135deg, #FF892F 0%, #EA580C 100%);
+          color: #FFFFFF;
           font-weight: 800;
         }
 
         .badge-summary {
           display: flex;
           align-items: center;
-          gap: var(--space-2);
-          font-size: 0.65rem;
-          color: var(--planner-text-subtle);
+          gap: 6px;
+          font-size: 0.68rem;
+          color: var(--planner-text-muted);
+          font-weight: 600;
         }
 
         .dot {
@@ -445,25 +447,25 @@ export default function MapPanel({
           right: var(--space-4);
           z-index: 1000;
           display: flex;
-          background: rgba(0, 18, 51, 0.9);
+          background: var(--planner-modal-bg);
           backdrop-filter: blur(8px);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          border: 1px solid var(--planner-border);
           border-radius: var(--radius-full);
-          padding: var(--space-1);
-          gap: var(--space-1);
-          box-shadow: var(--planner-shadow-md);
+          padding: 3px;
+          gap: 3px;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
         }
 
         .style-btn {
           display: inline-flex;
           align-items: center;
-          gap: var(--space-1);
+          gap: 4px;
           background: none;
           border: none;
           color: var(--planner-text-muted);
-          font-size: 0.62rem;
-          font-weight: 600;
-          padding: var(--space-1) var(--space-2);
+          font-size: 0.65rem;
+          font-weight: 700;
+          padding: 4px 10px;
           border-radius: var(--radius-full);
           cursor: pointer;
           transition: all var(--transition-fast);
@@ -474,8 +476,8 @@ export default function MapPanel({
         }
 
         .style-btn.active {
-          background: var(--planner-tangerine-500);
-          color: var(--planner-navy-950);
+          background: linear-gradient(135deg, #FF892F 0%, #EA580C 100%);
+          color: #FFFFFF;
           font-weight: 800;
         }
 
@@ -487,14 +489,16 @@ export default function MapPanel({
           display: flex;
           align-items: center;
           gap: var(--space-2);
-          background: rgba(0, 18, 51, 0.88);
-          backdrop-filter: blur(6px);
-          padding: var(--space-1) var(--space-3);
+          background: var(--planner-modal-bg);
+          backdrop-filter: blur(8px);
+          padding: 4px 12px;
           border-radius: var(--radius-full);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          border: 1px solid var(--planner-border);
           color: var(--planner-text-muted);
-          font-size: 0.65rem;
+          font-size: 0.68rem;
+          font-weight: 600;
           pointer-events: none;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         /* Modern Pin Styles */
@@ -548,7 +552,7 @@ export default function MapPanel({
           position: absolute;
           top: -6px;
           right: -6px;
-          background: var(--planner-navy-950);
+          background: var(--planner-card);
           color: var(--planner-tangerine-500);
           font-weight: 800;
           font-size: 0.6rem;
@@ -560,7 +564,7 @@ export default function MapPanel({
           justify-content: center;
           padding: 0 3px;
           border: 1.5px solid var(--planner-tangerine-500);
-          box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+          box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
         .pin-icon-inner {
@@ -572,13 +576,14 @@ export default function MapPanel({
         }
 
         .leaflet-tooltip.comfy-marker-tooltip {
-          background: var(--planner-navy-950) !important;
+          background: var(--planner-modal-bg) !important;
           color: var(--planner-text-heading) !important;
-          border: 1px solid rgba(255, 137, 47, 0.5) !important;
+          border: 1px solid var(--planner-border) !important;
           border-radius: var(--radius-sm) !important;
-          padding: var(--space-1) var(--space-2) !important;
-          box-shadow: var(--planner-shadow-lg) !important;
-          font-size: 0.7rem !important;
+          padding: 4px 8px !important;
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2) !important;
+          font-size: 0.72rem !important;
+          font-weight: 700 !important;
         }
 
         @media (max-width: 768px) {
@@ -586,17 +591,17 @@ export default function MapPanel({
             top: 10px;
             left: 10px;
             min-width: unset;
-            max-width: 175px;
+            max-width: 185px;
             padding: 6px 10px;
           }
 
           .badge-title {
-            font-size: 0.58rem;
+            font-size: 0.6rem;
           }
 
           .route-toggle {
             padding: 2px 6px;
-            font-size: 0.58rem;
+            font-size: 0.6rem;
           }
 
           .map-style-switcher {
@@ -607,8 +612,8 @@ export default function MapPanel({
           }
 
           .style-btn {
-            padding: 4px 6px;
-            font-size: 0.58rem;
+            padding: 4px 8px;
+            font-size: 0.6rem;
           }
 
           .style-btn span {
@@ -621,16 +626,16 @@ export default function MapPanel({
             left: 12px;
             right: 12px;
             z-index: 1000;
-            background: rgba(0, 14, 40, 0.96);
+            background: var(--planner-modal-bg);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 137, 47, 0.45);
+            border: 1px solid var(--planner-border);
             border-radius: var(--radius-md);
             padding: 10px 14px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 10px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
             animation: slideUp 0.2s ease;
           }
 
@@ -640,16 +645,16 @@ export default function MapPanel({
           }
 
           .card-time {
-            font-size: 0.62rem;
+            font-size: 0.64rem;
             font-weight: 700;
-            color: var(--planner-aqua-500);
+            color: var(--planner-tangerine-500);
             text-transform: uppercase;
             letter-spacing: 0.04em;
           }
 
           .card-name {
             margin: 2px 0 0 0;
-            font-size: 0.82rem;
+            font-size: 0.84rem;
             font-weight: 700;
             color: var(--planner-text-heading);
             white-space: nowrap;
@@ -659,7 +664,7 @@ export default function MapPanel({
 
           .card-desc {
             margin: 0;
-            font-size: 0.68rem;
+            font-size: 0.7rem;
             color: var(--planner-text-muted);
             white-space: nowrap;
             overflow: hidden;
@@ -670,8 +675,8 @@ export default function MapPanel({
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            background: linear-gradient(135deg, var(--planner-tangerine-500), var(--planner-tangerine-600));
-            color: var(--planner-navy-950);
+            background: linear-gradient(135deg, #FF892F 0%, #EA580C 100%);
+            color: #FFFFFF;
             border: none;
             border-radius: var(--radius-full);
             padding: 6px 12px;

@@ -86,82 +86,92 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
 
       {/* Brand Buddy Interactive Concierge Popover Menu */}
       {isBuddyModalOpen && (
-        <div className="buddy-concierge-popover animate-pop-in">
-          <div className="buddy-popover-header">
-            <div className="flex items-center gap-2">
-              <span className="buddy-avatar-badge">🐺</span>
-              <div>
-                <div className="buddy-name-title">Comfy · Your Travel Buddy</div>
-                <div className="buddy-status-sub">24/7 Live Assistance · Free & Instant</div>
+        <>
+          <div 
+            className="buddy-popover-backdrop"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsBuddyModalOpen(false);
+            }}
+            aria-hidden="true"
+          />
+          <div className="buddy-concierge-popover animate-pop-in">
+            <div className="buddy-popover-header">
+              <div className="flex items-center gap-2">
+                <span className="buddy-avatar-badge">🐺</span>
+                <div>
+                  <div className="buddy-name-title">Comfy · Your Travel Buddy</div>
+                  <div className="buddy-status-sub">24/7 Live Assistance · Free & Instant</div>
+                </div>
               </div>
+              <button 
+                type="button"
+                className="buddy-close-btn" 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsBuddyModalOpen(false);
+                }}
+                aria-label="Close buddy assistant"
+              >
+                <X size={15} />
+              </button>
             </div>
-            <button 
-              type="button"
-              className="buddy-close-btn" 
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsBuddyModalOpen(false);
-              }}
-              aria-label="Close buddy assistant"
-            >
-              <X size={15} />
-            </button>
+
+            <p className="buddy-popover-desc">
+              How can I make your journey extraordinary today? Pick an option or message our concierges directly:
+            </p>
+
+            <div className="buddy-action-chips-grid">
+              <button
+                type="button"
+                className="buddy-chip-btn chip-ai"
+                onClick={() => {
+                  setIsBuddyModalOpen(false);
+                  if (onOpenAIPlanner) onOpenAIPlanner();
+                }}
+              >
+                <Sparkles size={14} className="text-orange" />
+                <span>Plan Trip with Comfy.ai</span>
+              </button>
+
+              <button
+                type="button"
+                className="buddy-chip-btn chip-quote"
+                onClick={() => {
+                  setIsBuddyModalOpen(false);
+                  if (onOpenQuote) onOpenQuote();
+                }}
+              >
+                <Compass size={14} className="text-gold" />
+                <span>Request Custom Itinerary</span>
+              </button>
+
+              <a
+                href="https://wa.me/918770403315?text=Hi%20Comfy!%20I%20want%20to%20plan%20a%20luxury%20vacation%20with%20Comfort%20Journey."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="buddy-chip-btn chip-whatsapp"
+                onClick={() => setIsBuddyModalOpen(false)}
+              >
+                <MessageCircle size={14} className="text-emerald" />
+                <span>Chat on WhatsApp</span>
+              </a>
+
+              <a
+                href="tel:+918770403315"
+                className="buddy-chip-btn chip-call"
+                onClick={() => setIsBuddyModalOpen(false)}
+              >
+                <Phone size={14} className="text-sky" />
+                <span>Call Trip Expert (+91 8770403315)</span>
+              </a>
+            </div>
+
+            <div className="buddy-popover-footer">
+              <span className="rating-pill">⭐ 4.8 on Google (85+ reviews)</span>
+            </div>
           </div>
-
-          <p className="buddy-popover-desc">
-            How can I make your journey extraordinary today? Pick an option or message our concierges directly:
-          </p>
-
-          <div className="buddy-action-chips-grid">
-            <button
-              type="button"
-              className="buddy-chip-btn chip-ai"
-              onClick={() => {
-                setIsBuddyModalOpen(false);
-                if (onOpenAIPlanner) onOpenAIPlanner();
-              }}
-            >
-              <Sparkles size={14} className="text-orange" />
-              <span>Plan Trip with Comfy.ai</span>
-            </button>
-
-            <button
-              type="button"
-              className="buddy-chip-btn chip-quote"
-              onClick={() => {
-                setIsBuddyModalOpen(false);
-                if (onOpenQuote) onOpenQuote();
-              }}
-            >
-              <Compass size={14} className="text-gold" />
-              <span>Request Custom Itinerary</span>
-            </button>
-
-            <a
-              href="https://wa.me/918770403315?text=Hi%20Comfy!%20I%20want%20to%20plan%20a%20luxury%20vacation%20with%20Comfort%20Journey."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="buddy-chip-btn chip-whatsapp"
-              onClick={() => setIsBuddyModalOpen(false)}
-            >
-              <MessageCircle size={14} className="text-emerald" />
-              <span>Chat on WhatsApp</span>
-            </a>
-
-            <a
-              href="tel:+918770403315"
-              className="buddy-chip-btn chip-call"
-              onClick={() => setIsBuddyModalOpen(false)}
-            >
-              <Phone size={14} className="text-sky" />
-              <span>Call Founder (+91 8770403315)</span>
-            </a>
-          </div>
-
-          <div className="buddy-popover-footer">
-            <span className="rating-pill">⭐ 4.8 on Google (85+ reviews)</span>
-          </div>
-        </div>
+        </>
       )}
 
       {/* Clean 2D Mascot Image */}
@@ -432,6 +442,10 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
           font-weight: 600;
         }
 
+        .buddy-popover-backdrop {
+          display: none;
+        }
+
         .animate-pop-in {
           animation: popIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
@@ -439,6 +453,11 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
         @keyframes popIn {
           from { opacity: 0; transform: translateY(8px) scale(0.92); }
           to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes popInMobile {
+          from { opacity: 0; transform: translate(-50%, -46%) scale(0.92); }
+          to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         }
 
         /* Mobile Optimization */
@@ -471,11 +490,29 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
             border-bottom: 1px solid rgba(255, 137, 47, 0.5);
           }
 
+          .buddy-popover-backdrop {
+            display: block;
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 16, 26, 0.6);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 99990;
+          }
+
           .buddy-concierge-popover {
-            top: -190px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 290px;
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            width: min(92vw, 340px) !important;
+            max-height: 85vh !important;
+            overflow-y: auto !important;
+            z-index: 99995 !important;
+            box-sizing: border-box !important;
+            margin: 0 !important;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 24px rgba(255, 137, 47, 0.3) !important;
+            animation: popInMobile 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
           }
         }
 

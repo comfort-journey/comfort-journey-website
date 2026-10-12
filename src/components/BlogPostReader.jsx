@@ -65,7 +65,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
         <p className="text-muted mb-4">The travel guide you are looking for might have moved or been updated.</p>
         <button type="button" className="btn-back-magazine" onClick={onNavigateMagazine}>
           <ArrowLeft size={16} />
-          <span>Browse All Journal Articles</span>
+          <span>Browse All Blogs</span>
         </button>
       </div>
     );
@@ -85,7 +85,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
           <div className="breadcrumbs">
             <button type="button" className="crumb-link" onClick={onNavigateHome}>Home</button>
             <span className="crumb-sep">/</span>
-            <button type="button" className="crumb-link" onClick={onNavigateMagazine}>Journal</button>
+            <button type="button" className="crumb-link" onClick={onNavigateMagazine}>Blogs</button>
             <span className="crumb-sep">/</span>
             <span className="crumb-current">{blog.title.slice(0, 32)}...</span>
           </div>
