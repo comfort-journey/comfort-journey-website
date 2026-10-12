@@ -1767,22 +1767,25 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           display: grid;
           grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
           gap: 1.25rem;
-          justify-content: center;
+          justify-content: flex-start;
         }
 
         .stage-cities-grid.carousel-mode {
           display: flex !important;
           grid-template-columns: none !important;
+          justify-content: flex-start !important;
+          align-items: stretch !important;
           overflow-x: auto;
           scroll-snap-type: x mandatory;
-          scroll-padding: 0.75rem;
+          scroll-padding: 0;
           gap: 1.15rem;
-          padding: 0.5rem 0.75rem 1.1rem 0.75rem;
+          padding: 0.5rem 0.25rem 1.1rem 0.25rem;
           scrollbar-width: thin;
           -webkit-overflow-scrolling: touch;
         }
 
-        .stage-cities-grid.carousel-mode .city-in-place-card {
+        .stage-cities-grid.carousel-mode .city-in-place-card,
+        .stage-cities-grid.carousel-mode .seasonal-stage-card {
           flex: 0 0 295px;
           min-width: 295px;
           max-width: 295px;
@@ -2796,14 +2799,14 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           .stage-cities-grid.carousel-mode {
             display: flex;
             grid-template-columns: none !important;
+            justify-content: flex-start !important;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
+            scroll-padding: 0;
             gap: 0.85rem;
             padding: 0.4rem 0.65rem 0.95rem 0.65rem;
             scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
-            mask-image: linear-gradient(to right, transparent, black 12px, black calc(100% - 18px), transparent);
-            -webkit-mask-image: linear-gradient(to right, transparent, black 12px, black calc(100% - 18px), transparent);
           }
           .stage-cities-grid.carousel-mode::-webkit-scrollbar {
             display: none;

@@ -127,10 +127,12 @@ export default function IndiaTripsSection({
     const interval = setInterval(() => {
       if (isPaused) return;
       const maxScroll = el.scrollWidth - el.clientWidth;
+      const card = el.querySelector('.carousel-card-slide');
+      const step = card ? card.offsetWidth + 22 : 332;
       if (el.scrollLeft >= maxScroll - 30) {
         el.scrollTo({ left: 0, behavior: 'smooth' });
       } else {
-        el.scrollBy({ left: 275, behavior: 'smooth' });
+        el.scrollBy({ left: step, behavior: 'smooth' });
       }
     }, 4000);
 
@@ -747,9 +749,12 @@ export default function IndiaTripsSection({
         /* Carousel Track */
         .showcase-carousel-track {
           display: flex;
+          justify-content: flex-start;
+          align-items: stretch;
           gap: 1.35rem;
           overflow-x: auto;
           scroll-snap-type: x mandatory;
+          scroll-padding: 0;
           padding: 0.5rem 0.25rem 1.5rem 0.25rem;
           scrollbar-width: none;
           -ms-overflow-style: none;
@@ -931,8 +936,8 @@ export default function IndiaTripsSection({
           .showcase-carousel-track {
             padding: 0.25rem 0.5rem 1rem 0.5rem;
             gap: 0.95rem;
-            mask-image: linear-gradient(to right, transparent, black 10px, black calc(100% - 16px), transparent);
-            -webkit-mask-image: linear-gradient(to right, transparent, black 10px, black calc(100% - 16px), transparent);
+            justify-content: flex-start;
+            scroll-padding: 0;
           }
           .carousel-card-slide {
             flex: 0 0 68vw;
