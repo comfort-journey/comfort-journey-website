@@ -1,0 +1,125 @@
+{
+  "slug": "corporate-travel",
+  "metaTitle": "Corporate offsite packages | Comfort Journey",
+  "metaDesc": "Plan corporate offsite packages with one point of contact, GST invoices and 24/7 trip support. Get a clear, custom quote from Comfort Journey.",
+  "focusKeyword": "corporate offsite packages",
+  "secondaryKeywords": [
+    "corporate tour packages",
+    "MICE travel India",
+    "corporate retreat packages",
+    "company offsite packages",
+    "incentive trips India"
+  ],
+  "eyebrow": "Corporate travel teams",
+  "heroHeadline": "Corporate offsite packages with fewer fire drills",
+  "heroSubline": "Give your team a trip worth joining while you keep approvals, rooming lists and transport in one clear plan.",
+  "ctaPrimary": "Enquire on WhatsApp",
+  "ctaSecondary": "Browse corporate trips",
+  "whatsAppMsg": "Hi Comfort Journey, I am planning a corporate offsite or MICE trip. Please share suitable packages, inclusions and a custom GST quote.",
+  "vibeTags": [
+    "One point of contact",
+    "GST invoice ready",
+    "24/7 trip support",
+    "Custom rooming plans"
+  ],
+  "packagesHeading": "Trips your team can actually enjoy",
+  "packagesIntro": "Choose a ready route, then adjust dates, hotels, transport and activities for your group. International trips include visa assistance.",
+  "storyHeading": "Keep your name on the invite and out of the blame list",
+  "storyParagraphs": [
+    "You are the person everyone messages when a hotel room is missing, a transfer is late, or the agenda needs changing. Comfort Journey gives your team one real point of contact from the first WhatsApp message to the return trip. We build a plan around your dates, group size, hotel preference and work schedule, so the offsite feels organised before anyone boards a flight.",
+    "Since 1992, our Bhopal team has planned travel for people who want clear answers before they approve a budget. You can choose 3-star to 5-star hotels, palaces or villas, along with private cabs and drivers. For international plans, we can assist with visas. Prices are shared upfront, so finance sees the same plan as you do.",
+    "During the trip, real people remain available on WhatsApp and phone at +91 87704 03315, 24/7. That matters when a flight time shifts or someone asks a question at an unreasonable hour. Your team can enjoy the destination while you have a clear place to take the next practical question."
+  ],
+  "reasonsHeading": "Why planners choose Comfort Journey",
+  "reasons": [
+    {
+      "title": "One person owns the thread",
+      "desc": "A single contact keeps dates, rooming lists, transport details and changes in one working conversation.",
+      "icon": "users"
+    },
+    {
+      "title": "Quotes finance can read",
+      "desc": "Transparent pricing is shared upfront, with GST invoices that give finance a clear record for approvals.",
+      "icon": "wallet"
+    },
+    {
+      "title": "Hotels that fit the brief",
+      "desc": "Pick from 3-star to 5-star hotels, plus palaces or villas when the setting matters to your team.",
+      "icon": "hotel"
+    },
+    {
+      "title": "Help after the booking",
+      "desc": "Real people stay available by WhatsApp and phone 24/7 during the trip, including when plans need a quick answer.",
+      "icon": "phone"
+    }
+  ],
+  "includedHeading": "Built around the details HR tracks",
+  "included": [
+    {
+      "title": "Custom itinerary planning",
+      "desc": "Adjust the route, dates, pacing and activities around your group’s work calendar."
+    },
+    {
+      "title": "Rooming list coordination",
+      "desc": "Share room preferences and changes in one place so the hotel plan stays usable."
+    },
+    {
+      "title": "Private cabs with drivers",
+      "desc": "Plan group transfers with private cabs and drivers for the agreed route and schedule."
+    },
+    {
+      "title": "GST invoices and clear quotes",
+      "desc": "Receive transparent pricing upfront and GST invoices suited to company records."
+    },
+    {
+      "title": "Conference spaces and AV",
+      "desc": "Ask about conference halls, Wi-Fi, projectors and stage setup when the offsite includes work sessions."
+    }
+  ],
+  "quickAnswer": {
+    "question": "Can Comfort Journey plan a corporate offsite with GST billing and custom arrangements?",
+    "answer": "Yes. Comfort Journey plans domestic and international corporate offsites with a custom itinerary, hotel options from 3-star to 5-star plus palaces or villas, private cabs with drivers, GST invoices and visa assistance for overseas trips. Dates, group size, hotel level, transport and activities change the price. A clear quote is shared upfront on WhatsApp."
+  },
+  "faqs": [
+    {
+      "q": "Can you plan a corporate offsite around our dates and work schedule?",
+      "a": "Yes. Every itinerary can be customised around your dates, group size, meeting time and preferred pace. Share the basic brief on WhatsApp and the team will suggest suitable routes."
+    },
+    {
+      "q": "What changes the price of a corporate tour package?",
+      "a": "The quote changes with destination, travel dates, group size, hotel category, room setup, transport, meals, activities and flights. Comfort Journey shares an exact quote on WhatsApp after reviewing those details."
+    },
+    {
+      "q": "Do you provide GST invoices for company travel?",
+      "a": "Yes. Comfort Journey provides GST invoices and transparent pricing shared upfront. Tell us any company billing details when you request the quote."
+    },
+    {
+      "q": "Can you arrange rooming lists and transport for a group?",
+      "a": "Yes. The team can coordinate rooming lists, private cabs with drivers and agreed transfer plans. Conference halls, AV and airport coach arrangements can also be discussed where the itinerary needs them."
+    },
+    {
+      "q": "Do you handle international incentive trips and visas?",
+      "a": "Yes. Choose international packages such as Dubai, Singapore, Thailand or Vietnam, then ask for changes to suit your group. Visa assistance is available for international trips, and the final quote is shared on WhatsApp."
+    },
+    {
+      "q": "Will someone help us during the trip?",
+      "a": "Yes. Real people are available on WhatsApp and phone at +91 87704 03315, 24/7 during trips. That gives the person coordinating the group a direct place to ask for help when plans change."
+    }
+  ],
+  "packageIdsIndia": [
+    "tour-wix-goa-weekend-vibe",
+    "tour-wix-uttarakhand-explorer-3",
+    "tour-wix-rajasthan-grand-getaway-2",
+    "tour-wix-bhopal-ujjain-indore-4n-5d"
+  ],
+  "packageIdsIntl": [
+    "tour-wix-dubai-city-sands",
+    "tour-wix-singapore-city-gardens",
+    "tour-wix-unbeatable-vietnam-premium",
+    "tour-wix-phuket-paradise-getaway"
+  ],
+  "reviewId": "gr-8",
+  "finalHeading": "Ready to make the plan people thank you for?",
+  "finalText": "Send your dates, group size and rough brief. We will reply with suitable routes and a clear WhatsApp quote.",
+  "finalCta": "Start on WhatsApp"
+}

@@ -1,0 +1,125 @@
+{
+  "slug": "family-travel",
+  "metaTitle": "Family tour packages | Comfort Journey",
+  "metaDesc": "Family tour packages with sensible pacing, private cabs and stay choices for kids and grandparents. Get a clear plan and exact quote on WhatsApp.",
+  "focusKeyword": "family tour packages",
+  "secondaryKeywords": [
+    "family holiday packages India",
+    "family vacation packages",
+    "international family holidays",
+    "family trips with kids",
+    "multi generation travel"
+  ],
+  "eyebrow": "Families with kids",
+  "heroHeadline": "Family tour packages with room to breathe",
+  "heroSubline": "Bring the kids, grandparents and the snack bag. We plan sensible days, private travel and stays that let every age enjoy the holiday.",
+  "ctaPrimary": "Ask on WhatsApp",
+  "ctaSecondary": "Browse family packages",
+  "whatsAppMsg": "Hi Comfort Journey, I’m planning a family holiday with kids and grandparents. Please suggest suitable India and international packages.",
+  "vibeTags": [
+    "Easy-pace days",
+    "Private family cabs",
+    "Grandparent-friendly stays",
+    "Snack-break approved"
+  ],
+  "packagesHeading": "Family trips with sensible pacing",
+  "packagesIntro": "Pick a short break, a hill escape or an overseas favourite. We can adjust days, rooms, meals and travel pace for your group.",
+  "storyHeading": "A family holiday should feel like time together",
+  "storyParagraphs": [
+    "Family travel comes with a moving checklist: school holidays, grandparents’ comfort, snacks, nap times and the famous “are we there yet?” We help you turn that list into a workable plan. Choose a slower day, a private cab, rooms that suit your group and stops where everyone can stretch, eat and enjoy the view.",
+    "Since 1992, Comfort Journey has helped travellers plan from Bhopal for India and overseas holidays. You can tell us about a child’s food preference, a parent’s walking limit or the room setup you need. We share pricing upfront, help with visas for international trips and stay available on WhatsApp or phone at +91 87704 03315 during your trip."
+  ],
+  "reasonsHeading": "Details that make family travel easier",
+  "reasons": [
+    {
+      "title": "Days with breathing room",
+      "desc": "We can keep sightseeing realistic, add rest time and leave space for the snack stop that somehow becomes a full meeting.",
+      "icon": "clock"
+    },
+    {
+      "title": "Rooms for every age",
+      "desc": "Choose 3-star to 5-star hotels, palaces or villas. Tell us about lifts, connected rooms or extra space, and we will plan around it.",
+      "icon": "hotel"
+    },
+    {
+      "title": "One private cab for your group",
+      "desc": "Private cabs with drivers keep your family together and make it easier to pause for meals, naps or an unexpected shoe emergency.",
+      "icon": "car"
+    },
+    {
+      "title": "A real person after booking",
+      "desc": "Our team is available 24/7 during trips on WhatsApp or phone, including when plans change or a family member needs help.",
+      "icon": "phone"
+    }
+  ],
+  "includedHeading": "What we can arrange",
+  "included": [
+    {
+      "title": "A pace that fits your group",
+      "desc": "Build sightseeing around children’s energy, older travellers’ comfort and the rest stops your family actually needs."
+    },
+    {
+      "title": "Hotel choices with room",
+      "desc": "Select 3-star to 5-star hotels, palaces or villas based on comfort, location and budget."
+    },
+    {
+      "title": "Private cab and driver",
+      "desc": "Travel together in a private cab with a driver for planned sightseeing and practical stops."
+    },
+    {
+      "title": "Meal preferences noted",
+      "desc": "Tell us about vegetarian, Jain, child-friendly or other meal needs before we prepare the plan."
+    },
+    {
+      "title": "International trip support",
+      "desc": "Visa assistance and clear trip details help you prepare for overseas travel with the right documents."
+    }
+  ],
+  "quickAnswer": {
+    "question": "What makes a family tour package easier to book?",
+    "answer": "A family tour package is easier to book when the plan accounts for children, older travellers, meal preferences, room needs and realistic travel time. Comfort Journey can customise India and international itineraries, arrange private cabs with drivers, offer hotel choices from 3-star to 5-star and share the exact quote upfront on WhatsApp."
+  },
+  "faqs": [
+    {
+      "q": "Can you plan a family trip with children and grandparents?",
+      "a": "Yes. Tell us the ages, walking comfort, room needs, food preferences and the pace your group prefers. We can customise the itinerary around those details."
+    },
+    {
+      "q": "Can we choose a slower pace for kids and older parents?",
+      "a": "Yes. We can build in shorter sightseeing days, rest time and practical stops. The right pace depends on the destination, travel time and needs of your group."
+    },
+    {
+      "q": "What hotel options do you offer for family holidays?",
+      "a": "You can choose from 3-star to 5-star hotels, as well as palaces and villas where available for the destination. We discuss location, room setup, comfort and budget before sharing options."
+    },
+    {
+      "q": "Are private cabs available for family packages?",
+      "a": "Private cabs with drivers are available for your family itinerary. They make meal breaks, rest stops and changes easier to manage, subject to the destination and plan."
+    },
+    {
+      "q": "How much do family tour packages cost?",
+      "a": "The price changes with destination, dates, group size, hotel category, flights, meals, activities and the level of customisation. Share your plan on WhatsApp and we will send an exact quote before you book."
+    },
+    {
+      "q": "Can you help with visas for an international family holiday?",
+      "a": "Yes, visa assistance is available for international trips. Requirements and approval timelines depend on the destination and each traveller’s documents, so we will explain the process for your plan."
+    }
+  ],
+  "packageIdsIndia": [
+    "tour-wix-karnataka-heritage-hills",
+    "tour-wix-nainital-jim-corbett",
+    "tour-wix-rajasthan-grand-getaway-2",
+    "tour-wix-andaman-coastal-retreat",
+    "tour-wix-goa-weekend-vibe"
+  ],
+  "packageIdsIntl": [
+    "tour-wix-singapore-city-gardens",
+    "tour-wix-dubai-city-sands",
+    "tour-wix-bali-tropical-escape",
+    "tour-wix-phuket-paradise-getaway"
+  ],
+  "reviewId": "gr-7",
+  "finalHeading": "Tell us what your family needs",
+  "finalText": "Send your dates, destination and group details on WhatsApp. We’ll suggest a practical plan and share the quote upfront.",
+  "finalCta": "Plan it on WhatsApp"
+}

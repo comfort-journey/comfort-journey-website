@@ -247,13 +247,13 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
         <div className="section-header">
           <div className="badge badge-amber">
             <Sliders size={14} />
-            <span>Interactive Trip Studio</span>
+            <span>Trip Studio</span>
           </div>
           <h2 className="section-title">
-            Design Your Trip & <span className="gradient-text-gold">Estimate Live Budget</span>
+            Build your trip, <span className="gradient-text-gold">see the price as you go</span>
           </h2>
           <p className="section-subtitle">
-            Choose your dream destination from our curated portfolio. Select boutique accommodations, private chauffeur fleet, and destination-exclusive VIP perks to watch your live budget recalculate in real time.
+            Pick a place, a hotel level and a car. The estimate changes as you do, so you know the ballpark before you talk to us. No sign-up needed.
           </p>
         </div>
 

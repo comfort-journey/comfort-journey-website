@@ -99,16 +99,17 @@ export function usePageSEO(pageKey = 'home', customOverrides = null) {
             foundingDate: brand.foundingYear || '1992',
             address: {
               '@type': 'PostalAddress',
-              streetAddress: 'Main Road 1',
+              streetAddress: 'Shop no 2, Phase 5, Ankur Complex, 6 Number Bus Stop, Shivaji Nagar',
               addressLocality: 'Bhopal',
               addressRegion: 'Madhya Pradesh',
               postalCode: '462016',
               addressCountry: 'IN'
             },
+            // Keep this in line with the public Google Business Profile.
             aggregateRating: {
               '@type': 'AggregateRating',
-              ratingValue: brand.averageRating || '4.92',
-              reviewCount: '1480',
+              ratingValue: '4.8',
+              reviewCount: '85',
               bestRating: '5',
               worstRating: '1'
             },

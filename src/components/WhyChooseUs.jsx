@@ -41,15 +41,14 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
         <div className="section-header" data-reveal="fade-up">
           <div className="badge badge-amber">
             <ShieldCheck size={14} />
-            <span>The Comfort Journey Standard</span>
+            <span>Why Comfort Journey</span>
           </div>
           <h2 className="section-title font-editorial illuminate-text">
-            Why Discerning Travelers Choose <br />
-            <span className="gradient-text-gold">Comfort Journey</span>
+            What you get <br />
+            <span className="gradient-text-gold">when you travel with us</span>
           </h2>
           <p className="section-subtitle">
-            Since 1992, we have redefined luxury travel across India and the globe. 
-            Explore our 7 VIP promises and 8 bespoke travel solutions.
+            We have planned trips from Bhopal since 1992. Here is what that experience looks like on your holiday.
           </p>
 
           {/* Unified Luxury Tab Switcher (Saves Space on Homepage) */}
@@ -60,7 +59,7 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
               onClick={() => setActiveTab('pillars')}
             >
               <ShieldCheck size={16} />
-              <span>7 VIP Guarantees (Why Us)</span>
+              <span>What we promise</span>
             </button>
             <button
               type="button"
@@ -68,7 +67,7 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
               onClick={() => setActiveTab('services')}
             >
               <Sparkles size={16} />
-              <span>8 Bespoke Travel Desires (Specialized Services)</span>
+              <span>Trips we plan</span>
             </button>
           </div>
         </div>
@@ -94,7 +93,7 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
 
                   <div className="pillar-check">
                     <CheckCircle2 size={15} className="text-emerald" />
-                    <span>Guaranteed Standard</span>
+                    <span>On every trip</span>
                   </div>
                 </div>
               </Tilt3DCard>
@@ -124,12 +123,12 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
                       type="button"
                       className="service-whatsapp-inquire-btn"
                       onClick={() => {
-                        const msg = encodeURIComponent(`Hi Comfort Journey! I would like to inquire about your bespoke ${service.title} travel services.`);
+                        const msg = encodeURIComponent(`Hi Comfort Journey, I would like to know more about your ${service.title} trips.`);
                         window.open(`https://wa.me/918770403315?text=${msg}`, '_blank');
                       }}
                     >
                       <MessageCircle size={15} />
-                      <span>Inquire Concierge</span>
+                      <span>Ask on WhatsApp</span>
                       <ArrowRight size={14} />
                     </button>
                   </div>
@@ -142,16 +141,16 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
         {/* Bottom Callout */}
         <div className="why-us-banner glass-panel spotlight-card" data-reveal="fade-up">
           <div className="banner-text">
-            <h3 className="font-editorial">Ready to Experience Travel with Absolute Comfort?</h3>
-            <p>Speak directly with our senior trip designers or design a custom itinerary in 2 minutes.</p>
+            <h3 className="font-editorial">Got a trip in mind? Even a rough one?</h3>
+            <p>Send us a place and a month. We will reply with a plan and a clear price.</p>
           </div>
           <div className="banner-actions">
             <button className="btn-ai-glow btn-magnetic" onClick={onOpenAIPlanner}>
               <Sparkles size={18} />
-              Plan with AI Designer
+              Plan with Comfy.ai
             </button>
             <a href="tel:+918770403315" className="btn-secondary btn-magnetic">
-              Call VIP Line: +91 8770403315
+              Call +91 87704 03315
             </a>
           </div>
         </div>

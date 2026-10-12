@@ -131,29 +131,29 @@ export default function InternationalTripsSection({
         <div className="showcase-header">
           <div className="showcase-badge-pill intl-badge">
             <Globe size={14} className="text-cyan animate-pulse" />
-            <span>WORLD PASSPORT COLLECTION</span>
+            <span>TRIPS ABROAD</span>
           </div>
           <h2 className="showcase-title font-editorial">
-            Global Escapes <span className="gradient-text-cyan-emerald">& Signature Journeys</span>
+            International holidays <span className="gradient-text-cyan-emerald">without the paperwork panic</span>
           </h2>
           <p className="showcase-subtitle">
-            Hassle-free international vacations with complete visa filing, private airport transfers, and central 4★ & 5★ boutique stays.
+            Dubai, Bali, Europe, Thailand and more. We help with visa papers, airport pickups and central hotels, so day one abroad feels fun, not confusing.
           </p>
 
           {/* Vibe Micro-Badges Strip */}
           <div className="vibe-badges-strip">
-            <span className="vibe-micro-badge"><FileText size={12} className="text-cyan" /> Visa Filing Assistance</span>
-            <span className="vibe-micro-badge"><Plane size={12} className="text-cyan" /> Private Airport Transfers</span>
-            <span className="vibe-micro-badge"><Hotel size={12} className="text-cyan" /> Central 4★/5★ Stays</span>
-            <span className="vibe-micro-badge"><Clock size={12} className="text-cyan" /> 24/7 Global Concierge</span>
+            <span className="vibe-micro-badge"><FileText size={12} className="text-cyan" /> Visa paperwork help</span>
+            <span className="vibe-micro-badge"><Plane size={12} className="text-cyan" /> Airport pickup</span>
+            <span className="vibe-micro-badge"><Hotel size={12} className="text-cyan" /> Central hotels</span>
+            <span className="vibe-micro-badge"><Clock size={12} className="text-cyan" /> Help on WhatsApp</span>
           </div>
 
           {/* Sub-region filter tabs & carousel arrow controls */}
           <div className="controls-and-tabs-bar">
             <div className="sub-region-tabs">
               {[
-                { id: 'All', label: 'All World Destinations', icon: <Compass size={14} className="text-cyan" /> },
-                { id: 'Europe', label: 'Europe Signature', icon: <Landmark size={14} className="text-cyan" /> },
+                { id: 'All', label: 'Everywhere', icon: <Compass size={14} className="text-cyan" /> },
+                { id: 'Europe', label: 'Europe', icon: <Landmark size={14} className="text-cyan" /> },
                 { id: 'Tropical', label: 'Bali & Thailand', icon: <Palmtree size={14} className="text-cyan" /> },
                 { id: 'MiddleEast', label: 'Dubai Red Dunes', icon: <SunMedium size={14} className="text-cyan" /> },
               ].map(tab => (
@@ -251,7 +251,7 @@ export default function InternationalTripsSection({
                         </span>
                         <span className="compact-rating-pill">
                           <Star size={11} className="fill-gold text-gold" />
-                          <span>{tour.rating || '4.95'} ({tour.reviews || '90+'})</span>
+                          <span>4.8 Google (85+)</span>
                         </span>
                       </div>
                     </div>

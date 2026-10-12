@@ -145,6 +145,13 @@ export default function UnifiedOnePageItinerary({
     return text
       .replace(/<!--[\s\S]*?-->/g, '')
       .replace(/<[^>]*>/g, '')
+      .replace(/&nbsp;/gi, ' ')
+      .replace(/&amp;/gi, '&')
+      .replace(/&quot;/gi, '"')
+      .replace(/&#39;|&apos;/gi, "'")
+      .replace(/&lt;/gi, '<')
+      .replace(/&gt;/gi, '>')
+      .replace(/\s+/g, ' ')
       .trim();
   };
 
@@ -183,7 +190,7 @@ export default function UnifiedOnePageItinerary({
               </span>
               <span className="hero-badge badge-rating">
                 <Star size={13} className="star-filled" />
-                {tour.rating || '4.95'} ({tour.reviews || '96'}+ Verified Reviews)
+                4.8 on Google (85+ reviews)
               </span>
               <span className="hero-badge badge-custom">
                 100% Private & Tailorable

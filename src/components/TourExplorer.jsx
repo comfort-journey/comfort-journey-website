@@ -475,7 +475,7 @@ export default function TourExplorer({ searchFilters, onSelectItinerary, onBookN
           <div className="no-results-box glass-card">
             <Compass size={48} className="text-amber" />
             <h3 className="font-editorial">No exact tour package matches your filters</h3>
-            <p>Don't worry! Comfort Journey crafts 100% custom-tailored itineraries for over 2,000+ destinations globally.</p>
+            <p>No problem. Tell us the place and we will plan a custom trip for it.</p>
             <div className="no-results-actions">
               <button 
                 className="btn-ai-glow"

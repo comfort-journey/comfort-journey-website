@@ -307,7 +307,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
           {/* Description line placed between the two headings */}
           <p className="hero-subline">
-            {heroSettings.subheadline || 'Explore 2,000+ handpicked journeys by Continents, Weather & Season, or Personalized Style'}
+            {heroSettings.subheadline || 'Tour packages across India and abroad, planned by real people in Bhopal since 1992. Tell us who is coming and when. We handle the rest.'}
           </p>
 
           <div className="question-badge-row">
@@ -315,7 +315,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               {heroSettings.questionHeading ? (
                 heroSettings.questionHeading
               ) : (
-                <>How Do You Want to <span className="gradient-text-gold">Travel?</span></>
+                <>So, where are we <span className="gradient-text-gold">going?</span></>
               )}
             </h2>
           </div>
@@ -334,7 +334,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               }}
             >
               <Globe size={18} className="text-amber" />
-              <span>7 Continents World Map</span>
+              <span>Pick on the map</span>
             </button>
 
             <button
@@ -346,7 +346,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               }}
             >
               <Sun size={18} className="text-cyan" />
-              <span>By Weather <span className="font-ampersand">&</span> Season</span>
+              <span>Pick by weather <span className="font-ampersand">&</span> season</span>
             </button>
 
             <button
@@ -358,7 +358,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               }}
             >
               <Users size={18} className="text-emerald" />
-              <span>By Travel Style (Solo, Couple, Family, Group)</span>
+              <span>Pick by who is coming</span>
             </button>
           </div>
 
@@ -368,7 +368,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               <Search size={18} className="text-amber flex-shrink-0" />
               <input
                 type="text"
-                placeholder="Search 2,000+ tour packages & destinations (e.g. Kashmir, Dubai, Bali, Switzerland, Kerala, Ladakh)..."
+                placeholder="Try Kashmir, Bali, Dubai, Kerala, Ladakh or Switzerland"
                 value={countrySearchQuery}
                 onChange={(e) => {
                   setCountrySearchQuery(e.target.value);
@@ -517,7 +517,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                           <Search size={16} className="text-amber flex-shrink-0" />
                           <input
                             type="text"
-                            placeholder="Search all 100+ live tour packages worldwide (e.g. Kashmir, Dubai, Bali, Alps, Safari)..."
+                            placeholder="Search trips: Kashmir, Dubai, Bali, Alps, safari..."
                             value={countrySearchQuery}
                             onChange={(e) => {
                               setCountrySearchQuery(e.target.value);

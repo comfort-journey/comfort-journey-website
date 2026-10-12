@@ -19,13 +19,13 @@ export default function FaqSection() {
         <div className="section-header">
           <div className="badge badge-amber">
             <Sparkles size={14} />
-            <span>Got Questions?</span>
+            <span>Questions</span>
           </div>
           <h2 className="section-title font-editorial">
-            Frequently Asked <span className="gradient-text-gold">Questions</span>
+            Good questions, <span className="gradient-text-gold">straight answers</span>
           </h2>
           <p className="section-subtitle">
-            Everything you need to know about booking bespoke domestic & international luxury vacations with Comfort Journey since 1992.
+            Booking, payments, visas and refunds. If your question is not here, WhatsApp us and a real person will reply.
           </p>
         </div>
 

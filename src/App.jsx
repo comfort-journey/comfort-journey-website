@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, lazy, Suspense } from 'react';
 import { CurrencyProvider } from './context/CurrencyContext';
 import { WishlistCompareProvider } from './context/WishlistCompareContext';
 import { useScrollAnimation } from './hooks/useScrollAnimation';
@@ -11,14 +11,14 @@ import StatsBar from './components/StatsBar';
 import TripCustomizerSection from './components/TripCustomizerSection';
 import GoogleReviewsSection from './components/GoogleReviewsSection';
 import TravelStoriesSection from './components/TravelStoriesSection';
-import AboutUsPage from './components/AboutUsPage';
+const AboutUsPage = lazy(() => import('./components/AboutUsPage'));
 import WhyChooseUs from './components/WhyChooseUs';
 import FaqSection from './components/FaqSection';
 import Footer from './components/Footer';
 import LandingPageTemplate from './components/LandingPageTemplate';
 import LandingPagesHubModal from './components/LandingPagesHubModal';
-import BlogMagazinePage from './components/BlogMagazinePage';
-import BlogPostReader from './components/BlogPostReader';
+const BlogMagazinePage = lazy(() => import('./components/BlogMagazinePage'));
+const BlogPostReader = lazy(() => import('./components/BlogPostReader'));
 import IndiaTripsSection from './components/category-showcases/IndiaTripsSection';
 import InternationalTripsSection from './components/category-showcases/InternationalTripsSection';
 import WeekendGetawaysSection from './components/category-showcases/WeekendGetawaysSection';
@@ -27,21 +27,21 @@ import TourismBoardsMarquee from './components/TourismBoardsMarquee';
 import { getLandingPageBySlug, LANDING_PAGES_DATA } from './data/landingPagesData';
 import { directusService } from './services/directusClient';
 
-import QuickBookingModal from './components/QuickBookingModal';
-import AITripPlannerModal from './components/AITripPlannerModal';
-import AIPlannerPage from './components/ai-planner/AIPlannerPage';
-import ItineraryPage from './components/itinerary/ItineraryPage';
+const QuickBookingModal = lazy(() => import('./components/QuickBookingModal'));
+const AIPlannerPage = lazy(() => import('./components/ai-planner/AIPlannerPage'));
+const ItineraryPage = lazy(() => import('./components/itinerary/ItineraryPage'));
 import PackageTierCompareModal from './components/PackageTierCompareModal';
 import WishlistDrawer from './components/WishlistDrawer';
 import CompareModal from './components/CompareModal';
 import PolicyModal from './components/PolicyModal';
-import AdminCMSModal from './components/AdminCMSModal';
+const AdminCMSModal = lazy(() => import('./components/AdminCMSModal'));
 import FloatingQuickDock from './components/FloatingQuickDock';
 import LiveBookingToast from './components/LiveBookingToast';
 
 import { seoHeadManager } from './utils/seoHeadManager';
 import { jsonLdSchemaGenerator } from './utils/jsonLdSchemaGenerator';
 import { usePageSEO } from './hooks/usePageSEO';
+import AudiencePicker from './components/AudiencePicker';
 import { applyTheme, getStoredTheme } from './hooks/useTheme';
 
 export default function App() {
@@ -75,7 +75,20 @@ export default function App() {
     isLPHubOpen ? 'landing-hub' :
     'home';
 
-  usePageSEO(activeSeoKey);
+  // Audience landing pages carry their own approved meta title/description
+  const landingSeoOverride = useMemo(() => (
+    currentView === 'landing' && activeLandingPage ? {
+      metaTitle: activeLandingPage.metaTitle,
+      metaDescription: activeLandingPage.metaDesc,
+      focusKeyword: [activeLandingPage.focusKeyword, ...(activeLandingPage.secondaryKeywords || [])].join(', '),
+      canonicalUrl: `https://www.comfortjourneyy.com/${activeLandingPage.slug}/`,
+      ogImage: /^https?:/.test(activeLandingPage.theme?.heroImage || '')
+        ? activeLandingPage.theme.heroImage
+        : `https://www.comfortjourneyy.com/${(activeLandingPage.theme?.heroImage || '').replace(/^\.?\//, '')}`,
+      robotsIndex: true
+    } : null
+  ), [currentView, activeLandingPage]);
+  usePageSEO(activeSeoKey, landingSeoOverride);
 
 
   // Hash-based URL routing: Directus Blogs, Admin CMS, About Us, Landing Pages, or Tour Details
@@ -218,6 +231,7 @@ export default function App() {
           <AmbientBackgroundOrbs />
 
           <div className={`app-root ${currentView === 'ai-planner' ? 'ai-planner-active-view' : ''}`}>
+          <Suspense fallback={<div className="route-loading" role="status" aria-live="polite"><span className="route-loading-dot" />Loading…</div>}>
             {currentView === 'ai-planner' ? (
               /* DEDICATED FULL-VIEWPORT AI PLANNER EXPERIENCE */
               <AIPlannerPage 
@@ -305,6 +319,9 @@ pageData={activeLandingPage}
 />
 
 {/* 3. Trust & Experience Stats Bar with Anime.js Elastic Counters */}
+{/* Who is coming along? Interactive audience picker that replies to the visitor */}
+<AudiencePicker />
+
 <StatsBar />
 
 {/* Official Accredited Tourism Boards Marquee Showcase */}
@@ -392,6 +409,7 @@ pageData={activeLandingPage}
 
           {/* Quick Quote / 5-Step Booking Modal */}
           {(selectedBookingTour || isQuickQuoteOpen) && (
+            <Suspense fallback={null}>
             <QuickBookingModal 
               selectedTour={selectedBookingTour} 
               onClose={() => {
@@ -399,6 +417,7 @@ pageData={activeLandingPage}
                 setIsQuickQuoteOpen(false);
               }} 
             />
+            </Suspense>
           )}
 
           {/* Interactive AI Smart Dream Trip Planner - Legacy Modal (kept for fallback) */}
@@ -453,6 +472,8 @@ pageData={activeLandingPage}
           />
 
           {/* Marketing Team CMS, Blog Publisher & SEO Studio */}
+          {isAdminCMSOpen && (
+          <Suspense fallback={null}>
           <AdminCMSModal 
             isOpen={isAdminCMSOpen}
             onClose={() => {
@@ -463,6 +484,8 @@ pageData={activeLandingPage}
               }
             }}
           />
+          </Suspense>
+          )}
 
 
 
@@ -474,7 +497,7 @@ pageData={activeLandingPage}
           />
 
           {/* Live Booking Social Proof Ticker */}
-          <LiveBookingToast />
+          {currentView !== 'landing' && <LiveBookingToast />}
 
           <style>{`
             .app-root {
@@ -485,12 +508,30 @@ pageData={activeLandingPage}
               color: var(--cj-text-body);
               position: relative;
             }
+            .route-loading {
+              min-height: 70vh;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 10px;
+              font-family: var(--font-body);
+              color: var(--cj-text-muted);
+            }
+            .route-loading-dot {
+              width: 10px;
+              height: 10px;
+              border-radius: 50%;
+              background: #FF892F;
+              animation: route-loading-pulse 0.9s ease-in-out infinite alternate;
+            }
+            @keyframes route-loading-pulse { from { opacity: 0.35; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
             .app-root.ai-planner-active-view {
               height: 100vh;
               max-height: 100vh;
               overflow: hidden;
             }
           `}</style>
+          </Suspense>
         </div>
         </SmoothScrollProvider>
       </WishlistCompareProvider>

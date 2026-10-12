@@ -14,29 +14,13 @@ const BASE_URL = 'https://www.comfortjourneyy.com';
 // 1. Static Pages
 const STATIC_PAGES = [
   { url: '/', priority: '1.0', changefreq: 'daily' },
-  { url: '/#/about', priority: '0.8', changefreq: 'monthly' },
-  { url: '/#/blog', priority: '0.9', changefreq: 'daily' },
-  { url: '/#/landing-hub', priority: '0.8', changefreq: 'weekly' }
+  { url: '/about/', priority: '0.8', changefreq: 'monthly' },
+  { url: '/blog/', priority: '0.9', changefreq: 'daily' }
 ];
 
-// 2. 15 Specialty Campaign Landing Pages
-const CAMPAIGN_PAGES = [
-  'solo-travel',
-  'family-travel',
-  'couple-honeymoon',
-  'group-travel',
-  'corporate-travel',
-  'school-college-trips',
-  'weekend-getaways',
-  'fixed-departures',
-  'india-packages',
-  'international-packages',
-  'adventure-tours',
-  'beach-vacations',
-  'mountain-escapes',
-  'summer-packages',
-  'winter-packages'
-];
+// 2. Audience landing pages (read from the generated landing data)
+const { LANDING_PAGES_DATA } = await import(`file://${path.resolve(__dirname, '../src/data/landingPagesData.js')}`);
+const CAMPAIGN_PAGES = Object.keys(LANDING_PAGES_DATA);
 
 // 3. Import dynamic seed data
 async function generateSitemap() {
@@ -80,7 +64,7 @@ async function generateSitemap() {
   // Add Campaign Pages
   for (const slug of CAMPAIGN_PAGES) {
     xml += `  <url>
-    <loc>${BASE_URL}/#/${slug}</loc>
+    <loc>${BASE_URL}/${slug}/</loc>
     <lastmod>${today}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -91,12 +75,12 @@ async function generateSitemap() {
   // Add Blog Posts with Image Meta
   for (const blog of BLOGS_DATA) {
     xml += `  <url>
-    <loc>${BASE_URL}/#/blog/${blog.slug}</loc>
+    <loc>${BASE_URL}/blog/${blog.slug}/</loc>
     <lastmod>${today}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>${blog.coverImage}</image:loc>
+      <image:loc>${/^https?:/.test(blog.coverImage || '') ? blog.coverImage : `${BASE_URL}/${String(blog.coverImage || '').replace(/^\.?\//, '')}`}</image:loc>
       <image:title><![CDATA[${blog.title}]]></image:title>
     </image:image>
   </url>
@@ -107,12 +91,12 @@ async function generateSitemap() {
   for (const tour of TOURS_DATA) {
     const tourSlug = tour.slug || tour.id;
     xml += `  <url>
-    <loc>${BASE_URL}/#/tour/${tourSlug}</loc>
+    <loc>${BASE_URL}/tour/${tourSlug}/</loc>
     <lastmod>${today}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
-      <image:loc>${tour.image}</image:loc>
+      <image:loc>${/^https?:/.test(tour.image || '') ? tour.image : `${BASE_URL}/${String(tour.image || '').replace(/^\.?\//, '')}`}</image:loc>
       <image:title><![CDATA[${tour.name}]]></image:title>
     </image:image>
   </url>

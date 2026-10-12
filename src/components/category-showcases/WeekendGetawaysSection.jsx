@@ -113,29 +113,29 @@ export default function WeekendGetawaysSection({
         <div className="showcase-header">
           <div className="showcase-badge-pill weekend-badge">
             <Trees size={14} className="text-emerald" />
-            <span>48-HOUR WEEKEND ESCAPES</span>
+            <span>WEEKEND GETAWAYS</span>
           </div>
           <h2 className="showcase-title font-editorial">
-            Weekend Breaks <span className="gradient-text-emerald">& Nature Resets</span>
+            Weekend getaways, <span className="gradient-text-emerald">back before Monday</span>
           </h2>
           <p className="showcase-subtitle">
-            Zero leave approvals needed. Private chauffeur pickup from your doorstep to misty hill cottages, quiet beaches, and coffee estates.
+            No long leave needed. Leave on Friday, wake up in the hills, by the sea or in a coffee estate, and be home for Monday.
           </p>
 
           {/* Vibe Micro-Badges Strip */}
           <div className="vibe-badges-strip">
-            <span className="vibe-micro-badge weekend-micro"><Luggage size={12} className="text-emerald" /> Zero Leaves Needed</span>
-            <span className="vibe-micro-badge weekend-micro"><Car size={12} className="text-emerald" /> Doorstep Pickup</span>
-            <span className="vibe-micro-badge weekend-micro"><Coffee size={12} className="text-emerald" /> Scenic Cottages</span>
-            <span className="vibe-micro-badge weekend-micro"><BellOff size={12} className="text-emerald" /> Work Slack Muted</span>
+            <span className="vibe-micro-badge weekend-micro"><Luggage size={12} className="text-emerald" /> Little or no leave</span>
+            <span className="vibe-micro-badge weekend-micro"><Car size={12} className="text-emerald" /> Pickup from home</span>
+            <span className="vibe-micro-badge weekend-micro"><Coffee size={12} className="text-emerald" /> Cosy stays</span>
+            <span className="vibe-micro-badge weekend-micro"><BellOff size={12} className="text-emerald" /> Laptop stays home</span>
           </div>
 
           {/* Sub-region filter tabs & carousel arrow controls */}
           <div className="controls-and-tabs-bar">
             <div className="sub-region-tabs">
               {[
-                { id: 'All', label: 'All 48-Hr Getaways', icon: <Compass size={14} className="text-emerald" /> },
-                { id: 'Hills', label: 'Misty Hill Retreats', icon: <Mountain size={14} className="text-emerald" /> },
+                { id: 'All', label: 'All weekend trips', icon: <Compass size={14} className="text-emerald" /> },
+                { id: 'Hills', label: 'Hills', icon: <Mountain size={14} className="text-emerald" /> },
                 { id: 'Beach', label: 'Coastal Goa & Beach', icon: <Waves size={14} className="text-emerald" /> },
                 { id: 'Heritage', label: 'Palace Short Breaks', icon: <Landmark size={14} className="text-emerald" /> },
               ].map(tab => (
@@ -233,7 +233,7 @@ export default function WeekendGetawaysSection({
                         </span>
                         <span className="compact-rating-pill">
                           <Star size={11} className="fill-gold text-gold" />
-                          <span>{tour.rating || '4.92'} ({tour.reviews || '75+'})</span>
+                          <span>4.8 Google (85+)</span>
                         </span>
                       </div>
                     </div>

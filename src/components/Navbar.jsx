@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   MessageCircle, Menu, X, ChevronDown, ChevronRight, 
   Globe, Heart, Scale, Shield, Sun, Snowflake, Mountain, Palmtree, 
-  Users, Briefcase, GraduationCap, Clock, Compass, MapPin, CloudSun, Sparkles 
+  Users, Briefcase, GraduationCap, Clock, Compass, MapPin, CloudSun, Sparkles,
+  Phone, Bot, Lock, Car, Plane
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useWishlistCompare } from '../context/WishlistCompareContext';
@@ -32,10 +33,10 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
   
   // Accordion state for categories inside the hamburger menu
   const [openCategories, setOpenCategories] = useState({
-    weather: true,
-    personas: false,
-    group: false,
-    circuits: false
+    people: true,
+    season: false,
+    mood: false,
+    where: false
   });
 
   const toggleCategory = (key) => {
@@ -175,132 +176,59 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
     return () => window.removeEventListener('hashchange', handleHash);
   }, []);
 
-  // The 15 Landing Pages Grouped into 4 Curated Categories
+  // Audience landing pages, grouped the way travellers think about a trip
   const landingCategories = [
     {
-      id: 'weather',
-      title: 'By Weather & Season',
-      subtitle: 'Snow, Summer & Alpine Climates',
-      icon: <CloudSun size={18} className="text-amber" />,
-      badge: '4 Tours',
-      items: [
-        {
-          title: 'Summer Vacation Special',
-          subtitle: 'Beat the heat in Kashmir & Alps',
-          slug: 'summer-packages',
-          icon: <Sun size={15} className="text-amber" />
-        },
-        {
-          title: 'Winter Snow Wonderland',
-          subtitle: 'Gulmarg chalets & starry desert nights',
-          slug: 'winter-packages',
-          icon: <Snowflake size={15} className="text-cyan" />
-        },
-        {
-          title: 'Mountain & Alpine Escapes',
-          subtitle: 'Pine valleys, cable cars & luxury chalets',
-          slug: 'mountain-escapes',
-          icon: <Mountain size={15} className="text-emerald" />
-        },
-        {
-          title: 'Tropical Beach & Island Escapes',
-          subtitle: 'Private pool villas & turquoise ocean',
-          slug: 'beach-vacations',
-          icon: <Palmtree size={15} className="text-cyan" />
-        }
-      ]
-    },
-    {
-      id: 'personas',
-      title: 'By Traveler Persona',
-      subtitle: 'Solo, Couple, Family & Squad',
+      id: 'people',
+      title: 'Who is travelling?',
+      subtitle: 'Family, couple, friends, solo, work, school',
       icon: <Users size={18} className="text-amber" />,
-      badge: '4 Tours',
+      badge: '6 pages',
       items: [
-        {
-          title: 'Solo Explorer Escapes',
-          subtitle: 'Zero single-tax & 24/7 WhatsApp backup',
-          slug: 'solo-travel',
-          icon: <Sparkles size={15} className="text-amber" />
-        },
-        {
-          title: 'Honeymoon & Romantic Couples',
-          subtitle: 'Private pool villas & candlelit dinners',
-          slug: 'couple-honeymoon',
-          icon: <Heart size={15} className="text-rose-400" />
-        },
-        {
-          title: 'Family Holiday Packages',
-          subtitle: 'Connecting suites & multi-gen comfort',
-          slug: 'family-travel',
-          icon: <Users size={15} className="text-cyan" />
-        },
-        {
-          title: 'Friends & Squad Trips',
-          subtitle: 'Private luxury villas & roadtrip vibes',
-          slug: 'group-travel',
-          icon: <Users size={15} className="text-emerald" />
-        }
+        { title: 'Family holidays', subtitle: 'Easy pace for kids and grandparents', slug: 'family-travel', icon: <Users size={15} className="text-emerald" /> },
+        { title: 'Couples and honeymoon', subtitle: 'Just the two of you, sorted', slug: 'couple-honeymoon', icon: <Heart size={15} className="text-amber" /> },
+        { title: 'Friends trips', subtitle: 'One plan, zero group chat drama', slug: 'group-travel', icon: <Users size={15} className="text-amber" /> },
+        { title: 'Solo trips', subtitle: 'Go alone, never feel alone', slug: 'solo-travel', icon: <Compass size={15} className="text-cyan" /> },
+        { title: 'Corporate offsites', subtitle: 'Team trips that run on time', slug: 'corporate-travel', icon: <Briefcase size={15} className="text-cyan" /> },
+        { title: 'School and college trips', subtitle: 'Safe, planned, parent-approved', slug: 'school-college-trips', icon: <GraduationCap size={15} className="text-emerald" /> }
       ]
     },
     {
-      id: 'group',
-      title: 'Group, Corporate & Weekend',
-      subtitle: 'Work Retreats, College & Fast Getaways',
-      icon: <Briefcase size={18} className="text-amber" />,
-      badge: '4 Tours',
+      id: 'season',
+      title: 'When are you going?',
+      subtitle: 'Summer, monsoon, winter, weekends',
+      icon: <CloudSun size={18} className="text-amber" />,
+      badge: '5 pages',
       items: [
-        {
-          title: 'Corporate Offsites & Retreats',
-          subtitle: 'Luxury MICE resorts & private banquets',
-          slug: 'corporate-travel',
-          icon: <Briefcase size={15} className="text-amber" />
-        },
-        {
-          title: 'Educational & College Trips',
-          subtitle: 'Safe student journeys with doctor on-call',
-          slug: 'school-college-trips',
-          icon: <GraduationCap size={15} className="text-cyan" />
-        },
-        {
-          title: 'Fixed Departure Tribe',
-          subtitle: 'Guaranteed dates with like-minded travelers',
-          slug: 'fixed-departures',
-          icon: <Compass size={15} className="text-emerald" />
-        },
-        {
-          title: '48-Hour Weekend Escapes',
-          subtitle: 'Quick Friday-Sunday rejuvenating getaways',
-          slug: 'weekend-getaways',
-          icon: <Clock size={15} className="text-rose-400" />
-        }
+        { title: 'Summer holidays', subtitle: 'Cool places for hot months', slug: 'summer-packages', icon: <Sun size={15} className="text-amber" /> },
+        { title: 'Monsoon getaways', subtitle: 'Green valleys and chai stops', slug: 'monsoon-getaways', icon: <CloudSun size={15} className="text-emerald" /> },
+        { title: 'Winter trips', subtitle: 'Snow views and warm blankets', slug: 'winter-packages', icon: <Snowflake size={15} className="text-cyan" /> },
+        { title: 'Weekend getaways', subtitle: 'Back before Monday', slug: 'weekend-getaways', icon: <Car size={15} className="text-amber" /> },
+        { title: 'Fixed departures', subtitle: 'Set dates, friendly groups', slug: 'fixed-departures', icon: <Plane size={15} className="text-cyan" /> }
       ]
     },
     {
-      id: 'circuits',
-      title: 'Signature Circuits',
-      subtitle: 'Incredible India & World Expeditions',
+      id: 'mood',
+      title: 'What are you in the mood for?',
+      subtitle: 'Beaches, hills, adventure, yatra',
+      icon: <Mountain size={18} className="text-amber" />,
+      badge: '4 pages',
+      items: [
+        { title: 'Beach holidays', subtitle: 'Sand, sea and slow mornings', slug: 'beach-vacations', icon: <Palmtree size={15} className="text-cyan" /> },
+        { title: 'Mountain escapes', subtitle: 'Fresh air and quiet views', slug: 'mountain-escapes', icon: <Mountain size={15} className="text-emerald" /> },
+        { title: 'Adventure tours', subtitle: 'Treks, rafting, high passes', slug: 'adventure-tours', icon: <Compass size={15} className="text-amber" /> },
+        { title: 'Spiritual journeys', subtitle: 'Calm yatras, elder friendly', slug: 'spiritual-journeys', icon: <Sparkles size={15} className="text-amber" /> }
+      ]
+    },
+    {
+      id: 'where',
+      title: 'India or abroad?',
+      subtitle: 'Pick your side of the map',
       icon: <Globe size={18} className="text-amber" />,
-      badge: '3 Tours',
+      badge: '2 pages',
       items: [
-        {
-          title: 'Incredible India Luxury',
-          subtitle: 'Heritage palaces, backwaters & royal hospitality',
-          slug: 'india-packages',
-          icon: <MapPin size={15} className="text-amber" />
-        },
-        {
-          title: 'World Passport Holidays',
-          subtitle: 'Hassle-free visa filing & 5-star global stays',
-          slug: 'international-packages',
-          icon: <Globe size={15} className="text-cyan" />
-        },
-        {
-          title: 'Adventure & Trekking Expeditions',
-          subtitle: 'Certified mountain guides & luxury basecamps',
-          slug: 'adventure-tours',
-          icon: <Mountain size={15} className="text-emerald" />
-        }
+        { title: 'India tour packages', subtitle: 'Hills, palaces, beaches, backwaters', slug: 'india-packages', icon: <MapPin size={15} className="text-amber" /> },
+        { title: 'International holidays', subtitle: 'Visa help and easy first trips', slug: 'international-packages', icon: <Plane size={15} className="text-cyan" /> }
       ]
     }
   ];
@@ -323,28 +251,28 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
                       rel="noopener noreferrer"
                       className="marquee-cta"
                     >
-                      Enquire Now →
+                      Ask on WhatsApp →
                     </a>
                   </div>
                   <span className="marquee-dot">✦</span>
                   <div className="marquee-item">
-                    <span className="marquee-badge">VIP Benefit</span>
-                    <span className="marquee-text">Zero Convenience Fees on Flights & 5-Star Luxury Resort Combos</span>
+                    <span className="marquee-badge">Clear quotes</span>
+                    <span className="marquee-text">You see what is included before you pay. No surprise add-ons.</span>
                   </div>
                   <span className="marquee-dot">✦</span>
                   <div className="marquee-item">
-                    <span className="marquee-badge">4.9★ Rated</span>
-                    <span className="marquee-text">30,000+ Delighted Travelers Across 2,000+ Global Destinations</span>
+                    <span className="marquee-badge">4.8★ Google</span>
+                    <span className="marquee-text">Rated by 85+ travellers who came home with good stories</span>
                   </div>
                   <span className="marquee-dot">✦</span>
                   <div className="marquee-item">
-                    <span className="marquee-badge">Free Perks</span>
-                    <span className="marquee-text">Complimentary Visa Filing Assistance for Europe, UK & Dubai Holidays</span>
+                    <span className="marquee-badge">Visa help</span>
+                    <span className="marquee-text">We guide your visa papers for Europe, the UK, Dubai and more</span>
                   </div>
                   <span className="marquee-dot">✦</span>
                   <div className="marquee-item">
-                    <span className="marquee-badge">24/7 Desk</span>
-                    <span className="marquee-text">Instant WhatsApp VIP Concierge: +91 8770403315</span>
+                    <span className="marquee-badge">Real people</span>
+                    <span className="marquee-text">WhatsApp us any time on +91 87704 03315</span>
                   </div>
                   <span className="marquee-dot">✦</span>
                 </div>

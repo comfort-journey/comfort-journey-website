@@ -1,457 +1,405 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  ArrowLeft, 
-  MessageCircle, 
-  Phone, 
-  Sparkles, 
-  ShieldCheck, 
-  Star, 
-  Clock, 
-  Heart, 
-  Coffee, 
-  Compass, 
-  Wallet, 
-  Camera, 
-  Users, 
-  Hotel, 
-  MapPin, 
-  ChevronDown, 
-  ChevronUp, 
-  CheckCircle2, 
-  Car, 
-  Utensils, 
-  Ticket,
-  Flame,
-  Award,
-  Zap,
-  Maximize2,
-  Smile,
-  Quote
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  Shield, Heart, Compass, Wallet, Clock, Users, Camera, Hotel, Car, Utensils, Ticket,
+  Sparkles, Coffee, Map, Sun, Snowflake, Mountain, Waves, Plane, Briefcase, GraduationCap,
+  Phone, Star, Leaf, Flame, Baby, BookOpen, Music, MessageCircle, ArrowRight, ArrowLeft,
+  ChevronDown, MapPin, CheckCircle2, X, Quote, BadgeCheck
 } from 'lucide-react';
-import CardInclusionsStrip from './CardInclusionsStrip';
 import { useCurrency } from '../context/CurrencyContext';
+import { useWishlistCompare } from '../context/WishlistCompareContext';
 import { seoHeadManager } from '../utils/seoHeadManager';
-import { jsonLdSchemaGenerator } from '../utils/jsonLdSchemaGenerator';
-import { TOURS_DATA } from '../data/toursData';
+import { TOURS_DATA, GOOGLE_REVIEWS, GOOGLE_BUSINESS_PROFILE } from '../data/toursData';
+import { LANDING_PAGES_DATA } from '../data/landingPagesData';
+import VibeLayer from './landing/VibeLayer';
+import './landing/landing.css';
 
-export default function LandingPageTemplate({ 
-  pageData, 
-  onBackToHome, 
-  onSelectItinerary, 
-  onBookNow, 
-  onOpenAIPlanner, 
-  onOpenQuote 
-}) {
-  const [activeTab, setActiveTab] = useState('india'); // 'india' | 'intl'
-  const [openFaqIndex, setOpenFaqIndex] = useState(0);
-  const [activeVibeFilter, setActiveVibeFilter] = useState('all');
-  const { formatPrice } = useCurrency();
+const ICONS = {
+  shield: Shield, heart: Heart, compass: Compass, wallet: Wallet, clock: Clock, users: Users,
+  camera: Camera, hotel: Hotel, car: Car, utensils: Utensils, ticket: Ticket, sparkles: Sparkles,
+  coffee: Coffee, map: Map, sun: Sun, snowflake: Snowflake, mountain: Mountain, waves: Waves,
+  plane: Plane, briefcase: Briefcase, graduation: GraduationCap, phone: Phone, star: Star,
+  leaf: Leaf, flame: Flame, baby: Baby, book: BookOpen, music: Music
+};
 
-  const resolveTourObject = (destItem) => {
-    const query = (destItem.name || destItem.tag || '').toLowerCase();
-    const matched = TOURS_DATA.find(t => 
-      t.id === destItem.tourId || 
-      t.slug === destItem.tourId ||
-      t.name.toLowerCase().includes(query) ||
-      (t.location && t.location.toLowerCase().includes(query)) ||
-      (t.categories && t.categories.some(c => c.toLowerCase().includes(query)))
-    );
+const WA_NUMBER = '918770403315';
+const SITE = 'https://www.comfortjourneyy.com';
+const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
+const asset = (src) => (!src ? '' : /^(https?:|data:)/.test(src) ? src : basePrefix + src.replace(/^\.?\//, ''));
 
-    if (matched) {
-      return matched;
+function useReveal(dep) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const root = ref.current;
+    if (!root) return undefined;
+    const items = root.querySelectorAll('[data-reveal]:not(.is-in)');
+    if (typeof IntersectionObserver === 'undefined') {
+      items.forEach((el) => el.classList.add('is-in'));
+      return undefined;
     }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.1 });
+    items.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [dep]);
+  return ref;
+}
 
-    return {
-      id: destItem.tourId || `tour-${destItem.name.toLowerCase().replace(/\s+/g, '-')}`,
-      name: destItem.name,
-      title: destItem.name,
-      category: pageData.categoryBadge || 'Luxury Signature',
-      duration: destItem.duration || '5 Nights & 6 Days',
-      price: destItem.price || 24999,
-      origPrice: destItem.origPrice || 32000,
-      originalPrice: destItem.origPrice || 32000,
-      image: destItem.img,
-      rating: 4.95,
-      reviewsCount: 88,
-      tagline: destItem.tag || `Curated luxury journey by Comfort Journey.`,
-      inclusions: ['Verified 5-Star Stay', 'Private AC Transfers', 'Daily Breakfast & Dinner', '24/7 VIP Concierge'],
-      itinerary: [
-        { day: 1, title: 'Arrival & Private Chauffeur Greeting', desc: `VIP arrival in ${destItem.name} and transfer to 5-star verified stay.` },
-        { day: 2, title: 'Signature Sightseeing & Highlights', desc: `Guided exploration of major attractions and scenic panoramic viewpoints.` },
-        { day: 3, title: 'Cultural Immersion & Gourmet Dining', desc: `Local cultural heritage experience with evening multi-course feast.` },
-        { day: 4, title: 'Leisure & Chauffeur Airport Departure', desc: `Morning breakfast, souvenir shopping, and private transfer to airport.` }
-      ]
-    };
-  };
+// Friendly guide bubble that "talks" to the visitor as they scroll.
+function ScrollGuide({ lines, accent, waLink, pageKey }) {
+  const [step, setStep] = useState(0);
+  const [hidden, setHidden] = useState(false);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
-    if (pageData) {
-      const faqSchema = jsonLdSchemaGenerator.getFaqPageSchema(pageData.faqs);
-      seoHeadManager.updateMetadata({
-        title: `${pageData.heroHeadline} | Comfort Journey`,
-        description: pageData.heroSubline || pageData.realityCheck?.bad,
-        image: pageData.theme?.heroImage || 'https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1600&q=85',
-        url: `/#/${pageData.slug}`,
-        type: "website",
-        schema: faqSchema
+    setStep(0);
+    setShow(false);
+    const t = setTimeout(() => setShow(true), 1600);
+    const sections = document.querySelectorAll('[data-guide-step]');
+    if (!sections.length || typeof IntersectionObserver === 'undefined') return () => clearTimeout(t);
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) setStep(Number(e.target.getAttribute('data-guide-step')) || 0);
       });
-    }
+    }, { threshold: 0.3 });
+    sections.forEach((s) => io.observe(s));
+    return () => { clearTimeout(t); io.disconnect(); };
+  }, [pageKey]);
 
-    return () => {
-      seoHeadManager.resetToDefault();
+  if (hidden || !lines?.length) return null;
+  const idx = Math.min(step, lines.length - 1);
+  return (
+    <aside className={`lp2-guide ${show ? 'is-on' : ''}`} style={{ '--accent': accent }} aria-live="polite" aria-label="Trip guide">
+      <img src={asset('mascot-default-cropped.png')} alt="" className="lp2-guide-face" width="52" height="46" loading="lazy" />
+      <div className="lp2-guide-bubble">
+        <p key={idx} className="lp2-guide-text">{lines[idx]}</p>
+        {idx >= lines.length - 1 && (
+          <a className="lp2-guide-cta" href={waLink} target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>
+        )}
+      </div>
+      <button type="button" className="lp2-guide-close" onClick={() => setHidden(true)} aria-label="Hide guide">
+        <X size={14} />
+      </button>
+    </aside>
+  );
+}
+
+export default function LandingPageTemplate({ pageData, onBackToHome, onSelectItinerary, onBookNow, onOpenQuote }) {
+  const { formatPrice } = useCurrency();
+  const { toggleWishlist, isInWishlist } = useWishlistCompare();
+  const [tab, setTab] = useState('india');
+  const [openFaq, setOpenFaq] = useState(0);
+  const rootRef = useReveal(`${pageData?.slug}-${tab}`);
+
+  const theme = pageData?.theme || {};
+  const accent = theme.accentColor || '#FF892F';
+
+  const toursById = useMemo(() => {
+    const m = {};
+    (TOURS_DATA || []).forEach((t) => { m[t.id] = t; if (t.slug) m[t.slug] = t; });
+    return m;
+  }, []);
+
+  const indiaTours = useMemo(() => (pageData?.packageIdsIndia || []).map((id) => toursById[id]).filter((t) => t && t.isVisible !== false), [pageData, toursById]);
+  const intlTours = useMemo(() => (pageData?.packageIdsIntl || []).map((id) => toursById[id]).filter((t) => t && t.isVisible !== false), [pageData, toursById]);
+
+  useEffect(() => {
+    setTab(!indiaTours.length && intlTours.length ? 'intl' : 'india');
+    setOpenFaq(0);
+  }, [pageData?.slug]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const review = useMemo(() => (GOOGLE_REVIEWS || []).find((r) => r.id === pageData?.reviewId), [pageData]);
+  const waLink = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(pageData?.whatsAppMsg || 'Hi Comfort Journey, I would like help planning a trip.')}`;
+
+  useEffect(() => {
+    if (!pageData) return undefined;
+    const url = `${SITE}/${pageData.slug}/`;
+    const shown = [...indiaTours, ...intlTours];
+    const graph = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': `${url}#webpage`,
+          url,
+          name: pageData.metaTitle,
+          description: pageData.metaDesc,
+          inLanguage: 'en',
+          about: pageData.focusKeyword,
+          isPartOf: { '@id': `${SITE}/#website` },
+          publisher: { '@id': `${SITE}/#organization` },
+          speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.lp2-hero-title', '.lp2-answer-text'] }
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+            { '@type': 'ListItem', position: 2, name: pageData.eyebrow, item: url }
+          ]
+        },
+        {
+          '@type': 'ItemList',
+          name: pageData.packagesHeading,
+          itemListElement: shown.map((t, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            item: {
+              '@type': 'TouristTrip',
+              name: t.name,
+              description: t.tagline,
+              touristType: pageData.eyebrow,
+              url: `${SITE}/tour/${t.slug || t.id}/`,
+              ...(t.price ? { offers: { '@type': 'Offer', price: t.price, priceCurrency: 'INR' } } : {})
+            }
+          }))
+        },
+        {
+          '@type': 'FAQPage',
+          mainEntity: [pageData.quickAnswer && { q: pageData.quickAnswer.question, a: pageData.quickAnswer.answer }, ...(pageData.faqs || [])]
+            .filter(Boolean)
+            .map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } }))
+        }
+      ]
     };
-  }, [pageData]);
+    seoHeadManager.updateMetadata({
+      title: pageData.metaTitle,
+      description: pageData.metaDesc,
+      image: /^https?:/.test(theme.heroImage || '') ? theme.heroImage : `${SITE}/${(theme.heroImage || '').replace(/^\.?\//, '')}`,
+      url,
+      keywords: [pageData.focusKeyword, ...(pageData.secondaryKeywords || [])].join(', '),
+      schema: graph
+    });
+    return () => seoHeadManager.resetToDefault();
+  }, [pageData, indiaTours, intlTours]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!pageData) return null;
 
-  const theme = pageData.theme || {
-    accentColor: '#FF892F',
-    glowColor: 'rgba(255, 137, 47, 0.25)',
-    bgGradient: 'radial-gradient(circle at 50% 15%, rgba(0, 29, 81, 0.6) 0%, rgba(0, 11, 29, 0.95) 75%)',
-    heroImage: 'https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1600&q=85',
-    personaMood: 'Bespoke Luxury Experience',
-    vibePills: [
-      { label: '✨ 100% Tailor-Made', icon: 'sparkles' },
-      { label: '🛡️ 24/7 VIP Concierge', icon: 'shield' },
-      { label: '🏨 Verified 5-Star Stays', icon: 'hotel' }
-    ]
+  const tours = tab === 'india' ? indiaTours : intlTours;
+  const others = Object.values(LANDING_PAGES_DATA).filter((p) => p.slug !== pageData.slug);
+  const sameGroup = others.filter((p) => p.group === pageData.group);
+  const more = [...sameGroup, ...others.filter((p) => !sameGroup.includes(p))].slice(0, 4);
+
+  const savePct = (t) => {
+    const orig = Number(t.originalPrice || 0);
+    const p = Number(t.price || 0);
+    if (!orig || !p || orig <= p || orig > p * 2.5) return 0;
+    return Math.round(((orig - p) / orig) * 100);
   };
 
-  const getFeatureIcon = (iconType) => {
-    switch (iconType) {
-      case 'coffee': return <Coffee size={22} style={{ color: theme.accentColor }} />;
-      case 'compass': return <Compass size={22} style={{ color: theme.accentColor }} />;
-      case 'shield': return <ShieldCheck size={22} style={{ color: theme.accentColor }} />;
-      case 'wallet': return <Wallet size={22} style={{ color: theme.accentColor }} />;
-      case 'camera': return <Camera size={22} style={{ color: theme.accentColor }} />;
-      case 'heart': return <Heart size={22} style={{ color: theme.accentColor }} />;
-      case 'users': return <Users size={22} style={{ color: theme.accentColor }} />;
-      case 'hotel': return <Hotel size={22} style={{ color: theme.accentColor }} />;
-      case 'car': return <Car size={22} style={{ color: theme.accentColor }} />;
-      case 'utensils': return <Utensils size={22} style={{ color: theme.accentColor }} />;
-      case 'clock': return <Clock size={22} style={{ color: theme.accentColor }} />;
-      case 'ticket': return <Ticket size={22} style={{ color: theme.accentColor }} />;
-      case 'sparkles': return <Sparkles size={22} style={{ color: theme.accentColor }} />;
-      default: return <Sparkles size={22} style={{ color: theme.accentColor }} />;
-    }
+  const scrollToPackages = (e) => {
+    e.preventDefault();
+    document.getElementById('lp2-packages')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
-
-  const destinations = activeTab === 'india' 
-    ? (pageData.destinationsIndia || []) 
-    : (pageData.destinationsIntl || []);
-
-  const encodedWhatsAppUrl = `https://wa.me/918770403315?text=${encodeURIComponent(pageData.whatsAppMsg || 'Hi Comfort Journey! I would like to plan a trip.')}`;
 
   return (
-    <div 
-      className="landing-page-root"
-      style={{
-        '--lp-accent': theme.accentColor,
-        '--lp-glow': theme.glowColor
-      }}
-    >
-      {/* Top Floating Navigation Bar */}
-      <nav className="lp-top-nav">
-        <div className="container lp-nav-container">
-          <button 
-            type="button" 
-            className="lp-back-btn"
-            onClick={onBackToHome}
-          >
-            <ArrowLeft size={16} />
-            <span>Back to Main Site</span>
-          </button>
-
-          <div className="lp-nav-brand">
-            <img 
-              src="https://static.wixstatic.com/media/43df74_c248c4fdb5bf421aa3465ca1f6846ba0~mv2.jpg/v1/fill/w_192,h_192,lg_1,usm_0.66_1.00_0.01/43df74_c248c4fdb5bf421aa3465ca1f6846ba0~mv2.jpg" 
-              alt="Comfort Journey" 
-              className="lp-brand-logo"
-            />
-            <span className="lp-brand-name font-editorial">Comfort Journey</span>
-          </div>
-
-          <div className="lp-nav-actions">
-            <a href="tel:+918770403315" className="lp-phone-link">
-              <Phone size={15} />
-              <span>+91 87704 03315</span>
-            </a>
-            <a 
-              href={encodedWhatsAppUrl} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="btn-lp-whatsapp"
-            >
-              <MessageCircle size={15} />
-              <span>Chat on WhatsApp</span>
-            </a>
-          </div>
-        </div>
-      </nav>
-
-      {/* Hero Atmosphere Section with Parallax Persona Image & Atmospheric Lighting */}
-      <header className="lp-hero-section">
-        {/* Background Visual Banner with Atmospheric Overlay */}
-        <div className="lp-hero-bg-wrapper">
-          <img 
-            src={theme.heroImage} 
-            alt={pageData.heroHeadline}
-            className="lp-hero-bg-img"
-          />
-          <div className="lp-hero-scrim"></div>
-          <div className="lp-hero-radial-glow" style={{ background: theme.bgGradient }}></div>
-        </div>
-
-        <div className="container lp-hero-container">
-          {/* Persona Mood Pill */}
-          <div className="lp-persona-badge-wrapper animate-fade-in">
-            <div className="lp-persona-badge">
-              <span className="lp-persona-dot" style={{ backgroundColor: theme.accentColor }}></span>
-              <span className="lp-persona-text">{theme.personaMood || pageData.categoryBadge}</span>
-              <span className="lp-category-tag">{pageData.categoryBadge}</span>
-            </div>
-          </div>
-
-          {/* Hero Headline */}
-          <h1 className="lp-hero-title font-editorial animate-fade-in-up">
-            {pageData.heroHeadline}
-          </h1>
-
-          {/* Hero Subline */}
-          <p className="lp-hero-subline animate-fade-in-up delay-100">
-            {pageData.heroSubline}
-          </p>
-
-          {/* Persona Vibe Pills Strip (Generation Z Aesthetic) */}
-          {theme.vibePills && theme.vibePills.length > 0 && (
-            <div className="lp-vibe-pills-row animate-fade-in-up delay-200">
-              {theme.vibePills.map((pill, pIdx) => (
-                <div key={pIdx} className="lp-vibe-pill">
-                  <span>{pill.label}</span>
-                </div>
-              ))}
-            </div>
+    <div ref={rootRef} className={`lp2 lp2-vibe-${theme.vibe || 'none'}`} style={{ '--accent': accent }}>
+      {/* HERO */}
+      <header className="lp2-hero" data-guide-step="0">
+        <picture className="lp2-hero-media">
+          {theme.heroImageMobile && theme.heroImageMobile !== theme.heroImage && (
+            <source media="(max-width: 760px)" srcSet={asset(theme.heroImageMobile)} />
           )}
-
-          {/* Trust Highlights Strip */}
-          <div className="lp-hero-trust-bar animate-fade-in-up delay-300">
-            <div className="trust-item">
-              <Star size={16} className="text-amber fill-amber" />
-              <span><strong>4.95/5</strong> (1,200+ Reviews)</span>
-            </div>
-            <span className="trust-divider">•</span>
-            <div className="trust-item">
-              <Clock size={16} style={{ color: theme.accentColor }} />
-              <span><strong>30+ Years</strong> Since 1992</span>
-            </div>
-            <span className="trust-divider">•</span>
-            <div className="trust-item">
-              <ShieldCheck size={16} className="text-emerald" />
-              <span><strong>100% Verified</strong> Luxury Stays</span>
-            </div>
-          </div>
-
-          {/* Hero CTAs */}
-          <div className="lp-hero-cta-group animate-fade-in-up delay-400">
-            <a 
-              href={encodedWhatsAppUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-lp-primary"
-              style={{
-                background: `linear-gradient(135deg, ${theme.accentColor}, #E65100)`,
-                boxShadow: `0 8px 25px ${theme.glowColor}`
-              }}
-            >
-              <MessageCircle size={18} />
-              <span>{pageData.ctaText || "Let's Plan This Trip"}</span>
+          <img
+            src={asset(theme.heroImage)}
+            alt={`${pageData.eyebrow} trip planned by Comfort Journey`}
+            fetchpriority="high"
+            decoding="async"
+            style={{ objectPosition: theme.heroFocal || 'center' }}
+          />
+        </picture>
+        <div className="lp2-hero-shade" />
+        <VibeLayer vibe={theme.vibe} accent={accent} />
+        <div className="lp2-wrap lp2-hero-inner">
+          <nav className="lp2-crumbs" aria-label="Breadcrumb">
+            <button type="button" onClick={onBackToHome} className="lp2-back"><ArrowLeft size={14} /> Home</button>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">{pageData.eyebrow}</span>
+          </nav>
+          <p className="lp2-eyebrow">{pageData.eyebrow}</p>
+          <h1 className="lp2-hero-title">{pageData.heroHeadline}</h1>
+          <p className="lp2-hero-sub">{pageData.heroSubline}</p>
+          <div className="lp2-hero-ctas">
+            <a className="lp2-btn lp2-btn-primary" href={waLink} target="_blank" rel="noopener noreferrer">
+              <MessageCircle size={18} /> {pageData.ctaPrimary}
             </a>
-
-            <button 
-              type="button" 
-              className="btn-lp-secondary"
-              onClick={onOpenAIPlanner}
-            >
-              <Sparkles size={18} style={{ color: theme.accentColor }} />
-              <span>Customize with AI Planner</span>
-            </button>
+            <a className="lp2-btn lp2-btn-ghost" href="#lp2-packages" onClick={scrollToPackages}>
+              {pageData.ctaSecondary} <ArrowRight size={16} />
+            </a>
+          </div>
+          <ul className="lp2-tags" aria-label="What to expect">
+            {(pageData.vibeTags || []).map((t) => (<li key={t}><CheckCircle2 size={14} /> {t}</li>))}
+          </ul>
+          <div className="lp2-proof">
+            <span className="lp2-proof-stars" aria-hidden="true">★★★★★</span>
+            <span><strong>{GOOGLE_BUSINESS_PROFILE?.rating || 4.8}</strong> on Google from {GOOGLE_BUSINESS_PROFILE?.totalReviews || '85+'} reviews</span>
+            <span className="lp2-dot" aria-hidden="true" />
+            <span>Planning trips from Bhopal since 1992</span>
           </div>
         </div>
       </header>
 
-      {/* Relatable Traveler Persona Quote Spotlight */}
-      {theme.personaQuote && (
-        <section className="lp-persona-quote-section">
-          <div className="container">
-            <div className="lp-persona-quote-card glass-card">
-              <Quote size={28} className="quote-icon" style={{ color: theme.accentColor }} />
-              <p className="quote-body font-editorial">"{theme.personaQuote.text}"</p>
-              <div className="quote-author-row">
-                <div className="quote-author-badge" style={{ borderColor: theme.accentColor }}>
-                  <Smile size={18} style={{ color: theme.accentColor }} />
-                </div>
-                <div>
-                  <span className="quote-author-name">{theme.personaQuote.author}</span>
-                  <span className="quote-verified-tag">✓ Verified Traveler</span>
-                </div>
-              </div>
-            </div>
+      {/* PACKAGES, right after the hero because ad visitors came for trips */}
+      <section id="lp2-packages" className="lp2-section lp2-packages" data-guide-step="1" aria-labelledby="lp2-packages-title">
+        <div className="lp2-wrap">
+          <div className="lp2-head" data-reveal>
+            <h2 id="lp2-packages-title">{pageData.packagesHeading}</h2>
+            <p>{pageData.packagesIntro}</p>
           </div>
-        </section>
-      )}
-
-      {/* Opening Editorial Story Section ("The Reality Check") */}
-      {pageData.openingParagraph && (
-        <section className="lp-story-section">
-          <div className="container">
-            <div className="lp-story-card glass-card">
-              <h2 className="lp-story-title font-editorial" style={{ color: theme.accentColor }}>
-                {pageData.openingHeading || "The Reality Check"}
-              </h2>
-              <div className="lp-story-body">
-                {pageData.openingParagraph.split('\n\n').map((para, idx) => (
-                  <p key={idx}>{para}</p>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* "Why This Hits Different" 5-Feature Grid */}
-      {pageData.whyHitsDifferent && pageData.whyHitsDifferent.length > 0 && (
-        <section className="lp-features-section">
-          <div className="container">
-            <div className="lp-section-header">
-              <span className="lp-section-kicker" style={{ color: theme.accentColor }}>
-                ✨ WHY COMFORT JOURNEY HITS DIFFERENT
-              </span>
-              <h2 className="lp-section-title font-editorial">Built For Modern Travelers</h2>
-              <p className="lp-section-desc">
-                We eliminated all the boring, stressful friction so you can focus on pure wanderlust.
-              </p>
-            </div>
-
-            <div className="lp-features-grid">
-              {pageData.whyHitsDifferent.map((item, idx) => (
-                <div key={idx} className="lp-feature-card glass-card">
-                  <div className="lp-feat-icon-badge">
-                    {getFeatureIcon(item.iconType)}
-                  </div>
-                  <h3 className="lp-feat-title font-editorial">{item.title}</h3>
-                  <p className="lp-feat-desc">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Curated Tour Packages Section with Compact Luxury Cards */}
-      <section className="lp-destinations-section">
-        <div className="container">
-          <div className="lp-section-header">
-            <span className="lp-section-kicker" style={{ color: theme.accentColor }}>
-              📍 CURATED ESCAPES & PACKAGES
-            </span>
-            <h2 className="lp-section-title font-editorial">Where To Next?</h2>
-            <p className="lp-section-desc">Transparent pricing. 5-star verified comfort. Zero hidden surcharges.</p>
-          </div>
-
-          {/* India vs International Tabs */}
-          {(pageData.destinationsIndia?.length > 0 && pageData.destinationsIntl?.length > 0) && (
-            <div className="lp-dest-tabs-bar">
-              <button 
-                type="button" 
-                className={`lp-dest-tab ${activeTab === 'india' ? 'active' : ''}`}
-                style={activeTab === 'india' ? { background: theme.accentColor, borderColor: theme.accentColor } : {}}
-                onClick={() => setActiveTab('india')}
-              >
-                Incredible India ({pageData.destinationsIndia.length})
+          {indiaTours.length > 0 && intlTours.length > 0 && (
+            <div className="lp2-tabs" role="tablist" aria-label="Trip region">
+              <button type="button" role="tab" aria-selected={tab === 'india'} className={tab === 'india' ? 'is-active' : ''} onClick={() => setTab('india')}>
+                In India <span>{indiaTours.length}</span>
               </button>
-              <button 
-                type="button" 
-                className={`lp-dest-tab ${activeTab === 'intl' ? 'active' : ''}`}
-                style={activeTab === 'intl' ? { background: theme.accentColor, borderColor: theme.accentColor } : {}}
-                onClick={() => setActiveTab('intl')}
-              >
-                International Passport ({pageData.destinationsIntl.length})
+              <button type="button" role="tab" aria-selected={tab === 'intl'} className={tab === 'intl' ? 'is-active' : ''} onClick={() => setTab('intl')}>
+                Abroad <span>{intlTours.length}</span>
               </button>
             </div>
           )}
-
-          {/* Cards Grid */}
-          <div className="lp-tours-grid">
-            {destinations.map((tour, idx) => {
-              const discountPercent = tour.origPrice && tour.price 
-                ? Math.round(((tour.origPrice - tour.price) / tour.origPrice) * 100) 
-                : 20;
-
+          <div className="lp2-grid">
+            {tours.map((t, i) => {
+              const pct = savePct(t);
+              const saved = isInWishlist(t.id);
               return (
-                <div key={idx} className="lp-tour-card glass-card">
-                  {/* Card Media */}
-                  <div className="lp-card-media">
-                    <img src={tour.img} alt={tour.name} loading="lazy" />
-                    <div className="lp-media-overlay"></div>
-                    <span className="lp-discount-badge">{discountPercent}% OFF</span>
-                    <span className="lp-duration-badge">
-                      <Clock size={12} className="inline mr-1" />
-                      {tour.duration}
-                    </span>
+                <article key={`${tab}-${t.id}`} className="lp2-card" data-reveal style={{ '--i': i }}>
+                  <div className="lp2-card-media">
+                    <img src={asset(t.image)} alt={`${t.name}, ${t.location}`} loading="lazy" decoding="async" />
+                    <span className="lp2-card-days"><Clock size={12} /> {t.duration}</span>
+                    {pct > 0 && <span className="lp2-card-save">Save {pct}%</span>}
+                    <button
+                      type="button"
+                      className={`lp2-card-heart ${saved ? 'is-saved' : ''}`}
+                      onClick={() => toggleWishlist(t.id)}
+                      aria-pressed={saved}
+                      aria-label={saved ? `Remove ${t.name} from saved trips` : `Save ${t.name}`}
+                    >
+                      <Heart size={16} />
+                    </button>
                   </div>
-
-                  {/* Card Body */}
-                  <div className="lp-card-body">
-                    <div>
-                      <div className="lp-location-tag">
-                        <MapPin size={13} style={{ color: theme.accentColor }} />
-                        <span>{tour.name}</span>
+                  <div className="lp2-card-body">
+                    <p className="lp2-card-loc"><MapPin size={13} /> {t.location}</p>
+                    <h3 className="lp2-card-title">{t.name}</h3>
+                    <div className="lp2-card-foot">
+                      <div className="lp2-card-price">
+                        <span className="lp2-card-from">From</span>
+                        <strong>{formatPrice(t.price)}</strong>
+                        <span className="lp2-card-pp">per person</span>
                       </div>
-                      <h3 className="lp-card-title font-editorial">{tour.name}</h3>
-                      <p className="lp-card-tag">{tour.tag}</p>
-                    </div>
-
-                    {/* Compact Inclusions Bar (CMS-Customizable Card Features) */}
-                    <CardInclusionsStrip tour={tour} />
-
-                    {/* Card Price & Actions */}
-                    <div className="lp-card-footer">
-                      <div className="compact-price-box">
-                        <div className="price-strike-row">
-                          <span className="orig-price-strike">{formatPrice(tour.origPrice || tour.price * 1.25)}</span>
-                          <span className="price-save-badge">Save {formatPrice((tour.origPrice || tour.price * 1.25) - tour.price)}</span>
-                        </div>
-                        <div className="price-main-col">
-                          <span className="price-start-label">Starting from</span>
-                          <div className="price-main-row">
-                            <span className="current-offer-price" style={{ color: theme.accentColor }}>
-                              {formatPrice(tour.price)}
-                            </span>
-                            <span className="price-per-person">/ person</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="lp-card-btns">
-                        <button 
-                          type="button" 
-                          className="btn-lp-itinerary"
-                          onClick={() => onSelectItinerary(resolveTourObject(tour))}
-                        >
-                          Itinerary
-                        </button>
-                        <button 
-                          type="button" 
-                          className="btn-lp-book"
-                          style={{
-                            background: `linear-gradient(135deg, ${theme.accentColor}, #E65100)`
-                          }}
-                          onClick={() => onBookNow(resolveTourObject(tour))}
-                        >
-                          Book
-                        </button>
+                      <div className="lp2-card-btns">
+                        <button type="button" className="lp2-btn-sm lp2-btn-sm-ghost" onClick={() => onSelectItinerary?.(t)}>See plan</button>
+                        <button type="button" className="lp2-btn-sm" onClick={() => onBookNow?.(t)}>Get a quote</button>
                       </div>
                     </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+          <p className="lp2-note" data-reveal>
+            Prices change with dates, hotel choice and group size. Not seeing your place? <a href={waLink} target="_blank" rel="noopener noreferrer">Ask us on WhatsApp</a>, we plan custom routes too.
+          </p>
+        </div>
+      </section>
+
+      {/* QUICK ANSWER (AEO / GEO) */}
+      {pageData.quickAnswer && (
+        <section className="lp2-section lp2-answer" aria-labelledby="lp2-answer-q">
+          <div className="lp2-wrap">
+            <div className="lp2-answer-box" data-reveal>
+              <p className="lp2-answer-label">Quick answer</p>
+              <h2 id="lp2-answer-q">{pageData.quickAnswer.question}</h2>
+              <p className="lp2-answer-text">{pageData.quickAnswer.answer}</p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* STORY + REVIEW */}
+      <section className="lp2-section lp2-story" data-guide-step="2" aria-labelledby="lp2-story-title">
+        <div className="lp2-wrap lp2-story-grid">
+          <div className="lp2-story-copy" data-reveal>
+            <h2 id="lp2-story-title">{pageData.storyHeading}</h2>
+            {(pageData.storyParagraphs || []).map((p, i) => <p key={i}>{p}</p>)}
+          </div>
+          {review ? (
+            <figure className="lp2-review" data-reveal>
+              <Quote size={26} className="lp2-review-mark" aria-hidden="true" />
+              <blockquote>{review.comment}</blockquote>
+              <figcaption>
+                <span className="lp2-review-avatar" style={{ background: review.avatarBg }}>{review.initials}</span>
+                <span>
+                  <strong>{review.name}</strong>
+                  <small>{review.tour} · <BadgeCheck size={12} /> Google review</small>
+                </span>
+              </figcaption>
+            </figure>
+          ) : (
+            <div className="lp2-review lp2-review-alt" data-reveal>
+              <p className="lp2-review-big">{GOOGLE_BUSINESS_PROFILE?.rating || 4.8}<span>/5</span></p>
+              <p>Average rating from {GOOGLE_BUSINESS_PROFILE?.totalReviews || '85+'} Google reviews by people who travelled with us.</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* REASONS */}
+      <section className="lp2-section lp2-reasons" aria-labelledby="lp2-reasons-title">
+        <div className="lp2-wrap">
+          <div className="lp2-head" data-reveal><h2 id="lp2-reasons-title">{pageData.reasonsHeading}</h2></div>
+          <div className="lp2-reasons-grid">
+            {(pageData.reasons || []).map((r, i) => {
+              const Icon = ICONS[r.icon] || Sparkles;
+              return (
+                <div key={r.title} className="lp2-reason" data-reveal style={{ '--i': i }}>
+                  <span className="lp2-reason-icon"><Icon size={20} /></span>
+                  <h3>{r.title}</h3>
+                  <p>{r.desc}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* INCLUDED */}
+      <section className="lp2-section lp2-included" aria-labelledby="lp2-included-title">
+        <div className="lp2-wrap lp2-included-grid">
+          <div className="lp2-head lp2-head-left" data-reveal>
+            <h2 id="lp2-included-title">{pageData.includedHeading}</h2>
+            <p>Every trip is planned around you, so treat this as a starting point.</p>
+          </div>
+          <ol className="lp2-included-list">
+            {(pageData.included || []).map((it, i) => (
+              <li key={it.title} data-reveal style={{ '--i': i }}>
+                <span className="lp2-included-num">{String(i + 1).padStart(2, '0')}</span>
+                <div><h3>{it.title}</h3><p>{it.desc}</p></div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="lp2-section lp2-faq" data-guide-step="3" aria-labelledby="lp2-faq-title">
+        <div className="lp2-wrap lp2-faq-wrap">
+          <div className="lp2-head" data-reveal><h2 id="lp2-faq-title">Questions people ask us</h2></div>
+          <div className="lp2-faq-list">
+            {(pageData.faqs || []).map((f, i) => {
+              const open = openFaq === i;
+              return (
+                <div key={f.q} className={`lp2-faq-item ${open ? 'is-open' : ''}`}>
+                  <h3>
+                    <button type="button" aria-expanded={open} aria-controls={`lp2-faq-${i}`} id={`lp2-faq-btn-${i}`} onClick={() => setOpenFaq(open ? -1 : i)}>
+                      <span>{f.q}</span>
+                      <ChevronDown size={18} aria-hidden="true" />
+                    </button>
+                  </h3>
+                  <div id={`lp2-faq-${i}`} role="region" aria-labelledby={`lp2-faq-btn-${i}`} className="lp2-faq-a">
+                    <div><p>{f.a}</p></div>
                   </div>
                 </div>
               );
@@ -460,1377 +408,38 @@ export default function LandingPageTemplate({
         </div>
       </section>
 
-      {/* "What You Actually Get" (The Comfort Promise) */}
-      {pageData.whatYouGet && (
-        <section className="lp-pillars-section">
-          <div className="container">
-            <div className="lp-pillars-card glass-card">
-              <div className="lp-section-header">
-                <span className="lp-section-kicker" style={{ color: theme.accentColor }}>
-                  🛡️ THE COMFORT PROMISE
-                </span>
-                <h2 className="lp-section-title font-editorial">What You Actually Get</h2>
-                <p className="lp-section-desc">No asterisks. No hidden fees. Just 100% peace of mind.</p>
-              </div>
-
-              <div className="lp-pillars-grid">
-                {pageData.whatYouGet.map((item, idx) => (
-                  <div key={idx} className="lp-pillar-item">
-                    <div className="pillar-num" style={{ background: theme.accentColor }}>{idx + 1}</div>
-                    <div className="pillar-text">
-                      <h4 className="pillar-title">{item.title}</h4>
-                      <p className="pillar-desc">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+      {/* FINAL CTA */}
+      <section className="lp2-section lp2-final" aria-labelledby="lp2-final-title">
+        <div className="lp2-wrap">
+          <div className="lp2-final-box" data-reveal>
+            <h2 id="lp2-final-title">{pageData.finalHeading}</h2>
+            <p>{pageData.finalText}</p>
+            <div className="lp2-hero-ctas lp2-final-ctas">
+              <a className="lp2-btn lp2-btn-primary" href={waLink} target="_blank" rel="noopener noreferrer"><MessageCircle size={18} /> {pageData.finalCta}</a>
+              <button type="button" className="lp2-btn lp2-btn-ghost" onClick={() => onOpenQuote?.()}>Send a quick enquiry</button>
+              <a className="lp2-btn lp2-btn-link" href="tel:+918770403315"><Phone size={16} /> +91 87704 03315</a>
             </div>
-          </div>
-        </section>
-      )}
-
-      {/* Interactive FAQ Section */}
-      {pageData.faqs && pageData.faqs.length > 0 && (
-        <section className="lp-faqs-section">
-          <div className="container">
-            <div className="lp-section-header">
-              <span className="lp-section-kicker" style={{ color: theme.accentColor }}>
-                ❓ COMMON QUESTIONS
-              </span>
-              <h2 className="lp-section-title font-editorial">Frequently Asked Questions</h2>
-              <p className="lp-section-desc">Everything you need to know before booking your trip.</p>
-            </div>
-
-            <div className="lp-faqs-accordion">
-              {pageData.faqs.map((faq, idx) => {
-                const isOpen = openFaqIndex === idx;
-                return (
-                  <div key={idx} className={`lp-faq-item glass-card ${isOpen ? 'active' : ''}`}>
-                    <button 
-                      type="button" 
-                      className="lp-faq-trigger"
-                      onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                    >
-                      <span className="lp-faq-q">{faq.q}</span>
-                      {isOpen ? <ChevronUp size={18} style={{ color: theme.accentColor }} /> : <ChevronDown size={18} className="text-muted" />}
-                    </button>
-                    {isOpen && (
-                      <div className="lp-faq-answer animate-fade-in">
-                        <p>{faq.a}</p>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Bottom Sticky Action Banner */}
-      <section className="lp-final-cta-banner">
-        <div className="container lp-final-container">
-          <div className="lp-final-text">
-            <h3 className="lp-final-title font-editorial">Ready to Turn This Into Reality?</h3>
-            <p className="lp-final-desc">Direct WhatsApp curation with zero booking fees and instant confirmation.</p>
-          </div>
-
-          <div className="lp-final-actions">
-            <a 
-              href={encodedWhatsAppUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-lp-primary"
-              style={{
-                background: `linear-gradient(135deg, ${theme.accentColor}, #E65100)`,
-                boxShadow: `0 8px 25px ${theme.glowColor}`
-              }}
-            >
-              <MessageCircle size={18} />
-              <span>WhatsApp Direct Curator</span>
-            </a>
-            <button 
-              type="button" 
-              className="btn-lp-secondary"
-              onClick={onBackToHome}
-            >
-              <span>Explore Full Website</span>
-            </button>
           </div>
         </div>
       </section>
 
-      {/* STYLES FOR LANDING PAGE TEMPLATE */}
-      <style>{`
-        .landing-page-root {
-          min-height: 100vh;
-          background: #000B1D;
-          color: var(--cj-text-heading);
-          font-family: var(--font-body);
-          padding-bottom: 3rem;
-        }
-
-        .lp-top-nav {
-          position: sticky;
-          top: 0;
-          z-index: 100;
-          background: rgba(0, 18, 51, 0.88);
-          backdrop-filter: blur(16px);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-          padding: 0.85rem 0;
-        }
-
-        .lp-nav-container {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 1rem;
-        }
-
-        .lp-back-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.4rem;
-          background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          color: var(--cj-text-body);
-          font-size: 0.82rem;
-          font-weight: 700;
-          padding: 0.45rem 0.95rem;
-          border-radius: 9999px;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .lp-back-btn:hover {
-          background: var(--lp-accent);
-          border-color: var(--lp-accent);
-          color: var(--cj-text-heading);
-        }
-
-        .lp-nav-brand {
-          display: flex;
-          align-items: center;
-          gap: 0.65rem;
-        }
-
-        .lp-brand-logo {
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
-          border: 1.5px solid var(--lp-accent);
-        }
-
-        .lp-brand-name {
-          font-size: 1.15rem;
-          font-weight: 800;
-          color: var(--cj-text-heading);
-          letter-spacing: 0.02em;
-        }
-
-        .lp-nav-actions {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-        }
-
-        .lp-phone-link {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.35rem;
-          color: var(--cj-text-muted);
-          font-size: 0.82rem;
-          font-weight: 600;
-          text-decoration: none;
-        }
-
-        .lp-phone-link:hover {
-          color: var(--cj-text-heading);
-        }
-
-        .btn-lp-whatsapp {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.4rem;
-          background: #25D366;
-          color: #FFFFFF; /* on green fill: white in both themes */
-          font-size: 0.82rem;
-          font-weight: 700;
-          padding: 0.45rem 1rem;
-          border-radius: 9999px;
-          text-decoration: none;
-          transition: transform 0.2s ease;
-        }
-
-        .btn-lp-whatsapp:hover {
-          transform: translateY(-1px);
-        }
-
-        /* Hero Atmosphere Section with Persona Imagery & Scrim */
-        .lp-hero-section {
-          position: relative;
-          min-height: 520px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 4.5rem 0 3.5rem 0;
-          overflow: hidden;
-          text-align: center;
-        }
-
-        .lp-hero-bg-wrapper {
-          position: absolute;
-          inset: 0;
-          z-index: 1;
-          overflow: hidden;
-        }
-
-        .lp-hero-bg-img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          filter: brightness(0.4) saturate(1.2);
-          transform: scale(1.04);
-          transition: transform 10s ease;
-        }
-
-        .lp-hero-scrim {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(180deg, rgba(0, 11, 29, 0.7) 0%, rgba(0, 11, 29, 0.95) 100%);
-        }
-
-        .lp-hero-radial-glow {
-          position: absolute;
-          inset: 0;
-          opacity: 0.65;
-          mix-blend-mode: screen;
-        }
-
-        .lp-hero-container {
-          position: relative;
-          z-index: 2;
-          max-width: 900px;
-          margin: 0 auto;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .lp-persona-badge-wrapper {
-          margin-bottom: 1rem;
-        }
-
-        .lp-persona-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.55rem;
-          background: rgba(0, 18, 51, 0.85);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          padding: 0.35rem 0.9rem;
-          border-radius: 9999px;
-          backdrop-filter: blur(12px);
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .lp-persona-dot {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          display: inline-block;
-          box-shadow: 0 0 10px currentColor;
-          animation: pulse 2s infinite;
-        }
-
-        .lp-persona-text {
-          font-size: 0.78rem;
-          font-weight: 700;
-          color: #E2E8F0; /* over-photo hero: stays light in both themes */
-          letter-spacing: 0.04em;
-        }
-
-        .lp-category-tag {
-          font-size: 0.68rem;
-          font-weight: 800;
-          color: var(--lp-accent);
-          background: rgba(255, 255, 255, 0.08);
-          padding: 0.15rem 0.45rem;
-          border-radius: 9999px;
-          text-transform: uppercase;
-        }
-
-        .lp-hero-title {
-          font-size: 3.4rem;
-          font-weight: 900;
-          color: #FFFFFF; /* over-photo hero: stays white in both themes */
-          line-height: 1.15;
-          margin-bottom: 1.15rem;
-          letter-spacing: -0.02em;
-          text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-        }
-
-        .lp-hero-subline {
-          font-size: 1.22rem;
-          color: #E2E8F0; /* over-photo hero: stays light in both themes */
-          line-height: 1.6;
-          max-width: 740px;
-          margin: 0 auto 1.5rem auto;
-        }
-
-        /* Generation-Z Vibe Pills Strip */
-        .lp-vibe-pills-row {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 0.65rem;
-          margin-bottom: 1.5rem;
-          max-width: 760px;
-        }
-
-        .lp-vibe-pill {
-          background: rgba(255, 255, 255, 0.07);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          backdrop-filter: blur(8px);
-          padding: 0.4rem 0.9rem;
-          border-radius: 9999px;
-          font-size: 0.82rem;
-          font-weight: 700;
-          color: #F9FBE7; /* over-photo hero: stays cream in both themes */
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-          transition: all 0.25s ease;
-        }
-
-        .lp-vibe-pill:hover {
-          background: rgba(255, 255, 255, 0.14);
-          border-color: var(--lp-accent);
-          transform: translateY(-2px);
-        }
-
-        .lp-hero-trust-bar {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 1.25rem;
-          font-size: 0.88rem;
-          color: #CBD5E1; /* over-photo hero: stays light in both themes */
-          margin-bottom: 2rem;
-          background: rgba(0, 18, 51, 0.6);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          padding: 0.55rem 1.35rem;
-          border-radius: 9999px;
-        }
-
-        .trust-item {
-          display: flex;
-          align-items: center;
-          gap: 0.4rem;
-        }
-
-        .trust-divider {
-          color: rgba(255, 255, 255, 0.2);
-        }
-
-        .lp-hero-cta-group {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 1rem;
-          flex-wrap: wrap;
-        }
-
-        .btn-lp-primary {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.55rem;
-          color: var(--cj-text-heading);
-          font-family: var(--font-ui);
-          font-size: 1rem;
-          font-weight: 700;
-          letter-spacing: 0.02em;
-          padding: 0.9rem 1.85rem;
-          border-radius: 9999px;
-          text-decoration: none;
-          cursor: pointer;
-          transition: all 0.25s ease;
-        }
-
-        .btn-lp-primary:hover {
-          transform: translateY(-2px);
-          filter: brightness(1.1);
-        }
-
-        .btn-lp-secondary {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.55rem;
-          font-family: var(--font-ui);
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: var(--cj-text-heading);
-          font-size: 0.95rem;
-          font-weight: 700;
-          padding: 0.85rem 1.5rem;
-          border-radius: 9999px;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .btn-lp-secondary:hover {
-          background: rgba(255, 255, 255, 0.15);
-          border-color: var(--cj-text-heading);
-        }
-
-        /* Persona Spotlight Quote Section */
-        .lp-persona-quote-section {
-          padding: 1.5rem 0 2.5rem 0;
-        }
-
-        .lp-persona-quote-card {
-          max-width: 860px;
-          margin: 0 auto;
-          padding: 2rem 2.5rem;
-          border-radius: 20px;
-          background: rgba(0, 18, 51, 0.65);
-          border: 1px solid var(--lp-glow);
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-        }
-
-        .quote-icon {
-          opacity: 0.8;
-        }
-
-        .quote-body {
-          font-size: 1.15rem;
-          line-height: 1.6;
-          color: var(--cj-text-body);
-          margin: 0;
-          font-style: italic;
-        }
-
-        .quote-author-row {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          padding-top: 0.75rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .quote-author-badge {
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          border: 1.5px solid var(--lp-accent);
-          background: rgba(255, 255, 255, 0.05);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .quote-author-name {
-          font-size: 0.85rem;
-          font-weight: 700;
-          color: var(--cj-text-heading);
-          display: block;
-        }
-
-        .quote-verified-tag {
-          font-size: 0.72rem;
-          font-weight: 700;
-          color: #10B981;
-        }
-
-        /* Story Section */
-        .lp-story-section {
-          padding: 2rem 0 3rem 0;
-        }
-
-        .lp-story-card {
-          max-width: 860px;
-          margin: 0 auto;
-          padding: 2.5rem;
-          border-radius: 24px;
-          background: rgba(0, 29, 81, 0.45);
-          border: 1px solid var(--lp-glow);
-        }
-
-        .lp-story-title {
-          font-size: 1.85rem;
-          margin-bottom: 1.25rem;
-        }
-
-        .lp-story-body p {
-          font-size: 1.02rem;
-          line-height: 1.7;
-          color: var(--cj-text-muted);
-          margin-bottom: 1rem;
-        }
-
-        .lp-story-body p:last-child {
-          margin-bottom: 0;
-        }
-
-        /* Features Section */
-        .lp-features-section {
-          padding: 3.5rem 0;
-        }
-
-        .lp-section-header {
-          text-align: center;
-          max-width: 700px;
-          margin: 0 auto 2.5rem auto;
-        }
-
-        .lp-section-kicker {
-          font-size: 0.76rem;
-          font-weight: 800;
-          letter-spacing: 0.1em;
-          display: block;
-          margin-bottom: 0.4rem;
-        }
-
-        .lp-section-title {
-          font-size: 2.35rem;
-          color: var(--cj-text-heading);
-          margin: 0 0 0.5rem 0;
-        }
-
-        .lp-section-desc {
-          font-size: 0.98rem;
-          color: var(--cj-text-muted);
-          margin: 0;
-        }
-
-        .lp-features-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-          gap: 1.25rem;
-        }
-
-        .lp-feature-card {
-          padding: 1.75rem;
-          border-radius: 20px;
-          background: rgba(0, 18, 51, 0.7);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          display: flex;
-          flex-direction: column;
-          gap: 0.75rem;
-          transition: all 0.3s ease;
-        }
-
-        .lp-feature-card:hover {
-          border-color: var(--lp-glow);
-          transform: translateY(-4px);
-        }
-
-        .lp-feat-icon-badge {
-          width: 44px;
-          height: 44px;
-          border-radius: 12px;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .lp-feat-title {
-          font-size: 1.2rem;
-          color: var(--cj-text-heading);
-          margin: 0;
-        }
-
-        .lp-feat-desc {
-          font-size: 0.88rem;
-          color: var(--cj-text-muted);
-          line-height: 1.55;
-          margin: 0;
-        }
-
-        /* Destinations Section */
-        .lp-destinations-section {
-          padding: 3.5rem 0;
-        }
-
-        .lp-dest-tabs-bar {
-          display: flex;
-          justify-content: center;
-          gap: 0.75rem;
-          margin-bottom: 2.5rem;
-        }
-
-        .lp-dest-tab {
-          padding: 0.65rem 1.35rem;
-          border-radius: 9999px;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: var(--cj-text-body);
-          font-size: 0.88rem;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .lp-dest-tab.active {
-          color: var(--cj-text-heading);
-        }
-
-        .lp-tours-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));
-          gap: 1.35rem;
-        }
-
-        .lp-tour-card {
-          border-radius: 20px;
-          overflow: hidden;
-          background: rgba(0, 18, 51, 0.75);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          display: flex;
-          flex-direction: column;
-          transition: all 0.3s ease;
-        }
-
-        .lp-tour-card:hover {
-          border-color: var(--lp-glow);
-          transform: translateY(-4px);
-        }
-
-        .lp-card-media {
-          position: relative;
-          height: 175px;
-          overflow: hidden;
-        }
-
-        .lp-card-media img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: transform 0.6s ease;
-        }
-
-        .lp-tour-card:hover .lp-card-media img {
-          transform: scale(1.06);
-        }
-
-        .lp-media-overlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0, 18, 51, 0.8) 100%);
-        }
-
-        .lp-discount-badge {
-          position: absolute;
-          top: 0.65rem;
-          left: 0.65rem;
-          background: #10B981;
-          color: #FFFFFF; /* on green fill over photo: white in both themes */
-          font-size: 0.68rem;
-          font-weight: 800;
-          padding: 0.2rem 0.55rem;
-          border-radius: 9999px;
-          z-index: 2;
-        }
-
-        .lp-duration-badge {
-          position: absolute;
-          bottom: 0.65rem;
-          left: 0.65rem;
-          background: rgba(0, 18, 51, 0.85);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #6FE6FC; /* over-photo pill: aqua in both themes */
-          font-size: 0.7rem;
-          font-weight: 700;
-          padding: 0.15rem 0.5rem;
-          border-radius: 9999px;
-          z-index: 2;
-        }
-
-        .lp-card-body {
-          padding: 1rem 1.15rem;
-          display: flex;
-          flex-direction: column;
-          flex: 1;
-          justify-content: space-between;
-          gap: 0.65rem;
-        }
-
-        .lp-location-tag {
-          display: flex;
-          align-items: center;
-          gap: 0.3rem;
-          font-size: 0.75rem;
-          font-weight: 700;
-          color: var(--cj-text-muted);
-        }
-
-        .lp-card-title {
-          font-size: 1.12rem;
-          font-weight: 800;
-          color: var(--cj-text-heading);
-          margin: 0;
-        }
-
-        .lp-card-tag {
-          font-size: 0.82rem;
-          color: var(--cj-text-muted);
-          margin: 0;
-          line-height: 1.4;
-        }
-
-        /* Compact Vector Inclusions Bar */
-        .compact-inclusions-icon-bar {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 0.25rem;
-          margin: 0.5rem 0;
-          padding: 0.4rem 0.55rem;
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          border-radius: 10px;
-        }
-
-        .inc-icon-item {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 0.15rem;
-        }
-
-        .inc-svg-badge {
-          width: 24px;
-          height: 24px;
-          border-radius: 6px;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: all 0.2s ease;
-        }
-
-        .inc-icon-item:hover .inc-svg-badge {
-          background: rgba(255, 255, 255, 0.12);
-          border-color: var(--lp-accent);
-        }
-
-        .inc-text {
-          font-size: 0.65rem;
-          color: var(--cj-text-muted);
-          font-weight: 600;
-          letter-spacing: 0.02em;
-        }
-
-        /* Compact Price Display */
-        .compact-price-box {
-          display: flex;
-          flex-direction: column;
-          gap: 0.1rem;
-        }
-
-        .price-strike-row {
-          display: flex;
-          align-items: center;
-          gap: 0.35rem;
-        }
-
-        .orig-price-strike {
-          font-size: 0.75rem;
-          text-decoration: line-through;
-          color: #64748B;
-        }
-
-        .price-save-badge {
-          font-size: 0.65rem;
-          font-weight: 800;
-          color: #10B981;
-          background: rgba(16, 185, 129, 0.1);
-          padding: 0.05rem 0.35rem;
-          border-radius: 4px;
-        }
-
-        .price-main-row {
-          display: flex;
-          align-items: baseline;
-          gap: 0.25rem;
-        }
-
-        .current-offer-price {
-          font-size: 1.25rem;
-          font-weight: 900;
-        }
-
-        .price-per-person {
-          font-size: 0.7rem;
-          color: var(--cj-text-muted);
-        }
-
-        .lp-card-footer {
-          display: flex;
-          flex-direction: column;
-          gap: 0.75rem;
-          padding-top: 0.75rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
-          width: 100%;
-          box-sizing: border-box;
-        }
-
-        .lp-card-btns {
-          display: grid;
-          grid-template-columns: 1fr 1.15fr;
-          gap: 0.55rem;
-          width: 100%;
-          box-sizing: border-box;
-        }
-
-.btn-lp-itinerary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 0.52rem 0.65rem;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1.2px solid rgba(255, 255, 255, 0.2);
-  color: var(--cj-text-heading);
-  font-family: var(--font-ui);
-  font-size: 0.8rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  white-space: nowrap;
-  box-sizing: border-box;
-  text-align: center;
-  position: relative;
-  z-index: 2;
-}
-
-        .btn-lp-itinerary:hover {
-          background: rgba(255, 255, 255, 0.2);
-          border-color: var(--cj-text-heading);
-        }
-
-        .btn-lp-book {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
-          padding: 0.52rem 0.75rem;
-          border-radius: 9999px;
-          border: none;
-          color: var(--cj-text-heading);
-          font-family: var(--font-ui);
-          font-size: 0.82rem;
-          font-weight: 800;
-          cursor: pointer;
-          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-          white-space: nowrap;
-          box-sizing: border-box;
-          text-align: center;
-        }
-
-        .btn-lp-book:hover {
-          filter: brightness(1.1);
-          transform: translateY(-1px);
-        }
-
-        /* Pillars Section */
-        .lp-pillars-section {
-          padding: 3.5rem 0;
-        }
-
-        .lp-pillars-card {
-          padding: 3rem;
-          border-radius: 24px;
-          background: rgba(0, 18, 51, 0.7);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .lp-pillars-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 1.5rem;
-        }
-
-        .lp-pillar-item {
-          display: flex;
-          align-items: flex-start;
-          gap: 1rem;
-        }
-
-        .pillar-num {
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          color: var(--cj-text-heading);
-          font-weight: 900;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-        }
-
-        .pillar-title {
-          font-size: 1.05rem;
-          font-weight: 800;
-          color: var(--cj-text-heading);
-          margin: 0 0 0.3rem 0;
-        }
-
-        .pillar-desc {
-          font-size: 0.86rem;
-          color: var(--cj-text-muted);
-          line-height: 1.5;
-          margin: 0;
-        }
-
-        /* FAQs Section */
-        .lp-faqs-section {
-          padding: 3.5rem 0;
-        }
-
-        .lp-faqs-accordion {
-          max-width: 800px;
-          margin: 0 auto;
-          display: flex;
-          flex-direction: column;
-          gap: 0.85rem;
-        }
-
-        .lp-faq-item {
-          border-radius: 16px;
-          background: rgba(0, 18, 51, 0.6);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          overflow: hidden;
-          transition: all 0.2s ease;
-        }
-
-        .lp-faq-item.active {
-          border-color: var(--lp-glow);
-          background: rgba(0, 29, 81, 0.5);
-        }
-
-        .lp-faq-trigger {
-          width: 100%;
-          padding: 1.25rem 1.5rem;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          background: transparent;
-          border: none;
-          color: var(--cj-text-heading);
-          font-size: 1rem;
-          font-weight: 700;
-          text-align: left;
-          cursor: pointer;
-        }
-
-        .lp-faq-answer {
-          padding: 0 1.5rem 1.25rem 1.5rem;
-          font-size: 0.92rem;
-          color: var(--cj-text-muted);
-          line-height: 1.6;
-        }
-
-        .lp-faq-answer p {
-          margin: 0;
-        }
-
-        /* Bottom Final CTA Banner */
-        .lp-final-cta-banner {
-          margin-top: 3.5rem;
-          padding: 3rem 0;
-          background: linear-gradient(180deg, rgba(0, 29, 81, 0.6) 0%, rgba(0, 11, 29, 0.95) 100%);
-          border-top: 1px solid var(--lp-glow);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .lp-final-container {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 2rem;
-          flex-wrap: wrap;
-        }
-
-        .lp-final-title {
-          font-size: 1.85rem;
-          color: var(--cj-text-heading);
-          margin: 0 0 0.4rem 0;
-        }
-
-        .lp-final-desc {
-          font-size: 0.95rem;
-          color: var(--cj-text-muted);
-          margin: 0;
-        }
-
-        .lp-final-actions {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          flex-wrap: wrap;
-        }
-
-        @media (max-width: 768px) {
-          .lp-hero-title {
-            font-size: 2.2rem;
-          }
-          .lp-hero-trust-bar {
-            flex-direction: column;
-            gap: 0.5rem;
-            border-radius: 16px;
-          }
-          .trust-divider {
-            display: none;
-          }
-          .lp-final-container {
-            flex-direction: column;
-            text-align: center;
-          }
-          .lp-final-actions {
-            justify-content: center;
-          }
-        }
-
-        /* LIGHT THEME — Complete luxury bright palette across all 20+ landing pages */
-        :root:not([data-theme="dark"]) .landing-page-root,
-        [data-theme="light"] .landing-page-root {
-          background: 
-            radial-gradient(1100px 600px at 15% 5%, rgba(255, 137, 47, 0.07) 0%, transparent 60%),
-            radial-gradient(1000px 550px at 85% 20%, rgba(14, 116, 144, 0.06) 0%, transparent 55%),
-            radial-gradient(900px 700px at 20% 60%, rgba(16, 185, 129, 0.05) 0%, transparent 60%),
-            linear-gradient(180deg, #FFFDF7 0%, #FAF8F0 30%, #F5F0E1 70%, #FFFDF7 100%) !important;
-          color: var(--cj-text-body, #334155) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-top-nav,
-        [data-theme="light"] .lp-top-nav {
-          background: rgba(255, 255, 255, 0.94) !important;
-          backdrop-filter: blur(16px) !important;
-          border-bottom: 1px solid var(--cj-line, #E8E0CF) !important;
-          box-shadow: 0 4px 20px rgba(20, 38, 74, 0.05) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-hero-scrim,
-        [data-theme="light"] .lp-hero-scrim {
-          background: linear-gradient(180deg, rgba(255, 253, 247, 0.85) 0%, rgba(255, 253, 247, 0.98) 100%) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-hero-radial-glow,
-        [data-theme="light"] .lp-hero-radial-glow {
-          opacity: 0.15 !important;
-          mix-blend-mode: multiply !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-hero-title,
-        [data-theme="light"] .lp-hero-title {
-          color: var(--cj-text-heading, #14264A) !important;
-          text-shadow: none !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-hero-subline,
-        [data-theme="light"] .lp-hero-subline {
-          color: var(--cj-text-body, #334155) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-persona-badge,
-        [data-theme="light"] .lp-persona-badge {
-          background: rgba(255, 255, 255, 0.95) !important;
-          border: 1px solid var(--cj-line, #E8E0CF) !important;
-          box-shadow: 0 4px 14px rgba(20, 38, 74, 0.06) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-persona-text,
-        [data-theme="light"] .lp-persona-text {
-          color: var(--cj-text-heading, #14264A) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-category-tag,
-        [data-theme="light"] .lp-category-tag {
-          background: rgba(255, 137, 47, 0.12) !important;
-          color: #D65A00 !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-vibe-pill,
-        [data-theme="light"] .lp-vibe-pill {
-          background: rgba(255, 255, 255, 0.92) !important;
-          border: 1px solid var(--cj-line, #E8E0CF) !important;
-          color: var(--cj-text-heading, #14264A) !important;
-          box-shadow: 0 2px 8px rgba(20, 38, 74, 0.05) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-vibe-pill:hover,
-        [data-theme="light"] .lp-vibe-pill:hover {
-          background: #FFFDF9 !important;
-          border-color: var(--lp-accent) !important;
-          color: var(--lp-accent) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-hero-trust-bar,
-        [data-theme="light"] .lp-hero-trust-bar {
-          background: rgba(255, 255, 255, 0.92) !important;
-          border: 1px solid var(--cj-line, #E8E0CF) !important;
-          color: var(--cj-text-body, #334155) !important;
-          box-shadow: 0 2px 8px rgba(20, 38, 74, 0.05) !important;
-        }
-
-        :root:not([data-theme="dark"]) .trust-divider,
-        [data-theme="light"] .trust-divider {
-          color: var(--cj-line, #E8E0CF) !important;
-        }
-
-        :root:not([data-theme="dark"]) .btn-lp-primary,
-        [data-theme="light"] .btn-lp-primary {
-          color: #FFFFFF !important;
-          box-shadow: 0 4px 16px rgba(255, 137, 47, 0.35) !important;
-        }
-
-        :root:not([data-theme="dark"]) .price-start-label,
-        [data-theme="light"] .price-start-label {
-          color: var(--cj-text-muted, #64748B) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-back-btn,
-        [data-theme="light"] .lp-back-btn {
-          background: #FFFFFF !important;
-          border-color: var(--cj-line, #E8E0CF) !important;
-          color: var(--cj-text-heading, #14264A) !important;
-          box-shadow: 0 2px 8px rgba(20, 38, 74, 0.04) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-back-btn:hover,
-        [data-theme="light"] .lp-back-btn:hover {
-          background: var(--lp-accent) !important;
-          color: #FFFFFF !important;
-          border-color: var(--lp-accent) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-brand-name,
-        [data-theme="light"] .lp-brand-name {
-          color: var(--cj-text-heading, #14264A) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-phone-link,
-        [data-theme="light"] .lp-phone-link {
-          color: var(--cj-text-muted, #64748B) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-phone-link:hover,
-        [data-theme="light"] .lp-phone-link:hover {
-          color: var(--cj-text-heading, #14264A) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-dest-tab:not(.active),
-        [data-theme="light"] .lp-dest-tab:not(.active) {
-          background: #FFFFFF !important;
-          border-color: var(--cj-line, #E8E0CF) !important;
-          color: var(--cj-text-body, #334155) !important;
-          box-shadow: 0 2px 8px rgba(20, 38, 74, 0.04) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-dest-tab:hover:not(.active),
-        [data-theme="light"] .lp-dest-tab:hover:not(.active) {
-          background: #FDFBF7 !important;
-          border-color: var(--lp-accent) !important;
-          color: var(--cj-text-heading, #14264A) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-dest-tab.active,
-        [data-theme="light"] .lp-dest-tab.active {
-          color: #FFFFFF !important;
-          box-shadow: 0 4px 16px rgba(255, 137, 47, 0.35) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-persona-quote-card,
-        [data-theme="light"] .lp-persona-quote-card,
-        :root:not([data-theme="dark"]) .lp-story-card,
-        [data-theme="light"] .lp-story-card,
-        :root:not([data-theme="dark"]) .lp-feature-card,
-        [data-theme="light"] .lp-feature-card,
-        :root:not([data-theme="dark"]) .lp-tour-card,
-        [data-theme="light"] .lp-tour-card,
-        :root:not([data-theme="dark"]) .lp-pillars-card,
-        [data-theme="light"] .lp-pillars-card,
-        :root:not([data-theme="dark"]) .lp-faq-item,
-        [data-theme="light"] .lp-faq-item {
-          background: #FFFFFF !important;
-          border: 1px solid var(--cj-line, #E8E0CF) !important;
-          box-shadow: 0 10px 30px rgba(20, 38, 74, 0.06), 0 1px 3px rgba(20, 38, 74, 0.04) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-tour-card:hover,
-        [data-theme="light"] .lp-tour-card:hover,
-        :root:not([data-theme="dark"]) .lp-feature-card:hover,
-        [data-theme="light"] .lp-feature-card:hover {
-          border-color: var(--lp-accent) !important;
-          box-shadow: 0 16px 40px rgba(20, 38, 74, 0.10) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-card-body,
-        [data-theme="light"] .lp-card-body {
-          background: #FFFFFF !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-card-title,
-        [data-theme="light"] .lp-card-title {
-          color: var(--cj-text-heading, #14264A) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-card-tag,
-        [data-theme="light"] .lp-card-tag,
-        :root:not([data-theme="dark"]) .lp-location-tag,
-        [data-theme="light"] .lp-location-tag {
-          color: var(--cj-text-muted, #64748B) !important;
-        }
-
-        :root:not([data-theme="dark"]) .compact-inclusions-icon-bar,
-        [data-theme="light"] .compact-inclusions-icon-bar {
-          background: #FDFBF7 !important;
-          border-color: var(--cj-line, #E8E0CF) !important;
-        }
-
-        :root:not([data-theme="dark"]) .inc-svg-badge,
-        [data-theme="light"] .inc-svg-badge {
-          background: #FFFFFF !important;
-          border-color: var(--cj-line, #E8E0CF) !important;
-        }
-
-        :root:not([data-theme="dark"]) .inc-text,
-        [data-theme="light"] .inc-text {
-          color: #475569 !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-card-footer,
-        [data-theme="light"] .lp-card-footer {
-          border-top-color: var(--cj-line, #E8E0CF) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-feat-icon-badge,
-        [data-theme="light"] .lp-feat-icon-badge {
-          background: #FFF8F0 !important;
-          border-color: rgba(255, 137, 47, 0.25) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-feat-title,
-        [data-theme="light"] .lp-feat-title,
-        :root:not([data-theme="dark"]) .lp-section-title,
-        [data-theme="light"] .lp-section-title,
-        :root:not([data-theme="dark"]) .lp-story-title,
-        [data-theme="light"] .lp-story-title {
-          color: var(--cj-text-heading, #14264A) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-feat-desc,
-        [data-theme="light"] .lp-feat-desc,
-        :root:not([data-theme="dark"]) .lp-section-desc,
-        [data-theme="light"] .lp-section-desc,
-        :root:not([data-theme="dark"]) .lp-story-body p,
-        [data-theme="light"] .lp-story-body p {
-          color: var(--cj-text-body, #475569) !important;
-        }
-
-        :root:not([data-theme="dark"]) .quote-body,
-        [data-theme="light"] .quote-body {
-          color: var(--cj-text-body, #334155) !important;
-        }
-
-        :root:not([data-theme="dark"]) .quote-author-name,
-        [data-theme="light"] .quote-author-name {
-          color: var(--cj-text-heading, #14264A) !important;
-        }
-
-        :root:not([data-theme="dark"]) .quote-author-row,
-        [data-theme="light"] .quote-author-row {
-          border-top-color: var(--cj-line, #E8E0CF) !important;
-        }
-
-        :root:not([data-theme="dark"]) .quote-author-badge,
-        [data-theme="light"] .quote-author-badge {
-          background: #FDFBF7 !important;
-        }
-
-        :root:not([data-theme="dark"]) .pillar-num,
-        [data-theme="light"] .pillar-num {
-          background: var(--lp-accent) !important;
-          color: #FFFFFF !important;
-        }
-
-        :root:not([data-theme="dark"]) .pillar-title,
-        [data-theme="light"] .pillar-title {
-          color: var(--cj-text-heading, #14264A) !important;
-        }
-
-        :root:not([data-theme="dark"]) .pillar-desc,
-        [data-theme="light"] .pillar-desc {
-          color: var(--cj-text-body, #475569) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-faqs-accordion,
-        [data-theme="light"] .lp-faqs-accordion {
-          gap: 0.85rem;
-        }
-
-        :root:not([data-theme="dark"]) .lp-faq-trigger,
-        [data-theme="light"] .lp-faq-trigger {
-          color: var(--cj-text-heading, #14264A) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-faq-answer,
-        [data-theme="light"] .lp-faq-answer {
-          color: var(--cj-text-body, #475569) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-faq-item.active,
-        [data-theme="light"] .lp-faq-item.active {
-          border-color: var(--lp-accent) !important;
-          background: #FFFDF9 !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-final-cta-banner,
-        [data-theme="light"] .lp-final-cta-banner {
-          background: linear-gradient(180deg, #FAF8F0 0%, #F5F0E1 100%) !important;
-          border-top: 1px solid var(--cj-line, #E8E0CF) !important;
-          border-bottom: 1px solid var(--cj-line, #E8E0CF) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-final-title,
-        [data-theme="light"] .lp-final-title {
-          color: var(--cj-text-heading, #14264A) !important;
-        }
-
-        :root:not([data-theme="dark"]) .lp-final-desc,
-        [data-theme="light"] .lp-final-desc {
-          color: var(--cj-text-body, #475569) !important;
-        }
-
-        :root:not([data-theme="dark"]) .btn-lp-secondary,
-        [data-theme="light"] .btn-lp-secondary {
-          background: #FFFFFF !important;
-          border-color: var(--cj-text-heading, #14264A) !important;
-          color: var(--cj-text-heading, #14264A) !important;
-        }
-
-        :root:not([data-theme="dark"]) .btn-lp-itinerary,
-        [data-theme="light"] .btn-lp-itinerary {
-          background: #FFFFFF !important;
-          border-color: var(--cj-text-heading, #14264A) !important;
-          color: var(--cj-text-heading, #14264A) !important;
-          position: relative;
-          z-index: 2;
-        }
-
-        :root:not([data-theme="dark"]) .btn-lp-itinerary:hover,
-        [data-theme="light"] .btn-lp-itinerary:hover {
-          background: #F8F9FA !important;
-          border-color: var(--lp-accent) !important;
-          color: var(--lp-accent) !important;
-        }
-      `}</style>
+      {/* MORE WAYS TO TRAVEL (internal links for users and crawlers) */}
+      <section className="lp2-section lp2-more" aria-labelledby="lp2-more-title">
+        <div className="lp2-wrap">
+          <div className="lp2-head" data-reveal><h2 id="lp2-more-title">Planning a different kind of trip?</h2></div>
+          <div className="lp2-more-grid">
+            {more.map((p) => (
+              <a key={p.slug} href={`#/${p.slug}`} className="lp2-more-card" data-reveal style={{ '--accent': p.theme.accentColor }}>
+                <img src={asset(p.theme.heroImageMobile || p.theme.heroImage)} alt="" loading="lazy" decoding="async" />
+                <span className="lp2-more-label">{p.eyebrow}</span>
+                <span className="lp2-more-title">{p.heroHeadline}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <ScrollGuide lines={pageData.guide} accent={accent} waLink={waLink} pageKey={pageData.slug} />
     </div>
   );
 }
-

@@ -51,7 +51,7 @@ export default function AITripPlannerModal({ isOpen = true, onClose, onSelectTou
     {
       id: 'welcome',
       role: 'assistant',
-      content: `**Namaste! I am Comfy.ai, your friendly travel assistant at Comfort Journey (Est. 1992).** 🌟\n\nI can help plan comfortable, personalized vacations across India and 2,000+ destinations worldwide — with verified hotels, private cars with courteous drivers, and pure vegetarian or Jain dining arrangements.\n\n*Speak to me naturally just like asking a travel friend!*`,
+      content: `**Namaste! I am Comfy, the trip helper at Comfort Journey.** 🌟\n\nTell me where you are dreaming of, who is coming and roughly when. I will suggest a plan with hotels, a private car and food that suits you, veg and Jain included.\n\n*Type like you would text a friend. \"5 days in the hills with my parents in May\" works great.*`,
       tours: TOURS_DATA.filter(t => t.id.includes('peace-in-the-pines') || t.id.includes('bali')).slice(0, 2),
       time: 'Just now'
     }

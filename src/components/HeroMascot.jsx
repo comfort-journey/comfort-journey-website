@@ -159,7 +159,7 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
           </div>
 
           <div className="buddy-popover-footer">
-            <span className="rating-pill">⭐ 4.92 / 5.0 (30,000+ Happy Travelers)</span>
+            <span className="rating-pill">⭐ 4.8 on Google (85+ reviews)</span>
           </div>
         </div>
       )}

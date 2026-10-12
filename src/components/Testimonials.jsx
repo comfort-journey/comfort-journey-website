@@ -8,7 +8,7 @@ export default function Testimonials() {
       <div className="container">
         <div className="section-header">
           <span className="badge badge-primary">Traveler Stories</span>
-          <h2 className="section-title">Trusted by 50,000+ Happy Families</h2>
+          <h2 className="section-title">What our travellers say</h2>
           <div className="rating-pill">
             <div className="stars">
               {[...Array(5)].map((_, i) => (

@@ -43,7 +43,7 @@ export function serializeTripPlan(tripPlan) {
 
     const json = JSON.stringify(minimal);
     // Base64 encode for URL safety
-    return btoa(json);
+    return btoa(unescape(encodeURIComponent(json)));
   } catch (err) {
     console.error('Failed to serialize trip plan:', err);
     return null;
@@ -54,7 +54,7 @@ export function deserializeTripPlan(serialized) {
   if (!serialized) return null;
 
   try {
-    const json = atob(serialized);
+    const json = decodeURIComponent(escape(atob(serialized)));
     const data = JSON.parse(json);
 
     // Version check

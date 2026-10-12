@@ -196,7 +196,7 @@ export default function ComfySplitMap({
       // Click to select stop
       marker.on('click', () => {
         if (onSelectStop) onSelectStop(stop);
-        map.flyTo(position, 14, { animate: true, duration: 0.8 });
+        map.flyTo(position, 14, { animate: !!(map && map._mapPane && map.getContainer && map.getContainer().offsetWidth > 0), duration: 0.8 });
       });
 
       // Tooltip
@@ -237,9 +237,9 @@ export default function ComfySplitMap({
 
       // Fit map bounds to show full route with padding
       const bounds = L.latLngBounds(latLngs);
-      map.fitBounds(bounds, { padding: [50, 50], maxZoom: 14, animate: true });
+      map.fitBounds(bounds, { padding: [50, 50], maxZoom: 14, animate: !!(map && map._mapPane && map.getContainer && map.getContainer().offsetWidth > 0) });
     } else if (latLngs.length === 1) {
-      map.flyTo(latLngs[0], 13, { animate: true, duration: 0.8 });
+      map.flyTo(latLngs[0], 13, { animate: !!(map && map._mapPane && map.getContainer && map.getContainer().offsetWidth > 0), duration: 0.8 });
     }
   }, [activeDay, days, routeMode]);
 
@@ -249,7 +249,7 @@ export default function ComfySplitMap({
     if (!map || !selectedStop || !selectedStop.lat || !selectedStop.lng) return;
 
     map.flyTo([selectedStop.lat, selectedStop.lng], 14, {
-      animate: true,
+      animate: !!(map && map._mapPane && map.getContainer && map.getContainer().offsetWidth > 0),
       duration: 0.8
     });
   }, [selectedStop]);

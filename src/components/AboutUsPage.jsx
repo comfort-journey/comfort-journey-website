@@ -84,7 +84,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
   const trustGrid = [
     { offer: '30+ Years Experience', meaning: "We've seen it all. We know what works and what doesn't. No rookie mistakes with your trip.", icon: '🌟' },
     { offer: '10,000+ Happy Travelers', meaning: "Real people, real trips, real memories. We don't just sell packages, we create experiences.", icon: '💖' },
-    { offer: '2,000+ Destinations', meaning: "From your neighborhood hill station to the other side of the world. We know them all.", icon: '🌍' },
+    { offer: 'India and the world', meaning: "From the hill station near home to the other side of the world. If we have not been, we find out properly.", icon: '🌍' },
     { offer: 'Transparent Pricing', meaning: "No hidden costs. No surprise charges. What we quote is what you pay. Period.", icon: '💎' },
     { offer: 'Customized Itineraries', meaning: "Your trip, your way. We don't force you into cookie-cutter packages.", icon: '🎯' },
     { offer: '24/7 Support', meaning: "Midnight flight delay? Hotel issue? We're one call away. Always.", icon: '📞' },
@@ -211,7 +211,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
               </blockquote>
 
               <p className="story-body">
-                That belief hasn't changed. Not in 30+ years. Not after <strong>10,000+ happy travelers</strong>. Not after <strong>2,000+ destinations</strong>.
+                That belief hasn't changed. Not in <strong>30+ years</strong>, and not after <strong>10,000+ travellers</strong>.
               </p>
 
               <p className="story-body">

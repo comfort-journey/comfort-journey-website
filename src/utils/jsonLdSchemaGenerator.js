@@ -53,8 +53,8 @@ export const jsonLdSchemaGenerator = {
       "paymentAccepted": "Credit Card, Debit Card, Net Banking, UPI, Bank Wire Transfer",
       "aggregateRating": {
         "@type": "AggregateRating",
-        "ratingValue": "4.95",
-        "reviewCount": "840",
+        "ratingValue": "4.8",
+        "reviewCount": "85",
         "bestRating": "5",
         "worstRating": "1"
       },
@@ -151,13 +151,6 @@ export const jsonLdSchemaGenerator = {
         "availability": "https://schema.org/InStock",
         "validFrom": "2026-01-01",
         "priceValidUntil": "2027-12-31"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": String(tour.rating || 4.95),
-        "reviewCount": String(tour.reviewsCount || 85),
-        "bestRating": "5",
-        "worstRating": "1"
       },
       "itinerary": {
         "@type": "ItemList",

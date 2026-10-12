@@ -254,9 +254,9 @@ export default function MapTab({
 
       // Fit bounds with comfortable padding
       const bounds = L.latLngBounds(latLngs);
-      map.fitBounds(bounds, { padding: [60, 60], maxZoom: 14, animate: true });
+      map.fitBounds(bounds, { padding: [60, 60], maxZoom: 14, animate: !!(map && map._mapPane && map.getContainer && map.getContainer().offsetWidth > 0) });
     } else if (latLngs.length === 1) {
-      map.flyTo(latLngs[0], 13, { animate: true, duration: 0.8 });
+      map.flyTo(latLngs[0], 13, { animate: !!(map && map._mapPane && map.getContainer && map.getContainer().offsetWidth > 0), duration: 0.8 });
     }
   }, [activeDay, enrichedItinerary, routeMode, selectedStop, onStopSelect]);
 
@@ -264,7 +264,7 @@ export default function MapTab({
   useEffect(() => {
     const map = mapInstanceRef.current;
     if (!map || !selectedStop || !selectedStop.lat || !selectedStop.lng) return;
-    map.flyTo([selectedStop.lat, selectedStop.lng], 15, { animate: true, duration: 0.8 });
+    map.flyTo([selectedStop.lat, selectedStop.lng], 15, { animate: !!(map && map._mapPane && map.getContainer && map.getContainer().offsetWidth > 0), duration: 0.8 });
   }, [selectedStop]);
 
   return (
@@ -365,7 +365,7 @@ export default function MapTab({
                   onClick={() => {
                     onStopSelect?.(stop);
                     if (stop.lat && stop.lng && mapInstanceRef.current) {
-                      mapInstanceRef.current.flyTo([stop.lat, stop.lng], 15, { animate: true, duration: 0.6 });
+                      mapInstanceRef.current.flyTo([stop.lat, stop.lng], 15, { animate: !!(mapInstanceRef.current && mapInstanceRef.current.getContainer().offsetWidth > 0), duration: 0.6 });
                     }
                   }}
                 >

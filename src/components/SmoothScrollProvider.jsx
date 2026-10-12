@@ -46,8 +46,10 @@ export default function SmoothScrollProvider({ children }) {
       const target = e.target.closest('a[href^="#"]');
       if (target) {
         const id = target.getAttribute('href');
-        if (id && id !== '#' && id.length > 1) {
-          const element = document.querySelector(id);
+        // "#/route" links are app routes, not in-page anchors.
+        if (id && id !== '#' && id.length > 1 && !id.startsWith('#/')) {
+          let element = null;
+          try { element = document.getElementById(decodeURIComponent(id.slice(1))); } catch (err) { element = null; }
           if (element) {
             e.preventDefault();
             element.scrollIntoView({ behavior: 'smooth', block: 'start' });

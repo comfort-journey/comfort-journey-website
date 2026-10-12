@@ -10,22 +10,22 @@ export const DEFAULT_SITE_SETTINGS = {
 
   // 1. HERO SECTION & PROMOTIONS
   hero: {
-    headlineMain: "YOUR JOURNEY",
-    headlineHighlight: "Your Comfort!",
-    subheadline: "Explore 2,000+ handpicked journeys by Continents, Weather & Season, or Personalized Style",
+    headlineMain: "Your journey",
+    headlineHighlight: "Our worry",
+    subheadline: "Tour packages across India and abroad, planned by real people in Bhopal since 1992. Tell us who is coming and when. We handle the rest.",
     bgVideoUrl: "https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-luxury-resort-in-the-maldives-41880-large.mp4",
     videoPoster: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1920&q=85",
     announcementActive: true,
-    announcementBadge: "2026 Signature",
-    announcementText: "🌸 Early Bird Specials: Flat 20% Off on Kashmir, Bali & Swiss Summer 2026 Tours!",
+    announcementBadge: "Planning season",
+    announcementText: "Booking winter or summer holidays? Good rooms go early. Send us your dates.",
     supportPhone: "+91 8770403315",
     whatsappNumber: "918770403315",
-    whatsappDefaultMessage: "Hi Comfort Journey! I'm planning a bespoke luxury trip and would like to speak with a Senior Travel Designer."
+    whatsappDefaultMessage: "Hi Comfort Journey, I am planning a trip and would like some help."
   },
 
   // 2. LIVE SOCIAL PROOF BOOKING TOASTS
   liveToasts: {
-    enabled: true,
+    enabled: false,
     intervalSeconds: 12,
     initialDelaySeconds: 4,
     bookings: [

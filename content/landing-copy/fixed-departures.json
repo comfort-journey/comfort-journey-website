@@ -1,0 +1,127 @@
+{
+  "slug": "fixed-departures",
+  "metaTitle": "Fixed departure group tours | Comfort Journey",
+  "metaDesc": "Join a fixed departure group tour with set dates, ready plans and friendly support. Choose India or abroad, then ask Comfort Journey for your quote.",
+  "focusKeyword": "fixed departure group tours",
+  "secondaryKeywords": [
+    "fixed date group trips",
+    "scheduled group tours",
+    "group tours with fixed dates",
+    "solo group travel India",
+    "international group tours",
+    "ready-made group trips"
+  ],
+  "eyebrow": "Fixed date group trips",
+  "heroHeadline": "Fixed departure group trips with good company",
+  "heroSubline": "Have a date in mind and a trip on your list? Join a ready group, meet fellow travellers and let Comfort Journey handle the planning around the fixed route.",
+  "ctaPrimary": "Ask on WhatsApp",
+  "ctaSecondary": "Browse group trips",
+  "whatsAppMsg": "Hi, I want to join a fixed departure group trip. Please share the next dates, available packages and an exact quote.",
+  "vibeTags": [
+    "Set dates, clear plans",
+    "Solo-friendly company",
+    "India and overseas",
+    "WhatsApp help 24/7"
+  ],
+  "packagesHeading": "Pick your next group trip",
+  "packagesIntro": "Choose a fixed-date route in India or abroad. We will confirm the current dates, what is included and what you can adjust.",
+  "storyHeading": "The easy way to join a group trip",
+  "storyParagraphs": [
+    "You may already know where you want to go. The awkward part is finding people whose calendars match yours. Fixed departure trips give you a planned date, a shared route and fellow travellers to meet along the way. You can arrive solo, with a friend or as a small group and still have company for the good views and the long drives.",
+    "Before you book, we explain the route, dates, stay choices and what the quote covers. Comfort Journey was founded in Bhopal by Sharad Kumar Mishra in 1992. It has a 4.8 Google rating from 85+ reviews, plus real people on WhatsApp and phone support at +91 87704 03315. During your trip, the team remains available 24/7.",
+    "Every itinerary can be customised. For a fixed departure, the date and shared route define the group plan, while hotel level, room preferences and selected arrangements can be discussed before booking. Ask about 3-star to 5-star hotels, palaces or villas, private cabs with drivers and visa assistance for international trips."
+  ],
+  "reasonsHeading": "Why ready group trips work well",
+  "reasons": [
+    {
+      "title": "A date you can plan around",
+      "desc": "See the route and departure date first, then decide if it fits your calendar before asking for a quote.",
+      "icon": "clock"
+    },
+    {
+      "title": "Company from day one",
+      "desc": "Solo travellers can join a shared group and meet people over sightseeing, meals or the next stretch of road.",
+      "icon": "users"
+    },
+    {
+      "title": "Details explained before booking",
+      "desc": "We share the itinerary, stay choices and upfront quote on WhatsApp, so you can ask questions before paying.",
+      "icon": "wallet"
+    },
+    {
+      "title": "Help while you are away",
+      "desc": "Real people remain available on WhatsApp and phone 24/7 during trips, including help with practical travel questions.",
+      "icon": "phone"
+    }
+  ],
+  "includedHeading": "What your fixed trip can include",
+  "included": [
+    {
+      "title": "Set departure dates",
+      "desc": "The group route begins on a published date, with the planned schedule shared before you decide."
+    },
+    {
+      "title": "Stay choices",
+      "desc": "Ask for 3-star to 5-star hotels, plus palaces or villas where the route allows."
+    },
+    {
+      "title": "Driver-led transport",
+      "desc": "Private cabs with drivers can be arranged around your selected itinerary and group needs."
+    },
+    {
+      "title": "Visa assistance",
+      "desc": "For international trips, our team can guide you through the visa process and required travel details."
+    },
+    {
+      "title": "An upfront quote",
+      "desc": "Pricing is shared clearly, with changes explained when dates, hotels, rooms or transport change."
+    }
+  ],
+  "quickAnswer": {
+    "question": "What is a fixed departure group tour?",
+    "answer": "A fixed departure group tour has a published date and shared route, so you can join other travellers while our team handles the planning. Comfort Journey confirms the current package, inclusions and quote on WhatsApp. The route and date are fixed for the group, while hotel level, room preferences and selected arrangements may be discussed for your needs."
+  },
+  "faqs": [
+    {
+      "q": "How do fixed departure group tours work?",
+      "a": "You choose a package and ask for the next available dates. We share the planned route, inclusions and current seat information before you decide. The date and group route form the fixed part; suitable personal requests can be discussed."
+    },
+    {
+      "q": "Can I join a fixed departure trip alone?",
+      "a": "Yes. Solo travellers can ask to join a shared group and meet fellow travellers along the route. Tell us about your room preference and comfort needs when you enquire, so we can explain the available options."
+    },
+    {
+      "q": "What can I change on a fixed departure tour?",
+      "a": "The published date and shared route are the starting plan. Every itinerary can be customised, so ask about hotel level, room type, private cabs with drivers or other practical details. We will tell you what fits that departure before you book."
+    },
+    {
+      "q": "How much does a fixed departure group tour cost?",
+      "a": "The price changes with the destination, travel dates, hotel level, room type, transport, visa needs and what the package includes. We share an exact quote on WhatsApp after understanding your dates and preferences. Ask us at +91 87704 03315 for current options."
+    },
+    {
+      "q": "Do you offer international fixed departure trips?",
+      "a": "Yes, the catalogue includes international trips such as Vietnam, Bali, Thailand and Dubai. Visa assistance is available for international travel. Ask us to confirm current departure dates, inclusions and the documents needed for your trip."
+    },
+    {
+      "q": "What support do I get during the trip?",
+      "a": "You can reach real people on WhatsApp or phone at +91 87704 03315. The team is available 24/7 during trips for practical questions and help with arrangements. Travel details and inclusions are explained before departure."
+    }
+  ],
+  "packageIdsIndia": [
+    "tour-wix-leh-beyond-the-passes",
+    "tour-wix-kashmir-valley-calling-2",
+    "tour-wix-meghalaya-highland-holiday-2",
+    "tour-wix-shimla-to-manali-story-3",
+    "tour-wix-rajasthan-royal-affair"
+  ],
+  "packageIdsIntl": [
+    "tour-wix-unbeatable-vietnam-premium",
+    "tour-wix-bali-tropical-escape",
+    "tour-wix-phuket-paradise-getaway",
+    "tour-wix-dubai-city-sands"
+  ],
+  "reviewId": "gr-5",
+  "finalHeading": "Find a date that fits your plans",
+  "finalText": "Tell us the place, dates and number of travellers. We will share the next suitable group trip, clear inclusions and an exact WhatsApp quote.",
+  "finalCta": "Check dates on WhatsApp"
+}

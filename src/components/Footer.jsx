@@ -80,12 +80,12 @@ export default function Footer({
             </div>
 
             <h2 className="hero-canvas-title">
-              Build Your Journey <br />
-              <span className="hero-canvas-title-accent">of a Lifetime</span>
+              Your next trip <br />
+              <span className="hero-canvas-title-accent">starts with a hello</span>
             </h2>
 
             <p className="hero-canvas-desc">
-              From private Himalayan chalets and Kashmir houseboats to Swiss glaciers and tropical island villas — handcrafting bespoke royal escapes across 2,000+ worldwide destinations.
+              Kashmir houseboats, Kerala backwaters, Swiss mountains, Bali villas. Tell us what you are daydreaming about and we will turn it into a plan.
             </p>
 
             <div className="hero-canvas-actions">
@@ -106,7 +106,7 @@ export default function Footer({
                 className="btn-hero-secondary"
               >
                 <MessageCircle size={16} className="text-emerald" />
-                <span>WhatsApp VIP Desk</span>
+                <span>WhatsApp us</span>
               </a>
 
               <a 

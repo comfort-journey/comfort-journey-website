@@ -205,28 +205,28 @@ export default function FixedDeparturesSection({
         <div className="showcase-header">
           <div className="showcase-badge-pill fixed-badge">
             <Flame size={14} className="text-orange animate-bounce" />
-            <span>GUARANTEED DEPARTURES & TRIBE</span>
+            <span>FIXED DEPARTURES</span>
           </div>
           <h2 className="showcase-title font-editorial">
-            Fixed Departures <span className="gradient-text-orange-purple">& Travel Tribe</span>
+            Group trips with set dates. <span className="gradient-text-orange-purple">Just show up.</span>
           </h2>
           <p className="showcase-subtitle">
-            100% guaranteed departure dates. Join solo or with friends — verified group batches with professional trip leads and shared bonfires.
+            The dates and the plan are ready. Come with friends, or come solo and leave with a few new ones. A trip lead handles the details.
           </p>
 
           {/* Vibe Micro-Badges Strip */}
           <div className="vibe-badges-strip">
-            <span className="vibe-micro-badge fixed-micro"><Users size={12} className="text-orange" /> 45%+ Solo Travelers</span>
-            <span className="vibe-micro-badge fixed-micro"><Calendar size={12} className="text-orange" /> Guaranteed Departures</span>
-            <span className="vibe-micro-badge fixed-micro"><Camera size={12} className="text-orange" /> Trip Photography</span>
-            <span className="vibe-micro-badge fixed-micro"><Flame size={12} className="text-orange" /> Bonfire Community</span>
+            <span className="vibe-micro-badge fixed-micro"><Users size={12} className="text-orange" /> Solo friendly</span>
+            <span className="vibe-micro-badge fixed-micro"><Calendar size={12} className="text-orange" /> Set dates</span>
+            <span className="vibe-micro-badge fixed-micro"><Camera size={12} className="text-orange" /> Photo stops</span>
+            <span className="vibe-micro-badge fixed-micro"><Flame size={12} className="text-orange" /> Bonfire nights</span>
           </div>
 
           {/* Sub-region filter tabs & carousel arrow controls */}
           <div className="controls-and-tabs-bar">
             <div className="sub-region-tabs">
               {[
-                { id: 'All', label: 'All Upcoming Batches', icon: <Compass size={14} className="text-orange" /> },
+                { id: 'All', label: 'All upcoming dates', icon: <Compass size={14} className="text-orange" /> },
                 { id: 'Spiti', label: 'Spiti & Kasol', icon: <Mountain size={14} className="text-orange" /> },
                 { id: 'Ladakh', label: 'Ladakh High Passes', icon: <Compass size={14} className="text-orange" /> },
                 { id: 'NorthEast', label: 'Meghalaya Rainforest', icon: <CloudRain size={14} className="text-orange" /> },
@@ -327,7 +327,7 @@ export default function FixedDeparturesSection({
                         </span>
                         <span className="compact-rating-pill">
                           <Star size={11} className="fill-gold text-gold" />
-                          <span>4.96 (120+ reviews)</span>
+                          <span>4.8 Google (85+)</span>
                         </span>
                       </div>
                     </div>

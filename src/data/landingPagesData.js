@@ -1,2589 +1,2506 @@
 // =========================================================================
-// COMFORT JOURNEY - COMPREHENSIVE SEO & GOOGLE ADS LANDING PAGES DATA
-// Enriched with Hyper-Personalized Generation-Z Aesthetics, Thematic Visuals,
-// Dynamic Mood Lighting & Interactive Persona Badges
+// COMFORT JOURNEY — AUDIENCE LANDING PAGES (generated file, do not hand edit)
+// Source copy: content/landing-copy/<slug>.json
+// Generator:   scripts/build-landing-pages.js
+// Each page is written for one kind of traveller, with its own voice,
+// package picks, quick answer (AEO), FAQs (FAQPage schema) and mood effect.
 // =========================================================================
+export const LANDING_GROUPS = {
+  "people": "Who is travelling",
+  "time": "How much time you have",
+  "where": "Where you want to go",
+  "mood": "What you are in the mood for",
+  "season": "When you want to travel"
+};
 
 export const LANDING_PAGES_DATA = {
-  // 1. SOLO TRAVELER
-  "solo-travel": {
-    id: "solo-travel",
-    slug: "solo-travel",
-    aliases: ["solo", "solo-traveler", "backpacking"],
-    metaTitle: "Solo Travel Packages 2026 | Safe Solo Trips with 24/7 Concierge | Comfort Journey",
-    metaDesc: "Stop waiting for the group chat. Solo travel with the ultimate backup plan. Verified 5-star stays, no single supplement tax, and 24/7 WhatsApp emergency support since 1992.",
-    categoryBadge: "Solo Explorer Edition",
-    theme: {
-      accentColor: "#6FE6FC",
-      glowColor: "rgba(111, 230, 252, 0.25)",
-      bgGradient: "radial-gradient(circle at 50% 15%, rgba(0, 48, 135, 0.6) 0%, rgba(0, 11, 29, 0.95) 75%)",
-      heroImage: "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1600&q=85",
-      personaMood: "Main Character Wanderlust",
-      vibePills: [
-        { label: "🧘 Main Character Vibes", icon: "sparkles" },
-        { label: "🛡️ Female-Safe Verified Stays", icon: "shield" },
-        { label: "💸 Zero Single-Supplement Tax", icon: "wallet" },
-        { label: "🎧 Curated Roadtrip Playlists", icon: "coffee" }
-      ],
-      personaQuote: {
-        author: "Tanya Sharma, 26 • Solo Backpacker from Bangalore",
-        text: "I was terrified of my first solo trip. Comfort Journey gave me a private driver who was so respectful, a boutique stay with incredible coffee, and a 24/7 WhatsApp concierge that answered my silly questions in 30 seconds."
-      }
-    },
-    heroHeadline: "Stop waiting for them. Just go.",
-    heroSubline: "Your friends are busy. Your group chat is dead. Your soul isn't. Solo travel with the ultimate backup plan.",
-    ctaText: "Let's Plan My Solo Escape",
-    whatsAppMsg: "Hi Comfort Journey! I want to plan my solo escape. Let's make it happen.",
-    openingHeading: "The Reality Check",
-    openingParagraph: `You've been dropping hints in the group chat for months. "Goa next month?" "Bali in December?" Crickets. Or worse, the dreaded "Let's see yaar, I'll check my leaves."
-
-Stop waiting for people who can't even decide where to eat dinner. You don't need a plus one to see the world. You don't need permission. You just need a ticket, a little bit of guts, and a killer playlist.
-
-Going solo isn't about being a loner. It's about being the main character of your own life. It's waking up and deciding exactly what you want to do today, without compromising. Want to eat gelato for breakfast? Do it. Want to stare at a painting for two hours? Nobody is rushing you.
-
-That's where we come in. We've got your back while you go find yourself (or just find some really good pizza). You get all the freedom of solo travel, with the safety net of a team that's been doing this for 30+ years.`,
-    whyHitsDifferent: [
-      {
-        title: 'Zero "Table for One" Awkwardness',
-        desc: "We know the spots where solo travelers thrive. No weird looks from waiters, just good vibes. We'll point you to cafes where you can read in peace, and bars where you make friends in 5 minutes.",
-        iconType: "coffee"
-      },
-      {
-        title: "Your Vibe, Your Rules",
-        desc: "Want to sleep till noon? Do it. Want to hike at 5 AM to catch the sunrise? Go crazy. Zero group compromise. This is your trip, tailored exactly to your energy levels.",
-        iconType: "compass"
-      },
-      {
-        title: "The Ultimate Safety Net",
-        desc: "You're flying solo, but you're never alone. Our 24/7 WhatsApp concierge is literally like having a local bestie in your pocket. Missed a train? Just text us. We fix the drama.",
-        iconType: "shield"
-      },
-      {
-        title: "No Single Supplement BS",
-        desc: "We hate the solo tax. Why pay double just for being independent? We hustle to find the best boutique stays that don't punish you for traveling alone.",
-        iconType: "wallet"
-      },
-      {
-        title: "Insta-Worthy, Always",
-        desc: "We tell you exactly where to get the best shots, and give you tips on asking friendly strangers for photos that don't cut off your head.",
-        iconType: "camera"
-      }
-    ],
-    destinationsIndia: [
-        {
-                "name": "Peace In The Pines",
-                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
-                "price": 94012,
-                "origPrice": 188023,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-peace-in-the-pines",
-                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Heritage & Hills",
-                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 141360,
-                "origPrice": 157067,
-                "duration": "5 Nights & 6 Days",
-                "tourId": "tour-wix-karnataka-heritage-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Goa Weekend Vibe",
-                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
-                "price": 99360,
-                "origPrice": 116894,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-goa-weekend-vibe",
-                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
-                "price": 45885,
-                "origPrice": 48300,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Uttarakhand Explorer",
-                "tag": "A luxurious 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
-                "price": 69575,
-                "origPrice": 77305,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-uttarakhand-explorer",
-                "img": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A premium 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 4-star hotels, Innova transportation, and curated sightseeing.",
-                "price": 64515,
-                "origPrice": 71683,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills-2",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    destinationsIntl: [
-        {
-                "name": "Phuket Paradise Getaway",
-                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
-                "price": 71047,
-                "origPrice": 170514,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-phuket-paradise-getaway",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Unbeatable Vietnam Premium",
-                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
-                "price": 218554,
-                "origPrice": 218554,
-                "duration": "7N/8D",
-                "tourId": "tour-wix-unbeatable-vietnam-premium",
-                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Bali Tropical Escape",
-                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
-                "price": 62710,
-                "origPrice": 69870,
-                "duration": "4N/5D",
-                "tourId": "tour-wix-bali-tropical-escape",
-                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Singapore City & Gardens",
-                "tag": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
-                "price": 282452,
-                "origPrice": 389783,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-singapore-city-gardens",
-                "img": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Asian Extravaganza",
-                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
-                "price": 294705,
-                "origPrice": 368382,
-                "duration": "10N/11D",
-                "tourId": "tour-wix-asian-extravaganza",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Sakura Moments - The Ultimate Cherry Blossom",
-                "tag": "Handcrafted 7N/6D tour to Tokyo, Kanazawa, Kyoto curated by Comfort Journey since 1992.",
-                "price": 755156,
-                "origPrice": 906187,
-                "duration": "7N/6D",
-                "tourId": "tour-wix-sakura-moments-the-ultimate-cherry-blossom",
-                "img": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    whatYouGet: [
-      { title: "Safe & Vetted Stays", desc: "Female-safe verified boutique hotels, chic private rooms, and social villas with stellar security." },
-      { title: "Pre-Booked Transfers", desc: "Private airport pickups and verified cabs so you never haggle with taxi stands." },
-      { title: "Curated Daily Itinerary", desc: "Tailored to your pace with skip-the-line monument entries, local cafe lists, and hidden viewpoints." },
-      { title: "24/7 WhatsApp Lifeline", desc: "Real human travel curators online 24 hours a day to assist with directions, language, or bookings." },
-      { title: "Zero Hidden Surcharges", desc: "All taxes, fees, and inclusions are transparently fixed upfront. No surprise checkout bills." }
-    ],
-    faqs: [
-      { q: "Is solo travel safe, especially for first-timers and solo female travelers?", a: "100%. Safety is our primary obsession. We only book properties pre-audited for solo female safety, assign background-verified private chauffeurs, and track your trip with 24/7 live WhatsApp concierge support." },
-      { q: "Do I have to pay a massive single supplement fee?", a: "No! We negotiate directly with luxury boutique partners and single-occupancy suites across India and international destinations so you never pay unfair solo markups." },
-      { q: "Can I customize the daily activities or change my pace on the go?", a: "Absolutely. Solo travel is all about freedom. You can sleep in, swap an adventure for a relaxed cafe afternoon, or add private guided tours with zero hassle." },
-      { q: "What happens if I face an emergency or fall ill during the trip?", a: "Your dedicated 24/7 WhatsApp concierge handles hospital coordination, doctor consultations, transport rerouting, or language translation instantly." }
-    ]
-  },
-
-  // 2. FAMILY TRAVEL
   "family-travel": {
-    id: "family-travel",
-    slug: "family-travel",
-    aliases: ["family", "family-trips", "kids-vacation"],
-    metaTitle: "Best Family Tour Packages 2026 | Stress-Free Family Vacations | Comfort Journey",
-    metaDesc: "Finally, a family trip that actually happens. Child-friendly pacing, grandparent-approved luxury comfort, Indian vegetarian food on request, and 24/7 dedicated family concierge.",
-    categoryBadge: "Family Expedition Edition",
-    theme: {
-      accentColor: "#10B981",
-      glowColor: "rgba(16, 185, 129, 0.25)",
-      bgGradient: "radial-gradient(circle at 50% 15%, rgba(6, 95, 70, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
-      heroImage: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1600&q=85",
-      personaMood: "Multi-Gen Harmony & Ease",
-      vibePills: [
-        { label: "🥘 Pure Veg & Jain Pre-Screened", icon: "utensils" },
-        { label: "🛗 Ground-Floor / Elevator Guaranteed", icon: "heart" },
-        { label: "👶 0-Tantrum Kid Pacing", icon: "clock" },
-        { label: "🚐 100% Private Luxury Innova", icon: "car" }
-      ],
-      personaQuote: {
-        author: "Rajesh & Meenakshi Agarwal, Delhi • Traveled with Kids & Grandparents to Kashmir",
-        text: "Traveling with 7 family members across 3 generations usually causes chaos. Comfort Journey handled our parents' wheelchair requests, ensured warm Jain meals at every stop, and the kids had a blast in the snow."
+    "id": "family-travel",
+    "slug": "family-travel",
+    "group": "people",
+    "aliases": [
+      "family",
+      "family-trips",
+      "kids-vacation"
+    ],
+    "metaTitle": "Family tour packages | Comfort Journey",
+    "metaDesc": "Family tour packages with sensible pacing, private cabs and stay choices for kids and grandparents. Get a clear plan and exact quote on WhatsApp.",
+    "focusKeyword": "family tour packages",
+    "secondaryKeywords": [
+      "family holiday packages India",
+      "family vacation packages",
+      "international family holidays",
+      "family trips with kids",
+      "multi generation travel"
+    ],
+    "categoryBadge": "Families with kids",
+    "eyebrow": "Families with kids",
+    "heroHeadline": "Family tour packages with room to breathe",
+    "heroSubline": "Bring the kids, grandparents and the snack bag. We plan sensible days, private travel and stays that let every age enjoy the holiday.",
+    "ctaPrimary": "Ask on WhatsApp",
+    "ctaSecondary": "Browse family packages",
+    "whatsAppMsg": "Hi Comfort Journey, I’m planning a family holiday with kids and grandparents. Please suggest suitable India and international packages.",
+    "vibeTags": [
+      "Easy-pace days",
+      "Private family cabs",
+      "Grandparent-friendly stays",
+      "Snack-break approved"
+    ],
+    "packagesHeading": "Family trips with sensible pacing",
+    "packagesIntro": "Pick a short break, a hill escape or an overseas favourite. We can adjust days, rooms, meals and travel pace for your group.",
+    "storyHeading": "A family holiday should feel like time together",
+    "storyParagraphs": [
+      "Family travel comes with a moving checklist: school holidays, grandparents’ comfort, snacks, nap times and the famous “are we there yet?” We help you turn that list into a workable plan. Choose a slower day, a private cab, rooms that suit your group and stops where everyone can stretch, eat and enjoy the view.",
+      "Since 1992, Comfort Journey has helped travellers plan from Bhopal for India and overseas holidays. You can tell us about a child’s food preference, a parent’s walking limit or the room setup you need. We share pricing upfront, help with visas for international trips and stay available on WhatsApp or phone at +91 87704 03315 during your trip."
+    ],
+    "reasonsHeading": "Details that make family travel easier",
+    "reasons": [
+      {
+        "title": "Days with breathing room",
+        "desc": "We can keep sightseeing realistic, add rest time and leave space for the snack stop that somehow becomes a full meeting.",
+        "icon": "clock"
+      },
+      {
+        "title": "Rooms for every age",
+        "desc": "Choose 3-star to 5-star hotels, palaces or villas. Tell us about lifts, connected rooms or extra space, and we will plan around it.",
+        "icon": "hotel"
+      },
+      {
+        "title": "One private cab for your group",
+        "desc": "Private cabs with drivers keep your family together and make it easier to pause for meals, naps or an unexpected shoe emergency.",
+        "icon": "car"
+      },
+      {
+        "title": "A real person after booking",
+        "desc": "Our team is available 24/7 during trips on WhatsApp or phone, including when plans change or a family member needs help.",
+        "icon": "phone"
       }
+    ],
+    "includedHeading": "What we can arrange",
+    "included": [
+      {
+        "title": "A pace that fits your group",
+        "desc": "Build sightseeing around children’s energy, older travellers’ comfort and the rest stops your family actually needs."
+      },
+      {
+        "title": "Hotel choices with room",
+        "desc": "Select 3-star to 5-star hotels, palaces or villas based on comfort, location and budget."
+      },
+      {
+        "title": "Private cab and driver",
+        "desc": "Travel together in a private cab with a driver for planned sightseeing and practical stops."
+      },
+      {
+        "title": "Meal preferences noted",
+        "desc": "Tell us about vegetarian, Jain, child-friendly or other meal needs before we prepare the plan."
+      },
+      {
+        "title": "International trip support",
+        "desc": "Visa assistance and clear trip details help you prepare for overseas travel with the right documents."
+      }
+    ],
+    "quickAnswer": {
+      "question": "What makes a family tour package easier to book?",
+      "answer": "A family tour package is easier to book when the plan accounts for children, older travellers, meal preferences, room needs and realistic travel time. Comfort Journey can customise India and international itineraries, arrange private cabs with drivers, offer hotel choices from 3-star to 5-star and share the exact quote upfront on WhatsApp."
     },
-    heroHeadline: "Finally, a family trip that actually happens.",
-    heroSubline: "Your kids won't remember the toys. They will remember the trips. Let's get out of the WhatsApp group and into the world.",
-    ctaText: "Let's Plan This Family Vacation",
-    whatsAppMsg: "Hi Comfort Journey! We're planning our next family holiday. Please share family-friendly packages.",
-    openingHeading: "Family Vacations Without the Planning Headache",
-    openingParagraph: `Planning a trip with kids and parents is exhausting. We know. You need a vacation just to recover from planning the vacation.
-
-Between nap times, picky eaters, and making sure Dada-Dadi are comfortable, it is a lot. That is where we come in.
-
-We handle the chaos. You just show up and make the memories.`,
-    whyHitsDifferent: [
+    "faqs": [
       {
-        title: 'No More "Are We There Yet?"',
-        desc: "We plan routes that make sense. Short travel times, private spacious SUVs, plenty of scenic breaks, and zero dragging through 3 connecting flights.",
-        iconType: "car"
+        "q": "Can you plan a family trip with children and grandparents?",
+        "a": "Yes. Tell us the ages, walking comfort, room needs, food preferences and the pace your group prefers. We can customise the itinerary around those details."
       },
       {
-        title: "Food Everyone Actually Eats",
-        desc: "Finding pure veg food abroad or plain pasta for your toddler? Sorted. We pre-screen dining spots so no one goes hungry on our watch.",
-        iconType: "utensils"
+        "q": "Can we choose a slower pace for kids and older parents?",
+        "a": "Yes. We can build in shorter sightseeing days, rest time and practical stops. The right pace depends on the destination, travel time and needs of your group."
       },
       {
-        title: "Dada-Dadi Approved Comfort",
-        desc: "Traveling with grandparents means zero compromises. Ground-floor rooms, elevators, minimal walking, and wheelchair support if needed.",
-        iconType: "heart"
+        "q": "What hotel options do you offer for family holidays?",
+        "a": "You can choose from 3-star to 5-star hotels, as well as palaces and villas where available for the destination. We discuss location, room setup, comfort and budget before sharing options."
       },
       {
-        title: "Pacing That Makes Sense",
-        desc: "We don't pack 10 monuments into one day. We build in pool time, nap time, and keep the vacation vibe relaxed and fun.",
-        iconType: "clock"
+        "q": "Are private cabs available for family packages?",
+        "a": "Private cabs with drivers are available for your family itinerary. They make meal breaks, rest stops and changes easier to manage, subject to the destination and plan."
       },
       {
-        title: "Your 24/7 Family Backup Plan",
-        desc: "Kid got a fever? Flight delayed? Just text us. We fix it while you focus on your family. 30+ years of family travel experience means we've seen it all.",
-        iconType: "shield"
+        "q": "How much do family tour packages cost?",
+        "a": "The price changes with destination, dates, group size, hotel category, flights, meals, activities and the level of customisation. Share your plan on WhatsApp and we will send an exact quote before you book."
+      },
+      {
+        "q": "Can you help with visas for an international family holiday?",
+        "a": "Yes, visa assistance is available for international trips. Requirements and approval timelines depend on the destination and each traveller’s documents, so we will explain the process for your plan."
       }
     ],
-    destinationsIndia: [
-        {
-                "name": "Peace In The Pines",
-                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
-                "price": 94012,
-                "origPrice": 188023,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-peace-in-the-pines",
-                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Heritage & Hills",
-                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 141360,
-                "origPrice": 157067,
-                "duration": "5 Nights & 6 Days",
-                "tourId": "tour-wix-karnataka-heritage-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Peaks & Palaces",
-                "tag": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 90640,
-                "origPrice": 95410,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-karnataka-peaks-palaces",
-                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Goa Weekend Vibe",
-                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
-                "price": 99360,
-                "origPrice": 116894,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-goa-weekend-vibe",
-                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
-                "price": 45885,
-                "origPrice": 48300,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Uttarakhand Explorer",
-                "tag": "A luxurious 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
-                "price": 69575,
-                "origPrice": 77305,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-uttarakhand-explorer",
-                "img": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    destinationsIntl: [
-        {
-                "name": "Phuket Paradise Getaway",
-                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
-                "price": 71047,
-                "origPrice": 170514,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-phuket-paradise-getaway",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Singapore City & Gardens",
-                "tag": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
-                "price": 282452,
-                "origPrice": 389783,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-singapore-city-gardens",
-                "img": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Asian Extravaganza",
-                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
-                "price": 294705,
-                "origPrice": 368382,
-                "duration": "10N/11D",
-                "tourId": "tour-wix-asian-extravaganza",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Dubai City & Sands",
-                "tag": "Handcrafted 4N/5D tour to Dubai curated by Comfort Journey since 1992.",
-                "price": 113503,
-                "origPrice": 136204,
-                "duration": "4N/5D",
-                "tourId": "tour-wix-dubai-city-sands",
-                "img": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Unbeatable Vietnam Premium",
-                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
-                "price": 218554,
-                "origPrice": 218554,
-                "duration": "7N/8D",
-                "tourId": "tour-wix-unbeatable-vietnam-premium",
-                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Bali Tropical Escape",
-                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
-                "price": 62710,
-                "origPrice": 69870,
-                "duration": "4N/5D",
-                "tourId": "tour-wix-bali-tropical-escape",
-                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    whatYouGet: [
-      { title: "Spacious Multi-Room Stays", desc: "Interconnected rooms, 2-bedroom private villas, and family luxury suites." },
-      { title: "Dedicated Private Chauffeur & Vehicle", desc: "Private Innova Crysta / Luxury Van exclusively for your family—no sharing with strangers." },
-      { title: "Tailored Pacing & Meal Preferences", desc: "Jain, pure veg, kids non-spicy meal coordination and leisurely mornings." },
-      { title: "VIP Skip-the-Line Admissions", desc: "Pre-booked entry passes for theme parks, cable cars, and monuments to avoid long standing queues." },
-      { title: "24/7 Family Concierge", desc: "Instant WhatsApp assistance for emergency pharmacy needs, extra baby cots, or itinerary tweaks." }
+    "packageIdsIndia": [
+      "tour-wix-karnataka-heritage-hills",
+      "tour-wix-nainital-jim-corbett",
+      "tour-wix-rajasthan-grand-getaway-2",
+      "tour-wix-andaman-coastal-retreat",
+      "tour-wix-goa-weekend-vibe"
     ],
-    faqs: [
-      { q: "Can you arrange Jain / Pure Vegetarian meals on international trips?", a: "Yes! We specialize in coordinating with verified pure-vegetarian and Jain restaurants across Dubai, Singapore, Bali, Europe, and Thailand, including Indian breakfast options at all our partner hotels." },
-      { q: "Are the vehicles private or shared with other tour groups?", a: "All family packages include 100% private, dedicated air-conditioned vehicles (Innova Crysta / Luxury Van) with licensed family-friendly drivers." },
-      { q: "What if our elderly parents require low-walking options?", a: "We customize the daily itinerary to minimize stairs, arrange golf-buggy and wheelchair assistance at monuments/airports, and book ground-floor or elevator-accessible rooms." }
-    ]
+    "packageIdsIntl": [
+      "tour-wix-singapore-city-gardens",
+      "tour-wix-dubai-city-sands",
+      "tour-wix-bali-tropical-escape",
+      "tour-wix-phuket-paradise-getaway"
+    ],
+    "reviewId": "gr-7",
+    "finalHeading": "Tell us what your family needs",
+    "finalText": "Send your dates, destination and group details on WhatsApp. We’ll suggest a practical plan and share the quote upfront.",
+    "finalCta": "Plan it on WhatsApp",
+    "guide": [
+      "Hi. Planning for the whole family? Scroll, I will keep it simple.",
+      "These trips work well with kids and grandparents. Easy pace, good food, proper rest.",
+      "Snacks, naps and window seats. We plan around them, promise.",
+      "Still deciding? Send us your dates on WhatsApp and we will suggest two good options."
+    ],
+    "theme": {
+      "accentColor": "#0F9D6E",
+      "vibe": "bubbles",
+      "heroImage": "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1920&q=78",
+      "heroImageMobile": "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1920&q=78",
+      "heroFocal": "center 40%"
+    }
   },
-
-  // 3. COUPLE & HONEYMOON
   "couple-honeymoon": {
-    id: "couple-honeymoon",
-    slug: "couple-honeymoon",
-    aliases: ["couple", "honeymoon", "romance"],
-    metaTitle: "Romantic Honeymoon Packages 2026 | Private Pool Villas | Comfort Journey",
-    metaDesc: "Just you, them, and zero planning stress. Handcrafted romantic honeymoons with private pool villas, floating breakfasts, candlelit beach dinners, and dedicated 24/7 concierge.",
-    categoryBadge: "Couple & Honeymoon Edition",
-    theme: {
-      accentColor: "#FB7185",
-      glowColor: "rgba(251, 113, 133, 0.28)",
-      bgGradient: "radial-gradient(circle at 50% 15%, rgba(136, 19, 55, 0.55) 0%, rgba(0, 11, 29, 0.95) 75%)",
-      heroImage: "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=1600&q=85",
-      personaMood: "Intimate Romance & Luxury",
-      vibePills: [
-        { label: "🥂 Private Pool Villa Upgrade", icon: "sparkles" },
-        { label: "🌹 Rose Petal Bath & Candlelight", icon: "heart" },
-        { label: "🌅 Sunset Seashore Dinner For Two", icon: "utensils" },
-        { label: "📸 Complimentary Honeymoon Shoot", icon: "camera" }
-      ],
-      personaQuote: {
-        author: "Karan & Pooja Kapoor, Mumbai • Bali Honeymoon",
-        text: "The private pool villa in Ubud took our breath away. Floating breakfast in the morning, sunset dinner on the cliff, and zero stress with visas or airport transfers. Best decision of our wedding!"
+    "id": "couple-honeymoon",
+    "slug": "couple-honeymoon",
+    "group": "people",
+    "aliases": [
+      "couple",
+      "honeymoon",
+      "romance"
+    ],
+    "metaTitle": "Honeymoon packages for India and abroad | Comfort Journey",
+    "metaDesc": "Plan honeymoon packages around your dates, style and budget. Comfort Journey shares clear quotes, private cab options and WhatsApp help for every trip.",
+    "focusKeyword": "honeymoon packages",
+    "secondaryKeywords": [
+      "couple tour packages",
+      "romantic getaways in India",
+      "honeymoon trips abroad",
+      "anniversary holiday packages",
+      "custom honeymoon itinerary"
+    ],
+    "categoryBadge": "Honeymoon couples",
+    "eyebrow": "Honeymoon couples",
+    "heroHeadline": "Honeymoon plans made for two",
+    "heroSubline": "Pick the place, share your dates, and let the two of you debate sunset dinners versus mountain views. We will sort the travel details.",
+    "ctaPrimary": "Ask on WhatsApp",
+    "ctaSecondary": "Browse couple trips",
+    "whatsAppMsg": "Hi Comfort Journey, we are planning a honeymoon or anniversary trip. Please share couple packages, dates, and a clear quote for two.",
+    "vibeTags": [
+      "Private cab with driver",
+      "Palaces and villas",
+      "Beach or mountain mood",
+      "24/7 trip support"
+    ],
+    "packagesHeading": "Choose your kind of together",
+    "packagesIntro": "Compare island days, hill air and palace stays. We can adjust dates, hotels and pace after you choose a favourite.",
+    "storyHeading": "Your best planning meeting can be a date",
+    "storyParagraphs": [
+      "A honeymoon or anniversary trip should leave room for the good debates: beach or hills, late breakfast or early photos, one more dessert or two. Tell us what you both enjoy, your dates, and your comfort level. We build the plan around the way you like to travel, then share the details clearly.",
+      "Comfort Journey has planned travel from Bhopal since 1992. You get a real person on WhatsApp or phone at +91 87704 03315, including 24/7 support during the trip. Choose a 3-star, 4-star or 5-star hotel, a palace or a villa, then leave the driving to a private cab and driver.",
+      "For an international celebration, we can help with visa steps and shape the itinerary around your time together. The quote comes upfront, so you can spend your planning energy on the fun part: choosing what to wear for the first photo."
+    ],
+    "reasonsHeading": "Why couples choose Comfort Journey",
+    "reasons": [
+      {
+        "title": "Your trip can match both of you",
+        "desc": "One of you wants cafés, the other wants viewpoints. We adjust the route, hotel style and daily pace around both preferences.",
+        "icon": "heart"
+      },
+      {
+        "title": "Clear costs before you commit",
+        "desc": "We share an upfront quote and explain what changes it, so the budget conversation stays calmer than the airport queue.",
+        "icon": "wallet"
+      },
+      {
+        "title": "Help that stays with you",
+        "desc": "A real team answers on WhatsApp or phone, with 24/7 availability during your trip when plans need a quick answer.",
+        "icon": "phone"
+      },
+      {
+        "title": "Stays with room for romance",
+        "desc": "Pick from 3-star to 5-star hotels, plus palaces and villas, based on the mood and budget you share with us.",
+        "icon": "hotel"
       }
+    ],
+    "includedHeading": "What your couple trip can include",
+    "included": [
+      {
+        "title": "Custom itinerary for two",
+        "desc": "We shape destinations, days and stops around your dates, interests and preferred pace."
+      },
+      {
+        "title": "Hotel choice that fits",
+        "desc": "Select 3-star to 5-star hotels, palaces or villas after we discuss your style and budget."
+      },
+      {
+        "title": "Private cab and driver",
+        "desc": "Travel between planned stops in a private cab with a driver arranged for your trip."
+      },
+      {
+        "title": "Visa assistance for abroad",
+        "desc": "For international plans, our team helps you understand the visa process and required documents."
+      },
+      {
+        "title": "Upfront quote and trip support",
+        "desc": "See the quote before booking, then reach real people on WhatsApp or phone during the trip."
+      }
+    ],
+    "quickAnswer": {
+      "question": "How do I choose honeymoon packages that suit us?",
+      "answer": "Start with the mood you both want: beaches, hills, palaces or a city break. Then share your dates, preferred hotel level and budget. Comfort Journey can customise the itinerary, arrange a private cab with driver, and help with visas for international trips. You receive an upfront quote and can ask questions on WhatsApp before booking."
     },
-    heroHeadline: "Just you, them, and zero planning stress.",
-    heroSubline: "Your love story deserves a beautiful backdrop. We handle the boring stuff so you can focus on the butterflies.",
-    ctaText: "Let's Plan This Romantic Date",
-    whatsAppMsg: "Hi Comfort Journey! We're planning our honeymoon/anniversary trip. Please share romantic couple packages.",
-    openingHeading: "Romantic Getaways Handcrafted for Two",
-    openingParagraph: `Remember that look you gave each other? The "let's just go somewhere" look.
-But then you opened 50 tabs and the romance died.
-Planning a honeymoon or anniversary shouldn't feel like a second job.
-We get it. You want the dreamy moments without the logistical nightmares.`,
-    whyHitsDifferent: [
+    "faqs": [
       {
-        title: "We Do the Heavy Lifting",
-        desc: "You pick the vibe. We book the flights, the private pool villas, the candlelit dinners. You just show up and look cute.",
-        iconType: "heart"
+        "q": "Which destinations work well for a honeymoon in India?",
+        "a": "Kashmir suits couples who want mountain views, while Andaman and Goa bring beach time. Rajasthan adds palace stays and heritage, so you can compare the mood before choosing."
       },
       {
-        title: "Surprises That Actually Surprise",
-        desc: "Want to propose? Celebrating 5 years? We set up the champagne, flower beds, and the best sunset views. You take all the credit.",
-        iconType: "sparkles"
+        "q": "Can you customise a couple tour package?",
+        "a": "Yes. Every itinerary can be customised around your dates, interests, hotel choice and preferred pace. Tell us what both of you want to make time for, and we will shape the route around it."
       },
       {
-        title: "Privacy is the True Luxury",
-        desc: "No crowded tourist buses. We find those hidden spots and secluded villas where it feels like you're the only two people in the world.",
-        iconType: "shield"
+        "q": "What changes the price of a honeymoon package?",
+        "a": "The destination, travel dates, hotel category, number of nights, transport and requested extras all affect the price. Exact quotes are shared on WhatsApp after we understand your plan."
       },
       {
-        title: "Transparent Pricing",
-        desc: "We tell you exactly what it costs upfront. No hidden drama. No weird resort taxes popping up at checkout.",
-        iconType: "wallet"
+        "q": "Can we choose a villa, palace or a particular hotel level?",
+        "a": "You can choose from 3-star to 5-star hotels, as well as palaces and villas. We will discuss availability, location and budget before sharing suitable options."
       },
       {
-        title: "30 Years of Romantic Expertise",
-        desc: "After 30 years of planning honeymoons, we know the exact difference between a standard hotel and a genuinely romantic retreat.",
-        iconType: "hotel"
+        "q": "Do you provide visa assistance for international honeymoons?",
+        "a": "Yes, visa assistance is available for international trips. Our team can explain the process and the documents needed for the destination you select."
+      },
+      {
+        "q": "Can we reach someone during our trip?",
+        "a": "Yes. Real people are available on WhatsApp or phone at +91 87704 03315, with 24/7 support during trips. You can contact the team when a travel detail needs a quick answer."
       }
     ],
-    destinationsIndia: [
-        {
-                "name": "Peace In The Pines",
-                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
-                "price": 94012,
-                "origPrice": 188023,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-peace-in-the-pines",
-                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Heritage & Hills",
-                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 141360,
-                "origPrice": 157067,
-                "duration": "5 Nights & 6 Days",
-                "tourId": "tour-wix-karnataka-heritage-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Peaks & Palaces",
-                "tag": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 90640,
-                "origPrice": 95410,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-karnataka-peaks-palaces",
-                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Goa Weekend Vibe",
-                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
-                "price": 99360,
-                "origPrice": 116894,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-goa-weekend-vibe",
-                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
-                "price": 45885,
-                "origPrice": 48300,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Uttarakhand Explorer",
-                "tag": "A luxurious 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
-                "price": 69575,
-                "origPrice": 77305,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-uttarakhand-explorer",
-                "img": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    destinationsIntl: [
-        {
-                "name": "Phuket Paradise Getaway",
-                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
-                "price": 71047,
-                "origPrice": 170514,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-phuket-paradise-getaway",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Unbeatable Vietnam Premium",
-                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
-                "price": 218554,
-                "origPrice": 218554,
-                "duration": "7N/8D",
-                "tourId": "tour-wix-unbeatable-vietnam-premium",
-                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Bali Tropical Escape",
-                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
-                "price": 62710,
-                "origPrice": 69870,
-                "duration": "4N/5D",
-                "tourId": "tour-wix-bali-tropical-escape",
-                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Colombo to the Clouds",
-                "tag": "Handcrafted 5N/6D tour to Colombo curated by Comfort Journey since 1992.",
-                "price": 144904,
-                "origPrice": 166640,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-colombo-to-the-clouds",
-                "img": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Asian Extravaganza",
-                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
-                "price": 294705,
-                "origPrice": 368382,
-                "duration": "10N/11D",
-                "tourId": "tour-wix-asian-extravaganza",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Sakura Moments - The Ultimate Cherry Blossom",
-                "tag": "Handcrafted 7N/6D tour to Tokyo, Kanazawa, Kyoto curated by Comfort Journey since 1992.",
-                "price": 755156,
-                "origPrice": 906187,
-                "duration": "7N/6D",
-                "tourId": "tour-wix-sakura-moments-the-ultimate-cherry-blossom",
-                "img": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    whatYouGet: [
-      { title: "Honeymoon Inclusions & Decor", desc: "Complimentary room flower decor, honeymoon cake, and candlelit dinner on arrival." },
-      { title: "Boutique Private Stays", desc: "Handpicked properties featuring private plunge pools, scenic balconies, and king beds." },
-      { title: "Private Transfers", desc: "Dedicated AC cab with chauffeur throughout your vacation—no shared vehicles." },
-      { title: "Visa & Flight Support", desc: "Complete documentation and flight booking assistance with zero stress." },
-      { title: "24/7 Couples VIP Concierge", desc: "Instant WhatsApp support for restaurant reservations, spa bookings, and local recommendations." }
+    "packageIdsIndia": [
+      "tour-wix-kashmir-valley-calling-2",
+      "tour-wix-andaman-coastal-retreat",
+      "tour-wix-rajasthan-royal-affair",
+      "tour-wix-goa-weekend-vibe"
     ],
-    faqs: [
-      { q: "Can we include private candlelit dinners and honeymoon room decor?", a: "Yes! All our honeymoon packages include special room decor, a celebratory cake, and at least one complimentary private 4-course candlelit dinner." },
-      { q: "Can we split our stay between a jungle villa and a private beach resort?", a: "Yes! In destinations like Bali, we frequently arrange split stays (e.g. 3 nights in a private rainforest pool villa in Ubud + 3 nights in a beachfront resort in Seminyak)." },
-      { q: "What is your cancellation and date reschedule policy for honeymoons?", a: "We provide flexible date modifications and transparent cancellation terms so unexpected wedding date changes don't derail your vacation." }
-    ]
+    "packageIdsIntl": [
+      "tour-wix-bali-tropical-escape",
+      "tour-wix-phuket-paradise-getaway",
+      "tour-wix-unbeatable-vietnam-premium",
+      "tour-wix-essence-of-europe"
+    ],
+    "reviewId": "gr-4",
+    "finalHeading": "Ready to plan your two-person escape?",
+    "finalText": "Send your dates and preferred mood on WhatsApp. We will reply with fitting packages and a clear quote.",
+    "finalCta": "Plan our couple trip",
+    "guide": [
+      "Hello, you two. Let us find a place you will both talk about for years.",
+      "Beach or mountains? This is the fun argument. Pick a favourite each.",
+      "Tell us your wish list. Late breakfasts are allowed.",
+      "Send us your dates. We will reply with a plan you can read together."
+    ],
+    "theme": {
+      "accentColor": "#E11D63",
+      "vibe": "petals",
+      "heroImage": "landing/couple-1920.webp",
+      "heroImageMobile": "landing/couple-960.webp",
+      "heroFocal": "70% center"
+    }
   },
-
-  // 4. GROUP & SQUAD TRAVEL
   "group-travel": {
-    id: "group-travel",
-    slug: "group-travel",
-    aliases: ["group", "friends", "squad-trips"],
-    metaTitle: "Friends & Group Tour Packages 2026 | Group Trips Without Chaos | Comfort Journey",
-    metaDesc: "The trip your group chat has been planning for 3 years? Let's actually make it happen. Split payments, private party villas, flexible bookings, and 24/7 squad support.",
-    categoryBadge: "Squad & Group Travel Edition",
-    theme: {
-      accentColor: "#F59E0B",
-      glowColor: "rgba(245, 158, 11, 0.28)",
-      bgGradient: "radial-gradient(circle at 50% 15%, rgba(120, 53, 15, 0.55) 0%, rgba(0, 11, 29, 0.95) 75%)",
-      heroImage: "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&w=1600&q=85",
-      personaMood: "Squad Energy & High Vibes",
-      vibePills: [
-        { label: "🎵 AUX Cord Road Trips", icon: "sparkles" },
-        { label: "🏡 Private 4BHK Pool Villas", icon: "hotel" },
-        { label: "💳 Individual UPI Split Links", icon: "wallet" },
-        { label: "🚫 Rahul-Proof Flexible Booking", icon: "shield" }
-      ],
-      personaQuote: {
-        author: "Aman, Dhruv & Squad (8 Friends), Pune • Goa Villa Trip",
-        text: "Our college WhatsApp group was stuck in planning limbo for 4 years. Comfort Journey sent each of us separate payment links so nobody was owed money, booked us an insane pool villa in North Goa, and got us private yacht passes. Unforgettable!"
+    "id": "group-travel",
+    "slug": "group-travel",
+    "group": "people",
+    "aliases": [
+      "group",
+      "friends",
+      "squad-trips",
+      "friends-trip"
+    ],
+    "metaTitle": "Friends Group Tour Packages | Comfort Journey",
+    "metaDesc": "Plan a friends trip with private cabs, flexible stays and clear pricing. Explore India and international group tour packages with Comfort Journey.",
+    "focusKeyword": "group tour packages for friends",
+    "secondaryKeywords": [
+      "friends trip packages",
+      "group travel packages",
+      "friends holiday packages",
+      "group tours for friends",
+      "squad trip packages"
+    ],
+    "categoryBadge": "Friends trips",
+    "eyebrow": "Friends trips",
+    "heroHeadline": "Group tour packages for friends who decide",
+    "heroSubline": "Goa, the mountains or an overseas escape. We sort the rooms, cabs and plan while your group chat finally picks a date.",
+    "ctaPrimary": "Ask on WhatsApp",
+    "ctaSecondary": "Browse friend trips",
+    "whatsAppMsg": "Hi Comfort Journey, we are planning a friends trip for our group. Please share suitable packages, dates and an upfront quote.",
+    "vibeTags": [
+      "Rooms that fit the squad",
+      "Private cabs with drivers",
+      "Clear cost per person",
+      "24/7 trip support"
+    ],
+    "packagesHeading": "Trips your group can agree on",
+    "packagesIntro": "Pick a beach break, mountain plan or overseas escape. We can adjust the itinerary, hotels and transport for your crew.",
+    "storyHeading": "The group chat can leave the chat",
+    "storyParagraphs": [
+      "Your group has one expert planner, one person who replies with a thumbs-up, and one friend who asks for the date again. We work with the whole crew, from four friends to a squad of 20, and turn the loose ideas into a practical plan with rooms, travel time and a clear cost for each person.",
+      "Choose a Goa break, a Manali or Leh adventure, a Rishikesh escape, or a longer trip through Meghalaya. For overseas plans, ask about Phuket, Bali, Vietnam, Dubai or the Asian Horizons route. Comfort Journey has planned travel from Bhopal since 1992, with real people available on WhatsApp and phone at +91 87704 03315 during your trip."
+    ],
+    "reasonsHeading": "Why friends book with us",
+    "reasons": [
+      {
+        "title": "Budgets everyone can read",
+        "desc": "We share the price upfront and explain what changes it, so the friend collecting money has fewer awkward follow-up messages.",
+        "icon": "wallet"
+      },
+      {
+        "title": "Rooms planned for real friends",
+        "desc": "Choose hotels from 3-star to 5-star, plus palaces or villas, with room choices discussed before anything is booked.",
+        "icon": "hotel"
+      },
+      {
+        "title": "Your own ride and driver",
+        "desc": "Private cabs with drivers keep the crew together and make stops easier when someone spots a view worth photographing.",
+        "icon": "car"
+      },
+      {
+        "title": "A human when plans wobble",
+        "desc": "Our team stays available on WhatsApp and phone 24/7 during trips, especially when flights, timings or late arrivals change.",
+        "icon": "phone"
       }
+    ],
+    "includedHeading": "What your group can plan",
+    "included": [
+      {
+        "title": "A plan built around your dates",
+        "desc": "Every itinerary can be customised for your group size, interests, pace and available leave."
+      },
+      {
+        "title": "Stay options for the squad",
+        "desc": "Compare 3-star and 5-star hotels, palaces or villas before you choose your rooms."
+      },
+      {
+        "title": "Private cabs with drivers",
+        "desc": "Keep the group together between airports, hotels, sights and the food stop nobody researched."
+      },
+      {
+        "title": "International trip guidance",
+        "desc": "Visa assistance is available for international trips, with destination details explained during planning."
+      },
+      {
+        "title": "A clear quote before booking",
+        "desc": "You receive transparent pricing upfront, with changes explained when dates, rooms or activities change."
+      }
+    ],
+    "quickAnswer": {
+      "question": "How do I plan a group trip for friends?",
+      "answer": "Start with your group size, dates, destination ideas and a comfortable budget. Comfort Journey can customise the itinerary, arrange hotels, private cabs with drivers and activities, then share a clear quote upfront. For international trips, the team can also help with visas and stays. Ask on WhatsApp so everyone can review the same plan."
     },
-    heroHeadline: "The trip your group chat has been planning for 3 years? Let's actually make it happen.",
-    heroSubline: "Stop talking. Start packing. We'll handle the drama, the bookings, and the math. You just handle the memories.",
-    ctaText: "Let's Go (Before Someone Cancels)",
-    whatsAppMsg: "Hi Comfort Journey! We're planning a trip with our friends squad. Please share group vacation packages.",
-    openingHeading: "Turn The Group Chat Into Reality",
-    openingParagraph: `We all have that one WhatsApp group. The one named "Goa 2021" that's now "Goa 2026".
-Someone's always busy. Someone's always broke. Someone's always "checking with their parents".
-Enough. It's time to get out of the group chat and into the group pic.
-Since 1992, we've been turning "maybe next year" into "remember that night?" for over 10,000 travelers.`,
-    whyHitsDifferent: [
+    "faqs": [
       {
-        title: 'No More "Who Owes What"',
-        desc: "Split payments? Sorted. We handle the math so you don't have to chase your friends for money. Nothing ruins a vibe faster than asking for ₹500 back.",
-        iconType: "wallet"
+        "q": "Can you plan a trip for four friends as well as a larger squad?",
+        "a": "Yes. We work with groups from four to 20 friends. Tell us the number of travellers, room preferences and dates, and we will shape the plan around your group."
       },
       {
-        title: 'The "Always Cancels" Friend Insurance',
-        desc: "Flexible bookings because we know someone might bail at the last minute. We build backup plans so the rest of the squad doesn't suffer.",
-        iconType: "shield"
+        "q": "Which destinations suit a friends trip?",
+        "a": "For India, popular starting points include Goa, Manali, Leh, Rishikesh and Meghalaya. You can also ask about Phuket, Bali, Vietnam, Dubai and multi-city Asian plans."
       },
       {
-        title: "Vibe Checks Included",
-        desc: "We book private villas with pools, aesthetic homestays, and spots where your crew can actually be themselves without boring corporate rules.",
-        iconType: "hotel"
+        "q": "Can we choose our hotels and room setup?",
+        "a": "Yes. Hotel choices range from 3-star to 5-star, with palaces and villas available for suitable plans. We discuss room needs before confirming the booking."
       },
       {
-        title: "Zero Planning Stress",
-        desc: "You just show up. We handle the flights, the private bus/cabs, stays, and activities. You don't need 15 tabs open.",
-        iconType: "compass"
+        "q": "How much do friends trip packages cost?",
+        "a": "The price changes with destination, dates, group size, room sharing, transport and activities. Send your details on WhatsApp and we will share an exact quote with the inclusions explained upfront."
       },
       {
-        title: "Local Plugs & Insider Access",
-        desc: "We know the secret sunset spots, the best shacks, and the hidden cafes that aren't overcrowded on Google Maps.",
-        iconType: "star"
+        "q": "Can you customise the itinerary for our group?",
+        "a": "Yes. Every itinerary can be customised around your interests, pace and leave dates. You can ask for more sightseeing, more free time or a different hotel style before the quote is final."
+      },
+      {
+        "q": "Will someone help us during the trip?",
+        "a": "Real people are available on WhatsApp and phone at +91 87704 03315, 24/7 during trips. For international travel, visa assistance is also available during planning."
       }
     ],
-    destinationsIndia: [
-        {
-                "name": "Peace In The Pines",
-                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
-                "price": 94012,
-                "origPrice": 188023,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-peace-in-the-pines",
-                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Heritage & Hills",
-                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 141360,
-                "origPrice": 157067,
-                "duration": "5 Nights & 6 Days",
-                "tourId": "tour-wix-karnataka-heritage-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Peaks & Palaces",
-                "tag": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 90640,
-                "origPrice": 95410,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-karnataka-peaks-palaces",
-                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Goa Weekend Vibe",
-                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
-                "price": 99360,
-                "origPrice": 116894,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-goa-weekend-vibe",
-                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
-                "price": 45885,
-                "origPrice": 48300,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Uttarakhand Explorer",
-                "tag": "A luxurious 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
-                "price": 69575,
-                "origPrice": 77305,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-uttarakhand-explorer",
-                "img": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    destinationsIntl: [
-        {
-                "name": "Phuket Paradise Getaway",
-                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
-                "price": 71047,
-                "origPrice": 170514,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-phuket-paradise-getaway",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Singapore City & Gardens",
-                "tag": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
-                "price": 282452,
-                "origPrice": 389783,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-singapore-city-gardens",
-                "img": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Asian Extravaganza",
-                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
-                "price": 294705,
-                "origPrice": 368382,
-                "duration": "10N/11D",
-                "tourId": "tour-wix-asian-extravaganza",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Dubai City & Sands",
-                "tag": "Handcrafted 4N/5D tour to Dubai curated by Comfort Journey since 1992.",
-                "price": 113503,
-                "origPrice": 136204,
-                "duration": "4N/5D",
-                "tourId": "tour-wix-dubai-city-sands",
-                "img": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Unbeatable Vietnam Premium",
-                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
-                "price": 218554,
-                "origPrice": 218554,
-                "duration": "7N/8D",
-                "tourId": "tour-wix-unbeatable-vietnam-premium",
-                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Bali Tropical Escape",
-                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
-                "price": 62710,
-                "origPrice": 69870,
-                "duration": "4N/5D",
-                "tourId": "tour-wix-bali-tropical-escape",
-                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    whatYouGet: [
-      { title: "Exclusive Private Villas & Group Stays", desc: "Private pool villas and multi-bedroom chalets so your whole squad stays together." },
-      { title: "Private Tempo Traveler / SUV", desc: "Exclusive air-conditioned transport with AUX/Bluetooth for your road trip playlist." },
-      { title: "Individual Split Payment Links", desc: "Each friend can pay their share directly via UPI, Credit Card, or Net Banking." },
-      { title: "Curated Group Activities", desc: "Scuba sessions, bonfire BBQ nights, private boat rentals, and adventure passes." },
-      { title: "24/7 Dedicated Trip Coordinator", desc: "A live manager handling check-ins, table bookings, and late-night transport queries." }
+    "packageIdsIndia": [
+      "tour-wix-goa-weekend-vibe-3",
+      "tour-wix-shimla-to-manali-story-3",
+      "tour-wix-leh-beyond-the-passes",
+      "tour-wix-uttarakhand-explorer-3",
+      "tour-wix-meghalaya-highland-holiday-2"
     ],
-    faqs: [
-      { q: "Can each member of our group pay separately?", a: "Yes! We generate individual payment links for each traveler in your squad so no single person has to collect money or take credit card debt." },
-      { q: "What group size qualifies for private vehicle and villa discounts?", a: "Groups of 4 or more qualify for private dedicated vehicles and exclusive villa pricing with special group discounts." }
-    ]
+    "packageIdsIntl": [
+      "tour-wix-phuket-paradise-getaway",
+      "tour-wix-bali-tropical-escape",
+      "tour-wix-unbeatable-vietnam-premium",
+      "tour-wix-dubai-city-sands",
+      "tour-wix-asian-extravaganza"
+    ],
+    "reviewId": "gr-5",
+    "finalHeading": "Give the group chat a departure date",
+    "finalText": "Share your group size, dates and destination idea. We will reply on WhatsApp with options and a clear quote.",
+    "finalCta": "Plan our friends trip",
+    "guide": [
+      "Hey squad. Before the group chat goes quiet again, have a look.",
+      "Pick one, screenshot it, send it to the group. Majority wins.",
+      "Rooms, cabs, per-person cost. We handle the boring part.",
+      "Got a date? Even a rough one helps. Ping us on WhatsApp."
+    ],
+    "theme": {
+      "accentColor": "#E08A00",
+      "vibe": "confetti",
+      "heroImage": "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&w=1920&q=78",
+      "heroImageMobile": "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&w=1920&q=78",
+      "heroFocal": "center 35%"
+    }
   },
-
-  // 5. CORPORATE TRAVEL
+  "solo-travel": {
+    "id": "solo-travel",
+    "slug": "solo-travel",
+    "group": "people",
+    "aliases": [
+      "solo",
+      "solo-traveler",
+      "backpacking"
+    ],
+    "metaTitle": "Solo travel packages India | Comfort Journey",
+    "metaDesc": "Plan solo travel packages in India with custom routes, private cabs, clear quotes, visa help, and 24/7 human support from Comfort Journey. Enquire today.",
+    "focusKeyword": "solo travel packages",
+    "secondaryKeywords": [
+      "solo travel India",
+      "safe solo trips for women",
+      "solo trip packages India",
+      "first solo trip India",
+      "international solo travel packages"
+    ],
+    "categoryBadge": "Solo travellers",
+    "eyebrow": "Solo travellers",
+    "heroHeadline": "Solo travel packages for your own pace",
+    "heroSubline": "Waiting for the group chat to agree? Plan your India or international trip your way, with real people to call when you need a hand.",
+    "ctaPrimary": "Ask on WhatsApp",
+    "ctaSecondary": "Browse solo packages",
+    "whatsAppMsg": "Hi, I want to plan a solo trip. Please suggest destinations, dates, hotels, and a clear quote for me.",
+    "vibeTags": [
+      "Your pace, your plan",
+      "Private cab option",
+      "24/7 human support",
+      "Clear pricing upfront"
+    ],
+    "packagesHeading": "Solo-friendly trips worth considering",
+    "packagesIntro": "Start with easy-to-plan India breaks or ask about a first international trip. We can adjust the route, stay, and pace around you.",
+    "storyHeading": "Go when your calendar says yes",
+    "storyParagraphs": [
+      "Your friends may love the idea of a trip. Getting them to choose dates is a different sport. Solo travel lets you pick the place, the pace, and the breakfast time without waiting for another poll. For a first trip, that freedom feels even better when your hotel, rides, and daily plan have already been discussed with a real travel team.",
+      "Comfort Journey has planned holidays from Bhopal since 1992. You can ask for a private cab with a driver, choose a 3-star or 5-star stay, or discuss a palace or villa. If you are travelling abroad, the team can provide visa assistance. During the trip, real people remain reachable on WhatsApp or phone 24/7."
+    ],
+    "reasonsHeading": "Support that makes solo travel feel doable",
+    "reasons": [
+      {
+        "title": "A real person when plans wobble",
+        "desc": "Message a real person on WhatsApp or call +91 87704 03315 while you are travelling, with 24/7 trip support.",
+        "icon": "phone"
+      },
+      {
+        "title": "Your day can follow your pace",
+        "desc": "Choose a slower morning, a longer market stop, or a different route. Every itinerary can be customised around you.",
+        "icon": "compass"
+      },
+      {
+        "title": "Private rides reduce small worries",
+        "desc": "Private cabs with drivers keep airport and sightseeing transfers planned, so you spend less time negotiating unfamiliar rides.",
+        "icon": "car"
+      },
+      {
+        "title": "Clear costs before you decide",
+        "desc": "Hotel category, dates, transport, and activities affect the quote. Comfort Journey shares the price breakdown upfront.",
+        "icon": "wallet"
+      }
+    ],
+    "includedHeading": "What your solo plan can include",
+    "included": [
+      {
+        "title": "Trip plan made around you",
+        "desc": "Your itinerary can be adjusted for pace, interests, dates, and the amount of free time you want."
+      },
+      {
+        "title": "Hotels that match your stay",
+        "desc": "Choose from 3-star to 5-star hotels, palaces, or villas, based on your plan and budget."
+      },
+      {
+        "title": "Private cabs with drivers",
+        "desc": "Planned transfers and sightseeing rides help you move around with less guesswork."
+      },
+      {
+        "title": "Real WhatsApp and phone help",
+        "desc": "A real team is available 24/7 during your trip on WhatsApp or +91 87704 03315."
+      },
+      {
+        "title": "Visa assistance for international trips",
+        "desc": "Get help with the visa process when your international plan requires it."
+      }
+    ],
+    "quickAnswer": {
+      "question": "What are the best solo travel packages for first-timers?",
+      "answer": "First-time solo travellers often prefer a clear plan, manageable transfers, and time to explore at their own pace. Comfort Journey can customise India trips such as Goa, Rishikesh, Himachal, or Kashmir, plus international options including Bali, Vietnam, and Singapore. You choose the dates and hotel level, then receive an upfront quote and a real WhatsApp contact for trip support."
+    },
+    "faqs": [
+      {
+        "q": "Is solo travel in India safe for first-timers and solo women?",
+        "a": "Safety depends on the destination, timing, local conditions, and choices made during the trip. Comfort Journey can discuss hotel areas, planned transfers, private cabs with drivers, and a pace that suits you. A real team is available on WhatsApp or phone 24/7 during the trip."
+      },
+      {
+        "q": "Can I customise a solo travel package?",
+        "a": "Yes. Every itinerary can be customised around your dates, interests, pace, hotel choice, and transport needs. Tell the team what you want to spend more time doing, and they will share suitable options."
+      },
+      {
+        "q": "Which destinations suit a first solo trip?",
+        "a": "Goa, Rishikesh and Mussoorie, or Shimla and Manali are useful starting points to discuss for an India trip. For international travel, ask about Bali, Vietnam, Singapore, Sri Lanka, or Japan based on your dates, budget, and comfort with travel time."
+      },
+      {
+        "q": "What does a solo travel package cost?",
+        "a": "The price changes with destination, travel dates, hotel category, room occupancy, transport, sightseeing, and visa needs. Share your plan on WhatsApp for an exact quote; Comfort Journey explains the inclusions and price upfront."
+      },
+      {
+        "q": "Can you plan international solo trips from India?",
+        "a": "Yes. You can ask about Bali, Vietnam, Singapore, Sri Lanka, Japan, and other international tours in the catalogue. Comfort Journey can discuss the itinerary, hotel choice, planned transport, and visa assistance, then share an exact quote on WhatsApp."
+      },
+      {
+        "q": "What support do I get after booking?",
+        "a": "You can contact real people for help with your travel plans and practical questions. During your trip, WhatsApp and phone support is available 24/7, and the team can help you understand the arrangements already confirmed."
+      }
+    ],
+    "packageIdsIndia": [
+      "tour-wix-goa-weekend-vibe",
+      "tour-wix-uttarakhand-explorer-3",
+      "tour-wix-shimla-to-manali-story-3",
+      "tour-wix-kashmir-valley-calling-2"
+    ],
+    "packageIdsIntl": [
+      "tour-wix-bali-tropical-escape",
+      "tour-wix-unbeatable-vietnam-premium",
+      "tour-wix-singapore-city-gardens",
+      "tour-wix-colombo-to-the-clouds",
+      "tour-wix-sakura-moments-the-ultimate-cherry-blossom"
+    ],
+    "reviewId": null,
+    "finalHeading": "Your solo plan can start here",
+    "finalText": "Tell us where you want to go, your dates, and your preferred hotel level. We will reply with options and an upfront quote.",
+    "finalCta": "Plan my solo trip",
+    "guide": [
+      "Going on your own? Good choice. We have your back the whole way.",
+      "These trips are easy to do solo, with friendly stays and safe transfers.",
+      "You choose the pace. We stay a message away.",
+      "Nervous about the first trip? Ask us anything on WhatsApp, no pressure."
+    ],
+    "theme": {
+      "accentColor": "#0E7490",
+      "vibe": "fireflies",
+      "heroImage": "landing/solo-1920.webp",
+      "heroImageMobile": "landing/solo-960.webp",
+      "heroFocal": "72% center"
+    }
+  },
   "corporate-travel": {
-    id: "corporate-travel",
-    slug: "corporate-travel",
-    aliases: ["corporate", "offsites", "business-retreats"],
-    metaTitle: "Corporate Tour Packages & Team Offsites 2026 | Comfort Journey",
-    metaDesc: "Team offsites that don't suck. GST-compliant corporate retreats, executive leadership conferences, luxury team building, and transparent billing since 1992.",
-    categoryBadge: "Corporate Offsite & MICE Edition",
-    theme: {
-      accentColor: "#38BDF8",
-      glowColor: "rgba(56, 189, 248, 0.25)",
-      bgGradient: "radial-gradient(circle at 50% 15%, rgba(12, 74, 110, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
-      heroImage: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=85",
-      personaMood: "Executive Leadership & Team Morale",
-      vibePills: [
-        { label: "🧾 100% GST Tax Invoice & POs", icon: "wallet" },
-        { label: "⚡ 24h Quotation SLA for HR & Finance", icon: "clock" },
-        { label: "🎤 AV & High-Speed Conference Facilities", icon: "sparkles" },
-        { label: "🍸 Private Sundowner Gala Dinners", icon: "utensils" }
-      ],
-      personaQuote: {
-        author: "Vikram Malhotra, Head of HR • 65-Person Annual Retreat in Goa",
-        text: "Zero logistical headaches. Rooming lists were executed flawlessly, airport shuttles were on time to the minute, and our employees rated the team gala 9.8/10."
+    "id": "corporate-travel",
+    "slug": "corporate-travel",
+    "group": "people",
+    "aliases": [
+      "corporate",
+      "offsites",
+      "business-retreats",
+      "mice"
+    ],
+    "metaTitle": "Corporate offsite packages | Comfort Journey",
+    "metaDesc": "Plan corporate offsite packages with one point of contact, GST invoices and 24/7 trip support. Get a clear, custom quote from Comfort Journey.",
+    "focusKeyword": "corporate offsite packages",
+    "secondaryKeywords": [
+      "corporate tour packages",
+      "MICE travel India",
+      "corporate retreat packages",
+      "company offsite packages",
+      "incentive trips India"
+    ],
+    "categoryBadge": "Corporate travel teams",
+    "eyebrow": "Corporate travel teams",
+    "heroHeadline": "Corporate offsite packages with fewer fire drills",
+    "heroSubline": "Give your team a trip worth joining while you keep approvals, rooming lists and transport in one clear plan.",
+    "ctaPrimary": "Enquire on WhatsApp",
+    "ctaSecondary": "Browse corporate trips",
+    "whatsAppMsg": "Hi Comfort Journey, I am planning a corporate offsite or MICE trip. Please share suitable packages, inclusions and a custom GST quote.",
+    "vibeTags": [
+      "One point of contact",
+      "GST invoice ready",
+      "24/7 trip support",
+      "Custom rooming plans"
+    ],
+    "packagesHeading": "Trips your team can actually enjoy",
+    "packagesIntro": "Choose a ready route, then adjust dates, hotels, transport and activities for your group. International trips include visa assistance.",
+    "storyHeading": "Keep your name on the invite and out of the blame list",
+    "storyParagraphs": [
+      "You are the person everyone messages when a hotel room is missing, a transfer is late, or the agenda needs changing. Comfort Journey gives your team one real point of contact from the first WhatsApp message to the return trip. We build a plan around your dates, group size, hotel preference and work schedule, so the offsite feels organised before anyone boards a flight.",
+      "Since 1992, our Bhopal team has planned travel for people who want clear answers before they approve a budget. You can choose 3-star to 5-star hotels, palaces or villas, along with private cabs and drivers. For international plans, we can assist with visas. Prices are shared upfront, so finance sees the same plan as you do.",
+      "During the trip, real people remain available on WhatsApp and phone at +91 87704 03315, 24/7. That matters when a flight time shifts or someone asks a question at an unreasonable hour. Your team can enjoy the destination while you have a clear place to take the next practical question."
+    ],
+    "reasonsHeading": "Why planners choose Comfort Journey",
+    "reasons": [
+      {
+        "title": "One person owns the thread",
+        "desc": "A single contact keeps dates, rooming lists, transport details and changes in one working conversation.",
+        "icon": "users"
+      },
+      {
+        "title": "Quotes finance can read",
+        "desc": "Transparent pricing is shared upfront, with GST invoices that give finance a clear record for approvals.",
+        "icon": "wallet"
+      },
+      {
+        "title": "Hotels that fit the brief",
+        "desc": "Pick from 3-star to 5-star hotels, plus palaces or villas when the setting matters to your team.",
+        "icon": "hotel"
+      },
+      {
+        "title": "Help after the booking",
+        "desc": "Real people stay available by WhatsApp and phone 24/7 during the trip, including when plans need a quick answer.",
+        "icon": "phone"
       }
+    ],
+    "includedHeading": "Built around the details HR tracks",
+    "included": [
+      {
+        "title": "Custom itinerary planning",
+        "desc": "Adjust the route, dates, pacing and activities around your group’s work calendar."
+      },
+      {
+        "title": "Rooming list coordination",
+        "desc": "Share room preferences and changes in one place so the hotel plan stays usable."
+      },
+      {
+        "title": "Private cabs with drivers",
+        "desc": "Plan group transfers with private cabs and drivers for the agreed route and schedule."
+      },
+      {
+        "title": "GST invoices and clear quotes",
+        "desc": "Receive transparent pricing upfront and GST invoices suited to company records."
+      },
+      {
+        "title": "Conference spaces and AV",
+        "desc": "Ask about conference halls, Wi-Fi, projectors and stage setup when the offsite includes work sessions."
+      }
+    ],
+    "quickAnswer": {
+      "question": "Can Comfort Journey plan a corporate offsite with GST billing and custom arrangements?",
+      "answer": "Yes. Comfort Journey plans domestic and international corporate offsites with a custom itinerary, hotel options from 3-star to 5-star plus palaces or villas, private cabs with drivers, GST invoices and visa assistance for overseas trips. Dates, group size, hotel level, transport and activities change the price. A clear quote is shared upfront on WhatsApp."
     },
-    heroHeadline: "Team offsites that don't suck.",
-    heroSubline: "Finally, corporate trips your team actually wants to go on. Real bonding, luxury stays, and zero logistics headache.",
-    ctaText: "Plan Our Corporate Offsite",
-    whatsAppMsg: "Hi Comfort Journey! We're planning a corporate team offsite/conference. Please share corporate packages and GST quotation.",
-    openingHeading: "Corporate Retreats That Boost Retention & Morale",
-    openingParagraph: `You are tired of planning team trips. The endless emails. The budget approvals. The logistics headache.
-Your team is tired of boring conference rooms. They want real connection. They want to actually enjoy the offsite.
-We get it. We have been doing this for 30+ years. We know how to make HR happy and the team thrilled.
-Let us handle the headache. You just take the credit.`,
-    whyHitsDifferent: [
+    "faqs": [
       {
-        title: "No Cringe Team Building",
-        desc: "Forget awkward trust falls. We organize high-energy activities people actually talk about at the water cooler—sailing, BBQ nights, off-road trails.",
-        iconType: "users"
+        "q": "Can you plan a corporate offsite around our dates and work schedule?",
+        "a": "Yes. Every itinerary can be customised around your dates, group size, meeting time and preferred pace. Share the basic brief on WhatsApp and the team will suggest suitable routes."
       },
       {
-        title: "GST Invoices & Fast Approvals",
-        desc: "Clear itemized numbers, corporate GST invoicing, and transparent quotation so your finance team approves within 24 hours.",
-        iconType: "wallet"
+        "q": "What changes the price of a corporate tour package?",
+        "a": "The quote changes with destination, travel dates, group size, hotel category, room setup, transport, meals, activities and flights. Comfort Journey shares an exact quote on WhatsApp after reviewing those details."
       },
       {
-        title: "End-to-End Logistics",
-        desc: "Flight group blocks, luxury airport coaches, hotel rooming lists, dietary preferences, AV setup, and gala dinners. You don't lift a finger.",
-        iconType: "compass"
+        "q": "Do you provide GST invoices for company travel?",
+        "a": "Yes. Comfort Journey provides GST invoices and transparent pricing shared upfront. Tell us any company billing details when you request the quote."
       },
       {
-        title: "Real Morale & Retention ROI",
-        desc: "A well-executed offsite pays for itself in cross-team trust, improved productivity, and employee retention.",
-        iconType: "star"
+        "q": "Can you arrange rooming lists and transport for a group?",
+        "a": "Yes. The team can coordinate rooming lists, private cabs with drivers and agreed transfer plans. Conference halls, AV and airport coach arrangements can also be discussed where the itinerary needs them."
       },
       {
-        title: "30+ Years of Corporate Trust",
-        desc: "We're not a rookie startup. We've moved 10,000+ corporate travelers with 100% on-time execution.",
-        iconType: "shield"
+        "q": "Do you handle international incentive trips and visas?",
+        "a": "Yes. Choose international packages such as Dubai, Singapore, Thailand or Vietnam, then ask for changes to suit your group. Visa assistance is available for international trips, and the final quote is shared on WhatsApp."
+      },
+      {
+        "q": "Will someone help us during the trip?",
+        "a": "Yes. Real people are available on WhatsApp and phone at +91 87704 03315, 24/7 during trips. That gives the person coordinating the group a direct place to ask for help when plans change."
       }
     ],
-    destinationsIndia: [
-        {
-                "name": "Peace In The Pines",
-                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
-                "price": 94012,
-                "origPrice": 188023,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-peace-in-the-pines",
-                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Heritage & Hills",
-                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 141360,
-                "origPrice": 157067,
-                "duration": "5 Nights & 6 Days",
-                "tourId": "tour-wix-karnataka-heritage-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Peaks & Palaces",
-                "tag": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 90640,
-                "origPrice": 95410,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-karnataka-peaks-palaces",
-                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Goa Weekend Vibe",
-                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
-                "price": 99360,
-                "origPrice": 116894,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-goa-weekend-vibe",
-                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
-                "price": 45885,
-                "origPrice": 48300,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Uttarakhand Explorer",
-                "tag": "A luxurious 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
-                "price": 69575,
-                "origPrice": 77305,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-uttarakhand-explorer",
-                "img": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    destinationsIntl: [
-        {
-                "name": "Unbeatable Vietnam Premium",
-                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
-                "price": 218554,
-                "origPrice": 218554,
-                "duration": "7N/8D",
-                "tourId": "tour-wix-unbeatable-vietnam-premium",
-                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Singapore City & Gardens",
-                "tag": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
-                "price": 282452,
-                "origPrice": 389783,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-singapore-city-gardens",
-                "img": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Asian Extravaganza",
-                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
-                "price": 294705,
-                "origPrice": 368382,
-                "duration": "10N/11D",
-                "tourId": "tour-wix-asian-extravaganza",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Dubai City & Sands",
-                "tag": "Handcrafted 4N/5D tour to Dubai curated by Comfort Journey since 1992.",
-                "price": 113503,
-                "origPrice": 136204,
-                "duration": "4N/5D",
-                "tourId": "tour-wix-dubai-city-sands",
-                "img": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Phuket Paradise Getaway",
-                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
-                "price": 71047,
-                "origPrice": 170514,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-phuket-paradise-getaway",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Bali Tropical Escape",
-                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
-                "price": 62710,
-                "origPrice": 69870,
-                "duration": "4N/5D",
-                "tourId": "tour-wix-bali-tropical-escape",
-                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    whatYouGet: [
-      { title: "GST Compliant Invoicing & PO Support", desc: "Transparent accounting with formal corporate invoices, GST credit, and purchase order processing." },
-      { title: "Conference Hall & AV Facilities", desc: "Pre-checked conference halls, high-speed Wi-Fi, projectors, and stage setups." },
-      { title: "Dedicated On-Ground Event Manager", desc: "A seasoned event coordinator on-site to handle logistics, room check-ins, and transport schedules." },
-      { title: "Custom Gala Dinners & DJ Nights", desc: "Arranged cocktail evenings, sound systems, bespoke menus, and awards stage setup." }
+    "packageIdsIndia": [
+      "tour-wix-goa-weekend-vibe",
+      "tour-wix-uttarakhand-explorer-3",
+      "tour-wix-rajasthan-grand-getaway-2",
+      "tour-wix-bhopal-ujjain-indore-4n-5d"
     ],
-    faqs: [
-      { q: "Do you provide formal GST invoices for corporate tax deductions?", a: "Yes, 100%. We provide standard GST-compliant corporate invoices with itemized billing for easy tax input credit." },
-      { q: "Can you manage flight ticket blocks for 20–200 employees across multiple cities?", a: "Yes. Our airline group ticketing desk handles multi-origin flight blocks, name changes, and airport coach transfers seamlessly." }
-    ]
+    "packageIdsIntl": [
+      "tour-wix-dubai-city-sands",
+      "tour-wix-singapore-city-gardens",
+      "tour-wix-unbeatable-vietnam-premium",
+      "tour-wix-phuket-paradise-getaway"
+    ],
+    "reviewId": "gr-8",
+    "finalHeading": "Ready to make the plan people thank you for?",
+    "finalText": "Send your dates, group size and rough brief. We will reply with suitable routes and a clear WhatsApp quote.",
+    "finalCta": "Start on WhatsApp",
+    "guide": [
+      "Planning an offsite? Let us make you look good in front of the team.",
+      "These places work well for groups, sessions and some proper downtime.",
+      "One point of contact, clear costs, fewer late-night calls.",
+      "Share headcount and dates. We will send a clear proposal."
+    ],
+    "theme": {
+      "accentColor": "#2563EB",
+      "vibe": "none",
+      "heroImage": "landing/corporate-1920.webp",
+      "heroImageMobile": "landing/corporate-960.webp",
+      "heroFocal": "68% center"
+    }
   },
-
-  // 6. SCHOOL & COLLEGE TRIPS
   "school-college-trips": {
-    id: "school-college-trips",
-    slug: "school-college-trips",
-    aliases: ["school", "college", "educational-trips", "student-travel"],
-    metaTitle: "Educational School & College Tour Packages 2026 | Comfort Journey",
-    metaDesc: "Textbooks are boring. Let's go outside. 100% safe, verified, and engaging educational study tours for schools & colleges with 24/7 on-ground tracking since 1992.",
-    categoryBadge: "Educational & Student Travel",
-    theme: {
-      accentColor: "#A78BFA",
-      glowColor: "rgba(167, 139, 250, 0.25)",
-      bgGradient: "radial-gradient(circle at 50% 15%, rgba(76, 29, 149, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
-      heroImage: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=85",
-      personaMood: "Experiential Learning & Wonder",
-      vibePills: [
-        { label: "📍 GPS Live Bus Tracking for Parents", icon: "shield" },
-        { label: "👩‍💼 Female Tour Marshals 24/7", icon: "heart" },
-        { label: "📜 Curriculum-Mapped Field Excursions", icon: "sparkles" },
-        { label: "🏥 Certified First-Aid Personnel", icon: "shield" }
-      ],
-      personaQuote: {
-        author: "Dr. Sunita Sharma, Senior Academic Coordinator, Indore",
-        text: "Comfort Journey has organized our school's annual science and heritage excursions for 6 years straight. The safety protocols, hygienic meal audits, and student engagement are gold standard."
+    "id": "school-college-trips",
+    "slug": "school-college-trips",
+    "group": "people",
+    "aliases": [
+      "school",
+      "college",
+      "educational-trips",
+      "student-travel"
+    ],
+    "metaTitle": "School Educational Tour Packages | Comfort Journey",
+    "metaDesc": "School educational tour packages with heritage routes, clear planning and 24/7 trip support. Ask Comfort Journey for a custom quote on WhatsApp.",
+    "focusKeyword": "school educational tour packages",
+    "secondaryKeywords": [
+      "college trip packages",
+      "educational tour packages in India",
+      "school heritage tours",
+      "student group tour packages",
+      "school study tours"
+    ],
+    "categoryBadge": "School and college trips",
+    "eyebrow": "School and college trips",
+    "heroHeadline": "School educational tours beyond the classroom",
+    "heroSubline": "Give students real places to study and give teachers a plan they can approve. Custom routes, clear pricing and support from Bhopal to the final stop.",
+    "ctaPrimary": "Plan our school trip",
+    "ctaSecondary": "Browse trip packages",
+    "whatsAppMsg": "Hi Comfort Journey, I am planning a school or college educational tour. Please share suitable packages, inclusions, safety details and an upfront quote.",
+    "vibeTags": [
+      "Parent-ready planning",
+      "Heritage in real life",
+      "Clear group budgets",
+      "24/7 trip support"
+    ],
+    "packagesHeading": "Routes students can learn from",
+    "packagesIntro": "Pick a heritage, nature or city route, then ask us to adjust the pace, hotels and visits for your approval process.",
+    "storyHeading": "A trip plan adults can stand behind",
+    "storyParagraphs": [
+      "Getting approval for a student trip means answering practical questions before anyone boards a bus. Where will the group stay? How will meals work? Which visits support the syllabus? Comfort Journey helps principals, teachers, trip coordinators and parents work through those details before the itinerary is confirmed.",
+      "Founded in Bhopal by Sharad Kumar Mishra in 1992, Comfort Journey has spent decades planning travel for groups and families. You can discuss private cabs with drivers, hotel choices from 3-star to 5-star, or palaces and villas where they suit the group and route.",
+      "Students get something to talk about after class: a fort they can walk through, a city whose history feels close, or a landscape that makes a lesson stick. Adults get transparent pricing shared upfront and a real person on WhatsApp or phone 24/7 during the trip."
+    ],
+    "reasonsHeading": "Why coordinators choose Comfort Journey",
+    "reasons": [
+      {
+        "title": "Planning support for adults",
+        "desc": "We help principals, teachers and parents compare routes, timings, hotels, meals and permissions before anyone confirms.",
+        "icon": "users"
+      },
+      {
+        "title": "Learning built into the route",
+        "desc": "Choose heritage, nature or city routes that give students places to observe, discuss and remember after the bus ride home.",
+        "icon": "book"
+      },
+      {
+        "title": "Clear costs before approval",
+        "desc": "We share pricing upfront and explain what changes it, including hotel level, transport, meals, dates and group requirements.",
+        "icon": "wallet"
+      },
+      {
+        "title": "A real team during travel",
+        "desc": "People answer on WhatsApp or phone 24/7 during trips, so coordinators can raise a question and get practical help.",
+        "icon": "phone"
       }
+    ],
+    "includedHeading": "Build the trip around your group",
+    "included": [
+      {
+        "title": "Private cabs with drivers",
+        "desc": "Private cabs with drivers can be arranged for smaller groups and approved routes."
+      },
+      {
+        "title": "Hotel choices for your brief",
+        "desc": "Choose from 3-star to 5-star hotels, palaces or villas where suitable."
+      },
+      {
+        "title": "Meals and dietary planning",
+        "desc": "Discuss meal timing, preferred food and student needs while planning the itinerary."
+      },
+      {
+        "title": "Visa help for overseas trips",
+        "desc": "For international tours, the team helps with visa paperwork and practical preparation."
+      },
+      {
+        "title": "Tickets and guide coordination",
+        "desc": "Add entry tickets, local guides and visit timings to match your group's learning goals."
+      }
+    ],
+    "quickAnswer": {
+      "question": "How do I choose school educational tour packages?",
+      "answer": "Choose the learning aim first, then compare travel time, hotel level, meals, supervision needs, entry tickets and total cost. Comfort Journey can customise the itinerary for a school or college group, share pricing upfront and support coordinators on WhatsApp or phone 24/7 during the trip. Ask for a route that fits your approval process."
     },
-    heroHeadline: "Textbooks Are Boring. Let's Go Outside.",
-    heroSubline: "Safe, organized, and actually fun educational trips. Because the best lessons happen when you're not looking at a whiteboard.",
-    ctaText: "Plan The Best Trip Ever",
-    whatsAppMsg: "Hi Comfort Journey! We are organizing a school/college educational tour. Please share student packages and safety protocols.",
-    openingHeading: "Safe, Engaging & Memorable Student Expeditions",
-    openingParagraph: `Taking 50+ students on a trip sounds like a logistical nightmare. We get it.
-The permissions. The endless parent questions. The fear of someone wandering off.
-It's enough to make any teacher say "never mind."
-What if the chaos was handled by pros who have been doing this since 1992?
-We handle the headaches. You get the credit for being the cool teacher.`,
-    whyHitsDifferent: [
+    "faqs": [
       {
-        title: "Safety First, Always",
-        desc: "No compromises. Vetted student-safe hotels, GPS-tracked buses, background-checked staff, and 24/7 on-ground medical support.",
-        iconType: "shield"
+        "q": "How can a school start planning an educational tour?",
+        "a": "Share your preferred dates, departure city, student age group, approximate group size and learning goals on WhatsApp. We can then suggest suitable routes and explain the practical details before you seek final approval."
       },
       {
-        title: "Zero Coordination Headaches",
-        desc: "From bus seating charts to special food allergies, we sort it all out. We handle entry tickets, guide badges, and meals.",
-        iconType: "compass"
+        "q": "Which destinations work well for educational tours in India?",
+        "a": "Heritage routes such as Gwalior and Orchha, Agra, Jaipur, Varanasi and Madhya Pradesh give students plenty to discuss. Jabalpur and Pachmarhi suit groups looking for nature, geography and outdoor learning."
       },
       {
-        title: "Actually Educational",
-        desc: "We tie real-world excursions to school curricula—history at ancient forts, biology in national parks, astronomy in high mountains.",
-        iconType: "star"
+        "q": "Can the itinerary be customised for our students?",
+        "a": "Yes. Every itinerary can be customised around your dates, learning goals, pace, hotel preference and planned visits. Tell us which stops matter most, and we will shape the route around the group."
       },
       {
-        title: "Budget-Friendly Student Rates",
-        desc: "Group rates negotiated directly with transport and hotel partners so every student gets a fair chance to participate.",
-        iconType: "wallet"
+        "q": "How much do school and college trip packages cost?",
+        "a": "The price changes with dates, group size, route, hotel level, transport, meals, entry tickets and any custom requests. We share an exact quote on WhatsApp after understanding those details, so your committee can review the real inclusions."
       },
       {
-        title: "30+ Years of School Trust",
-        desc: "Over 3 decades of taking schools and colleges on seamless, incident-free domestic and international study tours.",
-        iconType: "hotel"
+        "q": "What support is available during a student trip?",
+        "a": "A real Comfort Journey team is available on WhatsApp and phone 24/7 during trips. During planning, you can also discuss supervision needs, room arrangements, transport and emergency contact details."
+      },
+      {
+        "q": "Can you arrange an international educational trip?",
+        "a": "Yes, international options such as Singapore can be discussed for suitable groups and schedules. Visa requirements and documents depend on the travellers and destination, and the team provides visa assistance before sharing an exact quote on WhatsApp."
       }
     ],
-    destinationsIndia: [
-        {
-                "name": "Peace In The Pines",
-                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
-                "price": 94012,
-                "origPrice": 188023,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-peace-in-the-pines",
-                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Heritage & Hills",
-                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 141360,
-                "origPrice": 157067,
-                "duration": "5 Nights & 6 Days",
-                "tourId": "tour-wix-karnataka-heritage-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Peaks & Palaces",
-                "tag": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 90640,
-                "origPrice": 95410,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-karnataka-peaks-palaces",
-                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Goa Weekend Vibe",
-                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
-                "price": 99360,
-                "origPrice": 116894,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-goa-weekend-vibe",
-                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
-                "price": 45885,
-                "origPrice": 48300,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A premium 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 4-star hotels, Innova transportation, and curated sightseeing.",
-                "price": 64515,
-                "origPrice": 71683,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills-2",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    destinationsIntl: [
-        {
-                "name": "Singapore City & Gardens",
-                "tag": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
-                "price": 282452,
-                "origPrice": 389783,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-singapore-city-gardens",
-                "img": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Asian Extravaganza",
-                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
-                "price": 294705,
-                "origPrice": 368382,
-                "duration": "10N/11D",
-                "tourId": "tour-wix-asian-extravaganza",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Dubai City & Sands",
-                "tag": "Handcrafted 4N/5D tour to Dubai curated by Comfort Journey since 1992.",
-                "price": 113503,
-                "origPrice": 136204,
-                "duration": "4N/5D",
-                "tourId": "tour-wix-dubai-city-sands",
-                "img": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Phuket Paradise Getaway",
-                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
-                "price": 71047,
-                "origPrice": 170514,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-phuket-paradise-getaway",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Unbeatable Vietnam Premium",
-                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
-                "price": 218554,
-                "origPrice": 218554,
-                "duration": "7N/8D",
-                "tourId": "tour-wix-unbeatable-vietnam-premium",
-                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Bali Tropical Escape",
-                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
-                "price": 62710,
-                "origPrice": 69870,
-                "duration": "4N/5D",
-                "tourId": "tour-wix-bali-tropical-escape",
-                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    whatYouGet: [
-      { title: "24/7 Security & Female Tour Marshals", desc: "Dedicated security escorts and female managers on every student trip." },
-      { title: "Nutritious Hygienic Meals", desc: "Pre-inspected buffet dining with fresh, hygienic Indian food." },
-      { title: "Teacher Travel Sponsorship", desc: "Complimentary accommodation and travel for accompanying faculty coordinators." },
-      { title: "Comprehensive Student Travel Insurance", desc: "Accident and medical insurance coverage included for all students." }
+    "packageIdsIndia": [
+      "tour-wix-royal-mp-route",
+      "tour-wix-bhopal-ujjain-indore-4n-5d",
+      "tour-wix-taj-temples-tales",
+      "tour-wix-rajasthan-grand-getaway-2",
+      "tour-wix-madhya-pradesh-wildside-2",
+      "tour-wix-madhya-pradesh-nature-retreat-3"
     ],
-    faqs: [
-      { q: "How do you ensure student safety throughout the trip?", a: "We deploy GPS-tracked transport, book secure floors at vetted hotels with night guards, assign female tour managers, and provide daily live WhatsApp updates to parents." }
-    ]
+    "packageIdsIntl": [
+      "tour-wix-singapore-city-gardens"
+    ],
+    "reviewId": "gr-8",
+    "finalHeading": "Give your group a trip worth approving",
+    "finalText": "Tell us the class, dates and learning goals. We will suggest a practical route and share an upfront quote on WhatsApp.",
+    "finalCta": "Message us on WhatsApp",
+    "guide": [
+      "Hello teachers. Let us plan a trip parents will happily sign off on.",
+      "Learning-friendly routes with history, nature and a little adventure.",
+      "Supervision, meals and timings are planned before anyone boards.",
+      "Share class size and dates. We will send a plan you can show the principal."
+    ],
+    "theme": {
+      "accentColor": "#7C3AED",
+      "vibe": "planes",
+      "heroImage": "landing/school-1920.webp",
+      "heroImageMobile": "landing/school-960.webp",
+      "heroFocal": "70% center"
+    }
   },
-
-  // 7. WEEKEND GETAWAYS
   "weekend-getaways": {
-    id: "weekend-getaways",
-    slug: "weekend-getaways",
-    aliases: ["weekend", "weekend-getaways", "quick-escapes", "48-hours"],
-    metaTitle: "Quick Weekend Getaways & 48-Hour Escapes | Comfort Journey",
-    metaDesc: "Friday night. Bags packed. Let's go. 48-hour resets to recharge and escape screen burnout. Instant bookings, aesthetic boutique stays, and zero planning drama.",
-    categoryBadge: "48-Hour Weekend Escapes",
-    theme: {
-      accentColor: "#F43F5E",
-      glowColor: "rgba(244, 63, 94, 0.25)",
-      bgGradient: "radial-gradient(circle at 50% 15%, rgba(159, 18, 57, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
-      heroImage: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1600&q=85",
-      personaMood: "Instant 48-Hour Recharge",
-      vibePills: [
-        { label: "🎒 0 Leave Approvals Needed", icon: "clock" },
-        { label: "🚗 Under 4 Hours Driving Transit", icon: "car" },
-        { label: "☕ Local Plantation Coffee Included", icon: "coffee" },
-        { label: "📵 Work Slack Muted Zone", icon: "sparkles" }
-      ],
-      personaQuote: {
-        author: "Sneha Roy, Product Manager, Mumbai • Coorg Weekend Break",
-        text: "I booked on Thursday evening during a stressful sprint. Friday night I was drinking hot filter coffee in a misty plantation cottage. The reset was unbelievable."
+    "id": "weekend-getaways",
+    "slug": "weekend-getaways",
+    "group": "time",
+    "aliases": [
+      "weekend",
+      "quick-escapes",
+      "48-hours",
+      "short-trips"
+    ],
+    "metaTitle": "Weekend getaways and short trips | Comfort Journey",
+    "metaDesc": "Book weekend getaways for a 2 to 4 day reset. Choose Goa, Uttarakhand or Rajasthan, then get a clear plan and quote from Comfort Journey on WhatsApp.",
+    "focusKeyword": "weekend getaways",
+    "secondaryKeywords": [
+      "short trip packages",
+      "2 night 3 day packages",
+      "quick weekend trips",
+      "2 to 4 day holidays",
+      "weekend trips in India"
+    ],
+    "categoryBadge": "Busy professionals",
+    "eyebrow": "Busy professionals",
+    "heroHeadline": "Weekend getaways before Monday calls",
+    "heroSubline": "Trade spreadsheet fatigue for a short break. Pick 2 to 4 days, tell us your dates, and let a real person handle the planning.",
+    "ctaPrimary": "Plan my weekend on WhatsApp",
+    "ctaSecondary": "Browse short trip packages",
+    "whatsAppMsg": "Hi Comfort Journey, I want a 2 to 4 day weekend getaway. My dates are [dates]. Please share a suitable plan and quote.",
+    "vibeTags": [
+      "2N/3D quick resets",
+      "Leave-friendly plans",
+      "Private cabs",
+      "Monday-ready return"
+    ],
+    "packagesHeading": "Pick your 2 to 4 day reset",
+    "packagesIntro": "Goa, Uttarakhand, Nainital and Rajasthan are ready for a short break that gives your calendar room to breathe.",
+    "storyHeading": "Your leave balance can still have plans",
+    "storyParagraphs": [
+      "You have a Friday evening, a small leave balance and a Monday meeting already sitting on the calendar. That is enough for a proper reset. Choose a beach, hills, wildlife or old-city streets, and we will shape the plan around the time you actually have.",
+      "Send your dates and travel mood on WhatsApp. Comfort Journey can arrange the itinerary, hotel choice and private cab, then share the price upfront. Founded in Bhopal in 1992 by Sharad Kumar Mishra, our team keeps a real person close by when your trip is under way.",
+      "Come back with better stories than the office group chat. You can spend your short break on a quiet morning, a good local meal or one more view before the return ride. Monday may still arrive, but it will have to work harder to annoy you."
+    ],
+    "reasonsHeading": "A reset that respects your calendar",
+    "reasons": [
+      {
+        "title": "Short plans, properly paced",
+        "desc": "Choose 2N/3D and 3N/4D options that give you time to settle in, see the place and sleep before Monday.",
+        "icon": "clock"
+      },
+      {
+        "title": "WhatsApp does the heavy lifting",
+        "desc": "Tell a real person your dates, budget and mood. Get package options and an upfront quote on WhatsApp.",
+        "icon": "phone"
+      },
+      {
+        "title": "Your ride is arranged",
+        "desc": "Private cabs with drivers take care of local travel, so your phone battery can stay available for photos.",
+        "icon": "car"
+      },
+      {
+        "title": "Support after office hours",
+        "desc": "Our team stays available 24/7 during trips when a late check-in or route question needs a quick answer.",
+        "icon": "shield"
       }
+    ],
+    "includedHeading": "The useful bits are already covered",
+    "included": [
+      {
+        "title": "A plan matched to your leave",
+        "desc": "We shape the itinerary around your dates, pace and chosen places."
+      },
+      {
+        "title": "Hotel choices that suit you",
+        "desc": "Pick from 3-star, 4-star, 5-star hotels, palaces or villas."
+      },
+      {
+        "title": "Private cab with driver",
+        "desc": "Local travel is arranged with a private cab and driver."
+      },
+      {
+        "title": "Clear quote before booking",
+        "desc": "You see the price and inclusions upfront before you decide."
+      },
+      {
+        "title": "Help when you are travelling",
+        "desc": "Message or call +91 87704 03315 for real-person support during your trip."
+      }
+    ],
+    "quickAnswer": {
+      "question": "What are the best weekend getaways for a 2 to 4 day break?",
+      "answer": "For a 2 to 4 day break, popular picks include Goa for beach time, Rishikesh and Mussoorie for river and hills, Nainital and Jim Corbett for nature, and Rajasthan for forts and food. Comfort Journey can match your dates, hotel choice and transport needs, then share a clear quote on WhatsApp."
     },
-    heroHeadline: "Friday night. Bags packed. Let's go.",
-    heroSubline: "Because your laptop screen isn't a view. 48 hours to reset, recharge, and actually feel alive again.",
-    ctaText: "Get Me Outta Here",
-    whatsAppMsg: "Hi Comfort Journey! I need a quick weekend getaway. Please share top 48-hour packages for this Friday.",
-    openingHeading: "Signs You Need to Leave Right Now",
-    openingParagraph: `You're tired. Not just sleepy tired. Soul tired.
-The kind of tired that a Sunday nap can't fix.
-You've been staring at spreadsheets all week.
-Stop overthinking it. You don't need a 10-day leave approval.
-You just need two days. A change of scenery. Good food. Zero stress.
-We've been doing this for 30 years. You just show up.`,
-    whyHitsDifferent: [
+    "faqs": [
       {
-        title: "Zero Planning Drama",
-        desc: "You just tell us 'I need mountains' or 'I need a beach.' We do the rest. No 50-tab research. Just show up.",
-        iconType: "compass"
+        "q": "Can I book a weekend getaway with only two or three days available?",
+        "a": "Yes. The page includes 2N/3D and 3N/4D India packages suited to a short break. Share your dates on WhatsApp so the team can confirm what fits your schedule."
       },
       {
-        title: "Max Chill, Min Travel",
-        desc: "We pick spots within 3–5 hours so you don't waste your precious weekend in transit. Leave Friday, chill by night.",
-        iconType: "clock"
+        "q": "Which destinations work well for a 2 night 3 day trip?",
+        "a": "Goa and Rishikesh with Mussoorie are the clearest 2N/3D choices in this collection. They give you a change of scene while keeping the plan compact."
       },
       {
-        title: "The Aesthetic Guarantee",
-        desc: "Properties that look better in real life than on Instagram. We personally visit and audit the beds, food, and vibe.",
-        iconType: "camera"
+        "q": "How much do short trip packages cost?",
+        "a": "The price changes with the destination, travel dates, hotel category, vehicle type and number of travellers. Tell us those details on WhatsApp and we will share an exact quote with inclusions before you book."
       },
       {
-        title: "Food That Slaps",
-        desc: "We point you to local dhabas, hidden cafes, and authentic culinary spots. No overpriced tasteless buffets.",
-        iconType: "utensils"
+        "q": "Can you plan around my office schedule?",
+        "a": "Yes. Every itinerary can be customised around your available leave, preferred pace and places you want to see. The team will suggest a plan that fits the time you have."
       },
       {
-        title: "Your Pace, Your Rules",
-        desc: "Sleep till noon or hike at 5 AM. No forced tourist buses. It's your weekend.",
-        iconType: "heart"
+        "q": "What hotels and transport can I choose?",
+        "a": "Choose from 3-star to 5-star hotels, plus palaces and villas where available for the trip. Private cabs with drivers can be arranged for your travel needs."
+      },
+      {
+        "q": "Will someone help during the trip?",
+        "a": "Yes. Real people are available on WhatsApp and phone at +91 87704 03315, 24/7 during trips. Contact the team if a route, check-in or plan question comes up."
       }
     ],
-    destinationsIndia: [
-        {
-                "name": "Peace In The Pines",
-                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
-                "price": 94012,
-                "origPrice": 188023,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-peace-in-the-pines",
-                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Heritage & Hills",
-                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 141360,
-                "origPrice": 157067,
-                "duration": "5 Nights & 6 Days",
-                "tourId": "tour-wix-karnataka-heritage-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Goa Weekend Vibe",
-                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
-                "price": 99360,
-                "origPrice": 116894,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-goa-weekend-vibe",
-                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
-                "price": 45885,
-                "origPrice": 48300,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Uttarakhand Explorer",
-                "tag": "A luxurious 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
-                "price": 69575,
-                "origPrice": 77305,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-uttarakhand-explorer",
-                "img": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A premium 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 4-star hotels, Innova transportation, and curated sightseeing.",
-                "price": 64515,
-                "origPrice": 71683,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills-2",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    destinationsIntl: [
-        {
-                "name": "Phuket Paradise Getaway",
-                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
-                "price": 71047,
-                "origPrice": 170514,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-phuket-paradise-getaway",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Colombo to the Clouds",
-                "tag": "Handcrafted 5N/6D tour to Colombo curated by Comfort Journey since 1992.",
-                "price": 144904,
-                "origPrice": 166640,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-colombo-to-the-clouds",
-                "img": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Asian Extravaganza",
-                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
-                "price": 294705,
-                "origPrice": 368382,
-                "duration": "10N/11D",
-                "tourId": "tour-wix-asian-extravaganza",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Dubai City & Sands",
-                "tag": "Handcrafted 4N/5D tour to Dubai curated by Comfort Journey since 1992.",
-                "price": 113503,
-                "origPrice": 136204,
-                "duration": "4N/5D",
-                "tourId": "tour-wix-dubai-city-sands",
-                "img": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Unbeatable Vietnam Premium",
-                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
-                "price": 218554,
-                "origPrice": 218554,
-                "duration": "7N/8D",
-                "tourId": "tour-wix-unbeatable-vietnam-premium",
-                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Bali Tropical Escape",
-                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
-                "price": 62710,
-                "origPrice": 69870,
-                "duration": "4N/5D",
-                "tourId": "tour-wix-bali-tropical-escape",
-                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    whatYouGet: [
-      { title: "Instant Weekend Turnaround", desc: "Book on Thursday, check in by Friday evening with zero logistical hassle." },
-      { title: "Curated Boutique Resorts", desc: "Properties hand-picked for maximum tranquility, plush beds, and scenic views." },
-      { title: "Private Transfers On Demand", desc: "Sanitized private car picking you up right from your doorstep." }
+    "packageIdsIndia": [
+      "tour-wix-goa-weekend-vibe",
+      "tour-wix-uttarakhand-explorer-3",
+      "tour-wix-ganga-to-the-hills",
+      "tour-wix-nainital-jim-corbett",
+      "tour-wix-rajasthan-royal-affair"
     ],
-    faqs: [
-      { q: "Can I book a weekend trip on short notice (e.g. Wednesday or Thursday)?", a: "Yes! We specialize in lightning-fast weekend escapes with instant hotel confirmations and verified cabs ready." }
-    ]
+    "packageIdsIntl": [],
+    "reviewId": "gr-4",
+    "finalHeading": "Give Monday a better story",
+    "finalText": "Send your dates and preferred mood on WhatsApp. We will return with a short-trip option and a clear quote.",
+    "finalCta": "Plan my reset on WhatsApp",
+    "guide": [
+      "Only have a weekend? That is plenty if someone else plans it.",
+      "Short trips, short travel time, long naps.",
+      "Leave Friday, back before the Monday meeting.",
+      "Tell us your city and dates. We will find the closest good escape."
+    ],
+    "theme": {
+      "accentColor": "#E11D48",
+      "vibe": "sun",
+      "heroImage": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1920&q=78",
+      "heroImageMobile": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1920&q=78",
+      "heroFocal": "center 55%"
+    }
   },
-
-  // 8. FIXED DEPARTURES
   "fixed-departures": {
-    id: "fixed-departures",
-    slug: "fixed-departures",
-    aliases: ["fixed-departures", "group-tours", "scheduled-trips"],
-    metaTitle: "Fixed Departure Group Tours 2026 | Guaranteed Departures | Comfort Journey",
-    metaDesc: "Just show up. We got the rest. Join our scheduled travel tribe. Pre-planned group trips, verified 5-star stays, zero stress, 100% vibes since 1992.",
-    categoryBadge: "Fixed Departure Tribe Edition",
-    theme: {
-      accentColor: "#F97316",
-      glowColor: "rgba(249, 115, 22, 0.28)",
-      bgGradient: "radial-gradient(circle at 50% 15%, rgba(154, 52, 18, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
-      heroImage: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1600&q=85",
-      personaMood: "Travel Tribe & Guaranteed Dates",
-      vibePills: [
-        { label: "🤝 Meet Like-Minded Travelers", icon: "users" },
-        { label: "🔒 100% Guaranteed Fixed Dates", icon: "clock" },
-        { label: "💰 Bulk Group Economy Pricing", icon: "wallet" },
-        { label: "🚌 Premium AC Volvo & Coaches", icon: "car" }
-      ],
-      personaQuote: {
-        author: "Devendra Singhal, Solo Traveler on Spiti Fixed Batch",
-        text: "I joined the August Spiti departure as a solo traveler. By day 2 around the campsite bonfire, our group was like family. 10/10 trip coordination!"
+    "id": "fixed-departures",
+    "slug": "fixed-departures",
+    "group": "time",
+    "aliases": [
+      "group-tours",
+      "scheduled-trips"
+    ],
+    "metaTitle": "Fixed departure group tours | Comfort Journey",
+    "metaDesc": "Join a fixed departure group tour with set dates, ready plans and friendly support. Choose India or abroad, then ask Comfort Journey for your quote.",
+    "focusKeyword": "fixed departure group tours",
+    "secondaryKeywords": [
+      "fixed date group trips",
+      "scheduled group tours",
+      "group tours with fixed dates",
+      "solo group travel India",
+      "international group tours",
+      "ready-made group trips"
+    ],
+    "categoryBadge": "Fixed date group trips",
+    "eyebrow": "Fixed date group trips",
+    "heroHeadline": "Fixed departure group trips with good company",
+    "heroSubline": "Have a date in mind and a trip on your list? Join a ready group, meet fellow travellers and let Comfort Journey handle the planning around the fixed route.",
+    "ctaPrimary": "Ask on WhatsApp",
+    "ctaSecondary": "Browse group trips",
+    "whatsAppMsg": "Hi, I want to join a fixed departure group trip. Please share the next dates, available packages and an exact quote.",
+    "vibeTags": [
+      "Set dates, clear plans",
+      "Solo-friendly company",
+      "India and overseas",
+      "WhatsApp help 24/7"
+    ],
+    "packagesHeading": "Pick your next group trip",
+    "packagesIntro": "Choose a fixed-date route in India or abroad. We will confirm the current dates, what is included and what you can adjust.",
+    "storyHeading": "The easy way to join a group trip",
+    "storyParagraphs": [
+      "You may already know where you want to go. The awkward part is finding people whose calendars match yours. Fixed departure trips give you a planned date, a shared route and fellow travellers to meet along the way. You can arrive solo, with a friend or as a small group and still have company for the good views and the long drives.",
+      "Before you book, we explain the route, dates, stay choices and what the quote covers. Comfort Journey was founded in Bhopal by Sharad Kumar Mishra in 1992. It has a 4.8 Google rating from 85+ reviews, plus real people on WhatsApp and phone support at +91 87704 03315. During your trip, the team remains available 24/7.",
+      "Every itinerary can be customised. For a fixed departure, the date and shared route define the group plan, while hotel level, room preferences and selected arrangements can be discussed before booking. Ask about 3-star to 5-star hotels, palaces or villas, private cabs with drivers and visa assistance for international trips."
+    ],
+    "reasonsHeading": "Why ready group trips work well",
+    "reasons": [
+      {
+        "title": "A date you can plan around",
+        "desc": "See the route and departure date first, then decide if it fits your calendar before asking for a quote.",
+        "icon": "clock"
+      },
+      {
+        "title": "Company from day one",
+        "desc": "Solo travellers can join a shared group and meet people over sightseeing, meals or the next stretch of road.",
+        "icon": "users"
+      },
+      {
+        "title": "Details explained before booking",
+        "desc": "We share the itinerary, stay choices and upfront quote on WhatsApp, so you can ask questions before paying.",
+        "icon": "wallet"
+      },
+      {
+        "title": "Help while you are away",
+        "desc": "Real people remain available on WhatsApp and phone 24/7 during trips, including help with practical travel questions.",
+        "icon": "phone"
       }
+    ],
+    "includedHeading": "What your fixed trip can include",
+    "included": [
+      {
+        "title": "Set departure dates",
+        "desc": "The group route begins on a published date, with the planned schedule shared before you decide."
+      },
+      {
+        "title": "Stay choices",
+        "desc": "Ask for 3-star to 5-star hotels, plus palaces or villas where the route allows."
+      },
+      {
+        "title": "Driver-led transport",
+        "desc": "Private cabs with drivers can be arranged around your selected itinerary and group needs."
+      },
+      {
+        "title": "Visa assistance",
+        "desc": "For international trips, our team can guide you through the visa process and required travel details."
+      },
+      {
+        "title": "An upfront quote",
+        "desc": "Pricing is shared clearly, with changes explained when dates, hotels, rooms or transport change."
+      }
+    ],
+    "quickAnswer": {
+      "question": "What is a fixed departure group tour?",
+      "answer": "A fixed departure group tour has a published date and shared route, so you can join other travellers while our team handles the planning. Comfort Journey confirms the current package, inclusions and quote on WhatsApp. The route and date are fixed for the group, while hotel level, room preferences and selected arrangements may be discussed for your needs."
     },
-    heroHeadline: "Just show up. We got the rest.",
-    heroSubline: "Your group chat failed again? Join our tribe. Pre-planned trips, zero stress, 100% vibes.",
-    ctaText: "Save My Spot on Next Departure",
-    whatsAppMsg: "Hi Comfort Journey! I'm interested in joining your upcoming Fixed Departure Group Tour. Please share departure dates.",
-    openingHeading: "Guaranteed Dates, Guaranteed Vibes",
-    openingParagraph: `We know the drill. You want to travel. Your friends are "busy".
-Planning a solo trip feels like a full-time job.
-Stop waiting for people who can't make up their minds.
-Pack your bags. Your new travel fam is waiting.
-It's time to stop scrolling through aesthetic reels and actually live them.
-Just bring your energy. We'll handle the logistics.`,
-    whyHitsDifferent: [
+    "faqs": [
       {
-        title: "Zero Planning Drama",
-        desc: "No spreadsheets, no 50 tabs open. We did the homework. You just show up at the airport or meeting point.",
-        iconType: "compass"
+        "q": "How do fixed departure group tours work?",
+        "a": "You choose a package and ask for the next available dates. We share the planned route, inclusions and current seat information before you decide. The date and group route form the fixed part; suitable personal requests can be discussed."
       },
       {
-        title: "Instant Travel Fam",
-        desc: "Travel with like-minded travelers who match your energy. By day two, you'll be sharing inside jokes.",
-        iconType: "users"
+        "q": "Can I join a fixed departure trip alone?",
+        "a": "Yes. Solo travellers can ask to join a shared group and meet fellow travellers along the route. Tell us about your room preference and comfort needs when you enquire, so we can explain the available options."
       },
       {
-        title: "Local Secrets Only",
-        desc: "We skip the tourist traps for authentic viewpoints, chai spots, and momo shacks that locals cherish.",
-        iconType: "star"
+        "q": "What can I change on a fixed departure tour?",
+        "a": "The published date and shared route are the starting plan. Every itinerary can be customised, so ask about hotel level, room type, private cabs with drivers or other practical details. We will tell you what fits that departure before you book."
       },
       {
-        title: "Your Wallet Will Thank You",
-        desc: "Group rates mean you get 5-star properties and private AC coaches at unbeatable group economy pricing.",
-        iconType: "wallet"
+        "q": "How much does a fixed departure group tour cost?",
+        "a": "The price changes with the destination, travel dates, hotel level, room type, transport, visa needs and what the package includes. We share an exact quote on WhatsApp after understanding your dates and preferences. Ask us at +91 87704 03315 for current options."
       },
       {
-        title: "30 Years of Trust",
-        desc: "Since 1992, we've led hundreds of successful, safe fixed-departure expeditions.",
-        iconType: "shield"
+        "q": "Do you offer international fixed departure trips?",
+        "a": "Yes, the catalogue includes international trips such as Vietnam, Bali, Thailand and Dubai. Visa assistance is available for international travel. Ask us to confirm current departure dates, inclusions and the documents needed for your trip."
+      },
+      {
+        "q": "What support do I get during the trip?",
+        "a": "You can reach real people on WhatsApp or phone at +91 87704 03315. The team is available 24/7 during trips for practical questions and help with arrangements. Travel details and inclusions are explained before departure."
       }
     ],
-    destinationsIndia: [
-        {
-                "name": "Peace In The Pines",
-                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
-                "price": 94012,
-                "origPrice": 188023,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-peace-in-the-pines",
-                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Heritage & Hills",
-                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 141360,
-                "origPrice": 157067,
-                "duration": "5 Nights & 6 Days",
-                "tourId": "tour-wix-karnataka-heritage-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Peaks & Palaces",
-                "tag": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 90640,
-                "origPrice": 95410,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-karnataka-peaks-palaces",
-                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
-                "price": 45885,
-                "origPrice": 48300,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A premium 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 4-star hotels, Innova transportation, and curated sightseeing.",
-                "price": 64515,
-                "origPrice": 71683,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills-2",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Rajasthan Royal Affair",
-                "tag": "Immerse yourself in the royal heritage of Rajasthan with a vibrant journey through Jodhpur’s blue streets and Udaipur’s serene lakes. This budget-friendly package blends cultural landmarks, shopping, and scenic beauty.",
-                "price": 34272,
-                "origPrice": 42840,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-rajasthan-royal-affair",
-                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    destinationsIntl: [
-        {
-                "name": "Bali Tropical Escape",
-                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
-                "price": 62710,
-                "origPrice": 69870,
-                "duration": "4N/5D",
-                "tourId": "tour-wix-bali-tropical-escape",
-                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Singapore City & Gardens",
-                "tag": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
-                "price": 282452,
-                "origPrice": 389783,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-singapore-city-gardens",
-                "img": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Asian Extravaganza",
-                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
-                "price": 294705,
-                "origPrice": 368382,
-                "duration": "10N/11D",
-                "tourId": "tour-wix-asian-extravaganza",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Dubai City & Sands",
-                "tag": "Handcrafted 4N/5D tour to Dubai curated by Comfort Journey since 1992.",
-                "price": 113503,
-                "origPrice": 136204,
-                "duration": "4N/5D",
-                "tourId": "tour-wix-dubai-city-sands",
-                "img": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Phuket Paradise Getaway",
-                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
-                "price": 71047,
-                "origPrice": 170514,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-phuket-paradise-getaway",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Unbeatable Vietnam Premium",
-                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
-                "price": 218554,
-                "origPrice": 218554,
-                "duration": "7N/8D",
-                "tourId": "tour-wix-unbeatable-vietnam-premium",
-                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    whatYouGet: [
-      { title: "Guaranteed Departure Dates", desc: "No last-minute cancellations. Once booked, your departure date is locked in." },
-      { title: "Experienced Trip Leader", desc: "A friendly, experienced tour captain traveling with the group to ensure 100% smooth coordination." },
-      { title: "All Inclusive Transport & Stays", desc: "Pre-booked AC coaches, 4★/5★ verified hotels, and curated daily meal plans." }
+    "packageIdsIndia": [
+      "tour-wix-leh-beyond-the-passes",
+      "tour-wix-kashmir-valley-calling-2",
+      "tour-wix-meghalaya-highland-holiday-2",
+      "tour-wix-shimla-to-manali-story-3",
+      "tour-wix-rajasthan-royal-affair"
     ],
-    faqs: [
-      { q: "What is a Fixed Departure tour?", a: "A Fixed Departure tour has pre-set travel dates and itinerary where solo travelers, couples, or friends join together as an organized group to enjoy discounted luxury pricing and fun camaraderie." }
-    ]
+    "packageIdsIntl": [
+      "tour-wix-unbeatable-vietnam-premium",
+      "tour-wix-bali-tropical-escape",
+      "tour-wix-phuket-paradise-getaway",
+      "tour-wix-dubai-city-sands"
+    ],
+    "reviewId": "gr-5",
+    "finalHeading": "Find a date that fits your plans",
+    "finalText": "Tell us the place, dates and number of travellers. We will share the next suitable group trip, clear inclusions and an exact WhatsApp quote.",
+    "finalCta": "Check dates on WhatsApp",
+    "guide": [
+      "Want a ready trip with fixed dates? Just pick one and pack.",
+      "Join a friendly group. Solo travellers are welcome too.",
+      "Dates are set, the plan is set, the fun is up to you.",
+      "Ask us for current dates and seats on WhatsApp."
+    ],
+    "theme": {
+      "accentColor": "#EA580C",
+      "vibe": "flags",
+      "heroImage": "landing/fixed-1920.webp",
+      "heroImageMobile": "landing/fixed-960.webp",
+      "heroFocal": "68% center"
+    }
   },
-
-  // 9. INCREDIBLE INDIA SIGNATURE PACKAGES
   "india-packages": {
-    id: "india-packages",
-    slug: "india-packages",
-    aliases: ["india", "domestic", "india-tours", "incredible-india"],
-    metaTitle: "India Tour Packages 2026 | Luxury Domestic Vacations | Comfort Journey",
-    metaDesc: "You've seen the world. But have you seen India? From Kashmir snow to Kerala backwaters and Rajasthan royal palaces. Handcrafted luxury vacations since 1992.",
-    categoryBadge: "Incredible India Luxury Collection",
-    theme: {
-      accentColor: "#F59E0B",
-      glowColor: "rgba(245, 158, 11, 0.28)",
-      bgGradient: "radial-gradient(circle at 50% 15%, rgba(180, 83, 9, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
-      heroImage: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1600&q=85",
-      personaMood: "Royal Desi Heritage & Wonders",
-      vibePills: [
-        { label: "🇮🇳 Zero Visa Drama Required", icon: "shield" },
-        { label: "☕ Local Tapri Chai & Food Plugs", icon: "coffee" },
-        { label: "🏰 Sleep in Verified Heritage Palaces", icon: "hotel" },
-        { label: "👑 30+ Years Royal Hospitality", icon: "sparkles" }
-      ],
-      personaQuote: {
-        author: "Sunil & Ananya Joshi, Hyderabad • Rajasthan & Kashmir Tours",
-        text: "We used to only travel abroad for vacations until Comfort Journey showed us the magic of Kashmir and Udaipur. The VIP royal treatment was beyond anything we experienced in Europe!"
+    "id": "india-packages",
+    "slug": "india-packages",
+    "group": "where",
+    "aliases": [
+      "india",
+      "domestic",
+      "india-tours",
+      "incredible-india"
+    ],
+    "metaTitle": "India tour packages | Comfort Journey",
+    "metaDesc": "Plan India tour packages with private cabs, trusted hotels and a flexible itinerary. Comfort Journey offers clear pricing and WhatsApp support.",
+    "focusKeyword": "India tour packages",
+    "secondaryKeywords": [
+      "India holiday packages",
+      "India travel packages",
+      "custom India tours",
+      "India tour itinerary",
+      "private India tours"
+    ],
+    "categoryBadge": "India explorers",
+    "eyebrow": "India explorers",
+    "heroHeadline": "India tour packages for curious travellers",
+    "heroSubline": "See India at a pace that suits you, with a private cab, practical local help and hotels chosen around your plans. Tell us what you want to see.",
+    "ctaPrimary": "Ask on WhatsApp",
+    "ctaSecondary": "See India packages",
+    "whatsAppMsg": "Hi Comfort Journey, I am planning an India trip. Please suggest packages for my dates, interests and budget, with a private cab and hotel options.",
+    "vibeTags": [
+      "Private cab with driver",
+      "3-star to 5-star stays",
+      "Local help on WhatsApp",
+      "Clear price before booking"
+    ],
+    "packagesHeading": "Pick an India trip that fits your map",
+    "packagesIntro": "Kashmir, Rajasthan, islands, hills and heritage. Start with a ready plan, then adjust the pace, hotels or stops with our team.",
+    "storyHeading": "India feels better when the details fit",
+    "storyParagraphs": [
+      "If you live in India, you may have seen the same airport lounges and office roads for years. A short Goa break, a cool Kashmir escape, a temple-led Varanasi visit or a long road through Rajasthan can change that. We help you decide how many nights each place deserves and when a slower morning will save the day.",
+      "For visitors from abroad and NRIs, small details matter. Your private cab and driver follow the plan you agree on, hotels can be chosen from 3-star to 5-star options, and our team can explain the pace, food and local customs in simple language. You get room to ask questions before you arrive.",
+      "Tell us your dates, starting city and the places you care about. Comfort Journey, founded in Bhopal in 1992, shares a clear quote on WhatsApp and then refines the itinerary with you. If a famous stop feels too rushed, we can suggest a better order for the days you have."
+    ],
+    "reasonsHeading": "The details that make India easier",
+    "reasons": [
+      {
+        "title": "Your driver, your pace",
+        "desc": "A private cab with a local driver keeps transfers simple and gives you more control over stops, breaks and daily pace.",
+        "icon": "car"
+      },
+      {
+        "title": "Stays that suit your plan",
+        "desc": "Choose 3-star or 5-star hotels, plus palaces or villas when they fit your plan and budget.",
+        "icon": "hotel"
+      },
+      {
+        "title": "A quote you can read",
+        "desc": "We share the quote upfront, so you can see what the trip costs before you decide.",
+        "icon": "wallet"
+      },
+      {
+        "title": "Help when you need it",
+        "desc": "Real people stay available on WhatsApp and phone at +91 87704 03315, 24/7 during your trip.",
+        "icon": "phone"
       }
+    ],
+    "includedHeading": "What your India plan can include",
+    "included": [
+      {
+        "title": "Private cab and driver",
+        "desc": "Travel between planned stops in a private cab with a driver who knows the route."
+      },
+      {
+        "title": "Hotel options",
+        "desc": "Pick from 3-star to 5-star hotels, with palaces and villas available for suitable plans."
+      },
+      {
+        "title": "Custom itinerary",
+        "desc": "Change destinations, nights or daily pace around your interests and available travel days."
+      },
+      {
+        "title": "Upfront quote",
+        "desc": "See the price clearly on WhatsApp before you confirm your booking."
+      },
+      {
+        "title": "WhatsApp and phone support",
+        "desc": "Speak with real people on +91 87704 03315 during planning and 24/7 during trips."
+      }
+    ],
+    "quickAnswer": {
+      "question": "What do India tour packages usually include?",
+      "answer": "India tour packages usually include accommodation, planned sightseeing and transport, with the exact details changing by route. Comfort Journey can arrange a private cab with driver, hotel choices from 3-star to 5-star, and a custom itinerary. The team shares a clear quote on WhatsApp and remains available 24/7 during trips."
     },
-    heroHeadline: "You've seen the world. But have you seen India?",
-    heroSubline: "Stop scrolling through Euro trips. Your own backyard is calling, and it's wilder, louder, and way more beautiful than you think.",
-    ctaText: "Let's Explore Home",
-    whatsAppMsg: "Hi Comfort Journey! I'm looking for luxury India tour packages. Please share top recommendations.",
-    openingHeading: "India Like You've Never Experienced Before",
-    openingParagraph: `You know that feeling when you find a hidden gem in your own city? Multiply that by a billion. That is India.
-We all want those passport stamps. But skipping India to see the rest of the world is like skipping the main course for a mint.
-From snow-capped peaks in the north to beaches that rival Bali in the south. It is all right here. No visa drama required. No currency exchange headaches. Just pure, unfiltered vibes.`,
-    whyHitsDifferent: [
+    "faqs": [
       {
-        title: "We Know The Real India",
-        desc: "Not the boring tourist traps. We take you to spots your favorite vloggers haven't found yet—hidden mountain cafes, secret backwaters, and private forts.",
-        iconType: "compass"
+        "q": "Can I customise an India tour package?",
+        "a": "Yes. Every itinerary can be customised around your dates, destinations, hotel choice and daily pace. Tell the team what you want to keep, change or skip on WhatsApp."
       },
       {
-        title: "Zero Planning Stress",
-        desc: "You just show up. We handle private luxury cabs, trains, flights, hotel rooming, and sightseeing passes.",
-        iconType: "shield"
+        "q": "Which Indian destinations can I visit?",
+        "a": "The current collection includes Kashmir, Rajasthan, Goa, Andaman, Leh and Meghalaya, along with other regional routes. The team can help match a destination to your available days and interests."
       },
       {
-        title: "VIP Local Connects",
-        desc: "30 years of hospitality experience means our guests get VIP table reservations, heritage palace upgrades, and private shikara rides.",
-        iconType: "star"
+        "q": "Can you help foreign visitors and NRIs plan India?",
+        "a": "Yes. Share your arrival city, dates, food preferences and the pace you prefer. Comfort Journey can explain the route, hotel choices, private cab arrangements and practical travel details in simple language."
       },
       {
-        title: "Pockets Stay Happy",
-        desc: "No hidden costs or surprise taxes at checkout. 100% upfront transparency.",
-        iconType: "wallet"
+        "q": "What changes the price of an India tour?",
+        "a": "The route, travel dates, number of nights, hotel category, vehicle plan and sightseeing choices all affect the price. Ask on WhatsApp for an exact quote based on your plan."
       },
       {
-        title: "Safety First, Always",
-        desc: "Verified background-checked drivers, sanitized vehicles, and 24/7 live WhatsApp tracking.",
-        iconType: "hotel"
+        "q": "Will my India trip have a private car and driver?",
+        "a": "Private cabs with drivers are available for India itineraries. Your quote will show the vehicle and transport details for the route you choose."
+      },
+      {
+        "q": "How do I book an India holiday package?",
+        "a": "Send your dates, preferred places and group details on WhatsApp or call +91 87704 03315. The team will suggest suitable options, share the price upfront and help you confirm the plan."
       }
     ],
-    destinationsIndia: [
-        {
-                "name": "Peace In The Pines",
-                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
-                "price": 94012,
-                "origPrice": 188023,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-peace-in-the-pines",
-                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Heritage & Hills",
-                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 141360,
-                "origPrice": 157067,
-                "duration": "5 Nights & 6 Days",
-                "tourId": "tour-wix-karnataka-heritage-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Peaks & Palaces",
-                "tag": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 90640,
-                "origPrice": 95410,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-karnataka-peaks-palaces",
-                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Goa Weekend Vibe",
-                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
-                "price": 99360,
-                "origPrice": 116894,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-goa-weekend-vibe",
-                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
-                "price": 45885,
-                "origPrice": 48300,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A premium 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 4-star hotels, Innova transportation, and curated sightseeing.",
-                "price": 64515,
-                "origPrice": 71683,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills-2",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    destinationsIntl: [
-        {
-                "name": "Phuket Paradise Getaway",
-                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
-                "price": 71047,
-                "origPrice": 170514,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-phuket-paradise-getaway",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Unbeatable Vietnam Premium",
-                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
-                "price": 218554,
-                "origPrice": 218554,
-                "duration": "7N/8D",
-                "tourId": "tour-wix-unbeatable-vietnam-premium",
-                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Bali Tropical Escape",
-                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
-                "price": 62710,
-                "origPrice": 69870,
-                "duration": "4N/5D",
-                "tourId": "tour-wix-bali-tropical-escape",
-                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Sakura Moments - The Ultimate Cherry Blossom",
-                "tag": "Handcrafted 7N/6D tour to Tokyo, Kanazawa, Kyoto curated by Comfort Journey since 1992.",
-                "price": 755156,
-                "origPrice": 906187,
-                "duration": "7N/6D",
-                "tourId": "tour-wix-sakura-moments-the-ultimate-cherry-blossom",
-                "img": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Colombo to the Clouds",
-                "tag": "Handcrafted 5N/6D tour to Colombo curated by Comfort Journey since 1992.",
-                "price": 144904,
-                "origPrice": 166640,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-colombo-to-the-clouds",
-                "img": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Singapore City & Gardens",
-                "tag": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
-                "price": 282452,
-                "origPrice": 389783,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-singapore-city-gardens",
-                "img": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    whatYouGet: [
-      { title: "Verified 4★ / 5★ Heritage & Resort Stays", desc: "Properties vetted personally for clean linen, scenic views, and hospitality." },
-      { title: "Dedicated AC Cab & Chauffeur", desc: "Private vehicle throughout your trip with seasoned local chauffeurs." },
-      { title: "Daily Breakfast & Curated Meals", desc: "Authentic regional cuisines and fresh buffet breakfasts included daily." },
-      { title: "24/7 VIP Concierge", desc: "Instant WhatsApp assistance for restaurant suggestions, route updates, or date changes." }
+    "packageIdsIndia": [
+      "tour-wix-kashmir-valley-calling-2",
+      "tour-wix-rajasthan-royal-affair",
+      "tour-wix-andaman-coastal-retreat",
+      "tour-wix-leh-beyond-the-passes",
+      "tour-wix-meghalaya-highland-holiday-3",
+      "tour-wix-goa-weekend-vibe"
     ],
-    faqs: [
-      { q: "Can we customize our India tour itinerary?", a: "Yes! All itineraries are 100% customizable. You can adjust duration, upgrade hotels, add private safari jeeps, or modify destinations." }
-    ]
+    "packageIdsIntl": [],
+    "reviewId": "gr-8",
+    "finalHeading": "Ready to plan your India trip?",
+    "finalText": "Share your dates, places and travel style. We will reply on WhatsApp with sensible options and a clear quote.",
+    "finalCta": "Plan my India trip",
+    "guide": [
+      "Namaste. India is big. Let us help you pick the right corner of it.",
+      "Mountains, palaces, beaches, backwaters. Start with what you love.",
+      "Visiting from abroad? We sort drivers, hotels and the pace for you.",
+      "Send us your dates and interests. We will shape the route."
+    ],
+    "theme": {
+      "accentColor": "#D97706",
+      "vibe": "marigold",
+      "heroImage": "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1920&q=78",
+      "heroImageMobile": "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1920&q=78",
+      "heroFocal": "center 45%"
+    }
   },
-
-  // 10. WORLD PASSPORT INTERNATIONAL SIGNATURE PACKAGES
   "international-packages": {
-    id: "international-packages",
-    slug: "international-packages",
-    aliases: ["international", "world-tours", "passport-holidays"],
-    metaTitle: "International Tour Packages 2026 | World Holidays | Comfort Journey",
-    metaDesc: "The world is bigger than your city. Go see it. Hassle-free international vacations with complete visa assistance, verified 5-star stays, and 24/7 overseas concierge since 1992.",
-    categoryBadge: "World Passport Signature Collection",
-    theme: {
-      accentColor: "#38BDF8",
-      glowColor: "rgba(56, 189, 248, 0.28)",
-      bgGradient: "radial-gradient(circle at 50% 15%, rgba(3, 105, 161, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
-      heroImage: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1600&q=85",
-      personaMood: "Global Stamps & Seamless Horizons",
-      vibePills: [
-        { label: "🛂 In-House Visa Filing Assistance", icon: "shield" },
-        { label: "🥐 Local Hidden Culinary Guides", icon: "coffee" },
-        { label: "🏨 Central 5-Star Neighborhoods", icon: "hotel" },
-        { label: "✈️ 24/7 Global Timezone Support", icon: "sparkles" }
-      ],
-      personaQuote: {
-        author: "Mehul & Riddhi Shah, Ahmedabad • Europe & Dubai Tours",
-        text: "Our Schengen visa appointments and documents were completed in 3 days. We landed in Paris with our driver waiting at the terminal holding our name board. 100% world class."
+    "id": "international-packages",
+    "slug": "international-packages",
+    "group": "where",
+    "aliases": [
+      "international",
+      "world-tours",
+      "passport-holidays",
+      "abroad"
+    ],
+    "metaTitle": "International Tour Packages from India | Comfort Journey",
+    "metaDesc": "Plan international tour packages from India with visa help, clear quotes and real support. Choose your destination and enquire on WhatsApp today.",
+    "focusKeyword": "international tour packages from India",
+    "secondaryKeywords": [
+      "foreign trip packages",
+      "international holiday packages",
+      "international travel packages",
+      "custom international tour packages",
+      "visa assistance for international travel"
+    ],
+    "categoryBadge": "First-time flyers",
+    "eyebrow": "First-time flyers",
+    "heroHeadline": "International tour packages from India, with visa help",
+    "heroSubline": "Pick a country, ask the visa questions, and get a clear plan for flights, hotels, food and spending before you fly.",
+    "ctaPrimary": "Ask on WhatsApp",
+    "ctaSecondary": "See international trips",
+    "whatsAppMsg": "Hi Comfort Journey, I'm planning my first international trip from India. Please share suitable packages, visa help and an upfront quote.",
+    "vibeTags": [
+      "Visa help",
+      "Indian food pointers",
+      "Private cab with driver",
+      "Clear upfront quotes"
+    ],
+    "packagesHeading": "Popular international trips from India",
+    "packagesIntro": "Choose a ready route, then ask us to adjust the pace, hotels, meals or sightseeing around your group.",
+    "storyHeading": "Your first foreign trip can feel clear",
+    "storyParagraphs": [
+      "Your first trip abroad should leave room for excitement, not a folder full of unanswered questions. A visa form can make one folder feel like a part-time job. We provide visa assistance, explain the documents to discuss and help you plan the questions worth asking before you pay. Comfort Journey has planned travel from Bhopal since 1992, so a real person is ready to help your plan take shape.",
+      "You can ask where Indian food is easier to find, how much local cash to carry and what to expect at the airport. We can discuss flights, suggest hotel choices from 3-star to 5-star or palaces and villas, and arrange private cabs with drivers. Your itinerary can be customised around your dates, pace and comfort.",
+      "You receive transparent pricing upfront, with the details discussed before you decide. During the trip, real people remain available on WhatsApp and phone 24/7. If a language sign looks like a puzzle, send a message and we will help you work out the next step."
+    ],
+    "reasonsHeading": "Why first-time flyers choose us",
+    "reasons": [
+      {
+        "title": "Visa help with a human voice",
+        "desc": "Get practical help with international visa documents and questions, so your first application feels like a task to finish, not a mystery.",
+        "icon": "shield"
+      },
+      {
+        "title": "Food advice before you fly",
+        "desc": "Ask for Indian food options, local meal ideas and simple language tips before you land hungry and start pointing at menus.",
+        "icon": "utensils"
+      },
+      {
+        "title": "Plans that fit your group",
+        "desc": "Choose dates, hotel level, sightseeing and pace around your needs. Every itinerary can be customised, including private cabs with drivers.",
+        "icon": "users"
+      },
+      {
+        "title": "Costs explained upfront",
+        "desc": "Flights, hotels, visas and daily spending can change the total. We explain the quote on WhatsApp before you make a decision.",
+        "icon": "wallet"
       }
+    ],
+    "includedHeading": "What your trip planning covers",
+    "included": [
+      {
+        "title": "Visa assistance",
+        "desc": "Guidance on documents and the application process for your international trip."
+      },
+      {
+        "title": "Flight planning support",
+        "desc": "Discuss suitable flight options and timings around your dates, route and budget."
+      },
+      {
+        "title": "Hotels for your comfort",
+        "desc": "Choose from 3-star to 5-star hotels, plus palaces or villas where available for your plan."
+      },
+      {
+        "title": "Private cabs and drivers",
+        "desc": "Travel between planned stops with private cabs and drivers arranged for your itinerary."
+      },
+      {
+        "title": "Food and forex basics",
+        "desc": "Get practical pointers on Indian food options, local currency, spending and everyday language before departure."
+      }
+    ],
+    "quickAnswer": {
+      "question": "What do international tour packages from India include?",
+      "answer": "International tour packages from India can combine flights, hotels, sightseeing and private transport, with visa assistance for eligible plans. Comfort Journey helps you compare hotel levels, understand food and forex basics, and customise the itinerary. The total changes with destination, dates, flights, hotel choice and inclusions, so you receive an upfront quote on WhatsApp."
     },
-    heroHeadline: "The world is bigger than your city. Go see it.",
-    heroSubline: "That visa-approved feeling? We package it. Your passport is looking a little too empty. Let's fix that.",
-    ctaText: "Let's Go Places",
-    whatsAppMsg: "Hi Comfort Journey! I'm planning an international vacation. Please share world tour packages and visa assistance details.",
-    openingHeading: "Seamless International Travel Without the Headache",
-    openingParagraph: `You know that feeling when you finally get the group chat to agree on a date? Yeah, we live for that.
-But planning an international trip? That's a whole different beast. Visas, flights, hotels, forex—it's enough to make you want to stay home.
-Don't. We've been doing this since '92. We know the hacks, the hidden spots, and how to get you there without the headache.
-You just pack your bags. We handle the rest.`,
-    whyHitsDifferent: [
+    "faqs": [
       {
-        title: "No Visa Drama",
-        desc: "Visas are scary. We get it. Our in-house visa team checks, double-checks, and triple-checks so you get that passport stamp without stress.",
-        iconType: "shield"
+        "q": "Can Comfort Journey help with an international visa?",
+        "a": "Yes. The team provides visa assistance for international trips and helps you understand the documents needed for your plan. Approval depends on the embassy and your application, so assistance does not mean a guaranteed visa."
       },
       {
-        title: "Zero Hidden Costs",
-        desc: "What we quote is what you pay. No surprise tourist city taxes or 'oh that's extra' shocks.",
-        iconType: "wallet"
+        "q": "What affects the price of a foreign trip package?",
+        "a": "Destination, travel dates, flight fares, hotel category, room type, sightseeing and inclusions all affect the quote. Ask on WhatsApp for an exact price after sharing your dates, group size and preferred hotel level."
       },
       {
-        title: "Live Like A Local",
-        desc: "We don't just drop you at tourist landmarks. We tell you where to get the best authentic food that won't cost a fortune.",
-        iconType: "star"
+        "q": "Can I customise an international tour package?",
+        "a": "Yes. Every itinerary can be customised around your dates, pace, sightseeing choices and hotel preference. Tell the team what you want to keep, change or skip."
       },
       {
-        title: "30+ Years of Overseas Trust",
-        desc: "We've sent over 10,000 travelers across Europe, Asia, Africa, and the Middle East with flawless execution.",
-        iconType: "compass"
+        "q": "Will I find Indian food abroad?",
+        "a": "Many destinations have Indian restaurants or familiar meal choices, but availability varies by city and schedule. Tell the team your food preferences so they can discuss suitable options before you travel."
       },
       {
-        title: "Sleep Like A Baby",
-        desc: "Hotels that actually match the photos. Central, safe neighborhoods with plush beds and verified service.",
-        iconType: "hotel"
+        "q": "What support do first-time international travellers get?",
+        "a": "You can ask about flights, forex basics, language concerns, hotels and local transport before departure. Real people are available on WhatsApp and phone 24/7 during trips."
+      },
+      {
+        "q": "Can I choose my hotels and transport?",
+        "a": "Yes. Hotel choices can range from 3-star to 5-star, with palaces and villas available for suitable plans. Private cabs with drivers can be arranged around the itinerary."
       }
     ],
-    destinationsIntl: [
-      { name: "Bali, Indonesia", tag: "Private Pool Villa, Ubud & Nusa Penida", price: 34999, origPrice: 46999, duration: "6N / 7D", tourId: "bali-bliss", img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80" },
-      { name: "Dubai Extravaganza, UAE", tag: "Burj Khalifa, Desert Safari & Luxury Marina", price: 42999, origPrice: 54999, duration: "5N / 6D", tourId: "dubai-extravaganza", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" },
-      { name: "Swiss Alps & Paris", tag: "Alps Glaciers, Scenic Rail & Eiffel Tower", price: 125000, origPrice: 160000, duration: "7N / 8D", tourId: "swiss-alps-magic", img: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=600&q=80" },
-      { name: "Maldives Overwater Luxury", tag: "Direct Ocean Access & Speedboat Transfers", price: 79999, origPrice: 105000, duration: "4N / 5D", tourId: "maldives-luxury", img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=600&q=80" },
-      { name: "Singapore & Sentosa", tag: "Universal Studios & Marina Bay Sands", price: 48999, origPrice: 62000, duration: "5N / 6D", tourId: "singapore-sentosa", img: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=600&q=80" },
-      { name: "Thailand & Phuket", tag: "Phi Phi Islands, Krabi & Bangkok Temples", price: 38999, origPrice: 49000, duration: "5N / 6D", tourId: "thailand-discovery", img: "https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?auto=format&fit=crop&w=600&q=80" }
+    "packageIdsIndia": [],
+    "packageIdsIntl": [
+      "tour-wix-phuket-paradise-getaway",
+      "tour-wix-bali-tropical-escape",
+      "tour-wix-unbeatable-vietnam-premium",
+      "tour-wix-singapore-city-gardens",
+      "tour-wix-dubai-city-sands",
+      "tour-wix-colombo-to-the-clouds"
     ],
-    destinationsIndia: [
-        {
-                "name": "Peace In The Pines",
-                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
-                "price": 94012,
-                "origPrice": 188023,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-peace-in-the-pines",
-                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Heritage & Hills",
-                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 141360,
-                "origPrice": 157067,
-                "duration": "5 Nights & 6 Days",
-                "tourId": "tour-wix-karnataka-heritage-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Peaks & Palaces",
-                "tag": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 90640,
-                "origPrice": 95410,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-karnataka-peaks-palaces",
-                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Goa Weekend Vibe",
-                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
-                "price": 99360,
-                "origPrice": 116894,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-goa-weekend-vibe",
-                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
-                "price": 45885,
-                "origPrice": 48300,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Uttarakhand Explorer",
-                "tag": "A luxurious 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
-                "price": 69575,
-                "origPrice": 77305,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-uttarakhand-explorer",
-                "img": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    destinationsIntl: [
-        {
-                "name": "Phuket Paradise Getaway",
-                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
-                "price": 71047,
-                "origPrice": 170514,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-phuket-paradise-getaway",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Unbeatable Vietnam Premium",
-                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
-                "price": 218554,
-                "origPrice": 218554,
-                "duration": "7N/8D",
-                "tourId": "tour-wix-unbeatable-vietnam-premium",
-                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Bali Tropical Escape",
-                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
-                "price": 62710,
-                "origPrice": 69870,
-                "duration": "4N/5D",
-                "tourId": "tour-wix-bali-tropical-escape",
-                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Sakura Moments - The Ultimate Cherry Blossom",
-                "tag": "Handcrafted 7N/6D tour to Tokyo, Kanazawa, Kyoto curated by Comfort Journey since 1992.",
-                "price": 755156,
-                "origPrice": 906187,
-                "duration": "7N/6D",
-                "tourId": "tour-wix-sakura-moments-the-ultimate-cherry-blossom",
-                "img": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Colombo to the Clouds",
-                "tag": "Handcrafted 5N/6D tour to Colombo curated by Comfort Journey since 1992.",
-                "price": 144904,
-                "origPrice": 166640,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-colombo-to-the-clouds",
-                "img": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Singapore City & Gardens",
-                "tag": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
-                "price": 282452,
-                "origPrice": 389783,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-singapore-city-gardens",
-                "img": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    faqs: [
-      { q: "Do you assist with international visas and insurance?", a: "Yes! We provide complete end-to-end visa filing assistance, verified itinerary documentation, and international travel insurance options." }
-    ]
+    "reviewId": "gr-2",
+    "finalHeading": "Choose your country and ask what fits",
+    "finalText": "Send your dates, group size and preferred destination on WhatsApp. We will share suitable options and a clear quote.",
+    "finalCta": "Plan my trip on WhatsApp",
+    "guide": [
+      "Passport ready? Or at least somewhere in the drawer?",
+      "These trips are friendly for first-time international travellers.",
+      "Visa papers, flights, food options. We help with all of it.",
+      "Ask us which country suits your dates and budget."
+    ],
+    "theme": {
+      "accentColor": "#0284C7",
+      "vibe": "planes",
+      "heroImage": "backgrounds/vietnam-golden-bridge.webp",
+      "heroImageMobile": "backgrounds/vietnam-golden-bridge.webp",
+      "heroFocal": "center 40%"
+    }
   },
-
-  // 11. ADVENTURE & TREKKING EXPEDITIONS
   "adventure-tours": {
-    id: "adventure-tours",
-    slug: "adventure-tours",
-    aliases: ["adventure", "trek", "treks", "hiking", "expeditions"],
-    metaTitle: "Adventure & Trekking Tour Packages 2026 | Comfort Journey",
-    metaDesc: "Conquer mountain passes, white water rapids, and jungle trails with certified mountain guides and luxury basecamp comfort since 1992.",
-    categoryBadge: "Adventure & Trekking Expeditions",
-    theme: {
-      accentColor: "#F97316",
-      glowColor: "rgba(249, 115, 22, 0.28)",
-      bgGradient: "radial-gradient(circle at 50% 15%, rgba(194, 65, 12, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
-      heroImage: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?auto=format&fit=crop&w=1600&q=85",
-      personaMood: "Adrenaline & Uncharted Summits",
-      vibePills: [
-        { label: "🧗 Certified Mountain Guides", icon: "compass" },
-        { label: "🏕️ Luxury Glamping Basecamps", icon: "hotel" },
-        { label: "🛡️ Satellite & Oxygen Safety Kit", icon: "shield" },
-        { label: "📸 Epic Summit Drone Shoots", icon: "camera" }
-      ],
-      personaQuote: {
-        author: "Devendra Verma, Pune • Spiti Valley & Hampta Pass",
-        text: "Comfort Journey proved you don't have to freeze or suffer bad food to experience raw mountain adventure. The tents were warm, our guide was a pro, and the views were life-changing."
+    "id": "adventure-tours",
+    "slug": "adventure-tours",
+    "group": "mood",
+    "aliases": [
+      "adventure",
+      "trek",
+      "treks",
+      "hiking",
+      "expeditions"
+    ],
+    "metaTitle": "Adventure tour packages India | Comfort Journey",
+    "metaDesc": "Book adventure tour packages in India with fitness-aware plans, private cabs, clear quotes and 24/7 trip support from Comfort Journey today.",
+    "focusKeyword": "adventure tour packages India",
+    "secondaryKeywords": [
+      "trekking and adventure trips",
+      "India adventure holidays",
+      "adventure travel packages India",
+      "trekking tour packages India",
+      "rafting and trekking tours"
+    ],
+    "categoryBadge": "Thrill seekers",
+    "eyebrow": "Thrill seekers",
+    "heroHeadline": "Adventure tour packages India for thrill seekers",
+    "heroSubline": "Trek higher, ride mountain roads and face fast rivers with plans shaped around your fitness, pace and appetite for a good story.",
+    "ctaPrimary": "Ask on WhatsApp",
+    "ctaSecondary": "See adventure packages",
+    "whatsAppMsg": "Hi Comfort Journey, I’m planning an adventure trip in India. Please share options, fitness details and a clear WhatsApp quote.",
+    "vibeTags": [
+      "High-altitude treks",
+      "Mountain road days",
+      "River-rafting options",
+      "24/7 trip support"
+    ],
+    "packagesHeading": "Pick your next big story",
+    "packagesIntro": "Choose a high-altitude escape, river country, jungle edges or an island break. We can shape the plan around your group.",
+    "storyHeading": "Adventure with a plan you can trust",
+    "storyParagraphs": [
+      "You want the climb, the rush and the view that earns a second look. You also want to know how tough a day will be before you pack your bag. We help you compare routes, activity levels and travel time, so the plan fits your legs and your expectations.",
+      "Leh brings thin-air mountain roads. Rishikesh brings river action. Meghalaya brings hills, trails and water. Jim Corbett and Andaman give your group a different kind of outdoor day. Pick the setting first, then we will help you build the right pace around it.",
+      "Comfort Journey has planned trips from Bhopal since 1992. Your trip can use a private cab and driver, hotels from 3-star to 5-star, or a palace or villa where available. Pricing is shared upfront, and a real person stays available on WhatsApp or phone during your trip."
+    ],
+    "reasonsHeading": "Why thrill seekers book with us",
+    "reasons": [
+      {
+        "title": "Fitness talk before booking",
+        "desc": "Tell us your experience, pace and limits. We will help you choose an activity level that feels challenging and sensible.",
+        "icon": "mountain"
+      },
+      {
+        "title": "A real person on call",
+        "desc": "Our WhatsApp and phone support is available 24/7 during trips, so help is close when plans need attention.",
+        "icon": "phone"
+      },
+      {
+        "title": "Private travel, your pace",
+        "desc": "Private cabs with drivers give your group more control over starts, stops and the time you spend on the road.",
+        "icon": "car"
+      },
+      {
+        "title": "Clear costs before you commit",
+        "desc": "We share an upfront quote and explain what changes the price, from hotel choice to transport and activities.",
+        "icon": "wallet"
       }
+    ],
+    "includedHeading": "What your plan can include",
+    "included": [
+      {
+        "title": "Fitness-aware route advice",
+        "desc": "A clear conversation about walking, altitude, activity pace and the kind of days you want."
+      },
+      {
+        "title": "Private cab and driver",
+        "desc": "Road travel arranged around your route, group size and planned activity days."
+      },
+      {
+        "title": "Your choice of stay",
+        "desc": "Select from 3-star to 5-star hotels, plus palaces or villas where available."
+      },
+      {
+        "title": "Custom itinerary planning",
+        "desc": "Adjust destinations, free time, activity focus and travel pace to suit your group."
+      },
+      {
+        "title": "Trip-time support",
+        "desc": "Message or call our real team on WhatsApp or phone, including during your trip."
+      }
+    ],
+    "quickAnswer": {
+      "question": "Which adventure tour packages in India suit first-time trekkers?",
+      "answer": "First-time trekkers should compare altitude, walking hours, weather and travel time before choosing. Rishikesh suits river activity, while hill routes in Himachal, Uttarakhand and Meghalaya offer different levels of walking and road travel. Comfort Journey can explain the fitness demands, customise the plan and share an exact quote on WhatsApp."
     },
-    heroHeadline: "Push Your Limits. Conquer the High Passes.",
-    heroSubline: "Himalayan treks, white water rafting in Rishikesh, high-altitude desert rides in Spiti, and glamping under the stars.",
-    ctaText: "Explore Adventure Expeditions",
-    whatsAppMsg: "Hi Comfort Journey! I'm looking for thrilling adventure & trekking packages.",
-    openingHeading: "Raw Adventure Meets Uncompromised Safety",
-    openingParagraph: `True adventure isn't about reckless risks; it's about pushing your boundaries with experts who have your back. Comfort Journey combines high-altitude Himalayan trekking, river rafting, and desert safaris with vetted safety protocols, oxygen support, and luxury warm basecamps.`,
-    whyHitsDifferent: [
-      { title: "Certified Mountain Leaders", desc: "Vetted guides with mountaineering certifications and first-aid training.", iconType: "compass" },
-      { title: "Luxury Basecamp Comfort", desc: "Warm sleeping bags, insulated tents, and piping hot mountain meals.", iconType: "hotel" },
-      { title: "24/7 Emergency Support", desc: "Oxygen cylinders, satellite communications, and evacuation backup vehicles.", iconType: "shield" }
-    ],
-    destinationsIndia: [
+    "faqs": [
       {
-        name: "Ganga To The Hills",
-        tag: "White water river rafting in Rishikesh, cliff jumps, and mountain camping in Mussoorie.",
-        price: 45885,
-        origPrice: 48300,
-        duration: "3 Nights & 4 Days",
-        tourId: "tour-wix-ganga-to-the-hills",
-        img: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
+        "q": "Are these adventure trips suitable for beginners?",
+        "a": "Some routes suit beginners, while high-altitude plans need more preparation. Tell us your past experience, fitness level and preferred pace before we suggest an option."
       },
       {
-        name: "Uttarakhand Explorer",
-        tag: "Rishikesh spiritual adventure, bungee jumping, and Himalayan trails.",
-        price: 69575,
-        origPrice: 77305,
-        duration: "2 Nights and 3 Days",
-        tourId: "tour-wix-uttarakhand-explorer",
-        img: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85"
+        "q": "How do I choose between trekking, rafting and a mountain road trip?",
+        "a": "Start with the activity you want to remember most, then check the walking time, altitude and travel days. We can compare Leh, Rishikesh, Meghalaya, Himachal and other available routes with you."
       },
       {
-        name: "Peace In The Pines",
-        tag: "High altitude trek across Khajjiar meadows and Dhauladhar pine ranges.",
-        price: 94012,
-        origPrice: 188023,
-        duration: "4 Nights & 5 Days",
-        tourId: "tour-wix-peace-in-the-pines",
-        img: "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
+        "q": "How do you handle safety and fitness concerns?",
+        "a": "We discuss the route, activity level, altitude and practical travel conditions before you book. Share any health or mobility concern early so the plan can be adjusted or a better-fit route suggested."
+      },
+      {
+        "q": "Can I customise an adventure tour package?",
+        "a": "Yes. Each itinerary can be customised around your dates, group, hotel choice, private cab, free time and activity focus. Message us on WhatsApp and tell us what kind of challenge you want."
+      },
+      {
+        "q": "What changes the price of an adventure trip?",
+        "a": "Dates, destination, trip length, hotel category, transport, group size and activities can change the price. Send your details on WhatsApp for an exact quote shared upfront."
+      },
+      {
+        "q": "Can you help with an international adventure holiday?",
+        "a": "Yes. Bali, Phuket and Vietnam are among the international options in this collection. We can help with the itinerary, hotel and transport choices, plus visa assistance where required."
       }
     ],
-    destinationsIntl: [
-      {
-        name: "Dubai City & Sands",
-        tag: "High-octane red dune bashing, quad biking, and Arabian desert camping.",
-        price: 113503,
-        origPrice: 136204,
-        duration: "4N/5D",
-        tourId: "tour-wix-dubai-city-sands",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85"
-      },
-      {
-        name: "Bali Tropical Escape",
-        tag: "Mount Batur sunrise volcano trek, Ayung river rafting, and ATV jungle trails.",
-        price: 62710,
-        origPrice: 69870,
-        duration: "4N/5D",
-        tourId: "tour-wix-bali-tropical-escape",
-        img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
-      }
+    "packageIdsIndia": [
+      "tour-wix-leh-beyond-the-passes",
+      "tour-wix-shimla-to-manali-story-3",
+      "tour-wix-uttarakhand-explorer-3",
+      "tour-wix-meghalaya-highland-holiday-2",
+      "tour-wix-nainital-jim-corbett-2",
+      "tour-wix-andaman-coastal-retreat"
     ],
-    faqs: [
-      { q: "Are adventure activities suitable for beginners?", a: "Yes! All activities are tiered with beginner, intermediate, and expert routes. Complete safety briefings and equipment are provided." }
-    ]
+    "packageIdsIntl": [
+      "tour-wix-unbeatable-vietnam-premium",
+      "tour-wix-phuket-paradise-getaway",
+      "tour-wix-bali-tropical-escape"
+    ],
+    "reviewId": "gr-1",
+    "finalHeading": "Ready to plan your next challenge?",
+    "finalText": "Tell us your dates, group size and preferred activity. We will reply on WhatsApp with suitable options and an upfront quote.",
+    "finalCta": "Plan my adventure",
+    "guide": [
+      "Want a story worth telling? Start scrolling.",
+      "Treks, rafting, high passes. Pick your level of thrill.",
+      "We plan the fun part and the safety part.",
+      "Tell us your fitness level honestly. We will match the trip."
+    ],
+    "theme": {
+      "accentColor": "#EA580C",
+      "vibe": "wind",
+      "heroImage": "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?auto=format&fit=crop&w=1920&q=78",
+      "heroImageMobile": "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?auto=format&fit=crop&w=1920&q=78",
+      "heroFocal": "center 40%"
+    }
   },
-
-  // 12. BEACH & TROPICAL ISLANDS
   "beach-vacations": {
-    id: "beach-vacations",
-    slug: "beach-vacations",
-    aliases: ["beach", "tropical", "islands", "ocean"],
-    metaTitle: "Tropical Beach & Island Tour Packages 2026 | Comfort Journey",
-    metaDesc: "Sun, turquoise waters, and zero stress. Handcrafted beach escapes across Maldives, Bali, Andaman, and South Goa with beachfront pool villas.",
-    categoryBadge: "Tropical Beach & Island Escapes",
-    theme: {
-      accentColor: "#06B6D4",
-      glowColor: "rgba(6, 182, 212, 0.28)",
-      bgGradient: "radial-gradient(circle at 50% 15%, rgba(14, 116, 144, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
-      heroImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=85",
-      personaMood: "Turquoise Waves & Barefoot Luxury",
-      vibePills: [
-        { label: "🥥 Fresh Coconut Welcome Drinks", icon: "sparkles" },
-        { label: "🤿 Free Scuba & Coral Snorkeling", icon: "compass" },
-        { label: "🌅 Direct Beachfront Access", icon: "hotel" },
-        { label: "🍹 Private Sunset Cocktail Lounges", icon: "utensils" }
-      ],
-      personaQuote: {
-        author: "Aakash & Simran, Delhi • Havelock Andaman Escape",
-        text: "Radhanagar beach sunset from our private cabana was surreal. Comfort Journey pre-booked our scuba slot so we didn't wait 1 minute in queue."
-      }
-    },
-    heroHeadline: "Turquoise Waves. Private Beachfront Stays.",
-    heroSubline: "Escape the concrete jungle. Overwater villas, coral reefs, sunset cocktails, and pristine white sands.",
-    ctaText: "Explore Island Escapes",
-    whatsAppMsg: "Hi Comfort Journey! I'm looking for tropical beach & island holiday packages.",
-    openingHeading: "Pure Coastal Serenity & Ocean Luxury",
-    openingParagraph: `From private water villas in the Maldives to secluded cliffside beaches in Bali and South Goa. Leave your shoes behind and let the ocean waves do the healing.`,
-    whyHitsDifferent: [
-      { title: "Direct Beachfront Access", desc: "Properties located right on the sand with private beach loungers.", iconType: "hotel" },
-      { title: "Private Speedboat & Water Sports", desc: "Pre-booked scuba diving, snorkeling gear, and sunset yacht cruises.", iconType: "compass" },
-      { title: "Oceanview Candlelit Dining", desc: "Private seafood and vegetarian dinners right on the seashore.", iconType: "utensils" }
+    "id": "beach-vacations",
+    "slug": "beach-vacations",
+    "group": "mood",
+    "aliases": [
+      "beach",
+      "tropical",
+      "islands",
+      "ocean"
     ],
-    destinationsIndia: [
-        {
-                "name": "Goa Weekend Vibe",
-                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
-                "price": 99360,
-                "origPrice": 116894,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-goa-weekend-vibe",
-                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Goa Weekend Vibe",
-                "tag": "A budget-friendly 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 3-star hotel, Sedan transportation, and breakfast.",
-                "price": 26460,
-                "origPrice": 27852,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-goa-weekend-vibe-2",
-                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Goa Weekend Vibe",
-                "tag": "A comfortable 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 4-star hotel, Ertiga transportation, and breakfast.",
-                "price": 45408,
-                "origPrice": 50453,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-goa-weekend-vibe-3",
-                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Peace In The Pines",
-                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
-                "price": 94012,
-                "origPrice": 188023,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-peace-in-the-pines",
-                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Heritage & Hills",
-                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 141360,
-                "origPrice": 157067,
-                "duration": "5 Nights & 6 Days",
-                "tourId": "tour-wix-karnataka-heritage-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Peaks & Palaces",
-                "tag": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 90640,
-                "origPrice": 95410,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-karnataka-peaks-palaces",
-                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    destinationsIntl: [
-        {
-                "name": "Phuket Paradise Getaway",
-                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
-                "price": 71047,
-                "origPrice": 170514,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-phuket-paradise-getaway",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Bali Tropical Escape",
-                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
-                "price": 62710,
-                "origPrice": 69870,
-                "duration": "4N/5D",
-                "tourId": "tour-wix-bali-tropical-escape",
-                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Colombo to the Clouds",
-                "tag": "Handcrafted 5N/6D tour to Colombo curated by Comfort Journey since 1992.",
-                "price": 144904,
-                "origPrice": 166640,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-colombo-to-the-clouds",
-                "img": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Asian Extravaganza",
-                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
-                "price": 294705,
-                "origPrice": 368382,
-                "duration": "10N/11D",
-                "tourId": "tour-wix-asian-extravaganza",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Unbeatable Vietnam Premium",
-                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
-                "price": 218554,
-                "origPrice": 218554,
-                "duration": "7N/8D",
-                "tourId": "tour-wix-unbeatable-vietnam-premium",
-                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Sakura Moments - The Ultimate Cherry Blossom",
-                "tag": "Handcrafted 7N/6D tour to Tokyo, Kanazawa, Kyoto curated by Comfort Journey since 1992.",
-                "price": 755156,
-                "origPrice": 906187,
-                "duration": "7N/6D",
-                "tourId": "tour-wix-sakura-moments-the-ultimate-cherry-blossom",
-                "img": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    faqs: [
-      { q: "Are water sports and scuba sessions certified?", a: "Yes! All dive sessions are with PADI-certified instructors including complete safety gear and underwater photography." }
-    ]
+    "metaTitle": "Beach vacation packages | Comfort Journey",
+    "metaDesc": "Book beach vacation packages for Goa, Andaman, Bali and Phuket. Get custom plans, upfront quotes, private cabs and 24/7 trip support from Comfort Journey.",
+    "focusKeyword": "beach vacation packages",
+    "secondaryKeywords": [
+      "beach holiday packages",
+      "Goa beach packages",
+      "Andaman beach packages",
+      "Bali beach holiday packages",
+      "Phuket beach packages",
+      "family beach holidays"
+    ],
+    "categoryBadge": "Beach lovers",
+    "eyebrow": "Beach lovers",
+    "heroHeadline": "Beach vacation packages for slow, sunny days",
+    "heroSubline": "Trade screen time for sea time. Pick Goa, Andaman, Bali or Phuket and shape the hotels, rides and pace around your group.",
+    "ctaPrimary": "Ask on WhatsApp",
+    "ctaSecondary": "See beach packages",
+    "whatsAppMsg": "Hi Comfort Journey, I'm looking for beach vacation packages for [dates] for [number] people. Please share Goa, Andaman and international options with a quote.",
+    "vibeTags": [
+      "Slow beach mornings",
+      "Couple and family plans",
+      "Private cabs with drivers",
+      "WhatsApp help 24/7"
+    ],
+    "packagesHeading": "Pick your beach pace",
+    "packagesIntro": "Goa and Andaman for Indian breaks, plus Bali, Phuket, Colombo and Asian Horizons for longer beach plans.",
+    "storyHeading": "Your beach plan should leave room for doing very little",
+    "storyParagraphs": [
+      "You have probably pictured the important parts already, with warm sand, a swim before lunch, and one day where the only serious decision is coconut water or coffee. We help turn that picture into a practical beach holiday package. The destination, hotel, transfers, and daily pace can fit your couple or family.",
+      "Tell us when you want to go, who is coming, and how slowly you want the days to run. Comfort Journey has planned travel from Bhopal since 1992, and the team stays available on WhatsApp and phone 24/7 during trips. Ask for 3-star to 5-star hotels, villas or palaces, private cabs, and visa help for international plans."
+    ],
+    "reasonsHeading": "Beach planning that keeps the calm",
+    "reasons": [
+      {
+        "title": "Plans that leave room for naps",
+        "desc": "Keep beach mornings open and fit in sightseeing around your pace. Every itinerary can be customised for couples, families, and mixed-age groups.",
+        "icon": "sun"
+      },
+      {
+        "title": "A stay that fits your style",
+        "desc": "Choose hotels from 3-star to 5-star, with villas or palaces available when you want more space or character.",
+        "icon": "hotel"
+      },
+      {
+        "title": "A driver for the dry bits",
+        "desc": "Private cabs with drivers handle the road between beaches, hotels, and sights, so your flip-flops can stay in charge.",
+        "icon": "car"
+      },
+      {
+        "title": "A real person after landing",
+        "desc": "WhatsApp and phone support is available 24/7 during trips, including help when plans shift or a suitcase takes a detour.",
+        "icon": "phone"
+      }
+    ],
+    "includedHeading": "What your beach package can include",
+    "included": [
+      {
+        "title": "Custom itinerary planning",
+        "desc": "Share your dates, interests, pace, and group size. We shape the plan around how you want to spend beach time."
+      },
+      {
+        "title": "Hotel choices that suit you",
+        "desc": "Pick from 3-star to 5-star stays, with villas and palaces available for selected plans."
+      },
+      {
+        "title": "Private cab with driver",
+        "desc": "Travel between airports, beaches, and sights in a private cab with a local driver."
+      },
+      {
+        "title": "Clear pricing upfront",
+        "desc": "Receive a transparent quote before booking, with the trip details and selected services laid out clearly."
+      },
+      {
+        "title": "International trip support",
+        "desc": "Visa assistance is available for international trips, with 24/7 WhatsApp and phone help while you travel."
+      }
+    ],
+    "quickAnswer": {
+      "question": "What do beach vacation packages usually include?",
+      "answer": "Beach vacation packages usually combine a beach stay, local sightseeing, transport, and support around one clear plan. Comfort Journey can arrange Goa, Andaman, Phuket, Bali, Colombo, and multi-country Asian trips, with hotel choices from 3-star to 5-star plus villas or palaces. Share your dates and group size on WhatsApp for a transparent quote you can review before booking."
+    },
+    "faqs": [
+      {
+        "q": "Which beach destinations can I book with Comfort Journey?",
+        "a": "You can enquire about Goa and Andaman in India, along with Phuket, Bali, Colombo, and Asian Horizons. The right pick depends on your dates, trip length, preferred pace, and travel group."
+      },
+      {
+        "q": "Can you plan a beach trip for a family?",
+        "a": "Yes. Tell us the ages in your group, your preferred hotel level, and how much sightseeing feels comfortable. We can customise the itinerary so beach time stays part of the plan, rather than a reward for surviving a packed schedule."
+      },
+      {
+        "q": "Can couples customise a beach holiday package?",
+        "a": "Yes. You can shape the stay, sightseeing, hotel type, cab arrangement, and daily pace around your dates and interests. Share your ideas on WhatsApp and the team will suggest suitable options."
+      },
+      {
+        "q": "How much do beach vacation packages cost?",
+        "a": "The price changes with the destination, travel dates, hotel category, group size, transport, activities, and visa needs. Exact quotes are shared on WhatsApp after the team understands your plan, with pricing provided upfront."
+      },
+      {
+        "q": "Can Comfort Journey help with an international beach trip visa?",
+        "a": "Visa assistance is available for international trips. Requirements and timelines vary by destination and traveller, so the team will explain the process for your selected plan before you book."
+      },
+      {
+        "q": "What support do I get during the beach trip?",
+        "a": "Real people are available on WhatsApp and phone 24/7 during trips. You can contact the team if a transfer changes, you need help with the plan, or a suitcase decides to take its own holiday."
+      }
+    ],
+    "packageIdsIndia": [
+      "tour-wix-goa-weekend-vibe",
+      "tour-wix-andaman-coastal-retreat"
+    ],
+    "packageIdsIntl": [
+      "tour-wix-bali-tropical-escape",
+      "tour-wix-phuket-paradise-getaway",
+      "tour-wix-colombo-to-the-clouds",
+      "tour-wix-asian-extravaganza"
+    ],
+    "reviewId": "gr-4",
+    "finalHeading": "Your sun-and-sea plan starts here",
+    "finalText": "Share your dates, group size and preferred beach. We'll reply on WhatsApp with suitable packages, upfront pricing and the next step.",
+    "finalCta": "Plan my beach trip",
+    "guide": [
+      "Sand, sea and zero emails. Sounds right?",
+      "Pick your beach mood: busy shacks or quiet islands.",
+      "Sunscreen is your job. Everything else is ours.",
+      "Send your dates. We will check the best beach weather for you."
+    ],
+    "theme": {
+      "accentColor": "#0891B2",
+      "vibe": "bubbles",
+      "heroImage": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=78",
+      "heroImageMobile": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=78",
+      "heroFocal": "center 60%"
+    }
   },
-
-  // 13. MOUNTAIN & ALPINE SNOW
   "mountain-escapes": {
-    id: "mountain-escapes",
-    slug: "mountain-escapes",
-    aliases: ["mountain", "snow", "hills", "alpine"],
-    metaTitle: "Mountain & Snow Tour Packages 2026 | Alpine Vacations | Comfort Journey",
-    metaDesc: "Breathe the alpine air. Snow-capped Himalayan ranges, Swiss glaciers, cozy pinewood chalets, and hot mountain coffee since 1992.",
-    categoryBadge: "Mountain & Alpine Collection",
-    theme: {
-      accentColor: "#38BDF8",
-      glowColor: "rgba(56, 189, 248, 0.28)",
-      bgGradient: "radial-gradient(circle at 50% 15%, rgba(2, 132, 199, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
-      heroImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=85",
-      personaMood: "Alpine Heights & Cozy Pinewood Chalets",
-      vibePills: [
-        { label: "🔥 In-Room Heated Blankets & Fireplaces", icon: "hotel" },
-        { label: "🚠 Skip-The-Line Cable Car Gondola", icon: "ticket" },
-        { label: "❄️ Guaranteed Thick Snow Slopes", icon: "sparkles" },
-        { label: "☕ Steaming Hot Spiced Mountain Kahwa", icon: "coffee" }
-      ],
-      personaQuote: {
-        author: "Prateek Mathur, Jaipur • Gulmarg & Pahalgam Winter Trip",
-        text: "The wooden chalet had large heated bay windows overlooking snow pines. Sitting there with hot kahwa while it was snowing outside was pure bliss."
-      }
-    },
-    heroHeadline: "The Mountains Are Calling. Breathe Pure Air.",
-    heroSubline: "Escape the summer heat and city smog. Snow-capped peaks, pine forests, hot kahwa, and mountain luxury.",
-    ctaText: "Discover Mountain Escapes",
-    whatsAppMsg: "Hi Comfort Journey! I'm looking for snow and mountain vacation packages.",
-    openingHeading: "High Altitudes, Cozy Chalets & Snow Slopes",
-    openingParagraph: `Whether it is the winter snow wonderland of Gulmarg, the pine valleys of Manali, or the majestic Swiss Alps. We curate mountain stays with heated rooms, glass-dome viewpoints, and private mountain chauffeurs.`,
-    whyHitsDifferent: [
-      { title: "Heated Rooms & Luxury Chalets", desc: "No freezing hotel rooms. Guaranteed room heating and electric blankets.", iconType: "hotel" },
-      { title: "Experienced Mountain Drivers", desc: "Expert 4x4 drivers seasoned with hill curves and snow chains.", iconType: "car" },
-      { title: "Cable Car & Ski Passes Included", desc: "Pre-booked Gondola Phase 1 & 2 passes so you skip 3-hour ticket lines.", iconType: "ticket" }
+    "id": "mountain-escapes",
+    "slug": "mountain-escapes",
+    "group": "mood",
+    "aliases": [
+      "mountain",
+      "hills",
+      "alpine",
+      "hill-stations"
     ],
-    destinationsIndia: [
-        {
-                "name": "Peace In The Pines",
-                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
-                "price": 94012,
-                "origPrice": 188023,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-peace-in-the-pines",
-                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Heritage & Hills",
-                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 141360,
-                "origPrice": 157067,
-                "duration": "5 Nights & 6 Days",
-                "tourId": "tour-wix-karnataka-heritage-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
-                "price": 45885,
-                "origPrice": 48300,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Uttarakhand Explorer",
-                "tag": "A luxurious 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
-                "price": 69575,
-                "origPrice": 77305,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-uttarakhand-explorer",
-                "img": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A premium 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 4-star hotels, Innova transportation, and curated sightseeing.",
-                "price": 64515,
-                "origPrice": 71683,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills-2",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Peace In The Pines",
-                "tag": "A luxurious 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
-                "price": 148680,
-                "origPrice": 198240,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-peace-in-the-pines-2",
-                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    destinationsIntl: [
-        {
-                "name": "Colombo to the Clouds",
-                "tag": "Handcrafted 5N/6D tour to Colombo curated by Comfort Journey since 1992.",
-                "price": 144904,
-                "origPrice": 166640,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-colombo-to-the-clouds",
-                "img": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Essence of Europe",
-                "tag": "Embark on a captivating European adventure, exploring iconic cities, cultural landmarks, and breathtaking landscapes. Your journey begins in Rome, the Eternal City, where ancient history, timeless architecture, and vibrant culture await. Day two immerses you in the grandeur of Rome and the spiritual majesty of Vatican City. Traveling north, visit Pisa to witness the Leaning Tower and the architectural wonders of Piazza dei Miracoli. Continue to Florence, the cradle of the Renaissance.\n\nExperience the romance of Venice with a private boat ride through the canals, St. Mark’s Square, St. Mark’s Basilica, and a memorable Gondola ride. Later, journey to Milan to explore the Duomo, Galleria Vittorio Emanuele II, and picturesque Lake Como’s Bellagio village before crossing into Zurich, Switzerland.\n\nSwitzerland offers alpine thrills and scenic beauty with excursions to Mt. Titlis’ Rotair cable car, the Cliff Walk, Lucerne city tour, and an optional trip to Jungfraujoch – the Top of Europe. Interlaken’s lakeside charm provides a serene escape before returning to Zurich. Conclude your journey with memories of stunning architecture, picturesque landscapes, and cultural treasures.",
-                "price": 387104,
-                "origPrice": 455417,
-                "duration": "7N/8D",
-                "tourId": "tour-wix-essence-of-europe",
-                "img": "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Phuket Paradise Getaway",
-                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
-                "price": 71047,
-                "origPrice": 170514,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-phuket-paradise-getaway",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Unbeatable Vietnam Premium",
-                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
-                "price": 218554,
-                "origPrice": 218554,
-                "duration": "7N/8D",
-                "tourId": "tour-wix-unbeatable-vietnam-premium",
-                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Bali Tropical Escape",
-                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
-                "price": 62710,
-                "origPrice": 69870,
-                "duration": "4N/5D",
-                "tourId": "tour-wix-bali-tropical-escape",
-                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Sakura Moments - The Ultimate Cherry Blossom",
-                "tag": "Handcrafted 7N/6D tour to Tokyo, Kanazawa, Kyoto curated by Comfort Journey since 1992.",
-                "price": 755156,
-                "origPrice": 906187,
-                "duration": "7N/6D",
-                "tourId": "tour-wix-sakura-moments-the-ultimate-cherry-blossom",
-                "img": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    faqs: [
-      { q: "Is snow guaranteed in winter trips to Kashmir and Himachal?", a: "December through March offers thick snow cover across Gulmarg, Solang Valley, and Rohtang Pass." }
-    ]
+    "metaTitle": "Mountain holiday packages | Comfort Journey",
+    "metaDesc": "Plan mountain holiday packages with Kashmir, Himachal and Europe options, cosy stays, private cabs and WhatsApp help from Comfort Journey since 1992.",
+    "focusKeyword": "mountain holiday packages",
+    "secondaryKeywords": [
+      "hill station tour packages",
+      "snow holiday packages",
+      "Himachal tour packages",
+      "Kashmir tour packages",
+      "Uttarakhand tour packages",
+      "Europe mountain holidays"
+    ],
+    "categoryBadge": "Mountain lovers",
+    "eyebrow": "Mountain lovers",
+    "heroHeadline": "Mountain holiday packages for fresh-air days",
+    "heroSubline": "Trade city noise for pine roads, cool air and snow views where the season allows. Pick a ready plan or shape your own with a real Comfort Journey expert.",
+    "ctaPrimary": "Ask on WhatsApp",
+    "ctaSecondary": "See mountain packages",
+    "whatsAppMsg": "Hi, I’m planning a mountain holiday. Please suggest a Kashmir, Himachal, Uttarakhand or Europe package and share the price on WhatsApp.",
+    "vibeTags": [
+      "Pine-road drives",
+      "Cosy stays",
+      "Snow-view plans",
+      "Chai after city noise"
+    ],
+    "packagesHeading": "Pick your kind of mountain break",
+    "packagesIntro": "Kashmir, Himachal, Uttarakhand, Leh and an Alpine Europe route. Tell us your dates, pace and stay preference.",
+    "storyHeading": "Your hills-and-hot-chai plan starts here",
+    "storyParagraphs": [
+      "You already know the feeling: the city is loud, the inbox is busy, and the third cup of chai has stopped helping. A mountain break gives you a better plan. Spend your days on pine-lined roads, quiet viewpoints and cool air, then return to a cosy stay before the temperature drops.",
+      "Choose a short Mussoorie or Nainital escape, a snow-season Kashmir plan, a longer Shimla-Manali drive or high-altitude Leh. Comfort Journey can adjust the route, hotel and pace for your dates. We share the price upfront, arrange private cabs with drivers and stay available on WhatsApp at +91 87704 03315 during the trip.",
+      "Since 1992, our Bhopal team has helped travellers turn a rough idea into a practical holiday. You can ask about 3-star, 4-star or 5-star hotels, palaces or villas, then decide with clear details. If an international mountain holiday suits you, we can also help with the visa process."
+    ],
+    "reasonsHeading": "Why mountain travellers choose us",
+    "reasons": [
+      {
+        "title": "Plans that fit your pace",
+        "desc": "Take a quick hill break or allow extra time for long drives, rest stops and slow mornings. We adjust the itinerary around your dates.",
+        "icon": "compass"
+      },
+      {
+        "title": "Real help on the road",
+        "desc": "Message or call +91 87704 03315 during your trip. A real Comfort Journey person is available 24/7 for travel support.",
+        "icon": "phone"
+      },
+      {
+        "title": "Clear costs before you book",
+        "desc": "Your quote is shared upfront, with the hotel category, cab plan and trip details laid out before you decide.",
+        "icon": "wallet"
+      },
+      {
+        "title": "Stays that suit the weather",
+        "desc": "Choose from 3-star to 5-star hotels, plus palaces or villas where the route offers them.",
+        "icon": "hotel"
+      }
+    ],
+    "includedHeading": "What your mountain plan can include",
+    "included": [
+      {
+        "title": "Private cab with a driver",
+        "desc": "Travel by private cab with a driver for your planned hill route and stops."
+      },
+      {
+        "title": "Hotel choices that feel right",
+        "desc": "Pick a 3-star, 4-star or 5-star stay, with palaces and villas available on suitable routes."
+      },
+      {
+        "title": "Route built around you",
+        "desc": "Change the pace, stop longer or add a place when the itinerary allows."
+      },
+      {
+        "title": "Upfront trip quote",
+        "desc": "See the planned inclusions and costs before confirming your mountain holiday."
+      },
+      {
+        "title": "Visa help for Europe",
+        "desc": "For international plans, our team can guide you through the visa assistance process."
+      }
+    ],
+    "quickAnswer": {
+      "question": "Which mountain holiday packages are best for snow views and long drives?",
+      "answer": "For snow views and long drives, compare Kashmir, Shimla-Manali, Dalhousie and Leh by season, road conditions and altitude. Uttarakhand suits shorter hill breaks, while the Europe package adds Alpine scenery. Comfort Journey can adjust dates, hotels, private cabs and daily pace, then share an exact quote on WhatsApp. Snow conditions vary, so ask about your travel month."
+    },
+    "faqs": [
+      {
+        "q": "Which mountain destination works for a short break?",
+        "a": "Uttarakhand offers shorter options, including Rishikesh and Mussoorie for 2 nights and 3 days, or Mussoorie and Haridwar for 3 nights and 4 days. Nainital also works well for a compact hill holiday."
+      },
+      {
+        "q": "Can I customise a mountain holiday package?",
+        "a": "Yes. Every itinerary can be customised around your dates, route, hotel category, driving pace and sightseeing preferences. Tell us what you want to spend more time doing, and we will shape the plan around it."
+      },
+      {
+        "q": "What changes the price of a mountain tour?",
+        "a": "The price changes with your travel month, destination, trip length, hotel category, number of travellers, cab plan and selected activities. We share an exact quote on WhatsApp after checking these details."
+      },
+      {
+        "q": "Can you arrange a private cab for hill routes?",
+        "a": "Yes. Private cabs with drivers can be arranged for the routes in your itinerary. Ask us to plan sensible drive times and stops, especially for longer Himachal, Kashmir or Leh trips."
+      },
+      {
+        "q": "Can foreign visitors book an international mountain holiday?",
+        "a": "Yes, our international options include a Europe route with Alpine scenery. Comfort Journey also provides visa assistance for international trips, with guidance based on your destination, nationality and travel dates."
+      },
+      {
+        "q": "What support do I get during the trip?",
+        "a": "Real people are available on WhatsApp and phone at +91 87704 03315, 24/7 during trips. Contact the team when you need help with the planned arrangements or a travel question."
+      }
+    ],
+    "packageIdsIndia": [
+      "tour-wix-kashmir-valley-calling-2",
+      "tour-wix-shimla-to-manali-story-3",
+      "tour-wix-peace-in-the-pines",
+      "tour-wix-uttarakhand-explorer-3",
+      "tour-wix-nainital-jim-corbett-2",
+      "tour-wix-leh-beyond-the-passes"
+    ],
+    "packageIdsIntl": [
+      "tour-wix-essence-of-europe"
+    ],
+    "reviewId": "gr-1",
+    "finalHeading": "Your mountain break starts with one message",
+    "finalText": "Tell us your dates, preferred hills and stay style. We will suggest a route and share the quote on WhatsApp.",
+    "finalCta": "Plan my mountain break",
+    "guide": [
+      "Need fresh air and a quiet view? You are in the right place.",
+      "Hill stations, valleys and long scenic drives.",
+      "Third cup of chai on the balcony. Highly recommended.",
+      "Ask us which hills suit your month of travel."
+    ],
+    "theme": {
+      "accentColor": "#0369A1",
+      "vibe": "mist",
+      "heroImage": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1920&q=78",
+      "heroImageMobile": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1920&q=78",
+      "heroFocal": "center 45%"
+    }
   },
-
-  // 14. SUMMER VACATIONS
+  "spiritual-journeys": {
+    "id": "spiritual-journeys",
+    "slug": "spiritual-journeys",
+    "group": "mood",
+    "aliases": [
+      "spiritual",
+      "pilgrimage",
+      "yatra",
+      "temple-tours"
+    ],
+    "metaTitle": "Spiritual tour packages India | Comfort Journey",
+    "metaDesc": "Find spiritual tour packages India for family yatras with planning for elders, private cabs, hotel choices, clear WhatsApp quotes and 24/7 trip support.",
+    "focusKeyword": "spiritual tour packages India",
+    "secondaryKeywords": [
+      "pilgrimage tour packages",
+      "family pilgrimage tours India",
+      "senior citizen pilgrimage tours",
+      "religious tours in India",
+      "customised spiritual tours"
+    ],
+    "categoryBadge": "Pilgrims and seekers",
+    "eyebrow": "Pilgrims and seekers",
+    "heroHeadline": "Spiritual tour packages for family comfort",
+    "heroSubline": "Plan a calmer pilgrimage with private cabs, thoughtful hotel choices, flexible pacing and a real Comfort Journey team on WhatsApp.",
+    "ctaPrimary": "Ask about your pilgrimage",
+    "ctaSecondary": "See spiritual packages",
+    "whatsAppMsg": "Hello, I am planning a spiritual trip for my family. Please suggest a comfortable itinerary, hotel options and an exact quote.",
+    "vibeTags": [
+      "Gentle pace for elders",
+      "Private cab with driver",
+      "3 to 5-star hotel choices",
+      "24/7 trip support"
+    ],
+    "packagesHeading": "Pilgrimage routes worth considering",
+    "packagesIntro": "Choose a temple-focused route or ask us to shape the pace around elders, darshan timings, rest stops and your preferred hotel.",
+    "storyHeading": "A calmer way to plan a family yatra",
+    "storyParagraphs": [
+      "Taking parents on a yatra means thinking beyond the temple list. You may need shorter drives, a room close to the lift, meals that suit the family and time to sit quietly after darshan. Tell us what will make the trip easier. We will shape the itinerary around your family rather than asking everyone to keep up with a fixed plan.",
+      "Comfort Journey has planned holidays from Bhopal since 1992. You get a real person to discuss the route, private cabs with drivers, hotel choices from 3-star to 5-star, and transparent pricing shared upfront. During the trip, WhatsApp or call +91 87704 03315 any time. The team is available 24/7 during trips."
+    ],
+    "reasonsHeading": "Why families plan their yatra with us",
+    "reasons": [
+      {
+        "title": "Plans that respect elder pace",
+        "desc": "We can discuss shorter travel days, rest breaks, room preferences and darshan timing needs before the itinerary is confirmed.",
+        "icon": "clock"
+      },
+      {
+        "title": "A driver who knows the plan",
+        "desc": "Private cabs with drivers keep your family together and make each transfer easier to manage, with one clear plan to follow.",
+        "icon": "car"
+      },
+      {
+        "title": "Costs you can discuss early",
+        "desc": "You receive transparent pricing upfront, with the quote changing when you choose different hotels, routes, dates or inclusions.",
+        "icon": "wallet"
+      },
+      {
+        "title": "People to call during the trip",
+        "desc": "Comfort Journey’s team stays available on WhatsApp and phone 24/7 during trips, so a question has somewhere to go.",
+        "icon": "phone"
+      }
+    ],
+    "includedHeading": "What we can arrange for your yatra",
+    "included": [
+      {
+        "title": "Private cab and driver",
+        "desc": "A private vehicle and driver for the planned route, based on the itinerary you approve."
+      },
+      {
+        "title": "Hotel choices for your group",
+        "desc": "Choose from 3-star to 5-star hotels, with room needs discussed before booking."
+      },
+      {
+        "title": "Temple route planning",
+        "desc": "We map the route around your temples, available time, travel pace and family priorities."
+      },
+      {
+        "title": "Food preferences discussed",
+        "desc": "Share dietary preferences early so suitable meal arrangements can be considered in the plan."
+      },
+      {
+        "title": "WhatsApp and phone support",
+        "desc": "Speak with real people at +91 87704 03315, available 24/7 during your trip."
+      }
+    ],
+    "quickAnswer": {
+      "question": "How do I choose a spiritual tour package in India for elderly parents?",
+      "answer": "Start with the temples you want to visit, then plan the pace around your parents’ walking comfort, rest needs, food preferences and darshan timings. Comfort Journey can customise the route, arrange private cabs with drivers and offer hotel choices from 3-star to 5-star. Ask for a clear WhatsApp quote after dates, route and inclusions are agreed."
+    },
+    "faqs": [
+      {
+        "q": "Can you plan a pilgrimage trip for elderly parents?",
+        "a": "Yes. Tell us about walking comfort, rest needs, food preferences and the temples you wish to visit. Every itinerary can be customised around your family’s pace."
+      },
+      {
+        "q": "Which spiritual destinations can I include?",
+        "a": "Featured options include Ayodhya and Varanasi, Haridwar and Mussoorie, Agra, Mathura and Vrindavan, Dwarka, Somnath and Gir, Bhopal, Indore and Ujjain, plus Jaipur, Ajmer and Pushkar. Ask us to check a route that fits your dates."
+      },
+      {
+        "q": "Can the pace and darshan timings be adjusted?",
+        "a": "We can plan around your preferred pace and discuss darshan timing needs. Final timings depend on temple schedules, crowd conditions and your chosen dates, so the team will confirm what is practical."
+      },
+      {
+        "q": "What hotel and transport choices are available?",
+        "a": "Choose hotels from 3-star to 5-star. Private cabs with drivers can be arranged for your planned route, with vehicle and stay details included in the quote."
+      },
+      {
+        "q": "How much do spiritual tour packages cost?",
+        "a": "The price changes with travel dates, route length, hotel category, vehicle choice, group size and inclusions. Comfort Journey shares an exact quote on WhatsApp after we understand your plan."
+      },
+      {
+        "q": "Can someone help us during the trip?",
+        "a": "Yes. Real people are available on WhatsApp and phone 24/7 during trips. Call or message +91 87704 03315 when you need help with the planned arrangements."
+      }
+    ],
+    "packageIdsIndia": [
+      "tour-wix-up-ganga-grace",
+      "tour-wix-ganga-to-the-hills",
+      "tour-wix-taj-temples-tales",
+      "tour-wix-gujarat-divine-wild-3",
+      "tour-wix-bhopal-ujjain-indore-4n-5d",
+      "tour-wix-rajasthan-color-route"
+    ],
+    "packageIdsIntl": [],
+    "reviewId": "gr-7",
+    "finalHeading": "Plan a peaceful yatra with your family",
+    "finalText": "Share your dates, temples and family needs. We will suggest a practical route and send a clear quote on WhatsApp.",
+    "finalCta": "Plan my spiritual trip",
+    "guide": [
+      "Namaste. Let us plan a calm, comfortable yatra for your family.",
+      "Sacred cities with an easy pace, especially for elders.",
+      "Darshan timings, rest breaks and simple food, planned ahead.",
+      "Share who is travelling. We will plan around their comfort."
+    ],
+    "theme": {
+      "accentColor": "#C2410C",
+      "vibe": "diya",
+      "heroImage": "landing/spiritual-1920.webp",
+      "heroImageMobile": "landing/spiritual-960.webp",
+      "heroFocal": "70% center"
+    }
+  },
   "summer-packages": {
-    id: "summer-packages",
-    slug: "summer-packages",
-    aliases: ["summer", "summer-vacations", "beat-the-heat"],
-    metaTitle: "Summer Vacation Tour Packages 2026 | Beat The Heat | Comfort Journey",
-    metaDesc: "Beat the heat with refreshing summer holiday packages across Kashmir, Himachal, Bali, Switzerland, and Dubai. Handcrafted since 1992.",
-    categoryBadge: "Summer Vacation Special",
-    theme: {
-      accentColor: "#10B981",
-      glowColor: "rgba(16, 185, 129, 0.28)",
-      bgGradient: "radial-gradient(circle at 50% 15%, rgba(4, 120, 87, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
-      heroImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=85",
-      personaMood: "Cool Climates & Refreshing Lakes",
-      vibePills: [
-        { label: "🌡️ Crisp Under-22°C Mountain Weather", icon: "sparkles" },
-        { label: "🚣 Private Shikara & Lake Boat Rides", icon: "compass" },
-        { label: "🍓 Fresh Fruit Orchard Excursions", icon: "utensils" },
-        { label: "🌲 Pine Forest Nature Canopy Walks", icon: "hotel" }
-      ],
-      personaQuote: {
-        author: "The Nambiar Family, Chennai • Himachal Summer Tour",
-        text: "Leaving 42°C Chennai for the 18°C breeze of Manali and Dharamshala was the best decision of the summer. The kids loved the apple orchards."
-      }
-    },
-    heroHeadline: "Beat The Scorching Heat. Escape to Cool Climes.",
-    heroSubline: "Escape 45°C summers. Refreshing hill stations, cool mountain lakes, and overseas summer getaways for families & couples.",
-    ctaText: "Plan Summer Vacation",
-    whatsAppMsg: "Hi Comfort Journey! We're planning our Summer Vacation. Please share cool climate tour packages.",
-    openingHeading: "Crisp Mountain Air & Refreshing Summer Escapes",
-    openingParagraph: `May and June don't have to mean sitting inside with the AC running on high. Pack your light woolens and escape to high altitudes with scenic lakes, green valleys, and cool alpine breezes.`,
-    whyHitsDifferent: [
-      { title: "Guaranteed Cool Climates", desc: "Handpicked hill stations and overseas destinations under 22°C.", iconType: "compass" },
-      { title: "Family & Kids Summer Camps", desc: "Engaging activities for school holiday breaks.", iconType: "users" }
+    "id": "summer-packages",
+    "slug": "summer-packages",
+    "group": "season",
+    "aliases": [
+      "summer",
+      "summer-vacations",
+      "beat-the-heat"
     ],
-    destinationsIndia: [
-        {
-                "name": "Peace In The Pines",
-                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
-                "price": 94012,
-                "origPrice": 188023,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-peace-in-the-pines",
-                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Heritage & Hills",
-                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 141360,
-                "origPrice": 157067,
-                "duration": "5 Nights & 6 Days",
-                "tourId": "tour-wix-karnataka-heritage-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Goa Weekend Vibe",
-                "tag": "A luxurious 3-day Goa tour covering iconic sights like Fort Aguada, Old Goa Churches, and beaches. Includes 5-star hotel, Crysta transportation, and breakfast.",
-                "price": 99360,
-                "origPrice": 116894,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-goa-weekend-vibe",
-                "img": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
-                "price": 45885,
-                "origPrice": 48300,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Uttarakhand Explorer",
-                "tag": "A luxurious 3-day tour covering Rishikesh’s spiritual sites and Mussoorie’s scenic beauty. Includes 5-star hotels, Crysta transportation, and curated sightseeing.",
-                "price": 69575,
-                "origPrice": 77305,
-                "duration": "2 Nights and 3 Days",
-                "tourId": "tour-wix-uttarakhand-explorer",
-                "img": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A premium 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 4-star hotels, Innova transportation, and curated sightseeing.",
-                "price": 64515,
-                "origPrice": 71683,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills-2",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    destinationsIntl: [
-        {
-                "name": "Phuket Paradise Getaway",
-                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
-                "price": 71047,
-                "origPrice": 170514,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-phuket-paradise-getaway",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Bali Tropical Escape",
-                "tag": "Handcrafted 4N/5D tour to Bali curated by Comfort Journey since 1992.",
-                "price": 62710,
-                "origPrice": 69870,
-                "duration": "4N/5D",
-                "tourId": "tour-wix-bali-tropical-escape",
-                "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Sakura Moments - The Ultimate Cherry Blossom",
-                "tag": "Handcrafted 7N/6D tour to Tokyo, Kanazawa, Kyoto curated by Comfort Journey since 1992.",
-                "price": 755156,
-                "origPrice": 906187,
-                "duration": "7N/6D",
-                "tourId": "tour-wix-sakura-moments-the-ultimate-cherry-blossom",
-                "img": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Asian Extravaganza",
-                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
-                "price": 294705,
-                "origPrice": 368382,
-                "duration": "10N/11D",
-                "tourId": "tour-wix-asian-extravaganza",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Essence of Europe",
-                "tag": "Embark on a captivating European adventure, exploring iconic cities, cultural landmarks, and breathtaking landscapes. Your journey begins in Rome, the Eternal City, where ancient history, timeless architecture, and vibrant culture await. Day two immerses you in the grandeur of Rome and the spiritual majesty of Vatican City. Traveling north, visit Pisa to witness the Leaning Tower and the architectural wonders of Piazza dei Miracoli. Continue to Florence, the cradle of the Renaissance.\n\nExperience the romance of Venice with a private boat ride through the canals, St. Mark’s Square, St. Mark’s Basilica, and a memorable Gondola ride. Later, journey to Milan to explore the Duomo, Galleria Vittorio Emanuele II, and picturesque Lake Como’s Bellagio village before crossing into Zurich, Switzerland.\n\nSwitzerland offers alpine thrills and scenic beauty with excursions to Mt. Titlis’ Rotair cable car, the Cliff Walk, Lucerne city tour, and an optional trip to Jungfraujoch – the Top of Europe. Interlaken’s lakeside charm provides a serene escape before returning to Zurich. Conclude your journey with memories of stunning architecture, picturesque landscapes, and cultural treasures.",
-                "price": 387104,
-                "origPrice": 455417,
-                "duration": "7N/8D",
-                "tourId": "tour-wix-essence-of-europe",
-                "img": "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Unbeatable Vietnam Premium",
-                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
-                "price": 218554,
-                "origPrice": 218554,
-                "duration": "7N/8D",
-                "tourId": "tour-wix-unbeatable-vietnam-premium",
-                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    faqs: [
-      { q: "When should we book our summer holiday packages?", a: "Due to high peak summer demand, we recommend booking at least 30–45 days in advance to secure top flight rates and preferred resort suites." }
-    ]
+    "metaTitle": "Summer vacation packages for families | Comfort Journey",
+    "metaDesc": "Plan summer vacation packages for school holidays with cooler India escapes and trips abroad. Get custom options, visa help and upfront quotes on WhatsApp.",
+    "focusKeyword": "summer vacation packages",
+    "secondaryKeywords": [
+      "summer holiday packages",
+      "summer vacation packages India",
+      "family summer holidays",
+      "summer tour packages",
+      "international summer holiday packages",
+      "cool hill station packages"
+    ],
+    "categoryBadge": "Families and groups",
+    "eyebrow": "Families and groups",
+    "heroHeadline": "Summer vacation packages for cooler family days",
+    "heroSubline": "School holidays are for fresh air, family laughs and fewer arguments about the AC bill. Pick hill escapes in India or easy summer trips abroad.",
+    "ctaPrimary": "Enquire on WhatsApp",
+    "ctaSecondary": "Browse summer packages",
+    "whatsAppMsg": "Hi Comfort Journey, I’m planning a family summer vacation for April to June. Please share cool India and international packages with an upfront quote.",
+    "vibeTags": [
+      "Cooler hill air",
+      "School-holiday friendly",
+      "Private family cabs",
+      "Visa help for abroad"
+    ],
+    "packagesHeading": "Cooler picks for the school holidays",
+    "packagesIntro": "Choose a hill break, a coast escape or an international plan. We can adjust dates, hotels and pace for your group.",
+    "storyHeading": "Trade the 45°C forecast for family time",
+    "storyParagraphs": [
+      "April to June can turn a family holiday into a daily hunt for shade. The AC runs, the bill grows, and everyone starts negotiating over the remote. A cooler trip changes the mood. Think pine-lined roads, lake views and evenings when children can play outside while the adults finish a cup of tea.",
+      "Comfort Journey was founded in Bhopal by Sharad Kumar Mishra in 1992. Share your dates, group size, preferred hotel level and the places your family wants to see. We can shape a private cab itinerary around nap times, elder-friendly stops and the one relative who needs a snack every 40 minutes.",
+      "Stay in a 3-star or 5-star hotel, palace or villa, then travel in a private cab with a driver. For trips abroad, visa assistance is available. Your quote is shared upfront, and real people remain reachable on WhatsApp and phone 24/7 during your trip."
+    ],
+    "reasonsHeading": "Why families book with Comfort Journey",
+    "reasons": [
+      {
+        "title": "Plans that fit the whole group",
+        "desc": "Share school dates, ages, food needs and rest preferences. We adjust the route so the day works for grandparents and energetic children.",
+        "icon": "users"
+      },
+      {
+        "title": "Private travel days",
+        "desc": "A private cab and driver keep your family together and make it easier to pause for photos, snacks or a slower morning.",
+        "icon": "car"
+      },
+      {
+        "title": "Clear costs before booking",
+        "desc": "You receive an upfront quote shaped by dates, hotels, transport, group size and activities. Ask questions on WhatsApp before deciding.",
+        "icon": "wallet"
+      },
+      {
+        "title": "Help when plans change",
+        "desc": "Comfort Journey support is available 24/7 during trips, with real people on WhatsApp and phone when your group needs an answer.",
+        "icon": "phone"
+      }
+    ],
+    "includedHeading": "What your summer plan can include",
+    "included": [
+      {
+        "title": "Hotels you can choose",
+        "desc": "Pick from 3-star to 5-star hotels, plus palaces and villas where available for your chosen route."
+      },
+      {
+        "title": "Private cab with driver",
+        "desc": "Keep the group together with private transport and a driver familiar with the planned route."
+      },
+      {
+        "title": "Visa help for abroad",
+        "desc": "For international holidays, the team can guide you through visa assistance and trip paperwork."
+      },
+      {
+        "title": "Flexible itinerary planning",
+        "desc": "Change the pace, stops and hotel preferences around school dates, family interests and rest time."
+      },
+      {
+        "title": "Upfront WhatsApp quote",
+        "desc": "Get a clear quote before booking, with the price shaped by your dates and choices."
+      }
+    ],
+    "quickAnswer": {
+      "question": "Which summer vacation packages work well for families in India?",
+      "answer": "Family-friendly summer vacation packages usually combine cooler hill destinations with manageable travel days, private transport and hotels suited to your group. Comfort Journey can plan India trips such as Shimla-Manali, Dharamshala-Dalhousie, Kashmir and Uttarakhand, or arrange Bali, Phuket or Vietnam. Share your dates and group details on WhatsApp for a customised itinerary and exact quote."
+    },
+    "faqs": [
+      {
+        "q": "Which months are covered by your summer holiday packages?",
+        "a": "These pages are designed for school-holiday trips from April through June. Tell us your exact dates and we will suggest destinations that fit the season and your group."
+      },
+      {
+        "q": "Which destinations stay cooler in an Indian summer?",
+        "a": "Our summer catalog includes hill routes such as Shimla-Manali, Dharamshala-Dalhousie, Kashmir, Nainital and Mussoorie. Weather can vary, so our team will explain likely conditions and travel time before you book."
+      },
+      {
+        "q": "Can you plan a summer holiday for a large family or group?",
+        "a": "Yes. Every itinerary can be customised around group size, room needs, travel pace, food preferences and activity choices. Private cabs help keep the group together, while the route can include rest stops."
+      },
+      {
+        "q": "How much do summer vacation packages cost?",
+        "a": "The price changes with dates, destination, flights, hotel category, room plan, transport and activities. Comfort Journey shares an exact quote on WhatsApp after learning your requirements."
+      },
+      {
+        "q": "Can you arrange an international summer holiday?",
+        "a": "Yes. The catalog includes Bali, Phuket and Vietnam, along with other international options. Visa assistance is available for international trips, and the team will explain what paperwork is needed."
+      },
+      {
+        "q": "What support do we get during the trip?",
+        "a": "Real people are available on WhatsApp and phone 24/7 during trips. You can contact the team about transfers, hotel questions or changes to the day’s plan."
+      }
+    ],
+    "packageIdsIndia": [
+      "tour-wix-shimla-to-manali-story-3",
+      "tour-wix-peace-in-the-pines",
+      "tour-wix-kashmir-valley-calling-2",
+      "tour-wix-uttarakhand-explorer-3",
+      "tour-wix-nainital-jim-corbett"
+    ],
+    "packageIdsIntl": [
+      "tour-wix-bali-tropical-escape",
+      "tour-wix-phuket-paradise-getaway",
+      "tour-wix-unbeatable-vietnam-premium"
+    ],
+    "reviewId": "gr-7",
+    "finalHeading": "Give the AC bill a holiday too",
+    "finalText": "Tell us your dates, group size and preferred destination. We’ll reply on WhatsApp with suitable options and an upfront quote.",
+    "finalCta": "Plan my summer trip",
+    "guide": [
+      "Too hot at home? Let us find you somewhere cooler.",
+      "School holidays sorted. These places stay pleasant in summer.",
+      "Book early for May and June. Good rooms go fast.",
+      "Tell us your holiday dates. We will suggest the coolest options."
+    ],
+    "theme": {
+      "accentColor": "#059669",
+      "vibe": "sun",
+      "heroImage": "landing/summer-1920.webp",
+      "heroImageMobile": "landing/summer-960.webp",
+      "heroFocal": "65% center"
+    }
   },
-
-  // 15. WINTER & NORTHERN LIGHTS
-  "winter-packages": {
-    id: "winter-packages",
-    slug: "winter-packages",
-    aliases: ["winter", "snow-trips", "winter-wonderland"],
-    metaTitle: "Winter Tour Packages 2026 | Snow & Northern Lights | Comfort Journey",
-    metaDesc: "Winter wonderland escapes. Gulmarg skiing, Dal Lake frozen shikara, Rajasthan desert winter camps, and Swiss snow. Handcrafted since 1992.",
-    categoryBadge: "Winter Wonderland Collection",
-    theme: {
-      accentColor: "#67E8F9",
-      glowColor: "rgba(103, 232, 249, 0.28)",
-      bgGradient: "radial-gradient(circle at 50% 15%, rgba(8, 145, 178, 0.5) 0%, rgba(0, 11, 29, 0.95) 75%)",
-      heroImage: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1600&q=85",
-      personaMood: "Snow Powder & Desert Bonfires",
-      vibePills: [
-        { label: "☃️ Fresh Powder Snow Days Guaranteed", icon: "sparkles" },
-        { label: "🌌 Starry Desert Dune Campfire Nights", icon: "hotel" },
-        { label: "☕ Spiced Hot Chocolate & Kahwa", icon: "coffee" },
-        { label: "🧤 Complimentary Winter Packing Kit", icon: "shield" }
-      ],
-      personaQuote: {
-        author: "Vivek & Rashmi, Kolkata • Kashmir Winter Snow Tour",
-        text: "Seeing Dal Lake in the winter morning mist and skiing down Gulmarg slopes was a dream come true. Heated cars made all the difference."
-      }
-    },
-    heroHeadline: "Cozy Up in Winter Snow & Starry Deserts.",
-    heroSubline: "Snowfall in the Himalayas, golden winter sunshine in Rajasthan deserts, and fairy-tale European Christmas lights.",
-    ctaText: "Explore Winter Packages",
-    whatsAppMsg: "Hi Comfort Journey! I'm planning a Winter holiday. Please share top winter & snow packages.",
-    openingHeading: "Winter Magic Handcrafted for Travelers",
-    openingParagraph: `Winter is the most magical season to travel. From sitting next to a roaring fireplace in a Kashmir pine chalet to sleeping in royal desert tents under a blanket of stars in Rajasthan.`,
-    whyHitsDifferent: [
-      { title: "Snow & Skiing Guaranteed", desc: "Best snow seasons in Gulmarg, Solang, and Swiss glaciers.", iconType: "hotel" },
-      { title: "Heated Transport & Rooms", desc: "Warm comfort throughout your winter trip.", iconType: "car" }
+  "monsoon-getaways": {
+    "id": "monsoon-getaways",
+    "slug": "monsoon-getaways",
+    "group": "season",
+    "aliases": [
+      "monsoon",
+      "rainy-season",
+      "monsoon-trips"
     ],
-    destinationsIndia: [
-        {
-                "name": "Peace In The Pines",
-                "tag": "A premium 5-day tour covering Dharamshala’s Tibetan culture, Dalhousie’s colonial charm, and Khajjiar’s natural beauty. Includes 4-star hotels, Ertica transportation, and curated sightseeing.",
-                "price": 94012,
-                "origPrice": 188023,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-peace-in-the-pines",
-                "img": "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Heritage & Hills",
-                "tag": "Handcrafted 5 Nights & 6 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 141360,
-                "origPrice": 157067,
-                "duration": "5 Nights & 6 Days",
-                "tourId": "tour-wix-karnataka-heritage-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Karnataka Peaks & Palaces",
-                "tag": "Handcrafted 4 Nights & 5 Days tour to India curated by Comfort Journey since 1992.",
-                "price": 90640,
-                "origPrice": 95410,
-                "duration": "4 Nights & 5 Days",
-                "tourId": "tour-wix-karnataka-peaks-palaces",
-                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A budget-friendly 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 3-star hotels, Sedan transportation, and breakfast.",
-                "price": 45885,
-                "origPrice": 48300,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Ganga To The Hills",
-                "tag": "A premium 4-day tour covering Haridwar’s spiritual sites, Rishikesh’s landmarks, and Mussoorie’s scenic beauty. Includes 4-star hotels, Innova transportation, and curated sightseeing.",
-                "price": 64515,
-                "origPrice": 71683,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-ganga-to-the-hills-2",
-                "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Rajasthan Royal Affair",
-                "tag": "Immerse yourself in the royal heritage of Rajasthan with a vibrant journey through Jodhpur’s blue streets and Udaipur’s serene lakes. This budget-friendly package blends cultural landmarks, shopping, and scenic beauty.",
-                "price": 34272,
-                "origPrice": 42840,
-                "duration": "3 Nights & 4 Days",
-                "tourId": "tour-wix-rajasthan-royal-affair",
-                "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    destinationsIntl: [
-        {
-                "name": "Unbeatable Vietnam Premium",
-                "tag": "Embark on a premium 7-night journey through Vietnam, beginning with a comfortable stay at your hotel in Hanoi. Relish daily continental breakfasts, along with Indian lunches and dinners. Explore Hanoi with a half-day city tour, visiting iconic landmarks such as Hoan Kiem Lake and the Ho Chi Minh Mausoleum.\n\nOn day two, venture to Ninh Binh to discover the ancient capital of Hoa Lu and experience a serene Sampan boat ride through Tam Coc. Day three highlights a one-night Halong Bay cruise, where you'll marvel at the breathtaking limestone karsts.\n\nContinue your journey in Da Nang with a visit to the spectacular Ba Na Hills, including the iconic Golden Bridge, and a trip to the charming Hoi An Ancient Town. Conclude your adventure in Ho Chi Minh City with a city tour and an insightful visit to the historic Cu Chi Tunnels.\n\nThe package includes domestic flights, seamless transfers, knowledgeable guides, and luxurious accommodations, ensuring an unforgettable travel experience.",
-                "price": 218554,
-                "origPrice": 218554,
-                "duration": "7N/8D",
-                "tourId": "tour-wix-unbeatable-vietnam-premium",
-                "img": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Colombo to the Clouds",
-                "tag": "Handcrafted 5N/6D tour to Colombo curated by Comfort Journey since 1992.",
-                "price": 144904,
-                "origPrice": 166640,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-colombo-to-the-clouds",
-                "img": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Singapore City & Gardens",
-                "tag": "Handcrafted 5N/6D tour to Singapore curated by Comfort Journey since 1992.",
-                "price": 282452,
-                "origPrice": 389783,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-singapore-city-gardens",
-                "img": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Asian Extravaganza",
-                "tag": "This package encompasses a diverse and exciting journey through Singapore, Kuala Lumpur, and Thailand's Pattaya and Bangkok. Beginning with a comprehensive exploration of Singapore's cultural landmarks and iconic attractions, including Little India, Merlion, and Gardens by the Bay, the trip proceeds to Sentosa Island and Universal Studios for entertainment and adventure.\n\nIn Kuala Lumpur, highlights include Putrajaya, Genting Highlands, and city tours featuring landmarks like the Genting Highlands and Batu Caves. The journey continues to Pattaya, where you can experience Coral Island and Nong Nooch Village, followed by cultural immersion and temple visits in Bangkok.\n\nThe itinerary culminates in Safari World, offering wildlife encounters and thrilling shows, before departing from Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience. Bangkok Suvarnabhumi Airport. Throughout the journey, you can indulge in delicious Indian cuisine, ensuring a memorable and fulfilling experience.",
-                "price": 294705,
-                "origPrice": 368382,
-                "duration": "10N/11D",
-                "tourId": "tour-wix-asian-extravaganza",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Dubai City & Sands",
-                "tag": "Handcrafted 4N/5D tour to Dubai curated by Comfort Journey since 1992.",
-                "price": 113503,
-                "origPrice": 136204,
-                "duration": "4N/5D",
-                "tourId": "tour-wix-dubai-city-sands",
-                "img": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85"
-        },
-        {
-                "name": "Phuket Paradise Getaway",
-                "tag": "Handcrafted 5N/6D tour to Phuket curated by Comfort Journey since 1992.",
-                "price": 71047,
-                "origPrice": 170514,
-                "duration": "5N/6D",
-                "tourId": "tour-wix-phuket-paradise-getaway",
-                "img": "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1200&q=85"
-        }
-      ],
-    faqs: [
-      { q: "What clothing should we pack for winter snow trips?", a: "We provide all travelers with a comprehensive winter packing checklist including thermal layers, waterproof boots, and glove recommendations." }
-    ]
+    "metaTitle": "Monsoon tour packages in India | Comfort Journey",
+    "metaDesc": "Find monsoon tour packages for misty hills, green forests and slow escapes in India. Get a custom plan, rain-aware advice and an exact WhatsApp quote.",
+    "focusKeyword": "monsoon tour packages",
+    "secondaryKeywords": [
+      "rainy season getaways India",
+      "monsoon destinations in India",
+      "monsoon trips India",
+      "India monsoon holidays",
+      "rain-friendly tour packages"
+    ],
+    "categoryBadge": "Rain lovers",
+    "eyebrow": "Rain lovers",
+    "heroHeadline": "Monsoon tour packages for green escapes",
+    "heroSubline": "Rain-fed hills, misty forests and slow mornings with chai. We plan the route, stay and vehicle around June to September weather.",
+    "ctaPrimary": "Ask on WhatsApp",
+    "ctaSecondary": "Browse monsoon trips",
+    "whatsAppMsg": "Hi Comfort Journey, I’m looking for a monsoon tour package in India for June to September. Please suggest rainy-season options and an exact quote.",
+    "vibeTags": [
+      "Misty hill mornings",
+      "Green forest routes",
+      "Chai and pakora pauses",
+      "Rain-ready road plans"
+    ],
+    "packagesHeading": "Pick your kind of rainy escape",
+    "packagesIntro": "Choose a misty hill break, a forest-and-river route or a longer monsoon circuit. We can adjust dates, pace and stays.",
+    "storyHeading": "Rain makes the right places glow",
+    "storyParagraphs": [
+      "Some travellers wait for clear skies. You check the forecast and look for the greenest map. In Pachmarhi, Jabalpur and Assam, rain can freshen forests, rivers and waterfalls. A rainy-season plan also leaves room for slower mornings, hot chai and the occasional wet sneaker that deserves its own towel.",
+      "Comfort Journey has planned trips from Bhopal since 1992. Tell us your dates, starting city, comfort level and preferred pace. We can customise the itinerary, choose stays from 3-star to 5-star options, arrange a private cab with a driver and keep a real person available on WhatsApp or phone 24/7 during your trip."
+    ],
+    "reasonsHeading": "Why rain lovers plan with us",
+    "reasons": [
+      {
+        "title": "Rain-aware route choices",
+        "desc": "We favour destinations that suit June to September and explain where heavy rain can affect hill-road timings.",
+        "icon": "compass"
+      },
+      {
+        "title": "People who answer at night",
+        "desc": "A real team member stays available on WhatsApp and phone 24/7 during your trip.",
+        "icon": "phone"
+      },
+      {
+        "title": "Your stay, your pace",
+        "desc": "Pick 3-star to 5-star hotels, palaces or villas, then adjust days and stops to fit your plan.",
+        "icon": "hotel"
+      },
+      {
+        "title": "Clear costs before you decide",
+        "desc": "We share an upfront quote and explain how dates, rooms, transport and inclusions change the total.",
+        "icon": "wallet"
+      }
+    ],
+    "includedHeading": "What your rain-ready plan can include",
+    "included": [
+      {
+        "title": "Custom route planning",
+        "desc": "We shape the plan around your dates, starting point and favourite rainy landscapes."
+      },
+      {
+        "title": "Private cab and driver",
+        "desc": "Travel between towns in a private vehicle with a driver familiar with the planned route."
+      },
+      {
+        "title": "Hotel choices",
+        "desc": "Compare 3-star to 5-star stays, plus palaces or villas where the destination offers them."
+      },
+      {
+        "title": "Trip-time support",
+        "desc": "Reach a real person on WhatsApp or phone 24/7 during your trip."
+      },
+      {
+        "title": "Visa help for overseas trips",
+        "desc": "For international bookings, our team can guide you through the visa assistance process."
+      }
+    ],
+    "quickAnswer": {
+      "question": "Which are the best monsoon tour packages in India?",
+      "answer": "The best choice depends on the rain you want. Pachmarhi, Jabalpur and Assam suit green landscapes, while Karnataka offers coffee-country and coastal scenery. Nainital and Jim Corbett need careful hill-road planning during heavy showers. Comfort Journey can customise dates, hotels and private cabs, then share an exact quote on WhatsApp."
+    },
+    "faqs": [
+      {
+        "q": "Which destinations work well for a monsoon trip in India?",
+        "a": "Pachmarhi, Jabalpur, Assam and Karnataka are strong options for green scenery and slower days. Nainital and Jim Corbett can be lovely in rain, but hill-road conditions may change timings."
+      },
+      {
+        "q": "Are monsoon trips safe on hill roads?",
+        "a": "Hill roads need extra care in heavy rain. We plan sensible timings, follow local conditions and tell you when a route needs flexibility; the final decision rests with local authorities and your driver."
+      },
+      {
+        "q": "Can I customise a rainy-season tour package?",
+        "a": "Yes. Every itinerary can be customised around dates, starting city, hotel category, pace and interests. Share the plan on WhatsApp and we will send an exact quote."
+      },
+      {
+        "q": "How much do monsoon tour packages cost?",
+        "a": "The price changes with destination, travel dates, number of travellers, hotel category, vehicle and inclusions. Comfort Journey shares an exact quote on WhatsApp after learning your requirements."
+      },
+      {
+        "q": "Can I choose my hotel and vehicle?",
+        "a": "Yes. Choose from 3-star to 5-star hotels, palaces or villas where available. Private cabs with drivers can be arranged for your route."
+      },
+      {
+        "q": "Do you help with international monsoon trips?",
+        "a": "Yes, the catalogue includes international options and our team provides visa assistance for international trips. We will check the season, your dates and the route before sharing a quote."
+      }
+    ],
+    "packageIdsIndia": [
+      "tour-wix-meghalaya-highland-holiday-2",
+      "tour-wix-madhya-pradesh-nature-retreat-3",
+      "tour-wix-madhya-pradesh-wildside-2",
+      "tour-wix-karnataka-heritage-hills",
+      "tour-wix-nainital-jim-corbett-2"
+    ],
+    "packageIdsIntl": [
+      "tour-wix-asian-extravaganza"
+    ],
+    "reviewId": "gr-8",
+    "finalHeading": "Plan a rainy-season escape with a real person",
+    "finalText": "Tell us your dates and rain-loving wish list. We’ll suggest a route, explain the weather trade-offs and send an exact WhatsApp quote.",
+    "finalCta": "Start on WhatsApp",
+    "guide": [
+      "Love the rain? So do these green valleys.",
+      "These places look their best when it pours.",
+      "Bring a raincoat. We bring the plan and the chai stops.",
+      "Ask us which routes are safe and pretty this monsoon."
+    ],
+    "theme": {
+      "accentColor": "#15803D",
+      "vibe": "rain",
+      "heroImage": "landing/monsoon-1920.webp",
+      "heroImageMobile": "landing/monsoon-960.webp",
+      "heroFocal": "72% center"
+    }
+  },
+  "winter-packages": {
+    "id": "winter-packages",
+    "slug": "winter-packages",
+    "group": "season",
+    "aliases": [
+      "winter",
+      "snow-trips",
+      "winter-wonderland",
+      "december-trips"
+    ],
+    "metaTitle": "Winter tour packages for snow and sun | Comfort Journey",
+    "metaDesc": "Compare winter tour packages for snow, cosy stays and warm sun. Comfort Journey plans Kashmir, Himachal, Rajasthan and overseas trips with clear quotes.",
+    "focusKeyword": "winter tour packages",
+    "secondaryKeywords": [
+      "snow trip packages",
+      "December holiday packages",
+      "Kashmir winter tour",
+      "Himachal winter packages",
+      "warm winter holidays"
+    ],
+    "categoryBadge": "Winter travellers",
+    "eyebrow": "Winter travellers",
+    "heroHeadline": "Winter tour packages for snow days and warm sun",
+    "heroSubline": "Pick a snowy mountain escape, a sunny desert break or a festive overseas trip. We will help you plan the layers, stays and little details.",
+    "ctaPrimary": "Ask on WhatsApp",
+    "ctaSecondary": "Browse winter trips",
+    "whatsAppMsg": "Hi Comfort Journey, I am planning a winter trip. Please share snow and warm-sun packages for my dates and travellers.",
+    "vibeTags": [
+      "Snowy mountain mornings",
+      "Cosy stays and hot chocolate",
+      "Desert sun in December",
+      "Festive overseas breaks"
+    ],
+    "packagesHeading": "Choose your kind of winter",
+    "packagesIntro": "Snow in the hills, crisp desert days or warm winter sun. Start with a trip that matches your weather mood.",
+    "storyHeading": "Your winter trip should fit your weather mood",
+    "storyParagraphs": [
+      "Some winter travellers want a Kashmir morning with snowy views and a warm cup in hand. Others would rather trade woollen socks for Rajasthan sunshine or Dubai evenings. You can also plan a festive overseas break in Vietnam or Europe. Tell us the dates, pace and temperature you prefer, and we will shape the plan around you.",
+      "We know winter packing can become a small family debate involving four jackets, two pairs of gloves and one very optimistic suitcase. Comfort Journey helps you choose practical stays, private cabs with drivers and a day plan that leaves room for weather changes. Since 1992, our Bhopal team has been helping travellers plan with clear advice and upfront pricing.",
+      "You can choose hotels from 3-star to 5-star, or ask about palaces and villas where available. Every itinerary can be customised. For international trips, our team can also assist with visas and keep real people available on WhatsApp or phone at +91 87704 03315 during your trip."
+    ],
+    "reasonsHeading": "Why winter travellers choose us",
+    "reasons": [
+      {
+        "title": "Plans that follow your weather",
+        "desc": "Choose snow, desert sunshine or a warmer overseas break, then adjust the pace and stops to suit your winter plans.",
+        "icon": "snowflake"
+      },
+      {
+        "title": "Clear costs before you book",
+        "desc": "We share an upfront quote so you can see what changes with dates, hotels, transport and trip preferences.",
+        "icon": "wallet"
+      },
+      {
+        "title": "Real help during the trip",
+        "desc": "A Comfort Journey person is available on WhatsApp or phone at +91 87704 03315 24/7 during trips.",
+        "icon": "phone"
+      },
+      {
+        "title": "Winter routes with local sense",
+        "desc": "Our team helps balance sightseeing, driving time and weather realities, so your holiday feels comfortable rather than rushed.",
+        "icon": "compass"
+      }
+    ],
+    "includedHeading": "What we can arrange",
+    "included": [
+      {
+        "title": "Hotels for your comfort",
+        "desc": "Select 3-star or 5-star hotels, plus palaces and villas where available for your chosen destination."
+      },
+      {
+        "title": "Private cabs with drivers",
+        "desc": "Travel between winter stops with a private cab and driver arranged around your itinerary."
+      },
+      {
+        "title": "A plan made for you",
+        "desc": "Customise destinations, sightseeing, hotel preferences, trip pace and time for warm drinks."
+      },
+      {
+        "title": "Visa assistance abroad",
+        "desc": "Get guidance with visa steps for international trips, based on your destination and travel dates."
+      },
+      {
+        "title": "Upfront trip pricing",
+        "desc": "Receive a clear quote before booking, with the key inclusions explained by our team."
+      }
+    ],
+    "quickAnswer": {
+      "question": "Which winter tour package is best for a snow trip?",
+      "answer": "For an India snow trip, Kashmir and Himachal are strong starting points, with routes covering places such as Gulmarg, Sonamarg, Shimla and Manali. Snow conditions change by date and location, so Comfort Journey will explain what is realistic, suggest suitable hotels and cabs, and share an exact WhatsApp quote after checking your dates."
+    },
+    "faqs": [
+      {
+        "q": "Which destinations work well for a winter holiday in India?",
+        "a": "Kashmir and Himachal suit travellers looking for mountain air and possible snow. Uttarakhand offers shorter hill breaks, while Rajasthan gives you bright days and cooler desert evenings. The right choice depends on your dates, preferred weather and trip length."
+      },
+      {
+        "q": "Will there definitely be snow on my winter trip?",
+        "a": "Snow depends on the season, altitude and local weather, so we will not promise a fixed snowfall experience. We can explain the usual conditions for your dates and suggest a route with the best practical chance of seeing snow."
+      },
+      {
+        "q": "How much do winter tour packages cost?",
+        "a": "The price changes with destination, travel dates, hotel category, number of travellers, transport and sightseeing. Share your plan on WhatsApp and Comfort Journey will send an exact quote with the inclusions explained upfront."
+      },
+      {
+        "q": "Can I customise a winter package for my family or group?",
+        "a": "Yes. Every itinerary can be customised around your dates, hotel choice, pace, sightseeing interests and group needs. You can also ask for a private cab with driver instead of a shared arrangement."
+      },
+      {
+        "q": "What is included in a winter holiday package?",
+        "a": "Inclusions depend on the destination and plan, but we can arrange hotels, private cabs with drivers and sightseeing. International plans can include visa assistance. Your quote will spell out the selected inclusions before you book."
+      },
+      {
+        "q": "Can Comfort Journey plan a warm winter holiday abroad?",
+        "a": "Yes. Dubai suits travellers seeking warm winter sun, while Vietnam and selected European routes offer a different seasonal feel. Tell us your dates, weather preference and budget, and we will suggest suitable options with an exact WhatsApp quote."
+      }
+    ],
+    "packageIdsIndia": [
+      "tour-wix-kashmir-valley-calling-2",
+      "tour-wix-shimla-to-manali-story-3",
+      "tour-wix-peace-in-the-pines",
+      "tour-wix-ganga-to-the-hills",
+      "tour-wix-rajasthan-royal-affair"
+    ],
+    "packageIdsIntl": [
+      "tour-wix-unbeatable-vietnam-premium",
+      "tour-wix-dubai-city-sands",
+      "tour-wix-essence-of-europe"
+    ],
+    "reviewId": "gr-1",
+    "finalHeading": "Your winter dates are worth a quick chat",
+    "finalText": "Tell us where you want to feel the cold or catch the sun. We will suggest a practical route and share a clear quote on WhatsApp.",
+    "finalCta": "Plan my winter trip",
+    "guide": [
+      "Ready for jackets, snow views and hot chocolate?",
+      "Snowy hills or warm winter sun. Both are here.",
+      "Snowfall depends on nature. A cosy trip depends on us.",
+      "December fills up fast. Send us your dates soon."
+    ],
+    "theme": {
+      "accentColor": "#0E7490",
+      "vibe": "snow",
+      "heroImage": "landing/winter-1920.webp",
+      "heroImageMobile": "landing/winter-960.webp",
+      "heroFocal": "70% center"
+    }
   }
 };
 
-// Helper function to resolve any landing page by slug or alias
 export function getLandingPageBySlug(rawSlug) {
   if (!rawSlug) return null;
-  const clean = rawSlug.replace(/^#\/?/, '').replace(/^landing\/?/, '').toLowerCase().trim();
-  
-  // Direct match
-  if (LANDING_PAGES_DATA[clean]) {
-    return LANDING_PAGES_DATA[clean];
-  }
-
-  // Alias lookup
+  const clean = rawSlug.replace(/^#\/?/, '').replace(/^landing\/?/, '').replace(/\/$/, '').toLowerCase().trim();
+  if (LANDING_PAGES_DATA[clean]) return LANDING_PAGES_DATA[clean];
   for (const key in LANDING_PAGES_DATA) {
     const page = LANDING_PAGES_DATA[key];
-    if (page.aliases && page.aliases.includes(clean)) {
-      return page;
-    }
+    if (page.aliases && page.aliases.includes(clean)) return page;
   }
-
   return null;
 }

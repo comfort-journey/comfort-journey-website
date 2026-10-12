@@ -14,10 +14,8 @@ export default function StatsBar() {
 
   // Helper to parse numeric values for AnimatedCounter
   const parseStat = (valStr) => {
-    if (valStr.includes('33+')) return { target: 33, suffix: '+ Years' };
-    if (valStr.includes('30,000+')) return { target: 30000, suffix: '+ Satisfied' };
-    if (valStr.includes('4.9/5')) return { target: 4.9, suffix: '/5 Rating', decimals: 1 };
-    if (valStr.includes('100%')) return { target: 100, suffix: '% Bespoke' };
+    if (valStr === '33+') return { target: 33, suffix: '+' };
+    if (valStr === '4.8') return { target: 4.8, suffix: '★', decimals: 1 };
     return null;
   };
 

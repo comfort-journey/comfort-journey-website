@@ -175,28 +175,28 @@ export default function IndiaTripsSection({
         <div className="showcase-header">
           <div className="showcase-badge-pill india-badge">
             <Sparkles size={13} className="text-amber animate-pulse" />
-            <span>ROYAL HERITAGE COLLECTION</span>
+            <span>INDIA TRIPS</span>
           </div>
           <h2 className="showcase-title font-editorial">
-            Incredible India <span className="gradient-text-gold">Palaces & Escapes</span>
+            India tour packages, <span className="gradient-text-gold">minus the hassle</span>
           </h2>
           <p className="showcase-subtitle">
-            Private chauffeured journeys through royal palace suites, serene backwaters, and misty Himalayan sanctuaries.
+            Palaces in Rajasthan, houseboats in Kerala, snow in Kashmir. You get a private car, hotels we trust and a planner who picks up when you call.
           </p>
 
           {/* Vibe Micro-Badges Strip with Modern Vector Icons */}
           <div className="vibe-badges-strip">
-            <span className="vibe-micro-badge"><Shield size={12} className="text-amber" /> Zero Visa Drama</span>
-            <span className="vibe-micro-badge"><Crown size={12} className="text-amber" /> Verified Heritage Forts</span>
-            <span className="vibe-micro-badge"><Car size={12} className="text-amber" /> Private AC Car & Chauffeur</span>
-            <span className="vibe-micro-badge"><Award size={12} className="text-amber" /> 33+ Years Hospitality</span>
+            <span className="vibe-micro-badge"><Shield size={12} className="text-amber" /> No visa needed</span>
+            <span className="vibe-micro-badge"><Crown size={12} className="text-amber" /> Palace and fort stays</span>
+            <span className="vibe-micro-badge"><Car size={12} className="text-amber" /> Private car with driver</span>
+            <span className="vibe-micro-badge"><Award size={12} className="text-amber" /> Planning since 1992</span>
           </div>
 
           {/* Sub-region filter tabs & carousel arrow controls */}
           <div className="controls-and-tabs-bar">
             <div className="sub-region-tabs">
               {[
-                { id: 'All', label: 'All India Royalty', icon: <Compass size={14} className="text-amber" /> },
+                { id: 'All', label: 'All of India', icon: <Compass size={14} className="text-amber" /> },
                 { id: 'Himalayas', label: 'Himalayas & Snow', icon: <Mountain size={14} className="text-amber" /> },
                 { id: 'Rajasthan', label: 'Royal Rajasthan', icon: <Crown size={14} className="text-amber" /> },
                 { id: 'South', label: 'Kerala & South', icon: <Palmtree size={14} className="text-amber" /> },
@@ -295,7 +295,7 @@ export default function IndiaTripsSection({
                         </span>
                         <span className="compact-rating-pill">
                           <Star size={11} className="fill-gold text-gold" />
-                          <span>{tour.rating || '4.9'} ({tour.reviews || '85+'})</span>
+                          <span>4.8 Google (85+)</span>
                         </span>
                       </div>
                     </div>

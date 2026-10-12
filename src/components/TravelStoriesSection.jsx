@@ -46,13 +46,13 @@ export default function TravelStoriesSection({ onOpenQuote }) {
         <div className="section-header text-center">
           <div className="instagram-section-badge">
             <Instagram size={15} />
-            <span>AUTHENTIC TRAVEL DIARIES • @comfort.journey</span>
+            <span>FROM OUR INSTAGRAM • @comfort.journey</span>
           </div>
           <h2 className="section-title font-editorial">
-            Real Moments, <span className="gradient-text-gold">Live Traveler Stories</span>
+            Short clips from <span className="gradient-text-gold">real trips</span>
           </h2>
           <p className="section-subtitle">
-            Watch authentic travel experiences from our guests exploring bespoke vacation packages across India and the globe.
+            Our travellers filming the good bits. Fair warning: you might start packing.
           </p>
         </div>
 
@@ -244,8 +244,8 @@ export default function TravelStoriesSection({ onOpenQuote }) {
         )}{/* CTA Strip */}
         <div className="stories-cta-banner glass-card">
           <div className="cta-left">
-            <h3 className="font-editorial">Ready to create your own lifelong travel memories?</h3>
-            <p>Speak directly with our senior trip curators in Bhopal. Zero consultation fees to craft your bespoke plan.</p>
+            <h3 className="font-editorial">Want to star in the next clip?</h3>
+            <p>Tell us where you want to go. Planning help is free, and a real person replies.</p>
           </div>
           <div className="cta-right">
             <button className="btn-primary" onClick={onOpenQuote}>
