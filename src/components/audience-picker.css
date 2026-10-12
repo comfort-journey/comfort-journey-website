@@ -10,13 +10,13 @@
   --ap-surface: var(--cj-bg-card, #fff);
   --ap-line: var(--cj-line, #E8E0CF);
   position: relative;
-  padding-block: clamp(56px, 8vw, 96px);
+  padding-block: clamp(36px, 4.5vw, 56px);
   background: var(--cj-bg-base, #FFFDF7);
   color: var(--ap-body);
   font-family: var(--font-body);
 }
 .ap-wrap { width: min(1200px, 100% - 40px); margin-inline: auto; }
-.ap-head { max-width: 640px; margin: 0 auto clamp(28px, 4vw, 40px); text-align: center; }
+.ap-head { max-width: 640px; margin: 0 auto clamp(20px, 2.5vw, 28px); text-align: center; }
 .ap-kicker { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #E36A12; margin-bottom: 10px; }
 .ap-title { font-family: var(--font-heading); color: var(--ap-ink); font-size: clamp(30px, 4.4vw, 48px); line-height: 1.08; margin: 0 0 12px; letter-spacing: -0.01em; text-wrap: balance; }
 .ap-sub { margin: 0; font-size: clamp(15px, 1.4vw, 17px); line-height: 1.6; color: var(--ap-muted); text-wrap: pretty; }

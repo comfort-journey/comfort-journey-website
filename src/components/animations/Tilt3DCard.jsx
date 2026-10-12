@@ -143,7 +143,11 @@ export default function Tilt3DCard({
           position: 'relative', 
           zIndex: 2, 
           borderRadius: borderRadius,
+          width: '100%',
           height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          flex: 1,
         }}
       >
         {children}

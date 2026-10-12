@@ -1,8 +1,7 @@
 import React from 'react';
 import { STATS_DATA } from '../data/toursData';
-import { Award, Globe, HeartHandshake, Headphones, ShieldCheck, Sparkles } from 'lucide-react';
+import { Award, Globe, HeartHandshake, Headphones } from 'lucide-react';
 import AnimatedCounter from './animations/AnimatedCounter';
-import Tilt3DCard from './animations/Tilt3DCard';
 
 export default function StatsBar() {
   const icons = [
@@ -27,31 +26,29 @@ export default function StatsBar() {
             const parsed = parseStat(stat.value);
             const isLongVal = String(stat.value).length > 6;
             return (
-              <Tilt3DCard key={idx} maxTilt={5} scale={1.025} className="stat-tilt-wrapper">
-                <div className="stat-card">
-                  <div className="stat-card-inner">
-                    <div className="stat-icon-wrapper">
-                      {icons[idx]}
-                    </div>
-                    <div className="stat-info">
-                      <span className={`stat-value font-editorial ${isLongVal ? 'stat-value-compact' : ''}`}>
-                        {parsed ? (
-                          <AnimatedCounter
-                            target={parsed.target}
-                            suffix={parsed.suffix}
-                            decimals={parsed.decimals || 0}
-                            duration={2200}
-                          />
-                        ) : (
-                          stat.value
-                        )}
-                      </span>
-                      <span className="stat-label">{stat.label}</span>
-                      <span className="stat-sub">{stat.sub}</span>
-                    </div>
+              <div key={idx} className="stat-card">
+                <div className="stat-card-inner">
+                  <div className="stat-icon-wrapper">
+                    {icons[idx]}
+                  </div>
+                  <div className="stat-info">
+                    <span className={`stat-value font-editorial ${isLongVal ? 'stat-value-compact' : ''}`}>
+                      {parsed ? (
+                        <AnimatedCounter
+                          target={parsed.target}
+                          suffix={parsed.suffix}
+                          decimals={parsed.decimals || 0}
+                          duration={2200}
+                        />
+                      ) : (
+                        stat.value
+                      )}
+                    </span>
+                    <span className="stat-label">{stat.label}</span>
+                    <span className="stat-sub">{stat.sub}</span>
                   </div>
                 </div>
-              </Tilt3DCard>
+              </div>
             );
           })}
         </div>
@@ -72,11 +69,6 @@ export default function StatsBar() {
           align-items: stretch;
         }
 
-        .stat-tilt-wrapper {
-          height: 100%;
-          display: flex;
-        }
-
         .stat-card {
           position: relative;
           padding: 1.25rem 1.4rem;
@@ -89,6 +81,7 @@ export default function StatsBar() {
           display: flex;
           align-items: center;
           width: 100%;
+          height: 100%;
           box-sizing: border-box;
           transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
         }
@@ -178,11 +171,9 @@ export default function StatsBar() {
           .stats-grid::-webkit-scrollbar {
             display: none;
           }
-          .stat-tilt-wrapper {
-            flex: 0 0 205px;
-            scroll-snap-align: start;
-          }
           .stat-card {
+            flex: 0 0 215px;
+            scroll-snap-align: start;
             padding: 0.75rem 0.85rem;
             border-radius: 16px;
             min-height: 76px;

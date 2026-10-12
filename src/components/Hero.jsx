@@ -377,7 +377,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           {/* Universal Top Search Bar for Instant Global Filtering (Mobile & PC) */}
           <div className="hero-top-universal-search">
             <div className="top-search-glass-shell">
-              <Search size={18} className="text-amber flex-shrink-0" />
+              <Search size={22} className="top-search-icon flex-shrink-0" />
               <input
                 type="text"
                 placeholder="Try Kashmir, Bali, Dubai, Kerala, Ladakh or Switzerland"
@@ -1416,40 +1416,94 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           stroke: #FFFFFF !important;
         }
 
-        /* Universal Top Search Bar */
+        /* Universal Top Search Bar with Animated Moving Gradient Border Trail ("Train on Tracks") */
+        @property --search-angle {
+          syntax: '<angle>';
+          initial-value: 0deg;
+          inherits: false;
+        }
+
         .hero-top-universal-search {
           width: 100%;
-          max-width: 820px;
-          margin: 1.15rem auto 1.35rem auto;
+          max-width: 880px;
+          margin: 1.35rem auto 1.55rem auto;
           display: flex;
           flex-direction: column;
-          gap: 0.65rem;
+          gap: 0.75rem;
           padding: 0 0.5rem;
         }
 
         .top-search-glass-shell {
+          --search-shell-bg: rgba(10, 24, 56, 0.88);
           display: flex;
           align-items: center;
-          gap: 0.75rem;
-          padding: 0.6rem 1.15rem;
+          gap: 0.95rem;
+          padding: 0.82rem 1.45rem;
+          min-height: 58px;
           border-radius: 9999px;
-          background: rgba(10, 24, 56, 0.75);
-          border: 1.5px solid rgba(255, 137, 47, 0.45);
+          border: 2.5px solid transparent;
+          background:
+            linear-gradient(var(--search-shell-bg), var(--search-shell-bg)) padding-box,
+            conic-gradient(
+              from var(--search-angle, 0deg),
+              transparent 0deg,
+              transparent 190deg,
+              rgba(255, 137, 47, 0.22) 230deg,
+              #FF892F 280deg,
+              #38BDF8 320deg,
+              #A855F7 348deg,
+              #FF892F 360deg
+            ) border-box;
+          animation: searchBorderTrain 4.5s linear infinite;
           box-shadow: 
-            0 8px 30px rgba(0, 0, 0, 0.4),
+            0 10px 32px rgba(0, 0, 0, 0.4),
             0 0 20px rgba(255, 137, 47, 0.2),
             inset 0 1px 2px rgba(255, 255, 255, 0.15);
           backdrop-filter: blur(16px);
           -webkit-backdrop-filter: blur(16px);
-          transition: all 0.3s ease;
+          transition: transform 0.25s ease, box-shadow 0.25s ease, animation-duration 0.25s ease;
+          position: relative;
+        }
+
+        .top-search-glass-shell:hover {
+          transform: translateY(-2px);
+          box-shadow: 
+            0 14px 40px rgba(0, 0, 0, 0.48),
+            0 0 28px rgba(255, 137, 47, 0.3),
+            inset 0 1px 2px rgba(255, 255, 255, 0.2);
         }
 
         .top-search-glass-shell:focus-within {
-          border-color: #6FE6FC;
+          transform: translateY(-2px);
+          animation-duration: 2.8s;
           box-shadow: 
-            0 12px 35px rgba(0, 0, 0, 0.5),
-            0 0 25px rgba(111, 230, 252, 0.4),
+            0 16px 45px rgba(0, 0, 0, 0.55),
+            0 0 32px rgba(56, 189, 248, 0.38),
+            0 0 18px rgba(255, 137, 47, 0.35),
             inset 0 1px 2px rgba(255, 255, 255, 0.25);
+        }
+
+        @keyframes searchBorderTrain {
+          to {
+            --search-angle: 360deg;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .top-search-glass-shell {
+            animation: none;
+          }
+        }
+
+        .top-search-icon {
+          color: #FF892F;
+          filter: drop-shadow(0 2px 6px rgba(255, 137, 47, 0.4));
+          transition: transform 0.2s ease, filter 0.2s ease;
+        }
+
+        .top-search-glass-shell:focus-within .top-search-icon {
+          transform: scale(1.1);
+          filter: drop-shadow(0 2px 8px rgba(56, 189, 248, 0.6));
         }
 
         .top-search-input {
@@ -1458,21 +1512,24 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           border: none;
           outline: none;
           color: var(--cj-text-heading);
-          font-size: 0.95rem;
+          font-size: 1.08rem;
+          font-weight: 500;
+          letter-spacing: -0.01em;
           font-family: inherit;
         }
 
         .top-search-input::placeholder {
-          color: rgba(226, 232, 240, 0.65);
-          font-size: 0.9rem;
+          color: rgba(226, 232, 240, 0.72);
+          font-size: 1.02rem;
+          font-weight: 400;
         }
 
         .top-search-clear-btn {
           background: rgba(255, 255, 255, 0.12);
           border: none;
           color: var(--cj-text-body);
-          width: 26px;
-          height: 26px;
+          width: 28px;
+          height: 28px;
           border-radius: 50%;
           display: flex;
           align-items: center;
@@ -1484,6 +1541,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         .top-search-clear-btn:hover {
           background: rgba(255, 137, 47, 0.3);
           color: var(--cj-text-heading);
+          transform: scale(1.08);
         }
 
         .hero-trending-tags-row {
@@ -2745,6 +2803,18 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
             height: 15px;
           }
 
+          .top-search-glass-shell {
+            padding: 0.72rem 1.15rem;
+            min-height: 52px;
+            gap: 0.75rem;
+          }
+          .top-search-input {
+            font-size: 0.98rem;
+          }
+          .top-search-input::placeholder {
+            font-size: 0.92rem;
+          }
+
           /* Continents deck: smooth horizontal swipe cards */
           .continents-deck-strip {
             display: flex !important;
@@ -2918,14 +2988,18 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
         }
         :root:not([data-theme="dark"]) .top-search-glass-shell,
         [data-theme="light"] .top-search-glass-shell {
-          background: rgba(255, 255, 255, 0.96);
-          border-color: var(--cj-line, #E8E0CF);
-          box-shadow: 0 8px 24px rgba(20, 38, 74, 0.08), 0 0 16px rgba(255, 137, 47, 0.1);
+          --search-shell-bg: #FFFFFF;
+          border-color: transparent;
+          box-shadow: 0 8px 28px rgba(20, 38, 74, 0.08), 0 0 18px rgba(255, 137, 47, 0.14);
+        }
+        :root:not([data-theme="dark"]) .top-search-glass-shell:hover,
+        [data-theme="light"] .top-search-glass-shell:hover {
+          box-shadow: 0 12px 34px rgba(20, 38, 74, 0.12), 0 0 24px rgba(255, 137, 47, 0.22);
         }
         :root:not([data-theme="dark"]) .top-search-glass-shell:focus-within,
         [data-theme="light"] .top-search-glass-shell:focus-within {
-          border-color: #FF892F;
-          box-shadow: 0 10px 28px rgba(255, 137, 47, 0.22), 0 0 0 3px rgba(255, 137, 47, 0.15);
+          border-color: transparent;
+          box-shadow: 0 14px 40px rgba(20, 38, 74, 0.16), 0 0 30px rgba(255, 137, 47, 0.28), 0 0 16px rgba(56, 189, 248, 0.2);
         }
         :root:not([data-theme="dark"]) .top-search-input,
         [data-theme="light"] .top-search-input {
