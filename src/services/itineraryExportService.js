@@ -142,24 +142,65 @@ export async function generateSocialCardDataUrl(rawPlan) {
     });
   });
 
-  // Map Background: Deep midnight nautical gradient
+  // Map Background: Deep midnight nautical & topographic gradient
   const mapGrad = ctx.createLinearGradient(0, 0, width, mapAreaHeight);
-  mapGrad.addColorStop(0, '#06132B');
-  mapGrad.addColorStop(0.5, '#0B1D42');
-  mapGrad.addColorStop(1, '#081736');
+  mapGrad.addColorStop(0, '#041026');
+  mapGrad.addColorStop(0.5, '#071A3D');
+  mapGrad.addColorStop(1, '#051430');
   ctx.fillStyle = mapGrad;
   ctx.fillRect(0, 0, width, mapAreaHeight);
 
-  // Subtle geographic grid
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+  // --- Topographic Landmass Relief & Coastal Contours ---
+  // Organic coastline landmass
+  ctx.fillStyle = 'rgba(14, 165, 233, 0.08)';
+  ctx.beginPath();
+  ctx.moveTo(0, mapAreaHeight);
+  ctx.bezierCurveTo(width * 0.25, mapAreaHeight * 0.55, width * 0.6, mapAreaHeight * 0.85, width, mapAreaHeight * 0.4);
+  ctx.lineTo(width, 0);
+  ctx.lineTo(0, 0);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = 'rgba(16, 185, 129, 0.06)';
+  ctx.beginPath();
+  ctx.moveTo(30, mapAreaHeight);
+  ctx.bezierCurveTo(width * 0.35, mapAreaHeight * 0.45, width * 0.7, mapAreaHeight * 0.65, width - 20, mapAreaHeight * 0.25);
+  ctx.lineTo(width, 0);
+  ctx.lineTo(40, 0);
+  ctx.closePath();
+  ctx.fill();
+
+  // Elevation Contour Lines (Authentic Topographic Waves)
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.07)';
   ctx.lineWidth = 1;
-  for (let i = 0; i < width; i += 45) {
+  [60, 110, 170, 230, 290].forEach((cx, idx) => {
+    ctx.beginPath();
+    ctx.ellipse(cx + 80, 160 + (idx % 2) * 20, 120 + idx * 18, 65 + idx * 10, Math.PI / 12, 0, Math.PI * 2);
+    ctx.stroke();
+  });
+
+  // Minor Arterial Road Network (Faint highway routes)
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.09)';
+  ctx.lineWidth = 1.2;
+  ctx.setLineDash([4, 4]);
+  ctx.beginPath();
+  ctx.moveTo(20, mapAreaHeight * 0.7);
+  ctx.quadraticCurveTo(width * 0.4, mapAreaHeight * 0.3, width - 30, mapAreaHeight * 0.6);
+  ctx.moveTo(width * 0.2, mapAreaHeight);
+  ctx.quadraticCurveTo(width * 0.5, mapAreaHeight * 0.5, width * 0.8, 20);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Precise Geographic Coordinate Grid
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i < width; i += 60) {
     ctx.beginPath();
     ctx.moveTo(i, 0);
     ctx.lineTo(i, mapAreaHeight);
     ctx.stroke();
   }
-  for (let j = 0; j < mapAreaHeight; j += 45) {
+  for (let j = 0; j < mapAreaHeight; j += 60) {
     ctx.beginPath();
     ctx.moveTo(0, j);
     ctx.lineTo(width, j);
@@ -218,11 +259,21 @@ export async function generateSocialCardDataUrl(rawPlan) {
 
     // Draw route lines connecting all waypoints
     if (allCoords.length > 1) {
-      // Wide subtle route corridor glow
-      ctx.strokeStyle = 'rgba(255, 137, 47, 0.22)';
-      ctx.lineWidth = 12;
+      // Wide vibrant route corridor glow
+      ctx.strokeStyle = 'rgba(255, 137, 47, 0.25)';
+      ctx.lineWidth = 14;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
+      ctx.beginPath();
+      ctx.moveTo(toCanvasX(allCoords[0].lng), toCanvasY(allCoords[0].lat));
+      for (let i = 1; i < allCoords.length; i++) {
+        ctx.lineTo(toCanvasX(allCoords[i].lng), toCanvasY(allCoords[i].lat));
+      }
+      ctx.stroke();
+
+      // Highway Underlay
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+      ctx.lineWidth = 5;
       ctx.beginPath();
       ctx.moveTo(toCanvasX(allCoords[0].lng), toCanvasY(allCoords[0].lat));
       for (let i = 1; i < allCoords.length; i++) {

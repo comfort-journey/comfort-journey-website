@@ -47,7 +47,7 @@ export default function SocialCardModal({ isOpen, onClose, tripPlan }) {
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose} style={{ zIndex: 12000 }}>
+    <div className="modal-overlay" onClick={onClose} style={{ zIndex: 99999 }}>
       <div className="modal-content social-card-modal" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
           <div className="header-left">

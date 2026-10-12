@@ -4,22 +4,28 @@
 
 .timeline-list {
   position: relative;
-  padding: var(--space-3) var(--space-4) 120px;
+  padding: var(--space-3) var(--space-4) 36px;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
 }
 
 .timeline-rail {
+  display: none !important;
+}
+
+.timeline-stop:not(:last-child)::after {
+  content: '';
   position: absolute;
   left: 36px;
-  top: 10px;
-  bottom: 40px;
+  top: 56px;
+  bottom: -15px;
   width: 2px;
-  background: linear-gradient(180deg, var(--planner-tangerine-500), rgba(2, 132, 199, 0.35));
+  background: linear-gradient(180deg, var(--planner-tangerine-500), rgba(2, 132, 199, 0.4));
   border-radius: 1px;
   pointer-events: none;
-  opacity: 0.6;
+  opacity: 0.65;
+  z-index: 0;
 }
 
 .timeline-stop {
@@ -299,8 +305,10 @@
     gap: var(--space-2);
   }
   
-  .timeline-rail {
-    left: 24px;
+  .timeline-stop:not(:last-child)::after {
+    left: 29px;
+    top: 46px;
+    bottom: -10px;
   }
   
   .timeline-stop {

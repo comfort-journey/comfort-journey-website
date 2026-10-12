@@ -40,9 +40,6 @@ export default function TimelineList({
 
   return (
     <div className="timeline-list" role="list" aria-label="Day timeline">
-      {/* Connecting rail */}
-      <div className="timeline-rail" aria-hidden="true" />
-      
       {timelineItems.map((stop) => (
         <TimelineStop
           key={`${stop.title}-${stop.index}`}

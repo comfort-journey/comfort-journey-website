@@ -95,6 +95,167 @@ export function findMatchingBlogs(query, limit = 2) {
   }).slice(0, limit);
 }
 
+// Curated Handpicked Hotels & Stays Knowledge Base for Direct Traveler Inquiries
+export const DESTINATION_HOTELS = {
+  bali: {
+    title: 'Bali, Indonesia',
+    hotels: [
+      {
+        name: 'The Kayon Jungle Resort (5★ Luxury)',
+        area: 'Ubud Rainforest',
+        highlights: 'Famous cascading 3-tier infinity pools overlooking the Petanu River valley, private pool villas, serene atmosphere, and daily complimentary afternoon tea.'
+      },
+      {
+        name: 'W Bali – Seminyak (5★ Luxury)',
+        area: 'Seminyak Beachfront',
+        highlights: 'Direct beach access, premier ocean sunset lounge, private plunge pool villas, walking distance to Seminyak dining & boutiques.'
+      },
+      {
+        name: 'Maya Ubud Resort & Spa (5★ Deluxe)',
+        area: 'Ubud Valley',
+        highlights: 'Secluded 10-hectare river valley setting, private garden villas, tranquil riverwalks, and complimentary shuttle to Ubud Market.'
+      },
+      {
+        name: 'The Mulia Bali (5★ Luxury)',
+        area: 'Nusa Dua Beachfront',
+        highlights: 'Prestigious beachfront resort with nine pools, white sand beach, expansive ocean suites, and dedicated butler service.'
+      }
+    ],
+    amenities: [
+      'Daily buffet breakfast included (warm Indian dishes & Pure Vegetarian options readily available)',
+      'Private pool villas with flower bath & floating breakfast arrangements on request',
+      'Dedicated private AC car with courteous driver for all excursions and airport transfers'
+    ]
+  },
+  kashmir: {
+    title: 'Kashmir',
+    hotels: [
+      {
+        name: 'Vivanta Dal Lake by Taj (5★ Luxury)',
+        area: 'Srinagar (Kralsangri Hill)',
+        highlights: 'Panoramic 180° views of Dal Lake and Zabarwan mountains, heated rooms, signature Wazwan & pure veg restaurants.'
+      },
+      {
+        name: 'The Khyber Himalayan Resort & Spa (5★ Luxury)',
+        area: 'Gulmarg',
+        highlights: 'World-class heated ski resort amidst pine forests, heated indoor glass swimming pool, walking distance to Gulmarg Gondola Phase 1.'
+      },
+      {
+        name: 'Welcomhotel Pine N Peak by ITC (5★ Luxury)',
+        area: 'Pahalgam',
+        highlights: 'Perched on Rajwas plateau overlooking Lidder River & snow peaks, cozy fireplace lounge, heated rooms, riverside gardens.'
+      },
+      {
+        name: 'Luxury Dal Lake Cedarwood Houseboat',
+        area: 'Dal Lake / Nigeen Lake',
+        highlights: 'Traditional handcrafted Kashmiri deodar wood, private Shikara transfers, personal butler, and authentic hot saffron Kahwa.'
+      }
+    ],
+    amenities: [
+      'Guaranteed 24/7 central heating and electric bed warmers in all mountain properties',
+      'Pure Vegetarian & Jain dining coordinated directly with executive hotel chefs',
+      'Private Toyota Innova Crysta / Hycross with verified local chauffeur throughout'
+    ]
+  },
+  dubai: {
+    title: 'Dubai, UAE',
+    hotels: [
+      {
+        name: 'Atlantis, The Palm (5★ Luxury)',
+        area: 'Palm Jumeirah',
+        highlights: 'Iconic luxury resort, complimentary access to Aquaventure Waterpark & Lost Chambers Aquarium, ocean view suites.'
+      },
+      {
+        name: 'Address Downtown / Dubai Mall (5★ Luxury)',
+        area: 'Downtown Dubai',
+        highlights: 'Direct bridge connection to Dubai Mall, unmatched views of Burj Khalifa and the Dubai Fountains.'
+      },
+      {
+        name: 'JW Marriott Marquis (5★ Luxury)',
+        area: 'Business Bay',
+        highlights: 'World-class international dining, luxury Saray spa, heated outdoor pool, central city access.'
+      }
+    ],
+    amenities: [
+      'Daily international buffet breakfast with extensive Indian vegetarian options',
+      'Private airport luxury transfers and private car for desert safari & city tours'
+    ]
+  },
+  switzerland: {
+    title: 'Switzerland',
+    hotels: [
+      {
+        name: 'Hotel Schweizerhof Luzern (5★ Luxury)',
+        area: 'Lucerne',
+        highlights: 'Overlooking Lake Lucerne and Mt. Pilatus, historic luxury, steps from Chapel Bridge.'
+      },
+      {
+        name: 'Victoria-Jungfrau Grand Hotel & Spa (5★ Luxury)',
+        area: 'Interlaken',
+        highlights: 'Prestigious alpine spa resort with direct views of the snow-clad Jungfrau massif.'
+      },
+      {
+        name: 'Sunstar Hotel Grindelwald (4★ Superior)',
+        area: 'Grindelwald',
+        highlights: 'Cozy wooden alpine chalets, panoramic views of the North Face of Mount Eiger.'
+      }
+    ],
+    amenities: [
+      'Swiss panoramic train station pickup or private Mercedes chauffeur transfers',
+      'Hot alpine breakfast buffet included daily'
+    ]
+  },
+  rajasthan: {
+    title: 'Rajasthan Heritage',
+    hotels: [
+      {
+        name: 'Taj Lake Palace (5★ Luxury)',
+        area: 'Udaipur',
+        highlights: '18th-century white marble palace floating on Lake Pichola, private boat arrival, royal butler service.'
+      },
+      {
+        name: 'Rambagh Palace (5★ Luxury)',
+        area: 'Jaipur',
+        highlights: 'Former residence of the Maharaja of Jaipur, sprawling peacock gardens, royal heritage dining.'
+      },
+      {
+        name: 'Suryagarh Jaisalmer (5★ Luxury)',
+        area: 'Jaisalmer',
+        highlights: 'Boutique sandstone fort palace in the Thar Desert, golden hour courtyards, folk music evenings.'
+      }
+    ],
+    amenities: [
+      'Authentic Royal Rajasthani hospitality with traditional marigold garland welcome',
+      '100% Pure Vegetarian & Jain dining readily available at all properties',
+      'Private AC Toyota Innova with courteous chauffeur'
+    ]
+  },
+  kerala: {
+    title: 'Kerala Backwaters',
+    hotels: [
+      {
+        name: 'Kumarakom Lake Resort (5★ Luxury)',
+        area: 'Kumarakom',
+        highlights: 'Traditional Kerala heritage villas with private plunge pools, Ayurvedic spa, backwater sunset cruises.'
+      },
+      {
+        name: 'Fragrant Nature Munnar (5★ Luxury)',
+        area: 'Munnar',
+        highlights: 'Boutique hill retreat with fireplace suites, mist-covered tea estate valley views.'
+      },
+      {
+        name: 'Premium Private AC Houseboat',
+        area: 'Alleppey Backwaters',
+        highlights: 'Exclusive cruise through palm-fringed canals, private chef on board preparing fresh traditional meals.'
+      }
+    ],
+    amenities: [
+      'Fresh coconut water & authentic South & North Indian breakfast included daily',
+      'Private AC car & driver for tea garden excursions and boat jetties'
+    ]
+  }
+};
+
 /**
  * KAYAK-Style Natural Language Intent & Entity Parser
  * Understands conversational sentences like:
@@ -102,7 +263,20 @@ export function findMatchingBlogs(query, limit = 2) {
  */
 export function parseTravelIntent(prompt) {
   if (!prompt) return null;
-  const q = prompt.toLowerCase();
+  const q = prompt.toLowerCase().trim();
+
+  // Guard: If this is an informational query rather than a trip-creation instruction, do not force-generate a plan
+  const isQuestion = q.includes('?') || 
+    /^(what|which|where|how|why|who|can|could|tell|show|explain|is|are|do|does)\b/i.test(q) ||
+    q.includes('best hotel') || q.includes('best stay') || q.includes('what are the best') ||
+    q.includes('recommend hotel') || q.includes('suggest hotel');
+  
+  const hasExplicitDays = /(\d+)\s*(days|day|d\b|nights|night|n\b)/i.test(q) || q.includes('weekend');
+  const hasPlanIntent = q.includes('plan a trip') || q.includes('plan my trip') || q.includes('create itinerary') || q.includes('book a trip') || q.includes('days in') || q.includes('nights in');
+
+  if (isQuestion && !hasPlanIntent) {
+    return null;
+  }
 
   // 1. Destination
   let destination = 'Kashmir';
@@ -133,11 +307,14 @@ export function parseTravelIntent(prompt) {
       destination = matched[0].location || matched[0].country || matched[0].name;
       destKey = destination.toLowerCase().replace(/[^a-z0-9]/g, '_');
     } else {
-      // Clean extracted prompt as custom destination name
-      const cleanPromptWords = prompt.replace(/\b(days?|nights?|trip|tour|plan|custom|vacation|itinerary|for|with|parents|family|honeymoon|couple|in)\b/gi, '').trim();
-      if (cleanPromptWords.length >= 3) {
+      // Clean extracted prompt as custom destination name ONLY if it's a genuine place name
+      const cleanPromptWords = prompt.replace(/\b(what|which|where|how|tell|me|about|are|the|best|hotels?|stays?|food|options?|days?|nights?|trip|tour|plan|custom|vacation|itinerary|for|with|parents|family|honeymoon|couple|in)\b/gi, '').replace(/[?!.,]/g, '').trim();
+      if (cleanPromptWords.length >= 3 && cleanPromptWords.length <= 25 && !/\s{2,}/.test(cleanPromptWords)) {
         destination = cleanPromptWords.charAt(0).toUpperCase() + cleanPromptWords.slice(1);
         destKey = destination.toLowerCase().replace(/[^a-z0-9]/g, '_');
+      } else {
+        destination = 'Bali, Indonesia';
+        destKey = 'bali';
       }
     }
   }
@@ -450,7 +627,7 @@ export function generateComfyItinerary(parsedIntent) {
 }
 
 // Fallback intelligent responder when Gemini API key is offline
-function generateLocalSmartResponse(prompt) {
+function generateLocalSmartResponse(prompt, currentTrip = null) {
   const q = prompt.toLowerCase().trim();
 
   // 1. Competitor guardrail
@@ -458,7 +635,8 @@ function generateLocalSmartResponse(prompt) {
   if (competitorMatches.some(c => q.includes(c))) {
     return {
       reply: `At **Comfort Journey (Est. 1992)**, we are an independent travel house focused on **personalized, comfortable vacations**.\n\n✨ **The Comfort Journey Promise:**\n- **100% Private Trips:** Dedicated private AC car with courteous driver for your family.\n- **Verified Comfortable Stays:** Handpicked 4★ and 5★ hotels, pine chalets, and private pool villas.\n- **Dietary Peace of Mind:** Verified Pure Veg, Jain, and Halal dining arranged throughout.\n- **24/7 Direct Care:** Personal trip manager reachable anytime on WhatsApp (+91 8770403315).\n\nHow may I help plan your dream holiday?`,
-      matchedTours: findMatchingTours('luxury', 2)
+      matchedTours: findMatchingTours('luxury', 2),
+      generatedTrip: null
     };
   }
 
@@ -467,7 +645,8 @@ function generateLocalSmartResponse(prompt) {
   if (offTopicKeywords.some(kw => q.includes(kw)) && !q.includes('travel') && !q.includes('trip') && !q.includes('tour')) {
     return {
       reply: `Hi! I am **Comfy.ai**, your friendly travel assistant at **Comfort Journey (Est. 1992)**. 🌟\n\nI am exclusively here to help you plan smooth, memorable holidays across India and 2,000+ destinations worldwide. I can help with:\n- **Custom Tour Packages & Itineraries**\n- **Best Weather, Seasons & What to Pack**\n- **Private Cars, Drivers & Hotel Recommendations**\n- **Family, Senior Citizen & Honeymoon Vacations**\n\nWhich destination are you thinking about visiting?`,
-      matchedTours: []
+      matchedTours: [],
+      generatedTrip: null
     };
   }
 
@@ -475,22 +654,91 @@ function generateLocalSmartResponse(prompt) {
   const isHindi = /[\u0900-\u097F]/.test(prompt) || 
     /\b(kaise|kya|kab|jana|hoga|chahiye|kitna|kharcha|batao|kripya|namaste|kashmir|ghoomne)\b/i.test(prompt);
 
-  // 4. Food & Dietary Queries
+  // 4. Hotel & Stay Recommendations (Direct, informative answer for traveler clarity)
+  const isHotelQuery = q.includes('hotel') || q.includes('stay') || q.includes('resort') || q.includes('villa') || q.includes('accommodation') || q.includes('room');
+  if (isHotelQuery) {
+    let targetDestKey = 'bali';
+    let targetDestName = 'Bali, Indonesia';
+
+    // Prioritize active trip destination
+    if (currentTrip && currentTrip.destination) {
+      targetDestName = currentTrip.destination;
+      targetDestKey = (currentTrip.destKey || '').toLowerCase();
+    }
+
+    const destLower = (targetDestName + ' ' + targetDestKey + ' ' + q).toLowerCase();
+    if (destLower.includes('kashmir') || destLower.includes('srinagar') || destLower.includes('gulmarg') || destLower.includes('pahalgam') || destLower.includes('son marg')) {
+      targetDestKey = 'kashmir';
+    } else if (destLower.includes('bali') || destLower.includes('indonesia') || destLower.includes('ubud') || destLower.includes('seminyak') || destLower.includes('kuta')) {
+      targetDestKey = 'bali';
+    } else if (destLower.includes('dubai') || destLower.includes('uae') || destLower.includes('burj')) {
+      targetDestKey = 'dubai';
+    } else if (destLower.includes('swiss') || destLower.includes('switzerland') || destLower.includes('lucerne') || destLower.includes('interlaken')) {
+      targetDestKey = 'switzerland';
+    } else if (destLower.includes('rajasthan') || destLower.includes('jaipur') || destLower.includes('udaipur') || destLower.includes('jodhpur')) {
+      targetDestKey = 'rajasthan';
+    } else if (destLower.includes('kerala') || destLower.includes('munnar') || destLower.includes('alleppey')) {
+      targetDestKey = 'kerala';
+    }
+
+    const hotelData = DESTINATION_HOTELS[targetDestKey];
+    let replyText = '';
+
+    if (hotelData) {
+      replyText = `**Handpicked Hotels & Stays for your ${hotelData.title} Trip:** 🏨\n\n` +
+        `Here are the verified properties included and recommended by **Comfort Journey (Est. 1992)** for maximum comfort, hygiene, and prime location:\n\n` +
+        hotelData.hotels.map(h => `• **${h.name}** (${h.area})\n  ${h.highlights}`).join('\n\n') +
+        `\n\n✨ **What is Always Included with Comfort Journey:**\n` +
+        hotelData.amenities.map(a => `✓ ${a}`).join('\n') +
+        `\n\n💡 **How to customize your stays:**\n` +
+        `You can click **"Customize"** in the top card of your itinerary to choose between 4★ Deluxe, 5★ Luxury Resort, or Private Pool Villa — or message our trip manager directly on WhatsApp (**+91 8770403315**) with any specific hotel choice!`;
+    } else {
+      replyText = `**Handpicked Hotels & Stays for your ${targetDestName} Trip:** 🏨\n\n` +
+        `For your **${targetDestName}** vacation, Comfort Journey provides verified **4★ Deluxe boutique hotels** and **5★ luxury resorts** featuring:\n` +
+        `• **Prime Central Location:** Easy access to key sightseeing spots with minimal travel time.\n` +
+        `• **Exceptional Hygiene & Bedding:** Verified cleanliness, spacious air-conditioned rooms, and picturesque views.\n` +
+        `• **Dietary Assurance:** Daily breakfast arranged with pure vegetarian and Indian options.\n` +
+        `• **Private Chauffeur Waiting at Lobby:** Your private car picks you up right at the hotel porch.\n\n` +
+        `💡 *You can select your preferred stay tier using the **Customize** button on your itinerary, or chat with us on WhatsApp at +91 8770403315!*`;
+    }
+
+    return {
+      reply: replyText,
+      matchedTours: findMatchingTours(targetDestKey, 2),
+      generatedTrip: null
+    };
+  }
+
+  // 5. Pacing, Vehicle & Customization Guidance
+  if (q.includes('adjust') || q.includes('pacing') || q.includes('vehicle') || q.includes('car') || q.includes('tempo') || q.includes('innova') || q.includes('sedan') || q.includes('customiz')) {
+    const text = `**How to Customize Your Trip Pacing & Vehicle:** 🚗✨\n\n` +
+      `We make personalizing your vacation seamless:\n` +
+      `1. Click the **"Customize"** button (with the settings gear icon) located on the **AI-Optimized Vacation Plan** card right above your itinerary.\n` +
+      `2. You can freely toggle between:\n` +
+      `   • **Travel Pace:** *Relaxed Pace* (more leisure & rest time), *Balanced Pace*, or *Active Sightseer*.\n` +
+      `   • **Private Vehicle:** *Toyota Innova Hycross (Hybrid AC)*, *Innova Crysta*, *Private Luxury Sedan*, or *Tempo Traveller*.\n` +
+      `   • **Stay Tier:** *4★ Deluxe Boutique*, *5★ Luxury Resort*, or *Private Pool Villa*.\n` +
+      `   • **Meals:** *100% Pure Vegetarian*, *Jain Friendly (No Onion/Garlic)*, or *Multi-Cuisine*.\n\n` +
+      `Your daily plan updates instantly! You can also WhatsApp our holiday manager at **+91 8770403315** for bespoke custom routing.`;
+    return { reply: text, matchedTours: [], generatedTrip: null };
+  }
+
+  // 6. Food & Dietary Queries
   if (q.includes('veg') || q.includes('jain') || q.includes('food') || q.includes('khana') || q.includes('halal') || q.includes('dining')) {
     const text = isHindi
       ? `**Comfort Journey पर भोजन व्यवस्था (Dining Care):** 🍲\n\nहाँ, हमारे सभी टूर्स में भारतीय, शुद्ध शाकाहारी (Pure Veg) और जैन भोजन (Jain Food) का पूरा ध्यान रखा जाता है:\n- **कस्टम रेस्टोरेंट बुकिंग:** चाहे आप कश्मीर, बाली, यूरोप या वियतनाम में हों, हमारे प्राइवेट ड्राइवर आपको जाँचे-परखे स्वच्छ भारतीय व शाकाहारी भोजनालयों में ले जाते हैं।\n- **होटल शेफ कोऑर्डिनेशन:** आपके होटल में बिना प्याज-लहसुन या विशेष डाइटरी ज़रूरतों का पहले से ही ध्यान रखा जाता है।\n- **कश्मीर में रॉयल वाजवान:** शाकाहारी व माँसाहारी दोनों स्वादों में ताज़ा काहवा और कश्मीरी ज़ायके!`
       : `**Comfort Journey Dining & Dietary Care:** 🍽️\n\nYes! We take your food preferences very seriously:\n- **Pure Vegetarian & Jain Meals:** Pre-arranged with verified clean Indian restaurants and hotels across Kashmir, Bali, Europe, Dubai, and Vietnam.\n- **Private Car Flexibility:** Your dedicated driver stops at verified vegetarian and family-friendly dining spots.\n- **Kashmiri Wazwan & Kahwa:** In Kashmir, enjoy authentic delicacies (both veg and non-veg options) alongside hot saffron Kahwa.\n\nWould you like a personalized itinerary planned around your dining choices?`;
-    return { reply: text, matchedTours: findMatchingTours(prompt, 2) };
+    return { reply: text, matchedTours: findMatchingTours(prompt, 2), generatedTrip: null };
   }
 
-  // 5. Best Time to Visit & Weather Queries
+  // 7. Best Time to Visit & Weather Queries
   if (q.includes('best time') || q.includes('when to visit') || q.includes('season') || q.includes('weather') || q.includes('winter') || q.includes('snow') || q.includes('summer')) {
     let dest = 'general';
-    if (q.includes('kashmir')) dest = 'kashmir';
-    else if (q.includes('bali')) dest = 'bali';
-    else if (q.includes('dubai')) dest = 'dubai';
-    else if (q.includes('europe') || q.includes('swiss')) dest = 'europe';
-    else if (q.includes('vietnam')) dest = 'vietnam';
+    if (q.includes('kashmir') || (currentTrip && currentTrip.destination?.toLowerCase().includes('kashmir'))) dest = 'kashmir';
+    else if (q.includes('bali') || (currentTrip && currentTrip.destination?.toLowerCase().includes('bali'))) dest = 'bali';
+    else if (q.includes('dubai') || (currentTrip && currentTrip.destination?.toLowerCase().includes('dubai'))) dest = 'dubai';
+    else if (q.includes('europe') || q.includes('swiss') || (currentTrip && currentTrip.destination?.toLowerCase().includes('swiss'))) dest = 'europe';
+    else if (q.includes('vietnam') || (currentTrip && currentTrip.destination?.toLowerCase().includes('vietnam'))) dest = 'vietnam';
 
     const replies = {
       kashmir: isHindi
@@ -504,14 +752,15 @@ function generateLocalSmartResponse(prompt) {
 
     return {
       reply: replies[dest] || replies.general,
-      matchedTours: findMatchingTours(dest !== 'general' ? dest : prompt, 3)
+      matchedTours: findMatchingTours(dest !== 'general' ? dest : prompt, 3),
+      generatedTrip: null
     };
   }
 
-  // 6. Conversational Itinerary Intent detected (KAYAK style)
+  // 8. Conversational Itinerary Intent detected (KAYAK style planning)
   const parsed = parseTravelIntent(prompt);
   const isSpecificDestination = parsed && parsed.destKey && parsed.destKey !== 'kashmir';
-  if (parsed && (isSpecificDestination || q.includes('kashmir') || q.includes('day') || q.includes('plan') || q.includes('itinerary') || q.includes('trip') || q.includes('tour') || q.includes('custom') || q.includes('parent') || q.includes('honeymoon'))) {
+  if (parsed && (isSpecificDestination || q.includes('plan a trip') || q.includes('plan my trip') || q.includes('create itinerary') || (q.includes('day') && (q.includes('honeymoon') || q.includes('family') || q.includes('parents'))))) {
     const generatedTrip = generateComfyItinerary(parsed);
     const replyText = `**I have handcrafted a personalized ${parsed.durationDays}-day holiday plan for ${parsed.destination}!** ✈️\n\n` +
       `- **Destination:** ${parsed.destination}\n` +
@@ -528,31 +777,32 @@ function generateLocalSmartResponse(prompt) {
     };
   }
 
-  // 7. General Destination Matching
+  // 9. General Destination Matching
   const matched = findMatchingTours(prompt, 3);
   if (matched.length > 0) {
     const top = matched[0];
     const replyText = isHindi
       ? `**Comfort Journey द्वारा सुझाया गया बेहतरीन टूर:** ✨\n\nआपके लिए हमारे पास **"${top.name}"** का पैकेज उपलब्ध है!\n\n- **अवधि (Duration):** ${top.duration}\n- **शुरुआती कीमत:** ₹${top.price?.toLocaleString('en-IN') || '28,999'} / व्यक्ति\n- **सुविधाएँ:** जाँचे-परखे 4★/5★ होटल, प्राइवेट एसी कार व ड्राइवर, रोज़ाना नाश्ता व डिनर, और 24/7 पर्सनल सहायता।\n\nक्या आप इसका पूरा डे-बाय-डे शेड्यूल और मैप देखना चाहते हैं?`
       : `**Recommended Vacation by Comfort Journey (Est. 1992):** ✨\n\nBased on your travel request, we recommend **"${top.name}"**!\n\n- **Duration:** ${top.duration}\n- **Starting Price:** ₹${top.price?.toLocaleString('en-IN') || '28,999'} per person\n- **Includes:** Handpicked comfortable hotels, private AC car with courteous driver throughout, daily breakfast & dinner, and 24/7 personal trip manager support.\n\nWould you like to customize dates, adjust the pacing, or explore the split-screen route map?`;
-    return { reply: replyText, matchedTours: matched };
+    return { reply: replyText, matchedTours: matched, generatedTrip: null };
   }
 
-  // 8. Default Greeting
+  // 10. Default Greeting
   const defaultText = isHindi
     ? `**नमस्ते! मैं Comfy.ai हूँ — कम्फर्ट जर्नी (Comfort Journey, Est. 1992) का AI ट्रेवल असिस्टेंट।** 🌟\n\nहम 1992 से भारत व दुनिया भर के 2,000+ गंतव्यों में 100% प्राइवेट और आरामदायक हॉलिडे पैकेज तैयार करते हैं।\n\nआप मुझसे बिना किसी झिझक के साधारण भाषा में पूछ सकते हैं:\n- जैसे: *"7 दिन का कश्मीर टूर माता-पिता के लिए, आसान चाल और प्राइवेट इनोवा कार के साथ"*\n- *"5 दिन बाली हनीमून विला और शाकाहारी रेस्टोरेंट के साथ"*\n- मौसम, सही महीना, शुद्ध शाकाहारी/जैन भोजन या होटल की जानकारी\n\nबताइए, आपकी अगली छुट्टी किस जगह के लिए प्लान करें?`
     : `**Welcome to Comfort Journey (Est. 1992 · Travel Personalized for You)** 🌟\n\nI am **Comfy.ai**, your friendly AI travel assistant. We specialize in private, comfortable holidays across 2,000+ destinations with verified stays and dedicated cars.\n\nYou can speak to me naturally just like a friend:\n- 🏔️ *"7 days in Kashmir for parents who need relaxed pacing, pure veg meals, and a private Innova Hycross"*\n- 🌴 *"5 days in Bali for honeymoon with private pool villa and vegetarian cafes"*\n- ☀️ *"4 days in Dubai for family with kids: desert safari and theme parks"*\n\nWhich destination would you like to explore today?`;
 
   return {
     reply: defaultText,
-    matchedTours: findMatchingTours('kashmir', 2)
+    matchedTours: findMatchingTours('kashmir', 2),
+    generatedTrip: null
   };
 }
 
 /**
  * Main function: Ask Comfy.ai Concierge
  */
-export async function askAIConcierge({ prompt, conversationHistory = [] }) {
+export async function askAIConcierge({ prompt, conversationHistory = [], currentTrip = null }) {
   if (!prompt || !prompt.trim()) {
     return {
       success: false,
@@ -563,7 +813,7 @@ export async function askAIConcierge({ prompt, conversationHistory = [] }) {
   const matchedTours = findMatchingTours(prompt, 3);
   const matchedBlogs = findMatchingBlogs(prompt, 2);
 
-  // Parse intent locally first so we always have the structured trip object ready
+  // Parse intent locally only if this prompt represents creating a new trip
   const parsedIntent = parseTravelIntent(prompt);
   let localTrip = null;
   if (parsedIntent) {
@@ -574,7 +824,7 @@ export async function askAIConcierge({ prompt, conversationHistory = [] }) {
     const res = await fetch('/api/ai-planner', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt, conversationHistory })
+      body: JSON.stringify({ prompt, conversationHistory, currentTrip })
     });
 
     if (res.ok) {
@@ -586,7 +836,7 @@ export async function askAIConcierge({ prompt, conversationHistory = [] }) {
           matchedTours,
           matchedBlogs,
           parsedIntent,
-          generatedTrip: localTrip,
+          generatedTrip: data.generatedTrip || null,
           model: data.model || 'Gemini 1.5 Flash'
         };
       }
@@ -596,14 +846,14 @@ export async function askAIConcierge({ prompt, conversationHistory = [] }) {
   }
 
   // Fallback to rich local engine
-  const localRes = generateLocalSmartResponse(prompt);
+  const localRes = generateLocalSmartResponse(prompt, currentTrip);
   return {
     success: true,
     reply: localRes.reply,
-    matchedTours: localRes.matchedTours.length > 0 ? localRes.matchedTours : matchedTours,
+    matchedTours: localRes.matchedTours?.length > 0 ? localRes.matchedTours : matchedTours,
     matchedBlogs,
     parsedIntent,
-    generatedTrip: localRes.generatedTrip || localTrip,
+    generatedTrip: localRes.generatedTrip || null, // Never replace active trip on informational Q&A
     model: 'Comfy.ai Intelligence (Est. 1992)'
   };
 }

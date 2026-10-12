@@ -28,7 +28,11 @@ export function useChatPlannerBridge({
 
     try {
       const history = messages.map(m => ({ role: m.role, content: m.content }));
-      const response = await askAIConcierge({ prompt: text, conversationHistory: history });
+      const response = await askAIConcierge({ 
+        prompt: text, 
+        conversationHistory: history,
+        currentTrip: tripPlan 
+      });
 
       if (response.generatedTrip) {
         setTripPlan(response.generatedTrip);
@@ -62,7 +66,7 @@ export function useChatPlannerBridge({
     } finally {
       setIsTyping(false);
     }
-  }, [messages, isTyping, setMessages, setIsTyping, setTripPlan, setActiveDay, setSelectedStop]);
+  }, [messages, isTyping, setMessages, setIsTyping, setTripPlan, setActiveDay, setSelectedStop, tripPlan]);
 
   const handlePlannerAction = useCallback((action, data) => {
     // Handle actions from planner that should update chat context

@@ -36,7 +36,7 @@
   }
 
   .customize-sheet {
-    max-width: 620px;
+    max-width: 680px;
     margin: auto;
     border-radius: var(--radius-xl);
     max-height: 85vh;
@@ -156,12 +156,13 @@
   background: rgba(255, 137, 47, 0.05);
 }
 
-.header-left {
+.customize-header-left {
   display: flex;
   align-items: center;
   gap: 10px;
   flex: 1;
   min-width: 0;
+  flex-wrap: wrap;
 }
 
 .section-icon {
@@ -186,20 +187,21 @@
 
 .customize-section .section-title {
   margin: 0;
-  font-size: 0.84rem;
+  font-size: 0.88rem;
   font-weight: 700;
   color: var(--planner-text-heading) !important;
 }
 
 .current-value {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 700;
   color: var(--planner-tangerine-500);
   background: rgba(255, 137, 47, 0.1);
-  padding: 3px 9px;
+  padding: 3px 10px;
   border-radius: var(--radius-full);
-  white-space: nowrap;
-  border: 1px solid rgba(255, 137, 47, 0.2);
+  white-space: normal;
+  border: 1px solid rgba(255, 137, 47, 0.25);
+  line-height: 1.3;
 }
 
 .expand-icon {
@@ -224,7 +226,7 @@
   gap: 8px;
 }
 
-@media (min-width: 520px) {
+@media (min-width: 540px) {
   .options-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -235,7 +237,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 10px;
-  padding: 10px 12px;
+  padding: 12px 14px;
   background: var(--planner-card);
   border: 1px solid var(--planner-border);
   border-radius: var(--radius-md);
@@ -265,20 +267,21 @@
 }
 
 .option-label {
-  font-size: 0.8rem;
+  font-size: 0.86rem;
   font-weight: 700;
   color: var(--planner-text-heading) !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.35;
+  word-break: break-word;
 }
 
 .option-desc {
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   color: var(--planner-text-muted) !important;
   white-space: normal;
   line-height: 1.35;
   margin-top: 2px;
+  word-break: break-word;
 }
 
 .option-check {

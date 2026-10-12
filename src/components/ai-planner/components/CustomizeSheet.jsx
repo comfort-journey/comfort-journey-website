@@ -149,7 +149,7 @@ function CustomizeSection({ title, icon: Icon, color, options, current, onChange
         aria-expanded={isExpanded}
         aria-controls={`${title.toLowerCase().replace(/[^a-z]/g, '')}-content`}
       >
-        <div className="header-left">
+        <div className="customize-header-left">
           <span className={`section-icon icon-${color}`}>
             <Icon size={15} aria-hidden="true" />
           </span>
