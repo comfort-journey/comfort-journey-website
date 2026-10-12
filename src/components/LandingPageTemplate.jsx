@@ -59,16 +59,23 @@ function ScrollGuide({ lines, accent, waLink, pageKey }) {
   useEffect(() => {
     setStep(0);
     setShow(false);
-    const t = setTimeout(() => setShow(true), 1600);
+    // Desktop: say hello after a moment. Phones: wait for the first scroll so the hero stays clear.
+    const isPhone = window.matchMedia?.('(max-width: 760px)').matches;
+    let t;
+    const onFirstScroll = () => {
+      if (window.scrollY > window.innerHeight * 0.35) { setShow(true); window.removeEventListener('scroll', onFirstScroll); }
+    };
+    if (isPhone) window.addEventListener('scroll', onFirstScroll, { passive: true });
+    else t = setTimeout(() => setShow(true), 1600);
     const sections = document.querySelectorAll('[data-guide-step]');
-    if (!sections.length || typeof IntersectionObserver === 'undefined') return () => clearTimeout(t);
+    if (!sections.length || typeof IntersectionObserver === 'undefined') return () => { clearTimeout(t); window.removeEventListener('scroll', onFirstScroll); };
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
         if (e.isIntersecting) setStep(Number(e.target.getAttribute('data-guide-step')) || 0);
       });
     }, { threshold: 0.3 });
     sections.forEach((s) => io.observe(s));
-    return () => { clearTimeout(t); io.disconnect(); };
+    return () => { clearTimeout(t); io.disconnect(); window.removeEventListener('scroll', onFirstScroll); };
   }, [pageKey]);
 
   if (hidden || !lines?.length) return null;
