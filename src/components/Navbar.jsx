@@ -421,59 +421,32 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
 
               {/* Visitor Authentication Pill / Account Menu */}
               {user ? (
-                <div className="nav-user-profile-rel" ref={userMenuRef} style={{ position: 'relative' }}>
+                <div className="nav-user-profile-rel" ref={userMenuRef}>
                   <button
                     type="button"
                     className="nav-user-btn liquid-glass-btn"
                     onClick={() => setUserDropdownOpen(!userDropdownOpen)}
                     title={`Signed in as ${user.name}`}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.45rem',
-                      padding: '0.35rem 0.75rem',
-                      borderRadius: '9999px',
-                      border: '1px solid var(--color-border, rgba(255, 137, 47, 0.4))',
-                      background: 'rgba(255, 137, 47, 0.12)',
-                      color: 'var(--color-text, #FFFFFF)',
-                      cursor: 'pointer',
-                      fontSize: '0.82rem',
-                      fontWeight: 700
-                    }}
                   >
                     {user.avatar ? (
-                      <img src={user.avatar} alt={user.name} style={{ width: '22px', height: '22px', borderRadius: '50%', objectFit: 'cover' }} />
+                      <img src={user.avatar} alt={user.name} className="nav-user-avatar-img" />
                     ) : (
-                      <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#FF892F', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.72rem', fontWeight: 800 }}>
+                      <div className="nav-user-avatar-fallback">
                         {user.name ? user.name.charAt(0).toUpperCase() : 'G'}
                       </div>
                     )}
-                    <span className="nav-user-name" style={{ maxWidth: '85px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    <span className="nav-user-name">
                       {user.name.split(' ')[0]}
                     </span>
                     <ChevronDown size={12} className={`curr-chevron ${userDropdownOpen ? 'rotated' : ''}`} />
                   </button>
 
                   {userDropdownOpen && (
-                    <div 
-                      className="currency-menu"
-                      style={{
-                        position: 'absolute',
-                        top: 'calc(100% + 8px)',
-                        right: 0,
-                        minWidth: '220px',
-                        background: 'var(--color-surface, #0A1120)',
-                        border: '1px solid var(--color-border, rgba(255, 255, 255, 0.15))',
-                        borderRadius: '14px',
-                        padding: '0.75rem',
-                        boxShadow: '0 12px 30px rgba(0, 0, 0, 0.5)',
-                        zIndex: 100
-                      }}
-                    >
-                      <div style={{ paddingBottom: '0.6rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', marginBottom: '0.5rem' }}>
-                        <div style={{ fontSize: '0.86rem', fontWeight: 800, color: 'var(--color-text, #FFFFFF)' }}>{user.name}</div>
-                        <div style={{ fontSize: '0.74rem', color: 'var(--color-text-muted, #94A3B8)', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user.email || user.phone}</div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', marginTop: '0.25rem', fontSize: '0.7rem', color: '#10B981', fontWeight: 700 }}>
+                    <div className="nav-user-dropdown-menu">
+                      <div className="nav-user-dropdown-header">
+                        <div className="nav-user-dropdown-fullname">{user.name}</div>
+                        <div className="nav-user-dropdown-id">{user.email || user.phone}</div>
+                        <div className="nav-user-dropdown-verified">
                           <CheckCircle2 size={12} />
                           <span>Verified Travel Club Member</span>
                         </div>
@@ -481,24 +454,10 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
 
                       <button
                         type="button"
+                        className="nav-user-dropdown-item"
                         onClick={() => {
                           setUserDropdownOpen(false);
                           setIsWishlistOpen(true);
-                        }}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '0.5rem',
-                          width: '100%',
-                          padding: '0.5rem 0.6rem',
-                          background: 'transparent',
-                          border: 'none',
-                          color: 'var(--color-text, #FFFFFF)',
-                          fontSize: '0.82rem',
-                          fontWeight: 600,
-                          cursor: 'pointer',
-                          borderRadius: '6px',
-                          textAlign: 'left'
                         }}
                       >
                         <Heart size={14} color="#FF892F" />
@@ -507,24 +466,10 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
 
                       <button
                         type="button"
+                        className="nav-user-dropdown-item"
                         onClick={() => {
                           setUserDropdownOpen(false);
                           onOpenQuote();
-                        }}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '0.5rem',
-                          width: '100%',
-                          padding: '0.5rem 0.6rem',
-                          background: 'transparent',
-                          border: 'none',
-                          color: 'var(--color-text, #FFFFFF)',
-                          fontSize: '0.82rem',
-                          fontWeight: 600,
-                          cursor: 'pointer',
-                          borderRadius: '6px',
-                          textAlign: 'left'
                         }}
                       >
                         <Sparkles size={14} color="#6FE6FC" />
@@ -533,28 +478,10 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
 
                       <button
                         type="button"
+                        className="nav-user-dropdown-item nav-user-dropdown-signout"
                         onClick={() => {
                           setUserDropdownOpen(false);
                           signOut();
-                        }}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '0.5rem',
-                          width: '100%',
-                          padding: '0.5rem 0.6rem',
-                          marginTop: '0.35rem',
-                          borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-                          background: 'transparent',
-                          borderLeft: 'none',
-                          borderRight: 'none',
-                          borderBottom: 'none',
-                          color: '#EF4444',
-                          fontSize: '0.82rem',
-                          fontWeight: 700,
-                          cursor: 'pointer',
-                          borderRadius: '6px',
-                          textAlign: 'left'
                         }}
                       >
                         <LogOut size={14} />
@@ -566,25 +493,11 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
               ) : (
                 <button
                   type="button"
-                  className="nav-sign-in-btn liquid-glass-btn"
+                  className="nav-sign-in-btn"
                   onClick={() => openAuthModal()}
                   title="Sign in with Google, Microsoft, Apple, or Mobile"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.45rem',
-                    padding: '0.4rem 0.85rem',
-                    borderRadius: '9999px',
-                    border: '1px solid var(--color-border, rgba(255, 255, 255, 0.2))',
-                    background: 'rgba(255, 255, 255, 0.08)',
-                    color: 'var(--color-text, #FFFFFF)',
-                    cursor: 'pointer',
-                    fontSize: '0.82rem',
-                    fontWeight: 700,
-                    transition: 'all 0.2s'
-                  }}
                 >
-                  <User size={15} color="#FF892F" />
+                  <User size={15} className="nav-sign-in-icon" />
                   <span>Sign In</span>
                 </button>
               )}
@@ -741,40 +654,42 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
             </div>
 
             {/* Mobile Visitor Account / Sign In Pill */}
-            <div style={{ margin: '0.75rem 1.25rem 1rem', padding: '0.75rem 1rem', borderRadius: '14px', background: 'rgba(255, 137, 47, 0.08)', border: '1px solid rgba(255, 137, 47, 0.25)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div className="drawer-traveler-club-card">
               {user ? (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                <div className="drawer-traveler-club-info">
                   {user.avatar ? (
-                    <img src={user.avatar} alt={user.name} style={{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover' }} />
+                    <img src={user.avatar} alt={user.name} className="drawer-user-avatar-img" />
                   ) : (
-                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#FF892F', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem', fontWeight: 800 }}>
+                    <div className="drawer-user-avatar-fallback">
                       {user.name ? user.name.charAt(0).toUpperCase() : 'G'}
                     </div>
                   )}
                   <div>
-                    <div style={{ fontSize: '0.86rem', fontWeight: 800, color: 'var(--color-text, #FFFFFF)' }}>{user.name}</div>
-                    <div style={{ fontSize: '0.72rem', color: '#10B981', fontWeight: 700 }}>✓ Verified Member</div>
+                    <div className="drawer-traveler-club-title">{user.name}</div>
+                    <div className="drawer-traveler-club-verified">✓ Verified Member</div>
                   </div>
                 </div>
               ) : (
-                <div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--color-text, #FFFFFF)' }}>Traveler Club</div>
-                  <div style={{ fontSize: '0.74rem', color: 'var(--color-text-muted, #94A3B8)' }}>Save packages & auto-fill bookings</div>
+                <div className="drawer-traveler-club-info">
+                  <div>
+                    <div className="drawer-traveler-club-title">Traveler Club</div>
+                    <div className="drawer-traveler-club-desc">Save packages & auto-fill bookings</div>
+                  </div>
                 </div>
               )}
               {user ? (
                 <button
                   type="button"
+                  className="drawer-traveler-signout-btn"
                   onClick={() => signOut()}
-                  style={{ background: 'transparent', border: '1px solid rgba(239, 68, 68, 0.4)', borderRadius: '8px', padding: '0.35rem 0.65rem', color: '#EF4444', fontSize: '0.76rem', fontWeight: 700, cursor: 'pointer' }}
                 >
                   Sign Out
                 </button>
               ) : (
                 <button
                   type="button"
+                  className="drawer-traveler-signin-btn"
                   onClick={() => { setMobileMenuOpen(false); openAuthModal(); }}
-                  style={{ background: 'linear-gradient(135deg, #FF892F, #FF6B00)', border: 'none', borderRadius: '8px', padding: '0.4rem 0.85rem', color: '#FFFFFF', fontSize: '0.8rem', fontWeight: 800, cursor: 'pointer' }}
                 >
                   Sign In
                 </button>
@@ -2002,6 +1917,279 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
         [data-theme="light"] .curr-option.active {
           background: #FF892F !important;
           color: #FFFFFF !important;
+        }
+
+        /* ── Visitor Sign In & Account Controls (Dual-Theme Compliant) ── */
+        .nav-user-profile-rel {
+          position: relative;
+          flex-shrink: 0;
+        }
+
+        .nav-user-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.45rem;
+          padding: 0.38rem 0.75rem;
+          border-radius: var(--radius-full);
+          font-family: var(--font-ui);
+          font-size: 0.82rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          white-space: nowrap;
+          min-height: 38px;
+        }
+
+        .nav-user-avatar-img {
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        .nav-user-avatar-fallback {
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          background: #FF892F;
+          color: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.72rem;
+          font-weight: 800;
+        }
+
+        .nav-user-name {
+          max-width: 90px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        /* Sign In Pill in Desktop Navbar */
+        .nav-sign-in-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.45rem;
+          padding: 0.42rem 0.9rem;
+          border-radius: var(--radius-full);
+          font-family: var(--font-ui);
+          font-size: 0.82rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          white-space: nowrap;
+          min-height: 38px;
+          flex-shrink: 0;
+        }
+
+        .nav-sign-in-icon {
+          color: #FF892F;
+          flex-shrink: 0;
+        }
+
+        /* Dark Theme Navbar Sign In */
+        [data-theme="dark"] .nav-sign-in-btn {
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: #F9FBE7 !important;
+        }
+        [data-theme="dark"] .nav-sign-in-btn:hover {
+          background: rgba(255, 137, 47, 0.22);
+          border-color: #FF892F;
+          color: #FF892F !important;
+          box-shadow: 0 0 14px rgba(255, 137, 47, 0.35);
+        }
+
+        /* Light Theme Navbar Sign In — crisp, bright, high-contrast */
+        :root:not([data-theme="dark"]) .nav-sign-in-btn,
+        [data-theme="light"] .nav-sign-in-btn {
+          background: #FFFFFF !important;
+          border: 1.5px solid #FF892F !important;
+          color: #D65A00 !important;
+          box-shadow: 0 2px 8px rgba(255, 137, 47, 0.15) !important;
+        }
+        :root:not([data-theme="dark"]) .nav-sign-in-btn:hover,
+        [data-theme="light"] .nav-sign-in-btn:hover {
+          background: #FF892F !important;
+          border-color: #FF892F !important;
+          color: #FFFFFF !important;
+          box-shadow: 0 4px 16px rgba(255, 137, 47, 0.3) !important;
+          transform: translateY(-1px);
+        }
+        :root:not([data-theme="dark"]) .nav-sign-in-btn:hover .nav-sign-in-icon,
+        [data-theme="light"] .nav-sign-in-btn:hover .nav-sign-in-icon {
+          color: #FFFFFF !important;
+        }
+
+        /* User Profile Dropdown Menu */
+        .nav-user-dropdown-menu {
+          position: absolute;
+          top: calc(100% + 8px);
+          right: 0;
+          min-width: 230px;
+          border-radius: 14px;
+          padding: 0.75rem;
+          z-index: 1000;
+          box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+        }
+        [data-theme="dark"] .nav-user-dropdown-menu {
+          background: #001D51;
+          border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        :root:not([data-theme="dark"]) .nav-user-dropdown-menu,
+        [data-theme="light"] .nav-user-dropdown-menu {
+          background: #FFFFFF !important;
+          border: 1px solid var(--cj-line, #E8E0CF) !important;
+          box-shadow: 0 16px 36px rgba(20, 38, 74, 0.15) !important;
+        }
+
+        .nav-user-dropdown-header {
+          padding-bottom: 0.6rem;
+          border-bottom: 1px solid rgba(125, 125, 125, 0.2);
+          margin-bottom: 0.5rem;
+        }
+        .nav-user-dropdown-fullname {
+          font-size: 0.88rem;
+          font-weight: 800;
+          color: var(--color-text, #14264A);
+        }
+        .nav-user-dropdown-id {
+          font-size: 0.74rem;
+          color: var(--color-text-muted, #64748B);
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .nav-user-dropdown-verified {
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+          margin-top: 0.25rem;
+          font-size: 0.7rem;
+          color: #10B981;
+          font-weight: 700;
+        }
+
+        .nav-user-dropdown-item {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          width: 100%;
+          padding: 0.55rem 0.65rem;
+          background: transparent;
+          border: none;
+          color: var(--color-text, #14264A);
+          font-size: 0.82rem;
+          font-weight: 600;
+          cursor: pointer;
+          border-radius: 8px;
+          text-align: left;
+          transition: background 0.15s ease;
+        }
+        .nav-user-dropdown-item:hover {
+          background: rgba(255, 137, 47, 0.12);
+          color: #FF892F;
+        }
+        .nav-user-dropdown-signout {
+          margin-top: 0.35rem;
+          border-top: 1px solid rgba(125, 125, 125, 0.15);
+          color: #EF4444 !important;
+          font-weight: 700;
+        }
+
+        /* ── Mobile Menu Drawer Traveler Club Card ── */
+        .drawer-traveler-club-card {
+          margin: 0.75rem 1.25rem 1rem;
+          padding: 0.85rem 1rem;
+          border-radius: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 0.75rem;
+          transition: all 0.2s ease;
+        }
+        [data-theme="dark"] .drawer-traveler-club-card {
+          background: rgba(255, 137, 47, 0.1);
+          border: 1px solid rgba(255, 137, 47, 0.3);
+        }
+        :root:not([data-theme="dark"]) .drawer-traveler-club-card,
+        [data-theme="light"] .drawer-traveler-club-card {
+          background: #FFF8F0 !important;
+          border: 1.5px solid #FFD4B2 !important;
+          box-shadow: 0 4px 14px rgba(255, 137, 47, 0.08) !important;
+        }
+
+        .drawer-traveler-club-info {
+          display: flex;
+          align-items: center;
+          gap: 0.65rem;
+          min-width: 0;
+        }
+        .drawer-traveler-club-title {
+          font-size: 0.88rem;
+          font-weight: 800;
+          line-height: 1.2;
+        }
+        [data-theme="dark"] .drawer-traveler-club-title {
+          color: #F9FBE7 !important;
+        }
+        :root:not([data-theme="dark"]) .drawer-traveler-club-title,
+        [data-theme="light"] .drawer-traveler-club-title {
+          color: #14264A !important;
+        }
+
+        .drawer-traveler-club-desc {
+          font-size: 0.74rem;
+          margin-top: 0.15rem;
+          line-height: 1.3;
+        }
+        [data-theme="dark"] .drawer-traveler-club-desc {
+          color: #CBD5E1 !important;
+        }
+        :root:not([data-theme="dark"]) .drawer-traveler-club-desc,
+        [data-theme="light"] .drawer-traveler-club-desc {
+          color: #475569 !important;
+        }
+
+        .drawer-traveler-club-verified {
+          font-size: 0.72rem;
+          color: #10B981;
+          font-weight: 700;
+          margin-top: 0.15rem;
+        }
+
+        .drawer-traveler-signin-btn {
+          background: linear-gradient(135deg, #FF892F, #E66F12);
+          border: none;
+          border-radius: 8px;
+          padding: 0.45rem 0.95rem;
+          color: #FFFFFF !important;
+          font-family: var(--font-ui);
+          font-size: 0.82rem;
+          font-weight: 800;
+          cursor: pointer;
+          box-shadow: 0 2px 8px rgba(255, 137, 47, 0.35);
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+        .drawer-traveler-signin-btn:hover {
+          background: linear-gradient(135deg, #FF9848, #FF6B00);
+          box-shadow: 0 4px 14px rgba(255, 137, 47, 0.5);
+          transform: translateY(-1px);
+        }
+
+        .drawer-traveler-signout-btn {
+          background: transparent;
+          border: 1px solid rgba(239, 68, 68, 0.4);
+          border-radius: 8px;
+          padding: 0.35rem 0.65rem;
+          color: #EF4444;
+          font-size: 0.76rem;
+          font-weight: 700;
+          cursor: pointer;
+          white-space: nowrap;
+          flex-shrink: 0;
         }
       `}</style>
     </>

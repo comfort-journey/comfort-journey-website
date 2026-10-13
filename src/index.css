@@ -127,6 +127,13 @@
   --cj-orb-c: rgba(77, 124, 15, 0.10);
   --cj-orb-base-from: #FFFDF7;
   --cj-orb-base-to: #F9FBE7;
+
+  /* Universal component theme tokens */
+  --color-text: #14264A;
+  --color-text-muted: #64748B;
+  --color-surface: #FFFFFF;
+  --color-surface-soft: #F5F0E1;
+  --color-border: #E8E0CF;
 }
 
 /* ============ DARK THEME — original Deep Navy luxury ============ */
@@ -175,6 +182,13 @@
   --cj-orb-c: rgba(52, 211, 153, 0.16);
   --cj-orb-base-from: #001233;
   --cj-orb-base-to: #001D51;
+
+  /* Universal component theme tokens */
+  --color-text: #F9FBE7;
+  --color-text-muted: #CBD5E1;
+  --color-surface: #001D51;
+  --color-surface-soft: #052669;
+  --color-border: rgba(255, 255, 255, 0.15);
 }
 
 /* Follow OS when user has not chosen manually */

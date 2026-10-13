@@ -27,13 +27,13 @@ export function getStoredTheme() {
 }
 
 export function resolveTheme() {
-  return getStoredTheme() || getSystemTheme();
+  return getStoredTheme() || 'light';
 }
 
 export function applyTheme(theme) {
   const root = document.documentElement;
-  // Always resolve to an explicit theme — never remove the attribute.
-  const effective = theme === 'light' || theme === 'dark' ? theme : getSystemTheme();
+  // Always resolve to an explicit theme — default to 'light' bright theme
+  const effective = theme === 'light' || theme === 'dark' ? theme : (getStoredTheme() || 'light');
   root.setAttribute('data-theme', effective);
   try {
     // Keep browser chrome (scrollbars, form controls) in sync
@@ -84,7 +84,8 @@ export default function useTheme() {
   }, []);
 
   const toggleTheme = useCallback(() => {
-    const next = (getStoredTheme() || getSystemTheme()) === 'dark' ? 'light' : 'dark';
+    const current = document.documentElement.getAttribute('data-theme') || getStoredTheme() || 'light';
+    const next = current === 'dark' ? 'light' : 'dark';
     setManualTheme(next);
   }, [setManualTheme]);
 
