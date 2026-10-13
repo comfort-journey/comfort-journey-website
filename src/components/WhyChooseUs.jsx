@@ -93,7 +93,7 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
 
                   <div className="pillar-check">
                     <CheckCircle2 size={15} className="text-emerald" />
-                    <span>On every trip</span>
+                    <span>Our Promise</span>
                   </div>
                 </div>
               </Tilt3DCard>

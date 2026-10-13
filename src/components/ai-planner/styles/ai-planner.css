@@ -182,13 +182,26 @@
 
 .header-center {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   flex: 1;
   min-width: 0;
   padding: 0 var(--space-2);
+}
+
+.comfy-brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.comfy-brand-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
 }
 
 .mascot-avatar {

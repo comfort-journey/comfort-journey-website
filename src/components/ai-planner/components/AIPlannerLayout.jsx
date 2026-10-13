@@ -29,29 +29,6 @@ export default function AIPlannerLayout({
       {/* Top Header Bar */}
       <header className="planner-header" role="banner">
         <div className="header-left">
-          <div className="mascot-avatar" title="Comfy.ai Assistant Online">
-            <img 
-              src={`${basePrefix}mascot-default-cropped.png`} 
-              alt="Comfy" 
-              className="mascot-img"
-              onError={(e) => { e.currentTarget.src = './mascot-default.png'; }}
-            />
-            <span className="online-indicator" aria-hidden="true" />
-          </div>
-        </div>
-
-        <div className="header-center">
-          <h1 className="planner-title">Comfy.ai <span className="text-amber">Travel Planner</span></h1>
-          <p className="planner-subtitle hidden-mobile">
-            <span className="status-dot" aria-hidden="true" />
-            Live Map & Route Itinerary · Verified Stays & Private Cars
-          </p>
-        </div>
-        
-        <div className="header-right">
-          {/* Dual Theme ☀️ / 🌙 1-Click Toggle */}
-          <ThemeToggle className="planner-theme-toggle-btn" />
-
           {onBackToHome && (
             <button 
               type="button" 
@@ -64,6 +41,33 @@ export default function AIPlannerLayout({
               <span>Back to Site</span>
             </button>
           )}
+        </div>
+
+        <div className="header-center">
+          <div className="comfy-brand-lockup">
+            <div className="mascot-avatar" title="Comfy.ai Assistant Online">
+              <img 
+                src={`${basePrefix}mascot-default-cropped.png`} 
+                alt="Comfy" 
+                className="mascot-img"
+                onError={(e) => { e.currentTarget.src = './mascot-default.png'; }}
+              />
+              <span className="online-indicator" aria-hidden="true" />
+            </div>
+            <div className="comfy-brand-text">
+              <h1 className="planner-title">Comfy.ai <span className="text-amber">Travel Planner</span></h1>
+              <p className="planner-subtitle hidden-mobile">
+                <span className="status-dot" aria-hidden="true" />
+                Live Map & Route Itinerary · Verified Stays & Private Cars
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="header-right">
+          {/* Dual Theme ☀️ / 🌙 1-Click Toggle */}
+          <ThemeToggle className="planner-theme-toggle-btn" />
+
           <a 
             href="https://wa.me/918770403315" 
             target="_blank" 

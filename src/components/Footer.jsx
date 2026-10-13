@@ -186,10 +186,6 @@ export default function Footer({
             </div>
 
             <div className="deck-badges-cluster">
-              <span className="deck-badge badge-amber">
-                <span>🏛️</span>
-                <span>Est. 1992 (30+ Yrs)</span>
-              </span>
               <span className="deck-badge badge-emerald">
                 <ShieldCheck size={13} className="text-emerald" />
                 <span>Govt. Verified</span>
@@ -198,10 +194,6 @@ export default function Footer({
                 <MapPin size={13} className="text-cyan" />
                 <span>Bhopal, MP HQ</span>
               </span>
-              <div className="deck-concierge-status">
-                <span className="status-dot-pulse" />
-                <span>VIP Concierge Active</span>
-              </div>
             </div>
           </div>
 
@@ -295,16 +287,6 @@ export default function Footer({
                     <FileText size={14} className="text-cyan" />
                     <span>Blogs</span>
                   </a>
-                </li>
-                <li>
-                  <button 
-                    type="button" 
-                    className="deck-action-link admin-dim-link"
-                    onClick={onOpenAdmin}
-                  >
-                    <Lock size={13} />
-                    <span>Team CMS & Content Studio</span>
-                  </button>
                 </li>
               </ul>
             </div>

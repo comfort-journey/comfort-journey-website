@@ -704,18 +704,6 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
                 <MessageCircle size={18} />
                 <span>Chat on WhatsApp (24/7 Care)</span>
               </button>
-
-              <button
-                type="button"
-                className="drawer-admin-trigger"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenAdmin();
-                }}
-              >
-                <Lock size={13} />
-                <span>Admin CMS & SEO Console</span>
-              </button>
             </div>
           </div>
         </>

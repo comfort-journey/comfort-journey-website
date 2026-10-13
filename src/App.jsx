@@ -97,7 +97,7 @@ export default function App() {
       const rawHash = window.location.hash;
       const hash = rawHash.toLowerCase();
       
-      if (hash === '#/admin' || hash === '#admin') {
+      if (hash === '#/portal' || hash === '#portal' || hash === '#/team' || hash === '#team' || hash === '#/staff' || hash === '#staff' || hash === '#/admin' || hash === '#admin') {
         setIsAdminCMSOpen(true);
       } else if (hash === '#/landing-hub' || hash === '#/all-landing-pages' || hash === '#landing-hub') {
         setIsLPHubOpen(true);
@@ -177,7 +177,20 @@ export default function App() {
     handleRouteChange();
     // Listen for hash changes (in-app navigation)
     window.addEventListener('hashchange', handleRouteChange);
-    return () => window.removeEventListener('hashchange', handleRouteChange);
+
+    // Invisible staff shortcut: Ctrl + Shift + A (or Cmd + Shift + A) opens CMS Portal
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault();
+        setIsAdminCMSOpen(true);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('hashchange', handleRouteChange);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, []);
 
   const navigateToLandingPage = (slug) => {

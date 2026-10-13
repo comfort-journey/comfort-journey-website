@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import {
   X, Lock, LayoutDashboard, FileText, Search, Database,
   UploadCloud, TrendingUp, Image as ImageIcon, Settings, FileSpreadsheet,
-  CheckCircle2, AlertTriangle, Loader2, Key, RefreshCw, Globe, ExternalLink, Sliders, Sparkles, Users, Sun, Moon
+  CheckCircle2, AlertTriangle, Loader2, Key, RefreshCw, Globe, ExternalLink, Sliders, Sparkles, Users, Sun, Moon,
+  Shield, LogOut, Eye, EyeOff, UserCheck
 } from 'lucide-react';
 import { directusService, slugify, parseWixCsv, transformWixTourRow } from '../services/directusClient';
 import { TOURS_DATA } from '../data/toursData';
@@ -28,6 +29,7 @@ import AnalyticsDashboard from './cms/AnalyticsDashboard';
 import DataHubManager from './cms/DataHubManager';
 import SiteCustomizer from './cms/SiteCustomizer';
 import LeadsInquiriesManager from './cms/LeadsInquiriesManager';
+import TeamAccessManager, { getAuthorizedUsers } from './cms/TeamAccessManager';
 import './cms/ContentStudio.css';
 
 // ═══════════════════════════════════════════════════════════════════
@@ -44,7 +46,18 @@ import './cms/ContentStudio.css';
 // ═══════════════════════════════════════════════════════════════════
 
 export default function AdminCMSModal({ isOpen, onClose }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [currentUser, setCurrentUser] = useState(() => {
+    try {
+      const saved = sessionStorage.getItem('cj_cms_session_user');
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return Boolean(sessionStorage.getItem('cj_cms_session_user'));
+  });
+  const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [authError, setAuthError] = useState('');
   const [activeTab, setActiveTab] = useState('manage-tours');
@@ -61,6 +74,7 @@ export default function AdminCMSModal({ isOpen, onClose }) {
   // Directus Connection State (preserved from v1)
   const [directusUrl, setDirectusUrl] = useState(directusService.getBaseUrl());
   const [directusToken, setDirectusToken] = useState(directusService.getToken());
+  const [showDirectusToken, setShowDirectusToken] = useState(false);
   const [directusStatus, setDirectusStatus] = useState({ isOnline: false, message: 'Checking...' });
   const [isTestingConnection, setIsTestingConnection] = useState(false);
 
@@ -98,12 +112,58 @@ export default function AdminCMSModal({ isOpen, onClose }) {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (passwordInput === 'comfort1992' || passwordInput === 'admin' || passwordInput === '1234') {
-      setIsAuthenticated(true);
-      setAuthError('');
-    } else {
-      setAuthError('Incorrect VIP Access Code. (Use comfort1992)');
+    setAuthError('');
+    const cleanEmail = emailInput.trim().toLowerCase();
+    const cleanPass = passwordInput.trim();
+
+    if (!cleanEmail || !cleanPass) {
+      setAuthError('Please enter both your company email address and password.');
+      return;
     }
+
+    if (cleanPass === 'comfort1992' || cleanPass === 'admin' || cleanPass === '1234') {
+      setAuthError('Legacy passcode disabled for security. Please sign in with your authorized Microsoft/company email & assigned password.');
+      return;
+    }
+
+    const allUsers = getAuthorizedUsers();
+    const userMatch = allUsers.find(u => u.email.toLowerCase() === cleanEmail);
+
+    if (!userMatch) {
+      setAuthError(`No authorized account found for "${cleanEmail}". Please contact the Super Admin to grant access.`);
+      return;
+    }
+
+    if (userMatch.status === 'REVOKED') {
+      setAuthError('Access for this employee has been REVOKED by the administrator.');
+      return;
+    }
+
+    if (userMatch.password !== cleanPass) {
+      setAuthError('Incorrect password. Please verify your credentials.');
+      return;
+    }
+
+    // Success!
+    const sessionUser = {
+      id: userMatch.id,
+      name: userMatch.name,
+      email: userMatch.email,
+      role: userMatch.role
+    };
+    setCurrentUser(sessionUser);
+    setIsAuthenticated(true);
+    sessionStorage.setItem('cj_cms_session_user', JSON.stringify(sessionUser));
+    showToast(`👋 Welcome back, ${sessionUser.name}! (${sessionUser.role === 'SUPER_ADMIN' ? 'Super Admin' : 'Content Editor'})`);
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('cj_cms_session_user');
+    setCurrentUser(null);
+    setIsAuthenticated(false);
+    setEmailInput('');
+    setPasswordInput('');
+    showToast('🔒 You have been securely logged out.');
   };
 
   // Wix CSV parsing (preserved)
@@ -410,17 +470,22 @@ export default function AdminCMSModal({ isOpen, onClose }) {
 
   if (!isOpen) return null;
 
-  // ─── Tab Definitions ───
-  const tabs = [
-    { id: 'manage-tours', label: 'Tour Packages', icon: LayoutDashboard },
-    { id: 'leads-inquiries', label: 'Leads & Inquiries CRM', icon: Users },
-    { id: 'manage-blogs', label: 'Blog & Magazine', icon: FileText },
-    { id: 'site-customizer', label: 'Site & SEO Customizer', icon: Sliders },
-    { id: 'global-sync', label: 'Global Live Sync', icon: UploadCloud },
-    { id: 'data-hub', label: 'Data Hub (Import & Export)', icon: FileSpreadsheet },
-    { id: 'analytics', label: 'Growth Hub', icon: TrendingUp },
-    { id: 'directus-config', label: 'Directus & AWS', icon: Database },
+  const isSuperAdmin = currentUser?.role === 'SUPER_ADMIN';
+
+  // ─── Tab Definitions with Role-Based Access Control ───
+  const allTabs = [
+    { id: 'manage-tours', label: 'Tour Packages', icon: LayoutDashboard, adminOnly: false },
+    { id: 'leads-inquiries', label: 'Leads & Inquiries CRM', icon: Users, adminOnly: false },
+    { id: 'manage-blogs', label: 'Blog & Magazine', icon: FileText, adminOnly: false },
+    { id: 'site-customizer', label: 'Site & SEO Customizer', icon: Sliders, adminOnly: true },
+    { id: 'global-sync', label: 'Global Live Sync', icon: UploadCloud, adminOnly: true },
+    { id: 'data-hub', label: 'Data Hub (Import & Export)', icon: FileSpreadsheet, adminOnly: true },
+    { id: 'analytics', label: 'Growth Hub', icon: TrendingUp, adminOnly: false },
+    { id: 'directus-config', label: 'Directus & AWS', icon: Database, adminOnly: true },
+    { id: 'team-access', label: 'Team & Access Control', icon: Shield, adminOnly: true },
   ];
+
+  const tabs = isSuperAdmin ? allTabs : allTabs.filter(t => !t.adminOnly);
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -439,6 +504,24 @@ export default function AdminCMSModal({ isOpen, onClose }) {
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            {/* Logged in User Pill */}
+            {isAuthenticated && currentUser && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', padding: '0.25rem 0.65rem', borderRadius: '9999px', background: isSuperAdmin ? 'rgba(255, 137, 47, 0.15)' : 'rgba(111, 230, 252, 0.15)', border: `1px solid ${isSuperAdmin ? 'rgba(255, 137, 47, 0.4)' : 'rgba(111, 230, 252, 0.4)'}` }}>
+                {isSuperAdmin ? <Shield size={13} color="#FF892F" /> : <Users size={13} color="#6FE6FC" />}
+                <span style={{ fontSize: '0.76rem', fontWeight: 700, color: isSuperAdmin ? '#FF892F' : '#6FE6FC' }}>
+                  {isSuperAdmin ? 'Super Admin' : 'Editor'}: {currentUser.name || currentUser.email}
+                </span>
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  title="Log out of CMS"
+                  style={{ marginLeft: '0.25rem', background: 'transparent', border: 'none', color: '#CBD5E1', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+                >
+                  <LogOut size={13} />
+                </button>
+              </div>
+            )}
+
             {/* Studio Theme Switcher Button */}
             <button
               type="button"
@@ -450,7 +533,7 @@ export default function AdminCMSModal({ isOpen, onClose }) {
               <span>{cmsTheme === 'dark' ? 'Light Studio' : 'Dark Studio'}</span>
             </button>
 
-            {isAuthenticated && (
+            {isAuthenticated && isSuperAdmin && (
               <button
                 type="button"
                 className="btn-cms-header-publish"
@@ -481,23 +564,46 @@ export default function AdminCMSModal({ isOpen, onClose }) {
           /* ═══ Login Screen ═══ */
           <div className="admin-auth-box">
             <div className="lock-icon-circle">
-              <Lock size={32} className="text-amber" />
+              <Shield size={32} className="text-amber" />
             </div>
-            <h3>Marketing Team Portal</h3>
-            <p>Enter your team passcode to access the Content Studio — blog editor, tour manager, SEO assistant, and analytics dashboard.</p>
+            <h3>Comfort Journey Staff Portal</h3>
+            <p>Sign in with your company or Microsoft 365 email address. Access permissions are managed by Super Admins.</p>
             <form onSubmit={handleLogin} className="auth-form">
-              <input
-                type="password"
-                placeholder="Enter Passcode (e.g. comfort1992)"
-                value={passwordInput}
-                onChange={(e) => setPasswordInput(e.target.value)}
-                autoFocus
-              />
-              {authError && <p className="auth-error-msg">{authError}</p>}
-              <button type="submit" className="btn-primary w-full">
-                Unlock Content Studio
+              <div style={{ textAlign: 'left', marginBottom: '0.85rem' }}>
+                <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#CBD5E1', marginBottom: '0.35rem' }}>Company / Microsoft Email ID</label>
+                <input
+                  type="email"
+                  placeholder="e.g. admin@comfortjourney.in"
+                  value={emailInput}
+                  onChange={(e) => setEmailInput(e.target.value)}
+                  autoFocus
+                  required
+                  style={{ width: '100%', padding: '0.75rem 0.95rem', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.15)', background: 'rgba(0, 0, 0, 0.4)', color: '#FFFFFF', fontSize: '0.9rem' }}
+                />
+              </div>
+              <div style={{ textAlign: 'left', marginBottom: '1.15rem' }}>
+                <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#CBD5E1', marginBottom: '0.35rem' }}>Account Password / Access Key</label>
+                <input
+                  type="password"
+                  placeholder="Enter your account password"
+                  value={passwordInput}
+                  onChange={(e) => setPasswordInput(e.target.value)}
+                  required
+                  style={{ width: '100%', padding: '0.75rem 0.95rem', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.15)', background: 'rgba(0, 0, 0, 0.4)', color: '#FFFFFF', fontSize: '0.9rem' }}
+                />
+              </div>
+              {authError && <p className="auth-error-msg" style={{ marginBottom: '1rem', color: '#EF4444', fontSize: '0.84rem' }}>{authError}</p>}
+              <button type="submit" className="btn-primary w-full" style={{ width: '100%', padding: '0.75rem', justifyContent: 'center' }}>
+                Sign In to Content Studio
               </button>
             </form>
+            <div style={{ marginTop: '1.25rem', padding: '0.75rem 1rem', background: 'rgba(255, 137, 47, 0.08)', border: '1px solid rgba(255, 137, 47, 0.25)', borderRadius: '8px', fontSize: '0.76rem', color: '#CBD5E1', lineHeight: '1.4', textAlign: 'left' }}>
+              <strong style={{ color: '#FF892F' }}>🔒 Role-Based Access Control:</strong>
+              <div style={{ marginTop: '0.25rem' }}>
+                • <strong>Super Admins</strong> have full access to API tokens, GitHub deployments, and Team Access management.<br />
+                • <strong>Content Editors</strong> can edit tours, blog articles, and inquiries CRM only.
+              </div>
+            </div>
           </div>
         ) : (
           /* ═══ Content Studio Dashboard ═══ */
@@ -523,6 +629,10 @@ export default function AdminCMSModal({ isOpen, onClose }) {
 
             {/* Tab Content Area */}
             <div className="cs-tab-content">
+              {/* ── Team & Access Management (Super Admin Only) ── */}
+              {activeTab === 'team-access' && isSuperAdmin && (
+                <TeamAccessManager currentUser={currentUser} showToast={showToast} />
+              )}
               {/* ── Tour Package Manager ── */}
               {activeTab === 'manage-tours' && <TourPackageManager onOpenGlobalSync={() => setActiveTab('global-sync')} />}
 
@@ -567,9 +677,19 @@ export default function AdminCMSModal({ isOpen, onClose }) {
                         />
                       </div>
                       <div className="field-group">
-                        <label>API Token</label>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
+                          <label style={{ margin: 0 }}>API Token</label>
+                          <button
+                            type="button"
+                            onClick={() => setShowDirectusToken(!showDirectusToken)}
+                            style={{ background: 'none', border: 'none', color: '#94A3B8', cursor: 'pointer', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '3px' }}
+                          >
+                            {showDirectusToken ? <EyeOff size={13} /> : <Eye size={13} />}
+                            <span>{showDirectusToken ? 'Hide' : 'Reveal'}</span>
+                          </button>
+                        </div>
                         <input
-                          type="password"
+                          type={showDirectusToken ? 'text' : 'password'}
                           className="cms-input"
                           value={directusToken}
                           onChange={(e) => setDirectusToken(e.target.value)}
@@ -1117,8 +1237,26 @@ export default function AdminCMSModal({ isOpen, onClose }) {
           .admin-auth-box h3 {
             font-family: var(--font-ui);
             font-size: 1.4rem;
-            color: #FFFFFF;
+            color: var(--cj-text-heading, #FFFFFF);
             margin: 0 0 0.5rem;
+          }
+
+          .cms-theme-light .admin-auth-box h3 {
+            color: #0F172A !important;
+          }
+
+          .cms-theme-light .admin-auth-box p {
+            color: #475569 !important;
+          }
+
+          .cms-theme-light .admin-auth-box label {
+            color: #334155 !important;
+          }
+
+          .cms-theme-light .admin-auth-box input {
+            background: #FFFFFF !important;
+            color: #0F172A !important;
+            border-color: #CBD5E1 !important;
           }
 
           .admin-auth-box p {
