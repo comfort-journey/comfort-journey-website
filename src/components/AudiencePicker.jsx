@@ -126,7 +126,7 @@ export default function AudiencePicker() {
                     <span>{page.ctaSecondary || `See ${page.eyebrow.toLowerCase()} trips`}</span>
                     <ArrowRight size={16} />
                   </a>
-                  <a className="ap-btn ap-btn-wa" href={`https://wa.me/918770403315?text=${waText}`} target="_blank" rel="noopener noreferrer">
+                  <a className="ap-btn ap-btn-wa" href={`https://wa.me/919203931912?text=${waText}`} target="_blank" rel="noopener noreferrer">
                     <MessageCircle size={16} />
                     <span>Ask on WhatsApp</span>
                   </a>

@@ -119,7 +119,7 @@ export function getAllLeads() {
 }
 
 /**
- * Record a new lead from any enquiry/booking form
+ * Record a new lead from any enquiry/booking form (synchronous, local-only)
  */
 export function saveLead(data) {
   if (!data) return null;
@@ -169,6 +169,73 @@ export function saveLead(data) {
   }
 
   return newLead;
+}
+
+/**
+ * Async Dual-Action Lead Save: persists locally + attempts CMS API POST.
+ * Always resolves (never rejects) so the WhatsApp redirect can proceed
+ * even if the CMS is unreachable.
+ *
+ * @param {Object} data - Lead form data
+ * @returns {Promise<{ lead: Object, cmsSaved: boolean }>}
+ */
+export async function saveLeadToCMS(data) {
+  // Step 1: Always save locally first (instant, reliable)
+  const lead = saveLead(data);
+  if (!lead) return { lead: null, cmsSaved: false };
+
+  // Step 2: Attempt async POST to Directus CMS /items/leads
+  let cmsSaved = false;
+  try {
+    const directusUrl = (typeof window !== 'undefined' && localStorage.getItem('cj_directus_url'))
+      || (typeof import.meta !== 'undefined' && import.meta.env?.VITE_DIRECTUS_URL)
+      || 'http://localhost:8055';
+    const token = (typeof window !== 'undefined' && localStorage.getItem('cj_directus_token'))
+      || (typeof import.meta !== 'undefined' && import.meta.env?.VITE_DIRECTUS_TOKEN)
+      || '';
+
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = `Bearer ${token}`;
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 4000); // 4s timeout
+
+    const res = await fetch(`${directusUrl}/items/leads`, {
+      method: 'POST',
+      headers,
+      signal: controller.signal,
+      body: JSON.stringify({
+        lead_id: lead.id,
+        name: lead.name,
+        phone: lead.phone,
+        email: lead.email,
+        tour_name: lead.tourName,
+        destination: lead.destination,
+        duration: lead.duration,
+        travel_date: lead.travelDate,
+        guests: lead.guests,
+        pace: lead.pace,
+        hotel_tier: lead.hotelTier,
+        transport_type: lead.transportType,
+        notes: lead.notes,
+        source: lead.source,
+        status: lead.status,
+        created_at: lead.createdAt
+      })
+    });
+
+    clearTimeout(timeoutId);
+    cmsSaved = res.ok;
+
+    if (!res.ok) {
+      console.warn(`[leadStorageService] CMS responded ${res.status}. Lead saved locally.`);
+    }
+  } catch (err) {
+    // CMS offline or timeout — lead is already saved locally, so this is non-fatal
+    console.warn('[leadStorageService] CMS save failed (offline/timeout). Lead preserved locally:', err.message);
+  }
+
+  return { lead, cmsSaved };
 }
 
 /**

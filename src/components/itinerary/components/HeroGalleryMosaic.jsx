@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Camera, Grid, X, ChevronLeft, ChevronRight, Sparkles, MapPin } from 'lucide-react';
+import { Camera, Grid, X, ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
 import { getTourGalleryImages } from '../../../data/destinationGalleries';
 import './styles/HeroGalleryMosaic.css';
 

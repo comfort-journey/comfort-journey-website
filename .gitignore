@@ -25,3 +25,17 @@ dist/
 *.log
 .DS_Store
 Thumbs.db
+
+# AI Tools & Editors
+.antigravity/
+.cursor/
+.vscode/
+.claude/
+.gemini/
+
+# Legacy Offline Archives & Previews
+light-theme-preview.html
+WIX CMS Old Data/
+Landing Pages/*.zip
+Landing Pages/extracted/
+Fonts/*.zip

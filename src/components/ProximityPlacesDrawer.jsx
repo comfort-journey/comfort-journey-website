@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Car, Landmark, UtensilsCrossed, ShoppingBag, MapPin, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
+import { Car, Landmark, UtensilsCrossed, ShoppingBag, MapPin, ChevronDown, ChevronUp } from 'lucide-react';
 
 /**
  * ProximityPlacesDrawer

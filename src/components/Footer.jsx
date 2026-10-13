@@ -100,7 +100,7 @@ export default function Footer({
               </button>
 
               <a 
-                href="https://wa.me/918770403315?text=Hi%20Comfort%20Journey!%20I%20am%20ready%20to%20plan%20my%20next%20vacation."
+                href="https://wa.me/919203931912?text=Hi%20Comfort%20Journey!%20I%20am%20ready%20to%20plan%20my%20next%20vacation."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-hero-secondary"
@@ -110,11 +110,11 @@ export default function Footer({
               </a>
 
               <a 
-                href="tel:+918770403315" 
+                href="tel:+919203931912" 
                 className="btn-hero-ghost"
               >
                 <Phone size={15} />
-                <span>+91 87704 03315</span>
+                <span>+91 92039 31912</span>
               </a>
             </div>
           </div>
@@ -185,15 +185,64 @@ export default function Footer({
               </div>
             </div>
 
-            <div className="deck-badges-cluster">
-              <span className="deck-badge badge-emerald">
-                <ShieldCheck size={13} className="text-emerald" />
-                <span>Govt. Verified</span>
-              </span>
-              <span className="deck-badge badge-cyan">
-                <MapPin size={13} className="text-cyan" />
-                <span>Bhopal, MP HQ</span>
-              </span>
+            <div className="deck-header-actions-group">
+              <div className="deck-social-cluster" aria-label="Official Social Channels">
+                <a 
+                  href="https://www.instagram.com/comfort.journey" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="social-channel-link instagram"
+                  title="Follow Comfort Journey on Instagram"
+                  aria-label="Instagram"
+                >
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                  <span>Instagram</span>
+                </a>
+                <a 
+                  href="https://www.facebook.com/comfortjourney22/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="social-channel-link facebook"
+                  title="Follow Comfort Journey on Facebook"
+                  aria-label="Facebook"
+                >
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                  <span>Facebook</span>
+                </a>
+                <a 
+                  href="https://www.linkedin.com/company/comfort-journey/posts/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="social-channel-link linkedin"
+                  title="Connect with Comfort Journey on LinkedIn"
+                  aria-label="LinkedIn"
+                >
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                  <span>LinkedIn</span>
+                </a>
+                <a 
+                  href="https://www.youtube.com/@Comfort.Journey" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="social-channel-link youtube"
+                  title="Subscribe to Comfort Journey on YouTube"
+                  aria-label="YouTube"
+                >
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+                  <span>YouTube</span>
+                </a>
+              </div>
+
+              <div className="deck-badges-cluster">
+                <span className="deck-badge badge-emerald">
+                  <ShieldCheck size={13} className="text-emerald" />
+                  <span>Govt. Verified</span>
+                </span>
+                <span className="deck-badge badge-cyan">
+                  <MapPin size={13} className="text-cyan" />
+                  <span>Bhopal, MP HQ</span>
+                </span>
+              </div>
             </div>
           </div>
 
@@ -305,13 +354,13 @@ export default function Footer({
 
                 <div className="deck-contact-item">
                   <Phone size={17} className="contact-icon text-cyan" />
-                  <a href="tel:+918770403315" className="contact-touch-link">+91 87704 03315</a>
+                  <a href="tel:+919203931912" className="contact-touch-link">+91 92039 31912</a>
                 </div>
 
                 <div className="deck-contact-item">
                   <MessageCircle size={17} className="contact-icon text-emerald" />
                   <a 
-                    href="https://wa.me/918770403315?text=Hi%20Comfort%20Journey!%20I%20want%20to%20plan%20a%20luxury%20vacation." 
+                    href="https://wa.me/919203931912?text=Hi%20Comfort%20Journey!%20I%20want%20to%20plan%20a%20luxury%20vacation." 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="contact-touch-link whatsapp-glow-link"
@@ -344,18 +393,60 @@ export default function Footer({
                 <ThemeToggle variant="icon" />
               </span>
               <a 
-                href="https://wa.me/918770403315" 
+                href="https://www.instagram.com/comfort.journey" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="touchpoint-btn touchpoint-instagram"
+                title="Instagram @comfort.journey"
+                aria-label="Instagram"
+              >
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              </a>
+              <a 
+                href="https://www.facebook.com/comfortjourney22/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="touchpoint-btn touchpoint-facebook"
+                title="Facebook @comfortjourney22"
+                aria-label="Facebook"
+              >
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              </a>
+              <a 
+                href="https://www.linkedin.com/company/comfort-journey/posts/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="touchpoint-btn touchpoint-linkedin"
+                title="LinkedIn Comfort Journey"
+                aria-label="LinkedIn"
+              >
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </a>
+              <a 
+                href="https://www.youtube.com/@Comfort.Journey" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="touchpoint-btn touchpoint-youtube"
+                title="YouTube @Comfort.Journey"
+                aria-label="YouTube"
+              >
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+              </a>
+              <a 
+                href="https://wa.me/919203931912" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="touchpoint-btn"
                 title="WhatsApp VIP"
+                aria-label="WhatsApp"
               >
                 <MessageCircle size={15} />
               </a>
               <a 
-                href="tel:+918770403315" 
+                href="tel:+919203931912" 
                 className="touchpoint-btn"
                 title="Direct Phone Call"
+                aria-label="Phone Call"
               >
                 <Phone size={15} />
               </a>
@@ -365,6 +456,7 @@ export default function Footer({
                 rel="noopener noreferrer" 
                 className="touchpoint-btn"
                 title="Google Business Profile"
+                aria-label="Google Reviews"
               >
                 <Star size={15} />
               </a>
@@ -751,6 +843,93 @@ export default function Footer({
           color: #FF9F1C;
           font-style: italic;
           font-weight: 600;
+        }
+
+        .deck-header-actions-group {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 1rem;
+        }
+
+        .deck-social-cluster {
+          display: flex;
+          align-items: center;
+          gap: 0.45rem;
+          flex-wrap: wrap;
+        }
+
+        .social-channel-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          padding: 0.35rem 0.8rem;
+          border-radius: 9999px;
+          font-family: var(--font-ui, sans-serif);
+          font-size: 0.76rem;
+          font-weight: 600;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: #E2E8F0;
+          text-decoration: none;
+          transition: all 0.22s ease;
+        }
+
+        .social-channel-link:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-channel-link.instagram:hover {
+          background: linear-gradient(135deg, rgba(225, 48, 108, 0.28), rgba(253, 29, 29, 0.28));
+          border-color: #E1306C;
+          color: #FFFFFF;
+        }
+
+        .social-channel-link.facebook:hover {
+          background: rgba(24, 119, 242, 0.25);
+          border-color: #1877F2;
+          color: #FFFFFF;
+        }
+
+        .social-channel-link.linkedin:hover {
+          background: rgba(10, 102, 194, 0.25);
+          border-color: #0A66C2;
+          color: #FFFFFF;
+        }
+
+        .social-channel-link.youtube:hover {
+          background: rgba(255, 0, 0, 0.25);
+          border-color: #FF0000;
+          color: #FFFFFF;
+        }
+
+        .touchpoint-instagram:hover {
+          background: linear-gradient(135deg, rgba(225, 48, 108, 0.35), rgba(253, 29, 29, 0.35)) !important;
+          border-color: #E1306C !important;
+          color: #FFFFFF !important;
+          box-shadow: 0 0 12px rgba(225, 48, 108, 0.5);
+        }
+
+        .touchpoint-facebook:hover {
+          background: rgba(24, 119, 242, 0.3) !important;
+          border-color: #1877F2 !important;
+          color: #FFFFFF !important;
+          box-shadow: 0 0 12px rgba(24, 119, 242, 0.5);
+        }
+
+        .touchpoint-linkedin:hover {
+          background: rgba(10, 102, 194, 0.3) !important;
+          border-color: #0A66C2 !important;
+          color: #FFFFFF !important;
+          box-shadow: 0 0 12px rgba(10, 102, 194, 0.5);
+        }
+
+        .touchpoint-youtube:hover {
+          background: rgba(255, 0, 0, 0.3) !important;
+          border-color: #FF0000 !important;
+          color: #FFFFFF !important;
+          box-shadow: 0 0 12px rgba(255, 0, 0, 0.5);
         }
 
         .deck-badges-cluster {

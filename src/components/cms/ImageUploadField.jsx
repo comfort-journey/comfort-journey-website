@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Upload, Link2, X, Image as ImageIcon, Check, RefreshCw, FolderOpen, Loader2, Sparkles } from 'lucide-react';
+import { Upload, Link2, X, Image as ImageIcon, Check, FolderOpen, Loader2 } from 'lucide-react';
 
 // ═══════════════════════════════════════════════════════════════════
 // COMFORT JOURNEY — REUSABLE IMAGE UPLOAD & URL COMPONENT

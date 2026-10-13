@@ -8,7 +8,7 @@
  */
 
 const SYSTEM_INSTRUCTION = `You are "Comfy.ai", the friendly AI Travel Assistant for "Comfort Journey" (Est. 1992).
-Your phone/WhatsApp concierge contact is +91 8770403315.
+Your phone/WhatsApp concierge contact is +91 9203931912.
 Website: Comfort Journey Travel.
 
 CRITICAL BRAND & OPERATIONAL RULES:
@@ -35,7 +35,7 @@ CRITICAL BRAND & OPERATIONAL RULES:
 
 5. MULTILINGUAL & ACTIONABLE:
    - Understand and reply in the EXACT language the traveler speaks (English, Hindi, Hinglish, Gujarati, Marathi, Bengali, Spanish, etc.).
-   - Always encourage travelers to connect with our friendly trip curators on WhatsApp (+91 8770403315) for quick custom quotes and confirmed reservations.`;
+   - Always encourage travelers to connect with our friendly trip curators on WhatsApp (+91 9203931912) for quick custom quotes and confirmed reservations.`;
 
 async function executeGeminiPrompt({ prompt, conversationHistory = [], apiKey }) {
   const contents = [];

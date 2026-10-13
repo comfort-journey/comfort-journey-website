@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HelpCircle, ChevronDown, ChevronUp, MessageCircle, Sparkles, CheckCircle2 } from 'lucide-react';
+import { HelpCircle, ChevronDown, ChevronUp, MessageCircle } from 'lucide-react';
 import { getDestinationClimate } from '../../../data/destinationClimates';
 import './styles/TourFaqSection.css';
 
@@ -117,7 +117,7 @@ export default function TourFaqSection({ tour }) {
             const msg = encodeURIComponent(
               `Hi Comfort Journey! I'm reviewing the "${tour?.name || 'tour package'}" and have a few questions before booking.`
             );
-            window.open(`https://wa.me/918770403315?text=${msg}`, '_blank');
+            window.open(`https://wa.me/919203931912?text=${msg}`, '_blank');
           }}
         >
           Chat with Specialist →

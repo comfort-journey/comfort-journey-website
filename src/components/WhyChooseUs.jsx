@@ -124,7 +124,7 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
                       className="service-whatsapp-inquire-btn"
                       onClick={() => {
                         const msg = encodeURIComponent(`Hi Comfort Journey, I would like to know more about your ${service.title} trips.`);
-                        window.open(`https://wa.me/918770403315?text=${msg}`, '_blank');
+                        window.open(`https://wa.me/919203931912?text=${msg}`, '_blank');
                       }}
                     >
                       <MessageCircle size={15} />
@@ -149,8 +149,8 @@ export default function WhyChooseUs({ onOpenAIPlanner }) {
               <Sparkles size={18} />
               Plan with Comfy.ai
             </button>
-            <a href="tel:+918770403315" className="btn-secondary btn-magnetic">
-              Call +91 87704 03315
+            <a href="tel:+919203931912" className="btn-secondary btn-magnetic">
+              Call +91 92039 31912
             </a>
           </div>
         </div>

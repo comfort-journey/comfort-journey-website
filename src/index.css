@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Baumans&family=Outfit:wght@100..900&family=Noto+Sans:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Devanagari:wght@400..700&family=Noto+Sans+Arabic:wght@400..700&display=swap');
+/* Fonts loaded via index.html link tags for non-blocking parallel delivery */
 
 :root,
 [data-theme="light"] {
@@ -1117,7 +1117,7 @@ s {
   text-overflow: ellipsis !important;
 }
 
-/* 12. High-Contrast Ribbon Badges (PDF #4) */
+/* 12. High-Contrast Ribbon Badges */
 .ribbon-badge {
   background: linear-gradient(135deg, rgba(20, 10, 5, 0.94) 0%, rgba(35, 15, 5, 0.96) 100%) !important;
   border: 1.5px solid #FF892F !important;
@@ -1135,7 +1135,7 @@ s {
   gap: 0.35rem !important;
 }
 
-/* 13. Trust Certification Stamps (PDF #12 - Not Clickable Buttons) */
+/* 13. Trust Certification Stamps (Not Clickable Buttons) */
 .trust-stamp-tag {
   display: inline-flex;
   align-items: center;
@@ -1169,7 +1169,7 @@ s {
   border: 1px solid rgba(168, 85, 247, 0.3);
 }
 
-/* 14. Perfectly Centered Duration Badges (PDF #6) */
+/* 14. Perfectly Centered Duration Badges */
 .duration-pill,
 .weather-pill-tag,
 .compact-dur-pill {

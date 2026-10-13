@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { FAQS } from '../data/toursData';
-import { ChevronDown, HelpCircle, Sparkles, MessageCircle, PhoneCall } from 'lucide-react';
-import Tilt3DCard from './animations/Tilt3DCard';
+import { ChevronDown, Sparkles, MessageCircle, PhoneCall } from 'lucide-react';
 
 const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
 
@@ -71,7 +70,7 @@ export default function FaqSection() {
           </div>
           <div className="faq-help-actions">
             <a 
-              href="https://wa.me/918770403315?text=Hi%20Comfort%20Journey!%20I%20have%20a%20question%20regarding%20tour%20packages."
+              href="https://wa.me/919203931912?text=Hi%20Comfort%20Journey!%20I%20have%20a%20question%20regarding%20tour%20packages."
               target="_blank"
               rel="noopener noreferrer"
               className="btn-whatsapp"
@@ -79,9 +78,9 @@ export default function FaqSection() {
               <MessageCircle size={18} />
               <span>Ask on WhatsApp</span>
             </a>
-            <a href="tel:+918770403315" className="btn-secondary">
+            <a href="tel:+919203931912" className="btn-secondary">
               <PhoneCall size={18} />
-              <span>+91 8770403315</span>
+              <span>+91 9203931912</span>
             </a>
           </div>
         </div>

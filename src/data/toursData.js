@@ -4813,7 +4813,7 @@ export const GOOGLE_BUSINESS_PROFILE = {
   googleShareUrl: "https://www.google.com/search?q=Comfort+Journey+Bhopal+Reviews",
   googleWriteReviewUrl: "https://www.google.com/search?q=Comfort+Journey+Bhopal+Reviews",
   address: "Shop no 2, Phase 5, Ankur Complex, 6 Number Bus Stop, Shivaji Nagar, Bhopal, Madhya Pradesh 462016",
-  phone: "+91 87704 03315"
+  phone: "+91 92039 31912"
 };
 
 export const GOOGLE_REVIEWS = [
@@ -4972,7 +4972,7 @@ export const FAQS = [
   },
   {
     q: "How does planning a trip with you work?",
-    a: "Message us on WhatsApp, call +91 87704 03315 or use Plan with Comfy.ai. Share where you want to go, your dates, who is travelling and a rough budget. We send a day-by-day plan with a clear price, then adjust it until it feels right."
+    a: "Message us on WhatsApp, call +91 92039 31912 or use Plan with Comfy.ai. Share where you want to go, your dates, who is travelling and a rough budget. We send a day-by-day plan with a clear price, then adjust it until it feels right."
   },
   {
     q: "What is included in a tour package?",

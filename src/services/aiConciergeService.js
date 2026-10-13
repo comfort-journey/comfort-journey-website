@@ -1,6 +1,6 @@
 import { TOURS_DATA } from '../data/toursData';
 import { BLOGS_DATA } from '../data/blogsData';
-import { DESTINATION_WAYPOINTS, resolveDestinationWaypoints } from '../data/destinationWaypoints';
+import { resolveDestinationWaypoints } from '../data/destinationWaypoints';
 
 /**
  * Comfy.ai - Comfort Journey's AI Travel Assistant (Est. 1992)
@@ -634,7 +634,7 @@ function generateLocalSmartResponse(prompt, currentTrip = null) {
   const competitorMatches = ['makemytrip', 'make my trip', 'thomas cook', 'booking.com', 'expedia', 'viator', 'airbnb', 'tripadvisor', 'yatra', 'goibibo'];
   if (competitorMatches.some(c => q.includes(c))) {
     return {
-      reply: `At **Comfort Journey (Est. 1992)**, we are an independent travel house focused on **personalized, comfortable vacations**.\n\n✨ **The Comfort Journey Promise:**\n- **100% Private Trips:** Dedicated private AC car with courteous driver for your family.\n- **Verified Comfortable Stays:** Handpicked 4★ and 5★ hotels, pine chalets, and private pool villas.\n- **Dietary Peace of Mind:** Verified Pure Veg, Jain, and Halal dining arranged throughout.\n- **24/7 Direct Care:** Personal trip manager reachable anytime on WhatsApp (+91 8770403315).\n\nHow may I help plan your dream holiday?`,
+      reply: `At **Comfort Journey (Est. 1992)**, we are an independent travel house focused on **personalized, comfortable vacations**.\n\n✨ **The Comfort Journey Promise:**\n- **100% Private Trips:** Dedicated private AC car with courteous driver for your family.\n- **Verified Comfortable Stays:** Handpicked 4★ and 5★ hotels, pine chalets, and private pool villas.\n- **Dietary Peace of Mind:** Verified Pure Veg, Jain, and Halal dining arranged throughout.\n- **24/7 Direct Care:** Personal trip manager reachable anytime on WhatsApp (+91 9203931912).\n\nHow may I help plan your dream holiday?`,
       matchedTours: findMatchingTours('luxury', 2),
       generatedTrip: null
     };
@@ -664,8 +664,8 @@ function generateLocalSmartResponse(prompt, currentTrip = null) {
       `🔒 **Comfort Journey Accuracy Guarantee:**\n` +
       `To ensure you receive 100% correct information without automated mistakes or misleading low rates, our AI does not generate estimated standalone hotel prices.\n\n` +
       `💬 **How to get confirmed pricing:**\n` +
-      `Our travel specialists in Bhopal (+91 8770403315) verify live rates directly with hotel reservations to secure the best package deal for your dates.\n\n` +
-      `📲 **Message our team on WhatsApp:** Click below or call **+91 8770403315** with your travel dates, and we will share exact, transparent prices!`;
+      `Our travel specialists in Bhopal (+91 9203931912) verify live rates directly with hotel reservations to secure the best package deal for your dates.\n\n` +
+      `📲 **Message our team on WhatsApp:** Click below or call **+91 9203931912** with your travel dates, and we will share exact, transparent prices!`;
     return { reply: text, matchedTours: [], generatedTrip: null };
   }
 
@@ -731,7 +731,7 @@ function generateLocalSmartResponse(prompt, currentTrip = null) {
         `This answer is **not mentioned in your active itinerary behind or standard website packages**. This is a customized recommendation to give you travel ideas.\n\n` +
         `💰 **Pricing & Room Availability:**\n` +
         `We do not display automated hotel prices here to avoid any incorrect or outdated rates. If you would like to add any of these properties to your customized itinerary, our team member will check live room tariffs and calculate the exact price for you!\n\n` +
-        `📲 **WhatsApp / Call our team:** **+91 8770403315** — let us know your travel dates and preferred hotel, and we will update your itinerary with confirmed pricing!`;
+        `📲 **WhatsApp / Call our team:** **+91 9203931912** — let us know your travel dates and preferred hotel, and we will update your itinerary with confirmed pricing!`;
     }
 
     return {
@@ -751,7 +751,7 @@ function generateLocalSmartResponse(prompt, currentTrip = null) {
       `   • **Private Vehicle:** *Toyota Innova Hycross (Hybrid AC)*, *Innova Crysta*, *Private Luxury Sedan*, or *Tempo Traveller*.\n` +
       `   • **Stay Tier:** *4★ Deluxe Boutique*, *5★ Luxury Resort*, or *Private Pool Villa*.\n` +
       `   • **Meals:** *100% Pure Vegetarian*, *Jain Friendly (No Onion/Garlic)*, or *Multi-Cuisine*.\n\n` +
-      `Your daily plan updates instantly! You can also WhatsApp our holiday manager at **+91 8770403315** for bespoke custom routing.`;
+      `Your daily plan updates instantly! You can also WhatsApp our holiday manager at **+91 9203931912** for bespoke custom routing.`;
     return { reply: text, matchedTours: [], generatedTrip: null };
   }
 

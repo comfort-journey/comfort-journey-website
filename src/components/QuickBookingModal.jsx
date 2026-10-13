@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { X, Send, MessageCircle, PhoneCall, CheckCircle2, ArrowRight, ArrowLeft, Calendar, Users, Hotel, Car, MapPin, Sparkles } from 'lucide-react';
+import { X, Send, MessageCircle, CheckCircle2, ArrowRight, ArrowLeft, Calendar, Users, Hotel, MapPin, Sparkles, Loader2 } from 'lucide-react';
 import { TOURS_DATA } from '../data/toursData';
-import { getTravelerProfile, saveLead } from '../services/leadStorageService';
+import { getTravelerProfile, saveLeadToCMS } from '../services/leadStorageService';
+import { COUNTRY_CODES } from '../utils/countryCodes';
+import { useUserAuth } from '../context/UserAuthContext';
 
 export default function QuickBookingModal({ selectedTour, onClose }) {
   const profile = getTravelerProfile();
+  const { user, isAuthenticated } = useUserAuth();
   const [step, setStep] = useState(1);
+  const [countryCode, setCountryCode] = useState('+91');
+  const [consentChecked, setConsentChecked] = useState(false);
+  const [consentError, setConsentError] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     destination: selectedTour ? (selectedTour.name || selectedTour.title) : (TOURS_DATA[0]?.name || 'Peace In The Pines'),
     travelMonth: 'Next 30 Days (Immediate)',
@@ -15,25 +22,30 @@ export default function QuickBookingModal({ selectedTour, onClose }) {
     pace: 'Moderate & Scenic',
     hotelTier: '4-Star Premium Deluxe',
     transportType: 'Private SUV (Toyota Innova Crysta)',
-    name: profile.name || '',
-    phone: profile.phone || '',
+    name: (isAuthenticated && user?.name) || profile.name || '',
+    phone: (isAuthenticated && user?.phone ? user.phone.replace(/^\+\d+\s*/, '') : '') || (profile.phone || '').replace(/^\+\d+\s*/, '') || '',
+    email: (isAuthenticated && user?.email) || profile.email || '',
     specialNotes: ''
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [submittedMessage, setSubmittedMessage] = useState('');
 
-  // Sync profile if filled elsewhere
+  // Sync profile and SSO user if filled or logged in
   useEffect(() => {
     const fresh = getTravelerProfile();
-    if (fresh.name && !formData.name) {
-      setFormData(prev => ({
-        ...prev,
-        name: fresh.name,
-        phone: fresh.phone || prev.phone,
-        travelers: fresh.guests || prev.travelers
-      }));
-    }
-  }, []);
+    const ssoName = isAuthenticated && user?.name ? user.name : '';
+    const ssoPhone = isAuthenticated && user?.phone ? user.phone.replace(/^\+\d+\s*/, '') : '';
+    const ssoEmail = isAuthenticated && user?.email ? user.email : '';
+
+    setFormData(prev => ({
+      ...prev,
+      name: ssoName || prev.name || fresh.name || '',
+      phone: ssoPhone || prev.phone || (fresh.phone || '').replace(/^\+\d+\s*/, '') || '',
+      email: ssoEmail || prev.email || fresh.email || '',
+      travelers: fresh.guests || prev.travelers
+    }));
+  }, [isAuthenticated, user]);
 
   const updateField = (field, val) => {
     setFormData(prev => ({ ...prev, [field]: val }));
@@ -48,12 +60,21 @@ export default function QuickBookingModal({ selectedTour, onClose }) {
     }
   };
 
-  const handleFinalSubmit = (e) => {
+  const handleFinalSubmit = async (e) => {
     if (e) e.preventDefault();
-    if (!formData.name || !formData.phone) return;
+    if (!formData.name.trim() || !formData.phone.trim()) return;
 
-    // Save lead centrally in CRM and persist user profile for returning auto-fill
-    saveLead({
+    if (!consentChecked) {
+      setConsentError(true);
+      return;
+    }
+
+    setConsentError(false);
+    setIsSubmitting(true);
+
+    const fullPhoneNumber = `${countryCode} ${formData.phone.trim()}`;
+
+    const leadData = {
       destination: formData.destination,
       tourName: formData.destination,
       travelDate: `${formData.travelMonth} ${formData.exactDate ? `(${formData.exactDate})` : ''}`,
@@ -64,10 +85,14 @@ export default function QuickBookingModal({ selectedTour, onClose }) {
       hotelTier: formData.hotelTier,
       transportType: formData.transportType,
       name: formData.name,
-      phone: formData.phone,
+      phone: fullPhoneNumber,
+      email: formData.email,
       specialNotes: formData.specialNotes,
       source: '5-Step Bespoke Enquiry Modal'
-    });
+    };
+
+    // Dual-Action: Save lead centrally in Directus CMS + local CRM storage first
+    await saveLeadToCMS(leadData);
 
     const message = `Hi Comfort Journey! I would like to request a bespoke tour proposal:
 📍 *Destination:* ${formData.destination}
@@ -77,15 +102,16 @@ export default function QuickBookingModal({ selectedTour, onClose }) {
 🏨 *Hotel Standard:* ${formData.hotelTier}
 🚗 *Transport:* ${formData.transportType}
 👤 *Primary Guest:* ${formData.name}
-📞 *Contact:* ${formData.phone}
+📞 *Contact:* ${fullPhoneNumber}
 ${formData.specialNotes ? `📝 *Notes:* ${formData.specialNotes}` : ''}
 
 Please share a detailed day-wise itinerary & quote!`;
 
+    setSubmittedMessage(message);
+    setIsSubmitting(false);
     setSubmitted(true);
-    setTimeout(() => {
-      window.open(`https://wa.me/918770403315?text=${encodeURIComponent(message)}`, '_blank');
-    }, 600);
+    // WhatsApp redirect
+    window.open(`https://wa.me/919203931912?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   const quickDestinations = (TOURS_DATA && TOURS_DATA.length > 0)
@@ -121,9 +147,37 @@ Please share a detailed day-wise itinerary & quote!`;
               <p className="submitted-sub">
                 Your bespoke trip itinerary request has been compiled and is opening directly in WhatsApp. Our senior trip designers in Bhopal will share your day-by-day plan within 15 minutes.
               </p>
-              <button type="button" className="btn-primary" onClick={onClose}>
-                <span>Close Window</span>
-              </button>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '380px', margin: '20px auto 0' }}>
+                <a
+                  href={`https://wa.me/919203931912?text=${encodeURIComponent(submittedMessage)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-whatsapp"
+                  style={{ textDecoration: 'none', justifyContent: 'center', display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 20px', borderRadius: '10px', background: '#25D366', color: '#000', fontWeight: 'bold' }}
+                >
+                  <MessageCircle size={18} />
+                  <span>Send / Reopen on WhatsApp</span>
+                </a>
+                <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
+                  <button
+                    type="button"
+                    className="btn-secondary"
+                    onClick={() => setSubmitted(false)}
+                    style={{ fontSize: '0.88rem', padding: '10px 16px' }}
+                  >
+                    ✏️ Edit Enquiry Details
+                  </button>
+                  <button
+                    type="button"
+                    className="btn-primary"
+                    onClick={onClose}
+                    style={{ fontSize: '0.88rem', padding: '10px 16px' }}
+                  >
+                    Close Window
+                  </button>
+                </div>
+              </div>
             </div>
           ) : (
             <div>
@@ -203,6 +257,11 @@ Please share a detailed day-wise itinerary & quote!`;
                         type="date"
                         value={formData.exactDate}
                         onChange={(e) => updateField('exactDate', e.target.value)}
+                        onClick={(e) => {
+                          try {
+                            e.target.showPicker();
+                          } catch (_) {}
+                        }}
                       />
                     </div>
                   </div>
@@ -324,6 +383,8 @@ Please share a detailed day-wise itinerary & quote!`;
                       <label>Your Full Name *</label>
                       <input
                         type="text"
+                        name="name"
+                        autoComplete="name"
                         placeholder="e.g. Rishabh Sharma"
                         required
                         value={formData.name}
@@ -332,13 +393,41 @@ Please share a detailed day-wise itinerary & quote!`;
                     </div>
                     <div className="form-group flex-1">
                       <label>Phone / WhatsApp Number *</label>
-                      <input
-                        type="tel"
-                        placeholder="e.g. +91 98765 43210"
-                        required
-                        value={formData.phone}
-                        onChange={(e) => updateField('phone', e.target.value)}
-                      />
+                      <div style={{ display: 'flex', gap: '8px' }}>
+                        <select
+                          className="modal-country-code-select"
+                          value={countryCode}
+                          onChange={(e) => setCountryCode(e.target.value)}
+                          aria-label="Country Calling Code"
+                          autoComplete="tel-country-code"
+                          style={{
+                            width: '125px',
+                            flexShrink: 0,
+                            padding: '10px 8px',
+                            borderRadius: '8px',
+                            border: '1px solid rgba(255,255,255,0.18)',
+                            background: 'rgba(255,255,255,0.08)',
+                            color: 'inherit',
+                            fontSize: '0.85rem'
+                          }}
+                        >
+                          {COUNTRY_CODES.map((c) => (
+                            <option key={`${c.code}-${c.dial}`} value={c.dial} style={{ background: '#0a192f', color: '#fff' }}>
+                              {c.code} ({c.dial})
+                            </option>
+                          ))}
+                        </select>
+                        <input
+                          type="tel"
+                          name="phone"
+                          autoComplete="tel-national"
+                          style={{ flex: 1 }}
+                          placeholder="e.g. 98765 43210"
+                          required
+                          value={formData.phone}
+                          onChange={(e) => updateField('phone', e.target.value)}
+                        />
+                      </div>
                     </div>
                   </div>
 
@@ -355,6 +444,41 @@ Please share a detailed day-wise itinerary & quote!`;
                   <div className="summary-recap-box">
                     <strong>Trip Summary:</strong>
                     <span>{formData.destination} • {formData.travelMonth} • {formData.travelers} • {formData.hotelTier}</span>
+                  </div>
+
+                  {/* Mandatory Legal Consent Checkbox */}
+                  <div className={`modal-consent-row ${consentError ? 'consent-error' : ''}`}>
+                    <label className="modal-consent-label">
+                      <input
+                        type="checkbox"
+                        checked={consentChecked}
+                        onChange={(e) => {
+                          setConsentChecked(e.target.checked);
+                          if (e.target.checked) setConsentError(false);
+                        }}
+                      />
+                      <span className="modal-consent-text">
+                        I agree to the{' '}
+                        <a
+                          href="#/privacy-policy"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            if (typeof window !== 'undefined') {
+                              window.dispatchEvent(new CustomEvent('open-policy-modal', { detail: 'privacy' }));
+                            }
+                          }}
+                          className="modal-consent-link"
+                        >
+                          Privacy Policy
+                        </a>{' '}
+                        and consent to being contacted via WhatsApp and Email with itineraries and offers.
+                      </span>
+                    </label>
+                    {consentError && (
+                      <p className="modal-consent-err-msg">
+                        Please agree to the Privacy Policy to proceed.
+                      </p>
+                    )}
                   </div>
                 </div>
               )}
@@ -378,10 +502,19 @@ Please share a detailed day-wise itinerary & quote!`;
                     type="button" 
                     className="btn-whatsapp ml-auto" 
                     onClick={handleFinalSubmit}
-                    disabled={!formData.name || !formData.phone}
+                    disabled={!formData.name || !formData.phone || isSubmitting}
                   >
-                    <MessageCircle size={18} />
-                    <span>Get Instant Itinerary on WhatsApp</span>
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 size={18} className="animate-spin" />
+                        <span>Saving & Redirecting...</span>
+                      </>
+                    ) : (
+                      <>
+                        <MessageCircle size={18} />
+                        <span>Get Instant Itinerary on WhatsApp</span>
+                      </>
+                    )}
                   </button>
                 )}
               </div>
@@ -873,12 +1006,68 @@ Please share a detailed day-wise itinerary & quote!`;
           [data-theme="dark"] .step-heading {
             color: #FFFFFF !important;
           }
-          [data-theme="dark"] .dest-select-btn {
-            color: #F8FAFC !important;
-          }
           [data-theme="dark"] .form-group input,
           [data-theme="dark"] .form-group textarea {
             color: #FFFFFF !important;
+          }
+
+          /* Consent Checkbox Row */
+          .modal-consent-row {
+            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            background: rgba(111, 230, 252, 0.05);
+            border: 1px solid rgba(111, 230, 252, 0.2);
+            transition: all 0.25s ease;
+          }
+
+          .modal-consent-row.consent-error {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: #EF4444;
+          }
+
+          .modal-consent-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            margin: 0;
+          }
+
+          .modal-consent-label input[type="checkbox"] {
+            margin-top: 3px;
+            width: 17px;
+            height: 17px;
+            accent-color: #FF892F;
+            cursor: pointer;
+            flex-shrink: 0;
+          }
+
+          .modal-consent-text {
+            font-size: 0.82rem;
+            line-height: 1.45;
+            color: #CBD5E1;
+          }
+
+          [data-theme="light"] .modal-consent-text {
+            color: #334155 !important;
+          }
+
+          .modal-consent-link {
+            color: #6FE6FC;
+            text-decoration: underline;
+            font-weight: 600;
+          }
+
+          [data-theme="light"] .modal-consent-link {
+            color: #0284C7 !important;
+          }
+
+          .modal-consent-err-msg {
+            margin: 6px 0 0 27px;
+            color: #EF4444;
+            font-size: 0.78rem;
+            font-weight: 600;
           }
         `}</style>
       </div>

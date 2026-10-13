@@ -21,7 +21,7 @@ const ICONS = {
   leaf: Leaf, flame: Flame, baby: Baby, book: BookOpen, music: Music
 };
 
-const WA_NUMBER = '918770403315';
+const WA_NUMBER = '919203931912';
 const SITE = 'https://www.comfortjourneyy.com';
 const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
 const asset = (src) => (!src ? '' : /^(https?:|data:)/.test(src) ? src : basePrefix + src.replace(/^\.?\//, ''));
@@ -424,7 +424,7 @@ export default function LandingPageTemplate({ pageData, onBackToHome, onSelectIt
             <div className="lp2-hero-ctas lp2-final-ctas">
               <a className="lp2-btn lp2-btn-primary" href={waLink} target="_blank" rel="noopener noreferrer"><MessageCircle size={18} /> {pageData.finalCta}</a>
               <button type="button" className="lp2-btn lp2-btn-ghost" onClick={() => onOpenQuote?.()}>Send a quick enquiry</button>
-              <a className="lp2-btn lp2-btn-link" href="tel:+918770403315"><Phone size={16} /> +91 87704 03315</a>
+              <a className="lp2-btn lp2-btn-link" href="tel:+919203931912"><Phone size={16} /> +91 92039 31912</a>
             </div>
           </div>
         </div>

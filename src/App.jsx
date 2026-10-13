@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, lazy, Suspense } from 'react';
 import { CurrencyProvider } from './context/CurrencyContext';
 import { WishlistCompareProvider } from './context/WishlistCompareContext';
+import { UserAuthProvider } from './context/UserAuthContext';
 import { useScrollAnimation } from './hooks/useScrollAnimation';
 import SmoothScrollProvider from './components/SmoothScrollProvider';
 import AmbientBackgroundOrbs from './components/AmbientBackgroundOrbs';
@@ -34,6 +35,7 @@ import PackageTierCompareModal from './components/PackageTierCompareModal';
 import WishlistDrawer from './components/WishlistDrawer';
 import CompareModal from './components/CompareModal';
 import PolicyModal from './components/PolicyModal';
+import VisitorAuthModal from './components/VisitorAuthModal';
 const AdminCMSModal = lazy(() => import('./components/AdminCMSModal'));
 import FloatingQuickDock from './components/FloatingQuickDock';
 import LiveBookingToast from './components/LiveBookingToast';
@@ -97,8 +99,12 @@ export default function App() {
       const rawHash = window.location.hash;
       const hash = rawHash.toLowerCase();
       
-      if (hash === '#/portal' || hash === '#portal' || hash === '#/team' || hash === '#team' || hash === '#/staff' || hash === '#staff' || hash === '#/admin' || hash === '#admin') {
+      if (hash === '#/portal' || hash === '#portal' || hash === '#/team' || hash === '#team' || hash === '#/staff' || hash === '#staff' || hash === '#/admin' || hash === '#admin' || hash === '#/cms' || hash === '#cms') {
+        setCurrentView('cms');
         setIsAdminCMSOpen(true);
+        setActiveLandingPage(null);
+        setActiveBlogSlug(null);
+        window.scrollTo({ top: 0, behavior: 'instant' });
       } else if (hash === '#/landing-hub' || hash === '#/all-landing-pages' || hash === '#landing-hub') {
         setIsLPHubOpen(true);
       } else if (hash === '#/ai-planner' || hash === '#ai-planner') {
@@ -153,6 +159,8 @@ export default function App() {
         setActiveLandingPage(null);
         setActiveBlogSlug(null);
         window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (hash === '#/privacy-policy' || hash === '#privacy-policy') {
+        setPolicyModalType('privacy');
       } else {
         // Check if hash matches any of our 15 dedicated Campaign Landing Pages
         const matchedPage = getLandingPageBySlug(hash);
@@ -178,6 +186,12 @@ export default function App() {
     // Listen for hash changes (in-app navigation)
     window.addEventListener('hashchange', handleRouteChange);
 
+    // Global listener for opening policy modal from legal consent links across forms
+    const handleOpenPolicyModal = (e) => {
+      setPolicyModalType(e.detail || 'privacy');
+    };
+    window.addEventListener('open-policy-modal', handleOpenPolicyModal);
+
     // Invisible staff shortcut: Ctrl + Shift + A (or Cmd + Shift + A) opens CMS Portal
     const handleKeyDown = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
@@ -189,6 +203,7 @@ export default function App() {
 
     return () => {
       window.removeEventListener('hashchange', handleRouteChange);
+      window.removeEventListener('open-policy-modal', handleOpenPolicyModal);
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
@@ -234,24 +249,34 @@ export default function App() {
   };
 
   return (
-    <CurrencyProvider>
-      <WishlistCompareProvider>
-        <SmoothScrollProvider>
-          {/* Zajno Magnetic Cursor Follower */}
-          <ZajnoMagneticCursor />
+    <UserAuthProvider>
+      <CurrencyProvider>
+        <WishlistCompareProvider>
+          <SmoothScrollProvider>
+            {/* Zajno Magnetic Cursor Follower */}
+            <ZajnoMagneticCursor />
 
-          {/* Ambient Parallax Gradient Orbs */}
-          <AmbientBackgroundOrbs />
+            {/* Ambient Parallax Gradient Orbs */}
+            <AmbientBackgroundOrbs />
 
-          <div className={`app-root ${currentView === 'ai-planner' ? 'ai-planner-active-view' : ''}`}>
-          <Suspense fallback={<div className="route-loading" role="status" aria-live="polite"><span className="route-loading-dot" />Loading…</div>}>
-            {currentView === 'ai-planner' ? (
-              /* DEDICATED FULL-VIEWPORT AI PLANNER EXPERIENCE */
-              <AIPlannerPage 
-                onBackToHome={navigateToHome}
-                onOpenQuote={() => setIsQuickQuoteOpen(true)}
-              />
-            ) : currentView === 'itinerary' ? (
+            <div className={`app-root ${currentView === 'ai-planner' ? 'ai-planner-active-view' : ''}`}>
+            <Suspense fallback={<div className="route-loading" role="status" aria-live="polite"><span className="route-loading-dot" />Loading…</div>}>
+              {currentView === 'cms' ? (
+                /* DEDICATED STANDALONE CMS / CONTENT STUDIO VIEW (Instant 0ms Load, Zero Homepage Background Weight) */
+                <div style={{ minHeight: '100vh', background: 'var(--color-bg, #001233)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <AdminCMSModal
+                    isOpen={true}
+                    isStandalonePage={true}
+                    onClose={navigateToHome}
+                  />
+                </div>
+              ) : currentView === 'ai-planner' ? (
+                /* DEDICATED FULL-VIEWPORT AI PLANNER EXPERIENCE */
+                <AIPlannerPage 
+                  onBackToHome={navigateToHome}
+                  onOpenQuote={() => setIsQuickQuoteOpen(true)}
+                />
+              ) : currentView === 'itinerary' ? (
               /* DEDICATED ITINERARY PAGE VIEW WITH GLOBAL HEADER */
               <>
                 <Navbar 
@@ -433,23 +458,6 @@ pageData={activeLandingPage}
             </Suspense>
           )}
 
-          {/* Interactive AI Smart Dream Trip Planner - Legacy Modal (kept for fallback) */}
-          {/* 
-          {isAIPlannerOpen && (
-            <AITripPlannerModal 
-              isOpen={isAIPlannerOpen}
-              onClose={() => setIsAIPlannerOpen(false)}
-              onSelectTour={(tour) => {
-                setIsAIPlannerOpen(false);
-                setSelectedItineraryTour(tour);
-              }}
-              onBookCustomTrip={(plan) => {
-                setIsAIPlannerOpen(false);
-                setIsQuickQuoteOpen(true);
-              }}
-            />
-          )} 
-          */}
 
           {/* Package Tier Comparison Modal (Standard vs Premium vs VIP) */}
           <PackageTierCompareModal
@@ -484,15 +492,18 @@ pageData={activeLandingPage}
             onClose={() => setPolicyModalType(null)}
           />
 
-          {/* Marketing Team CMS, Blog Publisher & SEO Studio */}
-          {isAdminCMSOpen && (
+          {/* Website Visitor Authentication Modal (1-Click Google, MS, Apple, Phone/Email) */}
+          <VisitorAuthModal />
+
+          {/* Marketing Team CMS, Blog Publisher & SEO Studio (Modal mode when triggered from homepage) */}
+          {isAdminCMSOpen && currentView !== 'cms' && (
           <Suspense fallback={null}>
           <AdminCMSModal 
             isOpen={isAdminCMSOpen}
             onClose={() => {
               setIsAdminCMSOpen(false);
               // Clear the #admin hash from URL on close
-              if (window.location.hash.toLowerCase().includes('admin')) {
+              if (window.location.hash.toLowerCase().includes('admin') || window.location.hash.toLowerCase().includes('portal')) {
                 history.replaceState(null, '', window.location.pathname);
               }
             }}
@@ -500,11 +511,8 @@ pageData={activeLandingPage}
           </Suspense>
           )}
 
-
-
-
-          {/* Floating Glassmorphism Action Dock (Available on All Pages except AI Planner) */}
-          {currentView !== 'ai-planner' && (
+          {/* Floating Glassmorphism Action Dock (Available on All Pages except AI Planner and Standalone CMS) */}
+          {currentView !== 'ai-planner' && currentView !== 'cms' && (
             <FloatingQuickDock 
               onOpenQuote={() => setIsQuickQuoteOpen(true)} 
               onOpenAIPlanner={navigateToAIPlanner}
@@ -512,7 +520,7 @@ pageData={activeLandingPage}
           )}
 
           {/* Live Booking Social Proof Ticker */}
-          {currentView !== 'landing' && <LiveBookingToast />}
+          {currentView !== 'landing' && currentView !== 'cms' && <LiveBookingToast />}
 
           <style>{`
             .app-root {
@@ -551,6 +559,7 @@ pageData={activeLandingPage}
         </SmoothScrollProvider>
       </WishlistCompareProvider>
     </CurrencyProvider>
+  </UserAuthProvider>
   );
 }
 

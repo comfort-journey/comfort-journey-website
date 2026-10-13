@@ -553,7 +553,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                         </p>
                         <div className="no-exact-action-buttons">
                           <a 
-                            href={`https://wa.me/918770403315?text=${encodeURIComponent(`Hi Comfort Journey! I would like to plan a custom tailor-made luxury vacation to ${activeCountry.name}. Please connect me with a Senior Trip Designer.`)}`}
+                            href={`https://wa.me/919203931912?text=${encodeURIComponent(`Hi Comfort Journey! I would like to plan a custom tailor-made luxury vacation to ${activeCountry.name}. Please connect me with a Senior Trip Designer.`)}`}
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="btn-whatsapp-custom"
@@ -760,7 +760,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
                         return (
                           <div key={tour.id} className="city-in-place-card glass-card">
-                            {/* Cover Image Banner with Badges (Prompt & PDF #2) */}
+                            {/* Cover Image Banner with Badges */}
                             <div className="c-card-media-pane">
                               <img 
                                 src={tour.image || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80'} 
@@ -1057,7 +1057,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
                       ))}
                     </div>
                     <a
-                      href={`https://wa.me/918770403315?text=Hi%20Comfort%20Journey!%20I'm%20planning%20a%20${encodeURIComponent(styleObj.label)}%20vacation.`}
+                      href={`https://wa.me/919203931912?text=Hi%20Comfort%20Journey!%20I'm%20planning%20a%20${encodeURIComponent(styleObj.label)}%20vacation.`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-whatsapp-mini"
@@ -1871,7 +1871,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 24px rgba(255, 137, 47, 0.25);
         }
 
-        /* Card Media Header with Cover Image & Overlaid Badges (Prompt & PDF #2) */
+        /* Card Media Header with Cover Image & Overlaid Badges */
         .c-card-media-pane {
           position: relative;
           width: 100%;
@@ -2426,7 +2426,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           text-decoration: none;
         }
 
-        /* Universal Country Search Bar & Feedback (Prompt & PDF #11) */
+        /* Universal Country Search Bar & Feedback */
         .country-packages-wrapper {
           display: flex;
           flex-direction: column;

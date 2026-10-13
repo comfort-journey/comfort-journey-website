@@ -3,7 +3,6 @@ import { useCurrency } from '../../context/CurrencyContext';
 import { directusService } from '../../services/directusClient';
 import { contentService } from '../../services/contentService';
 import { TOURS_DATA } from '../../data/toursData';
-import { resolveDestinationWaypoints } from '../../data/destinationWaypoints';
 import ItineraryLayout from './components/ItineraryLayout';
 import UnifiedOnePageItinerary from './components/UnifiedOnePageItinerary';
 import StickyBookingBar from './components/StickyBookingBar';
@@ -12,7 +11,6 @@ import StopDetailDrawer from './components/StopDetailDrawer';
 import { useItineraryData } from './hooks/useItineraryData';
 import { useMapSync } from './hooks/useMapSync';
 import { useShareableURL } from './hooks/useShareableURL';
-import { serializeItineraryState, deserializeItineraryState } from './utils/itinerarySerializer';
 import './styles/itinerary.css';
 
 function ensureTourItinerary(rawTour) {
@@ -228,7 +226,7 @@ export default function ItineraryPage({ initialTour, onBackToHome, onBookNow, on
       `🚗 Cab: ${tour.vehicle || 'Private AC Cab'}\n` +
       `Please share availability and customized quote for our dates!`
     );
-    window.open(`https://wa.me/918770403315?text=${msg}`, '_blank');
+    window.open(`https://wa.me/919203931912?text=${msg}`, '_blank');
   }, [tour, enrichedItinerary, formatPrice]);
 
   const handleBookNowClick = useCallback(() => {

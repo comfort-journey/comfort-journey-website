@@ -239,7 +239,7 @@ export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
       `🏨 Stay Tier: ${tripPlan.stayTier}\n\n` +
       `Please connect me with a friendly trip manager to confirm dates and final package pricing!`
     );
-    window.open(`https://wa.me/918770403315?text=${message}`, '_blank');
+    window.open(`https://wa.me/919203931912?text=${message}`, '_blank');
   };
 
   // Social card generation
@@ -337,7 +337,7 @@ export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
 
           <div className="planner-ai-legal-disclaimer">
             <p>
-              * AI-assisted itineraries & pricing estimates are indicative for trip planning. Final hotels, seasonal rates & room availability are verified & confirmed by Comfort Journey specialists via WhatsApp or call (+91 8770403315).
+              * AI-assisted itineraries & pricing estimates are indicative for trip planning. Final hotels, seasonal rates & room availability are verified & confirmed by Comfort Journey specialists via WhatsApp or call (+91 9203931912).
             </p>
           </div>
         </>

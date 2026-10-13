@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { resolveDestinationWaypoints, DESTINATION_WAYPOINTS } from '../../../data/destinationWaypoints';
+import { resolveDestinationWaypoints } from '../../../data/destinationWaypoints';
 
 // Comprehensive city & landmark coordinate knowledge base
 const CITY_COORDINATES = {

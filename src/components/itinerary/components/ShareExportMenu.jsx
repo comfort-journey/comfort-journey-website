@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import QRCode from 'qrcode';
-import { X, Share2, FileSpreadsheet, Printer, Download, QrCode, Link2, Check, MessageCircle, Sparkles } from 'lucide-react';
+import { X, Share2, FileSpreadsheet, Printer, Download, Link2, Check, MessageCircle } from 'lucide-react';
 import { exportItineraryToExcel, printPdfBrochure, generateSocialCardDataUrl } from '../../../services/itineraryExportService';
 import './styles/ShareExportMenu.css';
 

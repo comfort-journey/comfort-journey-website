@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sun, CloudRain, Thermometer, Wind, Info, CalendarCheck2, Sparkles } from 'lucide-react';
+import { Sun, CloudRain, Thermometer, Wind, Info } from 'lucide-react';
 import { getDestinationClimate } from '../../../data/destinationClimates';
 import './styles/WeatherMonthlySection.css';
 

@@ -51,7 +51,7 @@ export const LANDING_PAGES_DATA = {
     "storyHeading": "A family holiday should feel like time together",
     "storyParagraphs": [
       "Family travel comes with a moving checklist: school holidays, grandparents’ comfort, snacks, nap times and the famous “are we there yet?” We help you turn that list into a workable plan. Choose a slower day, a private cab, rooms that suit your group and stops where everyone can stretch, eat and enjoy the view.",
-      "Since 1992, Comfort Journey has helped travellers plan from Bhopal for India and overseas holidays. You can tell us about a child’s food preference, a parent’s walking limit or the room setup you need. We share pricing upfront, help with visas for international trips and stay available on WhatsApp or phone at +91 87704 03315 during your trip."
+      "Since 1992, Comfort Journey has helped travellers plan from Bhopal for India and overseas holidays. You can tell us about a child’s food preference, a parent’s walking limit or the room setup you need. We share pricing upfront, help with visas for international trips and stay available on WhatsApp or phone at +91 92039 31912 during your trip."
     ],
     "reasonsHeading": "Details that make family travel easier",
     "reasons": [
@@ -197,7 +197,7 @@ export const LANDING_PAGES_DATA = {
     "storyHeading": "Your best planning meeting can be a date",
     "storyParagraphs": [
       "A honeymoon or anniversary trip should leave room for the good debates: beach or hills, late breakfast or early photos, one more dessert or two. Tell us what you both enjoy, your dates, and your comfort level. We build the plan around the way you like to travel, then share the details clearly.",
-      "Comfort Journey has planned travel from Bhopal since 1992. You get a real person on WhatsApp or phone at +91 87704 03315, including 24/7 support during the trip. Choose a 3-star, 4-star or 5-star hotel, a palace or a villa, then leave the driving to a private cab and driver.",
+      "Comfort Journey has planned travel from Bhopal since 1992. You get a real person on WhatsApp or phone at +91 92039 31912, including 24/7 support during the trip. Choose a 3-star, 4-star or 5-star hotel, a palace or a villa, then leave the driving to a private cab and driver.",
       "For an international celebration, we can help with visa steps and shape the itinerary around your time together. The quote comes upfront, so you can spend your planning energy on the fun part: choosing what to wear for the first photo."
     ],
     "reasonsHeading": "Why couples choose Comfort Journey",
@@ -273,7 +273,7 @@ export const LANDING_PAGES_DATA = {
       },
       {
         "q": "Can we reach someone during our trip?",
-        "a": "Yes. Real people are available on WhatsApp or phone at +91 87704 03315, with 24/7 support during trips. You can contact the team when a travel detail needs a quick answer."
+        "a": "Yes. Real people are available on WhatsApp or phone at +91 92039 31912, with 24/7 support during trips. You can contact the team when a travel detail needs a quick answer."
       }
     ],
     "packageIdsIndia": [
@@ -344,7 +344,7 @@ export const LANDING_PAGES_DATA = {
     "storyHeading": "The group chat can leave the chat",
     "storyParagraphs": [
       "Your group has one expert planner, one person who replies with a thumbs-up, and one friend who asks for the date again. We work with the whole crew, from four friends to a squad of 20, and turn the loose ideas into a practical plan with rooms, travel time and a clear cost for each person.",
-      "Choose a Goa break, a Manali or Leh adventure, a Rishikesh escape, or a longer trip through Meghalaya. For overseas plans, ask about Phuket, Bali, Vietnam, Dubai or the Asian Horizons route. Comfort Journey has planned travel from Bhopal since 1992, with real people available on WhatsApp and phone at +91 87704 03315 during your trip."
+      "Choose a Goa break, a Manali or Leh adventure, a Rishikesh escape, or a longer trip through Meghalaya. For overseas plans, ask about Phuket, Bali, Vietnam, Dubai or the Asian Horizons route. Comfort Journey has planned travel from Bhopal since 1992, with real people available on WhatsApp and phone at +91 92039 31912 during your trip."
     ],
     "reasonsHeading": "Why friends book with us",
     "reasons": [
@@ -419,7 +419,7 @@ export const LANDING_PAGES_DATA = {
       },
       {
         "q": "Will someone help us during the trip?",
-        "a": "Real people are available on WhatsApp and phone at +91 87704 03315, 24/7 during trips. For international travel, visa assistance is also available during planning."
+        "a": "Real people are available on WhatsApp and phone at +91 92039 31912, 24/7 during trips. For international travel, visa assistance is also available during planning."
       }
     ],
     "packageIdsIndia": [
@@ -497,7 +497,7 @@ export const LANDING_PAGES_DATA = {
     "reasons": [
       {
         "title": "A real person when plans wobble",
-        "desc": "Message a real person on WhatsApp or call +91 87704 03315 while you are travelling, with 24/7 trip support.",
+        "desc": "Message a real person on WhatsApp or call +91 92039 31912 while you are travelling, with 24/7 trip support.",
         "icon": "phone"
       },
       {
@@ -532,7 +532,7 @@ export const LANDING_PAGES_DATA = {
       },
       {
         "title": "Real WhatsApp and phone help",
-        "desc": "A real team is available 24/7 during your trip on WhatsApp or +91 87704 03315."
+        "desc": "A real team is available 24/7 during your trip on WhatsApp or +91 92039 31912."
       },
       {
         "title": "Visa assistance for international trips",
@@ -639,7 +639,7 @@ export const LANDING_PAGES_DATA = {
     "storyParagraphs": [
       "You are the person everyone messages when a hotel room is missing, a transfer is late, or the agenda needs changing. Comfort Journey gives your team one real point of contact from the first WhatsApp message to the return trip. We build a plan around your dates, group size, hotel preference and work schedule, so the offsite feels organised before anyone boards a flight.",
       "Since 1992, our Bhopal team has planned travel for people who want clear answers before they approve a budget. You can choose 3-star to 5-star hotels, palaces or villas, along with private cabs and drivers. For international plans, we can assist with visas. Prices are shared upfront, so finance sees the same plan as you do.",
-      "During the trip, real people remain available on WhatsApp and phone at +91 87704 03315, 24/7. That matters when a flight time shifts or someone asks a question at an unreasonable hour. Your team can enjoy the destination while you have a clear place to take the next practical question."
+      "During the trip, real people remain available on WhatsApp and phone at +91 92039 31912, 24/7. That matters when a flight time shifts or someone asks a question at an unreasonable hour. Your team can enjoy the destination while you have a clear place to take the next practical question."
     ],
     "reasonsHeading": "Why planners choose Comfort Journey",
     "reasons": [
@@ -714,7 +714,7 @@ export const LANDING_PAGES_DATA = {
       },
       {
         "q": "Will someone help us during the trip?",
-        "a": "Yes. Real people are available on WhatsApp and phone at +91 87704 03315, 24/7 during trips. That gives the person coordinating the group a direct place to ask for help when plans change."
+        "a": "Yes. Real people are available on WhatsApp and phone at +91 92039 31912, 24/7 during trips. That gives the person coordinating the group a direct place to ask for help when plans change."
       }
     ],
     "packageIdsIndia": [
@@ -977,7 +977,7 @@ export const LANDING_PAGES_DATA = {
       },
       {
         "title": "Help when you are travelling",
-        "desc": "Message or call +91 87704 03315 for real-person support during your trip."
+        "desc": "Message or call +91 92039 31912 for real-person support during your trip."
       }
     ],
     "quickAnswer": {
@@ -1007,7 +1007,7 @@ export const LANDING_PAGES_DATA = {
       },
       {
         "q": "Will someone help during the trip?",
-        "a": "Yes. Real people are available on WhatsApp and phone at +91 87704 03315, 24/7 during trips. Contact the team if a route, check-in or plan question comes up."
+        "a": "Yes. Real people are available on WhatsApp and phone at +91 92039 31912, 24/7 during trips. Contact the team if a route, check-in or plan question comes up."
       }
     ],
     "packageIdsIndia": [
@@ -1073,7 +1073,7 @@ export const LANDING_PAGES_DATA = {
     "storyHeading": "The easy way to join a group trip",
     "storyParagraphs": [
       "You may already know where you want to go. The awkward part is finding people whose calendars match yours. Fixed departure trips give you a planned date, a shared route and fellow travellers to meet along the way. You can arrive solo, with a friend or as a small group and still have company for the good views and the long drives.",
-      "Before you book, we explain the route, dates, stay choices and what the quote covers. Comfort Journey was founded in Bhopal by Sharad Kumar Mishra in 1992. It has a 4.8 Google rating from 85+ reviews, plus real people on WhatsApp and phone support at +91 87704 03315. During your trip, the team remains available 24/7.",
+      "Before you book, we explain the route, dates, stay choices and what the quote covers. Comfort Journey was founded in Bhopal by Sharad Kumar Mishra in 1992. It has a 4.8 Google rating from 85+ reviews, plus real people on WhatsApp and phone support at +91 92039 31912. During your trip, the team remains available 24/7.",
       "Every itinerary can be customised. For a fixed departure, the date and shared route define the group plan, while hotel level, room preferences and selected arrangements can be discussed before booking. Ask about 3-star to 5-star hotels, palaces or villas, private cabs with drivers and visa assistance for international trips."
     ],
     "reasonsHeading": "Why ready group trips work well",
@@ -1141,7 +1141,7 @@ export const LANDING_PAGES_DATA = {
       },
       {
         "q": "How much does a fixed departure group tour cost?",
-        "a": "The price changes with the destination, travel dates, hotel level, room type, transport, visa needs and what the package includes. We share an exact quote on WhatsApp after understanding your dates and preferences. Ask us at +91 87704 03315 for current options."
+        "a": "The price changes with the destination, travel dates, hotel level, room type, transport, visa needs and what the package includes. We share an exact quote on WhatsApp after understanding your dates and preferences. Ask us at +91 92039 31912 for current options."
       },
       {
         "q": "Do you offer international fixed departure trips?",
@@ -1149,7 +1149,7 @@ export const LANDING_PAGES_DATA = {
       },
       {
         "q": "What support do I get during the trip?",
-        "a": "You can reach real people on WhatsApp or phone at +91 87704 03315. The team is available 24/7 during trips for practical questions and help with arrangements. Travel details and inclusions are explained before departure."
+        "a": "You can reach real people on WhatsApp or phone at +91 92039 31912. The team is available 24/7 during trips for practical questions and help with arrangements. Travel details and inclusions are explained before departure."
       }
     ],
     "packageIdsIndia": [
@@ -1243,7 +1243,7 @@ export const LANDING_PAGES_DATA = {
       },
       {
         "title": "Help when you need it",
-        "desc": "Real people stay available on WhatsApp and phone at +91 87704 03315, 24/7 during your trip.",
+        "desc": "Real people stay available on WhatsApp and phone at +91 92039 31912, 24/7 during your trip.",
         "icon": "phone"
       }
     ],
@@ -1267,7 +1267,7 @@ export const LANDING_PAGES_DATA = {
       },
       {
         "title": "WhatsApp and phone support",
-        "desc": "Speak with real people on +91 87704 03315 during planning and 24/7 during trips."
+        "desc": "Speak with real people on +91 92039 31912 during planning and 24/7 during trips."
       }
     ],
     "quickAnswer": {
@@ -1297,7 +1297,7 @@ export const LANDING_PAGES_DATA = {
       },
       {
         "q": "How do I book an India holiday package?",
-        "a": "Send your dates, preferred places and group details on WhatsApp or call +91 87704 03315. The team will suggest suitable options, share the price upfront and help you confirm the plan."
+        "a": "Send your dates, preferred places and group details on WhatsApp or call +91 92039 31912. The team will suggest suitable options, share the price upfront and help you confirm the plan."
       }
     ],
     "packageIdsIndia": [
@@ -1804,7 +1804,7 @@ export const LANDING_PAGES_DATA = {
     "storyHeading": "Your hills-and-hot-chai plan starts here",
     "storyParagraphs": [
       "You already know the feeling: the city is loud, the inbox is busy, and the third cup of chai has stopped helping. A mountain break gives you a better plan. Spend your days on pine-lined roads, quiet viewpoints and cool air, then return to a cosy stay before the temperature drops.",
-      "Choose a short Mussoorie or Nainital escape, a snow-season Kashmir plan, a longer Shimla-Manali drive or high-altitude Leh. Comfort Journey can adjust the route, hotel and pace for your dates. We share the price upfront, arrange private cabs with drivers and stay available on WhatsApp at +91 87704 03315 during the trip.",
+      "Choose a short Mussoorie or Nainital escape, a snow-season Kashmir plan, a longer Shimla-Manali drive or high-altitude Leh. Comfort Journey can adjust the route, hotel and pace for your dates. We share the price upfront, arrange private cabs with drivers and stay available on WhatsApp at +91 92039 31912 during the trip.",
       "Since 1992, our Bhopal team has helped travellers turn a rough idea into a practical holiday. You can ask about 3-star, 4-star or 5-star hotels, palaces or villas, then decide with clear details. If an international mountain holiday suits you, we can also help with the visa process."
     ],
     "reasonsHeading": "Why mountain travellers choose us",
@@ -1816,7 +1816,7 @@ export const LANDING_PAGES_DATA = {
       },
       {
         "title": "Real help on the road",
-        "desc": "Message or call +91 87704 03315 during your trip. A real Comfort Journey person is available 24/7 for travel support.",
+        "desc": "Message or call +91 92039 31912 during your trip. A real Comfort Journey person is available 24/7 for travel support.",
         "icon": "phone"
       },
       {
@@ -1880,7 +1880,7 @@ export const LANDING_PAGES_DATA = {
       },
       {
         "q": "What support do I get during the trip?",
-        "a": "Real people are available on WhatsApp and phone at +91 87704 03315, 24/7 during trips. Contact the team when you need help with the planned arrangements or a travel question."
+        "a": "Real people are available on WhatsApp and phone at +91 92039 31912, 24/7 during trips. Contact the team when you need help with the planned arrangements or a travel question."
       }
     ],
     "packageIdsIndia": [
@@ -1950,7 +1950,7 @@ export const LANDING_PAGES_DATA = {
     "storyHeading": "A calmer way to plan a family yatra",
     "storyParagraphs": [
       "Taking parents on a yatra means thinking beyond the temple list. You may need shorter drives, a room close to the lift, meals that suit the family and time to sit quietly after darshan. Tell us what will make the trip easier. We will shape the itinerary around your family rather than asking everyone to keep up with a fixed plan.",
-      "Comfort Journey has planned holidays from Bhopal since 1992. You get a real person to discuss the route, private cabs with drivers, hotel choices from 3-star to 5-star, and transparent pricing shared upfront. During the trip, WhatsApp or call +91 87704 03315 any time. The team is available 24/7 during trips."
+      "Comfort Journey has planned holidays from Bhopal since 1992. You get a real person to discuss the route, private cabs with drivers, hotel choices from 3-star to 5-star, and transparent pricing shared upfront. During the trip, WhatsApp or call +91 92039 31912 any time. The team is available 24/7 during trips."
     ],
     "reasonsHeading": "Why families plan their yatra with us",
     "reasons": [
@@ -1995,7 +1995,7 @@ export const LANDING_PAGES_DATA = {
       },
       {
         "title": "WhatsApp and phone support",
-        "desc": "Speak with real people at +91 87704 03315, available 24/7 during your trip."
+        "desc": "Speak with real people at +91 92039 31912, available 24/7 during your trip."
       }
     ],
     "quickAnswer": {
@@ -2025,7 +2025,7 @@ export const LANDING_PAGES_DATA = {
       },
       {
         "q": "Can someone help us during the trip?",
-        "a": "Yes. Real people are available on WhatsApp and phone 24/7 during trips. Call or message +91 87704 03315 when you need help with the planned arrangements."
+        "a": "Yes. Real people are available on WhatsApp and phone 24/7 during trips. Call or message +91 92039 31912 when you need help with the planned arrangements."
       }
     ],
     "packageIdsIndia": [
@@ -2384,7 +2384,7 @@ export const LANDING_PAGES_DATA = {
     "storyParagraphs": [
       "Some winter travellers want a Kashmir morning with snowy views and a warm cup in hand. Others would rather trade woollen socks for Rajasthan sunshine or Dubai evenings. You can also plan a festive overseas break in Vietnam or Europe. Tell us the dates, pace and temperature you prefer, and we will shape the plan around you.",
       "We know winter packing can become a small family debate involving four jackets, two pairs of gloves and one very optimistic suitcase. Comfort Journey helps you choose practical stays, private cabs with drivers and a day plan that leaves room for weather changes. Since 1992, our Bhopal team has been helping travellers plan with clear advice and upfront pricing.",
-      "You can choose hotels from 3-star to 5-star, or ask about palaces and villas where available. Every itinerary can be customised. For international trips, our team can also assist with visas and keep real people available on WhatsApp or phone at +91 87704 03315 during your trip."
+      "You can choose hotels from 3-star to 5-star, or ask about palaces and villas where available. Every itinerary can be customised. For international trips, our team can also assist with visas and keep real people available on WhatsApp or phone at +91 92039 31912 during your trip."
     ],
     "reasonsHeading": "Why winter travellers choose us",
     "reasons": [
@@ -2400,7 +2400,7 @@ export const LANDING_PAGES_DATA = {
       },
       {
         "title": "Real help during the trip",
-        "desc": "A Comfort Journey person is available on WhatsApp or phone at +91 87704 03315 24/7 during trips.",
+        "desc": "A Comfort Journey person is available on WhatsApp or phone at +91 92039 31912 24/7 during trips.",
         "icon": "phone"
       },
       {

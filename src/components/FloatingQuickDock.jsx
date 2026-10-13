@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MessageCircle, PhoneCall, Compass, ChevronUp, ChevronDown, Bot, Minus } from 'lucide-react';
+import { MessageCircle, PhoneCall, Compass, ChevronUp, ChevronDown, Bot } from 'lucide-react';
 
 const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
 
@@ -20,7 +20,7 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
 
   return (
     <div className={`quick-dock-wrapper ${isMinimized ? 'minimized' : ''}`}>
-      {/* Pickyourtrail-style Cute Animated Wolf Mascot */}
+      {/* Comfort Journey Animated Comfy.ai Mascot */}
       {!isMinimized && (
         <div 
           className="comfy-mascot-dock-companion"
@@ -69,7 +69,7 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
           </button>
 
           <a
-            href="tel:+918770403315"
+            href="tel:+919203931912"
             className="dock-btn call-btn"
             title="Call Support 24/7"
           >
@@ -78,7 +78,7 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
           </a>
 
           <a
-            href="https://wa.me/918770403315?text=Hi%20Comfort%20Journey!%20I%20want%20to%20plan%20a%20personalized%20trip."
+            href="https://wa.me/919203931912?text=Hi%20Comfort%20Journey!%20I%20want%20to%20plan%20a%20personalized%20trip."
             target="_blank"
             rel="noopener noreferrer"
             className="dock-btn whatsapp-btn"
@@ -142,7 +142,7 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
           align-items: flex-end;
         }
 
-        /* PICKYOURTRAIL-STYLE CUTE ANIMATED MASCOT */
+        /* COMFORT JOURNEY COMFY.AI ANIMATED MASCOT */
         .comfy-mascot-dock-companion {
           position: relative;
           margin-bottom: -10px;

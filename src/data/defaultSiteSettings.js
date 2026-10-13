@@ -18,8 +18,8 @@ export const DEFAULT_SITE_SETTINGS = {
     announcementActive: true,
     announcementBadge: "Planning season",
     announcementText: "Booking winter or summer holidays? Good rooms go early. Send us your dates.",
-    supportPhone: "+91 8770403315",
-    whatsappNumber: "918770403315",
+    supportPhone: "+91 9203931912",
+    whatsappNumber: "919203931912",
     whatsappDefaultMessage: "Hi Comfort Journey, I am planning a trip and would like some help."
   },
 

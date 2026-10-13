@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PACKAGE_TIER_MATRIX } from '../data/toursData';
-import { Layers, CheckCircle2, X, MessageCircle, Sparkles, Shield, ArrowRight } from 'lucide-react';
+import { Layers, CheckCircle2, X, MessageCircle, Sparkles, Shield } from 'lucide-react';
 
 export default function PackageTierCompareModal({ isOpen, onClose, selectedTour, onOpenQuote }) {
   const [activeTier, setActiveTier] = useState('premium');
@@ -82,7 +82,7 @@ export default function PackageTierCompareModal({ isOpen, onClose, selectedTour,
                         e.stopPropagation();
                         const tourName = selectedTour ? selectedTour.name : "Custom Vacation";
                         const msg = `Hi Comfort Journey! I reviewed your package tiers and would like to book "${tourName}" with the "${tier.name}" tier. Please share a tailored proposal!`;
-                        window.open(`https://wa.me/918770403315?text=${encodeURIComponent(msg)}`, '_blank');
+                        window.open(`https://wa.me/919203931912?text=${encodeURIComponent(msg)}`, '_blank');
                       }}
                     >
                       <MessageCircle size={16} />

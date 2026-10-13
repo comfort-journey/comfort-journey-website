@@ -76,7 +76,7 @@ export function exportItineraryToExcel(rawPlan) {
     `"Travelers: ${tripPlan.party}"`,
     `"Vehicle: ${tripPlan.vehicle}"`,
     `"Dietary: ${tripPlan.dietary}"`,
-    `"Emergency / Concierge Hotline: +91 8770403315"`,
+    `"Emergency / Concierge Hotline: +91 9203931912"`,
     '',
     headers.join(','),
     ...rows.map(r => r.join(','))
@@ -469,7 +469,7 @@ export async function generateSocialCardDataUrl(rawPlan) {
 
   // --- QR Code Section: Real, 100% Scannable QR Code ---
   const qrY = 1005;
-  const qrTargetUrl = `https://wa.me/918770403315?text=${encodeURIComponent(`Hi Comfort Journey! I scanned your itinerary card for ${tripPlan.destination} (${tripPlan.duration}). Please share dates and pricing!`)}`;
+  const qrTargetUrl = `https://wa.me/919203931912?text=${encodeURIComponent(`Hi Comfort Journey! I scanned your itinerary card for ${tripPlan.destination} (${tripPlan.duration}). Please share dates and pricing!`)}`;
 
   try {
     // Generate real, high-resolution QR code data URL offline
@@ -514,7 +514,7 @@ export async function generateSocialCardDataUrl(rawPlan) {
   ctx.fillText('Point your phone camera to chat instantly with our', 185, qrY + 56);
   ctx.fillStyle = '#FF892F';
   ctx.font = 'bold 13.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  ctx.fillText('24/7 Vacation Concierge (+91 8770403315)', 185, qrY + 78);
+  ctx.fillText('24/7 Vacation Concierge (+91 9203931912)', 185, qrY + 78);
 
   ctx.fillStyle = '#10B981';
   ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
@@ -688,7 +688,7 @@ export function printPdfBrochure(rawPlan) {
         </div>
         <div style="text-align: right;">
           <div style="font-weight: 700; font-size: 12px;">Hotline / WhatsApp</div>
-          <div style="font-size: 14px; font-weight: 800; color: #FF892F;">+91 8770403315</div>
+          <div style="font-size: 14px; font-weight: 800; color: #FF892F;">+91 9203931912</div>
         </div>
       </div>
 
@@ -731,7 +731,7 @@ export function printPdfBrochure(rawPlan) {
 
       <div class="footer">
         <div>Comfort Journey (Est. 1992) · 100% Private Stays & Chauffeur Fleet</div>
-        <div>Scan with WhatsApp to confirm booking: +91 8770403315</div>
+        <div>Scan with WhatsApp to confirm booking: +91 9203931912</div>
       </div>
 
       <script>

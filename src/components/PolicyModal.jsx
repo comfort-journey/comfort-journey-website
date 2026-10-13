@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, ShieldCheck, RefreshCw, FileText } from 'lucide-react';
+import { X, ShieldCheck } from 'lucide-react';
 
 export default function PolicyModal({ type, isOpen, onClose }) {
   if (!isOpen) return null;
@@ -59,7 +59,7 @@ export default function PolicyModal({ type, isOpen, onClose }) {
               <ul>
                 <li>All quotations are inclusive of mentioned taxes, driver allowances, toll taxes, and fuel.</li>
                 <li>Monument entry tickets, VIP passes, and ferry tickets are confirmed upon receipt of booking token.</li>
-                <li>Our 24/7 VIP Concierge Desk (+91 8770403315) remains active throughout your entire travel duration.</li>
+                <li>Our 24/7 VIP Concierge Desk (+91 9203931912) remains active throughout your entire travel duration.</li>
               </ul>
             </>
           )}

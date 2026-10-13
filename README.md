@@ -22,7 +22,7 @@ It completely replaces slow, bloated template builders with **100% custom-coded 
 4. **🎛️ Interactive Trip Studio:** Custom 3–12 days slider, hotel tier selector (3★, 4★, 5★ Palace/Villas), transport picker (Sedan, SUV Crysta, Luxury Coach), and live price recalculator.
 5. **🗺️ Interactive Day-Wise Itinerary Modal:** Step-by-step day breakdown with verified inclusions, hotel ratings, and 1-click WhatsApp booking.
 6. **📱 Traveler Video Stories & Reels Wall:** TikTok/Reels style vertical video experiences and verified Google 5-star customer reviews.
-7. **💬 WhatsApp Booking Concierge:** Instant pre-filled dynamic inquiry messages connected to `+91 8770403315`.
+7. **💬 WhatsApp Booking Concierge:** Instant pre-filled dynamic inquiry messages connected to `+91 9203931912`.
 8. **⚡ 95–100 Google PageSpeed Performance:** Ultra-lightweight bundle loading in under 1 second worldwide.
 
 ---
@@ -56,4 +56,4 @@ npm run build
 - **Founded:** 1992 by **Sharad Kumar Mishra**
 - **Leadership:** **Rishabh Dev Mishra**
 - **Head Office:** Main Road 1, Bhopal, Madhya Pradesh 462016, India
-- **Direct VIP Desk:** +91 8770403315 | WhatsApp Supported
+- **Direct VIP Desk:** +91 9203931912 | WhatsApp Supported

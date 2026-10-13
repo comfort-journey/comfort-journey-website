@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Heart, Trash2, ArrowRight, MessageCircle, Clock, MapPin } from 'lucide-react';
+import { X, Heart, Trash2, MessageCircle, Clock } from 'lucide-react';
 import { TOURS_DATA } from '../data/toursData';
 import { useCurrency } from '../context/CurrencyContext';
 import { useWishlistCompare } from '../context/WishlistCompareContext';
@@ -93,7 +93,7 @@ export default function WishlistDrawer({ onSelectItinerary, onBookTour }) {
               onClick={() => {
                 const tourNames = savedTours.map((t) => t.name).join(', ');
                 const msg = encodeURIComponent(`Hi Comfort Journey! I have saved these tours in my wishlist on your website: ${tourNames}. Please share details!`);
-                window.open(`https://wa.me/918770403315?text=${msg}`, '_blank');
+                window.open(`https://wa.me/919203931912?text=${msg}`, '_blank');
               }}
             >
               <MessageCircle size={18} />

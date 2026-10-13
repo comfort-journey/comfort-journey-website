@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Scale, Check, Trash2, MessageCircle, ArrowRight, Star, Clock, MapPin } from 'lucide-react';
+import { X, Scale, Check, Trash2, Star, Clock, MapPin } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useWishlistCompare } from '../context/WishlistCompareContext';
 

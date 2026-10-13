@@ -283,7 +283,7 @@ export default function TourPoliciesSection({ tour }) {
         </div>
         <div className="trust-item">
           <PhoneCall size={18} className="trust-icon" />
-          <span>24/7 Dedicated Concierge Support: +91 8770403315</span>
+          <span>24/7 Dedicated Concierge Support: +91 9203931912</span>
         </div>
       </div>
     </section>

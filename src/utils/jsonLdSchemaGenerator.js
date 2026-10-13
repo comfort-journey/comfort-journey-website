@@ -18,7 +18,7 @@ export const jsonLdSchemaGenerator = {
       "logo": "https://static.wixstatic.com/media/43df74_c248c4fdb5bf421aa3465ca1f6846ba0~mv2.jpg",
       "image": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1920&q=80",
       "description": "Comfort Journey is an award-winning luxury tour and travel company established in 1992, curating handcrafted national and international holidays, VIP honeymoons, solo escapes, and corporate retreats with 24/7 dedicated concierge service.",
-      "telephone": "+918770403315",
+      "telephone": "+919203931912",
       "email": "contact@comfortjourneyy.com",
       "foundingDate": "1992-04-15",
       "founder": {
@@ -61,7 +61,7 @@ export const jsonLdSchemaGenerator = {
       "sameAs": [
         "https://www.instagram.com/comfortjourneyy",
         "https://www.facebook.com/comfortjourneyy",
-        "https://wa.me/918770403315"
+        "https://wa.me/919203931912"
       ]
     };
   },
@@ -141,7 +141,7 @@ export const jsonLdSchemaGenerator = {
         "@type": "TravelAgency",
         "name": "Comfort Journey",
         "url": BASE_URL,
-        "telephone": "+918770403315"
+        "telephone": "+919203931912"
       },
       "offers": {
         "@type": "Offer",

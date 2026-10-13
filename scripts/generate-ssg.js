@@ -202,7 +202,7 @@ async function generateSSG() {
         ${tour.description ? `<section><h2>About this trip</h2><p>${esc(strip(tour.description).slice(0, 1400))}</p></section>` : ''}
         ${Array.isArray(tour.itinerary) && tour.itinerary.length ? `<section><h2>Day by day plan</h2><ol>${tour.itinerary.map((d, i) => `<li><h3>Day ${esc(d.day || i + 1)}: ${esc(strip(d.title))}</h3><p>${esc(strip(d.desc).slice(0, 400))}</p></li>`).join('')}</ol></section>` : ''}
         ${Array.isArray(tour.inclusions) && tour.inclusions.length ? `<section><h2>What is included</h2><ul>${tour.inclusions.map((x) => `<li>${esc(strip(x))}</li>`).join('')}</ul></section>` : ''}
-        <p><a href="https://wa.me/918770403315?text=${encodeURIComponent(`Hi Comfort Journey, I would like a quote for ${tour.name}.`)}">Ask for a quote on WhatsApp</a> · <a href="tel:+918770403315">+91 87704 03315</a></p>
+        <p><a href="https://wa.me/919203931912?text=${encodeURIComponent(`Hi Comfort Journey, I would like a quote for ${tour.name}.`)}">Ask for a quote on WhatsApp</a> · <a href="tel:+919203931912">+91 92039 31912</a></p>
       </main>`;
     writeStaticPage(`tour/${tourSlug}`, injectRootContent(tourHtml, tourBody));
     pageCount++;
@@ -220,7 +220,7 @@ async function generateSSG() {
       '@context': 'https://schema.org',
       '@graph': [
         { '@type': 'WebPage', '@id': `${url}#webpage`, url, name: pageData.metaTitle, description: pageData.metaDesc, inLanguage: 'en', about: pageData.focusKeyword,
-          primaryImageOfPage: heroImg, publisher: { '@type': 'TravelAgency', name: 'Comfort Journey', url: `${BASE_URL}/`, telephone: '+918770403315' } },
+          primaryImageOfPage: heroImg, publisher: { '@type': 'TravelAgency', name: 'Comfort Journey', url: `${BASE_URL}/`, telephone: '+919203931912' } },
         { '@type': 'BreadcrumbList', itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Home', item: `${BASE_URL}/` },
           { '@type': 'ListItem', position: 2, name: pageData.eyebrow, item: url } ] },
@@ -235,7 +235,7 @@ async function generateSSG() {
         <nav aria-label="Breadcrumb"><a href="${BASE_URL}/">Home</a> / ${esc(pageData.eyebrow)}</nav>
         <h1>${esc(pageData.heroHeadline)}</h1>
         <p>${esc(pageData.heroSubline)}</p>
-        <p><a href="https://wa.me/918770403315?text=${encodeURIComponent(pageData.whatsAppMsg || '')}">${esc(pageData.ctaPrimary)}</a> · <a href="tel:+918770403315">+91 87704 03315</a></p>
+        <p><a href="https://wa.me/919203931912?text=${encodeURIComponent(pageData.whatsAppMsg || '')}">${esc(pageData.ctaPrimary)}</a> · <a href="tel:+919203931912">+91 92039 31912</a></p>
         <section><h2>${esc(pageData.packagesHeading)}</h2><p>${esc(pageData.packagesIntro)}</p>
           <ul>${tours.map((t) => `<li><a href="${BASE_URL}/tour/${esc(t.slug || t.id)}/">${esc(t.name)}</a>, ${esc(t.location)}, ${esc(t.duration)}${t.price ? `, from ₹${Number(t.price).toLocaleString('en-IN')} per person` : ''}</li>`).join('')}</ul>
         </section>

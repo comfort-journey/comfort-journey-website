@@ -362,7 +362,7 @@ export default function GoogleReviewsSection({ onOpenQuote }) {
               <ArrowRight size={15} />
             </button>
             <a
-              href="https://wa.me/918770403315?text=Hi%20Comfort%20Journey!%20I%20saw%20your%205-star%20Google%20reviews.%20Please%20help%20me%20plan%20my%20trip."
+              href="https://wa.me/919203931912?text=Hi%20Comfort%20Journey!%20I%20saw%20your%205-star%20Google%20reviews.%20Please%20help%20me%20plan%20my%20trip."
               target="_blank"
               rel="noopener noreferrer"
               className="btn-whatsapp-pill"

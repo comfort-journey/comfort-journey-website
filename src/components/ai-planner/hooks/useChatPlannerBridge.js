@@ -58,7 +58,7 @@ export function useChatPlannerBridge({
         {
           id: `err-${Date.now()}`,
           role: 'assistant',
-          content: 'I apologize for the brief pause. Please feel free to ask again or WhatsApp our trip curators directly at +91 8770403315.',
+          content: 'I apologize for the brief pause. Please feel free to ask again or WhatsApp our trip curators directly at +91 9203931912.',
           tours: [],
           time: 'Just now'
         }

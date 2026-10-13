@@ -12,10 +12,9 @@ import ImageUploadField from './ImageUploadField';
 import RichTextEditor from './RichTextEditor';
 import SEOAssistant from './SEOAssistant';
 import CMSFeedbackModal from './CMSFeedbackModal';
-import { TOURS_DATA } from '../../data/toursData';
 import { slugify } from '../../services/directusClient';
 import { contentService } from '../../services/contentService';
-import { CARD_FEATURE_OPTIONS, FEATURE_ICONS_MAP } from '../CardInclusionsStrip';
+import { CARD_FEATURE_OPTIONS } from '../CardInclusionsStrip';
 
 // ═══════════════════════════════════════════════════════════════════
 // COMFORT JOURNEY — CATEGORY TAXONOMY & BIFURCATION SYSTEM

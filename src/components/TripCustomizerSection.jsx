@@ -273,7 +273,7 @@ export default function TripCustomizerSection() {
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 Please share the detailed day-by-day customized PDF itinerary and availability for our dates!`;
 
-    window.open(`https://wa.me/918770403315?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(`https://wa.me/919203931912?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   return (

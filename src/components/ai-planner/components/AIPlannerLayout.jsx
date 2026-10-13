@@ -69,7 +69,7 @@ export default function AIPlannerLayout({
           <ThemeToggle className="planner-theme-toggle-btn" />
 
           <a 
-            href="https://wa.me/918770403315" 
+            href="https://wa.me/919203931912" 
             target="_blank" 
             rel="noopener noreferrer" 
             className="hotline-pill hotline-whatsapp-pill"
@@ -77,7 +77,7 @@ export default function AIPlannerLayout({
             title="Chat with Tour Specialist"
           >
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            <span className="hidden-mobile">+91 8770403315</span>
+            <span className="hidden-mobile">+91 9203931912</span>
           </a>
         </div>
       </header>

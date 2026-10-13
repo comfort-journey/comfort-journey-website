@@ -976,7 +976,7 @@ export default function SiteCustomizer({ onToast }) {
                     type="text"
                     value={settings.hero.supportPhone}
                     onChange={(e) => handleHeroChange('supportPhone', e.target.value)}
-                    placeholder="+91 8770403315"
+                    placeholder="+91 9203931912"
                   />
                 </div>
                 <div className="field-group">
@@ -985,7 +985,7 @@ export default function SiteCustomizer({ onToast }) {
                     type="text"
                     value={settings.hero.whatsappNumber}
                     onChange={(e) => handleHeroChange('whatsappNumber', e.target.value)}
-                    placeholder="918770403315"
+                    placeholder="919203931912"
                   />
                 </div>
               </div>

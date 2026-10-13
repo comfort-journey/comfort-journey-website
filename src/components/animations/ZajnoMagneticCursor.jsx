@@ -68,7 +68,7 @@ export default function ZajnoMagneticCursor() {
     document.addEventListener('mouseenter', handleMouseEnter);
     document.addEventListener('mouseover', handleMouseOver, { passive: true });
 
-    // Tight, snappy 120 FPS Lerp Loop - Short cursor trail (PDF #10)
+    // Tight, snappy 120 FPS Lerp Loop - Short cursor trail
     const lerp = (a, b, n) => (1 - n) * a + n * b;
 
     const render = () => {

@@ -157,7 +157,7 @@ export default function ChatPanel({
             </button>
           </div>
           <p className="chat-disclaimer-note">
-            * AI suggestions & estimates are indicative for trip planning. Final hotels, room availability & exact pricing are verified & confirmed by our team specialists via WhatsApp or call (+91 8770403315).
+            * AI suggestions & estimates are indicative for trip planning. Final hotels, room availability & exact pricing are verified & confirmed by our team specialists via WhatsApp or call (+91 9203931912).
           </p>
         </form>
       </div>

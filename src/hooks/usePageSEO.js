@@ -95,7 +95,7 @@ export function usePageSEO(pageKey = 'home', customOverrides = null) {
             url: 'https://www.comfortjourneyy.com/',
             logo: 'https://static.wixstatic.com/media/43df74_c248c4fdb5bf421aa3465ca1f6846ba0~mv2.jpg',
             description: brand.aiCorePhilosophy || pageSeo.metaDescription,
-            telephone: hero.supportPhone || '+918770403315',
+            telephone: hero.supportPhone || '+919203931912',
             foundingDate: brand.foundingYear || '1992',
             address: {
               '@type': 'PostalAddress',

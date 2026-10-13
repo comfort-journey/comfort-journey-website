@@ -7,7 +7,8 @@ import React, { useState, useEffect, useRef } from 'react';
  * Supports custom prefixes, suffixes, decimals, and formatting.
  */
 export default function AnimatedCounter({
-  target = 100,
+  target,
+  value,
   duration = 2000,
   prefix = '',
   suffix = '',
@@ -15,6 +16,7 @@ export default function AnimatedCounter({
   className = '',
   triggerOnce = true,
 }) {
+  const finalTarget = Number(target !== undefined ? target : (value !== undefined ? value : 100));
   const [count, setCount] = useState(0);
   const [hasTriggered, setHasTriggered] = useState(false);
   const elementRef = useRef(null);
@@ -22,7 +24,7 @@ export default function AnimatedCounter({
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
-      setCount(target);
+      setCount(finalTarget);
       return;
     }
 
@@ -55,14 +57,14 @@ export default function AnimatedCounter({
         if (!startTime) startTime = now;
         const progress = Math.min((now - startTime) / duration, 1);
         const easedProgress = easeOutElastic(progress);
-        const currentVal = easedProgress * target;
+        const currentVal = easedProgress * finalTarget;
 
         setCount(currentVal);
 
         if (progress < 1) {
           requestAnimationFrame(step);
         } else {
-          setCount(target);
+          setCount(finalTarget);
         }
       };
 
@@ -70,7 +72,7 @@ export default function AnimatedCounter({
     };
 
     return () => observer.disconnect();
-  }, [target, duration, hasTriggered, triggerOnce]);
+  }, [finalTarget, duration, hasTriggered, triggerOnce]);
 
   const formattedValue = decimals > 0 
     ? count.toFixed(decimals) 

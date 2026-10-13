@@ -9,10 +9,9 @@ import ImageUploadField from './ImageUploadField';
 import RichTextEditor from './RichTextEditor';
 import SEOAssistant from './SEOAssistant';
 import CMSFeedbackModal from './CMSFeedbackModal';
-import { BLOGS_DATA } from '../../data/blogsData';
 import { TOURS_DATA } from '../../data/toursData';
 import { slugify } from '../../services/directusClient';
-import { contentService, STORAGE_KEY_BLOGS } from '../../services/contentService';
+import { contentService } from '../../services/contentService';
 
 // ═══════════════════════════════════════════════════════════════════
 // COMFORT JOURNEY — BLOG MANAGER & EDITOR

@@ -75,7 +75,7 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
   const relatedTour = TOURS_DATA.find(t => t.id === blog.relatedTourId) || TOURS_DATA[0];
   const suggestedTours = directusService.getSuggestedToursForBlog(blog, TOURS_DATA);
 
-  const whatsappInquiryUrl = `https://wa.me/918770403315?text=${encodeURIComponent(`Hi Comfort Journey! I just read your article "${blog.title}". I would like to plan a trip like this!`)}`;
+  const whatsappInquiryUrl = `https://wa.me/919203931912?text=${encodeURIComponent(`Hi Comfort Journey! I just read your article "${blog.title}". I would like to plan a trip like this!`)}`;
 
   return (
     <div className="blog-reader-root">

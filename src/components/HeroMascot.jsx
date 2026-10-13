@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Sparkles, MessageCircle, Phone, ArrowRight, X, Heart, Star, Compass } from 'lucide-react';
+import { Sparkles, MessageCircle, Phone, X, Compass } from 'lucide-react';
 
 /**
  * HeroMascot - "Comfy 🐺" The Official Comfort Journey Brand Buddy
@@ -147,7 +147,7 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
               </button>
 
               <a
-                href="https://wa.me/918770403315?text=Hi%20Comfy!%20I%20want%20to%20plan%20a%20luxury%20vacation%20with%20Comfort%20Journey."
+                href="https://wa.me/919203931912?text=Hi%20Comfy!%20I%20want%20to%20plan%20a%20luxury%20vacation%20with%20Comfort%20Journey."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="buddy-chip-btn chip-whatsapp"
@@ -158,12 +158,12 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
               </a>
 
               <a
-                href="tel:+918770403315"
+                href="tel:+919203931912"
                 className="buddy-chip-btn chip-call"
                 onClick={() => setIsBuddyModalOpen(false)}
               >
                 <Phone size={14} className="text-sky" />
-                <span>Call Trip Expert (+91 8770403315)</span>
+                <span>Call Trip Expert (+91 9203931912)</span>
               </a>
             </div>
 

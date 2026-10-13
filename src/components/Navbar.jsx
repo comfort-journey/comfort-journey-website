@@ -3,10 +3,11 @@ import {
   MessageCircle, Menu, X, ChevronDown, ChevronRight, 
   Globe, Heart, Scale, Shield, Sun, Snowflake, Mountain, Palmtree, 
   Users, Briefcase, GraduationCap, Clock, Compass, MapPin, CloudSun, Sparkles,
-  Phone, Bot, Lock, Car, Plane
+  Phone, Bot, Lock, Car, Plane, User, LogOut, CheckCircle2
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useWishlistCompare } from '../context/WishlistCompareContext';
+import { useUserAuth } from '../context/UserAuthContext';
 import ThemeToggle from './ThemeToggle';
 import { siteSettingsService, EVENT_SETTINGS_UPDATED } from '../services/siteSettingsService';
 
@@ -16,20 +17,28 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const currencyRef = useRef(null);
+  const userMenuRef = useRef(null);
 
-  // Close currency dropdown when clicking outside
+  // Visitor Auth Context
+  const { user, openAuthModal, signOut } = useUserAuth();
+
+  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (currencyRef.current && !currencyRef.current.contains(e.target)) {
         setCurrencyDropdownOpen(false);
       }
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+        setUserDropdownOpen(false);
+      }
     };
-    if (currencyDropdownOpen) {
+    if (currencyDropdownOpen || userDropdownOpen) {
       document.addEventListener('mousedown', handleClickOutside);
     }
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [currencyDropdownOpen]);
+  }, [currencyDropdownOpen, userDropdownOpen]);
   
   // Accordion state for categories inside the hamburger menu
   const [openCategories, setOpenCategories] = useState({
@@ -246,7 +255,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
                     <span className="marquee-badge">{siteSettings.hero?.announcementBadge || '2026 Special'}</span>
                     <span className="marquee-text">{siteSettings.hero?.announcementText || 'Early Bird Specials: Flat 20% Off on Kashmir, Bali & Swiss Summer 2026 Tours!'}</span>
                     <a
-                      href={`https://wa.me/${siteSettings.hero?.whatsappNumber || '918770403315'}?text=${encodeURIComponent(siteSettings.hero?.whatsappDefaultMessage || 'Hi Comfort Journey! I want to enquire about 2026 special offers.')}`}
+                      href={`https://wa.me/${siteSettings.hero?.whatsappNumber || '919203931912'}?text=${encodeURIComponent(siteSettings.hero?.whatsappDefaultMessage || 'Hi Comfort Journey! I want to enquire about 2026 special offers.')}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="marquee-cta"
@@ -272,7 +281,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
                   <span className="marquee-dot">✦</span>
                   <div className="marquee-item">
                     <span className="marquee-badge">Real people</span>
-                    <span className="marquee-text">WhatsApp us any time on +91 87704 03315</span>
+                    <span className="marquee-text">WhatsApp us any time on +91 92039 31912</span>
                   </div>
                   <span className="marquee-dot">✦</span>
                 </div>
@@ -317,16 +326,18 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
               onMouseLeave={() => setHoveredNavIdx(null)}
             >
               {/* Sliding Liquid Indicator Bubble */}
-              <div 
-                className="nav-liquid-bubble"
-                style={{
-                  left: `${tabIndicatorStyle.left}px`,
-                  width: `${tabIndicatorStyle.width}px`,
-                  opacity: tabIndicatorStyle.opacity,
-                }}
-              >
-                <div className="liquid-bubble-shine" />
-              </div>
+              {tabIndicatorStyle.width > 20 && tabIndicatorStyle.opacity > 0 && (
+                <div 
+                  className="nav-liquid-bubble"
+                  style={{
+                    left: `${tabIndicatorStyle.left}px`,
+                    width: `${tabIndicatorStyle.width}px`,
+                    opacity: tabIndicatorStyle.opacity,
+                  }}
+                >
+                  <div className="liquid-bubble-shine" />
+                </div>
+              )}
 
               {navLinks.map((link, idx) => (
                 <a 
@@ -407,6 +418,176 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
 
               {/* Light/Dark Theme Toggle — follows OS by default */}
               <ThemeToggle variant="pill" />
+
+              {/* Visitor Authentication Pill / Account Menu */}
+              {user ? (
+                <div className="nav-user-profile-rel" ref={userMenuRef} style={{ position: 'relative' }}>
+                  <button
+                    type="button"
+                    className="nav-user-btn liquid-glass-btn"
+                    onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                    title={`Signed in as ${user.name}`}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.45rem',
+                      padding: '0.35rem 0.75rem',
+                      borderRadius: '9999px',
+                      border: '1px solid var(--color-border, rgba(255, 137, 47, 0.4))',
+                      background: 'rgba(255, 137, 47, 0.12)',
+                      color: 'var(--color-text, #FFFFFF)',
+                      cursor: 'pointer',
+                      fontSize: '0.82rem',
+                      fontWeight: 700
+                    }}
+                  >
+                    {user.avatar ? (
+                      <img src={user.avatar} alt={user.name} style={{ width: '22px', height: '22px', borderRadius: '50%', objectFit: 'cover' }} />
+                    ) : (
+                      <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#FF892F', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.72rem', fontWeight: 800 }}>
+                        {user.name ? user.name.charAt(0).toUpperCase() : 'G'}
+                      </div>
+                    )}
+                    <span className="nav-user-name" style={{ maxWidth: '85px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {user.name.split(' ')[0]}
+                    </span>
+                    <ChevronDown size={12} className={`curr-chevron ${userDropdownOpen ? 'rotated' : ''}`} />
+                  </button>
+
+                  {userDropdownOpen && (
+                    <div 
+                      className="currency-menu"
+                      style={{
+                        position: 'absolute',
+                        top: 'calc(100% + 8px)',
+                        right: 0,
+                        minWidth: '220px',
+                        background: 'var(--color-surface, #0A1120)',
+                        border: '1px solid var(--color-border, rgba(255, 255, 255, 0.15))',
+                        borderRadius: '14px',
+                        padding: '0.75rem',
+                        boxShadow: '0 12px 30px rgba(0, 0, 0, 0.5)',
+                        zIndex: 100
+                      }}
+                    >
+                      <div style={{ paddingBottom: '0.6rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', marginBottom: '0.5rem' }}>
+                        <div style={{ fontSize: '0.86rem', fontWeight: 800, color: 'var(--color-text, #FFFFFF)' }}>{user.name}</div>
+                        <div style={{ fontSize: '0.74rem', color: 'var(--color-text-muted, #94A3B8)', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user.email || user.phone}</div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', marginTop: '0.25rem', fontSize: '0.7rem', color: '#10B981', fontWeight: 700 }}>
+                          <CheckCircle2 size={12} />
+                          <span>Verified Travel Club Member</span>
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setUserDropdownOpen(false);
+                          setIsWishlistOpen(true);
+                        }}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                          width: '100%',
+                          padding: '0.5rem 0.6rem',
+                          background: 'transparent',
+                          border: 'none',
+                          color: 'var(--color-text, #FFFFFF)',
+                          fontSize: '0.82rem',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          borderRadius: '6px',
+                          textAlign: 'left'
+                        }}
+                      >
+                        <Heart size={14} color="#FF892F" />
+                        <span>Saved Dreamboard ({wishlist.length})</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setUserDropdownOpen(false);
+                          onOpenQuote();
+                        }}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                          width: '100%',
+                          padding: '0.5rem 0.6rem',
+                          background: 'transparent',
+                          border: 'none',
+                          color: 'var(--color-text, #FFFFFF)',
+                          fontSize: '0.82rem',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          borderRadius: '6px',
+                          textAlign: 'left'
+                        }}
+                      >
+                        <Sparkles size={14} color="#6FE6FC" />
+                        <span>Request Custom Trip</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setUserDropdownOpen(false);
+                          signOut();
+                        }}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                          width: '100%',
+                          padding: '0.5rem 0.6rem',
+                          marginTop: '0.35rem',
+                          borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                          background: 'transparent',
+                          borderLeft: 'none',
+                          borderRight: 'none',
+                          borderBottom: 'none',
+                          color: '#EF4444',
+                          fontSize: '0.82rem',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                          borderRadius: '6px',
+                          textAlign: 'left'
+                        }}
+                      >
+                        <LogOut size={14} />
+                        <span>Sign Out</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  className="nav-sign-in-btn liquid-glass-btn"
+                  onClick={() => openAuthModal()}
+                  title="Sign in with Google, Microsoft, Apple, or Mobile"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.45rem',
+                    padding: '0.4rem 0.85rem',
+                    borderRadius: '9999px',
+                    border: '1px solid var(--color-border, rgba(255, 255, 255, 0.2))',
+                    background: 'rgba(255, 255, 255, 0.08)',
+                    color: 'var(--color-text, #FFFFFF)',
+                    cursor: 'pointer',
+                    fontSize: '0.82rem',
+                    fontWeight: 700,
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  <User size={15} color="#FF892F" />
+                  <span>Sign In</span>
+                </button>
+              )}
 
               {/* Universal Menu Hamburger Toggle */}
               <button 
@@ -503,7 +684,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           {/* 4. WhatsApp (Instant 1-Hand VIP Enquire) */}
           <a
             ref={el => (mobileTabRefs.current[3] = el)}
-            href={`https://wa.me/${siteSettings.hero?.whatsappNumber || '918770403315'}?text=${encodeURIComponent(siteSettings.hero?.whatsappDefaultMessage || 'Hi Comfort Journey! I want to plan a personalized luxury trip.')}`}
+            href={`https://wa.me/${siteSettings.hero?.whatsappNumber || '919203931912'}?text=${encodeURIComponent(siteSettings.hero?.whatsappDefaultMessage || 'Hi Comfort Journey! I want to plan a personalized luxury trip.')}`}
             target="_blank"
             rel="noopener noreferrer"
             className={`mobile-dock-btn mobile-tab-whatsapp ${mobileActiveTab === 'whatsapp' ? 'active' : ''}`}
@@ -557,6 +738,47 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
               >
                 <X size={20} />
               </button>
+            </div>
+
+            {/* Mobile Visitor Account / Sign In Pill */}
+            <div style={{ margin: '0.75rem 1.25rem 1rem', padding: '0.75rem 1rem', borderRadius: '14px', background: 'rgba(255, 137, 47, 0.08)', border: '1px solid rgba(255, 137, 47, 0.25)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              {user ? (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                  {user.avatar ? (
+                    <img src={user.avatar} alt={user.name} style={{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover' }} />
+                  ) : (
+                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#FF892F', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem', fontWeight: 800 }}>
+                      {user.name ? user.name.charAt(0).toUpperCase() : 'G'}
+                    </div>
+                  )}
+                  <div>
+                    <div style={{ fontSize: '0.86rem', fontWeight: 800, color: 'var(--color-text, #FFFFFF)' }}>{user.name}</div>
+                    <div style={{ fontSize: '0.72rem', color: '#10B981', fontWeight: 700 }}>✓ Verified Member</div>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--color-text, #FFFFFF)' }}>Traveler Club</div>
+                  <div style={{ fontSize: '0.74rem', color: 'var(--color-text-muted, #94A3B8)' }}>Save packages & auto-fill bookings</div>
+                </div>
+              )}
+              {user ? (
+                <button
+                  type="button"
+                  onClick={() => signOut()}
+                  style={{ background: 'transparent', border: '1px solid rgba(239, 68, 68, 0.4)', borderRadius: '8px', padding: '0.35rem 0.65rem', color: '#EF4444', fontSize: '0.76rem', fontWeight: 700, cursor: 'pointer' }}
+                >
+                  Sign Out
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => { setMobileMenuOpen(false); openAuthModal(); }}
+                  style={{ background: 'linear-gradient(135deg, #FF892F, #FF6B00)', border: 'none', borderRadius: '8px', padding: '0.4rem 0.85rem', color: '#FFFFFF', fontSize: '0.8rem', fontWeight: 800, cursor: 'pointer' }}
+                >
+                  Sign In
+                </button>
+              )}
             </div>
 
             {/* Main Navigation Links */}
@@ -688,9 +910,9 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
                 <span>My Saved Wishlist ({wishlist.length})</span>
               </button>
 
-              <a href="tel:+918770403315" className="btn-secondary w-full drawer-btn-row">
+              <a href="tel:+919203931912" className="btn-secondary w-full drawer-btn-row">
                 <Phone size={17} />
-                <span>Call +91 8770403315</span>
+                <span>Call +91 9203931912</span>
               </a>
 
               <button 
@@ -698,7 +920,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
                 className="btn-whatsapp w-full drawer-btn-row"
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  window.open('https://wa.me/918770403315?text=Hi%20Comfort%20Journey!%20I%20want%20to%20plan%20a%20personalized%20trip.', '_blank');
+                  window.open('https://wa.me/919203931912?text=Hi%20Comfort%20Journey!%20I%20want%20to%20plan%20a%20personalized%20trip.', '_blank');
                 }}
               >
                 <MessageCircle size={18} />

@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 
 const SYSTEM_INSTRUCTION = `You are "Navi", the Senior Luxury AI Travel Concierge for "Comfort Journey" (Est. 1992 · Luxury Travel).
-Your phone/WhatsApp concierge contact is +91 8770403315.
+Your phone/WhatsApp concierge contact is +91 9203931912.
 Website: Comfort Journey Luxury Travel.
 
 CRITICAL BRAND & OPERATIONAL RULES:
@@ -27,7 +27,7 @@ CRITICAL BRAND & OPERATIONAL RULES:
    - Maintain a warm, polite, royal, and encouraging tone.
 
 5. ACTIONABLE NEXT STEP:
-   - Always encourage travelers to connect with our Senior Trip Designers via WhatsApp (+91 8770403315) for custom pricing, flight bookings, and VIP customization.`;
+   - Always encourage travelers to connect with our Senior Trip Designers via WhatsApp (+91 9203931912) for custom pricing, flight bookings, and VIP customization.`;
 
 function geminiDevServerPlugin(env) {
   return {

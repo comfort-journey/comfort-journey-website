@@ -137,7 +137,7 @@ export default function ItineraryLayout({
               const msg = encodeURIComponent(
                 `Hi Comfort Journey! I'm planning my trip for "${tour?.name || 'a tour'}" and would like to customize the itinerary.`
               );
-              window.open(`https://wa.me/918770403315?text=${msg}`, '_blank');
+              window.open(`https://wa.me/919203931912?text=${msg}`, '_blank');
             }}
             title="Chat with Travel Specialist"
           >

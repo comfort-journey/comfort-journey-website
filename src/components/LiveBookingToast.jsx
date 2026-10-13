@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { siteSettingsService, EVENT_SETTINGS_UPDATED } from '../services/siteSettingsService';
-import { CheckCircle2, Sparkles, X, MapPin } from 'lucide-react';
+import { CheckCircle2, Sparkles, X } from 'lucide-react';
 
 export default function LiveBookingToast() {
   const [toastConfig, setToastConfig] = useState(() => ({ ...siteSettingsService.getLiveToasts() }));

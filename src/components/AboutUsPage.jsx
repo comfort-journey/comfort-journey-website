@@ -1,40 +1,102 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { 
   Sparkles, Heart, ShieldCheck, Award, MapPin, Phone, Mail, MessageCircle, 
   CheckCircle2, Users, Compass, ChevronDown, ChevronUp, ExternalLink, Globe,
-  Calendar, Star, Send, Clock, Building2, Plane, Headphones, UserCheck, ThumbsUp
+  Calendar, Star, Send, Clock, Building2, Plane, Headphones, UserCheck, ThumbsUp, RotateCcw, Loader2
 } from 'lucide-react';
 import Tilt3DCard from './animations/Tilt3DCard';
 import AnimatedCounter from './animations/AnimatedCounter';
 import { useWishlistCompare } from '../context/WishlistCompareContext';
+import { getTravelerProfile, saveLeadToCMS } from '../services/leadStorageService';
+import { COUNTRY_CODES } from '../utils/countryCodes';
+import { useUserAuth } from '../context/UserAuthContext';
 import sharadImg from '../assets/team/sharad_mishra.jpg';
 import rishabhImg from '../assets/team/rishabh_mishra.jpg';
 
 export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHome }) {
+  const profile = getTravelerProfile();
+  const { user, isAuthenticated } = useUserAuth();
   const [openFaqIdx, setOpenFaqIdx] = useState(0);
+  const [countryCode, setCountryCode] = useState('+91');
+  const [lastWaUrl, setLastWaUrl] = useState('');
+  const [consentChecked, setConsentChecked] = useState(false);
+  const [consentError, setConsentError] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formError, setFormError] = useState('');
+  const aboutDateInputRef = useRef(null);
   const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
+    name: (isAuthenticated && user?.name) || profile.name || '',
+    phone: (isAuthenticated && user?.phone ? user.phone.replace(/^\+\d+\s*/, '') : '') || (profile.phone || '').replace(/^\+\d+\s*/, '') || '',
+    email: (isAuthenticated && user?.email) || profile.email || '',
     destination: '',
     travelDate: '',
-    travelers: 'Couple',
+    travelers: profile.guests || 'Couple',
     budget: '₹50k-1L',
     notes: ''
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
 
+  // Sync profile and SSO user if filled or logged in
+  useEffect(() => {
+    const fresh = getTravelerProfile();
+    const ssoName = isAuthenticated && user?.name ? user.name : '';
+    const ssoPhone = isAuthenticated && user?.phone ? user.phone.replace(/^\+\d+\s*/, '') : '';
+    const ssoEmail = isAuthenticated && user?.email ? user.email : '';
+
+    setFormData(prev => ({
+      ...prev,
+      name: ssoName || prev.name || fresh.name || '',
+      phone: ssoPhone || prev.phone || (fresh.phone || '').replace(/^\+\d+\s*/, '') || '',
+      email: ssoEmail || prev.email || fresh.email || ''
+    }));
+  }, [isAuthenticated, user]);
+
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+    if (formError) setFormError('');
+    if (consentError) setConsentError(false);
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setFormSubmitted(true);
+    if (!formData.name.trim() || !formData.phone.trim()) {
+      setFormError('Please enter your full name and phone number.');
+      return;
+    }
+
+    if (!consentChecked) {
+      setConsentError(true);
+      setFormError('Please agree to the Privacy Policy to proceed.');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setFormError('');
+
+    const fullPhoneNumber = `${countryCode} ${formData.phone.trim()}`;
+
+    const leadData = {
+      name: formData.name,
+      phone: fullPhoneNumber,
+      email: formData.email,
+      destination: formData.destination,
+      travelDate: formData.travelDate,
+      travelers: formData.travelers,
+      budget: formData.budget,
+      notes: formData.notes,
+      source: 'About Us Dream Trip Form'
+    };
+
+    // Dual-Action: Save lead to CMS database first
+    await saveLeadToCMS(leadData);
+
     // Construct WhatsApp message
-    const msg = `Hi Comfort Journey! I'm ${formData.name}. I want to plan a trip to ${formData.destination || 'a dream destination'} around ${formData.travelDate || 'soon'}. Travelers: ${formData.travelers}, Budget: ${formData.budget}. Notes: ${formData.notes}`;
-    const url = `https://wa.me/918770403315?text=${encodeURIComponent(msg)}`;
+    const msg = `Hi Comfort Journey! I'm ${formData.name}. I want to plan a trip to ${formData.destination || 'a dream destination'} around ${formData.travelDate || 'soon'}. Contact: ${fullPhoneNumber}. Travelers: ${formData.travelers}, Budget: ${formData.budget}. Notes: ${formData.notes}`;
+    const url = `https://wa.me/919203931912?text=${encodeURIComponent(msg)}`;
+    setLastWaUrl(url);
+    setIsSubmitting(false);
+    setFormSubmitted(true);
     window.open(url, '_blank');
   };
 
@@ -118,7 +180,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
   const faqs = [
     {
       q: "How do I book a trip with you?",
-      a: "Simple. WhatsApp us at +91 8770403315 or fill the form on this page. Tell us where you want to go, when, and your budget. We'll create a customized itinerary within 24 hours."
+      a: "Simple. WhatsApp us at +91 9203931912 or fill the form on this page. Tell us where you want to go, when, and your budget. We'll create a customized itinerary within 24 hours."
     },
     {
       q: "Do you only operate from Bhopal?",
@@ -171,7 +233,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
 
           <div className="hero-cta-group">
             <a 
-              href="https://wa.me/918770403315?text=Hi%20Comfort%20Journey!%20I%20want%20to%20talk%20about%20a%20customized%20trip."
+              href="https://wa.me/919203931912?text=Hi%20Comfort%20Journey!%20I%20want%20to%20talk%20about%20a%20customized%20trip."
               target="_blank" 
               rel="noopener noreferrer" 
               className="btn-primary"
@@ -184,7 +246,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
               className="btn-secondary-glass"
               onClick={onNavigateHome}
             >
-              <span>Explore All 22+ Packages</span>
+              <span>Explore All Packages</span>
             </button>
           </div>
         </div>
@@ -327,32 +389,24 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
               <div className="counter-val gradient-text-emerald font-editorial">
                 <AnimatedCounter value={10000} suffix="+" />
               </div>
-              <span className="counter-label">Happy Travelers</span>
-              <span className="counter-context">And counting every day</span>
+              <span className="counter-label">Happy Guests</span>
+              <span className="counter-context">10k+ and counting every day</span>
             </div>
 
             <div className="stat-counter-card glass-card">
               <div className="counter-val gradient-text-blue font-editorial">
-                <AnimatedCounter value={2000} suffix="+" />
+                <AnimatedCounter value={150} suffix="+" />
               </div>
               <span className="counter-label">Destinations Covered</span>
-              <span className="counter-context">Across 50+ countries</span>
+              <span className="counter-context">Across 50+ countries legal for Indian travel</span>
             </div>
 
             <div className="stat-counter-card glass-card">
               <div className="counter-val text-amber font-editorial">
-                4.9 / 5
+                4.8 / 5.0
               </div>
               <span className="counter-label">Google Rating</span>
-              <span className="counter-context">Real reviews from real travelers</span>
-            </div>
-
-            <div className="stat-counter-card glass-card">
-              <div className="counter-val text-purple font-editorial">
-                <AnimatedCounter value={60} suffix="%+" />
-              </div>
-              <span className="counter-label">Repeat Customers</span>
-              <span className="counter-context">They come back because we deliver</span>
+              <span className="counter-context">Rated 4.8 from 85+ verified reviews</span>
             </div>
           </div>
         </div>
@@ -405,9 +459,9 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
                       <Phone size={13} />
                       <span>0755-4914950</span>
                     </a>
-                    <a href="https://wa.me/918770403315" target="_blank" rel="noopener noreferrer" className="contact-chip whatsapp">
+                    <a href="https://wa.me/919203931912" target="_blank" rel="noopener noreferrer" className="contact-chip whatsapp">
                       <MessageCircle size={13} />
-                      <span>+91 8770403315</span>
+                      <span>+91 9203931912</span>
                     </a>
                     <a href="https://instagram.com/sksharad.km" target="_blank" rel="noopener noreferrer" className="contact-chip insta">
                       <Globe size={13} />
@@ -444,15 +498,15 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
                   </p>
 
                   <div className="member-contact-chips">
-                    <a href="tel:+918770403315" className="contact-chip">
+                    <a href="tel:+919203931912" className="contact-chip">
                       <Phone size={13} />
-                      <span>+91 8770403315</span>
+                      <span>+91 9203931912</span>
                     </a>
                     <a href="mailto:rishabhmishra@comfortjourneyy.onmicrosoft.com" className="contact-chip">
                       <Mail size={13} />
                       <span>Email Rishabh</span>
                     </a>
-                    <a href="https://wa.me/918770403315" target="_blank" rel="noopener noreferrer" className="contact-chip whatsapp">
+                    <a href="https://wa.me/919203931912" target="_blank" rel="noopener noreferrer" className="contact-chip whatsapp">
                       <MessageCircle size={13} />
                       <span>WhatsApp Direct</span>
                     </a>
@@ -546,23 +600,39 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
               </div>
               <h2 className="contact-head font-editorial">Let's Plan Your Next Adventure</h2>
               <p className="contact-sub">
-                Whether you have a destination in mind or just want to explore options, we're here. No pressure. No sales pitch. Just a friendly conversation about your next trip.
+                Whether you have a destination in mind or just want to explore options, we're here. No pressure. No sales pitch. Just an honest, friendly conversation about your holiday.
               </p>
 
+              {/* Direct Assurance Badges to Eliminate Empty Gap */}
+              <div className="about-trust-highlights">
+                <div className="trust-highlight-row">
+                  <Clock size={16} className="text-amber" />
+                  <span><strong>15-Minute Response</strong> from dedicated vacation curator</span>
+                </div>
+                <div className="trust-highlight-row">
+                  <ShieldCheck size={16} className="text-emerald" />
+                  <span><strong>Zero Pressure Guarantee</strong> — honest advice, transparent pricing</span>
+                </div>
+                <div className="trust-highlight-row">
+                  <Building2 size={16} className="text-purple" />
+                  <span><strong>Physical Bhopal HQ (Est. 1992)</strong> — 30+ years of trusted care</span>
+                </div>
+              </div>
+
               <div className="contact-methods-list">
-                <a href="https://wa.me/918770403315" target="_blank" rel="noopener noreferrer" className="c-method-item">
+                <a href="https://wa.me/919203931912" target="_blank" rel="noopener noreferrer" className="c-method-item">
                   <MessageCircle size={22} className="text-emerald" />
                   <div>
-                    <strong>WhatsApp (Fastest)</strong>
-                    <span>+91 8770403315</span>
+                    <strong>WhatsApp (Fastest Response)</strong>
+                    <span>+91 9203931912</span>
                   </div>
                 </a>
 
-                <a href="tel:+918770403315" className="c-method-item">
+                <a href="tel:+919203931912" className="c-method-item">
                   <Phone size={22} className="text-amber" />
                   <div>
                     <strong>Direct Phone Line</strong>
-                    <span>+91 8770403315 / 0755-4914950</span>
+                    <span>+91 9203931912 / 0755-4914950</span>
                   </div>
                 </a>
 
@@ -585,7 +655,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
                   Unit No. 406-A(16), Fourth Floor Aakriti Business Centre Aakriti Eco City, Bhopal Madhya Pradesh, India
                 </p>
                 <span className="timing-note">
-                  ⏰ <strong>Timing:</strong> Monday to Saturday, 10 AM - 7 PM <em>(WhatsApp available anytime 24/7)</em>
+                  ⏰ <strong>Timing:</strong> Monday to Saturday, 10 AM - 7 PM <em>(WhatsApp concierge available 24/7)</em>
                 </span>
               </div>
             </div>
@@ -597,10 +667,58 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
 
               {formSubmitted ? (
                 <div className="form-success-box">
-                  <CheckCircle2 size={48} className="text-emerald mx-auto mb-3" />
-                  <h4>Thanks! We've Received Your Details</h4>
-                  <p>Our curator will get back to you within 2 hours. If it's urgent, feel free to ping us directly on WhatsApp!</p>
-                  <button className="btn-primary mt-4" onClick={() => setFormSubmitted(false)}>Submit Another Inquiry</button>
+                  <div className="success-icon-ring mx-auto mb-3">
+                    <CheckCircle2 size={44} className="text-emerald" />
+                  </div>
+                  <h4 className="font-editorial">Your Dream Trip Enquiry is Ready!</h4>
+                  <p>
+                    Thank you, <strong>{formData.name}</strong>. Our senior trip curator has received your preferences for <strong>{formData.destination || 'your dream holiday'}</strong>.
+                  </p>
+                  
+                  <div className="about-whatsapp-box">
+                    <p className="about-wa-note">
+                      WhatsApp was opened in a new tab. If you came back to the website without clicking send, click below to open your chat:
+                    </p>
+                    <a
+                      href={lastWaUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-about-wa"
+                    >
+                      <MessageCircle size={18} />
+                      <span>Send / Reopen on WhatsApp</span>
+                    </a>
+                  </div>
+
+                  <div className="about-return-actions">
+                    <button 
+                      type="button" 
+                      className="btn-about-edit" 
+                      onClick={() => setFormSubmitted(false)}
+                    >
+                      ✏️ Edit My Enquiry Details
+                    </button>
+                    <button 
+                      type="button" 
+                      className="btn-about-reset" 
+                      onClick={() => {
+                        setFormData({
+                          name: '',
+                          phone: '',
+                          email: '',
+                          destination: '',
+                          travelDate: '',
+                          travelers: 'Couple',
+                          budget: '₹50k-1L',
+                          notes: ''
+                        });
+                        setFormSubmitted(false);
+                      }}
+                    >
+                      <RotateCcw size={14} />
+                      <span>Submit Another Inquiry</span>
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <form onSubmit={handleFormSubmit} className="dream-trip-form">
@@ -610,7 +728,8 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
                       <input 
                         type="text" 
                         name="name"
-                        className="cms-input"
+                        autoComplete="name"
+                        className="cj-about-input"
                         placeholder="e.g. Sharad Mishra" 
                         required
                         value={formData.name}
@@ -619,15 +738,31 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
                     </div>
                     <div className="f-group">
                       <label>Phone / WhatsApp Number *</label>
-                      <input 
-                        type="tel" 
-                        name="phone"
-                        className="cms-input"
-                        placeholder="+91 9876543210" 
-                        required
-                        value={formData.phone}
-                        onChange={handleFormChange}
-                      />
+                      <div className="about-phone-row">
+                        <select 
+                          className="about-country-select"
+                          value={countryCode}
+                          onChange={(e) => setCountryCode(e.target.value)}
+                          aria-label="Select Country Code"
+                          autoComplete="tel-country-code"
+                        >
+                          {COUNTRY_CODES.map(c => (
+                            <option key={c.code} value={c.code}>
+                              {c.flag} {c.code} ({c.name})
+                            </option>
+                          ))}
+                        </select>
+                        <input 
+                          type="tel" 
+                          name="phone"
+                          autoComplete="tel-national"
+                          className="cj-about-input about-phone-field"
+                          placeholder="98765 43210" 
+                          required
+                          value={formData.phone}
+                          onChange={handleFormChange}
+                        />
+                      </div>
                     </div>
                   </div>
 
@@ -637,7 +772,8 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
                       <input 
                         type="email" 
                         name="email"
-                        className="cms-input"
+                        autoComplete="email"
+                        className="cj-about-input"
                         placeholder="yourname@gmail.com" 
                         value={formData.email}
                         onChange={handleFormChange}
@@ -648,7 +784,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
                       <input 
                         type="text" 
                         name="destination"
-                        className="cms-input"
+                        className="cj-about-input"
                         placeholder="e.g. Kashmir, Bali, Switzerland" 
                         value={formData.destination}
                         onChange={handleFormChange}
@@ -659,18 +795,32 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
                   <div className="form-row-3">
                     <div className="f-group">
                       <label>Approx Travel Date</label>
-                      <input 
-                        type="text" 
-                        name="travelDate"
-                        className="cms-input"
-                        placeholder="e.g. Next Month / Oct 2026" 
-                        value={formData.travelDate}
-                        onChange={handleFormChange}
-                      />
+                      <div 
+                        className="about-date-wrapper"
+                        onClick={() => {
+                          if (aboutDateInputRef.current) {
+                            try { aboutDateInputRef.current.showPicker?.(); } catch (err) { aboutDateInputRef.current.focus(); }
+                          }
+                        }}
+                      >
+                        <Calendar size={15} className="about-date-icon" />
+                        <input 
+                          ref={aboutDateInputRef}
+                          type="date" 
+                          name="travelDate"
+                          min={new Date().toISOString().split('T')[0]}
+                          className="cj-about-input about-date-input"
+                          value={formData.travelDate}
+                          onChange={handleFormChange}
+                          onClick={(e) => {
+                            try { e.target.showPicker?.(); } catch (err) {}
+                          }}
+                        />
+                      </div>
                     </div>
                     <div className="f-group">
                       <label>Travelers</label>
-                      <select name="travelers" className="cms-select" value={formData.travelers} onChange={handleFormChange}>
+                      <select name="travelers" className="cj-about-select" value={formData.travelers} onChange={handleFormChange}>
                         <option value="Solo">Solo Traveler</option>
                         <option value="Couple">Couple / Honeymoon</option>
                         <option value="Family">Family</option>
@@ -679,7 +829,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
                     </div>
                     <div className="f-group">
                       <label>Estimated Budget</label>
-                      <select name="budget" className="cms-select" value={formData.budget} onChange={handleFormChange}>
+                      <select name="budget" className="cj-about-select" value={formData.budget} onChange={handleFormChange}>
                         <option value="Under ₹50k">Under ₹50,000</option>
                         <option value="₹50k-1L">₹50,000 – ₹1,00,000</option>
                         <option value="₹1L-2L">₹1,00,000 – ₹2,00,000</option>
@@ -694,16 +844,65 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
                     <textarea 
                       name="notes"
                       rows={3} 
-                      className="cms-textarea"
+                      className="cj-about-textarea"
                       placeholder="Special requirements, hotel preferences, dietary choices, etc."
                       value={formData.notes}
                       onChange={handleFormChange}
                     />
                   </div>
 
-                  <button type="submit" className="btn-primary w-full text-center">
-                    <Send size={16} />
-                    <span>Let's Talk! 🚀 (Instant WhatsApp Response)</span>
+                  {/* Legal Consent Checkbox */}
+                  <div className={`about-consent-row ${consentError ? 'consent-error' : ''}`}>
+                    <label className="about-consent-label">
+                      <input
+                        type="checkbox"
+                        checked={consentChecked}
+                        onChange={(e) => {
+                          setConsentChecked(e.target.checked);
+                          if (e.target.checked) {
+                            setConsentError(false);
+                            setFormError('');
+                          }
+                        }}
+                      />
+                      <span className="about-consent-text">
+                        I agree to the{' '}
+                        <a
+                          href="#/privacy-policy"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            if (typeof window !== 'undefined') {
+                              window.dispatchEvent(new CustomEvent('open-policy-modal', { detail: 'privacy' }));
+                            }
+                          }}
+                          className="about-consent-link"
+                        >
+                          Privacy Policy
+                        </a>{' '}
+                        and consent to being contacted via WhatsApp and Email with itineraries and offers.
+                      </span>
+                    </label>
+                    {consentError && (
+                      <p className="about-consent-err-msg">
+                        Please agree to the Privacy Policy to proceed.
+                      </p>
+                    )}
+                  </div>
+
+                  {formError && <div className="about-form-error-banner">{formError}</div>}
+
+                  <button type="submit" className="btn-primary w-full text-center" disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 size={16} className="animate-spin" />
+                        <span>Saving & Redirecting to WhatsApp...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send size={16} />
+                        <span>Let's Talk! 🚀 (Instant WhatsApp Response)</span>
+                      </>
+                    )}
                   </button>
                 </form>
               )}
@@ -792,13 +991,13 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
             </p>
             <div className="cta-btn-row">
               <a 
-                href="https://wa.me/918770403315?text=Hi%20Comfort%20Journey!%20Let's%20plan%20my%20next%20trip." 
+                href="https://wa.me/919203931912?text=Hi%20Comfort%20Journey!%20Let's%20plan%20my%20next%20trip." 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="btn-primary"
               >
                 <MessageCircle size={18} />
-                <span>Chat on WhatsApp (+91 8770403315)</span>
+                <span>Chat on WhatsApp (+91 9203931912)</span>
               </a>
               <button 
                 type="button" 
@@ -816,14 +1015,14 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
       {/* STYLES FOR DEDICATED ABOUT US PAGE */}
       <style>{`
         .who-we-are-page-root {
-          padding-top: 100px;
-          padding-bottom: 80px;
+          padding-top: 36px;
+          padding-bottom: 70px;
           color: var(--cj-text-body);
         }
 
         .about-hero-section {
           position: relative;
-          padding: 4rem 0 3.5rem 0;
+          padding: 1.5rem 0 2rem 0;
         }
 
         .about-hero-heading {
@@ -836,7 +1035,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
           font-size: 1.25rem;
           color: var(--cj-text-muted);
           max-width: 720px;
-          margin: 0 auto 2.5rem auto;
+          margin: 0 auto 1.75rem auto;
           line-height: 1.6;
         }
 
@@ -1031,8 +1230,20 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
 
         .stats-counters-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+          grid-template-columns: repeat(4, 1fr);
           gap: 1.25rem;
+        }
+
+        @media (max-width: 900px) {
+          .stats-counters-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 480px) {
+          .stats-counters-grid {
+            grid-template-columns: 1fr;
+          }
         }
 
         .stat-counter-card {
@@ -1377,20 +1588,243 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
           margin-bottom: 0.35rem;
         }
 
+        .about-trust-highlights {
+          background: rgba(255, 137, 47, 0.08);
+          border: 1px solid rgba(255, 137, 47, 0.25);
+          border-radius: 16px;
+          padding: 1.15rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          margin-bottom: 1.75rem;
+        }
+
+        .trust-highlight-row {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          font-size: 0.86rem;
+          color: var(--cj-text-body);
+        }
+
+        .trust-highlight-row strong {
+          color: var(--cj-text-heading);
+        }
+
+        .about-phone-row {
+          display: flex;
+          gap: 8px;
+          align-items: stretch;
+        }
+
+        .about-country-select {
+          flex: 0 0 115px;
+          padding: 10px 8px;
+          background: var(--cj-bg-soft, #FAF7F2);
+          border: 1px solid var(--cj-line, rgba(0, 0, 0, 0.12));
+          border-radius: 12px;
+          font-family: inherit;
+          font-size: 0.82rem;
+          font-weight: 600;
+          color: var(--cj-text-heading, #0F1E36);
+          cursor: pointer;
+          outline: none;
+          transition: all 0.2s ease;
+        }
+
+        [data-theme="dark"] .about-country-select,
+        .dark-theme .about-country-select {
+          background: rgba(255, 255, 255, 0.05);
+          border-color: rgba(255, 255, 255, 0.14);
+          color: #F8FAFC;
+        }
+
+        .about-country-select:focus {
+          border-color: #FF892F;
+          box-shadow: 0 0 0 3px rgba(255, 137, 47, 0.18);
+        }
+
+        .about-phone-field {
+          flex: 1;
+        }
+
+        .cj-about-input,
+        .cj-about-select,
+        .cj-about-textarea {
+          width: 100%;
+          padding: 10px 14px;
+          background: var(--cj-bg-soft, #FAF7F2);
+          border: 1px solid var(--cj-line, rgba(0, 0, 0, 0.12));
+          border-radius: 12px;
+          font-family: inherit;
+          font-size: 0.84rem;
+          color: var(--cj-text-heading, #0F1E36);
+          outline: none;
+          transition: all 0.2s ease;
+        }
+
+        .cj-about-select {
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 14px center;
+          padding-right: 36px;
+          cursor: pointer;
+        }
+
+        .about-date-wrapper {
+          position: relative;
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+        }
+
+        .about-date-icon {
+          position: absolute;
+          left: 12px;
+          color: #FF892F;
+          pointer-events: none;
+          z-index: 2;
+        }
+
+        .about-date-input {
+          padding-left: 36px !important;
+          cursor: pointer;
+        }
+
+        [data-theme="dark"] .cj-about-input,
+        [data-theme="dark"] .cj-about-select,
+        [data-theme="dark"] .cj-about-textarea,
+        .dark-theme .cj-about-input,
+        .dark-theme .cj-about-select,
+        .dark-theme .cj-about-textarea {
+          background: rgba(255, 255, 255, 0.05);
+          border-color: rgba(255, 255, 255, 0.12);
+          color: #F8FAFC;
+        }
+
+        .cj-about-input:focus,
+        .cj-about-select:focus,
+        .cj-about-textarea:focus {
+          border-color: #FF892F;
+          background: #FFFFFF;
+          box-shadow: 0 0 0 3px rgba(255, 137, 47, 0.18);
+        }
+
+        [data-theme="dark"] .cj-about-input:focus,
+        [data-theme="dark"] .cj-about-select:focus,
+        [data-theme="dark"] .cj-about-textarea:focus {
+          background: #1E293B;
+        }
+
         .form-success-box {
           text-align: center;
-          padding: 3rem 1.5rem;
+          padding: 2.5rem 1.5rem;
         }
 
         .form-success-box h4 {
-          font-size: 1.35rem;
+          font-size: 1.4rem;
           color: var(--cj-text-heading);
           margin-bottom: 0.5rem;
         }
 
         .form-success-box p {
-          font-size: 0.9rem;
+          font-size: 0.92rem;
           color: var(--cj-text-muted);
+          line-height: 1.55;
+        }
+
+        .about-whatsapp-box {
+          background: rgba(37, 211, 102, 0.08);
+          border: 1px solid rgba(37, 211, 102, 0.25);
+          border-radius: 16px;
+          padding: 1.25rem;
+          margin: 1.25rem 0;
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          align-items: center;
+        }
+
+        .about-wa-note {
+          font-size: 0.8rem !important;
+          color: var(--cj-text-muted) !important;
+          margin: 0 !important;
+        }
+
+        .btn-about-wa {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 11px 22px;
+          background: #25D366;
+          color: #FFFFFF;
+          font-weight: 700;
+          font-size: 0.88rem;
+          border-radius: 12px;
+          text-decoration: none;
+          box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
+          transition: all 0.2s ease;
+        }
+
+        .btn-about-wa:hover {
+          background: #20BD5A;
+          transform: translateY(-1px);
+          box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+        }
+
+        .about-return-actions {
+          display: flex;
+          gap: 10px;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        .btn-about-edit {
+          padding: 9px 16px;
+          background: rgba(255, 137, 47, 0.12);
+          border: 1px solid rgba(255, 137, 47, 0.35);
+          border-radius: 10px;
+          font-family: inherit;
+          font-size: 0.8rem;
+          font-weight: 700;
+          color: #FF892F;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .btn-about-edit:hover {
+          background: rgba(255, 137, 47, 0.22);
+        }
+
+        .btn-about-reset {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 9px 16px;
+          background: var(--cj-bg-soft, #F5F1E9);
+          border: 1px solid var(--cj-line, rgba(0, 0, 0, 0.12));
+          border-radius: 10px;
+          font-family: inherit;
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: var(--cj-text-heading);
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        [data-theme="dark"] .btn-about-reset,
+        .dark-theme .btn-about-reset {
+          background: rgba(255, 255, 255, 0.06);
+          border-color: rgba(255, 255, 255, 0.14);
+          color: #E2E8F0;
+        }
+
+        .btn-about-reset:hover {
+          background: rgba(0, 0, 0, 0.08);
         }
 
         /* Map */
@@ -1596,6 +2030,73 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
         [data-theme="light"] .faq-item-card.open {
           background: #FFFDF9 !important;
           border-color: #FF892F !important;
+        }
+
+        /* Legal Consent Row */
+        .about-consent-row {
+          margin: 1.25rem 0 1rem;
+          padding: 0.85rem 1rem;
+          border-radius: 12px;
+          background: rgba(14, 165, 233, 0.05);
+          border: 1px solid rgba(14, 165, 233, 0.2);
+          transition: all 0.25s ease;
+        }
+
+        .about-consent-row.consent-error {
+          background: rgba(239, 68, 68, 0.08);
+          border-color: #EF4444;
+        }
+
+        .about-consent-label {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          cursor: pointer;
+          margin: 0;
+        }
+
+        .about-consent-label input[type="checkbox"] {
+          margin-top: 3px;
+          width: 17px;
+          height: 17px;
+          accent-color: #FF892F;
+          cursor: pointer;
+          flex-shrink: 0;
+        }
+
+        .about-consent-text {
+          font-size: 0.84rem;
+          line-height: 1.45;
+          color: var(--cj-text-body, #64748B);
+        }
+
+        .about-consent-link {
+          color: #0284C7;
+          text-decoration: underline;
+          font-weight: 600;
+        }
+
+        :root[data-theme="dark"] .about-consent-link {
+          color: #6FE6FC;
+        }
+
+        .about-consent-err-msg {
+          margin: 6px 0 0 27px;
+          color: #EF4444;
+          font-size: 0.78rem;
+          font-weight: 600;
+        }
+
+        .about-form-error-banner {
+          margin-bottom: 1rem;
+          padding: 0.75rem 1rem;
+          border-radius: 10px;
+          background: rgba(239, 68, 68, 0.1);
+          border: 1px solid rgba(239, 68, 68, 0.3);
+          color: #DC2626;
+          font-size: 0.85rem;
+          font-weight: 600;
+          text-align: center;
         }
       `}</style>
     </div>

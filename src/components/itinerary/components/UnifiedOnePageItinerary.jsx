@@ -170,7 +170,7 @@ export default function UnifiedOnePageItinerary({
       const msg = encodeURIComponent(
         `Hi Comfort Journey! I'm interested in booking the "${tour.name}" package (${tour.duration}). Please share dates, customized stays, and best pricing!`
       );
-      window.open(`https://wa.me/918770403315?text=${msg}`, '_blank');
+      window.open(`https://wa.me/919203931912?text=${msg}`, '_blank');
     }
   };
 
