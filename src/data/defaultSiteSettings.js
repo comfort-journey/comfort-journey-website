@@ -172,9 +172,9 @@ export const DEFAULT_SITE_SETTINGS = {
       { id: '5-star', label: '5-Star Palace / Villa', mult: 1.85, stars: 5, desc: 'Royal heritage palaces, overwater villas & private butlers' }
     ],
     vehicles: [
-      { id: 'sedan', label: 'Private AC Sedan', price: 1500, capacity: '1-3 Guests', desc: 'Swift Dzire / Etios for couples & solo' },
-      { id: 'suv', label: 'Luxury SUV Crysta', price: 2800, capacity: '4-6 Guests', desc: 'Toyota Innova Crysta with luxury recliner seats' },
-      { id: 'tempo', label: 'VIP Urbania / Sprinter', price: 4800, capacity: '7-12 Guests', desc: 'Air-conditioned luxury mini coach for families' }
+      { id: 'sedan', label: 'SEDAN', price: 1500, capacity: '1-3 Guests', desc: 'Swift Dzire / Etios for couples & solo' },
+      { id: 'suv', label: 'SUV', price: 2800, capacity: '4-6 Guests', desc: 'Toyota Innova Crysta with luxury recliner seats' },
+      { id: 'tempo', label: 'Coach', price: 4800, capacity: '7-12 Guests', desc: 'Air-conditioned luxury mini coach for families' }
     ],
     addons: [
       { id: 'kashmir-shikara', label: 'Private Sunset Shikara Ride on Dal Lake', price: 1800, destination: 'Kashmir', icon: '🛶' },

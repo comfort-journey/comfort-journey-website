@@ -893,10 +893,12 @@ export default function Footer({
           transform: translateX(3px);
         }
 
+        .deck-links-list .deck-action-link,
         .deck-action-link {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.55rem;
+          display: inline-flex !important;
+          align-items: center !important;
+          gap: 0.55rem !important;
+          white-space: nowrap !important;
           background: none;
           border: none;
           padding: 0.2rem 0;
@@ -925,6 +927,10 @@ export default function Footer({
         }
 
         .journal-highlight {
+          display: inline-flex !important;
+          align-items: center !important;
+          gap: 0.55rem !important;
+          white-space: nowrap !important;
           color: #6FE6FC !important;
           font-weight: 700;
         }

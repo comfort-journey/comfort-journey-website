@@ -178,11 +178,18 @@ export default function TripCustomizerSection() {
   ];
 
   // Vehicles from CMS/service
-  const vehicles = studioSettings.vehicles || [
-    { id: 'sedan', label: 'Private AC Sedan', price: 1500, capacity: '1-3 Guests', desc: 'Swift Dzire / Etios for couples & solo' },
-    { id: 'suv', label: 'Luxury SUV Crysta', price: 2800, capacity: '4-6 Guests', desc: 'Toyota Innova Crysta with luxury recliner seats' },
-    { id: 'tempo', label: 'VIP Urbania / Sprinter', price: 4800, capacity: '7-12 Guests', desc: 'Air-conditioned luxury mini coach for families' }
+  const rawVehicles = studioSettings.vehicles || [
+    { id: 'sedan', label: 'SEDAN', price: 1500, capacity: '1-3 Guests', desc: 'Swift Dzire / Etios for couples & solo' },
+    { id: 'suv', label: 'SUV', price: 2800, capacity: '4-6 Guests', desc: 'Toyota Innova Crysta with luxury recliner seats' },
+    { id: 'tempo', label: 'Coach', price: 4800, capacity: '7-12 Guests', desc: 'Air-conditioned luxury mini coach for families' }
   ];
+
+  const vehicles = rawVehicles.map((v) => {
+    if (v.id === 'sedan') return { ...v, label: 'SEDAN' };
+    if (v.id === 'suv') return { ...v, label: 'SUV' };
+    if (v.id === 'tempo' || v.id === 'coach') return { ...v, label: 'Coach' };
+    return v;
+  });
 
   // Dynamic Add-ons (Destination-specific + Universal)
   const availableAddons = useMemo(() => {

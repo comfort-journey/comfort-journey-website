@@ -158,9 +158,12 @@ export default function LandingPagesHubModal({ isOpen, onClose, onSelectLandingP
           .lp-hub-grid {
             padding: 1.75rem 2rem;
             overflow-y: auto;
+            overflow-x: hidden;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 310px), 1fr));
             gap: 1.25rem;
+            box-sizing: border-box;
+            width: 100%;
           }
 
           .lp-hub-card {
@@ -328,6 +331,35 @@ export default function LandingPagesHubModal({ isOpen, onClose, onSelectLandingP
           :root:not([data-theme="dark"]) .lp-hub-card-footer,
           [data-theme="light"] .lp-hub-card-footer {
             border-top: 1px solid var(--cj-line, #E8E0CF) !important;
+          }
+
+          @media (max-width: 640px) {
+            .lp-hub-overlay {
+              padding: 0.75rem 0.75rem 5.5rem 0.75rem;
+              align-items: flex-start;
+            }
+            .lp-hub-modal {
+              max-height: calc(100vh - 6.5rem);
+              border-radius: 18px;
+            }
+            .lp-hub-header {
+              padding: 1.25rem 1rem 1rem 1rem;
+            }
+            .lp-hub-title {
+              font-size: 1.4rem;
+            }
+            .lp-hub-grid {
+              padding: 0.85rem;
+              grid-template-columns: 1fr;
+              gap: 0.85rem;
+              overflow-x: hidden;
+            }
+            .lp-hub-card {
+              padding: 1rem;
+              min-width: 0;
+              width: 100%;
+              box-sizing: border-box;
+            }
           }
         `}</style>
       </div>
