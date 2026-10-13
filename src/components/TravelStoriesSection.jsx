@@ -1,773 +1,590 @@
 import React, { useState, useRef } from 'react';
-import { TRAVELER_REELS } from '../data/toursData';
-import { Play, MessageCircle, Heart, CheckCircle2, X, Sparkles, ChevronLeft, ChevronRight, Instagram, ExternalLink, Eye, Volume2, VolumeX } from 'lucide-react';
-import Tilt3DCard from './animations/Tilt3DCard';
-import { useParticleBurst } from '../hooks/useParticleBurst';
+import { Play, Pause, ChevronLeft, ChevronRight, Volume2, VolumeX } from 'lucide-react';
 
-const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
+// Real traveler journey video reviews (clean vertical MP4s matching Pickyourtrail style)
+const TRAVELER_STORIES = [
+  {
+    id: 'story-1',
+    videoUrl: 'https://pickyourtrail-video.gumlet.io/media/videos/testimonials/App+Stories/Customer+testimonial/Mayur_sonia_kotak_bali/Mayur_sonia_idn.mp4',
+    title: 'Bali Overwater Villa & Ocean Escape',
+    traveler: 'Mayur & Sonia',
+    destination: 'Bali'
+  },
+  {
+    id: 'story-2',
+    videoUrl: 'https://pickyourtrail-video.gumlet.io/media/videos/testimonials/App+Stories/Customer+testimonial/Aishwarya_bali/Aishwarya_Bali.mp4',
+    title: 'Airport Excitement & Vacation Mode',
+    traveler: 'Aishwarya',
+    destination: 'Bali'
+  },
+  {
+    id: 'story-3',
+    videoUrl: 'https://pickyourtrail-video.gumlet.io/media/videos/testimonials/App+Stories/Customer+testimonial/Nakul_subree_sin/Nakul_Srubeev_sin.mp4',
+    title: 'Singapore City Walk & Attractions',
+    traveler: 'Nakul & Surbhi',
+    destination: 'Singapore'
+  },
+  {
+    id: 'story-4',
+    videoUrl: 'https://pickyourtrail-video.gumlet.io/media/videos/testimonials/App+Stories/Customer+testimonial/priyadarshini_singapore/Priyadharsini&family_singapore.mp4',
+    title: '3 Days, 1 Destination - Family Fun',
+    traveler: 'Priyadarshini & Family',
+    destination: 'Singapore'
+  },
+  {
+    id: 'story-5',
+    videoUrl: 'https://pickyourtrail-video.gumlet.io/media/app_home/love+from+gram/Sneha+Shenoy_Vietnam.mp4',
+    title: 'Vietnam Luxury Stays & Scenery',
+    traveler: 'Sneha Shenoy',
+    destination: 'Vietnam'
+  },
+  {
+    id: 'story-6',
+    videoUrl: 'https://pickyourtrail-video.gumlet.io/media/test/Customisation_Chakaravarthy_Dubai.mp4',
+    title: 'Dubai Desert Safari & Dunes Adventure',
+    traveler: 'Chakaravarthy',
+    destination: 'Dubai'
+  },
+  {
+    id: 'story-7',
+    videoUrl: 'https://pickyourtrail-video.gumlet.io/media/test/Expertise_Hrishikesh_Dubai.mp4',
+    title: 'Dubai Skyline & Marina Experience',
+    traveler: 'Hrishikesh',
+    destination: 'Dubai'
+  }
+];
 
 export default function TravelStoriesSection({ onOpenQuote }) {
-  const { triggerBurst } = useParticleBurst();
-  const reelsScrollRef = useRef(null);
-  const [likedReels, setLikedReels] = useState({});
-  const [unmutedReels, setUnmutedReels] = useState({});
-  const [activeReelModal, setActiveReelModal] = useState(null);
+  const scrollRef = useRef(null);
+  const videoRefs = useRef({});
+  const [playingId, setPlayingId] = useState(null);
+  const [mutedStates, setMutedStates] = useState({});
 
-  const toggleLike = (e, id) => {
-    e.stopPropagation();
-    if (!likedReels[id]) {
-      triggerBurst(e, { count: 18, colors: ['#E1306C', '#FF892F', '#F9FBE7'] });
+  // Single-click play or pause — no popup modals
+  const handleTogglePlay = (storyId) => {
+    const targetVideo = videoRefs.current[storyId];
+    if (!targetVideo) return;
+
+    if (playingId === storyId) {
+      // Currently playing -> pause it
+      targetVideo.pause();
+      setPlayingId(null);
+    } else {
+      // Pause any previously playing video
+      if (playingId && videoRefs.current[playingId]) {
+        videoRefs.current[playingId].pause();
+      }
+      // Play clicked video
+      targetVideo.play().then(() => {
+        setPlayingId(storyId);
+      }).catch((err) => {
+        console.warn('Playback error or blocked by autoplay policy:', err);
+        // Fallback: try muted
+        targetVideo.muted = true;
+        targetVideo.play().then(() => {
+          setPlayingId(storyId);
+          setMutedStates(prev => ({ ...prev, [storyId]: true }));
+        }).catch(() => {});
+      });
     }
-    setLikedReels(prev => ({
-      ...prev,
-      [id]: !prev[id]
-    }));
   };
 
-  const toggleSound = (e, id) => {
+  // Toggle mute without interrupting playback
+  const handleToggleMute = (e, storyId) => {
     e.stopPropagation();
-    setUnmutedReels(prev => ({
+    const video = videoRefs.current[storyId];
+    if (!video) return;
+
+    const nextMuted = !video.muted;
+    video.muted = nextMuted;
+    setMutedStates(prev => ({
       ...prev,
-      [id]: !prev[id]
+      [storyId]: nextMuted
     }));
   };
 
-  const handleScrollReels = (direction) => {
-    if (reelsScrollRef.current) {
-      const scrollAmount = direction === 'left' ? -360 : 360;
-      reelsScrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  const handleScroll = (direction) => {
+    if (scrollRef.current) {
+      const scrollAmount = direction === 'left' ? -280 : 280;
+      scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
 
   return (
-    <section id="stories" className="stories-root">
+    <section id="stories" className="pyt-stories-section">
       <div className="container">
-        {/* Section Header */}
-        <div className="section-header text-center">
-          <div className="instagram-section-badge">
-            <Instagram size={15} />
-            <span>FROM OUR INSTAGRAM • @comfort.journey</span>
-          </div>
-          <h2 className="section-title font-editorial">
-            Short clips from <span className="gradient-text-gold">real trips</span>
+        {/* Header matching Pickyourtrail: STORIES OF OUR TRAVELLERS 💖 + Ratings */}
+        <div className="pyt-stories-header">
+          <h2 className="pyt-stories-title">
+            STORIES OF OUR TRAVELLERS <span className="pyt-heart">💖</span>
           </h2>
-          <p className="section-subtitle">
-            Our travellers filming the good bits. Fair warning: you might start packing.
-          </p>
-        </div>
 
-        {/* Carousel Controls Bar */}
-        <div className="reels-header-controls">
-          <div className="reels-count-tag">
-            <span className="live-pulse-dot"></span>
-            <span>7 Signature Featured Video Stories</span>
-          </div>
-          <div className="reels-nav-controls">
-            <button 
-              type="button" 
-              className="reel-nav-btn" 
-              onClick={() => handleScrollReels('left')}
-              aria-label="Previous Reels"
-              title="Scroll Left"
-            >
-              <ChevronLeft size={20} />
-            </button>
-            <button 
-              type="button" 
-              className="reel-nav-btn" 
-              onClick={() => handleScrollReels('right')}
-              aria-label="Next Reels"
-              title="Scroll Right"
-            >
-              <ChevronRight size={20} />
-            </button>
+          <div className="pyt-trust-bar">
+            {/* Google Rating */}
+            <div className="pyt-rating-pill">
+              <svg className="pyt-g-logo" viewBox="0 0 24 24" width="22" height="22">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+              <div className="pyt-rating-details">
+                <span className="pyt-score">4.8<span className="pyt-scale">/5</span> <span className="pyt-star">★</span></span>
+                <span className="pyt-count">85+ reviews</span>
+              </div>
+            </div>
+
+            {/* Verified Guests Rating */}
+            <div className="pyt-rating-pill">
+              <div className="pyt-guest-badge">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                </svg>
+              </div>
+              <div className="pyt-rating-details">
+                <span className="pyt-score">4.9<span className="pyt-scale">/5</span> <span className="pyt-star">★</span></span>
+                <span className="pyt-count">50,000+ Happy Guests</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* REELS VIEW - Next-Gen Phone-Mockup Vertical Video Story Carousel */}
-        <div className="reels-carousel-wrapper">
-          <div className="reels-grid-single-row" ref={reelsScrollRef}>
-            {TRAVELER_REELS.map((reel) => {
-              const isLiked = likedReels[reel.id];
+        {/* Carousel Container with Pickyourtrail Arched Video Cards */}
+        <div className="pyt-carousel-container">
+          {/* Scroll Nav Buttons */}
+          <button 
+            type="button" 
+            className="pyt-nav-arrow pyt-nav-left"
+            onClick={() => handleScroll('left')}
+            aria-label="Previous Stories"
+          >
+            <ChevronLeft size={22} />
+          </button>
+
+          <button 
+            type="button" 
+            className="pyt-nav-arrow pyt-nav-right"
+            onClick={() => handleScroll('right')}
+            aria-label="Next Stories"
+          >
+            <ChevronRight size={22} />
+          </button>
+
+          {/* Cards Track */}
+          <div className="pyt-cards-track" ref={scrollRef}>
+            {TRAVELER_STORIES.map((story) => {
+              const isPlaying = playingId === story.id;
+              const isMuted = mutedStates[story.id] ?? false;
 
               return (
-                <div key={reel.id} className="reel-item-col">
-                  <Tilt3DCard maxTilt={4} scale={1.02} glare={true} className="reel-tilt-wrapper">
-                    <div className="reel-card glass-card" onClick={() => setActiveReelModal(reel)}>
-                      {/* Real Instagram Reel Embed */}
-                      <div className="reel-media-wrapper">
-                        <iframe
-                          src={`https://www.instagram.com/reel/${reel.reelId}/embed/`}
-                          className="reel-embed-iframe"
-                          frameBorder="0"
-                          scrolling="no"
-                          loading="lazy"
-                          title={reel.destination}
-                        />
+                <div 
+                  key={story.id} 
+                  className={`pyt-card-wrapper ${isPlaying ? 'is-playing' : ''}`}
+                  onClick={() => handleTogglePlay(story.id)}
+                  title={isPlaying ? 'Click to pause' : 'Click to play'}
+                >
+                  <div className="pyt-arched-card">
+                    {/* HTML5 Vertical Video */}
+                    <video
+                      ref={(el) => { if (el) videoRefs.current[story.id] = el; }}
+                      src={story.videoUrl}
+                      className="pyt-video-element"
+                      playsInline
+                      loop
+                      preload="metadata"
+                      onEnded={() => setPlayingId(null)}
+                    />
 
-                        {/* Click overlay to open full modal (sits above iframe) */}
-                        <div className="reel-click-overlay" />
+                    {/* Subtle Top & Bottom Cinematic Vignette for depth */}
+                    <div className="pyt-video-vignette" />
 
-                        {/* Luxury Dark Gradient Mask */}
-                        <div className="reel-dark-veil" />
-
-                        {/* Top Instagram Profile Pill */}
-                        <div className="reel-top-bar">
-                          <div className="insta-profile-lockup">
-                            <div className="insta-story-ring">
-                              <Instagram size={13} color="#FFFFFF" />
-                            </div>
-                            <span className="insta-handle">@comfort.journey</span>
-                            <CheckCircle2 size={12} className="text-emerald" />
-                          </div>
-                        </div>
-
-                        {/* Clean Bottom Bar: Destination & Watch on IG Action */}
-                        <div className="reel-bottom-overlay">
-                          <div className="reel-dest-title">
-                            <span className="dest-flag">{reel.flag}</span>
-                            <span className="dest-name">{reel.destination}</span>
-                          </div>
-
-                          <div className="reel-card-footer-btns">
-                            <button
-                              type="button"
-                              className={`reel-mini-heart ${isLiked ? 'liked' : ''}`}
-                              onClick={(e) => toggleLike(e, reel.id)}
-                              aria-label="Like story"
-                              title="Like Reel"
-                            >
-                              <Heart size={15} fill={isLiked ? '#FF892F' : 'none'} color={isLiked ? '#FF892F' : '#F9FBE7'} />
-                            </button>
-
-                            <a
-                              href={reel.instagramUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="btn-open-ig-direct"
-                              onClick={(e) => e.stopPropagation()}
-                              title="Watch directly on Instagram App"
-                            >
-                              <Instagram size={13} />
-                              <span>Watch on IG</span>
-                              <ExternalLink size={11} />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
+                    {/* Centered Frosted Play / Pause Icon Button */}
+                    <div className={`pyt-play-indicator ${isPlaying ? 'playing' : 'paused'}`}>
+                      {isPlaying ? (
+                        <Pause size={24} color="#FFFFFF" strokeWidth={2.5} />
+                      ) : (
+                        <Play size={24} color="#FFFFFF" fill="#FFFFFF" style={{ marginLeft: '3px' }} />
+                      )}
                     </div>
-                  </Tilt3DCard>
+
+                    {/* Sound Control Toggle (visible when playing or hovered) */}
+                    {isPlaying && (
+                      <button
+                        type="button"
+                        className="pyt-sound-btn"
+                        onClick={(e) => handleToggleMute(e, story.id)}
+                        aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+                        title={isMuted ? 'Unmute sound' : 'Mute sound'}
+                      >
+                        {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+                      </button>
+                    )}
+                  </div>
                 </div>
               );
             })}
           </div>
         </div>
 
-        {/* ULTRA-MODERN REEL LIGHTBOX MODAL WITH REAL INSTAGRAM EMBED */}
-        {activeReelModal && (
-          <div className="modal-overlay" onClick={() => setActiveReelModal(null)}>
-            <div className="reel-modal-card live-video-modal" onClick={(e) => e.stopPropagation()}>
-              <button className="reel-close-btn" onClick={() => setActiveReelModal(null)} aria-label="Close Reel">
-                <X size={20} />
-              </button>
-
-              <div className="reel-modal-two-col">
-                {/* Left Column: Real Instagram Reel Video Embed Player */}
-                <div className="reel-modal-video-pane">
-                  <iframe
-                    src={`https://www.instagram.com/reel/${activeReelModal.reelId}/embed/`}
-                    className="reel-modal-ig-iframe"
-                    frameBorder="0"
-                    scrolling="no"
-                    allow="autoplay; encrypted-media; clipboard-write"
-                    title={`Instagram Reel - ${activeReelModal.destination}`}
-                  />
-                </div>
-
-                {/* Right Column: Experience Details & Booking Actions */}
-                <div className="reel-modal-info-pane">
-                  <div>
-                    <div className="reel-modal-badges">
-                      <span className="badge badge-amber">{activeReelModal.flag} {activeReelModal.destination}</span>
-                      <span className="badge badge-ig"><Instagram size={13} /> @comfort.journey</span>
-                    </div>
-
-                    <h3 className="modal-reel-heading">{activeReelModal.headline || activeReelModal.destination}</h3>
-                    
-                    <p className="modal-reel-caption">
-                      "{activeReelModal.tagline}"
-                    </p>
-
-                    <div className="reel-modal-stats-box">
-                      <div className="stat-line">
-                        <span>Official Channel:</span>
-                        <strong>Instagram (@comfort.journey)</strong>
-                      </div>
-                      <div className="stat-line">
-                        <span>Category:</span>
-                        <strong>{activeReelModal.duration}</strong>
-                      </div>
-                      <div className="stat-line">
-                        <span>Reel ID:</span>
-                        <strong>{activeReelModal.reelId}</strong>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="reel-modal-actions">
-                    <a 
-                      href={activeReelModal.instagramUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="btn-instagram w-full"
-                    >
-                      <Instagram size={18} />
-                      <span>Open on Instagram App</span>
-                      <ExternalLink size={15} />
-                    </a>
-
-                    <button 
-                      className="btn-whatsapp w-full"
-                      onClick={() => {
-                        const msg = `Hi Comfort Journey! I saw your Instagram reel for "${activeReelModal.destination}" (${activeReelModal.instagramUrl}). Please share customized tour package options!`;
-                        window.open(`https://wa.me/918770403315?text=${encodeURIComponent(msg)}`, '_blank');
-                      }}
-                    >
-                      <MessageCircle size={18} />
-                      <span>Inquire About This Tour on WhatsApp</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
+        {/* Clean, Simple CTA Footer */}
+        {onOpenQuote && (
+          <div className="pyt-stories-cta">
+            <div className="pyt-cta-content">
+              <h3>Ready to create your own travel memories?</h3>
+              <p>Customized international & domestic packages crafted just for you.</p>
             </div>
-          </div>
-        )}{/* CTA Strip */}
-        <div className="stories-cta-banner glass-card">
-          <div className="cta-left">
-            <h3 className="font-editorial">Want to star in the next clip?</h3>
-            <p>Tell us where you want to go. Planning help is free, and a real person replies.</p>
-          </div>
-          <div className="cta-right">
-            <button className="btn-primary" onClick={onOpenQuote}>
+            <button className="btn-primary pyt-cta-btn" onClick={onOpenQuote}>
               <span>Plan My Trip</span>
             </button>
           </div>
-        </div>
+        )}
       </div>
 
       <style>{`
-        .stories-root {
-          padding: 5rem 0 4rem 0;
-          background: 
-            linear-gradient(180deg, #0B1120 0%, rgba(11, 17, 32, 0.80) 12%, rgba(0, 26, 64, 0.58) 50%, rgba(11, 17, 32, 0.82) 88%, #0B1120 100%),
-            url('${basePrefix}backgrounds/tropical-turquoise-lake-boat.webp') center 40% / cover no-repeat;
-          color: var(--cj-text-heading);
+        .pyt-stories-section {
+          padding: 4.5rem 0 3.5rem 0;
+          background: #000000;
+          color: #FFFFFF;
           position: relative;
-          border-top: 1px solid rgba(255, 255, 255, 0.05);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          overflow: hidden;
         }
 
-        .instagram-section-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          background: linear-gradient(135deg, rgba(225, 48, 108, 0.18), rgba(253, 29, 29, 0.18));
-          border: 1px solid rgba(225, 48, 108, 0.45);
-          color: #FF8BA7;
-          padding: 0.35rem 1rem;
-          border-radius: var(--radius-full, 9999px);
-          font-size: 0.78rem;
-          font-weight: 800;
-          letter-spacing: 0.06em;
-          margin-bottom: 0.75rem;
-          box-shadow: 0 4px 15px rgba(225, 48, 108, 0.2);
+        .pyt-stories-header {
+          text-align: center;
+          margin-bottom: 2.25rem;
         }
 
-        .reels-header-controls {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin-bottom: 1.5rem;
-          padding: 0 0.5rem;
-        }
-
-        .reels-count-tag {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          font-size: 0.86rem;
-          color: var(--cj-text-muted);
-          font-weight: 700;
-        }
-
-        .live-pulse-dot {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: #FF892F;
-          box-shadow: 0 0 10px #FF892F;
-          animation: pulseDot 1.8s infinite;
-        }
-
-        @keyframes pulseDot {
-          0%, 100% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.4); opacity: 0.5; }
-        }
-
-        .reels-nav-controls {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-
-        .reel-nav-btn {
-          width: 38px;
-          height: 38px;
-          border-radius: 50%;
-          background: rgba(0, 40, 85, 0.6);
-          border: 1px solid rgba(111, 230, 252, 0.25);
-          color: var(--cj-text-heading);
+        .pyt-stories-title {
+          font-family: var(--font-heading, inherit);
+          font-size: clamp(1.8rem, 3.8vw, 2.75rem);
+          font-weight: 900;
+          letter-spacing: -0.02em;
+          text-transform: uppercase;
+          color: #FFFFFF;
+          margin: 0 0 1rem 0;
           display: flex;
           align-items: center;
           justify-content: center;
-          cursor: pointer;
-          transition: all 0.25s ease;
+          gap: 0.5rem;
+          flex-wrap: wrap;
         }
 
-        .reel-nav-btn:hover {
-          background: #FF892F;
-          border-color: #FF892F;
+        .pyt-heart {
+          display: inline-block;
+          font-style: normal;
+        }
+
+        .pyt-trust-bar {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 2.5rem;
+          flex-wrap: wrap;
+          padding: 0.35rem 1.25rem;
+        }
+
+        .pyt-rating-pill {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+        }
+
+        .pyt-g-logo {
+          flex-shrink: 0;
+        }
+
+        .pyt-guest-badge {
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          background: #1877F2;
           color: #FFFFFF;
-          transform: scale(1.08);
-          box-shadow: 0 4px 15px rgba(255, 137, 47, 0.4);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.7rem;
         }
 
-        /* Reels Single-Row Carousel */
-        .reels-carousel-wrapper {
+        .pyt-rating-details {
+          display: flex;
+          align-items: baseline;
+          gap: 0.45rem;
+        }
+
+        .pyt-score {
+          font-size: 1.05rem;
+          font-weight: 800;
+          color: #FFFFFF;
+        }
+
+        .pyt-scale {
+          font-size: 0.85rem;
+          color: rgba(255, 255, 255, 0.75);
+          font-weight: 600;
+        }
+
+        .pyt-star {
+          color: #FFB800;
+          font-size: 1.05rem;
+          margin-left: 2px;
+        }
+
+        .pyt-count {
+          font-size: 0.82rem;
+          color: rgba(255, 255, 255, 0.65);
+          font-weight: 500;
+        }
+
+        /* Carousel Layout */
+        .pyt-carousel-container {
           position: relative;
           width: 100%;
-          overflow: hidden;
+          margin: 0 auto;
+          padding: 0 1rem;
         }
 
-        .reels-grid-single-row {
+        .pyt-cards-track {
           display: flex;
-          gap: 1.35rem;
+          gap: 1.25rem;
           overflow-x: auto;
           scroll-snap-type: x mandatory;
-          padding: 0.5rem 0.25rem 1.5rem 0.25rem;
+          padding: 1rem 0.5rem 1.5rem 0.5rem;
           -webkit-overflow-scrolling: touch;
-          scrollbar-width: thin;
-          scrollbar-color: rgba(255, 137, 47, 0.4) transparent;
+          scrollbar-width: none; /* Hide scrollbar for seamless look */
         }
 
-        .reels-grid-single-row::-webkit-scrollbar {
-          height: 5px;
+        .pyt-cards-track::-webkit-scrollbar {
+          display: none;
         }
 
-        .reels-grid-single-row::-webkit-scrollbar-thumb {
-          background: rgba(255, 137, 47, 0.35);
-          border-radius: 4px;
-        }
-
-        .reel-item-col {
-          flex: 0 0 328px;
-          scroll-snap-align: start;
-        }
-
-        .reel-card {
-          position: relative;
-          height: 520px;
-          border-radius: var(--radius-xl, 22px);
-          overflow: hidden;
-          background: #001D51;
-          border: 1.5px solid rgba(111, 230, 252, 0.28);
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-          display: flex;
-          flex-direction: column;
+        /* Arched Video Card (Exact Pickyourtrail Arch Shape) */
+        .pyt-card-wrapper {
+          flex: 0 0 240px;
+          width: 240px;
+          height: 425px;
+          scroll-snap-align: center;
           cursor: pointer;
-          transition: all 0.3s ease;
+          user-select: none;
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .reel-card:hover {
-          border-color: #6FE6FC;
-          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.75), 0 0 25px rgba(111, 230, 252, 0.35);
+        .pyt-card-wrapper:hover {
           transform: translateY(-4px);
         }
 
-        .reel-media-wrapper {
+        .pyt-arched-card {
           position: relative;
           width: 100%;
           height: 100%;
+          /* Signature Pickyourtrail stadium arch top */
+          border-radius: 120px 120px 24px 24px;
           overflow: hidden;
-          background: #001233;
+          background: #080C14;
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .reel-embed-iframe {
-          position: absolute;
-          inset: 0;
+        .pyt-card-wrapper:hover .pyt-arched-card {
+          border-color: rgba(255, 255, 255, 0.25);
+          box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 137, 47, 0.2);
+        }
+
+        .pyt-card-wrapper.is-playing .pyt-arched-card {
+          border-color: rgba(255, 137, 47, 0.6);
+          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 25px rgba(255, 137, 47, 0.3);
+        }
+
+        .pyt-video-element {
           width: 100%;
           height: 100%;
-          border: none;
-          z-index: 1;
+          object-fit: cover;
+          display: block;
+          background: #060A12;
+        }
+
+        /* Subtle vignette mask */
+        .pyt-video-vignette {
+          position: absolute;
+          inset: 0;
           pointer-events: none;
-          transform: scale(1.02);
-        }
-
-        .reel-click-overlay {
-          position: absolute;
-          inset: 0;
-          z-index: 3;
-          cursor: pointer;
-          background: transparent;
-        }
-
-        .reel-dark-veil {
-          position: absolute;
-          inset: 0;
           background: linear-gradient(
-            180deg, 
-            rgba(0, 29, 81, 0.75) 0%, 
-            rgba(0, 29, 81, 0.05) 30%, 
-            rgba(0, 29, 81, 0.05) 65%, 
-            rgba(0, 29, 81, 0.85) 100%
+            180deg,
+            rgba(0, 0, 0, 0.15) 0%,
+            transparent 25%,
+            transparent 75%,
+            rgba(0, 0, 0, 0.35) 100%
           );
+        }
+
+        /* Center Frosted Play/Pause Indicator */
+        .pyt-play-indicator {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 58px;
+          height: 58px;
+          border-radius: 50%;
+          background: rgba(0, 0, 0, 0.45);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          border: 1.5px solid rgba(255, 255, 255, 0.4);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: opacity 0.3s ease, transform 0.3s ease;
           pointer-events: none;
-          z-index: 4;
+          z-index: 3;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
         }
 
-        .reel-top-bar {
+        .pyt-play-indicator.playing {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0.85);
+        }
+
+        .pyt-card-wrapper:hover .pyt-play-indicator.playing {
+          opacity: 0.85;
+          transform: translate(-50%, -50%) scale(1);
+        }
+
+        .pyt-card-wrapper:hover .pyt-play-indicator.paused {
+          transform: translate(-50%, -50%) scale(1.1);
+          background: rgba(255, 137, 47, 0.8);
+          border-color: #FF892F;
+        }
+
+        /* Top Sound Toggle Button */
+        .pyt-sound-btn {
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          z-index: 5;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 0.85rem 1rem;
-        }
-
-        .insta-profile-lockup {
-          display: flex;
-          align-items: center;
-          gap: 0.55rem;
-        }
-
-        .insta-story-ring {
-          width: 28px;
-          height: 28px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, #833AB4, #FD1D1D, #F56040);
-          padding: 2px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          box-shadow: 0 0 10px rgba(225, 48, 108, 0.5);
-          flex-shrink: 0;
-        }
-
-        .insta-meta {
-          display: flex;
-          flex-direction: column;
-          gap: 0.1rem;
-          min-width: 0;
-        }
-
-        .insta-handles-row {
-          display: flex;
-          align-items: center;
-          gap: 0.3rem;
-          white-space: nowrap;
-          overflow: hidden;
-        }
-
-        .insta-handle {
-          font-family: var(--font-ui);
-          font-size: 0.78rem;
-          font-weight: 800;
-          color: #F9FBE7;
-          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-        }
-
-        .insta-verified-tag {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.2rem;
-          font-size: 0.65rem;
-          color: #DAF561;
-          font-weight: 700;
-        }
-
-        .reel-sound-btn {
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
-          background: rgba(0, 29, 81, 0.7);
-          backdrop-filter: blur(8px);
-          border: 1px solid rgba(111, 230, 252, 0.35);
-          color: #6FE6FC;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .reel-sound-btn:hover {
-          background: rgba(111, 230, 252, 0.25);
-          border-color: #6FE6FC;
-          color: #FFFFFF;
-          transform: scale(1.1);
-        }
-
-        .reel-live-tag {
-          position: absolute;
-          top: 3.5rem;
-          right: 1rem;
-          z-index: 4;
-          display: inline-flex;
-          align-items: center;
-          gap: 0.35rem;
-          padding: 0.2rem 0.55rem;
-          border-radius: var(--radius-full, 9999px);
-          background: rgba(0, 29, 81, 0.7);
-          backdrop-filter: blur(8px);
-          border: 1px solid rgba(111, 230, 252, 0.4);
-          color: #6FE6FC;
-          font-size: 0.65rem;
-          font-weight: 800;
-          letter-spacing: 0.04em;
-        }
-
-        .live-dot-pulse {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          background: #DAF561;
-          box-shadow: 0 0 8px #DAF561;
-          animation: livePulse 1.5s infinite;
-        }
-
-        @keyframes livePulse {
-          0%, 100% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.4); opacity: 0.5; }
-        }
-
-        .reel-bottom-overlay {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          z-index: 5;
-          padding: 1rem;
-          display: flex;
-          flex-direction: column;
-          gap: 0.35rem;
-        }
-
-        .reel-views-pill {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.3rem;
-          align-self: flex-start;
-          padding: 0.2rem 0.55rem;
-          border-radius: var(--radius-full, 9999px);
-          background: rgba(111, 230, 252, 0.15);
-          border: 1px solid rgba(111, 230, 252, 0.35);
-          color: #6FE6FC;
-          font-size: 0.68rem;
-          font-weight: 700;
-        }
-
-        .reel-dest-title {
-          display: flex;
-          align-items: center;
-          gap: 0.35rem;
-          font-size: 0.92rem;
-          font-weight: 800;
-          color: #F9FBE7;
-        }
-
-        .dest-flag {
-          font-size: 1rem;
-        }
-
-        .dest-name {
-          color: #F9FBE7;
-        }
-
-        .reel-tagline-text {
-          font-size: 0.76rem;
-          color: #E2E8F0;
-          line-height: 1.35;
-          margin: 0;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-
-        .reel-card-footer-btns {
-          display: flex;
-          align-items: center;
-          gap: 0.45rem;
-          margin-top: 0.35rem;
-        }
-
-        .reel-mini-heart {
+          top: 1.25rem;
+          right: 1.25rem;
           width: 34px;
           height: 34px;
           border-radius: 50%;
-          background: rgba(0, 29, 81, 0.7);
+          background: rgba(0, 0, 0, 0.55);
           backdrop-filter: blur(8px);
-          border: 1px solid rgba(249, 251, 231, 0.25);
+          -webkit-backdrop-filter: blur(8px);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          color: #FFFFFF;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
+          z-index: 4;
           transition: all 0.2s ease;
-          flex-shrink: 0;
         }
 
-        .reel-mini-heart:hover {
-          background: rgba(255, 137, 47, 0.25);
+        .pyt-sound-btn:hover {
+          background: rgba(255, 137, 47, 0.85);
           border-color: #FF892F;
           transform: scale(1.1);
         }
 
-        .reel-mini-heart.liked {
-          background: rgba(255, 137, 47, 0.35);
-          border-color: #FF892F;
-        }
-
-        .btn-open-ig-direct {
-          flex: 1;
-          display: inline-flex;
+        /* Carousel Navigation Buttons */
+        .pyt-nav-arrow {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.95);
+          border: none;
+          color: #111827;
+          display: flex;
           align-items: center;
           justify-content: center;
-          gap: 0.35rem;
-          padding: 0.45rem 0.85rem;
-          border-radius: var(--radius-full, 9999px);
-          background: linear-gradient(135deg, rgba(225, 48, 108, 0.25), rgba(253, 29, 29, 0.25));
-          border: 1px solid rgba(225, 48, 108, 0.6);
-          color: #F9FBE7;
-          font-size: 0.76rem;
-          font-weight: 800;
-          text-decoration: none;
-          transition: all 0.2s ease;
-          white-space: nowrap;
+          cursor: pointer;
+          z-index: 10;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+          transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .btn-open-ig-direct:hover {
-          background: linear-gradient(135deg, #E1306C, #FD1D1D);
+        .pyt-nav-arrow:hover {
+          background: #FF892F;
           color: #FFFFFF;
-          transform: translateY(-2px);
-          box-shadow: 0 4px 15px rgba(225, 48, 108, 0.4);
+          transform: translateY(-50%) scale(1.12);
+          box-shadow: 0 6px 20px rgba(255, 137, 47, 0.5);
         }
 
-        .reel-modal-ig-iframe {
-          width: 100%;
-          height: 100%;
-          min-height: 520px;
-          border: none;
-          border-radius: 16px 0 0 16px;
-          background: #000B1E;
+        .pyt-nav-left {
+          left: 0.25rem;
         }
 
-        .stories-cta-banner {
-          margin-top: 3.5rem;
-          background: linear-gradient(135deg, rgba(0, 40, 85, 0.85) 0%, rgba(0, 18, 51, 0.95) 100%);
-          border-radius: var(--radius-xl, 24px);
-          padding: 2.25rem 2.5rem;
-          border: 1px solid rgba(255, 137, 47, 0.3);
+        .pyt-nav-right {
+          right: 0.25rem;
+        }
+
+        /* CTA Footer */
+        .pyt-stories-cta {
+          margin-top: 3rem;
+          background: linear-gradient(135deg, rgba(20, 26, 40, 0.8) 0%, rgba(10, 14, 24, 0.95) 100%);
+          border-radius: 20px;
+          padding: 2rem 2.5rem;
+          border: 1px solid rgba(255, 255, 255, 0.1);
           display: flex;
           align-items: center;
           justify-content: space-between;
           gap: 2rem;
-          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
 
-        .cta-left h3 {
-          font-size: 1.5rem;
-          color: var(--cj-text-heading);
-          margin-bottom: 0.35rem;
+        .pyt-cta-content h3 {
+          font-size: 1.35rem;
+          color: #FFFFFF;
+          margin: 0 0 0.35rem 0;
+          font-weight: 700;
         }
 
-        .cta-left p {
-          color: var(--cj-text-muted);
+        .pyt-cta-content p {
+          color: rgba(255, 255, 255, 0.7);
           font-size: 0.92rem;
           margin: 0;
         }
 
-        .w-full {
-          width: 100%;
-          justify-content: center;
-        }
-
-        @media (max-width: 860px) {
-          .reel-modal-two-col {
-            grid-template-columns: 1fr;
-            max-height: 90vh;
-            overflow-y: auto;
-          }
-          .reel-modal-video-pane {
-            min-height: 400px;
-            height: 400px;
-            border-right: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-          }
-          .reel-modal-ig-iframe {
-            min-height: 400px;
-          }
-          .reel-modal-info-pane {
-            padding: 1.5rem 1.25rem;
-          }
+        .pyt-cta-btn {
+          flex-shrink: 0;
         }
 
         @media (max-width: 768px) {
-          .stories-root {
-            padding: 2.5rem 0 2rem 0;
+          .pyt-stories-section {
+            padding: 3rem 0 2.5rem 0;
           }
-          .section-title {
-            font-size: 2rem;
+
+          .pyt-stories-title {
+            font-size: 1.5rem;
           }
-          .stories-cta-banner {
+
+          .pyt-trust-bar {
+            gap: 1.25rem;
+          }
+
+          .pyt-card-wrapper {
+            flex: 0 0 190px;
+            width: 190px;
+            height: 340px;
+          }
+
+          .pyt-arched-card {
+            border-radius: 95px 95px 20px 20px;
+          }
+
+          .pyt-nav-arrow {
+            display: none; /* Swipe on mobile touch screens */
+          }
+
+          .pyt-stories-cta {
             flex-direction: column;
             text-align: center;
             padding: 1.5rem 1.25rem;
             gap: 1.25rem;
           }
-          .cta-right {
-            width: 100%;
-          }
-          .cta-right button {
+
+          .pyt-cta-btn {
             width: 100%;
             justify-content: center;
-            min-height: 48px;
           }
-        }
-
-        /* LIGHT THEME — warm paper, no photo; reel cards + modal video pane keep
-           cinematic dark + white text in BOTH themes (approved over-photo) */
-        :root:not([data-theme="dark"]) .stories-root,
-        [data-theme="light"] .stories-root {
-          background:
-            radial-gradient(700px 320px at 10% 0%, rgba(225,48,108,0.08), transparent 70%),
-            radial-gradient(640px 300px at 90% 100%, rgba(255,137,47,0.10), transparent 70%),
-            linear-gradient(180deg, #FFFDF7 0%, #F9FBE7 100%);
-          border-top-color: var(--cj-line, #E8E0CF);
-          border-bottom-color: var(--cj-line, #E8E0CF);
-        }
-        :root:not([data-theme="dark"]) .reel-nav-btn,
-        [data-theme="light"] .reel-nav-btn {
-          background: #FFFFFF;
-          border-color: var(--cj-line, #E8E0CF);
-        }
-        :root:not([data-theme="dark"]) .stories-cta-banner,
-        [data-theme="light"] .stories-cta-banner {
-          background: #FFFFFF !important;
-          border-color: var(--cj-line, #E8E0CF) !important;
-          box-shadow: var(--shadow-md, 0 10px 30px rgba(20,38,74,0.10)) !important;
         }
       `}</style>
     </section>
