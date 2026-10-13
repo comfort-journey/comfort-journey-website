@@ -791,17 +791,17 @@ export default function Footer({
           border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .badge-amber {
+        .deck-badge.badge-amber {
           color: #FFD166;
           border-color: rgba(255, 209, 102, 0.3);
         }
 
-        .badge-emerald {
+        .deck-badge.badge-emerald {
           color: #A7F3D0;
           border-color: rgba(16, 185, 129, 0.3);
         }
 
-        .badge-cyan {
+        .deck-badge.badge-cyan {
           color: #BAE6FD;
           border-color: rgba(111, 230, 252, 0.3);
         }

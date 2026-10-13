@@ -24,8 +24,8 @@
   inset: 0;
   z-index: 0;
   border-radius: inherit;
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
   pointer-events: none;
 }
 
@@ -45,9 +45,9 @@
   border-radius: inherit;
   background: linear-gradient(
     135deg, 
-    rgba(0, 20, 55, 0.78) 0%, 
-    rgba(5, 38, 105, 0.68) 50%,
-    rgba(0, 18, 51, 0.82) 100%
+    rgba(8, 14, 28, 0.66) 0%, 
+    rgba(12, 22, 45, 0.58) 50%,
+    rgba(6, 10, 22, 0.68) 100%
   );
   pointer-events: none;
 }
@@ -201,7 +201,7 @@
 /* Floating Rounded Glass Navbar Bar - Compact, Centered & Middle-Aligned */
 .navbar-floating-bar {
   pointer-events: auto;
-  margin: 28px auto 0 auto;
+  margin: 42px auto 0 auto;
   width: fit-content;
   max-width: min(96%, 1240px);
   min-width: min(92%, 860px);
@@ -218,7 +218,7 @@
 }
 
 .navbar-root.scrolled .navbar-floating-bar {
-  margin-top: 24px;
+  margin-top: 38px;
   width: fit-content;
   max-width: min(96%, 1240px);
   min-width: min(92%, 860px);
@@ -231,8 +231,8 @@
 .navbar-root.scrolled .liquidGlass-tint {
   background: linear-gradient(
     135deg, 
-    rgba(0, 18, 51, 0.92) 0%, 
-    rgba(5, 38, 105, 0.85) 100%
+    rgba(6, 12, 26, 0.78) 0%, 
+    rgba(10, 24, 52, 0.72) 100%
   );
 }
 
@@ -739,21 +739,21 @@
 :root:not([data-theme="dark"]) .liquid-glass-card .liquidGlass-tint,
 [data-theme="light"] .liquid-glass-dock .liquidGlass-tint,
 [data-theme="light"] .liquid-glass-card .liquidGlass-tint {
-  background: linear-gradient(135deg, rgba(255,255,255,0.88) 0%, rgba(249,251,231,0.84) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.64) 0%, rgba(253, 250, 245, 0.58) 100%);
 }
 :root:not([data-theme="dark"]) .liquid-glass-dock,
 :root:not([data-theme="dark"]) .liquid-glass-card,
 [data-theme="light"] .liquid-glass-dock,
 [data-theme="light"] .liquid-glass-card {
-  box-shadow: 0 0 0 1px var(--cj-glass-hairline, rgba(20,38,74,0.08)), 0 12px 32px rgba(20,38,74,0.12);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.65), 0 12px 32px rgba(20, 38, 74, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.7);
 }
 :root:not([data-theme="dark"]) .navbar-root.scrolled .liquidGlass-tint,
 [data-theme="light"] .navbar-root.scrolled .liquidGlass-tint {
-  background: linear-gradient(135deg, rgba(255,255,255,0.96) 0%, rgba(249,251,231,0.94) 100%) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.76) 0%, rgba(253, 250, 245, 0.70) 100%) !important;
 }
 :root:not([data-theme="dark"]) .navbar-root.scrolled .navbar-floating-bar,
 [data-theme="light"] .navbar-root.scrolled .navbar-floating-bar {
-  box-shadow: 0 0 0 1px var(--cj-glass-hairline, rgba(20,38,74,0.08)), 0 16px 40px rgba(20,38,74,0.14) !important;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.75), 0 16px 40px rgba(20, 38, 74, 0.10), inset 0 1px 1.5px rgba(255, 255, 255, 0.8) !important;
 }
 :root:not([data-theme="dark"]) .btn-ai-liquid,
 [data-theme="light"] .btn-ai-liquid {

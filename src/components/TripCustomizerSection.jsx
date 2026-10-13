@@ -75,6 +75,7 @@ export default function TripCustomizerSection() {
         basePricePerDay: baseDaily,
         image: t.image || t.heroImage || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
         categories: Array.isArray(t.categories) ? t.categories : [],
+        tags: Array.isArray(t.tags) ? t.tags : [],
         rawTour: t
       };
     });
@@ -110,11 +111,44 @@ export default function TripCustomizerSection() {
   const [vehicleType, setVehicleType] = useState('suv'); // 'sedan', 'suv', 'tempo'
   const [selectedAddons, setSelectedAddons] = useState(['kashmir-shikara', 'candlelight']);
 
-  // Update duration when tour changes (if user hasn't heavily customized it)
+  // Update duration when tour changes
   const handleSelectTour = (tour) => {
     setSelectedTourName(tour.name);
     setDurationDays(parseTourDays(tour) || 5);
     setIsDropdownOpen(false);
+  };
+
+  // Helper to match a destination against a category tab
+  const matchesTourCategory = (d, catId) => {
+    if (catId === 'all') return true;
+    const catObj = CATEGORY_TABS.find((c) => c.id === catId);
+    if (!catObj) return true;
+
+    if (catId === 'international') {
+      const isIndia = (d.country && d.country.toLowerCase() === 'india') && !(d.tags || []).some(t => t.toLowerCase() === 'international');
+      if (isIndia && !d.name.toLowerCase().includes('dubai') && !d.name.toLowerCase().includes('bali') && !d.name.toLowerCase().includes('phuket') && !d.name.toLowerCase().includes('thailand') && !d.name.toLowerCase().includes('vietnam') && !d.name.toLowerCase().includes('europe') && !d.name.toLowerCase().includes('swiss') && !d.name.toLowerCase().includes('japan') && !d.name.toLowerCase().includes('singapore')) {
+        return false;
+      }
+    }
+
+    const locText = `${d.location} ${d.name} ${d.country} ${(d.categories || []).join(' ')} ${(d.tags || []).join(' ')}`.toLowerCase();
+    return (catObj.keywords || []).some((kw) => locText.includes(kw));
+  };
+
+  // Switch category chip and automatically update the preview tour to the first tour of that category
+  const handleCategoryClick = (catId) => {
+    setActiveCategory(catId);
+    setSearchQuery('');
+
+    const matching = destinationsList.filter((d) => matchesTourCategory(d, catId));
+    if (matching.length > 0) {
+      const isAlreadyInCat = matching.some((d) => d.name === selectedTourName);
+      if (!isAlreadyInCat) {
+        const nextTour = matching[0];
+        setSelectedTourName(nextTour.name);
+        setDurationDays(parseTourDays(nextTour) || 5);
+      }
+    }
   };
 
   // Filtered destinations for the dropdown
@@ -122,12 +156,7 @@ export default function TripCustomizerSection() {
     return destinationsList.filter((d) => {
       // Category filter
       if (activeCategory !== 'all') {
-        const catObj = CATEGORY_TABS.find((c) => c.id === activeCategory);
-        if (catObj && catObj.keywords) {
-          const locText = `${d.location} ${d.name} ${d.country} ${(d.categories || []).join(' ')}`.toLowerCase();
-          const matchesCat = catObj.keywords.some((kw) => locText.includes(kw));
-          if (!matchesCat) return false;
-        }
+        if (!matchesTourCategory(d, activeCategory)) return false;
       }
 
       // Search query
@@ -282,10 +311,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
                       key={cat.id}
                       type="button"
                       className={`cat-chip-btn ${activeCategory === cat.id ? 'active' : ''}`}
-                      onClick={() => {
-                        setActiveCategory(cat.id);
-                        setSearchQuery('');
-                      }}
+                      onClick={() => handleCategoryClick(cat.id)}
                     >
                       <Icon size={13} className="cat-chip-icon" />
                       <span>{cat.label}</span>
@@ -319,6 +345,12 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
                   </div>
 
                   <div className="dest-trigger-right">
+                    <div className="dest-trigger-price-badge">
+                      <span className="price-tag-sub">Starting from</span>
+                      <span className="price-tag-val">
+                        {formatPrice(currentTour.rawTour?.price || (currentTour.basePricePerDay * currentTour.durationDays))}
+                      </span>
+                    </div>
                     <ChevronDown size={20} className={`chevron-icon ${isDropdownOpen ? 'rotated' : ''}`} />
                   </div>
                 </button>
@@ -731,6 +763,23 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           width: 100%;
         }
 
+        .studio-root .section-header .badge-amber {
+          background: rgba(234, 88, 12, 0.12) !important;
+          color: #C2410C !important;
+          border: 1px solid rgba(234, 88, 12, 0.35) !important;
+          font-weight: 800;
+          letter-spacing: 0.08em;
+          box-shadow: 0 2px 8px rgba(234, 88, 12, 0.12);
+        }
+
+        [data-theme="dark"] .studio-root .section-header .badge-amber,
+        .dark-theme .studio-root .section-header .badge-amber {
+          background: rgba(255, 137, 47, 0.22) !important;
+          color: #FFB27A !important;
+          border-color: rgba(255, 137, 47, 0.45) !important;
+          box-shadow: 0 0 12px rgba(255, 137, 47, 0.2);
+        }
+
         .studio-root .section-title {
           display: block !important;
           text-align: center;
@@ -902,6 +951,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           align-items: center;
           gap: 0.85rem;
           min-width: 0;
+          flex: 1;
         }
 
         .dest-trigger-thumb {
@@ -918,6 +968,7 @@ Please share the detailed day-by-day customized PDF itinerary and availability f
           flex-direction: column;
           gap: 0.15rem;
           min-width: 0;
+          flex: 1;
         }
 
         .dest-trigger-title {

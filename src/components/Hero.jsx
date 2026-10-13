@@ -346,7 +346,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               }}
             >
               <Globe size={18} className="text-amber" />
-              <span>Pick on the map</span>
+              <span>Pick by Country</span>
             </button>
 
             <button
