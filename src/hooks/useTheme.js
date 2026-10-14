@@ -27,13 +27,13 @@ export function getStoredTheme() {
 }
 
 export function resolveTheme() {
-  return getStoredTheme() || 'light';
+  return getStoredTheme() || getSystemTheme();
 }
 
 export function applyTheme(theme) {
   const root = document.documentElement;
-  // Always resolve to an explicit theme — default to 'light' bright theme
-  const effective = theme === 'light' || theme === 'dark' ? theme : (getStoredTheme() || 'light');
+  // Always resolve to an explicit theme: manual override > device OS
+  const effective = theme === 'light' || theme === 'dark' ? theme : (getStoredTheme() || getSystemTheme());
   root.setAttribute('data-theme', effective);
   try {
     // Keep browser chrome (scrollbars, form controls) in sync

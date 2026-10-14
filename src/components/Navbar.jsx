@@ -24,6 +24,37 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
   // Visitor Auth Context
   const { user, openAuthModal, signOut } = useUserAuth();
 
+  // 1-Time Best Experience Hint Popover (Theme + Sign In)
+  const [showExperienceHint, setShowExperienceHint] = useState(false);
+
+  useEffect(() => {
+    try {
+      const seen = localStorage.getItem('cj_exp_hint_seen');
+      if (!seen) {
+        // Show after 1.5s so traveler has settled on the page
+        const showTimer = setTimeout(() => {
+          setShowExperienceHint(true);
+        }, 1500);
+        // Auto-fade gently after 9.5s
+        const autoDismiss = setTimeout(() => {
+          setShowExperienceHint(false);
+          localStorage.setItem('cj_exp_hint_seen', 'true');
+        }, 9500);
+        return () => {
+          clearTimeout(showTimer);
+          clearTimeout(autoDismiss);
+        };
+      }
+    } catch {}
+  }, []);
+
+  const dismissExperienceHint = () => {
+    setShowExperienceHint(false);
+    try {
+      localStorage.setItem('cj_exp_hint_seen', 'true');
+    } catch {}
+  };
+
   // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -416,91 +447,159 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
                 )}
               </div>
 
-              {/* Light/Dark Theme Toggle — follows OS by default */}
-              <ThemeToggle variant="pill" />
+              {/* Controls Cluster with Experience Tip */}
+              <div className="nav-controls-cluster">
+                {/* Light/Dark Theme Toggle — follows OS by default */}
+                <ThemeToggle variant="pill" />
 
-              {/* Visitor Authentication Pill / Account Menu */}
-              {user ? (
-                <div className="nav-user-profile-rel" ref={userMenuRef}>
-                  <button
-                    type="button"
-                    className="nav-user-btn liquid-glass-btn"
-                    onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                    title={`Signed in as ${user.name}`}
-                  >
-                    {user.avatar ? (
-                      <img src={user.avatar} alt={user.name} className="nav-user-avatar-img" />
-                    ) : (
-                      <div className="nav-user-avatar-fallback">
-                        {user.name ? user.name.charAt(0).toUpperCase() : 'G'}
+                {/* Visitor Authentication Pill / Account Menu */}
+                {user ? (
+                  <div className="nav-user-profile-rel" ref={userMenuRef}>
+                    <button
+                      type="button"
+                      className="nav-user-btn liquid-glass-btn"
+                      onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                      title={`Signed in as ${user.name}`}
+                    >
+                      {user.avatar ? (
+                        <img src={user.avatar} alt={user.name} className="nav-user-avatar-img" />
+                      ) : (
+                        <div className="nav-user-avatar-fallback">
+                          {user.name ? user.name.charAt(0).toUpperCase() : 'G'}
+                        </div>
+                      )}
+                      <span className="nav-user-name">
+                        {user.name.split(' ')[0]}
+                      </span>
+                      <ChevronDown size={12} className={`curr-chevron ${userDropdownOpen ? 'rotated' : ''}`} />
+                    </button>
+
+                    {userDropdownOpen && (
+                      <div className="nav-user-dropdown-menu">
+                        <div className="nav-user-dropdown-header">
+                          <div className="nav-user-dropdown-fullname">{user.name}</div>
+                          <div className="nav-user-dropdown-id">{user.email || user.phone}</div>
+                          <div className="nav-user-dropdown-verified">
+                            <CheckCircle2 size={12} />
+                            <span>Verified Travel Club Member</span>
+                          </div>
+                        </div>
+
+                        <button
+                          type="button"
+                          className="nav-user-dropdown-item"
+                          onClick={() => {
+                            setUserDropdownOpen(false);
+                            setIsWishlistOpen(true);
+                          }}
+                        >
+                          <Heart size={14} color="#FF892F" />
+                          <span>Saved Dreamboard ({wishlist.length})</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          className="nav-user-dropdown-item"
+                          onClick={() => {
+                            setUserDropdownOpen(false);
+                            onOpenQuote();
+                          }}
+                        >
+                          <Sparkles size={14} color="#6FE6FC" />
+                          <span>Request Custom Trip</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          className="nav-user-dropdown-item nav-user-dropdown-signout"
+                          onClick={() => {
+                            setUserDropdownOpen(false);
+                            signOut();
+                          }}
+                        >
+                          <LogOut size={14} />
+                          <span>Sign Out</span>
+                        </button>
                       </div>
                     )}
-                    <span className="nav-user-name">
-                      {user.name.split(' ')[0]}
-                    </span>
-                    <ChevronDown size={12} className={`curr-chevron ${userDropdownOpen ? 'rotated' : ''}`} />
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    className="nav-sign-in-btn"
+                    onClick={() => {
+                      dismissExperienceHint();
+                      openAuthModal();
+                    }}
+                    title="Sign in with Google, Microsoft, Apple, or Mobile"
+                  >
+                    <User size={15} className="nav-sign-in-icon" />
+                    <span>Sign In</span>
                   </button>
+                )}
 
-                  {userDropdownOpen && (
-                    <div className="nav-user-dropdown-menu">
-                      <div className="nav-user-dropdown-header">
-                        <div className="nav-user-dropdown-fullname">{user.name}</div>
-                        <div className="nav-user-dropdown-id">{user.email || user.phone}</div>
-                        <div className="nav-user-dropdown-verified">
-                          <CheckCircle2 size={12} />
-                          <span>Verified Travel Club Member</span>
+                {/* 1-Time Best Experience Hint Popover */}
+                {showExperienceHint && (
+                  <div className="nav-exp-hint-popover" role="tooltip" aria-live="polite">
+                    <div className="nav-exp-hint-arrow" />
+                    <div className="nav-exp-hint-content">
+                      <div className="nav-exp-hint-header">
+                        <div className="nav-exp-hint-badge">
+                          <Sparkles size={13} style={{ color: '#FF892F' }} />
+                          <span>Pro Tip for Travelers</span>
                         </div>
+                        <button
+                          type="button"
+                          className="nav-exp-hint-close"
+                          onClick={dismissExperienceHint}
+                          aria-label="Dismiss tip"
+                        >
+                          <X size={13} />
+                        </button>
                       </div>
 
-                      <button
-                        type="button"
-                        className="nav-user-dropdown-item"
-                        onClick={() => {
-                          setUserDropdownOpen(false);
-                          setIsWishlistOpen(true);
-                        }}
-                      >
-                        <Heart size={14} color="#FF892F" />
-                        <span>Saved Dreamboard ({wishlist.length})</span>
-                      </button>
+                      <div className="nav-exp-hint-body">
+                        <div className="nav-exp-hint-row">
+                          <span className="nav-exp-hint-icon">🌓</span>
+                          <div className="nav-exp-hint-text">
+                            <strong>Daylight / Dark Mode:</strong> Matches your device automatically. Tap ☀️/🌙 to switch anytime!
+                          </div>
+                        </div>
+                        {!user && (
+                          <div className="nav-exp-hint-row">
+                            <span className="nav-exp-hint-icon">✨</span>
+                            <div className="nav-exp-hint-text">
+                              <strong>Member Perks:</strong> Sign in to auto-fill booking forms and save dream vacations.
+                            </div>
+                          </div>
+                        )}
+                      </div>
 
-                      <button
-                        type="button"
-                        className="nav-user-dropdown-item"
-                        onClick={() => {
-                          setUserDropdownOpen(false);
-                          onOpenQuote();
-                        }}
-                      >
-                        <Sparkles size={14} color="#6FE6FC" />
-                        <span>Request Custom Trip</span>
-                      </button>
-
-                      <button
-                        type="button"
-                        className="nav-user-dropdown-item nav-user-dropdown-signout"
-                        onClick={() => {
-                          setUserDropdownOpen(false);
-                          signOut();
-                        }}
-                      >
-                        <LogOut size={14} />
-                        <span>Sign Out</span>
-                      </button>
+                      <div className="nav-exp-hint-actions">
+                        {!user && (
+                          <button
+                            type="button"
+                            className="nav-exp-hint-cta-btn"
+                            onClick={() => {
+                              dismissExperienceHint();
+                              openAuthModal();
+                            }}
+                          >
+                            Sign In
+                          </button>
+                        )}
+                        <button
+                          type="button"
+                          className="nav-exp-hint-gotit-btn"
+                          onClick={dismissExperienceHint}
+                        >
+                          Got it
+                        </button>
+                      </div>
                     </div>
-                  )}
-                </div>
-              ) : (
-                <button
-                  type="button"
-                  className="nav-sign-in-btn"
-                  onClick={() => openAuthModal()}
-                  title="Sign in with Google, Microsoft, Apple, or Mobile"
-                >
-                  <User size={15} className="nav-sign-in-icon" />
-                  <span>Sign In</span>
-                </button>
-              )}
+                  </div>
+                )}
+              </div>
 
               {/* Universal Menu Hamburger Toggle */}
               <button 
@@ -2190,6 +2289,189 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           cursor: pointer;
           white-space: nowrap;
           flex-shrink: 0;
+        }
+
+        /* ── 1-Time Best Experience Hint Popover ── */
+        .nav-controls-cluster {
+          position: relative;
+          display: flex;
+          align-items: center;
+          gap: 0.35rem;
+        }
+
+        .nav-exp-hint-popover {
+          position: absolute;
+          top: calc(100% + 14px);
+          right: 0;
+          width: 310px;
+          border-radius: 16px;
+          z-index: 10000;
+          animation: popInHint 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          filter: drop-shadow(0 16px 36px rgba(0, 0, 0, 0.28));
+        }
+
+        @keyframes popInHint {
+          from { opacity: 0; transform: translateY(-8px) scale(0.96); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .nav-exp-hint-arrow {
+          position: absolute;
+          top: -7px;
+          right: 48px;
+          width: 14px;
+          height: 14px;
+          transform: rotate(45deg);
+        }
+
+        .nav-exp-hint-content {
+          position: relative;
+          padding: 1rem 1.15rem;
+          border-radius: 16px;
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+        }
+
+        /* Dark Theme Popover */
+        [data-theme="dark"] .nav-exp-hint-arrow {
+          background: #001D51;
+          border-left: 1.5px solid rgba(255, 137, 47, 0.7);
+          border-top: 1.5px solid rgba(255, 137, 47, 0.7);
+        }
+        [data-theme="dark"] .nav-exp-hint-content {
+          background: #001D51;
+          border: 1.5px solid rgba(255, 137, 47, 0.7);
+          color: #F9FBE7;
+          box-shadow: 0 0 25px rgba(255, 137, 47, 0.22);
+        }
+
+        /* Light Theme Popover */
+        :root:not([data-theme="dark"]) .nav-exp-hint-arrow,
+        [data-theme="light"] .nav-exp-hint-arrow {
+          background: #FFFFFF;
+          border-left: 1.5px solid #FF892F;
+          border-top: 1.5px solid #FF892F;
+        }
+        :root:not([data-theme="dark"]) .nav-exp-hint-content,
+        [data-theme="light"] .nav-exp-hint-content {
+          background: #FFFFFF;
+          border: 1.5px solid #FF892F;
+          color: #14264A;
+          box-shadow: 0 16px 36px rgba(255, 137, 47, 0.18), 0 4px 16px rgba(20, 38, 74, 0.08);
+        }
+
+        .nav-exp-hint-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .nav-exp-hint-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          font-size: 0.76rem;
+          font-weight: 800;
+          color: #FF892F;
+          letter-spacing: 0.3px;
+        }
+
+        .nav-exp-hint-close {
+          background: transparent;
+          border: none;
+          color: var(--color-text-muted, #64748B);
+          cursor: pointer;
+          padding: 2px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          transition: all 0.15s ease;
+        }
+        .nav-exp-hint-close:hover {
+          color: #FF892F;
+          background: rgba(255, 137, 47, 0.12);
+        }
+
+        .nav-exp-hint-body {
+          display: flex;
+          flex-direction: column;
+          gap: 0.6rem;
+        }
+
+        .nav-exp-hint-row {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.55rem;
+          font-size: 0.79rem;
+          line-height: 1.4;
+        }
+
+        .nav-exp-hint-icon {
+          font-size: 0.95rem;
+          line-height: 1.2;
+          flex-shrink: 0;
+        }
+
+        .nav-exp-hint-text strong {
+          color: #FF892F;
+        }
+
+        .nav-exp-hint-actions {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          gap: 0.5rem;
+          margin-top: 0.2rem;
+          padding-top: 0.55rem;
+          border-top: 1px solid rgba(125, 125, 125, 0.15);
+        }
+
+        .nav-exp-hint-cta-btn {
+          background: linear-gradient(135deg, #FF892F, #E66F12);
+          border: none;
+          color: #FFFFFF !important;
+          font-family: var(--font-ui);
+          font-size: 0.76rem;
+          font-weight: 800;
+          padding: 0.35rem 0.75rem;
+          border-radius: 7px;
+          cursor: pointer;
+          transition: all 0.15s ease;
+          box-shadow: 0 2px 8px rgba(255, 137, 47, 0.3);
+        }
+        .nav-exp-hint-cta-btn:hover {
+          background: linear-gradient(135deg, #FF9848, #FF6B00);
+          transform: translateY(-1px);
+        }
+
+        .nav-exp-hint-gotit-btn {
+          background: rgba(125, 125, 125, 0.12);
+          border: 1px solid rgba(125, 125, 125, 0.2);
+          color: var(--color-text, #14264A);
+          font-family: var(--font-ui);
+          font-size: 0.76rem;
+          font-weight: 700;
+          padding: 0.35rem 0.65rem;
+          border-radius: 7px;
+          cursor: pointer;
+          transition: all 0.15s ease;
+        }
+        .nav-exp-hint-gotit-btn:hover {
+          background: rgba(255, 137, 47, 0.15);
+          border-color: #FF892F;
+          color: #FF892F;
+        }
+
+        @media (max-width: 640px) {
+          .nav-exp-hint-popover {
+            width: 280px;
+            right: -40px;
+          }
+          .nav-exp-hint-arrow {
+            right: 80px;
+          }
         }
       `}</style>
     </>
