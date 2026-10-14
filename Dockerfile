@@ -11,7 +11,7 @@ WORKDIR /app
 
 # Cache package dependencies
 COPY package*.json ./
-RUN npm ci --prefer-offline --no-audit
+RUN npm install --no-audit
 
 # Copy full application source code
 COPY . .
