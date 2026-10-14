@@ -12,6 +12,7 @@ dist/
 .env.test.local
 .env.production.local
 !.env.example
+!.env.docker.example
 
 # Private Keys & Certificates
 *.pem

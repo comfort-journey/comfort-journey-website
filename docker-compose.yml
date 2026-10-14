@@ -1,0 +1,150 @@
+version: '3.8'
+
+# ==============================================================================
+# Comfort Journey - Production Docker Services Orchestration
+# Stack:
+#   1. Frontend: Multi-stage Docker Nginx (Vite SPA + SSG + /cms Reverse Proxy)
+#   2. Directus: Docker Node.js Headless CMS v10.13.1
+#   3. Cache: Docker Redis 7 Alpine
+#   4. Database: AWS RDS PostgreSQL 16 (Configured via .env)
+# ==============================================================================
+
+services:
+  # ----------------------------------------------------------------------------
+  # 1. FRONTEND WEB SERVER & REVERSE PROXY (Docker Nginx)
+  # ----------------------------------------------------------------------------
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: comfortjourney/frontend:latest
+    container_name: comfort_journey_frontend
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    depends_on:
+      - directus
+    networks:
+      - cj_network
+
+  # ----------------------------------------------------------------------------
+  # 2. HEADLESS CMS (Docker Node.js - Directus 10.13.1)
+  # ----------------------------------------------------------------------------
+  directus:
+    image: directus/directus:10.13.1
+    container_name: comfort_journey_directus
+    restart: unless-stopped
+    ports:
+      - '8055:8055'
+    environment:
+      # Directus Security Keys
+      KEY: '${DIRECTUS_KEY:-comfort-journey-secret-key-30-years-excellence}'
+      SECRET: '${DIRECTUS_SECRET:-comfort-journey-secret-token-bhopal-vip}'
+      ADMIN_EMAIL: '${ADMIN_EMAIL:-admin@comfortjourney.com}'
+      ADMIN_PASSWORD: '${ADMIN_PASSWORD:-comfort_admin_pass_1992!}'
+
+      # Database: AWS RDS PostgreSQL (or local fallback)
+      DB_CLIENT: 'pg'
+      DB_HOST: '${RDS_HOST:-database}'
+      DB_PORT: '${RDS_PORT:-5432}'
+      DB_DATABASE: '${RDS_DB_NAME:-directus_comfort_journey}'
+      DB_USER: '${RDS_USER:-directus}'
+      DB_PASSWORD: '${RDS_PASSWORD:-comfort_journey_db_password_1992}'
+      DB_SSL: '${RDS_SSL:-false}'
+
+      # High-Performance Redis Cache
+      CACHE_ENABLED: 'true'
+      CACHE_STORE: 'redis'
+      REDIS: 'redis://cache:6379'
+      CACHE_AUTO_PURGE: 'true'
+
+      # Routing & URL Configuration (/cms Endpoint on comfortjourneyy.com / comfortjourney.in)
+      PUBLIC_URL: '${PUBLIC_URL:-http://localhost/cms}'
+      ROOT_PATH: '/cms'
+      CORS_ENABLED: 'true'
+      CORS_ORIGIN: '${CORS_ORIGINS:-https://comfortjourneyy.com,https://www.comfortjourneyy.com,https://comfortjourney.in,http://localhost}'
+
+      # Media Storage (Configured for AWS S3 Mumbai ap-south-1 in production)
+      STORAGE_LOCATIONS: '${STORAGE_LOCATIONS:-local}'
+      STORAGE_LOCAL_DRIVER: 'local'
+      STORAGE_LOCAL_ROOT: './uploads'
+      
+      # AWS S3 Storage Driver Options (Activated when STORAGE_LOCATIONS=s3)
+      STORAGE_S3_DRIVER: 's3'
+      STORAGE_S3_KEY: '${AWS_ACCESS_KEY_ID:-}'
+      STORAGE_S3_SECRET: '${AWS_SECRET_ACCESS_KEY:-}'
+      STORAGE_S3_BUCKET: '${AWS_S3_BUCKET:-comfort-journey-media-storage}'
+      STORAGE_S3_REGION: '${AWS_REGION:-ap-south-1}'
+
+      # Telemetry & Security
+      TELEMETRY: 'false'
+      RATE_LIMITER_ENABLED: 'true'
+      RATE_LIMITER_POINTS: '100'
+      RATE_LIMITER_DURATION: '1'
+    volumes:
+      - directus_uploads:/directus/uploads
+      - directus_extensions:/directus/extensions
+    depends_on:
+      - cache
+    networks:
+      - cj_network
+
+  # ----------------------------------------------------------------------------
+  # 3. CACHE & SESSION STORE (Docker Redis 7 Alpine)
+  # ----------------------------------------------------------------------------
+  cache:
+    image: redis:7-alpine
+    container_name: comfort_journey_redis
+    restart: unless-stopped
+    command: redis-server --save 60 1 --loglevel warning --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    networks:
+      - cj_network
+
+  # ----------------------------------------------------------------------------
+  # 4. OPTIONAL LOCAL POSTGRES (Profile: local-dev only)
+  # In production, AWS RDS is used directly, so this container is skipped.
+  # To run locally without AWS RDS: `docker compose --profile local-dev up`
+  # ----------------------------------------------------------------------------
+  database:
+    image: postgres:16-alpine
+    container_name: comfort_journey_local_postgres
+    restart: unless-stopped
+    profiles:
+      - local-dev
+    environment:
+      POSTGRES_USER: '${RDS_USER:-directus}'
+      POSTGRES_PASSWORD: '${RDS_PASSWORD:-comfort_journey_db_password_1992}'
+      POSTGRES_DB: '${RDS_DB_NAME:-directus_comfort_journey}'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${RDS_USER:-directus} -d ${RDS_DB_NAME:-directus_comfort_journey}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cj_network
+
+# ------------------------------------------------------------------------------
+# Persistent Volumes
+# ------------------------------------------------------------------------------
+volumes:
+  directus_uploads:
+    name: comfort_journey_uploads
+  directus_extensions:
+    name: comfort_journey_extensions
+  redis_data:
+    name: comfort_journey_redis_data
+  postgres_data:
+    name: comfort_journey_postgres_data
+
+# ------------------------------------------------------------------------------
+# Shared Bridge Network
+# ------------------------------------------------------------------------------
+networks:
+  cj_network:
+    name: comfort_journey_network
+    driver: bridge

@@ -1,28 +1,17 @@
 version: '3.8'
 
-services:
-  database:
-    image: postgres:16-alpine
-    container_name: comfort_journey_postgres
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: 'directus'
-      POSTGRES_PASSWORD: 'comfort_journey_db_password_1992'
-      POSTGRES_DB: 'directus_comfort_journey'
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U directus -d directus_comfort_journey"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    networks:
-      - cj_network
+# ==============================================================================
+# Comfort Journey - CMS & Database Services (Directus 10.13.1 + Redis + AWS RDS)
+# ==============================================================================
 
+services:
   cache:
     image: redis:7-alpine
     container_name: comfort_journey_redis
     restart: unless-stopped
+    command: redis-server --save 60 1 --loglevel warning --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
     networks:
       - cj_network
 
@@ -33,57 +22,90 @@ services:
     ports:
       - '8055:8055'
     environment:
-      KEY: 'comfort-journey-secret-key-30-years-excellence'
-      SECRET: 'comfort-journey-secret-token-bhopal-vip'
-      ADMIN_EMAIL: 'admin@comfortjourney.com'
-      ADMIN_PASSWORD: 'comfort_admin_pass_1992!'
-      
-      # Database Connection
+      # Directus Security Keys
+      KEY: '${DIRECTUS_KEY:-comfort-journey-secret-key-30-years-excellence}'
+      SECRET: '${DIRECTUS_SECRET:-comfort-journey-secret-token-bhopal-vip}'
+      ADMIN_EMAIL: '${ADMIN_EMAIL:-admin@comfortjourney.com}'
+      ADMIN_PASSWORD: '${ADMIN_PASSWORD:-comfort_admin_pass_1992!}'
+
+      # Database: AWS RDS PostgreSQL (or local fallback)
       DB_CLIENT: 'pg'
-      DB_HOST: 'database'
-      DB_PORT: '5432'
-      DB_DATABASE: 'directus_comfort_journey'
-      DB_USER: 'directus'
-      DB_PASSWORD: 'comfort_journey_db_password_1992'
-      
-      # Redis Cache
+      DB_HOST: '${RDS_HOST:-database}'
+      DB_PORT: '${RDS_PORT:-5432}'
+      DB_DATABASE: '${RDS_DB_NAME:-directus_comfort_journey}'
+      DB_USER: '${RDS_USER:-directus}'
+      DB_PASSWORD: '${RDS_PASSWORD:-comfort_journey_db_password_1992}'
+      DB_SSL: '${RDS_SSL:-false}'
+
+      # High-Performance Redis Cache
       CACHE_ENABLED: 'true'
       CACHE_STORE: 'redis'
       REDIS: 'redis://cache:6379'
-      
-      # CORS (Allow Frontend Website access)
+      CACHE_AUTO_PURGE: 'true'
+
+      # Routing & URL Configuration (/cms Endpoint on comfortjourneyy.com / comfortjourney.in)
+      PUBLIC_URL: '${PUBLIC_URL:-http://localhost/cms}'
+      ROOT_PATH: '/cms'
       CORS_ENABLED: 'true'
-      CORS_ORIGIN: 'true'
-      
-      # Public URL (Change to your AWS domain in production)
-      PUBLIC_URL: 'http://localhost:8055'
-      
-      # Media Storage (Local by default, switch to S3 on AWS)
-      STORAGE_LOCATIONS: 'local'
+      CORS_ORIGIN: '${CORS_ORIGINS:-https://comfortjourneyy.com,https://www.comfortjourneyy.com,https://comfortjourney.in,http://localhost}'
+
+      # Media Storage (Configured for AWS S3 Mumbai ap-south-1 in production)
+      STORAGE_LOCATIONS: '${STORAGE_LOCATIONS:-local}'
       STORAGE_LOCAL_DRIVER: 'local'
       STORAGE_LOCAL_ROOT: './uploads'
       
-      # AWS S3 Storage (Uncomment when deploying to AWS)
-      # STORAGE_LOCATIONS: 's3'
-      # STORAGE_S3_DRIVER: 's3'
-      # STORAGE_S3_KEY: '${AWS_ACCESS_KEY_ID}'
-      # STORAGE_S3_SECRET: '${AWS_SECRET_ACCESS_KEY}'
-      # STORAGE_S3_BUCKET: 'comfort-journey-media-storage'
-      # STORAGE_S3_REGION: 'ap-south-1'
+      # AWS S3 Storage Driver Options (Activated when STORAGE_LOCATIONS=s3)
+      STORAGE_S3_DRIVER: 's3'
+      STORAGE_S3_KEY: '${AWS_ACCESS_KEY_ID:-}'
+      STORAGE_S3_SECRET: '${AWS_SECRET_ACCESS_KEY:-}'
+      STORAGE_S3_BUCKET: '${AWS_S3_BUCKET:-comfort-journey-media-storage}'
+      STORAGE_S3_REGION: '${AWS_REGION:-ap-south-1}'
+
+      # Rate Limiter & Security
+      TELEMETRY: 'false'
+      RATE_LIMITER_ENABLED: 'true'
+      RATE_LIMITER_POINTS: '100'
+      RATE_LIMITER_DURATION: '1'
     volumes:
       - directus_uploads:/directus/uploads
       - directus_extensions:/directus/extensions
     depends_on:
-      database:
-        condition: service_healthy
+      - cache
+    networks:
+      - cj_network
+
+  # Optional local postgres fallback (Profile: local-dev only)
+  database:
+    image: postgres:16-alpine
+    container_name: comfort_journey_local_postgres
+    restart: unless-stopped
+    profiles:
+      - local-dev
+    environment:
+      POSTGRES_USER: '${RDS_USER:-directus}'
+      POSTGRES_PASSWORD: '${RDS_PASSWORD:-comfort_journey_db_password_1992}'
+      POSTGRES_DB: '${RDS_DB_NAME:-directus_comfort_journey}'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${RDS_USER:-directus} -d ${RDS_DB_NAME:-directus_comfort_journey}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - cj_network
 
 volumes:
-  postgres_data:
   directus_uploads:
+    name: comfort_journey_uploads
   directus_extensions:
+    name: comfort_journey_extensions
+  redis_data:
+    name: comfort_journey_redis_data
+  postgres_data:
+    name: comfort_journey_postgres_data
 
 networks:
   cj_network:
+    name: comfort_journey_network
     driver: bridge
