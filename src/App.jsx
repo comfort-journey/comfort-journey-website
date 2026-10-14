@@ -93,21 +93,35 @@ export default function App() {
   usePageSEO(activeSeoKey, landingSeoOverride);
 
 
-  // Hash-based URL routing: Directus Blogs, Admin CMS, About Us, Landing Pages, or Tour Details
+  // URL routing: Supports both pathname (/cms, /about, /blog) and hash-based routes (#/portal, #/ai-planner)
   useEffect(() => {
     const handleRouteChange = () => {
-      const rawHash = window.location.hash;
+      const rawHash = window.location.hash || '';
       const hash = rawHash.toLowerCase();
+      const rawPath = window.location.pathname || '/';
+      const pathname = rawPath.toLowerCase().replace(/\/+$/, '') || '/';
       
-      if (hash === '#/portal' || hash === '#portal' || hash === '#/team' || hash === '#team' || hash === '#/staff' || hash === '#staff' || hash === '#/admin' || hash === '#admin' || hash === '#/cms' || hash === '#cms') {
+      const isCmsRoute = (
+        pathname === '/cms' || pathname === '/admin' || pathname === '/portal' || pathname === '/staff' ||
+        hash === '#/portal' || hash === '#portal' || hash === '#/team' || hash === '#team' || 
+        hash === '#/staff' || hash === '#staff' || hash === '#/admin' || hash === '#admin' || 
+        hash === '#/cms' || hash === '#cms'
+      );
+
+      if (isCmsRoute) {
         setCurrentView('cms');
         setIsAdminCMSOpen(true);
         setActiveLandingPage(null);
         setActiveBlogSlug(null);
         window.scrollTo({ top: 0, behavior: 'instant' });
-      } else if (hash === '#/landing-hub' || hash === '#/all-landing-pages' || hash === '#landing-hub') {
+        seoHeadManager.updateMetadata({
+          title: "Staff & Management CMS Portal | Comfort Journey",
+          description: "Comfort Journey management portal for itineraries, blog publishing, and customer inquiries.",
+          url: pathname === '/cms' ? '/cms' : '/#/portal'
+        });
+      } else if (pathname === '/landing-hub' || hash === '#/landing-hub' || hash === '#/all-landing-pages' || hash === '#landing-hub') {
         setIsLPHubOpen(true);
-      } else if (hash === '#/ai-planner' || hash === '#ai-planner') {
+      } else if (pathname === '/ai-planner' || hash === '#/ai-planner' || hash === '#ai-planner') {
         setCurrentView('ai-planner');
         setActiveLandingPage(null);
         setActiveBlogSlug(null);
@@ -115,11 +129,13 @@ export default function App() {
         seoHeadManager.updateMetadata({
           title: "Comfy.ai Travel Planner | Plan Your Dream Vacation with AI",
           description: "Create personalized itineraries with interactive maps, real-time routing, and AI-powered suggestions. Comfort Journey (Est. 1992).",
-          url: "/#/ai-planner",
+          url: pathname === '/ai-planner' ? '/ai-planner' : '/#/ai-planner',
           type: "website"
         });
-      } else if (hash.startsWith('#/itinerary/') || hash.startsWith('#itinerary/')) {
-        const tourSlug = rawHash.replace(/^#\/?itinerary\//, '').trim();
+      } else if (pathname.startsWith('/itinerary/') || hash.startsWith('#/itinerary/') || hash.startsWith('#itinerary/')) {
+        const tourSlug = pathname.startsWith('/itinerary/') 
+          ? pathname.replace(/^\/itinerary\//, '').trim() 
+          : rawHash.replace(/^#\/?itinerary\//, '').trim();
         setCurrentView('itinerary');
         setActiveLandingPage(null);
         setActiveBlogSlug(null);
@@ -127,15 +143,15 @@ export default function App() {
         seoHeadManager.updateMetadata({
           title: "Detailed Tour Itinerary | Comfort Journey",
           description: "Explore the comprehensive day-by-day luxury travel plan, route maps, hotel stays, and inclusions curated by Comfort Journey.",
-          url: `/#/itinerary/${tourSlug}`,
+          url: `/itinerary/${tourSlug}`,
           type: "website"
         });
-      } else if (hash === '#/about' || hash === '#/who-we-are' || hash === '#/about-us' || hash === '#about') {
+      } else if (pathname === '/about' || pathname === '/about-us' || pathname === '/who-we-are' || hash === '#/about' || hash === '#/who-we-are' || hash === '#/about-us' || hash === '#about') {
         setCurrentView('about');
         setActiveLandingPage(null);
         setActiveBlogSlug(null);
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (hash === '#/blog' || hash === '#/blogs' || hash === '#blog' || hash === '#blogs') {
+      } else if (pathname === '/blog' || pathname === '/blogs' || hash === '#/blog' || hash === '#/blogs' || hash === '#blog' || hash === '#blogs') {
         setCurrentView('magazine');
         setActiveLandingPage(null);
         setActiveBlogSlug(null);
@@ -143,17 +159,21 @@ export default function App() {
         seoHeadManager.updateMetadata({
           title: "Travel Blogs & Luxury Guides | Comfort Journey",
           description: "Explore handcrafted destination guides, luxury stay reviews, and honeymoon tips curated by Comfort Journey since 1992.",
-          url: "/#/blog",
+          url: pathname === '/blog' ? '/blog' : '/#/blog',
           type: "website"
         });
-      } else if (hash.startsWith('#/blog/') || hash.startsWith('#blog/')) {
-        const slug = rawHash.replace(/^#\/?blog\//, '').trim();
+      } else if (pathname.startsWith('/blog/') || hash.startsWith('#/blog/') || hash.startsWith('#blog/')) {
+        const slug = pathname.startsWith('/blog/') 
+          ? pathname.replace(/^\/blog\//, '').trim() 
+          : rawHash.replace(/^#\/?blog\//, '').trim();
         setActiveBlogSlug(slug);
         setCurrentView('blog-reader');
         setActiveLandingPage(null);
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (hash.startsWith('#/tour/') || hash.startsWith('#tour/') || hash.startsWith('#/package/')) {
-        const tourSlug = rawHash.replace(/^#\/?(tour|package)\//, '').trim();
+      } else if (pathname.startsWith('/tour/') || pathname.startsWith('/package/') || hash.startsWith('#/tour/') || hash.startsWith('#tour/') || hash.startsWith('#/package/')) {
+        const tourSlug = (pathname.startsWith('/tour/') || pathname.startsWith('/package/'))
+          ? pathname.replace(/^\/(tour|package)\//, '').trim()
+          : rawHash.replace(/^#\/?(tour|package)\//, '').trim();
         window.location.hash = '#/itinerary/' + tourSlug;
         setCurrentView('itinerary');
         setActiveLandingPage(null);
@@ -162,8 +182,9 @@ export default function App() {
       } else if (hash === '#/privacy-policy' || hash === '#privacy-policy') {
         setPolicyModalType('privacy');
       } else {
-        // Check if hash matches any of our 15 dedicated Campaign Landing Pages
-        const matchedPage = getLandingPageBySlug(hash);
+        // Check if pathname or hash matches any of our 15 dedicated Campaign Landing Pages
+        const lookupKey = hash || (pathname !== '/' ? '#' + pathname : '');
+        const matchedPage = getLandingPageBySlug(lookupKey);
         if (matchedPage) {
           setActiveLandingPage(matchedPage);
           setCurrentView('landing');
@@ -183,8 +204,9 @@ export default function App() {
 
     // Check on mount (direct URL navigation or ad click)
     handleRouteChange();
-    // Listen for hash changes (in-app navigation)
+    // Listen for hash and browser navigation changes
     window.addEventListener('hashchange', handleRouteChange);
+    window.addEventListener('popstate', handleRouteChange);
 
     // Global listener for opening policy modal from legal consent links across forms
     const handleOpenPolicyModal = (e) => {
@@ -203,6 +225,7 @@ export default function App() {
 
     return () => {
       window.removeEventListener('hashchange', handleRouteChange);
+      window.removeEventListener('popstate', handleRouteChange);
       window.removeEventListener('open-policy-modal', handleOpenPolicyModal);
       window.removeEventListener('keydown', handleKeyDown);
     };
@@ -223,7 +246,7 @@ export default function App() {
   const navigateToHome = () => {
     window.location.hash = '';
     try {
-      history.pushState(null, '', window.location.pathname);
+      history.pushState(null, '', '/');
     } catch (e) {}
     setCurrentView('home');
     setActiveLandingPage(null);
@@ -502,8 +525,12 @@ pageData={activeLandingPage}
             isOpen={isAdminCMSOpen}
             onClose={() => {
               setIsAdminCMSOpen(false);
-              // Clear the #admin hash from URL on close
-              if (window.location.hash.toLowerCase().includes('admin') || window.location.hash.toLowerCase().includes('portal')) {
+              // Clear the /cms, /admin, or /portal pathname/hash from URL on close
+              const path = window.location.pathname.toLowerCase();
+              const hash = window.location.hash.toLowerCase();
+              if (path.includes('cms') || path.includes('admin') || path.includes('portal')) {
+                history.replaceState(null, '', '/');
+              } else if (hash.includes('admin') || hash.includes('portal') || hash.includes('cms')) {
                 history.replaceState(null, '', window.location.pathname);
               }
             }}
