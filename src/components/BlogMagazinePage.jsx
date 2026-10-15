@@ -226,13 +226,13 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
           background: #000B1D;
           color: var(--cj-text-heading);
           font-family: var(--font-body);
+          padding-top: clamp(85px, 12vh, 105px);
           padding-bottom: 5rem;
         }
 
         .blog-top-bar {
-          position: sticky;
-          top: 0;
-          z-index: 90;
+          position: relative;
+          z-index: 10;
           background: rgba(0, 18, 51, 0.88);
           backdrop-filter: blur(16px);
           border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -297,37 +297,54 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
 
         /* Hero Header */
         .blog-hero-header {
-          padding: 3.5rem 0 2.5rem 0;
+          padding: 3rem 0 2.5rem 0;
           background: radial-gradient(circle at 50% 20%, rgba(0, 29, 81, 0.6) 0%, rgba(0, 11, 29, 0.95) 80%);
           border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+          text-align: center;
+        }
+
+        .blog-hero-header .container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
         }
 
         .blog-kicker {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.35rem;
           font-size: 0.78rem;
           font-weight: 800;
           color: #FF892F;
           letter-spacing: 0.12em;
-          margin-bottom: 0.65rem;
+          margin: 0 auto 0.75rem auto;
+          text-align: center;
         }
 
         .blog-main-title {
-          font-size: 3rem;
+          font-size: clamp(2rem, 5vw, 3.1rem);
           font-weight: 900;
           color: var(--cj-text-heading);
-          margin: 0 0 0.85rem 0;
-          line-height: 1.15;
+          margin: 0 auto 0.85rem auto;
+          line-height: 1.2;
+          text-align: center;
+          max-width: 900px;
         }
 
         .blog-main-subline {
-          font-size: 1.1rem;
+          font-size: clamp(0.95rem, 2vw, 1.1rem);
           color: var(--cj-text-muted);
-          max-width: 680px;
+          max-width: 720px;
           margin: 0 auto 2rem auto;
           line-height: 1.6;
+          text-align: center;
         }
 
         .blog-search-wrapper {
           max-width: 600px;
+          width: 100%;
           margin: 0 auto 1.5rem auto;
           position: relative;
           display: flex;
@@ -905,6 +922,24 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
         }
         [data-theme="dark"] .blog-main-subline {
           color: #94A3B8 !important;
+        }
+
+        @media (max-width: 768px) {
+          .blog-magazine-root {
+            padding-top: 115px;
+          }
+          .blog-hero-header {
+            padding: 2rem 0 1.5rem 0;
+          }
+          .featured-story-card {
+            grid-template-columns: 1fr;
+          }
+          .featured-media {
+            min-height: 240px;
+          }
+          .featured-body {
+            padding: 1.5rem 1.25rem;
+          }
         }
       `}</style>
     </div>

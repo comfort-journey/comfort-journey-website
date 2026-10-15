@@ -817,9 +817,8 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
 
             {/* Categorized Specialty Landing Pages Accordions */}
             <div className="drawer-nav-section">
-              <div className="drawer-section-heading flex-between">
-                <span>EXPLORE SPECIALTY PACKAGES (15)</span>
-                <span className="drawer-curated-badge">Instant Access</span>
+              <div className="drawer-section-heading">
+                <span>EXPLORE SPECIALTY PACKAGES</span>
               </div>
 
               <div className="landing-accordions-container">
@@ -843,8 +842,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
                           </div>
                         </div>
                         <div className="accordion-meta-wrap">
-                          <span className="accordion-badge-pill">{cat.badge}</span>
-                          <ChevronDown size={16} className={`accordion-arrow ${isOpen ? 'rotate-180' : ''}`} />
+                          <ChevronDown size={18} className={`accordion-arrow ${isOpen ? 'rotate-180' : ''}`} />
                         </div>
                       </button>
 

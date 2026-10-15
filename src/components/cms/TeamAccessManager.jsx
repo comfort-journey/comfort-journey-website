@@ -744,6 +744,155 @@ export default function TeamAccessManager({ currentUser, showToast }) {
           color: #EF4444;
           border-color: #EF4444;
         }
+
+        /* ══════════════════════════════════════════════════════
+           LIGHT STUDIO OVERRIDES (High Contrast for Employees & Admin)
+           ══════════════════════════════════════════════════════ */
+        .cms-theme-light .team-access-hero-card,
+        [data-cms-theme="light"] .team-access-hero-card {
+          background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%) !important;
+          border: 1.5px solid #CBD5E1 !important;
+          box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05) !important;
+        }
+
+        .cms-theme-light .hero-text-col h3,
+        [data-cms-theme="light"] .hero-text-col h3 {
+          color: #0F172A !important;
+        }
+
+        .cms-theme-light .hero-text-col p,
+        [data-cms-theme="light"] .hero-text-col p {
+          color: #334155 !important;
+          font-weight: 500 !important;
+        }
+
+        .cms-theme-light .team-users-table-card,
+        [data-cms-theme="light"] .team-users-table-card {
+          background: #FFFFFF !important;
+          border: 1.5px solid #CBD5E1 !important;
+          box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05) !important;
+        }
+
+        .cms-theme-light .table-header-row,
+        [data-cms-theme="light"] .table-header-row {
+          background: #F8FAFC !important;
+          border-bottom: 1.5px solid #CBD5E1 !important;
+        }
+
+        .cms-theme-light .table-title,
+        [data-cms-theme="light"] .table-title {
+          color: #0F172A !important;
+          font-weight: 800 !important;
+        }
+
+        .cms-theme-light .table-hint,
+        [data-cms-theme="light"] .table-hint {
+          color: #475569 !important;
+          font-weight: 600 !important;
+        }
+
+        .cms-theme-light .users-table th,
+        [data-cms-theme="light"] .users-table th {
+          background: #F1F5F9 !important;
+          color: #0F172A !important;
+          font-weight: 800 !important;
+          border-bottom: 2px solid #CBD5E1 !important;
+        }
+
+        .cms-theme-light .users-table td,
+        [data-cms-theme="light"] .users-table td {
+          background: #FFFFFF !important;
+          color: #0F172A !important;
+          font-weight: 500 !important;
+          border-bottom: 1px solid #E2E8F0 !important;
+        }
+
+        .cms-theme-light .user-row:hover td,
+        [data-cms-theme="light"] .user-row:hover td {
+          background: #F8FAFC !important;
+        }
+
+        .cms-theme-light .user-display-name,
+        [data-cms-theme="light"] .user-display-name {
+          color: #0F172A !important;
+          font-weight: 800 !important;
+        }
+
+        .cms-theme-light .user-email-addr,
+        [data-cms-theme="light"] .user-email-addr {
+          color: #475569 !important;
+          font-weight: 600 !important;
+        }
+
+        .cms-theme-light .password-text,
+        [data-cms-theme="light"] .password-text {
+          color: #0F172A !important;
+          font-weight: 700 !important;
+        }
+
+        .cms-theme-light .btn-peek-pass,
+        [data-cms-theme="light"] .btn-peek-pass {
+          color: #475569 !important;
+        }
+
+        .cms-theme-light .btn-peek-pass:hover,
+        [data-cms-theme="light"] .btn-peek-pass:hover {
+          color: #0F172A !important;
+        }
+
+        .cms-theme-light .perm-full,
+        [data-cms-theme="light"] .perm-full {
+          background: #FEF3C7 !important;
+          border: 1px solid #FCD34D !important;
+          color: #92400E !important;
+          font-weight: 700 !important;
+        }
+
+        .cms-theme-light .perm-limited,
+        [data-cms-theme="light"] .perm-limited {
+          background: #F1F5F9 !important;
+          border: 1px solid #CBD5E1 !important;
+          color: #334155 !important;
+          font-weight: 700 !important;
+        }
+
+        .cms-theme-light .team-add-form-card,
+        [data-cms-theme="light"] .team-add-form-card {
+          background: #FFFFFF !important;
+          border: 1.5px solid #CBD5E1 !important;
+          box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05) !important;
+        }
+
+        .cms-theme-light .team-add-form-card h4,
+        [data-cms-theme="light"] .team-add-form-card h4 {
+          color: #0F172A !important;
+        }
+
+        .cms-theme-light .form-helper,
+        [data-cms-theme="light"] .form-helper {
+          color: #475569 !important;
+        }
+
+        .cms-theme-light .form-group label,
+        [data-cms-theme="light"] .form-group label {
+          color: #0F172A !important;
+          font-weight: 700 !important;
+        }
+
+        .cms-theme-light .form-group input,
+        .cms-theme-light .form-group select,
+        [data-cms-theme="light"] .form-group input,
+        [data-cms-theme="light"] .form-group select {
+          background: #FFFFFF !important;
+          border: 1.5px solid #CBD5E1 !important;
+          color: #0F172A !important;
+        }
+
+        .cms-theme-light .btn-action-delete,
+        [data-cms-theme="light"] .btn-action-delete {
+          border-color: #CBD5E1 !important;
+          color: #64748B !important;
+        }
       `}</style>
     </div>
   );

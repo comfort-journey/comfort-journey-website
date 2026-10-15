@@ -8,7 +8,14 @@ import { TOURS_DATA } from '../data/toursData';
 import { BLOGS_DATA, getBlogBySlug } from '../data/blogsData';
 export { resolveDestinationImage, isWixOrLegacyUrl } from '../utils/destinationImageResolver';
 
-const DEFAULT_DIRECTUS_URL = import.meta.env.VITE_DIRECTUS_URL || 'http://localhost:8055';
+// Helper to determine if we are running in local dev environment
+export function isLocalDevEnv() {
+  if (typeof window === 'undefined') return false;
+  const host = window.location.hostname;
+  return host === 'localhost' || host === '127.0.0.1' || host.startsWith('192.168.') || host.startsWith('10.');
+}
+
+const DEFAULT_DIRECTUS_URL = import.meta.env.VITE_DIRECTUS_URL || (isLocalDevEnv() ? 'http://localhost:8055' : '');
 const STORAGE_KEY_URL = 'cj_directus_url';
 const STORAGE_KEY_TOKEN = 'cj_directus_token';
 const STORAGE_KEY_LOCAL_BLOGS = 'cj_custom_blogs_dataset';
@@ -230,7 +237,13 @@ export function transformWixTourRow(wixRow) {
 export const directusService = {
   // Get active Directus base URL
   getBaseUrl() {
-    return localStorage.getItem(STORAGE_KEY_URL) || DEFAULT_DIRECTUS_URL;
+    const custom = localStorage.getItem(STORAGE_KEY_URL);
+    if (custom) return custom;
+    if (!isLocalDevEnv()) {
+      const envUrl = import.meta.env.VITE_DIRECTUS_URL;
+      return (envUrl && !envUrl.includes('localhost') && !envUrl.includes('127.0.0.1')) ? envUrl : '';
+    }
+    return DEFAULT_DIRECTUS_URL;
   },
 
   // Set active Directus base URL (e.g. when pointing from localhost to AWS)
@@ -259,6 +272,9 @@ export const directusService = {
   // Ping Directus Server Health
   async checkHealth() {
     const url = this.getBaseUrl();
+    if (!url || (!isLocalDevEnv() && (url.includes('localhost') || url.includes('127.0.0.1')))) {
+      return { isOnline: false, message: 'Static Content Active', url: '' };
+    }
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 2500);
@@ -280,6 +296,11 @@ export const directusService = {
   async fetchBlogs() {
     const url = this.getBaseUrl();
     const token = this.getToken();
+
+    if (!url || (!isLocalDevEnv() && (url.includes('localhost') || url.includes('127.0.0.1')))) {
+      const localCustomBlogs = this.getLocalCustomBlogs();
+      return [...localCustomBlogs, ...BLOGS_DATA];
+    }
 
     try {
       const controller = new AbortController();
@@ -316,6 +337,12 @@ export const directusService = {
 
     const url = this.getBaseUrl();
     const token = this.getToken();
+
+    if (!url || (!isLocalDevEnv() && (url.includes('localhost') || url.includes('127.0.0.1')))) {
+      const localCustom = this.getLocalCustomBlogs().find(b => b.slug.toLowerCase() === cleanSlug);
+      if (localCustom) return localCustom;
+      return getBlogBySlug(cleanSlug);
+    }
 
     try {
       const controller = new AbortController();
@@ -426,6 +453,11 @@ export const directusService = {
   async fetchTourPackages() {
     const url = this.getBaseUrl();
     const token = this.getToken();
+
+    if (!url || (!isLocalDevEnv() && (url.includes('localhost') || url.includes('127.0.0.1')))) {
+      const localCustomTours = this.getLocalCustomTours();
+      return [...localCustomTours, ...TOURS_DATA];
+    }
 
     try {
       const controller = new AbortController();

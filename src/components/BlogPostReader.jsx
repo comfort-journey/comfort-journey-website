@@ -372,13 +372,13 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
           background: #000B1D;
           color: var(--cj-text-heading);
           font-family: var(--font-body);
+          padding-top: clamp(85px, 12vh, 105px);
           padding-bottom: 5rem;
         }
 
         .reader-top-bar {
-          position: sticky;
-          top: 0;
-          z-index: 90;
+          position: relative;
+          z-index: 10;
           background: rgba(0, 18, 51, 0.9);
           backdrop-filter: blur(16px);
           border-bottom: 1px solid rgba(255, 255, 255, 0.08);

@@ -349,7 +349,14 @@ export default function Footer({
               <div className="deck-contact-list">
                 <div className="deck-contact-item">
                   <MapPin size={17} className="contact-icon text-amber" />
-                  <span>Shop no 2, Phase 5, Ankur Complex, 6 Number Bus Stop, Shivaji Nagar, Bhopal, MP 462016</span>
+                  <div className="deck-address-stack">
+                    <div className="deck-address-line">
+                      <strong className="deck-branch-tag">Office 1:</strong> Shop no 2, Phase 5, Ankur Complex, 6 Number Bus Stop, Shivaji Nagar, Bhopal, MP 462016
+                    </div>
+                    <div className="deck-address-line" style={{ marginTop: '0.45rem' }}>
+                      <strong className="deck-branch-tag">Office 2:</strong> Unit no. 406-A(16) at 4th floor, Aakriti Business Centre, Aakriti Eco City, Bhopal
+                    </div>
+                  </div>
                 </div>
 
                 <div className="deck-contact-item">
@@ -1120,6 +1127,17 @@ export default function Footer({
           font-size: 0.88rem;
           color: #CBD5E1;
           line-height: 1.45;
+        }
+
+        .deck-address-stack {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .deck-branch-tag {
+          color: #FFD166;
+          font-weight: 700;
+          margin-right: 0.25rem;
         }
 
         .contact-icon {

@@ -801,11 +801,15 @@ img, svg {
   to { transform: translateY(0) scale(1); opacity: 1; }
 }
 
-/* Container */
+/* Container & Align Utilities */
 .container {
   max-width: 1360px;
   margin: 0 auto;
   padding: 0 1.5rem;
+}
+
+.text-center {
+  text-align: center !important;
 }
 
 /* Custom Scrollbars */
@@ -896,6 +900,7 @@ img, svg {
   .modal-overlay {
     padding: 0;
     align-items: flex-end;
+    z-index: 100005;
   }
   .modal-content {
     max-height: 92vh;

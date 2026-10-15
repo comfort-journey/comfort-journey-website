@@ -30,6 +30,7 @@ import DataHubManager from './cms/DataHubManager';
 import SiteCustomizer from './cms/SiteCustomizer';
 import LeadsInquiriesManager from './cms/LeadsInquiriesManager';
 import TeamAccessManager, { getAuthorizedUsers } from './cms/TeamAccessManager';
+import { triggerGoogleSignInPrompt, getGoogleClientId } from '../utils/googleAuthHelper';
 import './cms/ContentStudio.css';
 
 // ═══════════════════════════════════════════════════════════════════
@@ -91,18 +92,93 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
   };
 
   // Single-Click Google SSO for Staff & Admin
-  const handleStaffGoogleSSO = () => {
+  const handleStaffGoogleSSO = async () => {
     setAuthError('');
+    try {
+      const clientId = getGoogleClientId();
+      if (clientId && clientId.includes('.apps.googleusercontent.com')) {
+        showToast('Connecting with Google...');
+        const info = await triggerGoogleSignInPrompt();
+        if (info?.email) {
+          const staffEmail = info.email.toLowerCase();
+          const allUsers = getAuthorizedUsers();
+          let userMatch = allUsers.find(u => u.email.toLowerCase() === staffEmail);
+
+          if (!userMatch) {
+            const isSuper = staffEmail.includes('admin') || staffEmail.includes('1992') || staffEmail.includes('sharad') || staffEmail.includes('rishabh');
+            userMatch = {
+              id: `user-${Date.now()}`,
+              name: info.name || staffEmail.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+              email: staffEmail,
+              role: isSuper ? 'SUPER_ADMIN' : 'CONTENT_EDITOR',
+              status: 'ACTIVE'
+            };
+            try {
+              const updated = [...allUsers, userMatch];
+              localStorage.setItem('cj_authorized_users', JSON.stringify(updated));
+            } catch (e) {}
+          }
+
+          if (userMatch.status === 'REVOKED') {
+            setAuthError('❌ Access for this employee has been REVOKED by the administrator.');
+            return;
+          }
+
+          const sessionUser = {
+            id: userMatch.id || `staff-g-${Date.now()}`,
+            name: userMatch.name,
+            email: userMatch.email,
+            role: userMatch.role,
+            provider: 'google'
+          };
+
+          sessionStorage.setItem('cj_cms_session_user', JSON.stringify(sessionUser));
+          setCurrentUser(sessionUser);
+          setIsAuthenticated(true);
+          showToast(`✅ Welcome, ${sessionUser.name}! Signed in via Google SSO.`);
+          return;
+        }
+      }
+    } catch (err) {
+      if (!err.message?.includes('closed') && !err.message?.includes('cancel') && err.message !== 'NO_ACCESS_TOKEN') {
+        console.warn('[Staff Google SSO] Popup cancelled or failed, checking email field:', err.message);
+      }
+    }
+
     const inputClean = emailInput.trim().toLowerCase();
-    const staffEmail = inputClean && inputClean.includes('@') ? inputClean : 'admin@comfortjourney.in';
-    const isSuper = staffEmail.includes('admin') || staffEmail.includes('1992') || staffEmail.includes('sharad') || staffEmail.includes('rishabh');
-    const staffName = staffEmail.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+    if (!inputClean || !inputClean.includes('@')) {
+      setAuthError('👉 Please click "Continue with Google" to select your account or enter your company email below.');
+      return;
+    }
+    const staffEmail = inputClean;
+    const allUsers = getAuthorizedUsers();
+    let userMatch = allUsers.find(u => u.email.toLowerCase() === staffEmail);
+
+    if (!userMatch) {
+      const isSuper = staffEmail.includes('admin') || staffEmail.includes('1992') || staffEmail.includes('sharad') || staffEmail.includes('rishabh');
+      userMatch = {
+        id: `user-${Date.now()}`,
+        name: staffEmail.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+        email: staffEmail,
+        role: isSuper ? 'SUPER_ADMIN' : 'CONTENT_EDITOR',
+        status: 'ACTIVE'
+      };
+      try {
+        const updated = [...allUsers, userMatch];
+        localStorage.setItem('cj_authorized_users', JSON.stringify(updated));
+      } catch (e) {}
+    }
+
+    if (userMatch.status === 'REVOKED') {
+      setAuthError('❌ Access for this employee has been REVOKED by the administrator.');
+      return;
+    }
 
     const sessionUser = {
-      id: `staff-g-${Date.now()}`,
-      name: staffName,
-      email: staffEmail,
-      role: isSuper ? 'SUPER_ADMIN' : 'CONTENT_EDITOR',
+      id: userMatch.id || `staff-g-${Date.now()}`,
+      name: userMatch.name,
+      email: userMatch.email,
+      role: userMatch.role,
       provider: 'google'
     };
 
@@ -116,15 +192,39 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
   const handleStaffMicrosoftSSO = () => {
     setAuthError('');
     const inputClean = emailInput.trim().toLowerCase();
-    const staffEmail = inputClean && inputClean.includes('@') ? inputClean : 'operations@comfortjourney.in';
-    const isSuper = staffEmail.includes('admin') || staffEmail.includes('1992') || staffEmail.includes('sharad') || staffEmail.includes('rishabh');
-    const staffName = staffEmail.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+    if (!inputClean || !inputClean.includes('@')) {
+      setAuthError('👉 Please enter your Outlook / Microsoft 365 email below to sign in via Microsoft SSO.');
+      return;
+    }
+    const staffEmail = inputClean;
+    const allUsers = getAuthorizedUsers();
+    let userMatch = allUsers.find(u => u.email.toLowerCase() === staffEmail);
+
+    if (!userMatch) {
+      const isSuper = staffEmail.includes('admin') || staffEmail.includes('1992') || staffEmail.includes('sharad') || staffEmail.includes('rishabh');
+      userMatch = {
+        id: `user-${Date.now()}`,
+        name: staffEmail.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+        email: staffEmail,
+        role: isSuper ? 'SUPER_ADMIN' : 'CONTENT_EDITOR',
+        status: 'ACTIVE'
+      };
+      try {
+        const updated = [...allUsers, userMatch];
+        localStorage.setItem('cj_authorized_users', JSON.stringify(updated));
+      } catch (e) {}
+    }
+
+    if (userMatch.status === 'REVOKED') {
+      setAuthError('❌ Access for this employee has been REVOKED by the administrator.');
+      return;
+    }
 
     const sessionUser = {
-      id: `staff-ms-${Date.now()}`,
-      name: staffName,
-      email: staffEmail,
-      role: isSuper ? 'SUPER_ADMIN' : 'CONTENT_EDITOR',
+      id: userMatch.id || `staff-ms-${Date.now()}`,
+      name: userMatch.name,
+      email: userMatch.email,
+      role: userMatch.role,
       provider: 'microsoft'
     };
 
@@ -612,17 +712,17 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
 
         {!isAuthenticated ? (
           /* ═══ Login Screen ═══ */
-          <div className="admin-auth-box" style={{ maxWidth: '440px', margin: '2rem auto', padding: '2.5rem 2rem', background: 'var(--cms-card-bg, #0F172A)', borderRadius: '16px', border: '1px solid var(--cms-border, rgba(255, 255, 255, 0.12))', boxShadow: '0 20px 50px rgba(0,0,0,0.5)' }}>
-            <div className="lock-icon-circle" style={{ width: '60px', height: '60px', margin: '0 auto 1.25rem', borderRadius: '50%', background: 'rgba(255, 137, 47, 0.12)', border: '1px solid rgba(255, 137, 47, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Shield size={30} color="#FF892F" />
+          <div className="admin-auth-box">
+            <div className="lock-icon-circle">
+              <Shield size={32} color="#FF892F" />
             </div>
-            <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--cms-text-primary, #FFFFFF)', marginBottom: '0.4rem', textAlign: 'center' }}>Comfort Journey Staff Portal</h3>
-            <p style={{ fontSize: '0.85rem', color: 'var(--cms-text-secondary, #94A3B8)', marginBottom: '1.5rem', textAlign: 'center', lineHeight: '1.5' }}>
+            <h3 className="admin-auth-title">Comfort Journey Staff Portal</h3>
+            <p className="admin-auth-desc">
               Secure portal for Comfort Journey administrators, travel designers, and operations staff.
             </p>
 
             {/* 1-Click Fast SSO Options */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', marginBottom: '1.25rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', width: '100%', marginBottom: '1.25rem' }}>
               <button
                 type="button"
                 onClick={handleStaffGoogleSSO}
@@ -637,7 +737,7 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
                   borderRadius: '10px',
                   background: '#FFFFFF',
                   color: '#1F2937',
-                  border: '1px solid #E5E7EB',
+                  border: '1.5px solid #CBD5E1',
                   fontSize: '0.88rem',
                   fontWeight: 700,
                   cursor: 'pointer',
@@ -668,7 +768,7 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
                   borderRadius: '10px',
                   background: '#2F2F2F',
                   color: '#FFFFFF',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
                   fontSize: '0.88rem',
                   fontWeight: 700,
                   cursor: 'pointer',
@@ -686,17 +786,17 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
               </button>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', margin: '1.25rem 0' }}>
-              <div style={{ flex: 1, height: '1px', background: 'var(--cms-border, rgba(255, 255, 255, 0.15))' }} />
-              <span style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--cms-text-secondary, #94A3B8)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
+            <div className="auth-divider-row" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', width: '100%', margin: '1.25rem 0' }}>
+              <div className="auth-divider-line" style={{ flex: 1, height: '1px' }} />
+              <span className="auth-divider-text" style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                 or sign in with password
               </span>
-              <div style={{ flex: 1, height: '1px', background: 'var(--cms-border, rgba(255, 255, 255, 0.15))' }} />
+              <div className="auth-divider-line" style={{ flex: 1, height: '1px' }} />
             </div>
 
-            <form onSubmit={handleLogin} className="auth-form">
+            <form onSubmit={handleLogin} className="auth-form" style={{ width: '100%' }}>
               <div style={{ textAlign: 'left', marginBottom: '0.85rem' }}>
-                <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: 'var(--cms-text-primary, #E2E8F0)', marginBottom: '0.35rem' }}>Staff / Admin Email Address</label>
+                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, marginBottom: '0.35rem' }}>Staff / Admin Email Address</label>
                 <input
                   type="email"
                   placeholder="e.g. admin@comfortjourney.in or yourname@gmail.com"
@@ -704,28 +804,28 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
                   onChange={(e) => setEmailInput(e.target.value)}
                   autoFocus
                   required
-                  style={{ width: '100%', padding: '0.75rem 0.95rem', borderRadius: '8px', border: '1px solid var(--cms-input-border, rgba(255, 255, 255, 0.2))', background: 'var(--cms-input-bg, rgba(0, 0, 0, 0.4))', color: 'var(--cms-input-text, #FFFFFF)', fontSize: '0.9rem' }}
+                  style={{ width: '100%', padding: '0.75rem 0.95rem', borderRadius: '8px', fontSize: '0.9rem' }}
                 />
               </div>
               <div style={{ textAlign: 'left', marginBottom: '1.15rem' }}>
-                <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: 'var(--cms-text-primary, #E2E8F0)', marginBottom: '0.35rem' }}>Password / Access Key</label>
+                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, marginBottom: '0.35rem' }}>Password / Access Key</label>
                 <input
                   type="password"
                   placeholder="Enter staff access password (min 6 characters)"
                   value={passwordInput}
                   onChange={(e) => setPasswordInput(e.target.value)}
                   required
-                  style={{ width: '100%', padding: '0.75rem 0.95rem', borderRadius: '8px', border: '1px solid var(--cms-input-border, rgba(255, 255, 255, 0.2))', background: 'var(--cms-input-bg, rgba(0, 0, 0, 0.4))', color: 'var(--cms-input-text, #FFFFFF)', fontSize: '0.9rem' }}
+                  style={{ width: '100%', padding: '0.75rem 0.95rem', borderRadius: '8px', fontSize: '0.9rem' }}
                 />
               </div>
-              {authError && <p className="auth-error-msg" style={{ marginBottom: '1rem', color: '#EF4444', fontSize: '0.84rem' }}>{authError}</p>}
+              {authError && <p className="auth-error-msg" style={{ marginBottom: '1rem', color: '#EF4444', fontSize: '0.84rem', fontWeight: 600 }}>{authError}</p>}
               <button type="submit" className="btn-primary w-full" style={{ width: '100%', padding: '0.8rem', justifyContent: 'center', fontWeight: 800 }}>
                 Sign In to Content Studio
               </button>
             </form>
-            <div style={{ marginTop: '1.25rem', padding: '0.75rem 1rem', background: 'rgba(255, 137, 47, 0.08)', border: '1px solid rgba(255, 137, 47, 0.25)', borderRadius: '8px', fontSize: '0.76rem', color: 'var(--cms-text-secondary, #CBD5E1)', lineHeight: '1.45', textAlign: 'left' }}>
-              <strong style={{ color: '#FF892F' }}>🔒 Multi-Device Staff Access:</strong>
-              <div style={{ marginTop: '0.25rem' }}>
+            <div className="auth-footer-notice" style={{ marginTop: '1.25rem', padding: '0.85rem 1rem', borderRadius: '8px', fontSize: '0.78rem', lineHeight: '1.45', textAlign: 'left', width: '100%' }}>
+              <strong style={{ display: 'block', marginBottom: '0.25rem' }}>🔒 Multi-Device Staff Access:</strong>
+              <div>
                 • Any staff member can log in using <strong>1-Click Google or Microsoft SSO</strong> or with their company email address & password.<br />
                 • <strong>Super Admins</strong> can manage roles and revoke privileges in the <em>Team & Access Control</em> tab.
               </div>
@@ -1131,67 +1231,47 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
                   </div>
 
                   {/* Step-by-Step Guide to Avoid "Bad credentials" */}
-                  <div
-                    style={{
-                      marginTop: '1.5rem',
-                      background: 'rgba(255, 255, 255, 0.03)',
-                      border: '1px solid rgba(255, 255, 255, 0.08)',
-                      borderRadius: '10px',
-                      padding: '1.25rem',
-                      fontSize: '0.83rem',
-                      lineHeight: '1.6'
-                    }}
-                  >
-                    <strong style={{ color: '#FF892F', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <div className="sync-guide-box" style={{ marginTop: '1.5rem', borderRadius: '10px', padding: '1.25rem', fontSize: '0.84rem', lineHeight: '1.6' }}>
+                    <strong style={{ color: '#FF892F', fontSize: '0.92rem', display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.4rem' }}>
                       🔑 Why "Bad credentials" occurs & How to generate a working token:
                     </strong>
-                    <ol style={{ margin: '0.6rem 0 0 1.25rem', padding: 0, color: '#CBD5E1' }}>
-                      <li>
-                        Visit your GitHub token page: <a href="https://github.com/settings/tokens" target="_blank" rel="noreferrer" style={{ color: '#6FE6FC', textDecoration: 'underline' }}>github.com/settings/tokens</a> (Select <strong>Personal access tokens → Tokens (classic)</strong>).
+                    <ol style={{ margin: '0.6rem 0 0 1.25rem', padding: 0 }}>
+                      <li style={{ marginBottom: '0.35rem' }}>
+                        Visit your GitHub token page: <a href="https://github.com/settings/tokens" target="_blank" rel="noreferrer" style={{ textDecoration: 'underline' }}>github.com/settings/tokens</a> (Select <strong>Personal access tokens → Tokens (classic)</strong>).
                       </li>
-                      <li>
+                      <li style={{ marginBottom: '0.35rem' }}>
                         Click <strong>"Generate new token (classic)"</strong>.
                       </li>
-                      <li>
+                      <li style={{ marginBottom: '0.35rem' }}>
                         Note name: e.g. <code>Comfort Journey Master CMS</code>.
                       </li>
-                      <li>
-                        <strong style={{ color: '#FCD34D' }}>Crucial Checkbox:</strong> Check the <strong><code>repo</code></strong> box (Full control of private and public repositories). Without this, GitHub will reject publishes with <em>"Bad credentials"</em> or <em>"Not Found"</em>.
+                      <li style={{ marginBottom: '0.35rem' }}>
+                        <strong>Crucial Checkbox:</strong> Check the <strong><code>repo</code></strong> box (Full control of private and public repositories). Without this, GitHub will reject publishes with <em>"Bad credentials"</em> or <em>"Not Found"</em>.
                       </li>
-                      <li>
+                      <li style={{ marginBottom: '0.35rem' }}>
                         Scroll to the bottom, click <strong>"Generate token"</strong>, and copy the string starting with <code>ghp_...</code>.
                       </li>
-                      <li>
+                      <li style={{ marginBottom: '0.35rem' }}>
                         Paste it in the box above, click <strong>"Test Connection"</strong>, and then click <strong>"Save & Enable for All Employees Worldwide"</strong>.
                       </li>
                     </ol>
-                    <p style={{ marginTop: '0.6rem', color: '#94A3B8', fontSize: '0.78rem' }}>
-                      💡 <em>Once saved, no other employee or device will ever be asked to enter a token. Normal employees only need to click "Publish" and changes go live worldwide.</em>
+                    <p style={{ marginTop: '0.75rem', fontSize: '0.8rem', fontStyle: 'italic' }}>
+                      💡 Once saved, no other employee or device will ever be asked to enter a token. Normal employees only need to click "Publish" and changes go live worldwide.
                     </p>
                   </div>
 
                   {/* Future AWS .com Production Notice */}
-                  <div
-                    style={{
-                      marginTop: '1.25rem',
-                      background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(111, 230, 252, 0.05) 100%)',
-                      border: '1px solid rgba(16, 185, 129, 0.25)',
-                      borderRadius: '10px',
-                      padding: '1.15rem',
-                      fontSize: '0.82rem',
-                      color: '#E2E8F0'
-                    }}
-                  >
-                    <strong style={{ color: '#34D399', fontSize: '0.88rem' }}>🚀 Upcoming AWS .com Production Setup:</strong>
-                    <p style={{ margin: '0.4rem 0 0', color: '#94A3B8', lineHeight: '1.5' }}>
+                  <div className="aws-notice-box" style={{ marginTop: '1.25rem', borderRadius: '10px', padding: '1.15rem', fontSize: '0.83rem' }}>
+                    <strong style={{ fontSize: '0.9rem', display: 'block', marginBottom: '0.35rem' }}>🚀 Upcoming AWS .com Production Setup:</strong>
+                    <p style={{ margin: 0, lineHeight: '1.55' }}>
                       When you host your website on AWS with your official <code>.com</code> domain, you can connect your AWS Directus database or API endpoint (under the <strong>Directus & AWS</strong> tab). Once connected, employees won't even need GitHub tokens—every click of <strong>"Save"</strong> or <strong>"Publish"</strong> will sync directly into the AWS cloud database in real time!
                     </p>
                   </div>
 
                   {/* Manual Backup / Export */}
-                  <div className="directus-guide-card" style={{ marginTop: '1.5rem' }}>
-                    <h4 className="guide-title">📦 Manual Backup & JSON Export</h4>
-                    <p style={{ color: '#94A3B8', fontSize: '0.85rem', marginBottom: '1rem' }}>
+                  <div className="directus-guide-card" style={{ marginTop: '1.5rem', padding: '1.25rem', borderRadius: '10px' }}>
+                    <h4 className="guide-title" style={{ margin: '0 0 0.5rem 0' }}>📦 Manual Backup & JSON Export</h4>
+                    <p style={{ fontSize: '0.85rem', marginBottom: '1rem' }}>
                       You can also download or copy the master live dataset JSON at any time:
                     </p>
                     <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>

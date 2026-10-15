@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { triggerGoogleSignInPrompt, getGoogleClientId } from '../utils/googleAuthHelper';
 
 const UserAuthContext = createContext(null);
 
@@ -40,18 +41,47 @@ export function UserAuthProvider({ children }) {
     setAuthRedirectAction(null);
   };
 
-  // 1-Click Google Sign-In Simulation / Client Flow
+  // Google Sign-In (Real Google OAuth 2.0 via GIS if Client ID configured, with guided fallback)
   const signInWithGoogle = async (googleProfile = null) => {
+    try {
+      const clientId = getGoogleClientId();
+      if (clientId && clientId.includes('.apps.googleusercontent.com')) {
+        const info = await triggerGoogleSignInPrompt();
+        if (info?.email) {
+          const newUser = {
+            id: `usr-g-${info.sub || Date.now()}`,
+            name: info.name || 'Traveler',
+            email: info.email,
+            phone: '',
+            avatar: info.picture || '',
+            provider: 'google',
+            isVerified: true,
+            joinedAt: new Date().toISOString()
+          };
+          setUser(newUser);
+          closeAuthModal();
+          return newUser;
+        }
+      }
+    } catch (err) {
+      console.warn('[Google SSO] OAuth prompt cancelled or failed, using fallback:', err.message);
+    }
+
+    // Direct / Guided Profile Login
+    return createFallbackUser(googleProfile);
+  };
+
+  const createFallbackUser = (googleProfile) => {
     const defaultProfile = googleProfile || {
-      name: 'Traveler Guest',
-      email: 'traveler.guest@gmail.com',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80'
+      name: 'Traveler',
+      email: 'traveler@gmail.com',
+      avatar: ''
     };
 
     const newUser = {
       id: `usr-g-${Date.now()}`,
-      name: defaultProfile.name,
-      email: defaultProfile.email,
+      name: defaultProfile.name || 'Traveler',
+      email: defaultProfile.email || '',
       phone: defaultProfile.phone || '',
       avatar: defaultProfile.avatar || '',
       provider: 'google',
@@ -61,21 +91,20 @@ export function UserAuthProvider({ children }) {
 
     setUser(newUser);
     closeAuthModal();
-    return newUser;
   };
 
   // 1-Click Microsoft Sign-In
   const signInWithMicrosoft = async (msProfile = null) => {
     const defaultProfile = msProfile || {
-      name: 'Comfort Traveler',
+      name: 'Traveler',
       email: 'traveler@outlook.com',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80'
+      avatar: ''
     };
 
     const newUser = {
       id: `usr-ms-${Date.now()}`,
-      name: defaultProfile.name,
-      email: defaultProfile.email,
+      name: defaultProfile.name || 'Traveler',
+      email: defaultProfile.email || '',
       phone: defaultProfile.phone || '',
       avatar: defaultProfile.avatar || '',
       provider: 'microsoft',
@@ -91,7 +120,7 @@ export function UserAuthProvider({ children }) {
   // 1-Click Apple ID Sign-In
   const signInWithApple = async (appleProfile = null) => {
     const defaultProfile = appleProfile || {
-      name: 'Apple Traveler',
+      name: 'Traveler',
       email: 'traveler@icloud.com',
       avatar: ''
     };

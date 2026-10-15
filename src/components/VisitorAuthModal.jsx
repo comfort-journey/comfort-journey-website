@@ -25,9 +25,33 @@ export default function VisitorAuthModal() {
     setLoadingProvider(provider);
     setErrorMsg('');
     try {
-      // Simulate instant single-click SSO login
+      const clean = identifier.trim();
+      const cleanName = nameInput.trim();
+
+      let profile = null;
+      if (clean) {
+        const isEmail = clean.includes('@');
+        profile = {
+          name: cleanName || (isEmail ? clean.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Traveler'),
+          email: isEmail ? clean.toLowerCase() : '',
+          phone: !isEmail ? clean : ''
+        };
+      } else if (cleanName) {
+        profile = {
+          name: cleanName,
+          email: `${cleanName.toLowerCase().replace(/\s+/g, '.')}@${provider === 'google' ? 'gmail.com' : provider === 'microsoft' ? 'outlook.com' : 'icloud.com'}`
+        };
+      }
+
+      if (!profile) {
+        const providerName = provider === 'google' ? 'Google' : provider === 'microsoft' ? 'Microsoft' : 'Apple';
+        setErrorMsg(`👉 Please enter your email address or mobile number below to continue with ${providerName}.`);
+        setLoadingProvider(null);
+        return;
+      }
+
       setTimeout(async () => {
-        await method();
+        await method(profile);
         setLoadingProvider(null);
       }, 400);
     } catch (err) {

@@ -180,9 +180,10 @@ Please share a detailed day-wise itinerary & quote!`;
               </div>
             </div>
           ) : (
-            <div>
-              {/* STEP 1: DESTINATION */}
-              {step === 1 && (
+            <div className="step-content-flow">
+              <div className="step-scroll-content">
+                {/* STEP 1: DESTINATION */}
+                {step === 1 && (
                 <div className="step-pane">
                   <div className="step-title-row">
                     <MapPin size={22} className="text-amber" />
@@ -482,6 +483,7 @@ Please share a detailed day-wise itinerary & quote!`;
                   </div>
                 </div>
               )}
+              </div>
 
               {/* Navigation Footer */}
               <div className="step-nav-footer">
@@ -524,15 +526,22 @@ Please share a detailed day-wise itinerary & quote!`;
 
         <style>{`
           .booking-modal-5step {
+            padding: 0 !important;
             max-width: 680px;
+            width: 100%;
             background: #001233;
             border: 1.5px solid rgba(111, 230, 252, 0.3);
             border-radius: 26px;
             overflow: hidden;
             box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            max-height: calc(100dvh - 30px);
+            max-height: min(90vh, 100dvh - 20px);
           }
 
           .modal-header-5step {
+            flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -574,6 +583,7 @@ Please share a detailed day-wise itinerary & quote!`;
           }
 
           .enquiry-progress-track {
+            flex-shrink: 0;
             height: 4px;
             background: rgba(0, 29, 81, 0.9);
             width: 100%;
@@ -586,7 +596,29 @@ Please share a detailed day-wise itinerary & quote!`;
           }
 
           .booking-modal-body-pad {
-            padding: 1.75rem;
+            padding: 0;
+            flex: 1 1 auto;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+          }
+
+          .step-content-flow {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow: hidden;
+          }
+
+          .step-scroll-content {
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+            padding: 1.5rem 1.75rem 1rem 1.75rem;
           }
 
           .step-title-row {
@@ -774,16 +806,21 @@ Please share a detailed day-wise itinerary & quote!`;
           }
 
           .step-nav-footer {
+            flex-shrink: 0;
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin-top: 1.5rem;
-            padding-top: 1.25rem;
+            margin-top: auto;
+            padding: 1rem 1.75rem calc(1rem + env(safe-area-inset-bottom, 0px)) 1.75rem;
             border-top: 1px solid rgba(111, 230, 252, 0.15);
+            background: #001233;
+            z-index: 10;
           }
 
           .submitted-view {
-            padding: 2rem 1rem;
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+            flex: 1;
           }
 
           .submitted-icon-circle {
@@ -965,6 +1002,7 @@ Please share a detailed day-wise itinerary & quote!`;
           :root:not([data-theme="dark"]) .step-nav-footer,
           [data-theme="light"] .step-nav-footer {
             border-top: 1px solid #E2E8F0 !important;
+            background: #FFFFFF !important;
           }
 
           :root:not([data-theme="dark"]) .btn-secondary,
@@ -1068,6 +1106,41 @@ Please share a detailed day-wise itinerary & quote!`;
             color: #EF4444;
             font-size: 0.78rem;
             font-weight: 600;
+          }
+
+          @media (max-width: 640px) {
+            .booking-modal-5step {
+              max-height: calc(100dvh - 16px) !important;
+              border-radius: 20px !important;
+              width: 100% !important;
+            }
+            .modal-header-5step {
+              padding: 0.85rem 1.15rem;
+            }
+            .step-scroll-content {
+              padding: 1rem 1.15rem 0.75rem 1.15rem;
+            }
+            .step-nav-footer {
+              padding: 0.75rem 1.15rem calc(0.75rem + env(safe-area-inset-bottom, 0px)) 1.15rem;
+            }
+            .step-heading {
+              font-size: 1.18rem;
+            }
+            .step-desc {
+              font-size: 0.78rem;
+            }
+            .grid-select-btn {
+              padding: 0.6rem 0.75rem;
+              font-size: 0.82rem;
+              border-radius: 12px;
+            }
+            .dest-select-btn {
+              padding: 0.4rem 0.75rem;
+              font-size: 0.76rem;
+            }
+            .tier-choice-btn {
+              padding: 0.65rem 0.75rem;
+            }
           }
         `}</style>
       </div>

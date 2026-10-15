@@ -187,9 +187,17 @@ export async function saveLeadToCMS(data) {
   // Step 2: Attempt async POST to Directus CMS /items/leads
   let cmsSaved = false;
   try {
+    const isLocalDev = typeof window !== 'undefined' && 
+      (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname.startsWith('192.168.'));
+
     const directusUrl = (typeof window !== 'undefined' && localStorage.getItem('cj_directus_url'))
       || (typeof import.meta !== 'undefined' && import.meta.env?.VITE_DIRECTUS_URL)
-      || 'http://localhost:8055';
+      || (isLocalDev ? 'http://localhost:8055' : '');
+
+    if (!directusUrl || (!isLocalDev && (directusUrl.includes('localhost') || directusUrl.includes('127.0.0.1')))) {
+      return { lead, cmsSaved: false };
+    }
+
     const token = (typeof window !== 'undefined' && localStorage.getItem('cj_directus_token'))
       || (typeof import.meta !== 'undefined' && import.meta.env?.VITE_DIRECTUS_TOKEN)
       || '';

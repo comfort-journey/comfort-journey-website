@@ -245,15 +245,9 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                       title={hasAudio ? 'Mute sound' : 'Unmute sound'}
                     >
                       {hasAudio ? (
-                        <>
-                          <Volume2 size={15} />
-                          <span className="sound-text">Sound ON</span>
-                        </>
+                        <Volume2 size={16} />
                       ) : (
-                        <>
-                          <VolumeX size={15} />
-                          <span className="sound-text">Tap sound</span>
-                        </>
+                        <VolumeX size={16} />
                       )}
                     </button>
 
@@ -500,33 +494,32 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           );
         }
 
-        /* Top Sound Pill */
+        /* Bottom Speaker Sound Button */
         .cj-sound-pill {
           position: absolute;
-          top: 1.15rem;
-          right: 1.15rem;
+          bottom: 1rem;
+          right: 1rem;
           display: inline-flex;
           align-items: center;
-          gap: 0.35rem;
-          padding: 0.35rem 0.65rem;
-          border-radius: 9999px;
-          background: rgba(0, 0, 0, 0.6);
+          justify-content: center;
+          width: 36px;
+          height: 36px;
+          padding: 0;
+          border-radius: 50%;
+          background: rgba(0, 0, 0, 0.65);
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.3);
+          border: 1px solid rgba(255, 255, 255, 0.35);
           color: #FFFFFF;
           cursor: pointer;
-          z-index: 4;
-          font-size: 0.72rem;
-          font-weight: 600;
-          letter-spacing: 0.02em;
+          z-index: 5;
           transition: all 0.25s ease;
         }
 
         .cj-sound-pill:hover {
-          background: rgba(255, 137, 47, 0.9);
+          background: rgba(255, 137, 47, 0.95);
           border-color: #FF892F;
-          transform: scale(1.06);
+          transform: scale(1.08);
         }
 
         .cj-sound-pill.unmuted {
@@ -542,7 +535,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           bottom: 0;
           left: 0;
           right: 0;
-          padding: 1.25rem 1rem 0.95rem 1rem;
+          padding: 1.25rem 3.4rem 0.95rem 1rem;
           z-index: 3;
           pointer-events: none;
           display: flex;
