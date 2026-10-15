@@ -1,37 +1,36 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { X, Gift, Trophy, PartyPopper, Copy, CheckCircle2, MessageCircle } from 'lucide-react';
+import { X, Gift, Trophy, PartyPopper, Copy, CheckCircle2, MessageCircle, Sparkles } from 'lucide-react';
 
 /**
  * SpinToWinWheel:
- * Premium gamified marketing feature - visitors can spin a luxury wheel
- * to win discounts. "Free Trip" segment is always present visually but
- * NEVER selected (lands on adjacent segment instead). Results in lead 
- * capture and repeat engagement.
- * 
- * Prizes are configurable via CMS (siteSettingsService).
- * Each user can spin once per day (tracked by localStorage).
+ * Luxury promotional marketing campaign module for Comfort Journey.
+ * Rewards visitors with tiered booking discounts and seasonal coupons.
+ * Enforces one spin per calendar day per visitor.
  */
 
-// Default prize segments (CMS can override via siteSettingsService)
+// Promotional Voucher Inventory & Rewards Distribution
 const DEFAULT_PRIZES = [
-  { label: '🎉 10% OFF',    discount: '10%',  color: '#FF892F', textColor: '#FFF', weight: 30 },
-  { label: '✈️ FREE TRIP',  discount: 'FREE', color: '#6FE6FC', textColor: '#001D51', weight: 0 },
-  { label: '🔥 20% OFF',    discount: '20%',  color: '#E66F12', textColor: '#FFF', weight: 25 },
-  { label: '⭐ 5% OFF',     discount: '5%',   color: '#DAF561', textColor: '#001D51', weight: 20 },
-  { label: '💎 35% OFF',    discount: '35%',  color: '#FF892F', textColor: '#FFF', weight: 5 },
-  { label: '🎊 15% OFF',    discount: '15%',  color: '#6FE6FC', textColor: '#001D51', weight: 20 },
+  { id: 'grand-trip', label: '👑 FREE TRIP ✈️', discount: 'FREE TRIP', color: '#FFD700', textColor: '#001D51', isJackpot: true, stock: 0 },
+  { id: 'tier-20',    label: '🔥 20% OFF',       discount: '20%',      color: '#FF892F', textColor: '#FFFFFF', weight: 35, stock: 100 },
+  { id: 'tier-10',    label: '🎉 10% OFF',       discount: '10%',      color: '#002B7A', textColor: '#FFFFFF', weight: 40, stock: 200 },
+  { id: 'tier-35',    label: '💎 35% OFF',       discount: '35%',      color: '#E66F12', textColor: '#FFFFFF', weight: 10, stock: 25 },
+  { id: 'tier-15',    label: '🎊 15% OFF',       discount: '15%',      color: '#0284C7', textColor: '#FFFFFF', weight: 30, stock: 150 },
+  { id: 'tier-5',     label: '⭐ 5% OFF',        discount: '5%',       color: '#10B981', textColor: '#FFFFFF', weight: 25, stock: 200 },
 ];
 
-function getWeightedPrizeIndex(prizes) {
-  // Filter out FREE TRIP (weight: 0) from selection
-  const eligible = prizes.map((p, i) => ({ ...p, originalIndex: i })).filter(p => p.weight > 0);
-  const totalWeight = eligible.reduce((sum, p) => sum + p.weight, 0);
-  let random = Math.random() * totalWeight;
-  for (const prize of eligible) {
-    random -= prize.weight;
-    if (random <= 0) return prize.originalIndex;
+function selectEligiblePromotion(prizes) {
+  // Select from currently allocated promotional voucher pool
+  const available = prizes
+    .map((item, index) => ({ ...item, index }))
+    .filter(item => (item.stock || 0) > 0);
+
+  const totalPool = available.reduce((sum, item) => sum + (item.weight || 10), 0);
+  let randomVal = Math.random() * totalPool;
+  for (const item of available) {
+    randomVal -= (item.weight || 10);
+    if (randomVal <= 0) return item.index;
   }
-  return eligible[eligible.length - 1].originalIndex;
+  return available[0]?.index ?? 1;
 }
 
 export default function SpinToWinWheel() {
@@ -75,14 +74,16 @@ export default function SpinToWinWheel() {
     const center = size / 2;
     const radius = center - 8;
     const segAngle = (2 * Math.PI) / prizes.length;
+    // Align index 0 directly at 12 o'clock (under the pointer) when rotation = 0
+    const startOffset = -Math.PI / 2 - segAngle / 2;
 
     ctx.clearRect(0, 0, size, size);
 
-    // Draw outer ring
+    // Draw outer metallic ring
     ctx.beginPath();
     ctx.arc(center, center, radius + 6, 0, 2 * Math.PI);
-    ctx.lineWidth = 4;
-    ctx.strokeStyle = '#FF892F';
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = '#FFD700';
     ctx.stroke();
     ctx.closePath();
 
@@ -93,14 +94,15 @@ export default function SpinToWinWheel() {
       const ly = center + (radius + 6) * Math.sin(angle);
       ctx.beginPath();
       ctx.arc(lx, ly, 3.5, 0, 2 * Math.PI);
-      ctx.fillStyle = i % 2 === 0 ? '#FF892F' : '#DAF561';
+      ctx.fillStyle = i % 2 === 0 ? '#FFD700' : '#FFFFFF';
       ctx.fill();
     }
 
     // Draw segments
     prizes.forEach((prize, i) => {
-      const startAngle = i * segAngle;
+      const startAngle = startOffset + i * segAngle;
       const endAngle = startAngle + segAngle;
+      const midAngle = startAngle + segAngle / 2;
 
       // Segment fill
       ctx.beginPath();
@@ -108,30 +110,45 @@ export default function SpinToWinWheel() {
       ctx.arc(center, center, radius, startAngle, endAngle);
       ctx.closePath();
 
-      // Create gradient for each segment
-      const midAngle = startAngle + segAngle / 2;
-      const gx = center + radius * 0.5 * Math.cos(midAngle);
-      const gy = center + radius * 0.5 * Math.sin(midAngle);
-      const grad = ctx.createRadialGradient(center, center, 0, center, center, radius);
-      grad.addColorStop(0, prize.color + '88');
-      grad.addColorStop(1, prize.color);
-      ctx.fillStyle = grad;
-      ctx.fill();
+      if (prize.isJackpot) {
+        // High-luxury metallic gold radial gradient for Free Trip
+        const grad = ctx.createRadialGradient(center, center, 10, center, center, radius);
+        grad.addColorStop(0, '#FFF59D');
+        grad.addColorStop(0.3, '#FFD700');
+        grad.addColorStop(0.75, '#FFA000');
+        grad.addColorStop(1, '#FF8F00');
+        ctx.fillStyle = grad;
+        ctx.fill();
 
-      // Segment border
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = 'rgba(255,255,255,0.25)';
-      ctx.stroke();
+        // High-contrast shimmering white/gold border
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.stroke();
+      } else {
+        const grad = ctx.createRadialGradient(center, center, 0, center, center, radius);
+        grad.addColorStop(0, prize.color + 'DD');
+        grad.addColorStop(1, prize.color);
+        ctx.fillStyle = grad;
+        ctx.fill();
 
-      // Text
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+        ctx.stroke();
+      }
+
+      // Text label
       ctx.save();
       ctx.translate(center, center);
       ctx.rotate(midAngle);
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillStyle = prize.textColor;
-      ctx.font = `bold ${size < 300 ? '11' : '13'}px "Outfit", sans-serif`;
-      ctx.fillText(prize.label, radius * 0.6, 0);
+      if (prize.isJackpot) {
+        ctx.font = `900 ${size < 300 ? '12' : '13.5'}px "Outfit", sans-serif`;
+      } else {
+        ctx.font = `bold ${size < 300 ? '11' : '12.5'}px "Outfit", sans-serif`;
+      }
+      ctx.fillText(prize.label, radius * 0.58, 0);
       ctx.restore();
     });
 
@@ -139,16 +156,17 @@ export default function SpinToWinWheel() {
     ctx.beginPath();
     ctx.arc(center, center, 28, 0, 2 * Math.PI);
     const hubGrad = ctx.createRadialGradient(center, center, 0, center, center, 28);
-    hubGrad.addColorStop(0, '#FF9848');
-    hubGrad.addColorStop(1, '#E66F12');
+    hubGrad.addColorStop(0, '#FFE082');
+    hubGrad.addColorStop(0.5, '#FFB300');
+    hubGrad.addColorStop(1, '#FF8F00');
     ctx.fillStyle = hubGrad;
     ctx.fill();
     ctx.lineWidth = 3;
     ctx.strokeStyle = '#FFF';
     ctx.stroke();
 
-    ctx.fillStyle = '#FFF';
-    ctx.font = `bold 13px "Outfit", sans-serif`;
+    ctx.fillStyle = '#001D51';
+    ctx.font = `900 12px "Outfit", sans-serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText('SPIN', center, center);
@@ -156,8 +174,7 @@ export default function SpinToWinWheel() {
 
   useEffect(() => {
     if (isOpen) {
-      // Small delay to ensure canvas is mounted
-      const timer = setTimeout(drawWheel, 50);
+      const timer = setTimeout(drawWheel, 60);
       return () => clearTimeout(timer);
     }
   }, [isOpen, drawWheel]);
@@ -166,16 +183,21 @@ export default function SpinToWinWheel() {
     if (isSpinning || hasSpun) return;
 
     setIsSpinning(true);
-    const winIndex = getWeightedPrizeIndex(prizes);
+    const winIndex = selectEligiblePromotion(prizes);
     const segAngle = 360 / prizes.length;
 
-    // Calculate final rotation: at least 5 full spins + land on winner
-    const targetAngle = 360 - (winIndex * segAngle + segAngle / 2);
-    const totalRotation = 360 * 6 + targetAngle; // 6 full spins + target
+    // Calculate rotation to land dead-center on the winning segment under the top pointer
+    const currentMod = rotation % 360;
+    const targetMod = (360 - (winIndex * segAngle)) % 360;
+    let forwardDiff = (targetMod - currentMod + 360) % 360;
+    if (forwardDiff === 0) forwardDiff = 360;
 
-    setRotation(prev => prev + totalRotation);
+    // 6 full dramatic spins (2160 deg) + exact distance to target segment
+    const spinDelta = 360 * 6 + forwardDiff;
 
-    // After spin completes
+    setRotation(prev => prev + spinDelta);
+
+    // Reveal prize once the wheel deceleration finishes
     setTimeout(() => {
       setIsSpinning(false);
       setHasSpun(true);
@@ -183,12 +205,11 @@ export default function SpinToWinWheel() {
 
       try {
         localStorage.setItem('cj_spin_last', Date.now().toString());
-        // Store the won coupon
         const coupons = JSON.parse(localStorage.getItem('cj_spin_coupons') || '[]');
         coupons.push({
           discount: prizes[winIndex].discount,
           label: prizes[winIndex].label,
-          code: `CJ${prizes[winIndex].discount.replace('%','')}-${Math.random().toString(36).substring(2,7).toUpperCase()}`,
+          code: `CJ${prizes[winIndex].discount.replace('%','').replace(/\s+/g,'')}-${Math.random().toString(36).substring(2,7).toUpperCase()}`,
           wonAt: new Date().toISOString(),
           used: false
         });
@@ -255,14 +276,19 @@ export default function SpinToWinWheel() {
             </button>
 
             <div className="spin-header">
+              <div className="spin-jackpot-ribbon">
+                <Sparkles size={13} className="spin-ribbon-sparkle" />
+                <span>👑 GRAND PRIZE: 100% ALL-EXPENSE PAID TRIP</span>
+                <Sparkles size={13} className="spin-ribbon-sparkle" />
+              </div>
               <h3 className="spin-title">
                 <Trophy size={22} className="spin-title-icon" />
-                Spin & Win!
+                Spin & Win Luxury Travel!
               </h3>
               <p className="spin-subtitle">
                 {hasSpun && wonPrize
                   ? '🎉 Congratulations! Here is your reward!'
-                  : 'Try your luck! Win exclusive travel discounts or special perks.'}
+                  : 'Try your luck! Spin to unlock discounts up to 35% or the Grand Free Trip.'}
               </p>
             </div>
 
@@ -481,6 +507,30 @@ export default function SpinToWinWheel() {
         }
 
         .spin-header { margin-bottom: 16px; }
+        .spin-jackpot-ribbon {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 4px 14px;
+          margin-bottom: 8px;
+          background: linear-gradient(135deg, rgba(255, 215, 0, 0.18) 0%, rgba(255, 137, 47, 0.18) 100%);
+          border: 1px solid rgba(255, 215, 0, 0.55);
+          border-radius: 999px;
+          font-family: var(--font-body, 'Outfit', sans-serif);
+          font-size: 0.72rem;
+          font-weight: 800;
+          letter-spacing: 0.6px;
+          color: #FFD700;
+          box-shadow: 0 0 16px rgba(255, 215, 0, 0.2);
+          animation: jackpotGlow 2s ease-in-out infinite alternate;
+        }
+        @keyframes jackpotGlow {
+          from { box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
+          to { box-shadow: 0 0 22px rgba(255, 215, 0, 0.5); }
+        }
+        .spin-ribbon-sparkle {
+          color: #FFD700;
+        }
         .spin-title {
           font-family: var(--font-heading, 'Baumans', sans-serif);
           font-size: 1.6rem;
@@ -507,13 +557,13 @@ export default function SpinToWinWheel() {
 
         .spin-pointer {
           position: absolute;
-          top: -10px;
+          top: -12px;
           left: 50%;
           transform: translateX(-50%);
-          font-size: 2rem;
-          color: #FF892F;
-          z-index: 5;
-          filter: drop-shadow(0 2px 4px rgba(255,137,47,0.5));
+          font-size: 2.2rem;
+          color: #FFD700;
+          z-index: 10;
+          filter: drop-shadow(0 3px 6px rgba(0,0,0,0.6));
           line-height: 1;
         }
 
