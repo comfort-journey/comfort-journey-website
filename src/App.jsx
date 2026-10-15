@@ -39,6 +39,8 @@ import VisitorAuthModal from './components/VisitorAuthModal';
 const AdminCMSModal = lazy(() => import('./components/AdminCMSModal'));
 import FloatingQuickDock from './components/FloatingQuickDock';
 import LiveBookingToast from './components/LiveBookingToast';
+import LeadCapturePopup from './components/LeadCapturePopup';
+import SpinToWinWheel from './components/SpinToWinWheel';
 
 import { seoHeadManager } from './utils/seoHeadManager';
 import { jsonLdSchemaGenerator } from './utils/jsonLdSchemaGenerator';
@@ -548,6 +550,12 @@ pageData={activeLandingPage}
 
           {/* Live Booking Social Proof Ticker */}
           {currentView !== 'landing' && currentView !== 'cms' && <LiveBookingToast />}
+
+          {/* Marketing Welcome Lead Capture Popup (appears after 8s on first visit) */}
+          {currentView !== 'ai-planner' && currentView !== 'cms' && <LeadCapturePopup />}
+
+          {/* Gamified Spin-to-Win Wheel Floating Trigger & Interactive Modal */}
+          {currentView !== 'ai-planner' && currentView !== 'cms' && <SpinToWinWheel />}
 
           <style>{`
             .app-root {
