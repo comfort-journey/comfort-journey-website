@@ -42,7 +42,7 @@ export default function SpinToWinWheel() {
   const [wonPrize, setWonPrize] = useState(null);
   const [rotation, setRotation] = useState(0);
   const [couponCopied, setCouponCopied] = useState(false);
-  const [showTrigger, setShowTrigger] = useState(false);
+  const [showTrigger, setShowTrigger] = useState(true);
   const canvasRef = useRef(null);
   const prizes = DEFAULT_PRIZES;
 
@@ -62,10 +62,6 @@ export default function SpinToWinWheel() {
         }
       }
     } catch {}
-
-    // Show trigger button after a delay
-    const timer = setTimeout(() => setShowTrigger(true), 3000);
-    return () => clearTimeout(timer);
   }, []);
 
   // Draw the wheel on canvas
@@ -345,7 +341,7 @@ export default function SpinToWinWheel() {
           position: fixed;
           left: 18px;
           bottom: 100px;
-          z-index: 9990;
+          z-index: 99999;
           display: flex;
           align-items: center;
           gap: 8px;

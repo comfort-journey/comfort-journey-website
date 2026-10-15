@@ -16,26 +16,37 @@ export default function LeadCapturePopup() {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    // Check if dismissed in this session
     try {
-      const dismissed = localStorage.getItem('cj_lead_popup_dismissed');
-      if (dismissed) {
-        const dismissedAt = parseInt(dismissed, 10);
-        const threeDays = 3 * 24 * 60 * 60 * 1000;
-        if (Date.now() - dismissedAt < threeDays) return;
-      }
+      const sessionDismissed = sessionStorage.getItem('cj_lead_popup_dismissed');
+      if (sessionDismissed) return;
     } catch {}
+
+    // Allow instant testing via URL hash #lead-popup or custom event
+    const checkHash = () => {
+      if (window.location.hash.includes('lead-popup') || window.location.hash.includes('quote-popup')) {
+        setIsVisible(true);
+      }
+    };
+    checkHash();
+    window.addEventListener('hashchange', checkHash);
+    window.addEventListener('cj-open-lead-popup', () => setIsVisible(true));
 
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 8000);
+    }, 7000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('hashchange', checkHash);
+      window.removeEventListener('cj-open-lead-popup', () => setIsVisible(true));
+    };
   }, []);
 
   const handleDismiss = () => {
     setIsClosing(true);
     try {
-      localStorage.setItem('cj_lead_popup_dismissed', Date.now().toString());
+      sessionStorage.setItem('cj_lead_popup_dismissed', 'true');
     } catch {}
     setTimeout(() => setIsVisible(false), 350);
   };
