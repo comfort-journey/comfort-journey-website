@@ -50,13 +50,6 @@ export default function BlogMagazinePage({ onNavigateHome, onSelectBlog, onOpenQ
             <ArrowLeft size={16} />
             <span>Back to Comfort Journey</span>
           </button>
-
-          <div className="cms-status-indicator" title={`Directus API: ${cmsStatus.url}`}>
-            <span className={`status-dot ${cmsStatus.isOnline ? 'online' : 'fallback'}`}></span>
-            <span className="status-text">
-              {cmsStatus.isOnline ? 'Directus CMS Live' : 'Directus Local/Fallback'}
-            </span>
-          </div>
         </div>
       </div>
 
