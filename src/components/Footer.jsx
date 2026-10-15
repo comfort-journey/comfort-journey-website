@@ -351,10 +351,10 @@ export default function Footer({
                   <MapPin size={17} className="contact-icon text-amber" />
                   <div className="deck-address-stack">
                     <div className="deck-address-line">
-                      <strong className="deck-branch-tag">Office 1:</strong> Shop no 2, Phase 5, Ankur Complex, 6 Number Bus Stop, Shivaji Nagar, Bhopal, MP 462016
+                      <strong className="deck-branch-tag">Head Office:</strong> Shop no 2, Phase 5, Ankur Complex, 6 Number Bus Stop, Shivaji Nagar, Bhopal, MP 462016
                     </div>
                     <div className="deck-address-line" style={{ marginTop: '0.45rem' }}>
-                      <strong className="deck-branch-tag">Office 2:</strong> Unit no. 406-A(16) at 4th floor, Aakriti Business Centre, Aakriti Eco City, Bhopal
+                      <strong className="deck-branch-tag">Branch Office:</strong> Unit no. 406-A(16) at 4th floor, Aakriti Business Centre, Aakriti Eco City, Bhopal
                     </div>
                   </div>
                 </div>

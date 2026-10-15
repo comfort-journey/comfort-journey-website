@@ -248,19 +248,20 @@ export default function SpinToWinWheel() {
 
   return (
     <>
-      {/* 🎰 Floating Trigger Button */}
+      {/* 🎰 Compact Floating Trigger Button */}
       {showTrigger && !isOpen && (
         <button
           type="button"
           className="spin-trigger-btn"
           onClick={() => setIsOpen(true)}
-          title="Spin & Win Exciting Offers!"
+          title="Spin the wheel for exclusive trip discounts"
+          aria-label="Spin and Win"
         >
           <div className="spin-trigger-icon-wrap">
-            <Gift size={20} className="spin-trigger-icon" />
+            <Gift size={15} className="spin-trigger-icon" />
           </div>
           <span className="spin-trigger-text">
-            {hasSpun ? '🎁 My Prize Code' : '✈️ Win Free Trip!'}
+            {hasSpun ? '🎁 My Coupon' : '🎁 Spin & Win'}
           </span>
           {!hasSpun && <span className="spin-trigger-pulse" />}
         </button>
@@ -270,29 +271,24 @@ export default function SpinToWinWheel() {
       {isOpen && (
         <>
           <div className={`spin-overlay ${isClosing ? 'closing' : ''}`} onClick={handleClose} />
-          <div className={`spin-modal ${isClosing ? 'closing' : ''}`}>
+          <div className={`spin-modal ${wonPrize ? 'won-state' : ''} ${isClosing ? 'closing' : ''}`}>
             <button type="button" className="spin-close-btn" onClick={handleClose} aria-label="Close">
-              <X size={20} />
+              <X size={18} />
             </button>
 
             <div className="spin-header">
-              <div className="spin-jackpot-ribbon">
-                <Sparkles size={13} className="spin-ribbon-sparkle" />
-                <span>👑 GRAND PRIZE: 100% ALL-EXPENSE PAID TRIP</span>
-                <Sparkles size={13} className="spin-ribbon-sparkle" />
-              </div>
               <h3 className="spin-title">
-                <Trophy size={22} className="spin-title-icon" />
-                Spin & Win Luxury Travel!
+                <Trophy size={18} className="spin-title-icon" />
+                Spin & Win!
               </h3>
               <p className="spin-subtitle">
                 {hasSpun && wonPrize
-                  ? '🎉 Congratulations! Here is your reward!'
-                  : 'Try your luck! Spin to unlock discounts up to 35% or the Grand Free Trip.'}
+                  ? '🎉 Congratulations! Claim your reward below:'
+                  : 'Unlock exclusive tour discounts up to 35%!'}
               </p>
             </div>
 
-            <div className="spin-wheel-area">
+            <div className={`spin-wheel-area ${wonPrize ? 'compact' : ''}`}>
               {/* Pointer / Arrow */}
               <div className="spin-pointer">▼</div>
 
@@ -308,8 +304,8 @@ export default function SpinToWinWheel() {
               >
                 <canvas
                   ref={canvasRef}
-                  width={300}
-                  height={300}
+                  width={240}
+                  height={240}
                   className="spin-wheel-canvas"
                 />
               </div>
@@ -319,29 +315,28 @@ export default function SpinToWinWheel() {
             {wonPrize ? (
               <div className="spin-result">
                 <div className="spin-result-badge">
-                  <PartyPopper size={20} />
+                  <PartyPopper size={16} />
                   <span>You Won {wonPrize.label}!</span>
                 </div>
                 <div className="spin-coupon-card">
                   <span className="spin-coupon-label">Your Coupon Code</span>
                   <div className="spin-coupon-code-row">
                     <code className="spin-coupon-code">{couponCode}</code>
-                    <button type="button" className="spin-copy-btn" onClick={handleCopyCoupon}>
+                    <button type="button" className="spin-copy-btn" onClick={handleCopyCoupon} title="Copy Code">
                       {couponCopied ? <CheckCircle2 size={16} /> : <Copy size={16} />}
                     </button>
                   </div>
-                  <span className="spin-coupon-validity">Valid for 30 days • Use on any booking</span>
+                  <span className="spin-coupon-validity">Valid for 30 days • Applicable on all bookings</span>
                 </div>
                 <a
-                  href={`https://wa.me/919203931912?text=${encodeURIComponent(`Hi Comfort Journey! I spun your lucky wheel and won ${wonPrize.label} (Coupon: ${couponCode}). I would like to redeem this for my next trip!`)}`}
+                  href={`https://wa.me/919203931912?text=${encodeURIComponent(`Hi Comfort Journey! I spun your lucky wheel and won ${wonPrize.label} (Coupon: ${couponCode}). I'd like to apply this discount to my holiday booking!`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="spin-claim-wa-btn"
                 >
-                  <MessageCircle size={16} />
+                  <MessageCircle size={18} />
                   <span>Claim Discount on WhatsApp</span>
                 </a>
-                <p className="spin-result-note">Come back tomorrow for another spin! 🔄</p>
               </div>
             ) : (
               <button
@@ -354,54 +349,55 @@ export default function SpinToWinWheel() {
               </button>
             )}
 
-            <p className="spin-footer-note">
-              One spin per day • {prizes.length} amazing prizes
-            </p>
+            {!wonPrize && (
+              <p className="spin-footer-note">
+                One spin per day • {prizes.length} amazing offers
+              </p>
+            )}
           </div>
         </>
       )}
 
       <style>{`
-        /* ======== TRIGGER BUTTON ======== */
+        /* ======== COMPACT TRIGGER BUTTON ======== */
         .spin-trigger-btn {
           position: fixed;
           left: 18px;
-          bottom: 100px;
+          bottom: 86px;
           z-index: 99999;
-          display: flex;
+          display: inline-flex;
           align-items: center;
-          gap: 8px;
-          padding: 10px 16px 10px 12px;
-          border: 2px solid #FF892F;
-          border-radius: 50px;
+          gap: 6px;
+          padding: 6px 13px 6px 7px;
+          background: rgba(0, 20, 56, 0.93);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1.5px solid #FF892F;
+          border-radius: 999px;
           cursor: pointer;
           font-family: var(--font-body, 'Outfit', sans-serif);
-          font-size: 0.82rem;
+          font-size: 0.76rem;
           font-weight: 800;
           color: #FFF;
-          background: linear-gradient(135deg, #FF892F 0%, #E66F12 100%);
-          box-shadow: 0 4px 20px rgba(255, 137, 47, 0.35), 0 0 30px rgba(255, 137, 47, 0.12);
-          transition: all 0.25s ease;
-          animation: spinTriggerBounce 2s ease-in-out infinite;
+          box-shadow: 0 4px 16px rgba(0, 18, 51, 0.45), 0 0 12px rgba(255, 137, 47, 0.2);
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .spin-trigger-btn:hover {
-          transform: translateY(-3px) scale(1.05);
-          box-shadow: 0 8px 32px rgba(255, 137, 47, 0.45);
-          animation: none;
-        }
-        @keyframes spinTriggerBounce {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-5px); }
+          transform: translateY(-2px) scale(1.05);
+          background: #001D51;
+          box-shadow: 0 6px 22px rgba(255, 137, 47, 0.4);
+          border-color: #FFD700;
         }
 
         .spin-trigger-icon-wrap {
-          width: 30px;
-          height: 30px;
+          width: 22px;
+          height: 22px;
           border-radius: 50%;
-          background: rgba(255,255,255,0.2);
+          background: linear-gradient(135deg, #FF892F, #E66F12);
           display: flex;
           align-items: center;
           justify-content: center;
+          color: #FFF;
         }
         .spin-trigger-icon {
           animation: spinTriggerSpin 3s linear infinite;
@@ -413,17 +409,22 @@ export default function SpinToWinWheel() {
           100% { transform: rotate(0deg); }
         }
 
+        .spin-trigger-text {
+          letter-spacing: 0.2px;
+          white-space: nowrap;
+        }
+
         .spin-trigger-pulse {
           position: absolute;
-          inset: -4px;
-          border-radius: 50px;
-          border: 2px solid #FF892F;
-          animation: spinPulse 2s ease-out infinite;
+          inset: -3px;
+          border-radius: 999px;
+          border: 1.5px solid #FF892F;
+          animation: spinPulse 2.2s ease-out infinite;
           pointer-events: none;
         }
         @keyframes spinPulse {
           0% { opacity: 0.7; transform: scale(1); }
-          100% { opacity: 0; transform: scale(1.3); }
+          100% { opacity: 0; transform: scale(1.2); }
         }
 
         /* ======== MODAL OVERLAY ======== */
@@ -431,37 +432,37 @@ export default function SpinToWinWheel() {
           position: fixed;
           inset: 0;
           z-index: 99996;
-          background: rgba(0, 12, 33, 0.6);
-          backdrop-filter: blur(6px);
-          -webkit-backdrop-filter: blur(6px);
-          animation: spinFadeIn 0.3s ease;
+          background: rgba(0, 12, 33, 0.65);
+          backdrop-filter: blur(5px);
+          -webkit-backdrop-filter: blur(5px);
+          animation: spinFadeIn 0.25s ease;
         }
-        .spin-overlay.closing { animation: spinFadeOut 0.25s ease forwards; }
+        .spin-overlay.closing { animation: spinFadeOut 0.2s ease forwards; }
 
         @keyframes spinFadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes spinFadeOut { from { opacity: 1; } to { opacity: 0; } }
 
-        /* ======== MODAL CARD ======== */
+        /* ======== COMPACT ZERO-SCROLL MODAL CARD ======== */
         .spin-modal {
           position: fixed;
           z-index: 99997;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          width: 400px;
-          max-width: calc(100vw - 32px);
-          max-height: 95vh;
+          width: 360px;
+          max-width: calc(100vw - 28px);
+          max-height: calc(100vh - 32px);
           overflow-y: auto;
-          border-radius: 28px;
-          padding: 28px 24px;
+          border-radius: 22px;
+          padding: 18px 18px 16px;
           text-align: center;
-          animation: spinModalIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+          animation: spinModalIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .spin-modal.closing {
-          animation: spinModalOut 0.25s ease forwards;
+          animation: spinModalOut 0.2s ease forwards;
         }
         @keyframes spinModalIn {
-          from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+          from { opacity: 0; transform: translate(-50%, -50%) scale(0.92); }
           to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         }
         @keyframes spinModalOut {
@@ -471,27 +472,27 @@ export default function SpinToWinWheel() {
 
         [data-theme="dark"] .spin-modal {
           background: linear-gradient(170deg, #001D51, #001233 70%, #000C21);
-          border: 1.5px solid rgba(255, 137, 47, 0.3);
-          box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 60px rgba(255,137,47,0.07);
+          border: 1.5px solid rgba(255, 137, 47, 0.35);
+          box-shadow: 0 24px 60px rgba(0,0,0,0.55), 0 0 40px rgba(255,137,47,0.08);
           color: #F9FBE7;
         }
         :root:not([data-theme="dark"]) .spin-modal,
         [data-theme="light"] .spin-modal {
           background: linear-gradient(170deg, #FFF, #FFF8F0 70%, #FFF5EB);
           border: 1.5px solid rgba(255,137,47,0.25);
-          box-shadow: 0 32px 80px rgba(20,38,74,0.15);
+          box-shadow: 0 24px 60px rgba(20,38,74,0.18);
           color: #0F172A;
         }
 
         .spin-close-btn {
           position: absolute;
-          top: 14px;
-          right: 14px;
+          top: 12px;
+          right: 12px;
           background: rgba(125,125,125,0.12);
           border: 1px solid rgba(125,125,125,0.15);
           border-radius: 50%;
-          width: 36px;
-          height: 36px;
+          width: 30px;
+          height: 30px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -506,70 +507,58 @@ export default function SpinToWinWheel() {
           transform: rotate(90deg);
         }
 
-        .spin-header { margin-bottom: 16px; }
-        .spin-jackpot-ribbon {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          padding: 4px 14px;
-          margin-bottom: 8px;
-          background: linear-gradient(135deg, rgba(255, 215, 0, 0.18) 0%, rgba(255, 137, 47, 0.18) 100%);
-          border: 1px solid rgba(255, 215, 0, 0.55);
-          border-radius: 999px;
-          font-family: var(--font-body, 'Outfit', sans-serif);
-          font-size: 0.72rem;
-          font-weight: 800;
-          letter-spacing: 0.6px;
-          color: #FFD700;
-          box-shadow: 0 0 16px rgba(255, 215, 0, 0.2);
-          animation: jackpotGlow 2s ease-in-out infinite alternate;
-        }
-        @keyframes jackpotGlow {
-          from { box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
-          to { box-shadow: 0 0 22px rgba(255, 215, 0, 0.5); }
-        }
-        .spin-ribbon-sparkle {
-          color: #FFD700;
-        }
+        .spin-header { margin-bottom: 10px; }
         .spin-title {
           font-family: var(--font-heading, 'Baumans', sans-serif);
-          font-size: 1.6rem;
+          font-size: 1.35rem;
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 8px;
-          margin: 0 0 6px;
+          gap: 6px;
+          margin: 0 0 3px;
         }
         .spin-title-icon { color: #FF892F; }
         .spin-subtitle {
-          font-size: 0.84rem;
-          opacity: 0.7;
+          font-size: 0.78rem;
+          opacity: 0.72;
           margin: 0;
+          line-height: 1.35;
         }
 
         /* ======== WHEEL AREA ======== */
         .spin-wheel-area {
           position: relative;
-          width: 300px;
-          height: 300px;
-          margin: 0 auto 20px;
+          width: 240px;
+          height: 240px;
+          margin: 0 auto 12px;
+          transition: all 0.35s ease;
+        }
+        .spin-wheel-area.compact {
+          width: 155px;
+          height: 155px;
+          margin: 0 auto 8px;
         }
 
         .spin-pointer {
           position: absolute;
-          top: -12px;
+          top: -10px;
           left: 50%;
           transform: translateX(-50%);
-          font-size: 2.2rem;
+          font-size: 1.9rem;
           color: #FFD700;
           z-index: 10;
-          filter: drop-shadow(0 3px 6px rgba(0,0,0,0.6));
+          filter: drop-shadow(0 2px 5px rgba(0,0,0,0.6));
           line-height: 1;
+          transition: all 0.3s ease;
+        }
+        .spin-wheel-area.compact .spin-pointer {
+          font-size: 1.35rem;
+          top: -7px;
         }
 
         .spin-wheel-container {
-          width: 300px;
-          height: 300px;
+          width: 100%;
+          height: 100%;
         }
 
         .spin-wheel-canvas {
@@ -583,23 +572,23 @@ export default function SpinToWinWheel() {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          padding: 14px 40px;
+          padding: 11px 32px;
           background: linear-gradient(135deg, #FF892F, #E66F12);
           border: none;
           border-radius: 50px;
           color: #FFF;
           font-family: var(--font-body, 'Outfit', sans-serif);
-          font-size: 1.1rem;
+          font-size: 0.95rem;
           font-weight: 900;
-          letter-spacing: 0.5px;
+          letter-spacing: 0.4px;
           cursor: pointer;
-          transition: all 0.25s ease;
-          box-shadow: 0 6px 24px rgba(255,137,47,0.35);
-          margin-bottom: 12px;
+          transition: all 0.2s ease;
+          box-shadow: 0 4px 18px rgba(255,137,47,0.35);
+          margin-bottom: 6px;
         }
         .spin-action-btn:hover:not(.disabled):not(.spinning) {
-          transform: translateY(-3px) scale(1.04);
-          box-shadow: 0 10px 36px rgba(255,137,47,0.45);
+          transform: translateY(-2px) scale(1.03);
+          box-shadow: 0 8px 24px rgba(255,137,47,0.45);
         }
         .spin-action-btn.spinning {
           opacity: 0.7;
@@ -616,35 +605,33 @@ export default function SpinToWinWheel() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 12px;
-          margin-bottom: 12px;
-          animation: spinResultIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+          gap: 8px;
+          animation: spinResultIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         @keyframes spinResultIn {
-          from { opacity: 0; transform: translateY(10px) scale(0.95); }
+          from { opacity: 0; transform: translateY(8px) scale(0.96); }
           to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .spin-result-badge {
           display: inline-flex;
           align-items: center;
-          gap: 8px;
-          padding: 8px 18px;
+          gap: 6px;
+          padding: 5px 14px;
           border-radius: 50px;
           background: linear-gradient(135deg, #FF892F, #E66F12);
           color: #FFF;
           font-weight: 800;
-          font-size: 1rem;
+          font-size: 0.88rem;
         }
 
         .spin-coupon-card {
           width: 100%;
-          max-width: 280px;
-          padding: 16px;
-          border-radius: 16px;
+          padding: 8px 12px;
+          border-radius: 12px;
           display: flex;
           flex-direction: column;
-          gap: 8px;
+          gap: 3px;
         }
         [data-theme="dark"] .spin-coupon-card {
           background: rgba(255,255,255,0.06);
@@ -657,10 +644,10 @@ export default function SpinToWinWheel() {
         }
 
         .spin-coupon-label {
-          font-size: 0.72rem;
+          font-size: 0.68rem;
           font-weight: 700;
           text-transform: uppercase;
-          letter-spacing: 0.8px;
+          letter-spacing: 0.6px;
           color: #FF892F;
         }
 
@@ -668,23 +655,23 @@ export default function SpinToWinWheel() {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 10px;
+          gap: 8px;
         }
 
         .spin-coupon-code {
           font-family: 'Outfit', monospace;
-          font-size: 1.3rem;
+          font-size: 1.15rem;
           font-weight: 900;
-          letter-spacing: 2px;
+          letter-spacing: 1.5px;
           color: #FF892F;
         }
 
         .spin-copy-btn {
           background: rgba(255,137,47,0.15);
           border: 1px solid rgba(255,137,47,0.3);
-          border-radius: 8px;
-          width: 32px;
-          height: 32px;
+          border-radius: 6px;
+          width: 28px;
+          height: 28px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -697,69 +684,63 @@ export default function SpinToWinWheel() {
         }
 
         .spin-coupon-validity {
-          font-size: 0.72rem;
+          font-size: 0.66rem;
           opacity: 0.6;
         }
 
         .spin-claim-wa-btn {
+          width: 100%;
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 8px;
-          margin-top: 4px;
-          padding: 10px 18px;
+          gap: 7px;
+          padding: 10px 16px;
           background: #25D366;
           color: #FFF;
           font-size: 0.84rem;
-          font-weight: 700;
+          font-weight: 800;
           border-radius: 999px;
           text-decoration: none;
           box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
           transition: all 0.2s ease;
         }
         .spin-claim-wa-btn:hover {
+          background: #20BA5A;
           transform: translateY(-2px);
           box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
         }
 
-        .spin-result-note {
-          font-size: 0.8rem;
-          font-weight: 600;
-          opacity: 0.6;
-          margin: 0;
-        }
-
         .spin-footer-note {
-          font-size: 0.7rem;
+          font-size: 0.68rem;
           opacity: 0.45;
-          margin: 0;
+          margin: 4px 0 0;
         }
 
         /* 📱 Mobile */
         @media (max-width: 640px) {
           .spin-trigger-btn {
             left: 10px;
-            bottom: 84px;
-            padding: 8px 12px 8px 8px;
-            font-size: 0.75rem;
+            bottom: 74px;
+            padding: 5px 10px 5px 6px;
+            font-size: 0.72rem;
           }
           .spin-trigger-icon-wrap {
-            width: 26px;
-            height: 26px;
+            width: 20px;
+            height: 20px;
           }
           .spin-modal {
             width: calc(100vw - 24px);
-            padding: 22px 16px;
+            padding: 16px 14px;
           }
           .spin-wheel-area {
-            width: 260px;
-            height: 260px;
+            width: 210px;
+            height: 210px;
           }
-          .spin-wheel-container {
-            width: 260px;
-            height: 260px;
+          .spin-wheel-area.compact {
+            width: 140px;
+            height: 140px;
           }
-          .spin-title { font-size: 1.3rem; }
+          .spin-title { font-size: 1.2rem; }
         }
       `}</style>
     </>
