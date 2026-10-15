@@ -29,12 +29,7 @@
   pointer-events: none;
 }
 
-/* Optional SVG Distortion Refraction Layer */
-@supports (filter: url('#glass-distortion')) {
-  .liquid-glass-dock.with-distortion .liquidGlass-effect {
-    filter: url('#glass-distortion');
-  }
-}
+
 
 /* Optical Layer 1: Luxury Deep Navy Translucent Tint */
 .liquid-glass-dock .liquidGlass-tint,
