@@ -92,146 +92,61 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
   };
 
   // Single-Click Google SSO for Staff & Admin
+  // Single-Click Google SSO for Staff & Admin (Strict: only pre-authorized team accounts permitted)
   const handleStaffGoogleSSO = async () => {
     setAuthError('');
     try {
       const clientId = getGoogleClientId();
-      if (clientId && clientId.includes('.apps.googleusercontent.com')) {
-        showToast('Connecting with Google...');
-        const info = await triggerGoogleSignInPrompt();
-        if (info?.email) {
-          const staffEmail = info.email.toLowerCase();
-          const allUsers = getAuthorizedUsers();
-          let userMatch = allUsers.find(u => u.email.toLowerCase() === staffEmail);
-
-          if (!userMatch) {
-            const isSuper = staffEmail.includes('admin') || staffEmail.includes('1992') || staffEmail.includes('sharad') || staffEmail.includes('rishabh');
-            userMatch = {
-              id: `user-${Date.now()}`,
-              name: info.name || staffEmail.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-              email: staffEmail,
-              role: isSuper ? 'SUPER_ADMIN' : 'CONTENT_EDITOR',
-              status: 'ACTIVE'
-            };
-            try {
-              const updated = [...allUsers, userMatch];
-              localStorage.setItem('cj_authorized_users', JSON.stringify(updated));
-            } catch (e) {}
-          }
-
-          if (userMatch.status === 'REVOKED') {
-            setAuthError('❌ Access for this employee has been REVOKED by the administrator.');
-            return;
-          }
-
-          const sessionUser = {
-            id: userMatch.id || `staff-g-${Date.now()}`,
-            name: userMatch.name,
-            email: userMatch.email,
-            role: userMatch.role,
-            provider: 'google'
-          };
-
-          sessionStorage.setItem('cj_cms_session_user', JSON.stringify(sessionUser));
-          setCurrentUser(sessionUser);
-          setIsAuthenticated(true);
-          showToast(`✅ Welcome, ${sessionUser.name}! Signed in via Google SSO.`);
-          return;
-        }
+      if (!clientId || !clientId.includes('.apps.googleusercontent.com')) {
+        setAuthError('Google Sign-In is not configured.');
+        return;
       }
+
+      showToast('Connecting with Google...');
+      const info = await triggerGoogleSignInPrompt();
+      if (!info?.email) {
+        setAuthError('No email returned from Google authentication.');
+        return;
+      }
+
+      const staffEmail = info.email.toLowerCase().trim();
+      const allUsers = getAuthorizedUsers();
+      const userMatch = allUsers.find(u => (u.email || '').toLowerCase().trim() === staffEmail);
+
+      // STRICT SECURITY CHECK:
+      // Random website visitors or unauthorized personal Gmails cannot access CMS
+      if (!userMatch) {
+        setAuthError(`⛔ Access Denied: The Google account "${staffEmail}" does not have staff permissions. Only authorized team members added by an administrator in the Team & Access Control panel can access this portal.`);
+        return;
+      }
+
+      if (userMatch.status === 'REVOKED' || userMatch.status === 'INACTIVE') {
+        setAuthError('❌ Access Denied: Staff access for this account has been REVOKED or deactivated by an administrator.');
+        return;
+      }
+
+      const sessionUser = {
+        id: userMatch.id || `staff-g-${Date.now()}`,
+        name: userMatch.name || info.name || 'Team Member',
+        email: userMatch.email,
+        role: userMatch.role || 'CONTENT_EDITOR',
+        provider: 'google'
+      };
+
+      sessionStorage.setItem('cj_cms_session_user', JSON.stringify(sessionUser));
+      setCurrentUser(sessionUser);
+      setIsAuthenticated(true);
+      showToast(`✅ Welcome, ${sessionUser.name}! (${sessionUser.role === 'SUPER_ADMIN' ? 'Super Admin' : 'Content Editor'})`);
     } catch (err) {
-      if (!err.message?.includes('closed') && !err.message?.includes('cancel') && err.message !== 'NO_ACCESS_TOKEN') {
-        console.warn('[Staff Google SSO] Popup cancelled or failed, checking email field:', err.message);
+      const msg = err?.message || '';
+      if (msg.includes('closed') || msg.includes('cancel') || msg.includes('POPUP_CLOSED')) {
+        setAuthError('Google sign-in was closed or cancelled.');
+      } else if (msg.includes('origin') || msg.includes('mismatch')) {
+        setAuthError('Domain origin error in Google Cloud Console. Please ensure https://comfort-journey.github.io is in Authorized JavaScript Origins.');
+      } else {
+        setAuthError(msg || 'Google authentication failed.');
       }
     }
-
-    const inputClean = emailInput.trim().toLowerCase();
-    if (!inputClean || !inputClean.includes('@')) {
-      setAuthError('👉 Please click "Continue with Google" to select your account or enter your company email below.');
-      return;
-    }
-    const staffEmail = inputClean;
-    const allUsers = getAuthorizedUsers();
-    let userMatch = allUsers.find(u => u.email.toLowerCase() === staffEmail);
-
-    if (!userMatch) {
-      const isSuper = staffEmail.includes('admin') || staffEmail.includes('1992') || staffEmail.includes('sharad') || staffEmail.includes('rishabh');
-      userMatch = {
-        id: `user-${Date.now()}`,
-        name: staffEmail.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-        email: staffEmail,
-        role: isSuper ? 'SUPER_ADMIN' : 'CONTENT_EDITOR',
-        status: 'ACTIVE'
-      };
-      try {
-        const updated = [...allUsers, userMatch];
-        localStorage.setItem('cj_authorized_users', JSON.stringify(updated));
-      } catch (e) {}
-    }
-
-    if (userMatch.status === 'REVOKED') {
-      setAuthError('❌ Access for this employee has been REVOKED by the administrator.');
-      return;
-    }
-
-    const sessionUser = {
-      id: userMatch.id || `staff-g-${Date.now()}`,
-      name: userMatch.name,
-      email: userMatch.email,
-      role: userMatch.role,
-      provider: 'google'
-    };
-
-    sessionStorage.setItem('cj_cms_session_user', JSON.stringify(sessionUser));
-    setCurrentUser(sessionUser);
-    setIsAuthenticated(true);
-    showToast(`✅ Welcome, ${sessionUser.name}! Signed in via Google SSO.`);
-  };
-
-  // Single-Click Microsoft 365 SSO for Staff & Admin
-  const handleStaffMicrosoftSSO = () => {
-    setAuthError('');
-    const inputClean = emailInput.trim().toLowerCase();
-    if (!inputClean || !inputClean.includes('@')) {
-      setAuthError('👉 Please enter your Outlook / Microsoft 365 email below to sign in via Microsoft SSO.');
-      return;
-    }
-    const staffEmail = inputClean;
-    const allUsers = getAuthorizedUsers();
-    let userMatch = allUsers.find(u => u.email.toLowerCase() === staffEmail);
-
-    if (!userMatch) {
-      const isSuper = staffEmail.includes('admin') || staffEmail.includes('1992') || staffEmail.includes('sharad') || staffEmail.includes('rishabh');
-      userMatch = {
-        id: `user-${Date.now()}`,
-        name: staffEmail.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-        email: staffEmail,
-        role: isSuper ? 'SUPER_ADMIN' : 'CONTENT_EDITOR',
-        status: 'ACTIVE'
-      };
-      try {
-        const updated = [...allUsers, userMatch];
-        localStorage.setItem('cj_authorized_users', JSON.stringify(updated));
-      } catch (e) {}
-    }
-
-    if (userMatch.status === 'REVOKED') {
-      setAuthError('❌ Access for this employee has been REVOKED by the administrator.');
-      return;
-    }
-
-    const sessionUser = {
-      id: userMatch.id || `staff-ms-${Date.now()}`,
-      name: userMatch.name,
-      email: userMatch.email,
-      role: userMatch.role,
-      provider: 'microsoft'
-    };
-
-    sessionStorage.setItem('cj_cms_session_user', JSON.stringify(sessionUser));
-    setCurrentUser(sessionUser);
-    setIsAuthenticated(true);
-    showToast(`✅ Welcome, ${sessionUser.name}! Signed in via Microsoft 365.`);
   };
 
   const handleLogin = (e) => {
@@ -246,50 +161,32 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
     }
 
     const allUsers = getAuthorizedUsers();
-    let userMatch = allUsers.find(u => u.email.toLowerCase() === cleanEmail);
+    const userMatch = allUsers.find(u => (u.email || '').toLowerCase().trim() === cleanEmail);
 
-    // If not found in current device's localStorage, auto-recognize valid staff credentials:
+    // STRICT SECURITY CHECK: Only pre-authorized staff accounts can sign in
     if (!userMatch) {
-      const isSuper = cleanEmail.includes('admin') || cleanEmail.includes('1992');
-      if (cleanEmail.includes('@') && cleanPass.length >= 6) {
-        userMatch = {
-          id: `user-${Date.now()}`,
-          name: cleanEmail.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-          email: cleanEmail,
-          role: isSuper ? 'SUPER_ADMIN' : 'CONTENT_EDITOR',
-          status: 'ACTIVE',
-          password: cleanPass
-        };
-        // Persist so they remain authorized across future sessions
-        try {
-          const updated = [...allUsers, userMatch];
-          localStorage.setItem('cj_authorized_users', JSON.stringify(updated));
-        } catch (e) {
-          // ignore
-        }
-      } else {
-        setAuthError(`No authorized account found for "${cleanEmail}". Password must be at least 6 characters.`);
-        return;
-      }
+      setAuthError(`⛔ Access Denied: "${cleanEmail}" is not recognized as an authorized staff account. Please contact an administrator.`);
+      return;
     }
 
-    if (userMatch.status === 'REVOKED') {
-      setAuthError('Access for this employee has been REVOKED by the administrator.');
+    if (userMatch.status === 'REVOKED' || userMatch.status === 'INACTIVE') {
+      setAuthError('❌ Access Denied: Staff access for this account has been REVOKED or deactivated.');
       return;
     }
 
     if (userMatch.password && userMatch.password !== cleanPass) {
-      setAuthError('Incorrect password. Please verify your credentials or use Single-Click SSO.');
+      setAuthError('❌ Incorrect password. Please verify your credentials or sign in with authorized Google SSO.');
       return;
     }
 
-    // Success!
     const sessionUser = {
-      id: userMatch.id,
+      id: userMatch.id || `staff-${Date.now()}`,
       name: userMatch.name,
       email: userMatch.email,
-      role: userMatch.role
+      role: userMatch.role || 'CONTENT_EDITOR',
+      provider: 'password'
     };
+
     setCurrentUser(sessionUser);
     setIsAuthenticated(true);
     sessionStorage.setItem('cj_cms_session_user', JSON.stringify(sessionUser));
@@ -753,37 +650,6 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
                 </svg>
                 <span>Continue with Google (Work Gmail)</span>
               </button>
-
-              <button
-                type="button"
-                onClick={handleStaffMicrosoftSSO}
-                className="btn-staff-sso-ms"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '0.75rem',
-                  width: '100%',
-                  padding: '0.75rem 1rem',
-                  borderRadius: '10px',
-                  background: '#2F2F2F',
-                  color: '#FFFFFF',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  fontSize: '0.88rem',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  transition: 'all 0.2s',
-                  boxShadow: '0 2px 6px rgba(0,0,0,0.15)'
-                }}
-              >
-                <svg width="18" height="18" viewBox="0 0 21 21">
-                  <rect x="1" y="1" width="9" height="9" fill="#f25022"/>
-                  <rect x="11" y="1" width="9" height="9" fill="#7fba00"/>
-                  <rect x="1" y="11" width="9" height="9" fill="#00a4ef"/>
-                  <rect x="11" y="11" width="9" height="9" fill="#ffb900"/>
-                </svg>
-                <span>Continue with Microsoft 365 (Outlook)</span>
-              </button>
             </div>
 
             <div className="auth-divider-row" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', width: '100%', margin: '1.25rem 0' }}>
@@ -799,7 +665,7 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
                 <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, marginBottom: '0.35rem' }}>Staff / Admin Email Address</label>
                 <input
                   type="email"
-                  placeholder="e.g. admin@comfortjourney.in or yourname@gmail.com"
+                  placeholder="e.g. social@comfortjourneyy.onmicrosoft.com or admin@comfortjourney.in"
                   value={emailInput}
                   onChange={(e) => setEmailInput(e.target.value)}
                   autoFocus
@@ -824,10 +690,11 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
               </button>
             </form>
             <div className="auth-footer-notice" style={{ marginTop: '1.25rem', padding: '0.85rem 1rem', borderRadius: '8px', fontSize: '0.78rem', lineHeight: '1.45', textAlign: 'left', width: '100%' }}>
-              <strong style={{ display: 'block', marginBottom: '0.25rem' }}>🔒 Multi-Device Staff Access:</strong>
+              <strong style={{ display: 'block', marginBottom: '0.25rem' }}>🔒 Strict Staff Access Control:</strong>
               <div>
-                • Any staff member can log in using <strong>1-Click Google or Microsoft SSO</strong> or with their company email address & password.<br />
-                • <strong>Super Admins</strong> can manage roles and revoke privileges in the <em>Team & Access Control</em> tab.
+                • Only authorized staff & leadership accounts configured in <em>Team Access</em> can log in.<br />
+                • Employees with Microsoft 365 emails (like <code>social@comfortjourneyy.onmicrosoft.com</code>) can enter their email & password above.<br />
+                • <strong>Super Admins</strong> can add new team members or revoke privileges in the <em>Team & Access Control</em> tab.
               </div>
             </div>
           </div>

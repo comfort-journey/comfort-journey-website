@@ -26,9 +26,27 @@ export const DEFAULT_AUTHORIZED_USERS = [
     createdAt: '2026-01-01'
   },
   {
+    id: 'user-admin-3',
+    email: 'rishabhpandey7299@gmail.com',
+    name: 'Rishabh Pandey (Admin)',
+    role: 'SUPER_ADMIN',
+    status: 'ACTIVE',
+    password: 'CJ@Admin2026!#',
+    createdAt: '2026-01-01'
+  },
+  {
     id: 'user-staff-1',
     email: 'operations@comfortjourney.in',
     name: 'Tour Operations Specialist',
+    role: 'CONTENT_EDITOR',
+    status: 'ACTIVE',
+    password: 'CJ@Staff2026#',
+    createdAt: '2026-01-15'
+  },
+  {
+    id: 'user-staff-2',
+    email: 'social@comfortjourneyy.onmicrosoft.com',
+    name: 'Comfort Journey Social Team',
     role: 'CONTENT_EDITOR',
     status: 'ACTIVE',
     password: 'CJ@Staff2026#',
@@ -44,7 +62,22 @@ export function getAuthorizedUsers() {
       return DEFAULT_AUTHORIZED_USERS;
     }
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : DEFAULT_AUTHORIZED_USERS;
+    if (Array.isArray(parsed) && parsed.length > 0) {
+      // Ensure seeded leadership accounts are always merged in
+      let changed = false;
+      const existingEmails = new Set(parsed.map(u => (u.email || '').toLowerCase().trim()));
+      DEFAULT_AUTHORIZED_USERS.forEach(def => {
+        if (!existingEmails.has(def.email.toLowerCase().trim())) {
+          parsed.push(def);
+          changed = true;
+        }
+      });
+      if (changed) {
+        localStorage.setItem(STORAGE_KEY_USERS, JSON.stringify(parsed));
+      }
+      return parsed;
+    }
+    return DEFAULT_AUTHORIZED_USERS;
   } catch (err) {
     console.error('Failed to load authorized users:', err);
     return DEFAULT_AUTHORIZED_USERS;
