@@ -9,7 +9,8 @@
     "generate:sitemap": "node scripts/generate-sitemap.js",
     "generate:ssg": "node scripts/generate-ssg.js",
     "migrate:wix": "node scripts/migrate-wix-packages.js",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy:aws": "node scripts/deploy-aws.js"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
