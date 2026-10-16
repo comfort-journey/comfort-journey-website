@@ -36,6 +36,7 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Expose standard web ports
 EXPOSE 80
+EXPOSE 443
 
 # Health check to ensure Nginx is responding
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
