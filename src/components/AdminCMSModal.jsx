@@ -665,7 +665,7 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
                 <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, marginBottom: '0.35rem' }}>Staff / Admin Email Address</label>
                 <input
                   type="email"
-                  placeholder="e.g. social@comfortjourneyy.onmicrosoft.com or admin@comfortjourney.in"
+                  placeholder="Enter your registered work email"
                   value={emailInput}
                   onChange={(e) => setEmailInput(e.target.value)}
                   autoFocus
@@ -677,7 +677,7 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
                 <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, marginBottom: '0.35rem' }}>Password / Access Key</label>
                 <input
                   type="password"
-                  placeholder="Enter staff access password (min 6 characters)"
+                  placeholder="Enter your password"
                   value={passwordInput}
                   onChange={(e) => setPasswordInput(e.target.value)}
                   required
@@ -692,9 +692,9 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
             <div className="auth-footer-notice" style={{ marginTop: '1.25rem', padding: '0.85rem 1rem', borderRadius: '8px', fontSize: '0.78rem', lineHeight: '1.45', textAlign: 'left', width: '100%' }}>
               <strong style={{ display: 'block', marginBottom: '0.25rem' }}>🔒 Strict Staff Access Control:</strong>
               <div>
-                • Only authorized staff & leadership accounts configured in <em>Team Access</em> can log in.<br />
-                • Employees with Microsoft 365 emails (like <code>social@comfortjourneyy.onmicrosoft.com</code>) can enter their email & password above.<br />
-                • <strong>Super Admins</strong> can add new team members or revoke privileges in the <em>Team & Access Control</em> tab.
+                • Only active staff accounts authorized in the CMS Admin directory can log in.<br />
+                • Use <strong>Continue with Google</strong> if your work account is authorized, or enter your registered email & password above.<br />
+                • Staff access can be granted, modified, or revoked anytime by a Super Admin in the <em>Team & Access Control</em> panel.
               </div>
             </div>
           </div>

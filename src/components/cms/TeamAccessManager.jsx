@@ -9,50 +9,30 @@ const STORAGE_KEY_USERS = 'cj_authorized_users';
 export const DEFAULT_AUTHORIZED_USERS = [
   {
     id: 'user-admin-1',
-    email: 'admin@comfortjourney.in',
-    name: 'Super Admin (Leadership)',
+    email: 'rishabhpandey7299@gmail.com',
+    name: 'Administrator',
     role: 'SUPER_ADMIN',
     status: 'ACTIVE',
-    password: 'CJ@Admin2026!#',
+    password: 'Admin@CJ2026#',
     createdAt: '2026-01-01'
   },
   {
     id: 'user-admin-2',
-    email: 'comfortjourney1992@gmail.com',
-    name: 'Comfort Journey Official',
+    email: 'rishabhmishra@comfortjourneyy.onmicrosoft.com',
+    name: 'Rishabh Mishra',
     role: 'SUPER_ADMIN',
     status: 'ACTIVE',
-    password: 'CJ@Official1992#',
+    password: 'Admin@CJ2026#',
     createdAt: '2026-01-01'
-  },
-  {
-    id: 'user-admin-3',
-    email: 'rishabhpandey7299@gmail.com',
-    name: 'Rishabh Pandey (Admin)',
-    role: 'SUPER_ADMIN',
-    status: 'ACTIVE',
-    password: 'CJ@Admin2026!#',
-    createdAt: '2026-01-01'
-  },
-  {
-    id: 'user-staff-1',
-    email: 'operations@comfortjourney.in',
-    name: 'Tour Operations Specialist',
-    role: 'CONTENT_EDITOR',
-    status: 'ACTIVE',
-    password: 'CJ@Staff2026#',
-    createdAt: '2026-01-15'
-  },
-  {
-    id: 'user-staff-2',
-    email: 'social@comfortjourneyy.onmicrosoft.com',
-    name: 'Comfort Journey Social Team',
-    role: 'CONTENT_EDITOR',
-    status: 'ACTIVE',
-    password: 'CJ@Staff2026#',
-    createdAt: '2026-01-15'
   }
 ];
+
+const UNWANTED_SYNTHETIC_EMAILS = new Set([
+  'admin@comfortjourney.in',
+  'comfortjourney1992@gmail.com',
+  'operations@comfortjourney.in',
+  'social@comfortjourneyy.onmicrosoft.com'
+]);
 
 export function getAuthorizedUsers() {
   try {
@@ -62,20 +42,13 @@ export function getAuthorizedUsers() {
       return DEFAULT_AUTHORIZED_USERS;
     }
     const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed) && parsed.length > 0) {
-      // Ensure seeded leadership accounts are always merged in
-      let changed = false;
-      const existingEmails = new Set(parsed.map(u => (u.email || '').toLowerCase().trim()));
-      DEFAULT_AUTHORIZED_USERS.forEach(def => {
-        if (!existingEmails.has(def.email.toLowerCase().trim())) {
-          parsed.push(def);
-          changed = true;
-        }
-      });
-      if (changed) {
-        localStorage.setItem(STORAGE_KEY_USERS, JSON.stringify(parsed));
+    if (Array.isArray(parsed)) {
+      // Remove any unwanted synthetic placeholders that were saved previously
+      const sanitized = parsed.filter(u => !UNWANTED_SYNTHETIC_EMAILS.has((u.email || '').toLowerCase().trim()));
+      if (sanitized.length !== parsed.length) {
+        localStorage.setItem(STORAGE_KEY_USERS, JSON.stringify(sanitized));
       }
-      return parsed;
+      return sanitized.length > 0 ? sanitized : DEFAULT_AUTHORIZED_USERS;
     }
     return DEFAULT_AUTHORIZED_USERS;
   } catch (err) {
