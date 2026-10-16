@@ -2760,7 +2760,8 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           }
           .hero-title {
             font-size: 1.65rem !important;
-            line-height: 1.2;
+            line-height: 1.25;
+            padding-top: 4px;
           }
           .hero-subline {
             font-size: 0.8rem !important;

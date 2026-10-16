@@ -463,11 +463,13 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
         /* Mobile Optimization */
         @media (max-width: 768px) {
           .hero-mascot-stage {
-            height: 95px;
-            margin-bottom: -12px;
+            height: 92px;
+            margin-bottom: -3px; /* Micro 3D touch: rests on the top rim without covering letterforms */
           }
 
           .mascot-2d-container {
+            width: clamp(110px, 28vw, 125px);
+            height: clamp(95px, 25vw, 108px);
             animation: none !important;
           }
 
