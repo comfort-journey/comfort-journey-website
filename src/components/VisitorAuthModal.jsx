@@ -45,7 +45,16 @@ export default function VisitorAuthModal() {
       setLoadingProvider(null);
     } catch (err) {
       console.warn(`[SSO Error] ${provider}:`, err);
-      setErrorMsg('Authentication with Google was cancelled or could not be completed.');
+      const msg = err?.message || '';
+      if (msg.includes('closed') || msg.includes('cancel') || msg.includes('POPUP_CLOSED')) {
+        setErrorMsg('Google sign-in was closed or cancelled. Please try again or use email/mobile below.');
+      } else if (msg.includes('origin') || msg.includes('mismatch')) {
+        setErrorMsg('Domain origin error: Please ensure https://comfort-journey.github.io is listed under Authorized JavaScript Origins in Google Cloud Console.');
+      } else if (msg.includes('MISSING_CLIENT_ID')) {
+        setErrorMsg('Google Client ID is missing. Please check your configuration.');
+      } else {
+        setErrorMsg(msg || 'Authentication with Google was cancelled or could not be completed.');
+      }
       setLoadingProvider(null);
     }
   };

@@ -3,14 +3,16 @@
 // Official Google OAuth 2.0 Web Client Integration
 // =========================================================================
 
+export const DEFAULT_GOOGLE_CLIENT_ID = '992442447975-k67k82jnvrcj4covrshjjglvgfo8ol3c.apps.googleusercontent.com';
+
 export function getGoogleClientId() {
   if (typeof import.meta !== 'undefined' && import.meta.env?.VITE_GOOGLE_CLIENT_ID) {
     return import.meta.env.VITE_GOOGLE_CLIENT_ID.trim();
   }
-  if (typeof window !== 'undefined') {
-    return (localStorage.getItem('cj_google_client_id') || '').trim();
+  if (typeof window !== 'undefined' && window.localStorage?.getItem('cj_google_client_id')) {
+    return (window.localStorage.getItem('cj_google_client_id') || '').trim();
   }
-  return '';
+  return DEFAULT_GOOGLE_CLIENT_ID;
 }
 
 export function loadGoogleGsiScript() {
@@ -58,7 +60,7 @@ export async function triggerGoogleSignInPrompt() {
         scope: 'email profile openid',
         callback: async (tokenResponse) => {
           if (tokenResponse?.error) {
-            return reject(new Error(tokenResponse.error));
+            return reject(new Error(tokenResponse.error_description || tokenResponse.error));
           }
           if (!tokenResponse?.access_token) {
             return reject(new Error('NO_ACCESS_TOKEN'));
@@ -84,7 +86,8 @@ export async function triggerGoogleSignInPrompt() {
           }
         },
         error_callback: (err) => {
-          reject(err);
+          const msg = err?.message || err?.type || (typeof err === 'string' ? err : 'GOOGLE_POPUP_CLOSED');
+          reject(new Error(msg));
         }
       });
 

@@ -42,34 +42,37 @@ export function UserAuthProvider({ children }) {
     setAuthRedirectAction(null);
   };
 
-  // Google Sign-In (Real Google OAuth 2.0 via GIS if Client ID configured, with guided fallback)
+  // Google Sign-In (Real Google OAuth 2.0 via GIS)
   const signInWithGoogle = async (googleProfile = null) => {
-    try {
-      const clientId = getGoogleClientId();
-      if (clientId && clientId.includes('.apps.googleusercontent.com')) {
-        const info = await triggerGoogleSignInPrompt();
-        if (info?.email) {
-          const newUser = {
-            id: `usr-g-${info.sub || Date.now()}`,
-            name: info.name || 'Traveler',
-            email: info.email,
-            phone: '',
-            avatar: info.picture || '',
-            provider: 'google',
-            isVerified: true,
-            joinedAt: new Date().toISOString()
-          };
-          setUser(newUser);
-          closeAuthModal();
-          return newUser;
-        }
-      }
-    } catch (err) {
-      console.warn('[Google SSO] OAuth prompt cancelled or failed, using fallback:', err.message);
+    // If an explicit profile is passed directly (e.g. from manual/test flow), use it
+    if (googleProfile && (googleProfile.email || googleProfile.name)) {
+      return createFallbackUser(googleProfile);
     }
 
-    // Direct / Guided Profile Login
-    return createFallbackUser(googleProfile);
+    const clientId = getGoogleClientId();
+    if (!clientId || !clientId.includes('.apps.googleusercontent.com')) {
+      throw new Error('Google Sign-In is not configured (missing valid Client ID).');
+    }
+
+    // Trigger official Google OAuth 2.0 popup for account selection
+    const info = await triggerGoogleSignInPrompt();
+    if (info?.email) {
+      const newUser = {
+        id: `usr-g-${info.sub || Date.now()}`,
+        name: info.name || 'Traveler',
+        email: info.email,
+        phone: '',
+        avatar: info.picture || '',
+        provider: 'google',
+        isVerified: true,
+        joinedAt: new Date().toISOString()
+      };
+      setUser(newUser);
+      closeAuthModal();
+      return newUser;
+    }
+
+    throw new Error('Google authentication succeeded but no email was returned.');
   };
 
   const createFallbackUser = (googleProfile) => {

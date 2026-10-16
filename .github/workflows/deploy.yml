@@ -24,6 +24,8 @@ jobs:
           node-version: 20
       - run: npm install --no-audit
       - run: npm run build
+        env:
+          VITE_GOOGLE_CLIENT_ID: ${{ vars.VITE_GOOGLE_CLIENT_ID || secrets.VITE_GOOGLE_CLIENT_ID || '992442447975-k67k82jnvrcj4covrshjjglvgfo8ol3c.apps.googleusercontent.com' }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
