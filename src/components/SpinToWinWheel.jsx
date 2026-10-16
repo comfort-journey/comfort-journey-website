@@ -261,7 +261,7 @@ export default function SpinToWinWheel() {
             <Gift size={15} className="spin-trigger-icon" />
           </div>
           <span className="spin-trigger-text">
-            {hasSpun ? '🎁 My Coupon' : '🎁 Spin & Win'}
+            {hasSpun ? 'My Coupon' : 'Spin & Win'}
           </span>
           {!hasSpun && <span className="spin-trigger-pulse" />}
         </button>
