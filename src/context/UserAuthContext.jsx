@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { triggerGoogleSignInPrompt, getGoogleClientId } from '../utils/googleAuthHelper';
+import { triggerMicrosoftSignInPrompt, getMicrosoftClientId } from '../utils/microsoftAuthHelper';
 
 const UserAuthContext = createContext(null);
 
@@ -93,8 +94,34 @@ export function UserAuthProvider({ children }) {
     closeAuthModal();
   };
 
-  // 1-Click Microsoft Sign-In
+  // 1-Click Microsoft Sign-In (Real Microsoft OAuth 2.0 / Entra ID via popup if Client ID configured)
   const signInWithMicrosoft = async (msProfile = null) => {
+    try {
+      const clientId = getMicrosoftClientId();
+      if (clientId && clientId.length >= 10) {
+        const info = await triggerMicrosoftSignInPrompt();
+        if (info?.email || info?.name) {
+          const newUser = {
+            id: `usr-ms-${info.id || Date.now()}`,
+            name: info.name || 'Traveler',
+            email: info.email || 'traveler@outlook.com',
+            phone: '',
+            avatar: info.avatar || '',
+            provider: 'microsoft',
+            isVerified: true,
+            joinedAt: new Date().toISOString()
+          };
+          setUser(newUser);
+          closeAuthModal();
+          return newUser;
+        }
+      }
+    } catch (err) {
+      if (err.message !== 'POPUP_CLOSED') {
+        console.warn('[Microsoft SSO] OAuth prompt error, using profile fallback:', err.message);
+      }
+    }
+
     const defaultProfile = msProfile || {
       name: 'Traveler',
       email: 'traveler@outlook.com',
@@ -104,7 +131,7 @@ export function UserAuthProvider({ children }) {
     const newUser = {
       id: `usr-ms-${Date.now()}`,
       name: defaultProfile.name || 'Traveler',
-      email: defaultProfile.email || '',
+      email: defaultProfile.email || 'traveler@outlook.com',
       phone: defaultProfile.phone || '',
       avatar: defaultProfile.avatar || '',
       provider: 'microsoft',

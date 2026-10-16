@@ -499,7 +499,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
                     type="button"
                     className="nav-sign-in-btn"
                     onClick={openAuthModal}
-                    title="Sign in with Google, Microsoft, Apple, or Mobile"
+                    title="Sign in with Google, Microsoft, or Mobile"
                   >
                     <User size={15} className="nav-sign-in-icon" />
                     <span>Sign In</span>

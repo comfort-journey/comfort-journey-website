@@ -517,7 +517,7 @@ pageData={activeLandingPage}
             onClose={() => setPolicyModalType(null)}
           />
 
-          {/* Website Visitor Authentication Modal (1-Click Google, MS, Apple, Phone/Email) */}
+          {/* Website Visitor Authentication Modal (1-Click Google, Microsoft, Phone/Email) */}
           <VisitorAuthModal />
 
           {/* Marketing Team CMS, Blog Publisher & SEO Studio (Modal mode when triggered from homepage) */}

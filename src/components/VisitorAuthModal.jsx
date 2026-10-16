@@ -8,7 +8,6 @@ export default function VisitorAuthModal() {
     closeAuthModal,
     signInWithGoogle,
     signInWithMicrosoft,
-    signInWithApple,
     signInWithIdentifier
   } = useUserAuth();
 
@@ -39,23 +38,15 @@ export default function VisitorAuthModal() {
       } else if (cleanName) {
         profile = {
           name: cleanName,
-          email: `${cleanName.toLowerCase().replace(/\s+/g, '.')}@${provider === 'google' ? 'gmail.com' : provider === 'microsoft' ? 'outlook.com' : 'icloud.com'}`
+          email: `${cleanName.toLowerCase().replace(/\s+/g, '.')}@${provider === 'google' ? 'gmail.com' : 'outlook.com'}`
         };
       }
 
-      if (!profile) {
-        const providerName = provider === 'google' ? 'Google' : provider === 'microsoft' ? 'Microsoft' : 'Apple';
-        setErrorMsg(`👉 Please enter your email address or mobile number below to continue with ${providerName}.`);
-        setLoadingProvider(null);
-        return;
-      }
-
-      setTimeout(async () => {
-        await method(profile);
-        setLoadingProvider(null);
-      }, 400);
+      await method(profile);
+      setLoadingProvider(null);
     } catch (err) {
-      setErrorMsg('Authentication error. Please try another option.');
+      console.warn(`[SSO Error] ${provider}:`, err);
+      setErrorMsg(`Authentication with ${provider === 'google' ? 'Google' : 'Microsoft'} was cancelled or could not be completed.`);
       setLoadingProvider(null);
     }
   };
@@ -134,7 +125,7 @@ export default function VisitorAuthModal() {
           </p>
         </div>
 
-        {/* Social SSO Options (Single Click Google, Microsoft, Apple) */}
+        {/* Social SSO Options (Instant 1-Click Google & Microsoft) */}
         <div className="visitor-auth-sso-grid">
           {/* Google SSO */}
           <button
@@ -166,19 +157,6 @@ export default function VisitorAuthModal() {
               <path fill="#FFB900" d="M13 13h10v10H13z"/>
             </svg>
             <span>{loadingProvider === 'microsoft' ? 'Connecting to Microsoft...' : 'Continue with Microsoft'}</span>
-          </button>
-
-          {/* Apple ID SSO */}
-          <button
-            type="button"
-            className="btn-sso-provider btn-sso-apple"
-            onClick={() => handleSSO('apple', signInWithApple)}
-            disabled={Boolean(loadingProvider)}
-          >
-            <svg className="sso-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.47c.65-.8 1.09-1.91.97-3.02-.94.04-2.09.63-2.76 1.41-.59.68-1.11 1.79-.97 2.87 1.05.08 2.11-.47 2.76-1.26"/>
-            </svg>
-            <span>{loadingProvider === 'apple' ? 'Connecting to Apple...' : 'Continue with Apple'}</span>
           </button>
         </div>
 
@@ -418,10 +396,6 @@ export default function VisitorAuthModal() {
 
         .btn-sso-ms:hover {
           border-color: #00A4EF;
-        }
-
-        .btn-sso-apple:hover {
-          border-color: #A2AAAD;
         }
 
         .sso-icon {
