@@ -127,10 +127,10 @@ export default async function handler(reqOrEvent, resOrContext) {
   }
 
   const ALLOWED_ORIGINS = [
-    'https://www.comfortjourneyy.com',
-    'https://comfortjourneyy.com',
     'https://www.comfortjourney.in',
     'https://comfortjourney.in',
+    'https://www.comfortjourneyy.com',
+    'https://comfortjourneyy.com',
     'http://localhost:5173',
     'http://localhost'
   ];
