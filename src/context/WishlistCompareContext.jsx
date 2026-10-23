@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
+import { trackSaveItinerary } from '../utils/analytics';
+
 const WishlistCompareContext = createContext();
 
 export function WishlistCompareProvider({ children }) {
@@ -25,9 +27,13 @@ export function WishlistCompareProvider({ children }) {
   }, [wishlist]);
 
   const toggleWishlist = (tourId) => {
-    setWishlist((prev) =>
-      prev.includes(tourId) ? prev.filter((id) => id !== tourId) : [...prev, tourId]
-    );
+    setWishlist((prev) => {
+      const isRemoving = prev.includes(tourId);
+      if (!isRemoving) {
+        trackSaveItinerary({ tourId, action: 'save' });
+      }
+      return isRemoving ? prev.filter((id) => id !== tourId) : [...prev, tourId];
+    });
   };
 
   const isInWishlist = (tourId) => wishlist.includes(tourId);

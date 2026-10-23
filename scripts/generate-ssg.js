@@ -114,6 +114,28 @@ async function generateSSG() {
 
   let pageCount = 0;
 
+  // 0. Pre-render Homepage Snapshot into dist/index.html with real trust stats pre-baked
+  const homeBody = `
+    <main class="ssg-snapshot">
+      <h1>Comfort Journey | Handcrafted Tour Packages Worldwide Since 1992</h1>
+      <p>Comfort Journey is a trusted travel agency with 30+ years of expertise based in Bhopal. We offer customized tour packages for 2,000+ destinations worldwide. Flights, hotels, visas, and 24/7 support included.</p>
+      <section class="stats-snapshot" aria-label="Trust Statistics">
+        <p><strong>30+</strong> Years of planning trips (From Bhopal since 1992)</p>
+        <p><strong>4.8★</strong> Google rating (From 85+ traveller reviews)</p>
+        <p><strong>India + World</strong> Destinations (Hills, beaches, cities, yatras)</p>
+        <p><strong>24/7</strong> Help on your trip (WhatsApp or call +91 92039 31912)</p>
+      </section>
+      <section aria-label="Signature Tour Packages">
+        <h2>Handcrafted Holiday Packages</h2>
+        <ul>
+          ${TOURS_DATA.slice(0, 15).map(t => `<li><a href="${BASE_URL}/tour/${esc(t.slug || t.id)}/">${esc(t.name)}</a> · ${esc(t.location)} (${esc(t.duration)})</li>`).join('')}
+        </ul>
+      </section>
+    </main>`;
+  const homeHtml = injectRootContent(baseHtml, homeBody);
+  fs.writeFileSync(baseHtmlPath, homeHtml, 'utf8');
+  pageCount++;
+
   // 1. Pre-render Blog Magazine Index
   const blogIndexHtml = injectHtmlMetadata(baseHtml, {
     title: "Editorial Travel Journal & Luxury Guides | Comfort Journey",

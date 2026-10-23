@@ -2,10 +2,12 @@
  * Comfort Journey - Enterprise Google Tag Manager & dataLayer Tracking Engine
  * Container: GTM-TK4DD6HD
  * Tracks:
- * - virtual_pageview (Client-side route changes)
- * - generate_lead (Lead submissions to Directus / CRM)
+ * - virtual_pageview (Client-side route changes for GA4 & Meta Pixel)
+ * - generate_lead (Lead submissions to Directus / CRM without PII)
  * - whatsapp_click (WhatsApp CTA clicks & window.open redirects)
  * - ai_concierge_interaction (Comfy.ai chat prompts & planning requests)
+ * - save_itinerary (User saves a tour to wishlist or favorites)
+ * - user_signup / user_login (Visitor authentication)
  */
 
 export function pushToDataLayer(eventData) {
@@ -15,7 +17,7 @@ export function pushToDataLayer(eventData) {
 }
 
 /**
- * Track SPA Route Changes for GTM & GA4
+ * Track SPA Route Changes for GTM, GA4 & Meta Pixel
  */
 export function trackVirtualPageView(pagePath, pageTitle) {
   const path = pagePath || (typeof window !== 'undefined' ? (window.location.pathname + window.location.hash) : '/');
@@ -31,7 +33,8 @@ export function trackVirtualPageView(pagePath, pageTitle) {
 }
 
 /**
- * Track Lead Form Submissions
+ * Track Lead Form Submissions (High-intent conversion event)
+ * Excludes all PII (no phone, no email) to strictly adhere to Google & Meta policies
  */
 export function trackLeadSubmission(lead) {
   if (!lead) return;
@@ -41,10 +44,8 @@ export function trackLeadSubmission(lead) {
     lead_source: lead.source || 'Website Lead Form',
     tour_name: lead.tourName || lead.destination || 'Custom Tour',
     destination: lead.destination || '',
-    duration: lead.duration || '',
-    guests: lead.guests || '',
-    has_phone: Boolean(lead.phone),
-    has_email: Boolean(lead.email)
+    travelers: lead.guests || lead.travelers || '2 Persons',
+    duration: lead.duration || ''
   });
 }
 
@@ -71,6 +72,29 @@ export function trackAIConciergeInteraction(action, details = {}) {
     destination: details.destination || '',
     prompt_length: details.promptLength || 0,
     model: details.model || 'Comfy.ai'
+  });
+}
+
+/**
+ * Track Saved Itinerary (Wishlist / Favorites)
+ */
+export function trackSaveItinerary(details = {}) {
+  pushToDataLayer({
+    event: 'save_itinerary',
+    tour_id: details.tourId || '',
+    tour_name: details.tourName || '',
+    destination: details.destination || '',
+    action: details.action || 'save'
+  });
+}
+
+/**
+ * Track User Authentication / Login
+ */
+export function trackUserLogin(method = 'google') {
+  pushToDataLayer({
+    event: 'user_login',
+    login_method: method
   });
 }
 

@@ -175,9 +175,11 @@ export default function App() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else if (pathname.startsWith('/tour/') || pathname.startsWith('/package/') || hash.startsWith('#/tour/') || hash.startsWith('#tour/') || hash.startsWith('#/package/')) {
         const tourSlug = (pathname.startsWith('/tour/') || pathname.startsWith('/package/'))
-          ? pathname.replace(/^\/(tour|package)\//, '').trim()
-          : rawHash.replace(/^#\/?(tour|package)\//, '').trim();
-        window.location.hash = '#/itinerary/' + tourSlug;
+          ? pathname.replace(/^\/(tour|package)\//, '').replace(/\/$/, '').trim()
+          : rawHash.replace(/^#\/?(tour|package)\//, '').replace(/\/$/, '').trim();
+        if (typeof history !== 'undefined' && history.replaceState) {
+          history.replaceState(null, '', `/tour/${tourSlug}/`);
+        }
         setCurrentView('itinerary');
         setActiveLandingPage(null);
         setActiveBlogSlug(null);
@@ -243,15 +245,45 @@ export default function App() {
   }, []);
 
   const navigateToLandingPage = (slug) => {
-    window.location.hash = `#/landing/${slug}`;
+    if (typeof history !== 'undefined' && history.pushState) {
+      history.pushState(null, '', `/${slug}/`);
+    } else {
+      window.location.hash = `#/${slug}`;
+    }
+    const matched = getLandingPageBySlug(slug);
+    if (matched) {
+      setActiveLandingPage(matched);
+      setCurrentView('landing');
+      setActiveBlogSlug(null);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      trackVirtualPageView(`/${slug}/`, `${matched.metaTitle || slug} | Comfort Journey`);
+    }
   };
 
   const navigateToBlog = (slug) => {
-    window.location.hash = `#/blog/${slug}`;
+    if (typeof history !== 'undefined' && history.pushState) {
+      history.pushState(null, '', `/blog/${slug}/`);
+    } else {
+      window.location.hash = `#/blog/${slug}`;
+    }
+    setActiveBlogSlug(slug);
+    setCurrentView('blog-reader');
+    setActiveLandingPage(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    trackVirtualPageView(`/blog/${slug}/`, `${slug} | Comfort Journey Blog`);
   };
 
   const navigateToMagazine = () => {
-    window.location.hash = `#/blog`;
+    if (typeof history !== 'undefined' && history.pushState) {
+      history.pushState(null, '', `/blog/`);
+    } else {
+      window.location.hash = `#/blog`;
+    }
+    setCurrentView('magazine');
+    setActiveLandingPage(null);
+    setActiveBlogSlug(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    trackVirtualPageView('/blog/', 'Travel Blogs & Luxury Guides | Comfort Journey');
   };
 
   const navigateToHome = () => {
@@ -263,23 +295,37 @@ export default function App() {
     setActiveLandingPage(null);
     setActiveBlogSlug(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    trackVirtualPageView('/', 'Comfort Journey | Tour Packages Worldwide | Since 1992');
   };
 
   const navigateToAIPlanner = () => {
-    window.location.hash = '#/ai-planner';
+    if (typeof history !== 'undefined' && history.pushState) {
+      history.pushState(null, '', '/ai-planner');
+    } else {
+      window.location.hash = '#/ai-planner';
+    }
+    setCurrentView('ai-planner');
+    setActiveLandingPage(null);
+    setActiveBlogSlug(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    trackVirtualPageView('/ai-planner', 'Comfy.ai Travel Planner | Comfort Journey');
   };
 
   const navigateToItinerary = (tour) => {
     setSelectedItineraryTour(tour);
     const slug = tour?.slug || tour?.id;
     if (slug) {
-      window.location.hash = `#/itinerary/${slug}`;
+      if (typeof history !== 'undefined' && history.pushState) {
+        history.pushState(null, '', `/tour/${slug}/`);
+      } else {
+        window.location.hash = `#/tour/${slug}`;
+      }
     }
     setCurrentView('itinerary');
     setActiveLandingPage(null);
     setActiveBlogSlug(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    trackVirtualPageView(slug ? `/tour/${slug}/` : '/tour', `${tour?.name || 'Tour'} | Comfort Journey`);
   };
 
   return (

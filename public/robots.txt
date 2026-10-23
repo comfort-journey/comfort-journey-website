@@ -7,7 +7,9 @@ User-agent: *
 Allow: /
 Disallow: /#/admin
 Disallow: /admin
+Disallow: /cms
 Disallow: /cms/
+Disallow: /api/
 
 # Google AI & Search Crawlers
 User-agent: Googlebot
