@@ -22,7 +22,7 @@ const ICONS = {
 };
 
 const WA_NUMBER = '919203931912';
-const SITE = 'https://www.comfortjourneyy.com';
+const SITE = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SITE_URL) || 'https://www.comfortjourney.in';
 const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
 const asset = (src) => (!src ? '' : /^(https?:|data:)/.test(src) ? src : basePrefix + src.replace(/^\.?\//, ''));
 

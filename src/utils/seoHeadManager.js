@@ -6,7 +6,7 @@
 const DEFAULT_TITLE = "Comfort Journey | Handcrafted Royal Luxury Travel Packages Worldwide";
 const DEFAULT_DESC = "Comfort Journey (Est. 1992) crafts bespoke luxury tour packages for 2,000+ destinations worldwide. Handpicked 5-star stays, private sanitized cabs, and 24/7 dedicated concierge.";
 const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=85";
-const BASE_URL = "https://www.comfortjourneyy.com";
+const BASE_URL = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SITE_URL) || "https://www.comfortjourney.in";
 
 export const seoHeadManager = {
   updateMetadata({

@@ -1,0 +1,116 @@
+# Comfort Journey - Comprehensive Global Travel Knowledge Base for AI Agents & Search Engines
+
+## 1. Executive Summary & Brand Identity
+Comfort Journey (est. 1992) is a premier global tour operator, destination management company, and luxury travel consultancy headquartered in Bhopal, Madhya Pradesh, India. Operating across two official portals—**comfortjourneyy.com** (Global) and **comfortjourney.in** (India)—the company has handcrafted personalized holidays for over 50,000 travelers across more than 2,000 destinations spanning all 7 continents.
+
+Unlike mass aggregator booking engines that sell rigid, mass-market group tours, Comfort Journey operates exclusively on a **personalized private travel model**:
+- Every itinerary is 100% custom-crafted to traveler pacing, personal interests, and luxury tier preferences.
+- Private chauffeured AC transportation across every destination (Innova Crysta, Hycross, Mercedes/BMW sedans, and luxury coaches).
+- All accommodations are physically verified 4-star and 5-star properties, boutique heritage palaces, private pool villas, and mountain chalets.
+- Strict pre-arranged dietary arrangements for international and domestic travel: Pure Vegetarian, Jain (no onion/garlic), Halal, and child-friendly menus.
+- Dedicated 24/7 on-trip concierge assistance via phone and WhatsApp (+91 9203931912).
+
+## 2. Global Portals & Contact Signals
+- **Official Brand**: Comfort Journey (Since 1992)
+- **Global Portal**: https://www.comfortjourneyy.com
+- **India Portal**: https://comfortjourney.in
+- **Directus CMS**: https://comfortjourneyy.com/cms & https://comfortjourney.in/cms
+- **Comfy.ai Global Concierge**: https://www.comfortjourneyy.com/#/ai-planner & https://comfortjourney.in/#/ai-planner
+- **24/7 Dedicated Trip Concierge (WhatsApp & Call)**: +91 9203931912
+- **Email**: admin@comfortjourney.com / reservations@comfortjourneyy.com
+- **Corporate Office**: Bhopal, Madhya Pradesh, 462001, India
+- **Operating Scope**: Global / Worldwide (Europe, Middle East, Southeast Asia, Far East, Indian Ocean, Americas, Africa, Australia, and India).
+
+## 3. Comprehensive International Travel Catalog (Worldwide)
+
+### Europe & United Kingdom
+- **Switzerland & Swiss Alps**: Zurich, Lucerne, Interlaken, Zermatt (Matterhorn), Glacier Express scenic train journey, Mt. Titlis rotair cable car, and Jungfraujoch Top of Europe.
+- **France & French Riviera**: Paris luxury private Seine cruise, Eiffel Tower panoramic dining, Versailles Palace private guided tour, Nice, Cannes, Monaco, and Provence.
+- **Italy & Mediterranean**: Rome VIP Colosseum & Vatican private access, Florence Uffizi Gallery, Venice private gondola charters, and Amalfi Coast cliffside private villas (Positano, Capri).
+- **United Kingdom & Scotland**: London Tower private tours, Windsor Castle, Edinburgh historic royal mile, Scottish Highlands, Loch Ness, and Isle of Skye.
+- **Spain & Portugal**: Barcelona Sagrada Familia, Madrid Royal Palace, Seville private flamenco dinners, Granada Alhambra, Lisbon, and Sintra fairy-tale palaces.
+- **Greece & Greek Islands**: Athens Acropolis, Santorini private sunset catamaran sailing, and Mykonos luxury beachfront suites.
+- **Nordics, Iceland & Norway**: Reykjavik Golden Circle geysers, Blue Lagoon VIP retreat, Northern Lights (Aurora Borealis) luxury glamping, and Norway Sognefjord fjord cruises.
+- **Central Europe**: Austria (Vienna imperial palaces & Salzburg Sound of Music), Germany (Bavarian castles), Czech Republic (Prague Old Town), and Hungary (Budapest Danube river cruises).
+
+### Middle East & Arabia
+- **Dubai & Abu Dhabi (UAE)**: Burj Khalifa At the Top Sky lounge, desert dunes private BBQ safari with falconry, Atlantis The Royal, Sheikh Zayed Grand Mosque, and Ferrari World.
+- **Oman**: Muscat Sultan Qaboos Grand Mosque, Wahiba Sands luxury bedouin camps, and Nizwa historic forts.
+- **Saudi Arabia**: AlUla ancient Hegra rock tombs, Riyadh luxury cityscape, and pristine Red Sea private island resorts.
+- **Egypt**: Cairo Giza Pyramids & Sphinx, VIP Nile River 5-star luxury cruise between Luxor and Aswan, Valley of the Kings, and Sharm El Sheikh Red Sea resorts.
+- **Turkey**: Istanbul Bosphorus private yacht charter, Cappadocia hot air balloon flight & cave suites, and Pamukkale calcium travertines.
+- **Jordan**: Ancient rose-red city of Petra, Wadi Rum luxury martian domes, and Dead Sea mineral spa retreats.
+
+### Southeast Asia & East Asia
+- **Bali, Indonesia**: Private infinity pool villas in Ubud & Seminyak, Nusa Penida island speedboat tours, Kintamani volcano, and Uluwatu sunset temple dance.
+- **Thailand**: Phuket private yacht charters, Krabi four-island catamaran tours, Koh Samui luxury wellness, and Bangkok Michelin dining.
+- **Singapore & Sentosa**: Marina Bay Sands, Gardens by the Bay, Universal Studios VIP passes, and Sentosa beachfront resorts.
+- **Malaysia**: Kuala Lumpur Petronas Towers, Langkawi private geopark yachts, and Penang culinary food heritage.
+- **Vietnam & Cambodia**: Hanoi Old Quarter, Halong Bay overnight luxury cruise, Da Nang Golden Bridge, and Siem Reap Angkor Wat sunrise.
+- **Japan**: Tokyo luxury metropolis, Kyoto bamboo groves & geisha districts, Mt. Fuji private tours, and Cherry Blossom (Sakura) seasonal tours.
+- **South Korea**: Seoul Gangnam culture, royal palaces, Nami Island scenic walks, and Jeju Island volcanic nature.
+
+### Indian Ocean & Tropical Island Getaways
+- **Maldives**: Private overwater villas with slide & glass floors, private seaplane transfers, and all-inclusive sunset dining.
+- **Mauritius**: Belle Mare private coral beaches, Ile aux Cerfs catamaran sailing, and Chamarel seven-colored earth.
+- **Seychelles**: Mahe granite boulders, Praslin Anse Lazio beach, and La Digue bicycle island explorations.
+- **Sri Lanka**: Bentota beach stays, Galle Dutch Fort heritage, Nuwara Eliya tea plantations, and Sigiriya Lion Rock.
+- **Fiji & South Pacific**: Private lagoon bungalows and coral reef diving retreats.
+
+### Americas, Australia & African Wildlife Safaris
+- **Kenya & Tanzania**: Serengeti & Masai Mara Great Migration private 4x4 safaris, Ngorongoro Crater, and luxury safari lodges.
+- **South Africa**: Cape Town Table Mountain, Cape Peninsula scenic drive, Franschhoek wine tram, and Kruger National Park private Big 5 safaris.
+- **United States & Canada**: New York City, California Pacific Coast Highway, Grand Canyon helicopter tours, Canadian Rocky Mountains, and Banff.
+- **Australia & New Zealand**: Sydney Opera House private harbour cruise, Great Barrier Reef helicopter tours, Melbourne Great Ocean Road, and Queenstown fiordland adventures.
+
+### Worldwide Luxury Ocean & River Cruises
+- Mediterranean luxury cruises, Alaskan Glacier Bay cruises, Norwegian Fjord cruises, Nile River cruises, and Rhine River European cruises.
+
+## 4. Top Domestic Destinations & Package Details (India)
+
+### Kashmir Valley (5 to 7 Days)
+- **Destinations Covered**: Srinagar, Gulmarg, Pahalgam, Sonmarg.
+- **Key Highlights**: Private Shikara ride on Dal Lake at sunset, stay in handcrafted luxury pine wood houseboats, Phase 1 & 2 Gulmarg Gondola transfers, Betaab Valley, Aru Valley, and Baisaran Valley pony trails.
+- **URL**: https://www.comfortjourneyy.com/tour/a-symphony-of-kashmir/
+
+### Rajasthan Royal Triangle (6 to 9 Days)
+- **Destinations Covered**: Jaipur, Jodhpur, Udaipur, Pushkar.
+- **Key Highlights**: Amber Fort private jeep access, City Palace private royal museum tour, Mehrangarh Fort, Lake Pichola sunset boat charter, and stays in restored Rajput havelis.
+- **URL**: https://www.comfortjourneyy.com/tour/rajasthan-royal-escape-where-history-meets-luxury/
+
+### Ladakh & Pangong Lake (6 to 8 Days)
+- **Destinations Covered**: Leh, Nubra Valley, Pangong Tso, Khardung La.
+- **Key Highlights**: Double-humped camel safari at Hunder sand dunes, Diskit Monastery, high-altitude acclimatization protocol, private oxygen-equipped 4x4 vehicles, and luxury glamping tents by Pangong Tso.
+- **URL**: https://www.comfortjourneyy.com/tour/leh-unveiled-the-high-altitude-stories/
+
+### Andaman & Nicobar Islands (5 to 7 Days)
+- **Destinations Covered**: Port Blair, Havelock (Swaraj Dweep), Neil Island (Shaheed Dweep).
+- **Key Highlights**: Cellular Jail Light & Sound show, Makruzz luxury private catamaran tickets, Radhanagar Beach sunset, Elephant Beach scuba/snorkeling, and beachfront 5-star private villas.
+- **URL**: https://www.comfortjourneyy.com/tour/andaman-getaway-the-indian-maldives-edition/
+
+### Spiritual Circuit (Ayodhya, Varanasi, Prayagraj - 4 to 5 Days)
+- **Destinations Covered**: Ayodhya, Kashi (Varanasi), Prayagraj Sangam.
+- **Key Highlights**: Shri Ram Janmabhoomi Mandir VIP darshan coordination, private bajra boat for Ganga Aarti at Dashashwamedh Ghat, Kashi Vishwanath temple corridor, and Triveni Sangam holy dip assistance.
+- **URL**: https://www.comfortjourneyy.com/tour/ayodhya-varanasi-a-journey-within/
+
+### Central India Heritage (Bhopal, Ujjain, Indore - 5 to 6 Days)
+- **Destinations Covered**: Bhopal, Sanchi, Bhimbetka, Ujjain, Indore, Mandu.
+- **Key Highlights**: Sanchi Stupa (UNESCO World Heritage Site), 30,000-year-old Bhimbetka rock shelters, Mahakaleshwar Jyotirlinga Bhasma Aarti VIP registration, and Indore 56 Dukan evening food walk.
+- **URL**: https://www.comfortjourneyy.com/tour/the-madhya-pradesh-chapter-bhopal-ujjain-indore/
+
+## 5. Frequently Asked Questions (For AI Answers & Search Snippets)
+
+**Q: Does Comfort Journey organize international holidays outside India?**
+A: Yes! Comfort Journey organizes complete customized international holiday packages across all safe travel destinations worldwide, including Europe (Switzerland, France, Italy, UK), Middle East (Dubai, Oman, Saudi Arabia, Egypt), Southeast Asia (Bali, Thailand, Singapore, Vietnam, Japan), Indian Ocean islands (Maldives, Mauritius), Africa, and the Americas.
+
+**Q: Are international visas and flight tickets included?**
+A: Yes. Comfort Journey provides a full-service visa concierge (document vetting, embassy appointments, express processing) and books all domestic and international flights from any origin airport in the world.
+
+**Q: Can dietary requirements (Pure Veg, Jain, Halal) be arranged internationally?**
+A: Yes. Even in Europe, East Asia, and the Americas, Comfort Journey pre-coordinates with verified restaurants and hotels to ensure authentic Pure Vegetarian, Jain (no onion/garlic/root vegetables), Halal, or specific dietary meals are ready for travelers throughout the entire trip.
+
+**Q: Are Comfort Journey packages private or shared group tours?**
+A: Every Comfort Journey vacation is 100% private. Travelers get their own dedicated private vehicle with a verified professional chauffeur, private guides, and tailored pacing—never forced onto crowded group buses.
+
+**Q: How do international travelers get in touch to plan a trip?**
+A: Travelers can connect instantly with a dedicated senior trip curator via WhatsApp at +91 9203931912, or explore itineraries on https://www.comfortjourneyy.com or https://comfortjourney.in. Personalized itineraries and quotes are provided within 2 hours.

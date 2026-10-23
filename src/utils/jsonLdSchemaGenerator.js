@@ -3,7 +3,7 @@
 // Optimized for AEO (Answer Engine Optimization), GEO & Google AI Overviews
 // =========================================================================
 
-const BASE_URL = 'https://www.comfortjourneyy.com';
+const BASE_URL = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SITE_URL) || 'https://www.comfortjourney.in';
 
 export const jsonLdSchemaGenerator = {
   // 1. Travel Agency / Organization Schema (Site-Wide & Homepage)
@@ -19,7 +19,7 @@ export const jsonLdSchemaGenerator = {
       "image": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1920&q=80",
       "description": "Comfort Journey is an award-winning luxury tour and travel company established in 1992, curating handcrafted national and international holidays, VIP honeymoons, solo escapes, and corporate retreats with 24/7 dedicated concierge service.",
       "telephone": "+919203931912",
-      "email": "contact@comfortjourneyy.com",
+      "email": "contact@comfortjourney.in",
       "foundingDate": "1992-04-15",
       "founder": {
         "@type": "Person",

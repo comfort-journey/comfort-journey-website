@@ -54,43 +54,53 @@ async function executeGeminiPrompt({ prompt, conversationHistory = [], apiKey })
     parts: [{ text: prompt }]
   });
 
-  const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  const candidateModels = ['gemini-3.8-flash', 'gemini-flash-latest', 'gemini-3.5-flash', 'gemini-3.1-flash-lite'];
+  let lastError = null;
 
-  const response = await fetch(apiUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      systemInstruction: {
-        parts: [{ text: SYSTEM_INSTRUCTION }]
-      },
-      contents,
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 900,
-        topP: 0.95
+  for (const model of candidateModels) {
+    try {
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          systemInstruction: {
+            parts: [{ text: SYSTEM_INSTRUCTION }]
+          },
+          contents,
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 900,
+            topP: 0.95
+          }
+        })
+      });
+
+      if (!response.ok) {
+        const errText = await response.text();
+        console.warn(`Gemini model ${model} returned ${response.status}:`, errText);
+        lastError = errText;
+        continue;
       }
-    })
-  });
 
-  if (!response.ok) {
-    const errText = await response.text();
-    console.error('Gemini API Error:', errText);
-    return { fallback: true, error: errText };
+      const data = await response.json();
+      const candidate = data.candidates?.[0];
+      const replyText = candidate?.content?.parts?.[0]?.text;
+
+      if (replyText) {
+        return {
+          success: true,
+          reply: replyText,
+          model
+        };
+      }
+    } catch (err) {
+      console.warn(`Gemini model ${model} fetch failed:`, err);
+      lastError = err.message;
+    }
   }
 
-  const data = await response.json();
-  const candidate = data.candidates?.[0];
-  const replyText = candidate?.content?.parts?.[0]?.text;
-
-  if (!replyText) {
-    return { fallback: true, message: 'Empty response from Gemini' };
-  }
-
-  return {
-    success: true,
-    reply: replyText,
-    model: 'gemini-1.5-flash'
-  };
+  return { fallback: true, error: lastError || 'Unable to get response from Gemini' };
 }
 
 /**
@@ -107,7 +117,8 @@ export default async function handler(reqOrEvent, resOrContext) {
     method = reqOrEvent.httpMethod || reqOrEvent.requestContext?.http?.method || 'POST';
     try {
       body = typeof reqOrEvent.body === 'string' ? JSON.parse(reqOrEvent.body) : (reqOrEvent.body || {});
-    } catch {
+    } catch (e) {
+      console.error('JSON parse error in ai-planner:', e.message, 'Raw body was:', reqOrEvent.body);
       body = {};
     }
   } else {
@@ -115,20 +126,32 @@ export default async function handler(reqOrEvent, resOrContext) {
     body = reqOrEvent.body || {};
   }
 
-  // Handle CORS / OPTIONS pre-flight for AWS
+  const ALLOWED_ORIGINS = [
+    'https://www.comfortjourneyy.com',
+    'https://comfortjourneyy.com',
+    'https://www.comfortjourney.in',
+    'https://comfortjourney.in',
+    'http://localhost:5173',
+    'http://localhost'
+  ];
+
+  const origin = reqOrEvent.headers?.origin || reqOrEvent.headers?.Origin || '';
+  const allowOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+
+  // Handle CORS / OPTIONS pre-flight
   if (method === 'OPTIONS') {
     if (isLambda) {
       return {
         statusCode: 200,
         headers: {
-          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Origin': allowOrigin,
           'Access-Control-Allow-Headers': 'Content-Type,Authorization',
           'Access-Control-Allow-Methods': 'POST,OPTIONS'
         },
         body: ''
       };
     } else {
-      resOrContext.setHeader('Access-Control-Allow-Origin', '*');
+      resOrContext.setHeader('Access-Control-Allow-Origin', allowOrigin);
       resOrContext.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
       return resOrContext.status(200).end();
     }
@@ -147,6 +170,10 @@ export default async function handler(reqOrEvent, resOrContext) {
 
   const apiKey = process.env.GEMINI_API_KEY;
 
+  if (!isLambda) {
+    resOrContext.setHeader('Access-Control-Allow-Origin', allowOrigin);
+  }
+
   if (!apiKey) {
     const fallbackResponse = {
       fallback: true,
@@ -155,7 +182,7 @@ export default async function handler(reqOrEvent, resOrContext) {
     if (isLambda) {
       return {
         statusCode: 200,
-        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': allowOrigin },
         body: JSON.stringify(fallbackResponse)
       };
     }
@@ -170,7 +197,7 @@ export default async function handler(reqOrEvent, resOrContext) {
       if (isLambda) {
         return {
           statusCode: 400,
-          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': allowOrigin },
           body: JSON.stringify(badReq)
         };
       }
@@ -182,7 +209,7 @@ export default async function handler(reqOrEvent, resOrContext) {
     if (isLambda) {
       return {
         statusCode: 200,
-        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': allowOrigin },
         body: JSON.stringify(result)
       };
     }
@@ -195,7 +222,7 @@ export default async function handler(reqOrEvent, resOrContext) {
     if (isLambda) {
       return {
         statusCode: 200,
-        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': allowOrigin },
         body: JSON.stringify(errObj)
       };
     }

@@ -23,6 +23,8 @@ services:
     ports:
       - '80:80'
       - '443:443'
+    volumes:
+      - /opt/comfortjourney:/etc/nginx/ssl:ro,Z
     depends_on:
       - directus
     networks:
@@ -63,7 +65,7 @@ services:
       PUBLIC_URL: '${PUBLIC_URL:-http://localhost/cms}'
       ROOT_PATH: '/cms'
       CORS_ENABLED: 'true'
-      CORS_ORIGIN: '${CORS_ORIGINS:-https://comfortjourneyy.com,https://www.comfortjourneyy.com,https://comfortjourney.in,http://localhost}'
+      CORS_ORIGIN: '${CORS_ORIGINS:-https://comfortjourneyy.com,https://www.comfortjourneyy.com,https://comfortjourney.in,https://www.comfortjourney.in,http://localhost}'
 
       # Media Storage (Configured for AWS S3 Mumbai ap-south-1 in production)
       STORAGE_LOCATIONS: '${STORAGE_LOCATIONS:-local}'
@@ -86,7 +88,10 @@ services:
       - directus_uploads:/directus/uploads
       - directus_extensions:/directus/extensions
     depends_on:
-      - cache
+      cache:
+        condition: service_started
+      database:
+        condition: service_healthy
     networks:
       - cj_network
 
@@ -104,16 +109,12 @@ services:
       - cj_network
 
   # ----------------------------------------------------------------------------
-  # 4. OPTIONAL LOCAL POSTGRES (Profile: local-dev only)
-  # In production, AWS RDS is used directly, so this container is skipped.
-  # To run locally without AWS RDS: `docker compose --profile local-dev up`
+  # 4. PRIMARY DATABASE (PostgreSQL 16 Alpine)
   # ----------------------------------------------------------------------------
   database:
     image: postgres:16-alpine
-    container_name: comfort_journey_local_postgres
+    container_name: comfort_journey_postgres
     restart: unless-stopped
-    profiles:
-      - local-dev
     environment:
       POSTGRES_USER: '${RDS_USER:-directus}'
       POSTGRES_PASSWORD: '${RDS_PASSWORD:-comfort_journey_db_password_1992}'
@@ -122,11 +123,30 @@ services:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${RDS_USER:-directus} -d ${RDS_DB_NAME:-directus_comfort_journey}"]
-      interval: 10s
+      interval: 5s
       timeout: 5s
       retries: 5
     networks:
       - cj_network
+
+  # ----------------------------------------------------------------------------
+  # 5. SERVERLESS AI CONCIERGE (Comfy.ai / Gemini Flash Microservice)
+  # ----------------------------------------------------------------------------
+  ai_planner:
+    image: node:20-alpine
+    container_name: comfort_journey_ai_planner
+    restart: unless-stopped
+    working_dir: /opt/comfort-journey-website
+    volumes:
+      - ./api:/opt/comfort-journey-website/api:ro
+      - ./package.json:/opt/comfort-journey-website/package.json:ro
+    environment:
+      GEMINI_API_KEY: '${GEMINI_API_KEY:-}'
+      PORT: '3001'
+    command: node api/server.js
+    networks:
+      - cj_network
+
 
 # ------------------------------------------------------------------------------
 # Persistent Volumes

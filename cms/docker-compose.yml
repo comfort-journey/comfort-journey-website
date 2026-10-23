@@ -47,7 +47,7 @@ services:
       PUBLIC_URL: '${PUBLIC_URL:-http://localhost/cms}'
       ROOT_PATH: '/cms'
       CORS_ENABLED: 'true'
-      CORS_ORIGIN: '${CORS_ORIGINS:-https://comfortjourneyy.com,https://www.comfortjourneyy.com,https://comfortjourney.in,http://localhost}'
+      CORS_ORIGIN: '${CORS_ORIGINS:-https://comfortjourneyy.com,https://www.comfortjourneyy.com,https://comfortjourney.in,https://www.comfortjourney.in,http://localhost}'
 
       # Media Storage (Configured for AWS S3 Mumbai ap-south-1 in production)
       STORAGE_LOCATIONS: '${STORAGE_LOCATIONS:-local}'
@@ -70,17 +70,17 @@ services:
       - directus_uploads:/directus/uploads
       - directus_extensions:/directus/extensions
     depends_on:
-      - cache
+      cache:
+        condition: service_started
+      database:
+        condition: service_healthy
     networks:
       - cj_network
 
-  # Optional local postgres fallback (Profile: local-dev only)
   database:
     image: postgres:16-alpine
-    container_name: comfort_journey_local_postgres
+    container_name: comfort_journey_postgres
     restart: unless-stopped
-    profiles:
-      - local-dev
     environment:
       POSTGRES_USER: '${RDS_USER:-directus}'
       POSTGRES_PASSWORD: '${RDS_PASSWORD:-comfort_journey_db_password_1992}'
@@ -89,7 +89,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${RDS_USER:-directus} -d ${RDS_DB_NAME:-directus_comfort_journey}"]
-      interval: 10s
+      interval: 5s
       timeout: 5s
       retries: 5
     networks:

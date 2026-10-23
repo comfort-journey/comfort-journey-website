@@ -17,12 +17,13 @@ export default function AnimatedCounter({
   triggerOnce = true,
 }) {
   const finalTarget = Number(target !== undefined ? target : (value !== undefined ? value : 100));
-  const [count, setCount] = useState(0);
+  // Initialize to finalTarget so search engine crawlers, SSG, and pre-renders index the real numbers (e.g. 30+, 4.8★) instead of 0
+  const [count, setCount] = useState(finalTarget);
   const [hasTriggered, setHasTriggered] = useState(false);
   const elementRef = useRef(null);
 
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
       setCount(finalTarget);
       return;
@@ -33,6 +34,7 @@ export default function AnimatedCounter({
         entries.forEach((entry) => {
           if (entry.isIntersecting && (!hasTriggered || !triggerOnce)) {
             setHasTriggered(true);
+            setCount(0); // Reset to 0 just before triggering the smooth count-up animation for human eyes
             animateCount();
             if (triggerOnce) observer.unobserve(entry.target);
           }

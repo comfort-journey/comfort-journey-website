@@ -12,7 +12,6 @@ import { HERO_SLIDES } from '../data/toursData';
 import { useLiveTours } from '../hooks/useLiveContent';
 import { useCurrency } from '../context/CurrencyContext';
 import { useWishlistCompare } from '../context/WishlistCompareContext';
-import VantaTravelSkyCanvas from './animations/VantaTravelSkyCanvas';
 import HeroMascot from './HeroMascot';
 import CardInclusionsStrip from './CardInclusionsStrip';
 import { siteSettingsService, EVENT_SETTINGS_UPDATED } from '../services/siteSettingsService';
@@ -273,9 +272,6 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
 
   return (
     <section id="hero" ref={heroRef} className="hero-root">
-      {/* Flocking Travel Birds & Sky Jet Streams */}
-      <VantaTravelSkyCanvas birdCount={24} jetStreamCount={4} opacity={0.65} />
-
       {/* Ambient Luxury Background Video & Dynamic Slides */}
       <div className="hero-bg-wrapper">
         <video

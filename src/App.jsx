@@ -47,6 +47,7 @@ import { jsonLdSchemaGenerator } from './utils/jsonLdSchemaGenerator';
 import { usePageSEO } from './hooks/usePageSEO';
 import AudiencePicker from './components/AudiencePicker';
 import { applyTheme, getStoredTheme } from './hooks/useTheme';
+import { trackVirtualPageView, initGlobalClickTracking } from './utils/analytics';
 
 export default function App() {
   // Activate high-performance scroll reveals
@@ -85,10 +86,10 @@ export default function App() {
       metaTitle: activeLandingPage.metaTitle,
       metaDescription: activeLandingPage.metaDesc,
       focusKeyword: [activeLandingPage.focusKeyword, ...(activeLandingPage.secondaryKeywords || [])].join(', '),
-      canonicalUrl: `https://www.comfortjourneyy.com/${activeLandingPage.slug}/`,
+      canonicalUrl: `https://www.comfortjourney.in/${activeLandingPage.slug}/`,
       ogImage: /^https?:/.test(activeLandingPage.theme?.heroImage || '')
         ? activeLandingPage.theme.heroImage
-        : `https://www.comfortjourneyy.com/${(activeLandingPage.theme?.heroImage || '').replace(/^\.?\//, '')}`,
+        : `https://www.comfortjourney.in/${(activeLandingPage.theme?.heroImage || '').replace(/^\.?\//, '')}`,
       robotsIndex: true
     } : null
   ), [currentView, activeLandingPage]);
@@ -202,7 +203,15 @@ export default function App() {
           });
         }
       }
+
+      // Push virtual_pageview event to GTM dataLayer on client-side route change
+      setTimeout(() => {
+        trackVirtualPageView(window.location.pathname + window.location.hash, document.title);
+      }, 50);
     };
+
+    // Activate automatic tracking for WhatsApp CTA clicks
+    initGlobalClickTracking();
 
     // Check on mount (direct URL navigation or ad click)
     handleRouteChange();

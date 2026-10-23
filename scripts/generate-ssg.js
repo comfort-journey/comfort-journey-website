@@ -11,7 +11,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DIST_DIR = path.resolve(__dirname, '../dist');
-const BASE_URL = 'https://www.comfortjourneyy.com';
+const BASE_URL = 'https://www.comfortjourney.in';
 
 async function generateSSG() {
   if (!fs.existsSync(DIST_DIR)) {
@@ -66,14 +66,22 @@ async function generateSSG() {
     output = output.replace(/<meta property="og:description" content=".*?" \/>/i, `<meta property="og:description" content="${description}" />`);
     output = output.replace(/<meta property="og:url" content=".*?" \/>/i, `<meta property="og:url" content="${url}" />`);
 
-    // Add OG Image if present
-    if (image && !output.includes('property="og:image"')) {
-      output = output.replace('</head>', `  <meta property="og:image" content="${image}" />\n  </head>`);
+    // Add or Replace OG Image
+    if (image) {
+      if (output.includes('property="og:image"')) {
+        output = output.replace(/<meta property="og:image" content=".*?" \/>/i, `<meta property="og:image" content="${image}" />`);
+      } else {
+        output = output.replace('</head>', `  <meta property="og:image" content="${image}" />\n  </head>`);
+      }
     }
 
-    // Add Canonical
-    if (canonicalUrl && !output.includes('rel="canonical"')) {
-      output = output.replace('</head>', `  <link rel="canonical" href="${canonicalUrl}" />\n  </head>`);
+    // Add or Replace Canonical URL
+    if (canonicalUrl) {
+      if (output.includes('rel="canonical"')) {
+        output = output.replace(/<link rel="canonical" href=".*?" \/>/i, `<link rel="canonical" href="${canonicalUrl}" />`);
+      } else {
+        output = output.replace('</head>', `  <link rel="canonical" href="${canonicalUrl}" />\n  </head>`);
+      }
     }
 
     // Replace or Inject Schema

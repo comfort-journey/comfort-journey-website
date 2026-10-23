@@ -19,11 +19,16 @@ export default function VantaTravelSkyCanvas({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    // Mobile & privacy optimization: Skip canvas draw loop on mobile/touch screens to save battery and avoid iOS Safari Advanced Tracking Protection triggers
+    const isMobile = typeof window !== 'undefined' && (window.innerWidth < 768 || ('ontouchstart' in window && window.innerWidth < 1024));
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (isMobile || prefersReducedMotion) {
+      return;
+    }
+
     const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
-
-    // Check reduced motion
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     let animationFrameId;
     let width = 0;

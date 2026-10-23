@@ -7,6 +7,8 @@
 // 4. One-Click Excel / CSV Export
 // ═══════════════════════════════════════════════════════════════════
 
+import { trackLeadSubmission } from '../utils/analytics';
+
 const STORAGE_KEY_TRAVELER_PROFILE = 'cj_traveler_profile';
 const STORAGE_KEY_LEADS_STORE = 'cj_leads_store';
 const STORAGE_KEY_LEGACY_ENQUIRIES = 'cj_enquiries';
@@ -167,6 +169,9 @@ export function saveLead(data) {
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new CustomEvent('cj-lead-saved', { detail: newLead }));
   }
+
+  // 4. Push generate_lead conversion event to GTM dataLayer
+  trackLeadSubmission(newLead);
 
   return newLead;
 }

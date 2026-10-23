@@ -47,5 +47,11 @@ User-agent: CCBot
 Allow: /
 
 # Host & Sitemap location
-Host: https://www.comfortjourneyy.com
-Sitemap: https://www.comfortjourneyy.com/sitemap.xml
+Host: https://www.comfortjourney.in
+Sitemap: https://www.comfortjourney.in/sitemap.xml
+
+# LLM & AI Agents Documentation (https://llmstxt.org)
+# Guides ChatGPT, Claude, Perplexity & Google to structured itinerary indexes
+Allow: /llms.txt
+Allow: /llms-full.txt
+

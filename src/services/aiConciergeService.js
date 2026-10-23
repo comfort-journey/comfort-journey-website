@@ -1,6 +1,7 @@
 import { TOURS_DATA } from '../data/toursData';
 import { BLOGS_DATA } from '../data/blogsData';
 import { resolveDestinationWaypoints } from '../data/destinationWaypoints';
+import { trackAIConciergeInteraction } from '../utils/analytics';
 
 /**
  * Comfy.ai - Comfort Journey's AI Travel Assistant (Est. 1992)
@@ -851,6 +852,12 @@ export async function askAIConcierge({ prompt, conversationHistory = [], current
   if (parsedIntent) {
     localTrip = generateComfyItinerary(parsedIntent);
   }
+
+  // Push ai_concierge_interaction event to GTM dataLayer
+  trackAIConciergeInteraction('message_sent', {
+    destination: parsedIntent?.destination || '',
+    promptLength: prompt.length
+  });
 
   try {
     const res = await fetch('/api/ai-planner', {

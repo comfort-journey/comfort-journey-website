@@ -90,9 +90,9 @@ export function usePageSEO(pageKey = 'home', customOverrides = null) {
           // Organization / Travel Agency Entity
           {
             '@type': 'TravelAgency',
-            '@id': 'https://www.comfortjourneyy.com/#agency',
+            '@id': 'https://www.comfortjourney.in/#agency',
             name: brand.brandName || 'Comfort Journey',
-            url: 'https://www.comfortjourneyy.com/',
+            url: 'https://www.comfortjourney.in/',
             logo: 'https://static.wixstatic.com/media/43df74_c248c4fdb5bf421aa3465ca1f6846ba0~mv2.jpg',
             description: brand.aiCorePhilosophy || pageSeo.metaDescription,
             telephone: hero.supportPhone || '+919203931912',
@@ -123,7 +123,7 @@ export function usePageSEO(pageKey = 'home', customOverrides = null) {
             name: pageSeo.metaTitle,
             description: pageSeo.metaDescription,
             isPartOf: {
-              '@id': 'https://www.comfortjourneyy.com/#website'
+              '@id': 'https://www.comfortjourney.in/#website'
             },
             breadcrumb: {
               '@type': 'BreadcrumbList',
@@ -132,7 +132,7 @@ export function usePageSEO(pageKey = 'home', customOverrides = null) {
                   '@type': 'ListItem',
                   position: 1,
                   name: 'Home',
-                  item: 'https://www.comfortjourneyy.com/'
+                  item: 'https://www.comfortjourney.in/'
                 },
                 ...(pageKey !== 'home' ? [{
                   '@type': 'ListItem',

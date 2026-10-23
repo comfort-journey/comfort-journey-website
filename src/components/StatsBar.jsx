@@ -13,8 +13,11 @@ export default function StatsBar() {
 
   // Helper to parse numeric values for AnimatedCounter
   const parseStat = (valStr) => {
-    if (valStr === '33+') return { target: 33, suffix: '+' };
-    if (valStr === '4.8') return { target: 4.8, suffix: '★', decimals: 1 };
+    if (typeof valStr === 'string' && valStr.endsWith('+')) {
+      const num = parseInt(valStr.replace('+', ''), 10);
+      if (!isNaN(num)) return { target: num, suffix: '+' };
+    }
+    if (valStr === '4.8' || valStr === '4.8★') return { target: 4.8, suffix: '★', decimals: 1 };
     return null;
   };
 

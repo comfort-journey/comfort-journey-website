@@ -144,7 +144,7 @@ export const siteSettingsService = {
         metaTitle: `${pageKey.replace('campaign-', '').replace(/-/g, ' ').toUpperCase()} Tour Packages | Comfort Journey`,
         metaDescription: `Discover handcrafted ${pageKey.replace('campaign-', '').replace(/-/g, ' ')} vacation packages with 5-star stays and private chauffeurs.`,
         focusKeyword: `${pageKey.replace('campaign-', '').replace(/-/g, ' ')} tour packages`,
-        canonicalUrl: `https://www.comfortjourneyy.com/#/campaign/${pageKey.replace('campaign-', '')}`,
+        canonicalUrl: `https://www.comfortjourney.in/#/campaign/${pageKey.replace('campaign-', '')}`,
         robotsIndex: true,
         robotsFollow: true,
         searchIntent: "Transactional"
