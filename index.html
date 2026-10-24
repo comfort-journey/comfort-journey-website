@@ -83,12 +83,238 @@
       }
     }
     </script>
+    <!-- Critical Anti-FOUC & Luxury Hydration Splash System (Supports Light & Dark Themes) -->
+    <style id="cj-critical-theme-css">
+      /* 1. Isolate raw SSG snapshot from visual rendering to eliminate FOUC while keeping 100% SEO crawlability */
+      .ssg-snapshot {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        padding: 0 !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        clip: rect(0, 0, 0, 0) !important;
+        white-space: nowrap !important;
+        border: 0 !important;
+      }
+
+      /* 2. Luxury Splash Overlay */
+      #cj-initial-splash {
+        position: fixed;
+        inset: 0;
+        z-index: 999999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.38s ease;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+
+      #cj-initial-splash.cj-splash-fadeout {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
+
+      /* Default & Light Theme Palette */
+      :root,
+      [data-theme="light"] {
+        --splash-bg: #FFFDF7;
+        --splash-glow: radial-gradient(circle at 50% 45%, rgba(255, 137, 47, 0.10) 0%, rgba(111, 230, 252, 0.06) 38%, rgba(255, 253, 247, 0.98) 72%);
+        --splash-card-bg: rgba(255, 255, 255, 0.92);
+        --splash-card-border: rgba(20, 38, 74, 0.08);
+        --splash-card-shadow: 0 20px 45px -10px rgba(20, 38, 74, 0.10), 0 0 0 1px rgba(255, 255, 255, 0.9);
+        --splash-title-comfort: #14264A;
+        --splash-title-journey: #FF892F;
+        --splash-sub: #64748B;
+        --splash-spinner-track: rgba(20, 38, 74, 0.08);
+        --splash-spinner-active: #FF892F;
+        --splash-spinner-secondary: #0E7490;
+      }
+
+      /* Dark Theme Palette */
+      [data-theme="dark"] {
+        --splash-bg: #001233;
+        --splash-glow: radial-gradient(circle at 50% 45%, rgba(255, 137, 47, 0.15) 0%, rgba(111, 230, 252, 0.09) 42%, rgba(0, 18, 51, 0.98) 78%);
+        --splash-card-bg: rgba(5, 38, 105, 0.72);
+        --splash-card-border: rgba(255, 255, 255, 0.14);
+        --splash-card-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.65), 0 0 45px rgba(255, 137, 47, 0.18);
+        --splash-title-comfort: #F9FBE7;
+        --splash-title-journey: #FF892F;
+        --splash-sub: #CBD5E1;
+        --splash-spinner-track: rgba(255, 255, 255, 0.12);
+        --splash-spinner-active: #FF892F;
+        --splash-spinner-secondary: #6FE6FC;
+      }
+
+      #cj-initial-splash {
+        background-color: var(--splash-bg);
+        background-image: var(--splash-glow);
+      }
+
+      .cj-splash-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 34px 44px;
+        background: var(--splash-card-bg);
+        border: 1px solid var(--splash-card-border);
+        border-radius: 28px;
+        box-shadow: var(--splash-card-shadow);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        animation: cjSplashPop 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      .cj-splash-emblem-box {
+        position: relative;
+        width: 76px;
+        height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 18px;
+      }
+
+      .cj-splash-emblem-img {
+        width: 68px;
+        height: 68px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 8px 24px rgba(255, 137, 47, 0.32);
+        display: block;
+      }
+
+      .cj-splash-pulse-ring {
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        border: 2px solid var(--splash-spinner-active);
+        opacity: 0.55;
+        animation: cjPulseRing 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+      }
+
+      .cj-splash-brand-title {
+        font-family: 'Baumans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-size: 26px;
+        line-height: 1.15;
+        margin: 0 0 6px 0;
+        letter-spacing: -0.01em;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .cj-splash-comfort {
+        color: var(--splash-title-comfort);
+      }
+
+      .cj-splash-journey {
+        color: var(--splash-title-journey);
+      }
+
+      .cj-splash-est {
+        font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--splash-sub);
+        margin-bottom: 22px;
+      }
+
+      .cj-splash-loader-bar {
+        position: relative;
+        width: 130px;
+        height: 3px;
+        background: var(--splash-spinner-track);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .cj-splash-loader-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 45%;
+        background: linear-gradient(90deg, var(--splash-spinner-secondary), var(--splash-spinner-active));
+        border-radius: 999px;
+        animation: cjLoadMove 1.4s ease-in-out infinite;
+      }
+
+      .cj-splash-caption {
+        font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-size: 12px;
+        color: var(--splash-sub);
+        margin-top: 14px;
+        margin-bottom: 0;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        opacity: 0.9;
+      }
+
+      @keyframes cjSplashPop {
+        0% { transform: scale(0.92); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+      }
+
+      @keyframes cjPulseRing {
+        0% { transform: scale(0.95); opacity: 0.85; }
+        50% { transform: scale(1.18); opacity: 0.15; }
+        100% { transform: scale(0.95); opacity: 0.85; }
+      }
+
+      @keyframes cjLoadMove {
+        0% { left: -45%; }
+        50% { left: 45%; }
+        100% { left: 105%; }
+      }
+    </style>
+    <noscript>
+      <style>
+        #cj-initial-splash { display: none !important; }
+        .ssg-snapshot { position: static !important; width: auto !important; height: auto !important; clip: auto !important; overflow: visible !important; white-space: normal !important; }
+      </style>
+    </noscript>
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TK4DD6HD"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Luxury Initial Hydration Splash (Dismissed smoothly on React mount) -->
+    <div id="cj-initial-splash" aria-hidden="true">
+      <div class="cj-splash-card">
+        <div class="cj-splash-emblem-box">
+          <div class="cj-splash-pulse-ring"></div>
+          <img src="/images/comfort-journey-logo.jpg" alt="Comfort Journey" class="cj-splash-emblem-img" width="68" height="68" />
+        </div>
+        <div class="cj-splash-brand-title">
+          <span class="cj-splash-comfort">Comfort</span>
+          <span class="cj-splash-journey">Journey</span>
+        </div>
+        <span class="cj-splash-est">Since 1992</span>
+        <div class="cj-splash-loader-bar">
+          <div class="cj-splash-loader-fill"></div>
+        </div>
+        <p class="cj-splash-caption">Crafting your handcrafted journey...</p>
+      </div>
+    </div>
+
+    <!-- Failsafe timeout: Automatically dismiss splash after 4.5s in case of extreme script delay -->
+    <script>
+      setTimeout(function() {
+        var s = document.getElementById('cj-initial-splash');
+        if (s && !s.classList.contains('cj-splash-fadeout')) {
+          s.classList.add('cj-splash-fadeout');
+          setTimeout(function() { if (s && s.parentNode) s.parentNode.removeChild(s); }, 400);
+        }
+      }, 4500);
+    </script>
 
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>

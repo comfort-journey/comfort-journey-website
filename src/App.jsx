@@ -53,9 +53,20 @@ export default function App() {
   // Activate high-performance scroll reveals
   useScrollAnimation();
 
-  // Enforce stored theme or follow OS (early script in index.html already set it pre-paint)
+  // Enforce stored theme or follow OS and dismiss initial splash smoothly
   useEffect(() => {
     applyTheme(getStoredTheme());
+
+    const splash = document.getElementById('cj-initial-splash');
+    if (splash) {
+      splash.classList.add('cj-splash-fadeout');
+      const timer = setTimeout(() => {
+        if (splash && splash.parentNode) {
+          splash.parentNode.removeChild(splash);
+        }
+      }, 400);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   const [searchFilters, setSearchFilters] = useState({ destination: '', category: 'All' });
