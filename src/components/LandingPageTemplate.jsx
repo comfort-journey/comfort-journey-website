@@ -82,7 +82,7 @@ function ScrollGuide({ lines, accent, waLink, pageKey }) {
   const idx = Math.min(step, lines.length - 1);
   return (
     <aside className={`lp2-guide ${show ? 'is-on' : ''}`} style={{ '--accent': accent }} aria-live="polite" aria-label="Trip guide">
-      <img src={asset('mascot-default-cropped.png')} alt="" className="lp2-guide-face" width="52" height="46" loading="lazy" />
+      <img src={asset('mascot-default.png')} alt="" className="lp2-guide-face" width="52" height="46" loading="lazy" />
       <div className="lp2-guide-bubble">
         <p key={idx} className="lp2-guide-text">{lines[idx]}</p>
         {idx >= lines.length - 1 && (

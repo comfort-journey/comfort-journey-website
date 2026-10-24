@@ -116,7 +116,7 @@ export default function AudiencePicker() {
         </div>
 
         <div ref={replyRef} className={`ap-reply ${page ? 'is-on' : ''}`} aria-live="polite" style={{ '--accent': page?.theme?.accentColor || '#FF892F' }}>
-          <img className="ap-reply-face" src={asset('mascot-default-cropped.png')} alt="" width="56" height="50" loading="lazy" />
+          <img className="ap-reply-face" src={asset('mascot-default.png')} alt="" width="56" height="50" loading="lazy" />
           <div className="ap-reply-bubble">
             {page ? (
               <>

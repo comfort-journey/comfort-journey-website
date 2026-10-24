@@ -589,10 +589,10 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           >
             <div className="mascot-center-bubble">
               <img 
-                src={`${basePrefix}mascot-default-cropped.png`} 
+                src={`${basePrefix}mascot-default.png`} 
                 alt="Comfy Mascot Buddy" 
                 className="mascot-bubble-img"
-                onError={(e) => { e.currentTarget.src = './mascot-default-cropped.png'; }}
+                onError={(e) => { e.currentTarget.src = './mascot-default.png'; }}
               />
               <div className="mascot-ping-ring" />
             </div>

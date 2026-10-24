@@ -47,7 +47,7 @@ export default function AIPlannerLayout({
           <div className="comfy-brand-lockup">
             <div className="mascot-avatar" title="Comfy.ai Assistant Online">
               <img 
-                src={`${basePrefix}mascot-default-cropped.png`} 
+                src={`${basePrefix}mascot-default.png`} 
                 alt="Comfy" 
                 className="mascot-img"
                 onError={(e) => { e.currentTarget.src = './mascot-default.png'; }}

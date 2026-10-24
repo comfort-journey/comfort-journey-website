@@ -38,13 +38,13 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
 
           <div className="mascot-avatar-container">
             <img 
-              src={`${basePrefix}mascot-default-cropped.png`} 
+              src={`${basePrefix}mascot-default.png`} 
               alt="Comfort Journey Mascot" 
               className={`mascot-dock-img default ${isMascotHovered ? 'hidden' : 'visible'}`}
               onError={(e) => { e.currentTarget.src = './mascot-default.png'; }}
             />
             <img 
-              src={`${basePrefix}mascot-reaction-cropped.png`} 
+              src={`${basePrefix}mascot-reaction.png`} 
               alt="Comfort Journey Mascot Reacting" 
               className={`mascot-dock-img reaction ${isMascotHovered ? 'visible' : 'hidden'}`}
               onError={(e) => { e.currentTarget.src = './mascot-reaction.png'; }}
