@@ -34,9 +34,8 @@ function deobfuscateToken(str) {
 }
 
 export const MASTER_SYNC_CONFIG = {
-  // Secure Cloudflare Worker Endpoint (Zero secrets in code — 100% Enterprise Security)
-  // Holds GitHub Token safely inside Cloudflare Secrets
-  cloudflareWorkerUrl: 'https://comfort-journey-website.comfortjourneymarcom.workers.dev',
+  // Secure Cloudflare Worker Endpoint
+  cloudflareWorkerUrl: 'https://comfort-journey-cms-sync.comfortjourneymarcom.workers.dev',
 
   // Built-in organization repository & branch
   repo: 'comfort-journey/comfort-journey-website',
@@ -163,7 +162,14 @@ export function getCloudflareWorkerUrl() {
   if (typeof window !== 'undefined' && window.localStorage) {
     try {
       const local = window.localStorage.getItem(MASTER_SYNC_CONFIG.STORAGE_KEY_CLOUDFLARE_URL);
-      if (local && local.trim()) return local.trim();
+      if (local && local.trim()) {
+        // Purge legacy non-existent worker that returns error 1042
+        if (local.includes('comfort-journey-website.comfortjourneymarcom.workers.dev')) {
+          window.localStorage.removeItem(MASTER_SYNC_CONFIG.STORAGE_KEY_CLOUDFLARE_URL);
+          return '';
+        }
+        return local.trim();
+      }
     } catch {}
   }
   return MASTER_SYNC_CONFIG.cloudflareWorkerUrl || '';

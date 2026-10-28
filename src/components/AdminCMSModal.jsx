@@ -130,13 +130,17 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
         name: userMatch.name || info.name || 'Team Member',
         email: userMatch.email,
         role: userMatch.role || 'CONTENT_EDITOR',
+        allowedSections: userMatch.allowedSections || (userMatch.role === 'SUPER_ADMIN' ? ['*'] : ['manage-blogs']),
         provider: 'google'
       };
 
       sessionStorage.setItem('cj_cms_session_user', JSON.stringify(sessionUser));
       setCurrentUser(sessionUser);
       setIsAuthenticated(true);
-      showToast(`✅ Welcome, ${sessionUser.name}! (${sessionUser.role === 'SUPER_ADMIN' ? 'Super Admin' : 'Content Editor'})`);
+      const isSuper = sessionUser.role === 'SUPER_ADMIN';
+      const firstSection = isSuper ? 'manage-tours' : (sessionUser.allowedSections?.[0] || 'manage-blogs');
+      setActiveTab(firstSection);
+      showToast(`✅ Welcome, ${sessionUser.name}! (${isSuper ? 'Super Admin' : 'Staff Access'})`);
     } catch (err) {
       const msg = err?.message || '';
       if (msg.includes('closed') || msg.includes('cancel') || msg.includes('POPUP_CLOSED')) {
@@ -184,13 +188,17 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
       name: userMatch.name,
       email: userMatch.email,
       role: userMatch.role || 'CONTENT_EDITOR',
+      allowedSections: userMatch.allowedSections || (userMatch.role === 'SUPER_ADMIN' ? ['*'] : ['manage-blogs']),
       provider: 'password'
     };
 
     setCurrentUser(sessionUser);
     setIsAuthenticated(true);
     sessionStorage.setItem('cj_cms_session_user', JSON.stringify(sessionUser));
-    showToast(`👋 Welcome back, ${sessionUser.name}! (${sessionUser.role === 'SUPER_ADMIN' ? 'Super Admin' : 'Content Editor'})`);
+    const isSuper = sessionUser.role === 'SUPER_ADMIN';
+    const firstSection = isSuper ? 'manage-tours' : (sessionUser.allowedSections?.[0] || 'manage-blogs');
+    setActiveTab(firstSection);
+    showToast(`👋 Welcome back, ${sessionUser.name}! (${isSuper ? 'Super Admin' : 'Staff Access'})`);
   };
 
   const handleLogout = () => {
@@ -508,20 +516,51 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
 
   const isSuperAdmin = currentUser?.role === 'SUPER_ADMIN';
 
+  // ─── Granular Section-Based Access Control ───
+  // Ensure fresh permissions are retrieved for currentUser
+  const freshUsersList = getAuthorizedUsers();
+  const matchedUser = freshUsersList.find(u => (u.email || '').toLowerCase() === (currentUser?.email || '').toLowerCase());
+  const activeAllowedSections = matchedUser?.allowedSections || currentUser?.allowedSections || (
+    isSuperAdmin ? ['*'] : (
+      currentUser?.role === 'SALES_CRM' ? ['leads-inquiries', 'manage-tours'] :
+      currentUser?.role === 'BLOG_WRITER' ? ['manage-blogs'] :
+      currentUser?.role === 'TOUR_MANAGER' ? ['manage-tours'] :
+      ['manage-blogs'] // Safe default: never expose CRM database by default
+    )
+  );
+
+  const canAccessSection = (sectionId) => {
+    if (isSuperAdmin) return true;
+    if (activeAllowedSections.includes('*')) return true;
+    return activeAllowedSections.includes(sectionId);
+  };
+
   // ─── Tab Definitions with Role-Based Access Control ───
   const allTabs = [
     { id: 'manage-tours', label: 'Tour Packages', icon: LayoutDashboard, adminOnly: false },
     { id: 'leads-inquiries', label: 'Leads & Inquiries CRM', icon: Users, adminOnly: false },
     { id: 'manage-blogs', label: 'Blog & Magazine', icon: FileText, adminOnly: false },
-    { id: 'site-customizer', label: 'Site & SEO Customizer', icon: Sliders, adminOnly: true },
-    { id: 'global-sync', label: 'Global Live Sync', icon: UploadCloud, adminOnly: true },
-    { id: 'data-hub', label: 'Data Hub (Import & Export)', icon: FileSpreadsheet, adminOnly: true },
+    { id: 'site-customizer', label: 'Site & SEO Customizer', icon: Sliders, adminOnly: false },
     { id: 'analytics', label: 'Growth Hub', icon: TrendingUp, adminOnly: false },
+    { id: 'data-hub', label: 'Data Hub (Import & Export)', icon: FileSpreadsheet, adminOnly: false },
+    { id: 'global-sync', label: 'Global Live Sync', icon: UploadCloud, adminOnly: true },
     { id: 'directus-config', label: 'Directus & AWS', icon: Database, adminOnly: true },
     { id: 'team-access', label: 'Team & Access Control', icon: Shield, adminOnly: true },
   ];
 
-  const tabs = isSuperAdmin ? allTabs : allTabs.filter(t => !t.adminOnly);
+  // Only display tabs the employee is authorized to view
+  const tabs = allTabs.filter(tab => {
+    if (isSuperAdmin) return true;
+    if (tab.adminOnly) return false;
+    return canAccessSection(tab.id);
+  });
+
+  // Auto-switch to first authorized tab if current activeTab is not permitted for this user
+  useEffect(() => {
+    if (isAuthenticated && tabs.length > 0 && !tabs.some(t => t.id === activeTab)) {
+      setActiveTab(tabs[0].id);
+    }
+  }, [isAuthenticated, tabs, activeTab]);
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -727,19 +766,43 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
                 <TeamAccessManager currentUser={currentUser} showToast={showToast} />
               )}
               {/* ── Tour Package Manager ── */}
-              {activeTab === 'manage-tours' && <TourPackageManager onOpenGlobalSync={() => setActiveTab('global-sync')} />}
+              {activeTab === 'manage-tours' && canAccessSection('manage-tours') && (
+                <TourPackageManager onOpenGlobalSync={() => setActiveTab('global-sync')} />
+              )}
 
-              {/* ── Leads & Inquiries CRM Dashboard ── */}
-              {activeTab === 'leads-inquiries' && <LeadsInquiriesManager showToast={showToast} />}
+              {/* ── Leads & Inquiries CRM Dashboard (Sales & Admin Only) ── */}
+              {activeTab === 'leads-inquiries' && canAccessSection('leads-inquiries') && (
+                <LeadsInquiriesManager showToast={showToast} />
+              )}
+              {activeTab === 'leads-inquiries' && !canAccessSection('leads-inquiries') && (
+                <div style={{ padding: '3rem 1.5rem', textAlign: 'center', background: 'rgba(239, 68, 68, 0.08)', borderRadius: '12px', border: '1px solid rgba(239, 68, 68, 0.25)', margin: '1.5rem' }}>
+                  <Shield size={44} color="#EF4444" style={{ margin: '0 auto 1rem' }} />
+                  <h3 style={{ color: '#EF4444', marginBottom: '0.5rem', fontSize: '1.2rem' }}>Access Restricted: Sales CRM Database</h3>
+                  <p style={{ color: '#94A3B8', maxWidth: '480px', margin: '0 auto', fontSize: '0.88rem' }}>
+                    You do not have permission to view customer inquiries or the CRM database. This section is strictly restricted to authorized Sales Team members and Administrators.
+                  </p>
+                </div>
+              )}
 
-              {/* ── Blog Manager ── */}
-              {activeTab === 'manage-blogs' && <BlogManager onOpenGlobalSync={() => setActiveTab('global-sync')} />}
+              {/* ── Blog Manager (Content Writers & Admin) ── */}
+              {activeTab === 'manage-blogs' && canAccessSection('manage-blogs') && (
+                <BlogManager onOpenGlobalSync={() => setActiveTab('global-sync')} />
+              )}
 
               {/* ── Site & SEO Customizer (Homepage, Popups, Meta, AEO/GEO) ── */}
-              {activeTab === 'site-customizer' && <SiteCustomizer onToast={showToast} />}
+              {activeTab === 'site-customizer' && canAccessSection('site-customizer') && (
+                <SiteCustomizer onToast={showToast} />
+              )}
 
               {/* ── Analytics Dashboard ── */}
-              {activeTab === 'analytics' && <AnalyticsDashboard />}
+              {activeTab === 'analytics' && canAccessSection('analytics') && (
+                <AnalyticsDashboard />
+              )}
+
+              {/* ── Data Hub (Import & Export) ── */}
+              {activeTab === 'data-hub' && (isSuperAdmin || canAccessSection('data-hub')) && (
+                <DataHubManager />
+              )}
 
               {/* ── Directus & AWS Configuration (preserved) ── */}
               {activeTab === 'directus-config' && (

@@ -71,9 +71,9 @@ export default {
 
       try {
         const body = await request.json();
-        const { tours, blogs, siteSettings, commitMessage } = body || {};
+        const { tours, blogs, siteSettings, authorizedUsers, _masterVault, commitMessage } = body || {};
 
-        if (!tours && !blogs && !siteSettings) {
+        if (!tours && !blogs && !siteSettings && !authorizedUsers) {
           return jsonResponse({ error: 'Missing tours, blogs, or siteSettings payload in request.' }, 400);
         }
 
@@ -106,6 +106,8 @@ export default {
           updatedBy: 'Comfort Journey Content Studio (via Secure Cloudflare Proxy)',
           tours: Array.isArray(tours) ? tours : [],
           blogs: Array.isArray(blogs) ? blogs : [],
+          ...(Array.isArray(authorizedUsers) && authorizedUsers.length > 0 ? { authorizedUsers } : {}),
+          ...(_masterVault && typeof _masterVault === 'object' ? { _masterVault } : {}),
           ...(siteSettings && typeof siteSettings === 'object' ? { siteSettings } : {})
         };
 

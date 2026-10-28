@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, MapPin, Sparkles, ArrowRight, CheckCircle2, MessageCircle } from 'lucide-react';
-import { saveLead } from '../services/leadStorageService';
+import { saveLeadToCMS } from '../services/leadStorageService';
 
 /**
  * LeadCapturePopup:
@@ -66,10 +66,10 @@ export default function LeadCapturePopup() {
       return;
     }
 
-    // Save into Central Leads CRM via leadStorageService
+    // Save into Central Leads CRM via leadStorageService (persists locally + Directus Cloud)
     try {
       const isEmail = contact.includes('@');
-      saveLead({
+      saveLeadToCMS({
         name,
         phone: !isEmail ? contact : '',
         email: isEmail ? contact.toLowerCase() : '',
@@ -77,7 +77,7 @@ export default function LeadCapturePopup() {
         tourName: formData.destination.trim() ? `Vacation to ${formData.destination.trim()}` : 'Dream Vacation Proposal',
         source: 'Website 8s Welcome Popup',
         notes: `Captured from website welcome popup after 8s. Destination: ${formData.destination.trim() || 'Not specified'}`
-      });
+      }).catch(() => {});
       localStorage.setItem('cj_lead_popup_dismissed', Date.now().toString());
     } catch (err) {
       console.warn('[LeadPopup] Error saving lead:', err);

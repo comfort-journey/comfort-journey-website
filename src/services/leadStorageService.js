@@ -184,6 +184,97 @@ export function saveLead(data) {
  * @param {Object} data - Lead form data
  * @returns {Promise<{ lead: Object, cmsSaved: boolean }>}
  */
+const DIRECTUS_MASTER_TOKEN = 'cj_directus_master_token_2026_vip';
+const DEFAULT_DIRECTUS_URL = 'https://www.comfortjourney.in/cms';
+
+export function getDirectusConfig() {
+  const isLocalDev = typeof window !== 'undefined' && 
+    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname.startsWith('192.168.'));
+
+  const url = (typeof window !== 'undefined' && localStorage.getItem('cj_directus_url'))
+    || (typeof import.meta !== 'undefined' && import.meta.env?.VITE_DIRECTUS_URL)
+    || (isLocalDev ? 'http://localhost:8055' : DEFAULT_DIRECTUS_URL);
+
+  const token = (typeof window !== 'undefined' && localStorage.getItem('cj_directus_token'))
+    || (typeof import.meta !== 'undefined' && import.meta.env?.VITE_DIRECTUS_TOKEN)
+    || DIRECTUS_MASTER_TOKEN;
+
+  return { url: url.replace(/\/+$/, ''), token };
+}
+
+/**
+ * Fetch all leads from Directus CMS cloud database.
+ * Enables leads to be visible on ALL devices (tablets, mobiles, laptops) worldwide.
+ */
+export async function fetchLeadsFromCMS() {
+  const { url, token } = getDirectusConfig();
+  if (!url) return { success: false, leads: getAllLeads() };
+
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = `Bearer ${token}`;
+
+    const res = await fetch(`${url}/items/leads?sort=-id&limit=500`, {
+      headers,
+      signal: controller.signal,
+      cache: 'no-store'
+    });
+    clearTimeout(timeoutId);
+
+    if (res.ok) {
+      const json = await res.json();
+      const rawItems = Array.isArray(json.data) ? json.data : [];
+
+      const mappedRemote = rawItems.map(item => ({
+        id: item.id || item.lead_id || `lead-d-${Date.now()}`,
+        name: item.name || 'Valued Guest',
+        phone: item.phone || '',
+        email: item.email || '',
+        tourName: item.tour_name || item.destination || 'Custom Tour Proposal',
+        destination: item.destination || '',
+        duration: item.duration || '',
+        travelDate: item.travel_date || item.travelDate || 'Flexible',
+        guests: item.guests || '2 Persons',
+        notes: item.notes || '',
+        status: item.status || 'New',
+        source: item.source || 'Website Enquiry',
+        createdAt: item.created_at || item.createdAt || new Date().toISOString(),
+        _directusSynced: true
+      }));
+
+      // Merge with local leads store (avoiding duplicates)
+      const localLeads = getAllLeads();
+      const remoteIds = new Set(mappedRemote.map(r => String(r.id)));
+      const remotePhones = new Set(mappedRemote.map(r => r.phone).filter(Boolean));
+
+      const merged = [
+        ...mappedRemote,
+        ...localLeads.filter(l => !remoteIds.has(String(l.id)) && (!l.phone || !remotePhones.has(l.phone)))
+      ];
+
+      safeSetItem(STORAGE_KEY_LEADS_STORE, JSON.stringify(merged));
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('cj-lead-saved', { detail: { synced: true, count: mappedRemote.length } }));
+      }
+      return { success: true, count: mappedRemote.length, leads: merged };
+    }
+  } catch (err) {
+    console.warn('[leadStorageService] Could not fetch remote leads from Directus:', err.message);
+  }
+
+  return { success: false, leads: getAllLeads() };
+}
+
+/**
+ * Async Dual-Action Lead Save: persists locally + attempts Directus CMS API POST.
+ * Always resolves (never rejects) so user flow and WhatsApp redirect can proceed.
+ *
+ * @param {Object} data - Lead form data
+ * @returns {Promise<{ lead: Object, cmsSaved: boolean }>}
+ */
 export async function saveLeadToCMS(data) {
   // Step 1: Always save locally first (instant, reliable)
   const lead = saveLead(data);
@@ -192,48 +283,28 @@ export async function saveLeadToCMS(data) {
   // Step 2: Attempt async POST to Directus CMS /items/leads
   let cmsSaved = false;
   try {
-    const isLocalDev = typeof window !== 'undefined' && 
-      (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname.startsWith('192.168.'));
-
-    const directusUrl = (typeof window !== 'undefined' && localStorage.getItem('cj_directus_url'))
-      || (typeof import.meta !== 'undefined' && import.meta.env?.VITE_DIRECTUS_URL)
-      || (isLocalDev ? 'http://localhost:8055' : '');
-
-    if (!directusUrl || (!isLocalDev && (directusUrl.includes('localhost') || directusUrl.includes('127.0.0.1')))) {
-      return { lead, cmsSaved: false };
-    }
-
-    const token = (typeof window !== 'undefined' && localStorage.getItem('cj_directus_token'))
-      || (typeof import.meta !== 'undefined' && import.meta.env?.VITE_DIRECTUS_TOKEN)
-      || '';
+    const { url, token } = getDirectusConfig();
+    if (!url) return { lead, cmsSaved: false };
 
     const headers = { 'Content-Type': 'application/json' };
     if (token) headers['Authorization'] = `Bearer ${token}`;
 
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 4000); // 4s timeout
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
 
-    const res = await fetch(`${directusUrl}/items/leads`, {
+    const res = await fetch(`${url}/items/leads`, {
       method: 'POST',
       headers,
       signal: controller.signal,
       body: JSON.stringify({
-        lead_id: lead.id,
         name: lead.name,
         phone: lead.phone,
         email: lead.email,
-        tour_name: lead.tourName,
-        destination: lead.destination,
-        duration: lead.duration,
+        destination: lead.destination || lead.tourName,
         travel_date: lead.travelDate,
         guests: lead.guests,
-        pace: lead.pace,
-        hotel_tier: lead.hotelTier,
-        transport_type: lead.transportType,
-        notes: lead.notes,
-        source: lead.source,
-        status: lead.status,
-        created_at: lead.createdAt
+        notes: lead.notes || (lead.tourName ? `Tour: ${lead.tourName}` : ''),
+        status: 'New'
       })
     });
 
@@ -241,10 +312,9 @@ export async function saveLeadToCMS(data) {
     cmsSaved = res.ok;
 
     if (!res.ok) {
-      console.warn(`[leadStorageService] CMS responded ${res.status}. Lead saved locally.`);
+      console.warn(`[leadStorageService] CMS responded ${res.status}. Lead preserved locally.`);
     }
   } catch (err) {
-    // CMS offline or timeout — lead is already saved locally, so this is non-fatal
     console.warn('[leadStorageService] CMS save failed (offline/timeout). Lead preserved locally:', err.message);
   }
 
@@ -252,7 +322,7 @@ export async function saveLeadToCMS(data) {
 }
 
 /**
- * Update lead status (e.g. 'Contacted', 'Quoted', 'Converted')
+ * Update lead status (e.g. 'Contacted', 'Quoted', 'Converted') and sync to Directus
  */
 export function updateLeadStatus(leadId, newStatus) {
   const leads = getAllLeads();
@@ -261,11 +331,32 @@ export function updateLeadStatus(leadId, newStatus) {
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new CustomEvent('cj-lead-saved', { detail: { id: leadId, status: newStatus } }));
   }
+
+  // Asynchronously update in Directus Cloud
+  syncLeadStatusToCMS(leadId, newStatus).catch(() => {});
   return updated;
 }
 
+async function syncLeadStatusToCMS(leadId, newStatus) {
+  try {
+    const { url, token } = getDirectusConfig();
+    if (!url || !token) return;
+
+    await fetch(`${url}/items/leads/${leadId}`, {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ status: newStatus })
+    });
+  } catch (err) {
+    console.warn('[leadStorageService] Directus PATCH error:', err.message);
+  }
+}
+
 /**
- * Delete a single lead
+ * Delete a single lead locally and in Directus
  */
 export function deleteLead(leadId) {
   const leads = getAllLeads();
@@ -274,7 +365,26 @@ export function deleteLead(leadId) {
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new CustomEvent('cj-lead-saved', { detail: { id: leadId, deleted: true } }));
   }
+
+  // Asynchronously delete in Directus Cloud
+  syncDeleteLeadFromCMS(leadId).catch(() => {});
   return updated;
+}
+
+async function syncDeleteLeadFromCMS(leadId) {
+  try {
+    const { url, token } = getDirectusConfig();
+    if (!url || !token) return;
+
+    await fetch(`${url}/items/leads/${leadId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+  } catch (err) {
+    console.warn('[leadStorageService] Directus DELETE error:', err.message);
+  }
 }
 
 /**

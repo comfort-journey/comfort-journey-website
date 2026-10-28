@@ -15,6 +15,7 @@ import { TOURS_DATA } from '../data/toursData';
 import { BLOGS_DATA } from '../data/blogsData';
 import { siteSettingsService } from './siteSettingsService';
 import { parseTourDays } from '../utils/durationParser';
+import { getAuthorizedUsers } from '../components/cms/TeamAccessManager';
 import {
   getActivePublishToken,
   getActiveRepo,
@@ -369,6 +370,16 @@ export const contentService = {
             }
           }
 
+          // Hydrate Authorized Users & Granular Section Permissions from cloud snapshot
+          if (remote.authorizedUsers && Array.isArray(remote.authorizedUsers) && remote.authorizedUsers.length > 0) {
+            try {
+              localStorage.setItem('cj_authorized_users', JSON.stringify(remote.authorizedUsers));
+              updatedAny = true;
+            } catch (err) {
+              console.warn('[ContentService] Failed to hydrate authorizedUsers from remote:', err);
+            }
+          }
+
           if (remote.lastUpdated) {
             localStorage.setItem('cj_cloud_snapshot_updated', remote.lastUpdated);
             localStorage.setItem(STORAGE_KEY_LAST_SYNC, String(new Date(remote.lastUpdated).getTime()));
@@ -431,7 +442,12 @@ export const contentService = {
     // Read active siteSettings to bundle into live-content.json
     const currentSiteSettings = siteSettingsService.getSettings();
 
-    // Prepare content payload including the organization master sync vault
+    // Prepare content payload including the organization master sync vault and authorized team directory
+    let teamUsers = [];
+    try {
+      teamUsers = getAuthorizedUsers();
+    } catch {}
+
     const contentObj = {
       lastUpdated: new Date().toISOString(),
       updatedBy: 'Comfort Journey Content Studio',
@@ -442,6 +458,7 @@ export const contentService = {
       },
       tours: this.getTours(),
       blogs: this.getBlogs(),
+      authorizedUsers: teamUsers,
       ...(currentSiteSettings ? { siteSettings: currentSiteSettings } : {})
     };
     const jsonStr = JSON.stringify(contentObj, null, 2);
@@ -571,42 +588,53 @@ export const contentService = {
       };
     }
 
-    // 2. If Cloudflare Worker is configured, publish via the Secure Cloudflare Proxy!
-    // (Zero tokens in browser or code — 100% secure)
+    // 2. If Cloudflare Worker is configured, attempt publish via the Secure Cloudflare Proxy.
+    // If Cloudflare fails or is unreachable, gracefully fall back to direct GitHub commit.
     const cloudflareUrl = getCloudflareWorkerUrl();
     if (cloudflareUrl) {
-      const currentSiteSettings = siteSettingsService.getSettings();
+      try {
+        const currentSiteSettings = siteSettingsService.getSettings();
+        let teamUsers = [];
+        try { teamUsers = getAuthorizedUsers(); } catch {}
 
-      const endpoint = cloudflareUrl.replace(/\/+$/, '') + '/publish';
-      const cfRes = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          tours: this.getTours(),
-          blogs: this.getBlogs(),
-          ...(currentSiteSettings ? { siteSettings: currentSiteSettings } : {}),
-          commitMessage: `${commitMessage} [${new Date().toLocaleTimeString()}]`
-        })
-      });
+        const endpoint = cloudflareUrl.replace(/\/+$/, '') + '/publish';
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 9000);
 
-      if (!cfRes.ok) {
-        const errJson = await cfRes.json().catch(() => ({}));
-        throw new Error(errJson.error || `Cloudflare Publish failed with status ${cfRes.status}`);
+        const cfRes = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          signal: controller.signal,
+          body: JSON.stringify({
+            tours: this.getTours(),
+            blogs: this.getBlogs(),
+            authorizedUsers: teamUsers,
+            ...(currentSiteSettings ? { siteSettings: currentSiteSettings } : {}),
+            commitMessage: `${commitMessage} [${new Date().toLocaleTimeString()}]`
+          })
+        });
+        clearTimeout(timeoutId);
+
+        if (cfRes.ok) {
+          const cfData = await cfRes.json();
+          const updatedTimestamp = cfData.timestamp || new Date().toISOString();
+          if (typeof window !== 'undefined' && window.localStorage) {
+            window.localStorage.setItem('cj_cloud_snapshot_updated', updatedTimestamp);
+            window.localStorage.setItem(STORAGE_KEY_LAST_SYNC, String(Date.now()));
+          }
+          return {
+            success: true,
+            method: 'cloudflare_proxy',
+            commitSha: cfData.shortSha || 'live',
+            message: cfData.message || 'Successfully published worldwide via Secure Cloudflare Proxy!',
+            raw: cfData
+          };
+        } else {
+          console.warn(`[ContentService] Cloudflare proxy returned HTTP ${cfRes.status}. Falling back to GitHub direct publish.`);
+        }
+      } catch (cfErr) {
+        console.warn('[ContentService] Cloudflare publish failed (falling back to GitHub direct publish):', cfErr.message);
       }
-
-      const cfData = await cfRes.json();
-      const updatedTimestamp = cfData.timestamp || new Date().toISOString();
-      if (typeof window !== 'undefined' && window.localStorage) {
-        window.localStorage.setItem('cj_cloud_snapshot_updated', updatedTimestamp);
-        window.localStorage.setItem(STORAGE_KEY_LAST_SYNC, String(Date.now()));
-      }
-      return {
-        success: true,
-        method: 'cloudflare_proxy',
-        commitSha: cfData.shortSha || 'live',
-        message: cfData.message || 'Successfully published worldwide via Secure Cloudflare Proxy!',
-        raw: cfData
-      };
     }
 
     // 3. Fallback: Direct GitHub API Publish (if token is provided or configured)

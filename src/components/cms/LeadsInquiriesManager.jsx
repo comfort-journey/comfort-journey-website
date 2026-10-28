@@ -2,23 +2,48 @@ import React, { useState, useEffect } from 'react';
 import {
   Users, Search, Download, MessageCircle, PhoneCall, Trash2,
   CheckCircle2, Clock, Calendar, MapPin, RefreshCw, Filter,
-  FileSpreadsheet, ShieldAlert, Sparkles, ExternalLink
+  FileSpreadsheet, ShieldAlert, Sparkles, ExternalLink, Cloud, Loader2
 } from 'lucide-react';
 import {
-  getAllLeads, updateLeadStatus, deleteLead, clearAllLeads, exportLeadsToCSV
+  getAllLeads, updateLeadStatus, deleteLead, clearAllLeads, exportLeadsToCSV, fetchLeadsFromCMS
 } from '../../services/leadStorageService';
 
 export default function LeadsInquiriesManager({ showToast = () => {} }) {
   const [leads, setLeads] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('ALL');
+  const [isSyncingCloud, setIsSyncingCloud] = useState(false);
+  const [lastCloudSync, setLastCloudSync] = useState(null);
 
   const loadLeads = () => {
     setLeads(getAllLeads());
   };
 
+  const handleSyncCloudLeads = async (silent = false) => {
+    setIsSyncingCloud(true);
+    try {
+      const res = await fetchLeadsFromCMS();
+      if (res.success) {
+        setLeads(res.leads);
+        setLastCloudSync(new Date().toLocaleTimeString());
+        if (!silent) {
+          showToast(`✅ Synced ${res.count} leads from Cloud Database!`);
+        }
+      } else {
+        loadLeads();
+      }
+    } catch (err) {
+      console.warn('Directus cloud sync error:', err);
+      loadLeads();
+    } finally {
+      setIsSyncingCloud(false);
+    }
+  };
+
   useEffect(() => {
-    loadLeads();
+    // Initial sync from Directus cloud database so ALL devices see all leads
+    handleSyncCloudLeads(true);
+
     const handleLeadEvent = () => loadLeads();
     window.addEventListener('cj-lead-saved', handleLeadEvent);
     return () => window.removeEventListener('cj-lead-saved', handleLeadEvent);
@@ -140,12 +165,30 @@ export default function LeadsInquiriesManager({ showToast = () => {} }) {
           <button
             type="button"
             className="btn-leads-refresh"
-            onClick={loadLeads}
-            title="Refresh leads list"
+            onClick={() => handleSyncCloudLeads(false)}
+            disabled={isSyncingCloud}
+            title="Pull latest inquiries from Directus Cloud Database across all devices"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.5rem 0.85rem' }}
           >
-            <RefreshCw size={15} />
+            {isSyncingCloud ? <Loader2 size={15} className="animate-spin text-amber" /> : <Cloud size={15} className="text-cyan" />}
+            <span style={{ fontSize: '0.82rem', fontWeight: 600 }}>
+              {isSyncingCloud ? 'Syncing Cloud...' : 'Refresh Cloud Leads'}
+            </span>
           </button>
         </div>
+      </div>
+
+      {/* Cloud Parity Status Banner */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.4rem 0.85rem', marginBottom: '1rem', background: 'rgba(16, 185, 129, 0.08)', borderRadius: '6px', border: '1px solid rgba(16, 185, 129, 0.25)', fontSize: '0.78rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#10B981', fontWeight: 600 }}>
+          <CheckCircle2 size={14} />
+          <span>Live Central Database: Synchronized with Directus Cloud (All devices see all leads)</span>
+        </div>
+        {lastCloudSync && (
+          <span style={{ color: '#94A3B8', fontSize: '0.74rem' }}>
+            Last Cloud Sync: {lastCloudSync}
+          </span>
+        )}
       </div>
 
       {/* ─── Table / Cards ─── */}

@@ -1,26 +1,67 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Users, Shield, UserPlus, UserCheck, UserX, Trash2, Key, 
-  Mail, CheckCircle2, AlertTriangle, Lock, RefreshCw, Eye, EyeOff
+  Mail, CheckCircle2, AlertTriangle, Lock, RefreshCw, Eye, EyeOff,
+  Sliders, CheckSquare, Square, Edit3, X
 } from 'lucide-react';
 
 const STORAGE_KEY_USERS = 'cj_authorized_users';
 
+// All configurable sections within Comfort Journey CMS
+export const CMS_SECTIONS = [
+  { id: 'manage-tours', label: 'Tour Packages', icon: '🗺️', desc: 'Create, edit & manage tour itineraries, departures & pricing' },
+  { id: 'leads-inquiries', label: 'Leads & Inquiries CRM', icon: '💼', desc: 'Customer inquiries, calls & sales database (Sales team only)' },
+  { id: 'manage-blogs', label: 'Blog & Magazine', icon: '✍️', desc: 'Write, publish and edit travel blogs & articles' },
+  { id: 'site-customizer', label: 'Site & SEO Customizer', icon: '🎨', desc: 'Edit homepage copy, banners, popups & meta tags' },
+  { id: 'analytics', label: 'Growth Hub Analytics', icon: '📈', desc: 'Website traffic, analytics & conversion metrics' },
+  { id: 'data-hub', label: 'Data Hub (Import & Export)', icon: '📊', desc: 'CSV migration, Wix package imports & live backups' }
+];
+
+export const ROLE_PRESETS = {
+  SUPER_ADMIN: {
+    label: '👑 Super Admin (Full Access to All 9 Sections)',
+    description: 'Full access to all sections, Team Access, Global Deployment & Cloud Config',
+    sections: ['*']
+  },
+  SALES_CRM: {
+    label: '💼 Sales Team (CRM & Tour Packages)',
+    description: 'Access to customer inquiries CRM and tour packages for pricing/quoting',
+    sections: ['leads-inquiries', 'manage-tours']
+  },
+  BLOG_WRITER: {
+    label: '✍️ Blog & Content Writer (Blogs Only)',
+    description: 'Only Blog & Magazine access. CRM and customer leads are strictly blocked.',
+    sections: ['manage-blogs']
+  },
+  TOUR_MANAGER: {
+    label: '🗺️ Tour Package Manager (Tours Only)',
+    description: 'Only Tour Packages access. CRM and customer leads are strictly blocked.',
+    sections: ['manage-tours']
+  },
+  CUSTOM: {
+    label: '⚙️ Custom Multi-Section Access',
+    description: 'Select specific sections below using the checkboxes',
+    sections: []
+  }
+};
+
 export const DEFAULT_AUTHORIZED_USERS = [
   {
-    id: 'user-admin-1',
-    email: 'rishabhpandey7299@gmail.com',
-    name: 'Administrator',
+    id: 'user-admin-marcom',
+    email: 'comfortjourneymarcom@gmail.com',
+    name: 'Comfort Journey Marcom',
     role: 'SUPER_ADMIN',
+    allowedSections: ['*'],
     status: 'ACTIVE',
     password: 'Admin@CJ2026#',
     createdAt: '2026-01-01'
   },
   {
-    id: 'user-admin-2',
+    id: 'user-admin-1',
     email: 'rishabhmishra@comfortjourneyy.onmicrosoft.com',
     name: 'Rishabh Mishra',
     role: 'SUPER_ADMIN',
+    allowedSections: ['*'],
     status: 'ACTIVE',
     password: 'Admin@CJ2026#',
     createdAt: '2026-01-01'
@@ -28,6 +69,7 @@ export const DEFAULT_AUTHORIZED_USERS = [
 ];
 
 const UNWANTED_SYNTHETIC_EMAILS = new Set([
+  'rishabhpandey7299@gmail.com',
   'admin@comfortjourney.in',
   'comfortjourney1992@gmail.com',
   'operations@comfortjourney.in',
@@ -37,20 +79,34 @@ const UNWANTED_SYNTHETIC_EMAILS = new Set([
 export function getAuthorizedUsers() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY_USERS);
-    if (!raw) {
-      localStorage.setItem(STORAGE_KEY_USERS, JSON.stringify(DEFAULT_AUTHORIZED_USERS));
-      return DEFAULT_AUTHORIZED_USERS;
+    let parsedUsers = [];
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) parsedUsers = parsed;
+      } catch {}
     }
-    const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed)) {
-      // Remove any unwanted synthetic placeholders that were saved previously
-      const sanitized = parsed.filter(u => !UNWANTED_SYNTHETIC_EMAILS.has((u.email || '').toLowerCase().trim()));
-      if (sanitized.length !== parsed.length) {
-        localStorage.setItem(STORAGE_KEY_USERS, JSON.stringify(sanitized));
+
+    const usersMap = new Map();
+    // 1. Seed default Super Admins
+    DEFAULT_AUTHORIZED_USERS.forEach(u => usersMap.set(u.email.toLowerCase().trim(), { ...u }));
+
+    // 2. Merge stored users
+    parsedUsers.forEach(u => {
+      const email = (u.email || '').toLowerCase().trim();
+      if (email && !UNWANTED_SYNTHETIC_EMAILS.has(email)) {
+        const existing = usersMap.get(email);
+        usersMap.set(email, {
+          ...(existing || {}),
+          ...u,
+          allowedSections: u.allowedSections || (u.role === 'SUPER_ADMIN' ? ['*'] : (existing?.allowedSections || ['manage-blogs']))
+        });
       }
-      return sanitized.length > 0 ? sanitized : DEFAULT_AUTHORIZED_USERS;
-    }
-    return DEFAULT_AUTHORIZED_USERS;
+    });
+
+    const sanitized = Array.from(usersMap.values());
+    localStorage.setItem(STORAGE_KEY_USERS, JSON.stringify(sanitized));
+    return sanitized;
   } catch (err) {
     console.error('Failed to load authorized users:', err);
     return DEFAULT_AUTHORIZED_USERS;
@@ -74,11 +130,42 @@ export default function TeamAccessManager({ currentUser, showToast }) {
   const [newName, setNewName] = useState('');
   const [newEmail, setNewEmail] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const [newRole, setNewRole] = useState('CONTENT_EDITOR');
+  const [newRole, setNewRole] = useState('BLOG_WRITER');
+  const [newSections, setNewSections] = useState(['manage-blogs']);
+
+  // Edit Permissions State
+  const [editingUserId, setEditingUserId] = useState(null);
+  const [editRole, setEditRole] = useState('CUSTOM');
+  const [editSections, setEditSections] = useState([]);
+  const [editPassword, setEditPassword] = useState('');
 
   useEffect(() => {
     saveAuthorizedUsers(users);
   }, [users]);
+
+  // Handle role preset selection for new employee
+  const handleRolePresetChange = (roleKey) => {
+    setNewRole(roleKey);
+    if (ROLE_PRESETS[roleKey]) {
+      setNewSections([...ROLE_PRESETS[roleKey].sections]);
+    }
+  };
+
+  // Toggle individual section checkbox for new employee
+  const handleToggleNewSection = (sectionId) => {
+    if (newRole === 'SUPER_ADMIN') {
+      setNewRole('CUSTOM');
+    }
+    setNewSections(prev => {
+      const current = prev.includes('*') ? CMS_SECTIONS.map(s => s.id) : [...prev];
+      if (current.includes(sectionId)) {
+        const next = current.filter(id => id !== sectionId);
+        return next;
+      } else {
+        return [...current, sectionId];
+      }
+    });
+  };
 
   const handleAddUser = (e) => {
     e.preventDefault();
@@ -100,11 +187,14 @@ export default function TeamAccessManager({ currentUser, showToast }) {
       return;
     }
 
+    const assignedSections = newRole === 'SUPER_ADMIN' ? ['*'] : (newSections.length > 0 ? newSections : ['manage-blogs']);
+
     const newUser = {
       id: `user-${Date.now()}`,
       name: cleanName || cleanEmail.split('@')[0],
       email: cleanEmail,
       role: newRole,
+      allowedSections: assignedSections,
       status: 'ACTIVE',
       password: cleanPass,
       createdAt: new Date().toISOString().split('T')[0]
@@ -117,9 +207,52 @@ export default function TeamAccessManager({ currentUser, showToast }) {
     setNewName('');
     setNewEmail('');
     setNewPassword('');
-    setNewRole('CONTENT_EDITOR');
+    setNewRole('BLOG_WRITER');
+    setNewSections(['manage-blogs']);
     setShowAddForm(false);
-    showToast(`✅ Access granted to ${cleanEmail} (${newRole === 'SUPER_ADMIN' ? 'Admin' : 'Editor'})!`);
+    showToast(`✅ Access granted to ${cleanEmail}! Assigned: ${assignedSections.includes('*') ? 'All Sections' : assignedSections.join(', ')}`);
+  };
+
+  // Open Edit Permissions drawer
+  const handleStartEdit = (user) => {
+    setEditingUserId(user.id);
+    setEditRole(user.role || 'CUSTOM');
+    setEditSections(user.allowedSections ? [...user.allowedSections] : (user.role === 'SUPER_ADMIN' ? ['*'] : ['manage-blogs']));
+    setEditPassword(user.password || '');
+  };
+
+  const handleSaveEdit = (userId) => {
+    const assignedSections = editRole === 'SUPER_ADMIN' ? ['*'] : (editSections.length > 0 ? editSections : ['manage-blogs']);
+    const updated = users.map(u => {
+      if (u.id === userId) {
+        return {
+          ...u,
+          role: editRole,
+          allowedSections: assignedSections,
+          password: editPassword.trim() || u.password
+        };
+      }
+      return u;
+    });
+
+    setUsers(updated);
+    saveAuthorizedUsers(updated);
+    setEditingUserId(null);
+    showToast(`✅ Permissions updated for team member.`);
+  };
+
+  const handleToggleEditSection = (sectionId) => {
+    if (editRole === 'SUPER_ADMIN') {
+      setEditRole('CUSTOM');
+    }
+    setEditSections(prev => {
+      const current = prev.includes('*') ? CMS_SECTIONS.map(s => s.id) : [...prev];
+      if (current.includes(sectionId)) {
+        return current.filter(id => id !== sectionId);
+      } else {
+        return [...current, sectionId];
+      }
+    });
   };
 
   const handleToggleStatus = (userId) => {
@@ -178,12 +311,11 @@ export default function TeamAccessManager({ currentUser, showToast }) {
         <div className="hero-text-col">
           <div className="hero-badge">
             <Shield size={14} className="text-amber" />
-            <span>ROLE-BASED ACCESS CONTROL & EMPLOYEE PORTAL</span>
+            <span>ROLE-BASED ACCESS CONTROL & GRANULAR PERMISSIONS</span>
           </div>
-          <h3>Employee Email Access & Permissions</h3>
+          <h3>Employee Email Access & Granular Permissions</h3>
           <p>
-            Manage company access for Comfort Journey employees and Microsoft 365 domain accounts.
-            Grant editor rights for tours and blogs while protecting sensitive API keys, Directus credentials, and GitHub live deployment secrets.
+            Control which CMS sections each employee can see. Employees working on Blogs will only see Blog & Magazine, while the CRM database is strictly reserved for the Sales Team and Administrators.
           </p>
         </div>
         <button 
@@ -201,7 +333,7 @@ export default function TeamAccessManager({ currentUser, showToast }) {
         <form onSubmit={handleAddUser} className="team-add-form-card animate-fade-in">
           <h4>Grant New Employee CMS Access</h4>
           <p className="form-helper">
-            Provide the employee's company email (e.g. @comfortjourney.in or Microsoft 365). They will sign in with these credentials.
+            Provide the employee's work email and check exactly which sections they are allowed to access.
           </p>
 
           <div className="form-fields-grid">
@@ -217,10 +349,10 @@ export default function TeamAccessManager({ currentUser, showToast }) {
             </div>
 
             <div className="form-group">
-              <label>Microsoft / Company Email Address</label>
+              <label>Employee Email Address (Google / Work Email)</label>
               <input
                 type="email"
-                placeholder="e.g. rahul@comfortjourney.in"
+                placeholder="e.g. rahul@comfortjourney.in or user@gmail.com"
                 value={newEmail}
                 onChange={(e) => setNewEmail(e.target.value)}
                 required
@@ -240,18 +372,60 @@ export default function TeamAccessManager({ currentUser, showToast }) {
 
             <div className="form-group">
               <label>Assigned Permission Role</label>
-              <select value={newRole} onChange={(e) => setNewRole(e.target.value)}>
-                <option value="CONTENT_EDITOR">
-                  👤 Content Editor (Tours, Blogs & Inquiries CRM Only — Keys Hidden)
-                </option>
-                <option value="SUPER_ADMIN">
-                  🛡️ Super Admin (Full Access: API Keys, GitHub Sync, Team Access)
-                </option>
+              <select value={newRole} onChange={(e) => handleRolePresetChange(e.target.value)}>
+                {Object.entries(ROLE_PRESETS).map(([key, preset]) => (
+                  <option key={key} value={key}>{preset.label}</option>
+                ))}
               </select>
             </div>
           </div>
 
-          <div className="form-actions-row">
+          {/* Granular Section Checkboxes */}
+          <div className="sections-selection-box" style={{ marginTop: '1rem', padding: '1rem', background: 'rgba(255, 255, 255, 0.04)', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+            <label style={{ display: 'block', fontWeight: 700, fontSize: '0.88rem', color: '#F9FBE7', marginBottom: '0.4rem' }}>
+              Accessible CMS Sections (Check one or multiple sections):
+            </label>
+            <p style={{ margin: '0 0 0.85rem 0', fontSize: '0.78rem', color: '#94A3B8' }}>
+              Employees can ONLY view the sections checked below. Unchecked sections will be completely hidden from their dashboard.
+            </p>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '0.65rem' }}>
+              {CMS_SECTIONS.map(section => {
+                const isChecked = newRole === 'SUPER_ADMIN' || newSections.includes('*') || newSections.includes(section.id);
+                return (
+                  <div
+                    key={section.id}
+                    onClick={() => handleToggleNewSection(section.id)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '0.6rem',
+                      padding: '0.65rem 0.8rem',
+                      borderRadius: '8px',
+                      background: isChecked ? 'rgba(255, 137, 47, 0.12)' : 'rgba(255, 255, 255, 0.03)',
+                      border: `1.5px solid ${isChecked ? '#FF892F' : 'rgba(255, 255, 255, 0.12)'}`,
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease'
+                    }}
+                  >
+                    <div style={{ marginTop: '2px', color: isChecked ? '#FF892F' : '#94A3B8' }}>
+                      {isChecked ? <CheckSquare size={16} /> : <Square size={16} />}
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 700, fontSize: '0.84rem', color: isChecked ? '#FFF' : '#E2E8F0' }}>
+                        {section.icon} {section.label}
+                      </div>
+                      <div style={{ fontSize: '0.72rem', color: '#94A3B8', marginTop: '2px', lineHeight: 1.3 }}>
+                        {section.desc}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="form-actions-row" style={{ marginTop: '1.25rem' }}>
             <button type="submit" className="btn-primary">
               <UserCheck size={16} />
               <span>Grant Access & Save Credentials</span>
@@ -294,7 +468,8 @@ export default function TeamAccessManager({ currentUser, showToast }) {
                 const isCurrent = currentUser?.email?.toLowerCase() === u.email.toLowerCase();
 
                 return (
-                  <tr key={u.id} className={`user-row ${!isActive ? 'row-revoked' : ''}`}>
+                  <React.Fragment key={u.id}>
+                    <tr className={`user-row ${!isActive ? 'row-revoked' : ''}`}>
                     <td>
                       <div className="user-meta-cell">
                         <div className={`user-avatar-disc ${isSuperAdmin ? 'admin-disc' : 'editor-disc'}`}>
@@ -312,7 +487,14 @@ export default function TeamAccessManager({ currentUser, showToast }) {
                     <td>
                       <span className={`role-badge ${isSuperAdmin ? 'badge-super-admin' : 'badge-editor'}`}>
                         {isSuperAdmin ? <Shield size={12} /> : <Users size={12} />}
-                        <span>{isSuperAdmin ? 'Super Admin' : 'Content Editor'}</span>
+                        <span>
+                          {isSuperAdmin ? 'Super Admin' : (
+                            u.role === 'SALES_CRM' ? 'Sales CRM' :
+                            u.role === 'BLOG_WRITER' ? 'Blog Writer' :
+                            u.role === 'TOUR_MANAGER' ? 'Tour Manager' :
+                            'Custom Access'
+                          )}
+                        </span>
                       </span>
                     </td>
 
@@ -340,21 +522,66 @@ export default function TeamAccessManager({ currentUser, showToast }) {
                     </td>
 
                     <td>
-                      <div className="permissions-summary">
-                        {isSuperAdmin ? (
+                      <div className="permissions-summary" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.3rem' }}>
+                        {isSuperAdmin || (u.allowedSections && u.allowedSections.includes('*')) ? (
                           <span className="perm-tag perm-full">
-                            ✨ Full System (Tours, Blogs, SEO, API Keys, GitHub Sync)
+                            👑 Full System (All 9 Sections)
                           </span>
+                        ) : u.allowedSections && u.allowedSections.length > 0 ? (
+                          u.allowedSections.map(secId => {
+                            const sec = CMS_SECTIONS.find(s => s.id === secId);
+                            return (
+                              <span
+                                key={secId}
+                                className="perm-tag"
+                                style={{
+                                  fontSize: '0.72rem',
+                                  padding: '0.2rem 0.5rem',
+                                  borderRadius: '6px',
+                                  background: secId === 'leads-inquiries' ? 'rgba(59, 130, 246, 0.15)' : 'rgba(255, 137, 47, 0.15)',
+                                  border: `1px solid ${secId === 'leads-inquiries' ? 'rgba(59, 130, 246, 0.4)' : 'rgba(255, 137, 47, 0.4)'}`,
+                                  color: secId === 'leads-inquiries' ? '#93C5FD' : '#FDBA74',
+                                  fontWeight: 700
+                                }}
+                              >
+                                {sec ? `${sec.icon} ${sec.label}` : secId}
+                              </span>
+                            );
+                          })
                         ) : (
-                          <span className="perm-tag perm-limited">
-                            📝 Tours, Blogs, CRM Leads (Sensitive Config Blocked)
+                          <span className="perm-tag perm-limited" style={{ color: '#F87171' }}>
+                            ⚠️ No Sections Assigned
                           </span>
                         )}
                       </div>
                     </td>
 
                     <td>
-                      <div className="table-actions-cell">
+                      <div className="table-actions-cell" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                        {/* Edit Permissions Button */}
+                        <button
+                          type="button"
+                          className="btn-action-edit"
+                          onClick={() => handleStartEdit(u)}
+                          title="Edit employee permissions & sections"
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.3rem',
+                            padding: '0.35rem 0.6rem',
+                            borderRadius: '6px',
+                            background: 'rgba(111, 230, 252, 0.12)',
+                            border: '1px solid rgba(111, 230, 252, 0.35)',
+                            color: '#6FE6FC',
+                            fontSize: '0.75rem',
+                            fontWeight: 700,
+                            cursor: 'pointer'
+                          }}
+                        >
+                          <Edit3 size={13} />
+                          <span>Permissions</span>
+                        </button>
+
                         <button
                           type="button"
                           className={`btn-action-revoke ${isActive ? 'btn-revoke' : 'btn-restore'}`}
@@ -364,7 +591,7 @@ export default function TeamAccessManager({ currentUser, showToast }) {
                           {isActive ? (
                             <>
                               <UserX size={13} />
-                              <span>Revoke Access</span>
+                              <span>Revoke</span>
                             </>
                           ) : (
                             <>
@@ -385,8 +612,116 @@ export default function TeamAccessManager({ currentUser, showToast }) {
                       </div>
                     </td>
                   </tr>
-                );
-              })}
+
+                  {/* Inline Edit Drawer */}
+                  {editingUserId === u.id && (
+                    <tr className="edit-user-drawer-row">
+                      <td colSpan="6" style={{ background: 'rgba(0, 18, 51, 0.95)', padding: '1.25rem', border: '1.5px solid #FF892F', borderRadius: '10px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                          <h4 style={{ margin: 0, color: '#FF892F', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem' }}>
+                            <Sliders size={16} /> Edit Permissions for {u.name} ({u.email})
+                          </h4>
+                          <button
+                            type="button"
+                            onClick={() => setEditingUserId(null)}
+                            style={{ background: 'transparent', border: 'none', color: '#94A3B8', cursor: 'pointer' }}
+                          >
+                            <X size={18} />
+                          </button>
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                          <div className="form-group">
+                            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#F9FBE7', marginBottom: '0.35rem' }}>
+                              Assign Role Preset
+                            </label>
+                            <select
+                              value={editRole}
+                              onChange={(e) => {
+                                const newR = e.target.value;
+                                setEditRole(newR);
+                                if (ROLE_PRESETS[newR]) {
+                                  setEditSections([...ROLE_PRESETS[newR].sections]);
+                                }
+                              }}
+                              style={{ width: '100%', padding: '0.65rem', borderRadius: '8px', background: '#0F172A', color: '#FFF', border: '1px solid rgba(255, 255, 255, 0.2)' }}
+                            >
+                              {Object.entries(ROLE_PRESETS).map(([key, preset]) => (
+                                <option key={key} value={key}>{preset.label}</option>
+                              ))}
+                            </select>
+                          </div>
+
+                          <div className="form-group">
+                            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#F9FBE7', marginBottom: '0.35rem' }}>
+                              Update Password / Access Key
+                            </label>
+                            <input
+                              type="text"
+                              value={editPassword}
+                              onChange={(e) => setEditPassword(e.target.value)}
+                              placeholder="Leave blank to keep existing password"
+                              style={{ width: '100%', padding: '0.65rem', borderRadius: '8px', background: '#0F172A', color: '#FFF', border: '1px solid rgba(255, 255, 255, 0.2)' }}
+                            />
+                          </div>
+                        </div>
+
+                        <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, color: '#F9FBE7', marginBottom: '0.5rem' }}>
+                          Check Allowed CMS Sections:
+                        </label>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '0.5rem', marginBottom: '1rem' }}>
+                          {CMS_SECTIONS.map(section => {
+                            const isChecked = editRole === 'SUPER_ADMIN' || editSections.includes('*') || editSections.includes(section.id);
+                            return (
+                              <div
+                                key={section.id}
+                                onClick={() => handleToggleEditSection(section.id)}
+                                style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  gap: '0.6rem',
+                                  padding: '0.55rem 0.75rem',
+                                  borderRadius: '8px',
+                                  background: isChecked ? 'rgba(255, 137, 47, 0.15)' : 'rgba(255, 255, 255, 0.03)',
+                                  border: `1.5px solid ${isChecked ? '#FF892F' : 'rgba(255, 255, 255, 0.12)'}`,
+                                  cursor: 'pointer'
+                                }}
+                              >
+                                <div style={{ color: isChecked ? '#FF892F' : '#94A3B8' }}>
+                                  {isChecked ? <CheckSquare size={16} /> : <Square size={16} />}
+                                </div>
+                                <span style={{ fontSize: '0.82rem', fontWeight: 700, color: isChecked ? '#FFF' : '#CBD5E1' }}>
+                                  {section.icon} {section.label}
+                                </span>
+                              </div>
+                            );
+                          })}
+                        </div>
+
+                        <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
+                          <button
+                            type="button"
+                            className="btn-secondary"
+                            onClick={() => setEditingUserId(null)}
+                            style={{ padding: '0.5rem 1rem', borderRadius: '8px', cursor: 'pointer' }}
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            type="button"
+                            className="btn-primary"
+                            onClick={() => handleSaveEdit(u.id)}
+                            style={{ padding: '0.5rem 1.25rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 800 }}
+                          >
+                            Save Permissions
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </React.Fragment>
+              );
+            })}
             </tbody>
           </table>
         </div>
