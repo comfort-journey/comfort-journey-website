@@ -30,6 +30,7 @@ import DataHubManager from './cms/DataHubManager';
 import SiteCustomizer from './cms/SiteCustomizer';
 import LeadsInquiriesManager from './cms/LeadsInquiriesManager';
 import TeamAccessManager, { getAuthorizedUsers } from './cms/TeamAccessManager';
+import { teamAccessStorageService } from '../services/teamAccessStorageService';
 import { triggerGoogleSignInPrompt, getGoogleClientId } from '../utils/googleAuthHelper';
 import './cms/ContentStudio.css';
 
@@ -110,20 +111,17 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
       }
 
       const staffEmail = info.email.toLowerCase().trim();
-      const allUsers = getAuthorizedUsers();
-      const userMatch = allUsers.find(u => (u.email || '').toLowerCase().trim() === staffEmail);
+      
+      // REAL-TIME SECURITY CHECK VIA AWS DIRECTUS:
+      // Instantly verifies whether the employee has active access or has been revoked
+      const authResult = await teamAccessStorageService.verifyStaffLoginRealtime(staffEmail);
 
-      // STRICT SECURITY CHECK:
-      // Random website visitors or unauthorized personal Gmails cannot access CMS
-      if (!userMatch) {
-        setAuthError(`⛔ Access Denied: The Google account "${staffEmail}" does not have staff permissions. Only authorized team members added by an administrator in the Team & Access Control panel can access this portal.`);
+      if (!authResult.allowed) {
+        setAuthError(authResult.error || `⛔ Access Denied: The Google account "${staffEmail}" does not have staff permissions.`);
         return;
       }
 
-      if (userMatch.status === 'REVOKED' || userMatch.status === 'INACTIVE') {
-        setAuthError('❌ Access Denied: Staff access for this account has been REVOKED or deactivated by an administrator.');
-        return;
-      }
+      const userMatch = authResult.user;
 
       const sessionUser = {
         id: userMatch.id || `staff-g-${Date.now()}`,
@@ -153,7 +151,7 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
     }
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setAuthError('');
     const cleanEmail = emailInput.trim().toLowerCase();
@@ -164,19 +162,15 @@ export default function AdminCMSModal({ isOpen, onClose, isStandalonePage = fals
       return;
     }
 
-    const allUsers = getAuthorizedUsers();
-    const userMatch = allUsers.find(u => (u.email || '').toLowerCase().trim() === cleanEmail);
+    // REAL-TIME SECURITY CHECK VIA AWS DIRECTUS
+    const authResult = await teamAccessStorageService.verifyStaffLoginRealtime(cleanEmail);
 
-    // STRICT SECURITY CHECK: Only pre-authorized staff accounts can sign in
-    if (!userMatch) {
-      setAuthError(`⛔ Access Denied: "${cleanEmail}" is not recognized as an authorized staff account. Please contact an administrator.`);
+    if (!authResult.allowed) {
+      setAuthError(authResult.error || `⛔ Access Denied: "${cleanEmail}" is not recognized as an authorized staff account.`);
       return;
     }
 
-    if (userMatch.status === 'REVOKED' || userMatch.status === 'INACTIVE') {
-      setAuthError('❌ Access Denied: Staff access for this account has been REVOKED or deactivated.');
-      return;
-    }
+    const userMatch = authResult.user;
 
     if (userMatch.password && userMatch.password !== cleanPass) {
       setAuthError('❌ Incorrect password. Please verify your credentials or sign in with authorized Google SSO.');

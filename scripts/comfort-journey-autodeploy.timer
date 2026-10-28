@@ -1,0 +1,10 @@
+[Unit]
+Description=Comfort Journey Continuous Deployment Timer (Checks GitHub every 45s)
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=45s
+Unit=comfort-journey-autodeploy.service
+
+[Install]
+WantedBy=timers.target

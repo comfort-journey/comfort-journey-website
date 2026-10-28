@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { 
   Users, Shield, UserPlus, UserCheck, UserX, Trash2, Key, 
   Mail, CheckCircle2, AlertTriangle, Lock, RefreshCw, Eye, EyeOff,
-  Sliders, CheckSquare, Square, Edit3, X
+  Sliders, CheckSquare, Square, Edit3, X, Cloud
 } from 'lucide-react';
+import { teamAccessStorageService } from '../../services/teamAccessStorageService';
 
 const STORAGE_KEY_USERS = 'cj_authorized_users';
 
@@ -123,6 +124,7 @@ export function saveAuthorizedUsers(users) {
 
 export default function TeamAccessManager({ currentUser, showToast }) {
   const [users, setUsers] = useState(() => getAuthorizedUsers());
+  const [isSyncingCloud, setIsSyncingCloud] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [showPasswords, setShowPasswords] = useState({});
 
@@ -138,6 +140,28 @@ export default function TeamAccessManager({ currentUser, showToast }) {
   const [editRole, setEditRole] = useState('CUSTOM');
   const [editSections, setEditSections] = useState([]);
   const [editPassword, setEditPassword] = useState('');
+
+  // Initial Cloud Load from AWS Directus
+  const syncWithCloudDirectus = async (silent = false) => {
+    setIsSyncingCloud(true);
+    try {
+      const cloudUsers = await teamAccessStorageService.fetchTeamUsersFromDirectus();
+      if (cloudUsers && cloudUsers.length > 0) {
+        setUsers(cloudUsers);
+        saveAuthorizedUsers(cloudUsers);
+        if (!silent) showToast('☁️ Live staff permissions synced from AWS Directus Cloud.');
+      }
+    } catch (err) {
+      console.warn('[TeamAccessManager] Cloud sync error:', err);
+      if (!silent) showToast('⚠️ Could not connect to AWS Directus. Using local cached directory.');
+    } finally {
+      setIsSyncingCloud(false);
+    }
+  };
+
+  useEffect(() => {
+    syncWithCloudDirectus(true);
+  }, []);
 
   useEffect(() => {
     saveAuthorizedUsers(users);
@@ -167,7 +191,7 @@ export default function TeamAccessManager({ currentUser, showToast }) {
     });
   };
 
-  const handleAddUser = (e) => {
+  const handleAddUser = async (e) => {
     e.preventDefault();
     const cleanEmail = newEmail.trim().toLowerCase();
     const cleanName = newName.trim();
@@ -204,6 +228,11 @@ export default function TeamAccessManager({ currentUser, showToast }) {
     setUsers(updated);
     saveAuthorizedUsers(updated);
 
+    // Save to AWS Directus in real-time
+    teamAccessStorageService.saveTeamUserToDirectus(newUser)
+      .then(() => showToast(`☁️ ${cleanEmail} saved directly to AWS Cloud!`))
+      .catch(err => console.warn('Cloud save error:', err));
+
     setNewName('');
     setNewEmail('');
     setNewPassword('');
@@ -221,16 +250,18 @@ export default function TeamAccessManager({ currentUser, showToast }) {
     setEditPassword(user.password || '');
   };
 
-  const handleSaveEdit = (userId) => {
+  const handleSaveEdit = async (userId) => {
     const assignedSections = editRole === 'SUPER_ADMIN' ? ['*'] : (editSections.length > 0 ? editSections : ['manage-blogs']);
+    let targetObj = null;
     const updated = users.map(u => {
       if (u.id === userId) {
-        return {
+        targetObj = {
           ...u,
           role: editRole,
           allowedSections: assignedSections,
           password: editPassword.trim() || u.password
         };
+        return targetObj;
       }
       return u;
     });
@@ -238,6 +269,13 @@ export default function TeamAccessManager({ currentUser, showToast }) {
     setUsers(updated);
     saveAuthorizedUsers(updated);
     setEditingUserId(null);
+
+    if (targetObj) {
+      teamAccessStorageService.saveTeamUserToDirectus(targetObj)
+        .then(() => showToast(`☁️ Permissions updated live in AWS Cloud.`))
+        .catch(console.warn);
+    }
+
     showToast(`✅ Permissions updated for team member.`);
   };
 
@@ -273,8 +311,13 @@ export default function TeamAccessManager({ currentUser, showToast }) {
     setUsers(updated);
     saveAuthorizedUsers(updated);
 
+    // Sync status to AWS Directus immediately
+    teamAccessStorageService.revokeTeamUserInDirectus(target.id, target.email)
+      .then(() => showToast(`☁️ Revocation synced live to AWS Directus cloud.`))
+      .catch(console.warn);
+
     if (nextStatus === 'REVOKED') {
-      showToast(`⛔ Access REVOKED for ${target.email}. Login is now blocked.`);
+      showToast(`⛔ Access REVOKED for ${target.email}. Login is now blocked immediately on all devices.`);
     } else {
       showToast(`✅ Access RESTORED for ${target.email}.`);
     }
@@ -292,10 +335,15 @@ export default function TeamAccessManager({ currentUser, showToast }) {
       }
     }
 
-    if (window.confirm(`Permanently remove ${target.email} from company access list?`)) {
+    if (window.confirm(`Permanently remove ${target.email} from company access list and AWS database?`)) {
       const updated = users.filter(u => u.id !== userId);
       setUsers(updated);
       saveAuthorizedUsers(updated);
+
+      teamAccessStorageService.deleteTeamUserFromDirectus(target.id)
+        .then(() => showToast(`☁️ Deleted from AWS Cloud.`))
+        .catch(console.warn);
+
       showToast(`🗑️ Removed ${target.email}.`);
     }
   };
@@ -311,21 +359,34 @@ export default function TeamAccessManager({ currentUser, showToast }) {
         <div className="hero-text-col">
           <div className="hero-badge">
             <Shield size={14} className="text-amber" />
-            <span>ROLE-BASED ACCESS CONTROL & GRANULAR PERMISSIONS</span>
+            <span>AWS CLOUD REAL-TIME ACCESS CONTROL & GRANULAR PERMISSIONS</span>
           </div>
           <h3>Employee Email Access & Granular Permissions</h3>
           <p>
-            Control which CMS sections each employee can see. Employees working on Blogs will only see Blog & Magazine, while the CRM database is strictly reserved for the Sales Team and Administrators.
+            Control which CMS sections each employee can see. Additions and revocations take effect <strong>instantly in AWS Cloud</strong> without rebuilding the website. CRM database is strictly reserved for Sales and Super Admins.
           </p>
         </div>
-        <button 
-          type="button" 
-          className="btn-primary add-employee-trigger"
-          onClick={() => setShowAddForm(prev => !prev)}
-        >
-          <UserPlus size={16} />
-          <span>{showAddForm ? 'Close Form' : 'Add New Employee'}</span>
-        </button>
+        <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+          <button 
+            type="button" 
+            className="btn-secondary"
+            onClick={() => syncWithCloudDirectus(false)}
+            disabled={isSyncingCloud}
+            style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem' }}
+            title="Refresh directory from AWS Directus Cloud"
+          >
+            <RefreshCw size={14} className={isSyncingCloud ? 'animate-spin' : ''} />
+            <span>{isSyncingCloud ? 'Syncing...' : 'Sync AWS Cloud'}</span>
+          </button>
+          <button 
+            type="button" 
+            className="btn-primary add-employee-trigger"
+            onClick={() => setShowAddForm(prev => !prev)}
+          >
+            <UserPlus size={16} />
+            <span>{showAddForm ? 'Close Form' : 'Add New Employee'}</span>
+          </button>
+        </div>
       </div>
 
       {/* Add Employee Form Drawer */}
