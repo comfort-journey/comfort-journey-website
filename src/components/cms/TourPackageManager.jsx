@@ -466,7 +466,13 @@ export default function TourPackageManager({ onOpenGlobalSync }) {
 
   const handlePublish = useCallback(() => {
     if (!editingTour) return;
-    const publishedTour = { ...editingTour, status: 'published', isVisible: true };
+    if (!editingTour.name) { alert('Package title is required.'); return; }
+    const publishedTour = {
+      ...editingTour,
+      slug: editingTour.slug || slugify(editingTour.name),
+      status: 'published',
+      isVisible: true
+    };
 
     const isFixedDep = (publishedTour.categories || []).some(c => typeof c === 'string' && c.toLowerCase().includes('fixed departure'));
     if (isFixedDep) {
@@ -504,6 +510,7 @@ export default function TourPackageManager({ onOpenGlobalSync }) {
       { label: 'Categories', value: categoriesList },
       { label: 'Itinerary Days', value: `${publishedTour.itinerary?.length || 0} Days` },
       { label: 'Live Badges', value: `${publishedTour.cardFeatures?.length || 5} Card Icons` },
+      { label: 'Live Link', value: `/tour/${publishedTour.slug}/` },
     ];
 
     if (isFixedDep) {

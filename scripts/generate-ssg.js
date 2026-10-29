@@ -300,6 +300,56 @@ async function generateSSG() {
   writeStaticPage('about', aboutHtml);
   pageCount++;
 
+  // 6. Pre-render Privacy Policy (DPDP Act 2023) Page
+  const privacyHtml = injectHtmlMetadata(baseHtml, {
+    title: "Privacy Policy & Data Protection (DPDP Act) | Comfort Journey",
+    description: "Read Comfort Journey's official Privacy Policy complying with the India Digital Personal Data Protection Act (DPDP Act 2023), Meta Ads, Google Analytics, and international data standards.",
+    url: `${BASE_URL}/privacy-policy/`,
+    canonicalUrl: `${BASE_URL}/privacy-policy/`
+  });
+  const privacyBody = `
+    <main class="ssg-snapshot">
+      <nav aria-label="Breadcrumb"><a href="${BASE_URL}/">Home</a> / Privacy Policy</nav>
+      <h1>Privacy Policy & Data Protection (India DPDP Act 2023)</h1>
+      <p>Comfort Journey Tours & Travels (Est. 1992, Bhopal, MP, India) treats your personal data with the same uncompromising care and discretion as your travel itineraries.</p>
+      <h2>What Data We Collect</h2>
+      <p>Name, Email address, Phone/WhatsApp number, and travel itinerary preferences. Never sold, rented, or traded.</p>
+      <h2>Purpose of Processing</h2>
+      <p>Solely to curate custom private travel itineraries, coordinate with verified hotels and private chauffeurs, deliver 24/7 concierge assistance, and share seasonal offers.</p>
+      <h2>Analytics & Cookies Disclosure</h2>
+      <p>Our website employs Google Tag Manager, Google Analytics 4 (GA4), Meta Pixel, and Microsoft Clarity strictly for traffic measurement and mobile error diagnosis.</p>
+      <h2>Your Rights Under India DPDP Act 2023</h2>
+      <p>Right to access, correction, erasure (Right to be Forgotten), and grievance redressal by emailing care@comfortjourney.in.</p>
+      <h2>Designated Grievance Redressal Officer</h2>
+      <p>Rishabh Mishra / Sharad Mishra · care@comfortjourney.in · +91 92039 31912 · Bhopal, Madhya Pradesh, India.</p>
+    </main>`;
+  writeStaticPage('privacy-policy', injectRootContent(privacyHtml, privacyBody));
+  pageCount++;
+
+  // 7. Pre-render Terms & Conditions Page
+  const termsHtml = injectHtmlMetadata(baseHtml, {
+    title: "Terms & Conditions of VIP Booking | Comfort Journey",
+    description: "Read Comfort Journey's official Terms and Conditions covering handcrafted itineraries, transparent cancellation rules, payment milestones, and VIP chauffeur standards.",
+    url: `${BASE_URL}/terms-and-conditions/`,
+    canonicalUrl: `${BASE_URL}/terms-and-conditions/`
+  });
+  const termsBody = `
+    <main class="ssg-snapshot">
+      <nav aria-label="Breadcrumb"><a href="${BASE_URL}/">Home</a> / Terms & Conditions</nav>
+      <h1>Terms & Conditions of Service</h1>
+      <p>Comfort Journey (Est. 1992) provides bespoke private chauffeur transfers, pre-verified 4/5-star accommodation bookings, and personal on-trip concierge services.</p>
+      <h2>Transparent Pricing & Inclusions</h2>
+      <p>All quotes include driver allowances, fuel, state border permits, toll fees, and specified hotel taxes with zero hidden fees.</p>
+      <h2>Payment Milestones</h2>
+      <p>20% to 30% advance token deposit to confirm inventory; balance due 10 days before departure or upon arrival meeting.</p>
+      <h2>Transparent Cancellation & 100% Refund Policy</h2>
+      <p>30+ days prior: 100% full refund of package amount. 15 to 29 days prior: 75% refund or 100% credit voucher. 7 to 14 days: 50% refund.</p>
+      <h2>Governing Law & Jurisdiction</h2>
+      <p>Subject to the exclusive jurisdiction of the competent courts in Bhopal, Madhya Pradesh, India.</p>
+    </main>`;
+  writeStaticPage('terms-and-conditions', injectRootContent(termsHtml, termsBody));
+  pageCount++;
+
   console.log(`✅ [SSG] Successfully pre-rendered ${pageCount} static HTML pages in /dist ready for instant bot crawling and AWS S3 hosting!`);
 }
 

@@ -308,7 +308,12 @@ export default function WeekendGetawaysSection({
                 if (onNavigateLanding) {
                   onNavigateLanding('weekend-getaways');
                 } else {
-                  window.location.hash = '#/landing/weekend-getaways';
+                  if (typeof history !== 'undefined' && history.pushState) {
+                    history.pushState(null, '', '/weekend-getaways/');
+                    window.dispatchEvent(new PopStateEvent('popstate'));
+                  } else {
+                    window.location.href = '/weekend-getaways/';
+                  }
                 }
               }}
             >

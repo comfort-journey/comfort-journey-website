@@ -42,25 +42,66 @@ export default function PolicyModal({ type, isOpen, onClose }) {
 
           {type === 'privacy' && (
             <>
-              <h3>Privacy & Traveler Confidentiality</h3>
-              <p>Comfort Journey strictly safeguards the personal data and travel preferences of every client. We never sell, rent, or monetize your contact information.</p>
+              <h3>Privacy Policy & India DPDP Act 2023 Compliance</h3>
+              <p>Comfort Journey (Est. 1992) strictly safeguards the personal data and travel preferences of every client. We never sell, rent, or monetize your contact information.</p>
               <ul>
-                <li><strong>Data Collected:</strong> Traveler names, contact number, passport/ID details exclusively for flight booking, hotel check-ins, and visa processing.</li>
-                <li><strong>WhatsApp Security:</strong> End-to-end encrypted direct communication between you and your dedicated VIP travel designer.</li>
-                <li><strong>Payment Safety:</strong> Encrypted multi-currency payment gateway integrations with verified bank standards.</li>
+                <li><strong>What We Collect:</strong> Name, Email, Phone/WhatsApp number, travel preferences (destination, dates, guests), and hotel tier preferences.</li>
+                <li><strong>How We Use It:</strong> Exclusively to plan custom itineraries, coordinate private chauffeur transfers/hotels, deliver 24/7 concierge support, and share Comfort Journey seasonal updates (with 1-click opt-out).</li>
+                <li><strong>Strict Non-Sale Guarantee:</strong> We never sell, license, or trade your data with any advertising network, data broker, or third party.</li>
+                <li><strong>Analytics & Cookies Disclosure:</strong> We use Google Tag Manager, Google Analytics 4 (GA4), Meta Pixel, and Microsoft Clarity strictly for traffic measurement, performance attribution, and mobile error diagnosis.</li>
+                <li><strong>Your DPDP Act Rights:</strong> Right to access, correction, data erasure ("Right to be Forgotten"), and grievance redressal by emailing <code>care@comfortjourney.in</code>.</li>
+                <li><strong>Designated Grievance Officer:</strong> Rishabh Mishra / Sharad Mishra (<a href="mailto:care@comfortjourney.in">care@comfortjourney.in</a> | +91 92039 31912).</li>
               </ul>
+              <div style={{ marginTop: '1rem', paddingTop: '0.75rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+                <a 
+                  href="/privacy-policy/" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onClose();
+                    if (window.history?.pushState) {
+                      window.history.pushState(null, '', '/privacy-policy/');
+                      window.dispatchEvent(new PopStateEvent('popstate'));
+                    } else {
+                      window.location.href = '/privacy-policy/';
+                    }
+                  }}
+                  style={{ color: '#FF892F', fontWeight: 700, fontSize: '0.88rem', textDecoration: 'underline' }}
+                >
+                  View Full Comprehensive Privacy Policy Page (DPDP Act) →
+                </a>
+              </div>
             </>
           )}
 
           {type === 'terms' && (
             <>
-              <h3>Terms of VIP Service</h3>
+              <h3>Terms of VIP Booking & Service</h3>
               <p>Comfort Journey provides bespoke private chauffeur transfers, pre-verified 4/5-star accommodation bookings, and personal on-trip concierge services.</p>
               <ul>
-                <li>All quotations are inclusive of mentioned taxes, driver allowances, toll taxes, and fuel.</li>
-                <li>Monument entry tickets, VIP passes, and ferry tickets are confirmed upon receipt of booking token.</li>
-                <li>Our 24/7 VIP Concierge Desk (+91 9203931912) remains active throughout your entire travel duration.</li>
+                <li><strong>Transparent Pricing:</strong> All quotations include driver allowances, border permits, state taxes, toll fees, and fuel with zero hidden surcharges.</li>
+                <li><strong>Flexible Payment Milestones:</strong> 20% to 30% advance token deposit to confirm inventory; balance due 10 days before departure or upon arrival meeting.</li>
+                <li><strong>100% Refund Assurance:</strong> 30+ days prior = 100% refund of package amount; 15-29 days = 75% refund or 100% future credit.</li>
+                <li><strong>Flight & Helicopter Transfers:</strong> Governed by carrier cancellation terms with zero handling charges added by Comfort Journey.</li>
+                <li><strong>Governing Law:</strong> Governed by the laws of India with exclusive jurisdiction in Bhopal, Madhya Pradesh.</li>
               </ul>
+              <div style={{ marginTop: '1rem', paddingTop: '0.75rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+                <a 
+                  href="/terms-and-conditions/" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onClose();
+                    if (window.history?.pushState) {
+                      window.history.pushState(null, '', '/terms-and-conditions/');
+                      window.dispatchEvent(new PopStateEvent('popstate'));
+                    } else {
+                      window.location.href = '/terms-and-conditions/';
+                    }
+                  }}
+                  style={{ color: '#FF892F', fontWeight: 700, fontSize: '0.88rem', textDecoration: 'underline' }}
+                >
+                  View Full Terms & Conditions Page →
+                </a>
+              </div>
             </>
           )}
         </div>

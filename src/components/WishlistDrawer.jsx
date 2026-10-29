@@ -1,5 +1,6 @@
 import React from 'react';
 import { X, Heart, Trash2, MessageCircle, Clock } from 'lucide-react';
+import { useLiveTours } from '../hooks/useLiveContent';
 import { TOURS_DATA } from '../data/toursData';
 import { useCurrency } from '../context/CurrencyContext';
 import { useWishlistCompare } from '../context/WishlistCompareContext';
@@ -7,10 +8,11 @@ import { useWishlistCompare } from '../context/WishlistCompareContext';
 export default function WishlistDrawer({ onSelectItinerary, onBookTour }) {
   const { formatPrice } = useCurrency();
   const { wishlist, toggleWishlist, isWishlistOpen, setIsWishlistOpen } = useWishlistCompare();
+  const allLiveTours = useLiveTours();
 
   if (!isWishlistOpen) return null;
 
-  const savedTours = TOURS_DATA.filter((tour) => wishlist.includes(tour.id));
+  const savedTours = (allLiveTours || TOURS_DATA).filter((tour) => wishlist.includes(tour.id));
 
   return (
     <div className="wishlist-overlay" onClick={() => setIsWishlistOpen(false)}>

@@ -868,7 +868,7 @@ export default function AboutUsPage({ onOpenQuote, onOpenAIPlanner, onNavigateHo
                       <span className="about-consent-text">
                         I agree to the{' '}
                         <a
-                          href="#/privacy-policy"
+                          href="/privacy-policy/"
                           onClick={(e) => {
                             e.preventDefault();
                             if (typeof window !== 'undefined') {

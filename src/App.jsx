@@ -31,6 +31,8 @@ import { directusService } from './services/directusClient';
 const QuickBookingModal = lazy(() => import('./components/QuickBookingModal'));
 const AIPlannerPage = lazy(() => import('./components/ai-planner/AIPlannerPage'));
 const ItineraryPage = lazy(() => import('./components/itinerary/ItineraryPage'));
+const PrivacyPolicyPage = lazy(() => import('./components/legal/PrivacyPolicyPage'));
+const TermsPage = lazy(() => import('./components/legal/TermsPage'));
 import PackageTierCompareModal from './components/PackageTierCompareModal';
 import WishlistDrawer from './components/WishlistDrawer';
 import CompareModal from './components/CompareModal';
@@ -81,12 +83,15 @@ export default function App() {
   const [currentView, setCurrentView] = useState('home'); // 'home' | 'about' | 'landing' | 'magazine' | 'blog-reader' | 'ai-planner' | 'itinerary'
   const [activeLandingPage, setActiveLandingPage] = useState(null);
   const [activeBlogSlug, setActiveBlogSlug] = useState(null);
+  const [activeTourSlug, setActiveTourSlug] = useState(null);
   const [selectedItineraryTour, setSelectedItineraryTour] = useState(null);
 
   // Dynamic 2026 Page SEO, AEO & GEO injection
   const activeSeoKey = 
     currentView === 'about' ? 'about' :
     currentView === 'magazine' ? 'blog' :
+    currentView === 'privacy-policy' ? 'privacy' :
+    currentView === 'terms-and-conditions' ? 'terms' :
     (currentView === 'landing' && activeLandingPage?.slug) ? `campaign-${activeLandingPage.slug}` :
     isLPHubOpen ? 'landing-hub' :
     'home';
@@ -122,100 +127,240 @@ export default function App() {
         hash === '#/cms' || hash === '#cms'
       );
 
+      // 1. Staff CMS / Admin Portal
       if (isCmsRoute) {
         setCurrentView('cms');
         setIsAdminCMSOpen(true);
         setActiveLandingPage(null);
         setActiveBlogSlug(null);
+        setActiveTourSlug(null);
+        setSelectedItineraryTour(null);
         window.scrollTo({ top: 0, behavior: 'instant' });
         seoHeadManager.updateMetadata({
           title: "Staff & Management CMS Portal | Comfort Journey",
           description: "Comfort Journey management portal for itineraries, blog publishing, and customer inquiries.",
           url: pathname === '/cms' ? '/cms' : '/#/portal'
         });
-      } else if (pathname === '/landing-hub' || hash === '#/landing-hub' || hash === '#/all-landing-pages' || hash === '#landing-hub') {
+        return;
+      }
+
+      // 2. Landing Hub modal / route
+      if (pathname === '/landing-hub' || hash === '#/landing-hub' || hash === '#/all-landing-pages' || hash === '#landing-hub') {
         setIsLPHubOpen(true);
-      } else if (pathname === '/ai-planner' || hash === '#/ai-planner' || hash === '#ai-planner') {
+      }
+
+      // 3. AI Planner dedicated page
+      if (pathname === '/ai-planner' || hash === '#/ai-planner' || hash === '#ai-planner') {
+        if (typeof history !== 'undefined' && history.replaceState && pathname !== '/ai-planner') {
+          history.replaceState(null, '', '/ai-planner');
+        }
         setCurrentView('ai-planner');
         setActiveLandingPage(null);
         setActiveBlogSlug(null);
+        setActiveTourSlug(null);
+        setSelectedItineraryTour(null);
         window.scrollTo({ top: 0, behavior: 'smooth' });
         seoHeadManager.updateMetadata({
           title: "Comfy.ai Travel Planner | Plan Your Dream Vacation with AI",
           description: "Create personalized itineraries with interactive maps, real-time routing, and AI-powered suggestions. Comfort Journey (Est. 1992).",
-          url: pathname === '/ai-planner' ? '/ai-planner' : '/#/ai-planner',
+          url: '/ai-planner',
           type: "website"
         });
-      } else if (pathname.startsWith('/itinerary/') || hash.startsWith('#/itinerary/') || hash.startsWith('#itinerary/')) {
-        const tourSlug = pathname.startsWith('/itinerary/') 
-          ? pathname.replace(/^\/itinerary\//, '').trim() 
-          : rawHash.replace(/^#\/?itinerary\//, '').trim();
-        setCurrentView('itinerary');
-        setActiveLandingPage(null);
-        setActiveBlogSlug(null);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        seoHeadManager.updateMetadata({
-          title: "Detailed Tour Itinerary | Comfort Journey",
-          description: "Explore the comprehensive day-by-day luxury travel plan, route maps, hotel stays, and inclusions curated by Comfort Journey.",
-          url: `/itinerary/${tourSlug}`,
-          type: "website"
-        });
-      } else if (pathname === '/about' || pathname === '/about-us' || pathname === '/who-we-are' || hash === '#/about' || hash === '#/who-we-are' || hash === '#/about-us' || hash === '#about') {
+        return;
+      }
+
+      // 4. About Us / Who We Are dedicated page
+      if (
+        pathname === '/about' || pathname === '/about-us' || pathname === '/who-we-are' ||
+        hash === '#/about' || hash === '#/who-we-are' || hash === '#/about-us' || hash === '#about'
+      ) {
+        if (typeof history !== 'undefined' && history.replaceState && pathname !== '/about') {
+          history.replaceState(null, '', '/about/');
+        }
         setCurrentView('about');
         setActiveLandingPage(null);
         setActiveBlogSlug(null);
+        setActiveTourSlug(null);
+        setSelectedItineraryTour(null);
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (pathname === '/blog' || pathname === '/blogs' || hash === '#/blog' || hash === '#/blogs' || hash === '#blog' || hash === '#blogs') {
+        seoHeadManager.updateMetadata({
+          title: "About Us | Who We Are | Comfort Journey Since 1992",
+          description: "Learn about Comfort Journey, our heritage, team, and passion for curating luxurious and unforgettable trips across India and the globe.",
+          url: '/about/',
+          type: "website"
+        });
+        return;
+      }
+
+      // 5. Blog Magazine view
+      if (
+        pathname === '/blog' || pathname === '/blogs' ||
+        hash === '#/blog' || hash === '#/blogs' || hash === '#blog' || hash === '#blogs'
+      ) {
+        if (typeof history !== 'undefined' && history.replaceState && pathname !== '/blog') {
+          history.replaceState(null, '', '/blog/');
+        }
         setCurrentView('magazine');
         setActiveLandingPage(null);
         setActiveBlogSlug(null);
+        setActiveTourSlug(null);
+        setSelectedItineraryTour(null);
         window.scrollTo({ top: 0, behavior: 'smooth' });
         seoHeadManager.updateMetadata({
           title: "Travel Blogs & Luxury Guides | Comfort Journey",
           description: "Explore handcrafted destination guides, luxury stay reviews, and honeymoon tips curated by Comfort Journey since 1992.",
-          url: pathname === '/blog' ? '/blog' : '/#/blog',
+          url: '/blog/',
           type: "website"
         });
-      } else if (pathname.startsWith('/blog/') || hash.startsWith('#/blog/') || hash.startsWith('#blog/')) {
-        const slug = pathname.startsWith('/blog/') 
-          ? pathname.replace(/^\/blog\//, '').trim() 
-          : rawHash.replace(/^#\/?blog\//, '').trim();
+        return;
+      }
+
+      // 6. Blog Reader post
+      if (
+        pathname.startsWith('/blog/') ||
+        hash.startsWith('#/blog/') || hash.startsWith('#blog/')
+      ) {
+        const slug = (pathname.startsWith('/blog/') 
+          ? pathname.replace(/^\/blog\//, '') 
+          : rawHash.replace(/^#\/?blog\//, '')).replace(/\/+$/, '').trim();
+        if (typeof history !== 'undefined' && history.replaceState && !pathname.startsWith('/blog/')) {
+          history.replaceState(null, '', `/blog/${slug}/`);
+        }
         setActiveBlogSlug(slug);
+        setActiveTourSlug(null);
+        setSelectedItineraryTour(null);
         setCurrentView('blog-reader');
         setActiveLandingPage(null);
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (pathname.startsWith('/tour/') || pathname.startsWith('/package/') || hash.startsWith('#/tour/') || hash.startsWith('#tour/') || hash.startsWith('#/package/')) {
-        const tourSlug = (pathname.startsWith('/tour/') || pathname.startsWith('/package/'))
-          ? pathname.replace(/^\/(tour|package)\//, '').replace(/\/$/, '').trim()
-          : rawHash.replace(/^#\/?(tour|package)\//, '').replace(/\/$/, '').trim();
-        if (typeof history !== 'undefined' && history.replaceState) {
-          history.replaceState(null, '', `/tour/${tourSlug}/`);
+        return;
+      }
+
+      // 7. Legal pages
+      if (pathname === '/privacy-policy' || pathname === '/privacy' || hash === '#/privacy-policy' || hash === '#privacy-policy' || hash === '#privacy') {
+        if (typeof history !== 'undefined' && history.replaceState && pathname !== '/privacy-policy') {
+          history.replaceState(null, '', '/privacy-policy/');
         }
-        setCurrentView('itinerary');
+        setCurrentView('privacy-policy');
         setActiveLandingPage(null);
         setActiveBlogSlug(null);
+        setActiveTourSlug(null);
+        setSelectedItineraryTour(null);
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (hash === '#/privacy-policy' || hash === '#privacy-policy') {
-        setPolicyModalType('privacy');
-      } else {
-        // Check if pathname or hash matches any of our 15 dedicated Campaign Landing Pages
-        const lookupKey = hash || (pathname !== '/' ? '#' + pathname : '');
-        const matchedPage = getLandingPageBySlug(lookupKey);
-        if (matchedPage) {
-          setActiveLandingPage(matchedPage);
-          setCurrentView('landing');
-          setActiveBlogSlug(null);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
-          setCurrentView('home');
+        return;
+      }
+
+      if (pathname === '/terms-and-conditions' || pathname === '/terms' || hash === '#/terms-and-conditions' || hash === '#terms-and-conditions' || hash === '#terms') {
+        if (typeof history !== 'undefined' && history.replaceState && pathname !== '/terms-and-conditions') {
+          history.replaceState(null, '', '/terms-and-conditions/');
+        }
+        setCurrentView('terms-and-conditions');
+        setActiveLandingPage(null);
+        setActiveBlogSlug(null);
+        setActiveTourSlug(null);
+        setSelectedItineraryTour(null);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
+      // 8. Explicit Home Section Anchors (e.g. clicked #tours, #custom-builder, #google-reviews, #why-us, #hero from anywhere)
+      const homeSectionAnchors = [
+        '#hero', '#top', '#tours', '#destinations', '#custom-builder', '#trip-studio',
+        '#google-reviews', '#reviews', '#why-us', '#whyus', '#india-trips', '#intl-trips',
+        '#weekend-trips', '#fixed-departures', '#stories', '#faqs', '#contact'
+      ];
+      const isHomeAnchor = homeSectionAnchors.includes(hash);
+
+      if (isHomeAnchor) {
+        if (typeof history !== 'undefined' && history.replaceState) {
+          history.replaceState(null, '', '/');
+        }
+        setCurrentView('home');
+        setActiveLandingPage(null);
+        setActiveBlogSlug(null);
+        setActiveTourSlug(null);
+        setSelectedItineraryTour(null);
+
+        const targetId = (hash === '#hero' || hash === '#top') ? 'hero' : rawHash.replace(/^#/, '');
+        setTimeout(() => {
+          if (targetId === 'hero') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            const el = document.getElementById(targetId);
+            if (el) {
+              const headerOffset = 110;
+              const pos = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+              window.scrollTo({ top: pos, behavior: 'smooth' });
+            } else {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          }
+        }, 80);
+        return;
+      }
+
+      // 9. Campaign Landing Pages (checked before tour to support hash navigation from menu)
+      const lookupKey = hash || (pathname !== '/' ? '#' + pathname : '');
+      const matchedPage = getLandingPageBySlug(lookupKey);
+      if (matchedPage) {
+        if (typeof history !== 'undefined' && history.replaceState && pathname !== `/${matchedPage.slug}`) {
+          history.replaceState(null, '', `/${matchedPage.slug}/`);
+        }
+        setActiveLandingPage(matchedPage);
+        setCurrentView('landing');
+        setActiveBlogSlug(null);
+        setActiveTourSlug(null);
+        setSelectedItineraryTour(null);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
+      // 10. Tour / Package / Itinerary page
+      const isTourPath = (
+        pathname.startsWith('/tour/') || pathname.startsWith('/package/') || pathname.startsWith('/itinerary/') ||
+        hash.startsWith('#/tour/') || hash.startsWith('#tour/') ||
+        hash.startsWith('#/package/') || hash.startsWith('#package/') ||
+        hash.startsWith('#/itinerary/') || hash.startsWith('#itinerary/')
+      );
+
+      if (isTourPath) {
+        const tourSlug = (pathname.startsWith('/tour/') || pathname.startsWith('/package/') || pathname.startsWith('/itinerary/'))
+          ? pathname.replace(/^\/(tour|package|itinerary)\//, '').replace(/\/+$/, '').trim()
+          : rawHash.replace(/^#\/?(tour|package|itinerary)\//, '').replace(/\/+$/, '').trim();
+
+        if (tourSlug) {
+          if (typeof history !== 'undefined' && history.replaceState) {
+            history.replaceState(null, '', `/tour/${tourSlug}/`);
+          }
+
+          setActiveTourSlug(tourSlug);
+          const resolvedTour = contentService.getTourBySlug(tourSlug) || contentService.getTourById(tourSlug);
+          if (resolvedTour) {
+            setSelectedItineraryTour(resolvedTour);
+          }
+
+          setCurrentView('itinerary');
           setActiveLandingPage(null);
           setActiveBlogSlug(null);
-          // Inject site-wide TravelAgency schema on homepage
+          window.scrollTo({ top: 0, behavior: 'smooth' });
           seoHeadManager.updateMetadata({
-            schema: jsonLdSchemaGenerator.getTravelAgencySchema()
+            title: resolvedTour ? `${resolvedTour.name} | Comfort Journey` : "Detailed Tour Itinerary | Comfort Journey",
+            description: resolvedTour?.tagline || resolvedTour?.description?.slice(0, 160) || "Explore handcrafted luxury travel plan curated by Comfort Journey.",
+            url: `/tour/${tourSlug}/`,
+            type: "website"
           });
+          return;
         }
       }
+
+      // 11. Fallback: Homepage
+      setCurrentView('home');
+      setActiveLandingPage(null);
+      setActiveBlogSlug(null);
+      setActiveTourSlug(null);
+      setSelectedItineraryTour(null);
+      seoHeadManager.updateMetadata({
+        schema: jsonLdSchemaGenerator.getTravelAgencySchema()
+      });
 
       // Push virtual_pageview event to GTM dataLayer on client-side route change
       setTimeout(() => {
@@ -259,7 +404,7 @@ export default function App() {
     if (typeof history !== 'undefined' && history.pushState) {
       history.pushState(null, '', `/${slug}/`);
     } else {
-      window.location.hash = `#/${slug}`;
+      window.location.href = `/${slug}/`;
     }
     const matched = getLandingPageBySlug(slug);
     if (matched) {
@@ -275,7 +420,7 @@ export default function App() {
     if (typeof history !== 'undefined' && history.pushState) {
       history.pushState(null, '', `/blog/${slug}/`);
     } else {
-      window.location.hash = `#/blog/${slug}`;
+      window.location.href = `/blog/${slug}/`;
     }
     setActiveBlogSlug(slug);
     setCurrentView('blog-reader');
@@ -288,7 +433,7 @@ export default function App() {
     if (typeof history !== 'undefined' && history.pushState) {
       history.pushState(null, '', `/blog/`);
     } else {
-      window.location.hash = `#/blog`;
+      window.location.href = `/blog/`;
     }
     setCurrentView('magazine');
     setActiveLandingPage(null);
@@ -300,20 +445,68 @@ export default function App() {
   const navigateToHome = () => {
     window.location.hash = '';
     try {
-      history.pushState(null, '', '/');
+      if (typeof history !== 'undefined' && history.pushState) {
+        history.pushState(null, '', '/');
+      }
     } catch (e) {}
     setCurrentView('home');
     setActiveLandingPage(null);
     setActiveBlogSlug(null);
+    setActiveTourSlug(null);
+    setSelectedItineraryTour(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
     trackVirtualPageView('/', 'Comfort Journey | Tour Packages Worldwide | Since 1992');
+  };
+
+  const navigateToAbout = () => {
+    if (typeof history !== 'undefined' && history.pushState) {
+      history.pushState(null, '', '/about/');
+    } else {
+      window.location.href = '/about/';
+    }
+    setCurrentView('about');
+    setActiveLandingPage(null);
+    setActiveBlogSlug(null);
+    setActiveTourSlug(null);
+    setSelectedItineraryTour(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    trackVirtualPageView('/about/', 'About Us | Who We Are | Comfort Journey');
+  };
+
+  const navigateToSection = (sectionId) => {
+    const cleanId = (sectionId || '').replace(/^#/, '');
+    if (cleanId === 'hero' || cleanId === 'top') {
+      navigateToHome();
+      return;
+    }
+    if (typeof history !== 'undefined' && history.pushState) {
+      history.pushState(null, '', '/');
+    } else {
+      window.location.hash = '';
+    }
+    setCurrentView('home');
+    setActiveLandingPage(null);
+    setActiveBlogSlug(null);
+    setActiveTourSlug(null);
+    setSelectedItineraryTour(null);
+    trackVirtualPageView('/', 'Comfort Journey | Tour Packages Worldwide');
+    setTimeout(() => {
+      const el = document.getElementById(cleanId);
+      if (el) {
+        const headerOffset = 110;
+        const pos = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+        window.scrollTo({ top: pos, behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   const navigateToAIPlanner = () => {
     if (typeof history !== 'undefined' && history.pushState) {
       history.pushState(null, '', '/ai-planner');
     } else {
-      window.location.hash = '#/ai-planner';
+      window.location.href = '/ai-planner';
     }
     setCurrentView('ai-planner');
     setActiveLandingPage(null);
@@ -322,14 +515,45 @@ export default function App() {
     trackVirtualPageView('/ai-planner', 'Comfy.ai Travel Planner | Comfort Journey');
   };
 
+  const navigateToPrivacyPolicy = () => {
+    if (typeof history !== 'undefined' && history.pushState) {
+      history.pushState(null, '', '/privacy-policy/');
+    } else {
+      window.location.href = '/privacy-policy/';
+    }
+    setCurrentView('privacy-policy');
+    setActiveLandingPage(null);
+    setActiveBlogSlug(null);
+    setActiveTourSlug(null);
+    setSelectedItineraryTour(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    trackVirtualPageView('/privacy-policy/', 'Privacy Policy | Comfort Journey');
+  };
+
+  const navigateToTerms = () => {
+    if (typeof history !== 'undefined' && history.pushState) {
+      history.pushState(null, '', '/terms-and-conditions/');
+    } else {
+      window.location.href = '/terms-and-conditions/';
+    }
+    setCurrentView('terms-and-conditions');
+    setActiveLandingPage(null);
+    setActiveBlogSlug(null);
+    setActiveTourSlug(null);
+    setSelectedItineraryTour(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    trackVirtualPageView('/terms-and-conditions/', 'Terms & Conditions | Comfort Journey');
+  };
+
   const navigateToItinerary = (tour) => {
     setSelectedItineraryTour(tour);
     const slug = tour?.slug || tour?.id;
+    setActiveTourSlug(slug || null);
     if (slug) {
       if (typeof history !== 'undefined' && history.pushState) {
         history.pushState(null, '', `/tour/${slug}/`);
       } else {
-        window.location.hash = `#/tour/${slug}`;
+        window.location.href = `/tour/${slug}/`;
       }
     }
     setCurrentView('itinerary');
@@ -376,9 +600,15 @@ export default function App() {
                   onOpenAdmin={() => setIsAdminCMSOpen(true)}
                   onOpenLandingHub={() => setIsLPHubOpen(true)}
                   onNavigateMagazine={navigateToMagazine}
+                  onNavigateHome={navigateToHome}
+                  onNavigateAbout={navigateToAbout}
+                  onNavigateSection={navigateToSection}
+                  onSelectLandingPage={navigateToLandingPage}
+                  currentView={currentView}
                 />
                 <ItineraryPage 
                   initialTour={selectedItineraryTour}
+                  tourSlug={activeTourSlug}
                   onBackToHome={navigateToHome}
                   onBookNow={(tour) => setSelectedBookingTour(tour)}
                   onOpenQuote={() => setIsQuickQuoteOpen(true)}
@@ -400,6 +630,11 @@ export default function App() {
                   onOpenAdmin={() => setIsAdminCMSOpen(true)}
                   onOpenLandingHub={() => setIsLPHubOpen(true)}
                   onNavigateMagazine={navigateToMagazine}
+                  onNavigateHome={navigateToHome}
+                  onNavigateAbout={navigateToAbout}
+                  onNavigateSection={navigateToSection}
+                  onSelectLandingPage={navigateToLandingPage}
+                  currentView={currentView}
                 />
 
                 {currentView === 'magazine' ? (
@@ -434,6 +669,16 @@ pageData={activeLandingPage}
                   <AboutUsPage 
                     onOpenQuote={() => setIsQuickQuoteOpen(true)}
                     onOpenAIPlanner={navigateToAIPlanner}
+                    onNavigateHome={navigateToHome}
+                  />
+                ) : currentView === 'privacy-policy' ? (
+                  /* DEDICATED PRIVACY POLICY & DPDP ACT PAGE VIEW */
+                  <PrivacyPolicyPage 
+                    onNavigateHome={navigateToHome}
+                  />
+                ) : currentView === 'terms-and-conditions' ? (
+                  /* DEDICATED TERMS & CONDITIONS PAGE VIEW */
+                  <TermsPage 
                     onNavigateHome={navigateToHome}
                   />
                 ) : (

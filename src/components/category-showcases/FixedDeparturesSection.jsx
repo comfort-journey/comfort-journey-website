@@ -440,7 +440,12 @@ export default function FixedDeparturesSection({
                 if (onNavigateLanding) {
                   onNavigateLanding('fixed-departures');
                 } else {
-                  window.location.hash = '#/landing/fixed-departures';
+                  if (typeof history !== 'undefined' && history.pushState) {
+                    history.pushState(null, '', '/fixed-departures/');
+                    window.dispatchEvent(new PopStateEvent('popstate'));
+                  } else {
+                    window.location.href = '/fixed-departures/';
+                  }
                 }
               }}
             >

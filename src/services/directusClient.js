@@ -333,13 +333,21 @@ export const directusService = {
 
   async fetchBlogBySlug(slug) {
     if (!slug) return null;
-    const cleanSlug = slug.replace(/^#\/?/, '').replace(/^blog\/?/, '').toLowerCase().trim();
+    const cleanSlug = String(slug)
+      .replace(/^\/?(#\/?)*\/?/, '')
+      .replace(/^(blog|blogs)\//i, '')
+      .replace(/\/+$/, '')
+      .toLowerCase()
+      .trim();
 
     const url = this.getBaseUrl();
     const token = this.getToken();
 
     if (!url || (!isLocalDevEnv() && (url.includes('localhost') || url.includes('127.0.0.1')))) {
-      const localCustom = this.getLocalCustomBlogs().find(b => b.slug.toLowerCase() === cleanSlug);
+      const localCustom = this.getLocalCustomBlogs().find(b => 
+        (b.slug && b.slug.toLowerCase().replace(/\/+$/, '').trim() === cleanSlug) ||
+        (b.id && b.id.toLowerCase().replace(/\/+$/, '').trim() === cleanSlug)
+      );
       if (localCustom) return localCustom;
       return getBlogBySlug(cleanSlug);
     }
@@ -488,23 +496,30 @@ export const directusService = {
 
   async fetchTourBySlug(slug) {
     if (!slug) return null;
-    const cleanSlug = slug.replace(/^#\/?/, '').replace(/^tour\//, '').toLowerCase().trim();
-    const rawSlug = slug.toLowerCase().trim();
+    const cleanSlug = String(slug)
+      .replace(/^\/?(#\/?)*\/?/, '')
+      .replace(/^(tour|tours|package|packages|itinerary|itineraries)\//i, '')
+      .replace(/\/+$/, '')
+      .toLowerCase()
+      .trim();
+    const rawSlug = String(slug).replace(/\/+$/, '').toLowerCase().trim();
 
     // 1. Instant check in local store & TOURS_DATA (0ms)
     const localTours = [...this.getLocalCustomTours(), ...TOURS_DATA];
-    const match = localTours.find(t => 
-      (t.slug && (t.slug.toLowerCase() === cleanSlug || t.slug.toLowerCase() === rawSlug)) || 
-      (t.id && (t.id.toLowerCase() === cleanSlug || t.id.toLowerCase() === rawSlug))
-    );
+    const match = localTours.find(t => {
+      const s = (t.slug || '').toLowerCase().replace(/\/+$/, '').trim();
+      const id = (t.id || '').toLowerCase().replace(/\/+$/, '').trim();
+      return s === cleanSlug || s === rawSlug || id === cleanSlug || id === rawSlug;
+    });
     if (match) return match;
 
     // 2. Fall back to fetchTourPackages (which queries Directus)
     const allTours = await this.fetchTourPackages();
-    return allTours.find(t => 
-      (t.slug && (t.slug.toLowerCase() === cleanSlug || t.slug.toLowerCase() === rawSlug)) || 
-      (t.id && (t.id.toLowerCase() === cleanSlug || t.id.toLowerCase() === rawSlug))
-    ) || null;
+    return allTours.find(t => {
+      const s = (t.slug || '').toLowerCase().replace(/\/+$/, '').trim();
+      const id = (t.id || '').toLowerCase().replace(/\/+$/, '').trim();
+      return s === cleanSlug || s === rawSlug || id === cleanSlug || id === rawSlug;
+    }) || null;
   },
 
   async createTourPackage(tourPayload) {

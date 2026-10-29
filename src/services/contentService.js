@@ -179,11 +179,16 @@ export const contentService = {
 
   getTourBySlug(slug) {
     if (!slug) return null;
-    const clean = slug.replace(/^#\/?/, '').replace(/^tour\/?/, '').toLowerCase().trim();
+    const clean = String(slug)
+      .replace(/^\/?(#\/?)*\/?/, '')
+      .replace(/^(tour|tours|package|packages|itinerary|itineraries)\//i, '')
+      .replace(/\/+$/, '')
+      .toLowerCase()
+      .trim();
     const list = this.getTours();
     return list.find(t => 
-      (t.slug && t.slug.toLowerCase() === clean) || 
-      (t.id && t.id.toLowerCase() === clean)
+      (t.slug && t.slug.toLowerCase().replace(/\/+$/, '').trim() === clean) || 
+      (t.id && t.id.toLowerCase().replace(/\/+$/, '').trim() === clean)
     ) || null;
   },
 
@@ -236,9 +241,17 @@ export const contentService = {
 
   getBlogBySlug(slug) {
     if (!slug) return null;
-    const clean = slug.replace(/^#\/?/, '').replace(/^blog\/?/, '').toLowerCase().trim();
+    const clean = String(slug)
+      .replace(/^\/?(#\/?)*\/?/, '')
+      .replace(/^(blog|blogs)\//i, '')
+      .replace(/\/+$/, '')
+      .toLowerCase()
+      .trim();
     const list = this.getBlogs();
-    return list.find(b => b.slug && b.slug.toLowerCase() === clean) || null;
+    return list.find(b => 
+      (b.slug && b.slug.toLowerCase().replace(/\/+$/, '').trim() === clean) ||
+      (b.id && b.id.toLowerCase().replace(/\/+$/, '').trim() === clean)
+    ) || null;
   },
 
   async saveBlog(blog) {
@@ -599,7 +612,8 @@ export const contentService = {
 
         const endpoint = cloudflareUrl.replace(/\/+$/, '') + '/publish';
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 9000);
+        // 45s timeout ensures complete tour catalog payload (~300 KB JSON) transmits reliably over any connection
+        const timeoutId = setTimeout(() => controller.abort(), 45000);
 
         const cfRes = await fetch(endpoint, {
           method: 'POST',

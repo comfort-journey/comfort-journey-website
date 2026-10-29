@@ -372,7 +372,12 @@ export default function IndiaTripsSection({
                 if (onNavigateLanding) {
                   onNavigateLanding('india-packages');
                 } else {
-                  window.location.hash = '#/landing/india-packages';
+                  if (typeof history !== 'undefined' && history.pushState) {
+                    history.pushState(null, '', '/india-packages/');
+                    window.dispatchEvent(new PopStateEvent('popstate'));
+                  } else {
+                    window.location.href = '/india-packages/';
+                  }
                 }
               }}
             >

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { X, ArrowRight, CheckCircle2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, ArrowRight, CheckCircle2, Mail, Loader2, RotateCcw } from 'lucide-react';
 import { useUserAuth } from '../context/UserAuthContext';
+import { emailOtpService } from '../services/emailOtpService';
 
 export default function VisitorAuthModal() {
   const {
@@ -10,34 +11,74 @@ export default function VisitorAuthModal() {
     signInWithIdentifier
   } = useUserAuth();
 
-  const [identifier, setIdentifier] = useState('');
+  const [emailInput, setEmailInput] = useState('');
   const [nameInput, setNameInput] = useState('');
   const [step, setStep] = useState('input'); // 'input' | 'otp'
   const [otpCode, setOtpCode] = useState('');
+  const [isSendingOtp, setIsSendingOtp] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [resendCooldown, setResendCooldown] = useState(0);
   const [loadingProvider, setLoadingProvider] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
+  const [consentChecked, setConsentChecked] = useState(false);
+  const [consentError, setConsentError] = useState(false);
+
+  // Countdown timer for OTP resend
+  useEffect(() => {
+    let timer = null;
+    if (resendCooldown > 0) {
+      timer = setInterval(() => {
+        setResendCooldown((prev) => (prev > 0 ? prev - 1 : 0));
+      }, 1000);
+    }
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [resendCooldown]);
 
   if (!isAuthModalOpen) return null;
 
+  const handleOpenTerms = (e) => {
+    e.preventDefault();
+    closeAuthModal();
+    if (typeof window !== 'undefined') {
+      if (window.history?.pushState) {
+        window.history.pushState(null, '', '/terms-and-conditions/');
+      }
+      window.dispatchEvent(new CustomEvent('open-policy-modal', { detail: 'terms' }));
+    }
+  };
+
+  const handleOpenPrivacy = (e) => {
+    e.preventDefault();
+    closeAuthModal();
+    if (typeof window !== 'undefined') {
+      if (window.history?.pushState) {
+        window.history.pushState(null, '', '/privacy-policy/');
+      }
+      window.dispatchEvent(new CustomEvent('open-policy-modal', { detail: 'privacy' }));
+    }
+  };
+
   const handleSSO = async (provider, method) => {
+    if (!consentChecked) {
+      setConsentError(true);
+      setErrorMsg('Please review and check the agreement box before continuing.');
+      return;
+    }
+
     setLoadingProvider(provider);
     setErrorMsg('');
     try {
-      const clean = identifier.trim();
+      const cleanEmail = emailInput.trim();
       const cleanName = nameInput.trim();
 
       let profile = null;
-      if (clean) {
-        const isEmail = clean.includes('@');
+      if (cleanEmail && cleanEmail.includes('@')) {
         profile = {
-          name: cleanName || (isEmail ? clean.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Traveler'),
-          email: isEmail ? clean.toLowerCase() : '',
-          phone: !isEmail ? clean : ''
-        };
-      } else if (cleanName) {
-        profile = {
-          name: cleanName,
-          email: `${cleanName.toLowerCase().replace(/\s+/g, '.')}@${provider === 'google' ? 'gmail.com' : 'outlook.com'}`
+          name: cleanName || cleanEmail.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+          email: cleanEmail.toLowerCase(),
+          phone: ''
         };
       }
 
@@ -47,52 +88,91 @@ export default function VisitorAuthModal() {
       console.warn(`[SSO Error] ${provider}:`, err);
       const msg = err?.message || '';
       if (msg.includes('closed') || msg.includes('cancel') || msg.includes('POPUP_CLOSED')) {
-        setErrorMsg('Google sign-in was closed or cancelled. Please try again or use email/mobile below.');
+        setErrorMsg('Google sign-in was closed or cancelled. Please try again or use email verification below.');
       } else if (msg.includes('origin') || msg.includes('mismatch')) {
-        setErrorMsg('Domain origin error: Please ensure https://comfort-journey.github.io is listed under Authorized JavaScript Origins in Google Cloud Console.');
+        setErrorMsg('Domain origin error in Google Cloud Console. Please use email verification below.');
       } else if (msg.includes('MISSING_CLIENT_ID')) {
-        setErrorMsg('Google Client ID is missing. Please check your configuration.');
+        setErrorMsg('Google Client ID is missing. Please use email verification below.');
       } else {
-        setErrorMsg(msg || 'Authentication with Google was cancelled or could not be completed.');
+        setErrorMsg(msg || 'Authentication could not be completed. Please try with email below.');
       }
       setLoadingProvider(null);
     }
   };
 
-  const handleIdentifierSubmit = (e) => {
-    e.preventDefault();
+  const handleSendEmailOtp = async (e) => {
+    if (e) e.preventDefault();
     setErrorMsg('');
-    const clean = identifier.trim();
-    if (!clean) {
-      setErrorMsg('Please enter your mobile phone number or email address.');
+
+    if (!consentChecked) {
+      setConsentError(true);
+      setErrorMsg('Please agree to the Terms & Conditions and Privacy Policy to proceed.');
       return;
     }
 
-    if (clean.includes('@')) {
-      if (!clean.includes('.') || clean.length < 5) {
-        setErrorMsg('Please enter a valid email address.');
-        return;
-      }
-    } else {
-      const digits = clean.replace(/\D/g, '');
-      if (digits.length < 10) {
-        setErrorMsg('Please enter a valid 10-digit mobile number.');
-        return;
-      }
+    const clean = emailInput.trim().toLowerCase();
+    if (!clean) {
+      setErrorMsg('Please enter your email address to receive your verification code.');
+      return;
     }
 
-    // Step 2: Instant 1-click OTP verification
-    setStep('otp');
-    setOtpCode('4829'); // Instant pre-filled sample or prompt for 1-click verify
+    // If user entered phone number instead of email, guide them politely
+    if (!clean.includes('@')) {
+      setErrorMsg('To receive your free 6-digit verification code, please enter your email address (or sign in with Google).');
+      return;
+    }
+
+    if (!clean.includes('.') || clean.length < 5) {
+      setErrorMsg('Please enter a valid email address.');
+      return;
+    }
+
+    setIsSendingOtp(true);
+    try {
+      await emailOtpService.sendEmailOtp({
+        email: clean,
+        name: nameInput.trim()
+      });
+
+      setStep('otp');
+      setOtpCode('');
+      setResendCooldown(60);
+    } catch (err) {
+      setErrorMsg(err.message || 'Unable to send verification code. Please try again.');
+    } finally {
+      setIsSendingOtp(false);
+    }
   };
 
-  const handleVerifyOtp = (e) => {
+  const handleVerifyOtp = async (e) => {
     e.preventDefault();
-    if (!otpCode || otpCode.length < 4) {
-      setErrorMsg('Please enter the 4-digit verification code.');
+    setErrorMsg('');
+
+    const cleanCode = otpCode.trim().replace(/\D/g, '');
+    if (!cleanCode || cleanCode.length < 6) {
+      setErrorMsg('Please enter the complete 6-digit verification code sent to your email.');
       return;
     }
-    signInWithIdentifier(identifier, nameInput);
+
+    setIsVerifying(true);
+    try {
+      const result = emailOtpService.verifyOtp({
+        email: emailInput.trim().toLowerCase(),
+        code: cleanCode
+      });
+
+      if (!result.success) {
+        setErrorMsg(result.error || 'Verification failed. Please check the code in your email.');
+        setIsVerifying(false);
+        return;
+      }
+
+      await signInWithIdentifier(emailInput.trim().toLowerCase(), nameInput.trim());
+    } catch (err) {
+      setErrorMsg(err.message || 'Could not verify code. Please try again.');
+    } finally {
+      setIsVerifying(false);
+    }
   };
 
   return (
@@ -139,7 +219,7 @@ export default function VisitorAuthModal() {
             type="button"
             className="btn-sso-provider btn-sso-google"
             onClick={() => handleSSO('google', signInWithGoogle)}
-            disabled={Boolean(loadingProvider)}
+            disabled={Boolean(loadingProvider) || isSendingOtp}
           >
             <svg className="sso-icon" viewBox="0 0 24 24" width="20" height="20">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -153,21 +233,21 @@ export default function VisitorAuthModal() {
 
         {/* Divider */}
         <div className="visitor-auth-divider">
-          <span>or continue with email / mobile</span>
+          <span>or continue with email verification</span>
         </div>
 
-        {/* Step 1: Identifier Input Form */}
+        {/* Step 1: Real Email OTP Request Form */}
         {step === 'input' && (
-          <form onSubmit={handleIdentifierSubmit} className="visitor-auth-form">
+          <form onSubmit={handleSendEmailOtp} className="visitor-auth-form">
             <div className="auth-field-group">
-              <label htmlFor="auth-identifier">Email Address or 10-Digit Mobile Number</label>
+              <label htmlFor="auth-email">Your Email Address *</label>
               <div className="auth-input-wrapper">
                 <input
-                  id="auth-identifier"
-                  type="text"
-                  placeholder="e.g. rahul@gmail.com or 9876543210"
-                  value={identifier}
-                  onChange={(e) => setIdentifier(e.target.value)}
+                  id="auth-email"
+                  type="email"
+                  placeholder="e.g. yourname@gmail.com"
+                  value={emailInput}
+                  onChange={(e) => setEmailInput(e.target.value)}
                   autoFocus
                   required
                 />
@@ -187,68 +267,125 @@ export default function VisitorAuthModal() {
               </div>
             </div>
 
-            {errorMsg && <p className="auth-error-text">{errorMsg}</p>}
-
-            <button type="submit" className="btn-primary btn-auth-submit">
-              <span>Continue</span>
-              <ArrowRight size={16} />
-            </button>
-          </form>
-        )}
-
-        {/* Step 2: Instant OTP Verification */}
-        {step === 'otp' && (
-          <form onSubmit={handleVerifyOtp} className="visitor-auth-form">
-            <div className="auth-field-group">
-              <label htmlFor="auth-otp">Enter 4-Digit Verification Code sent to {identifier}</label>
-              <div className="auth-input-wrapper">
+            {/* Reassuring DPDP Act Legal Consent Checkbox */}
+            <div className={`auth-consent-row ${consentError ? 'consent-has-error' : ''}`}>
+              <label className="auth-consent-label">
                 <input
-                  id="auth-otp"
-                  type="text"
-                  maxLength={4}
-                  value={otpCode}
-                  onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ''))}
-                  placeholder="4829"
-                  autoFocus
+                  type="checkbox"
+                  checked={consentChecked}
+                  onChange={(e) => {
+                    setConsentChecked(e.target.checked);
+                    if (e.target.checked) setConsentError(false);
+                  }}
                   required
-                  style={{ textAlign: 'center', letterSpacing: '8px', fontSize: '1.25rem', fontWeight: 800 }}
                 />
-              </div>
-              <span className="auth-hint">Demo mode: 4-digit auto-code is verified instantly.</span>
+                <span className="auth-consent-text">
+                  I agree to the{' '}
+                  <a href="/terms-and-conditions/" onClick={handleOpenTerms} className="auth-consent-link">
+                    Terms & Conditions
+                  </a>{' '}
+                  and{' '}
+                  <a href="/privacy-policy/" onClick={handleOpenPrivacy} className="auth-consent-link">
+                    Privacy Policy
+                  </a>
+                  , and consent to receive curated travel updates and offers from Comfort Journey. Your data is kept strictly private and never shared.
+                </span>
+              </label>
             </div>
 
             {errorMsg && <p className="auth-error-text">{errorMsg}</p>}
 
-            <button type="submit" className="btn-primary btn-auth-submit">
-              <CheckCircle2 size={16} />
-              <span>Verify & Complete Sign In</span>
-            </button>
-
             <button 
-              type="button" 
-              className="btn-auth-back" 
-              onClick={() => { setStep('input'); setErrorMsg(''); }}
+              type="submit" 
+              className="btn-primary btn-auth-submit"
+              disabled={isSendingOtp}
             >
-              ← Change email or mobile number
+              {isSendingOtp ? (
+                <>
+                  <Loader2 size={16} className="animate-spin" />
+                  <span>Sending Verification Code...</span>
+                </>
+              ) : (
+                <>
+                  <Mail size={16} />
+                  <span>Send 6-Digit Email Code</span>
+                  <ArrowRight size={16} />
+                </>
+              )}
             </button>
           </form>
         )}
 
-        {/* Value Perks Footer */}
-        <div className="visitor-auth-perks">
-          <div className="perk-item">
-            <CheckCircle2 size={14} className="text-emerald" />
-            <span>Synced Dreamboard</span>
-          </div>
-          <div className="perk-item">
-            <CheckCircle2 size={14} className="text-emerald" />
-            <span>Auto-fill Fast Booking</span>
-          </div>
-          <div className="perk-item">
-            <CheckCircle2 size={14} className="text-emerald" />
-            <span>24/7 WhatsApp Trip Concierge</span>
-          </div>
-        </div>
+        {/* Step 2: 6-Digit Verification Code Form */}
+        {step === 'otp' && (
+          <form onSubmit={handleVerifyOtp} className="visitor-auth-form">
+            <div className="auth-field-group">
+              <label htmlFor="auth-otp">
+                Enter 6-Digit Verification Code sent to <strong style={{ color: '#FF892F' }}>{emailInput}</strong>
+              </label>
+              <div className="auth-input-wrapper">
+                <input
+                  id="auth-otp"
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  maxLength={6}
+                  value={otpCode}
+                  onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                  placeholder="······"
+                  autoFocus
+                  required
+                  style={{ textAlign: 'center', letterSpacing: '8px', fontSize: '1.4rem', fontWeight: 800 }}
+                />
+              </div>
+              <span className="auth-hint">
+                Please check your inbox (and spam/promotions folder). Code is valid for 10 minutes.
+              </span>
+            </div>
+
+            {errorMsg && <p className="auth-error-text">{errorMsg}</p>}
+
+            <button 
+              type="submit" 
+              className="btn-primary btn-auth-submit"
+              disabled={isVerifying || otpCode.length < 6}
+            >
+              {isVerifying ? (
+                <>
+                  <Loader2 size={16} className="animate-spin" />
+                  <span>Verifying Code...</span>
+                </>
+              ) : (
+                <>
+                  <CheckCircle2 size={16} />
+                  <span>Verify & Complete Sign In</span>
+                </>
+              )}
+            </button>
+
+            <div className="auth-otp-actions-row">
+              <button 
+                type="button" 
+                className="btn-auth-back" 
+                onClick={() => { setStep('input'); setErrorMsg(''); }}
+              >
+                ← Change email address
+              </button>
+
+              <button
+                type="button"
+                className="btn-auth-resend"
+                disabled={resendCooldown > 0 || isSendingOtp}
+                onClick={handleSendEmailOtp}
+              >
+                <RotateCcw size={12} />
+                <span>
+                  {resendCooldown > 0 ? `Resend in ${resendCooldown}s` : 'Resend Code'}
+                </span>
+              </button>
+            </div>
+          </form>
+        )}
       </div>
 
       <style>{`
@@ -256,7 +393,7 @@ export default function VisitorAuthModal() {
           position: fixed;
           inset: 0;
           z-index: 999999;
-          background: rgba(0, 0, 0, 0.75);
+          background: rgba(0, 0, 0, 0.78);
           backdrop-filter: blur(8px);
           -webkit-backdrop-filter: blur(8px);
           display: flex;
@@ -269,13 +406,13 @@ export default function VisitorAuthModal() {
         .visitor-auth-modal {
           position: relative;
           width: 100%;
-          max-width: 460px;
+          max-width: 470px;
           border-radius: 24px;
-          padding: 2.25rem 2rem;
+          padding: 2.25rem 2rem 2rem 2rem;
           background: var(--color-surface, #0A1120);
           color: var(--color-text, #FFFFFF);
           border: 1px solid var(--color-border, rgba(255, 255, 255, 0.15));
-          box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 137, 47, 0.15);
+          box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 40px rgba(255, 137, 47, 0.15);
           overflow: hidden;
           animation: scaleUpModal 0.28s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -307,7 +444,7 @@ export default function VisitorAuthModal() {
 
         .visitor-auth-header {
           text-align: center;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1.4rem;
         }
 
         .auth-brand-badge {
@@ -320,7 +457,7 @@ export default function VisitorAuthModal() {
           background: rgba(255, 137, 47, 0.12);
           border: 1px solid rgba(255, 137, 47, 0.3);
           border-radius: 9999px;
-          padding: 0.2rem 0.7rem;
+          padding: 0.2rem 0.75rem;
           margin-bottom: 0.6rem;
           text-transform: uppercase;
           letter-spacing: 0.05em;
@@ -328,7 +465,7 @@ export default function VisitorAuthModal() {
 
         .visitor-auth-title {
           font-family: var(--font-heading, inherit);
-          font-size: 1.5rem;
+          font-size: 1.45rem;
           font-weight: 800;
           margin: 0 0 0.4rem 0;
           color: var(--color-text, #FFFFFF);
@@ -336,11 +473,11 @@ export default function VisitorAuthModal() {
         }
 
         .visitor-auth-sub {
-          font-size: 0.85rem;
+          font-size: 0.84rem;
           color: var(--color-text-muted, rgba(255, 255, 255, 0.7));
           margin: 0 auto;
           line-height: 1.45;
-          max-width: 380px;
+          max-width: 390px;
         }
 
         /* SSO Grid */
@@ -348,7 +485,7 @@ export default function VisitorAuthModal() {
           display: flex;
           flex-direction: column;
           gap: 0.65rem;
-          margin-bottom: 1.25rem;
+          margin-bottom: 1.15rem;
         }
 
         .btn-sso-provider {
@@ -357,9 +494,9 @@ export default function VisitorAuthModal() {
           justify-content: center;
           gap: 0.75rem;
           width: 100%;
-          padding: 0.75rem 1rem;
+          padding: 0.8rem 1rem;
           border-radius: 12px;
-          font-size: 0.9rem;
+          font-size: 0.92rem;
           font-weight: 700;
           cursor: pointer;
           transition: all 0.2s ease;
@@ -375,7 +512,7 @@ export default function VisitorAuthModal() {
           box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
         }
 
-        .btn-sso-provider:hover {
+        .btn-sso-provider:hover:not(:disabled) {
           transform: translateY(-2px);
           border-color: #FF892F;
           box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
@@ -384,11 +521,9 @@ export default function VisitorAuthModal() {
         .btn-sso-google {
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.2);
-          font-size: 0.95rem;
-          padding: 0.85rem 1rem;
         }
 
-        .btn-sso-google:hover {
+        .btn-sso-google:hover:not(:disabled) {
           border-color: #4285F4;
           background: rgba(66, 133, 244, 0.08);
         }
@@ -402,9 +537,9 @@ export default function VisitorAuthModal() {
           display: flex;
           align-items: center;
           text-align: center;
-          margin: 1.25rem 0;
+          margin: 1.15rem 0;
           color: var(--color-text-muted, rgba(255, 255, 255, 0.5));
-          font-size: 0.75rem;
+          font-size: 0.72rem;
           font-weight: 600;
           text-transform: uppercase;
           letter-spacing: 0.05em;
@@ -436,9 +571,9 @@ export default function VisitorAuthModal() {
         }
 
         .auth-field-group label {
-          font-size: 0.76rem;
+          font-size: 0.75rem;
           font-weight: 700;
-          color: var(--color-text-muted, rgba(255, 255, 255, 0.8));
+          color: var(--color-text-muted, rgba(255, 255, 255, 0.85));
           text-transform: uppercase;
           letter-spacing: 0.04em;
         }
@@ -466,18 +601,74 @@ export default function VisitorAuthModal() {
           box-shadow: 0 0 0 3px rgba(255, 137, 47, 0.2);
         }
 
+        /* Reassuring Consent Checkbox Row */
+        .auth-consent-row {
+          margin: 0.25rem 0 0.25rem 0;
+          padding: 0.6rem 0.75rem;
+          border-radius: 8px;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          transition: border-color 0.2s;
+        }
+
+        .auth-consent-row.consent-has-error {
+          border-color: #EF4444;
+          background: rgba(239, 68, 68, 0.06);
+        }
+
+        .auth-consent-label {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.6rem;
+          cursor: pointer;
+          user-select: none;
+          text-align: left;
+        }
+
+        .auth-consent-label input[type="checkbox"] {
+          margin-top: 0.15rem;
+          accent-color: #FF892F;
+          width: 16px;
+          height: 16px;
+          flex-shrink: 0;
+          cursor: pointer;
+        }
+
+        .auth-consent-text {
+          font-size: 0.73rem;
+          line-height: 1.45;
+          color: var(--color-text-muted, rgba(255, 255, 255, 0.75));
+        }
+
+        [data-theme="light"] .auth-consent-text {
+          color: #475569;
+        }
+
+        .auth-consent-link {
+          color: #FF892F;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+          font-weight: 600;
+        }
+
+        .auth-consent-link:hover {
+          color: #FFA45A;
+        }
+
         .auth-error-text {
-          font-size: 0.8rem;
+          font-size: 0.78rem;
           color: #EF4444;
           margin: 0;
           text-align: left;
           font-weight: 600;
+          line-height: 1.4;
         }
 
         .auth-hint {
           font-size: 0.72rem;
           color: var(--color-text-muted, rgba(255, 255, 255, 0.6));
           margin-top: 0.25rem;
+          line-height: 1.4;
         }
 
         .btn-auth-submit {
@@ -490,42 +681,43 @@ export default function VisitorAuthModal() {
           align-items: center;
           justify-content: center;
           gap: 0.5rem;
-          margin-top: 0.5rem;
-        }
-
-        .btn-auth-back {
-          background: none;
-          border: none;
-          color: var(--color-text-muted, rgba(255, 255, 255, 0.7));
-          font-size: 0.8rem;
-          font-weight: 600;
-          cursor: pointer;
-          padding: 0.4rem;
-          text-decoration: underline;
           margin-top: 0.25rem;
         }
 
-        .btn-auth-back:hover {
+        .auth-otp-actions-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 0.4rem;
+        }
+
+        .btn-auth-back,
+        .btn-auth-resend {
+          background: none;
+          border: none;
+          color: var(--color-text-muted, rgba(255, 255, 255, 0.7));
+          font-size: 0.78rem;
+          font-weight: 600;
+          cursor: pointer;
+          padding: 0.3rem 0;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.3rem;
+          transition: color 0.2s;
+        }
+
+        .btn-auth-back {
+          text-decoration: underline;
+        }
+
+        .btn-auth-back:hover,
+        .btn-auth-resend:hover:not(:disabled) {
           color: #FF892F;
         }
 
-        /* Perks */
-        .visitor-auth-perks {
-          display: flex;
-          flex-direction: column;
-          gap: 0.35rem;
-          margin-top: 1.5rem;
-          padding-top: 1rem;
-          border-top: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
-        }
-
-        .perk-item {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          font-size: 0.76rem;
-          color: var(--color-text-muted, rgba(255, 255, 255, 0.75));
-          font-weight: 600;
+        .btn-auth-resend:disabled {
+          opacity: 0.4;
+          cursor: not-allowed;
         }
 
         @keyframes fadeInOverlay {
@@ -543,7 +735,7 @@ export default function VisitorAuthModal() {
             padding: 1.75rem 1.25rem;
           }
           .visitor-auth-title {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
           }
         }
       `}</style>

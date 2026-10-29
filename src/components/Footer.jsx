@@ -258,13 +258,97 @@ export default function Footer({
                 <span>Signature Circuits</span>
               </h4>
               <ul className="deck-links-list">
-                <li><a href="#/india-packages">Incredible India Signature</a></li>
-                <li><a href="#/international-packages">World Passport Holidays</a></li>
-                <li><a href="#/tropical-beach">Tropical Beach & Islands</a></li>
-                <li><a href="#/mountain-escapes">Mountain & Himalayan Treks</a></li>
-                <li><a href="#/summer-packages">Summer Vacation 2026 Specials</a></li>
-                <li><a href="#/winter-packages">Winter Snow Wonderland</a></li>
-                <li><a href="#/adventure-tours">Adventure & Thrill Expeditions</a></li>
+                <li>
+                  <a 
+                    href="/india-packages/" 
+                    onClick={(e) => {
+                      if (!e.ctrlKey && !e.metaKey && onSelectLandingPage) {
+                        e.preventDefault();
+                        onSelectLandingPage('india-packages');
+                      }
+                    }}
+                  >
+                    Incredible India Signature
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="/international-packages/" 
+                    onClick={(e) => {
+                      if (!e.ctrlKey && !e.metaKey && onSelectLandingPage) {
+                        e.preventDefault();
+                        onSelectLandingPage('international-packages');
+                      }
+                    }}
+                  >
+                    World Passport Holidays
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="/tropical-beach/" 
+                    onClick={(e) => {
+                      if (!e.ctrlKey && !e.metaKey && onSelectLandingPage) {
+                        e.preventDefault();
+                        onSelectLandingPage('tropical-beach');
+                      }
+                    }}
+                  >
+                    Tropical Beach & Islands
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="/mountain-escapes/" 
+                    onClick={(e) => {
+                      if (!e.ctrlKey && !e.metaKey && onSelectLandingPage) {
+                        e.preventDefault();
+                        onSelectLandingPage('mountain-escapes');
+                      }
+                    }}
+                  >
+                    Mountain & Himalayan Treks
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="/summer-packages/" 
+                    onClick={(e) => {
+                      if (!e.ctrlKey && !e.metaKey && onSelectLandingPage) {
+                        e.preventDefault();
+                        onSelectLandingPage('summer-packages');
+                      }
+                    }}
+                  >
+                    Summer Vacation 2026 Specials
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="/winter-packages/" 
+                    onClick={(e) => {
+                      if (!e.ctrlKey && !e.metaKey && onSelectLandingPage) {
+                        e.preventDefault();
+                        onSelectLandingPage('winter-packages');
+                      }
+                    }}
+                  >
+                    Winter Snow Wonderland
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="/adventure-tours/" 
+                    onClick={(e) => {
+                      if (!e.ctrlKey && !e.metaKey && onSelectLandingPage) {
+                        e.preventDefault();
+                        onSelectLandingPage('adventure-tours');
+                      }
+                    }}
+                  >
+                    Adventure & Thrill Expeditions
+                  </a>
+                </li>
               </ul>
             </div>
 
@@ -275,12 +359,84 @@ export default function Footer({
                 <span>Campaign Hub</span>
               </h4>
               <ul className="deck-links-list">
-                <li><a href="#/solo-travel">Solo Traveler Escapes</a></li>
-                <li><a href="#/couple-honeymoon">Honeymoon & Romantic Getaways</a></li>
-                <li><a href="#/family-travel">Family Vacation Packages</a></li>
-                <li><a href="#/group-travel">Friends & Squad Expeditions</a></li>
-                <li><a href="#/corporate-travel">Corporate Offsites & Retreats</a></li>
-                <li><a href="#/weekend-getaways">48-Hour Weekend Escapes</a></li>
+                <li>
+                  <a 
+                    href="/solo-travel/" 
+                    onClick={(e) => {
+                      if (!e.ctrlKey && !e.metaKey && onSelectLandingPage) {
+                        e.preventDefault();
+                        onSelectLandingPage('solo-travel');
+                      }
+                    }}
+                  >
+                    Solo Traveler Escapes
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="/couple-honeymoon/" 
+                    onClick={(e) => {
+                      if (!e.ctrlKey && !e.metaKey && onSelectLandingPage) {
+                        e.preventDefault();
+                        onSelectLandingPage('couple-honeymoon');
+                      }
+                    }}
+                  >
+                    Honeymoon & Romantic Getaways
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="/family-travel/" 
+                    onClick={(e) => {
+                      if (!e.ctrlKey && !e.metaKey && onSelectLandingPage) {
+                        e.preventDefault();
+                        onSelectLandingPage('family-travel');
+                      }
+                    }}
+                  >
+                    Family Vacation Packages
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="/group-travel/" 
+                    onClick={(e) => {
+                      if (!e.ctrlKey && !e.metaKey && onSelectLandingPage) {
+                        e.preventDefault();
+                        onSelectLandingPage('group-travel');
+                      }
+                    }}
+                  >
+                    Friends & Squad Expeditions
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="/corporate-travel/" 
+                    onClick={(e) => {
+                      if (!e.ctrlKey && !e.metaKey && onSelectLandingPage) {
+                        e.preventDefault();
+                        onSelectLandingPage('corporate-travel');
+                      }
+                    }}
+                  >
+                    Corporate Offsites & Retreats
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="/weekend-getaways/" 
+                    onClick={(e) => {
+                      if (!e.ctrlKey && !e.metaKey && onSelectLandingPage) {
+                        e.preventDefault();
+                        onSelectLandingPage('weekend-getaways');
+                      }
+                    }}
+                  >
+                    48-Hour Weekend Escapes
+                  </a>
+                </li>
                 <li>
                   <button 
                     type="button" 
@@ -312,27 +468,53 @@ export default function Footer({
                   </button>
                 </li>
                 <li>
-                  <button 
-                    type="button" 
+                  <a 
+                    href="/privacy-policy/" 
                     className="deck-action-link"
-                    onClick={() => onOpenPolicy && onOpenPolicy('privacy')}
+                    onClick={(e) => {
+                      if (!e.ctrlKey && !e.metaKey && onOpenPolicy) {
+                        e.preventDefault();
+                        if (window.history?.pushState) window.history.pushState(null, '', '/privacy-policy/');
+                        onOpenPolicy('privacy');
+                      }
+                    }}
                   >
                     <FileText size={14} className="text-emerald" />
-                    <span>Traveler Safety & Privacy</span>
-                  </button>
+                    <span>Privacy Policy (DPDP Act)</span>
+                  </a>
                 </li>
                 <li>
-                  <button 
-                    type="button" 
+                  <a 
+                    href="/terms-and-conditions/" 
                     className="deck-action-link"
-                    onClick={() => onOpenPolicy && onOpenPolicy('terms')}
+                    onClick={(e) => {
+                      if (!e.ctrlKey && !e.metaKey && onOpenPolicy) {
+                        e.preventDefault();
+                        if (window.history?.pushState) window.history.pushState(null, '', '/terms-and-conditions/');
+                        onOpenPolicy('terms');
+                      }
+                    }}
                   >
                     <FileText size={14} className="text-purple" />
-                    <span>Terms of VIP Booking</span>
-                  </button>
+                    <span>Terms & Conditions</span>
+                  </a>
                 </li>
                 <li>
-                  <a href="#/blog" className="deck-action-link journal-highlight">
+                  <a 
+                    href="/blog/" 
+                    className="deck-action-link journal-highlight"
+                    onClick={(e) => {
+                      if (!e.ctrlKey && !e.metaKey) {
+                        e.preventDefault();
+                        if (window.history?.pushState) {
+                          window.history.pushState(null, '', '/blog/');
+                          window.dispatchEvent(new PopStateEvent('popstate'));
+                        } else {
+                          window.location.href = '/blog/';
+                        }
+                      }
+                    }}
+                  >
                     <FileText size={14} className="text-cyan" />
                     <span>Blogs</span>
                   </a>

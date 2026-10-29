@@ -5,6 +5,7 @@ import {
   MapPin, Star, Users, CheckCircle2, Compass, Tag, Mountain, Globe, Waves, Crown, Landmark
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
+import { useLiveTours } from '../hooks/useLiveContent';
 import { TOURS_DATA } from '../data/toursData';
 import { contentService } from '../services/contentService';
 import { siteSettingsService, EVENT_SETTINGS_UPDATED } from '../services/siteSettingsService';
@@ -37,14 +38,8 @@ export default function TripCustomizerSection() {
     return () => window.removeEventListener(EVENT_SETTINGS_UPDATED, handleSettingsUpdated);
   }, []);
 
-  // 2. Load live tours from contentService or TOURS_DATA
-  const allTours = useMemo(() => {
-    try {
-      const live = contentService.getTours();
-      if (Array.isArray(live) && live.length > 0) return live;
-    } catch {}
-    return TOURS_DATA || [];
-  }, []);
+  // 2. Load reactive live tours (automatically updates on CMS changes)
+  const allTours = useLiveTours();
 
   // Format destinations list with computed base daily rate
   const destinationsList = useMemo(() => {

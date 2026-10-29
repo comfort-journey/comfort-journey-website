@@ -15,7 +15,9 @@ const BASE_URL = 'https://www.comfortjourney.in';
 const STATIC_PAGES = [
   { url: '/', priority: '1.0', changefreq: 'daily' },
   { url: '/about/', priority: '0.8', changefreq: 'monthly' },
-  { url: '/blog/', priority: '0.9', changefreq: 'daily' }
+  { url: '/blog/', priority: '0.9', changefreq: 'daily' },
+  { url: '/privacy-policy/', priority: '0.6', changefreq: 'monthly' },
+  { url: '/terms-and-conditions/', priority: '0.6', changefreq: 'monthly' }
 ];
 
 // 2. Audience landing pages (read from the generated landing data)

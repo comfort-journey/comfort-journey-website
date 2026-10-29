@@ -347,7 +347,12 @@ export default function InternationalTripsSection({
                 if (onNavigateLanding) {
                   onNavigateLanding('international-packages');
                 } else {
-                  window.location.hash = '#/landing/international-packages';
+                  if (typeof history !== 'undefined' && history.pushState) {
+                    history.pushState(null, '', '/international-packages/');
+                    window.dispatchEvent(new PopStateEvent('popstate'));
+                  } else {
+                    window.location.href = '/international-packages/';
+                  }
                 }
               }}
             >

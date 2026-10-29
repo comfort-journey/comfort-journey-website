@@ -13,13 +13,60 @@ import { siteSettingsService, EVENT_SETTINGS_UPDATED } from '../services/siteSet
 
 const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
 
-export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOpenLandingHub }) {
+export default function Navbar({
+  onOpenQuote,
+  onOpenAIPlanner,
+  onOpenAdmin,
+  onOpenLandingHub,
+  onNavigateMagazine,
+  onNavigateHome,
+  onNavigateAbout,
+  onNavigateSection,
+  onSelectLandingPage,
+  currentView = 'home'
+}) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const currencyRef = useRef(null);
   const userMenuRef = useRef(null);
+
+  // Smooth universal navigation handler across pages & home section anchors
+  const handleNavClick = (e, link, idx) => {
+    if (idx !== undefined) setActiveNavIdx(idx);
+    if (link.href === '#/blog' || link.href === '/blog' || link.href === '/blog/') {
+      e.preventDefault();
+      if (onNavigateMagazine) onNavigateMagazine();
+      else window.location.href = '/blog/';
+      return;
+    }
+    if (link.href === '#/about' || link.href === '/about' || link.href === '/about/') {
+      e.preventDefault();
+      if (onNavigateAbout) onNavigateAbout();
+      else window.location.href = '/about/';
+      return;
+    }
+    if (link.href.startsWith('#')) {
+      e.preventDefault();
+      const sectionId = link.href.replace(/^#/, '');
+      if (onNavigateSection) {
+        onNavigateSection(sectionId);
+      } else if (currentView !== 'home') {
+        if (onNavigateHome) onNavigateHome();
+        setTimeout(() => {
+          const el = document.getElementById(sectionId);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 120);
+      } else {
+        if (typeof history !== 'undefined' && history.pushState) {
+          history.pushState(null, '', '/');
+        }
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   // Visitor Auth Context
   const { user, openAuthModal, signOut } = useUserAuth();
@@ -95,10 +142,10 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
   const navLinks = [
     { label: 'Destinations', href: '#tours' },
     { label: 'Trip Studio', href: '#custom-builder' },
-    { label: 'Blogs', href: '#/blog' },
+    { label: 'Blogs', href: '/blog/' },
     { label: 'Reviews', href: '#google-reviews' },
     { label: 'Why Us', href: '#why-us', secondary: true },
-    { label: 'Who We Are', href: '#/about', secondary: true },
+    { label: 'Who We Are', href: '/about/', secondary: true },
   ];
 
   // PC Nav Liquid Indicator State & Refs
@@ -302,7 +349,24 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
           {/* Main Navbar Header Content Bar */}
           <div className="navbar-glass-content">
             {/* Modern Luxury Brand Logo & Tagline */}
-            <a href="#hero" className="brand-logo" aria-label="Comfort Journey Luxury Travel">
+            <a 
+              href="#hero" 
+              className="brand-logo" 
+              aria-label="Comfort Journey Luxury Travel"
+              onClick={(e) => {
+                e.preventDefault();
+                if (currentView !== 'home') {
+                  if (onNavigateHome) onNavigateHome();
+                  else window.location.href = '/';
+                } else {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  if (window.location.hash) {
+                    window.location.hash = '';
+                    if (history.replaceState) history.replaceState(null, '', '/');
+                  }
+                }
+              }}
+            >
               <div className="logo-glow-wrapper">
                 <div className="brand-emblem-badge">
                   <img 
@@ -348,7 +412,7 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
                   href={link.href} 
                   className={`nav-link ${link.secondary ? 'nav-link-secondary' : ''} ${(hoveredNavIdx !== null ? hoveredNavIdx === idx : activeNavIdx === idx) ? 'active' : ''}`}
                   onMouseEnter={() => setHoveredNavIdx(idx)}
-                  onClick={() => setActiveNavIdx(idx)}
+                  onClick={(e) => handleNavClick(e, link, idx)}
                 >
                   {link.label}
                 </a>
@@ -547,7 +611,18 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
             className={`mobile-dock-btn ${mobileActiveTab === 'explore' ? 'active' : ''}`}
             onClick={() => {
               setMobileActiveTab('explore');
-              window.location.hash = '#tours';
+              if (onNavigateSection) {
+                onNavigateSection('tours');
+              } else if (currentView !== 'home') {
+                if (onNavigateHome) onNavigateHome();
+                setTimeout(() => {
+                  const el = document.getElementById('tours');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }, 120);
+              } else {
+                const el = document.getElementById('tours');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }
             }}
             aria-label="Explore Destinations"
           >
@@ -712,7 +787,10 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
                     key={idx} 
                     href={link.href} 
                     className="drawer-nav-card"
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      handleNavClick(e, link, idx);
+                    }}
                   >
                     <span>{link.label}</span>
                     <ChevronRight size={13} className="drawer-chevron-icon" />
@@ -757,11 +835,16 @@ export default function Navbar({ onOpenQuote, onOpenAIPlanner, onOpenAdmin, onOp
                           {cat.items.map((item) => (
                             <a
                               key={item.slug}
-                              href={`#/${item.slug}`}
+                              href={`/${item.slug}/`}
                               className="accordion-tour-link"
-                              onClick={() => {
+                              onClick={(e) => {
+                                e.preventDefault();
                                 setMobileMenuOpen(false);
-                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                                if (onSelectLandingPage) {
+                                  onSelectLandingPage(item.slug);
+                                } else {
+                                  window.location.href = `/${item.slug}/`;
+                                }
                               }}
                             >
                               <div className="accordion-tour-icon">

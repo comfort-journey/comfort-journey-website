@@ -34,7 +34,7 @@ export default function ItineraryLayout({
     } else if (window.history.length > 1) {
       window.history.back();
     } else {
-      window.location.hash = '';
+      window.location.href = '/';
     }
   };
 

@@ -214,6 +214,14 @@ export const BLOGS_DATA = [
 
 export function getBlogBySlug(slug) {
   if (!slug) return null;
-  const clean = slug.replace(/^#\/?/, '').replace(/^blog\/?/, '').toLowerCase().trim();
-  return BLOGS_DATA.find(b => b.slug.toLowerCase() === clean || b.id.toLowerCase() === clean) || null;
+  const clean = String(slug)
+    .replace(/^\/?(#\/?)*\/?/, '')
+    .replace(/^(blog|blogs)\//i, '')
+    .replace(/\/+$/, '')
+    .toLowerCase()
+    .trim();
+  return BLOGS_DATA.find(b => 
+    (b.slug && b.slug.toLowerCase().replace(/\/+$/, '').trim() === clean) || 
+    (b.id && b.id.toLowerCase().replace(/\/+$/, '').trim() === clean)
+  ) || null;
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Send, MessageCircle, CheckCircle2, ArrowRight, ArrowLeft, Calendar, Users, Hotel, MapPin, Sparkles, Loader2 } from 'lucide-react';
+import { useLiveTours } from '../hooks/useLiveContent';
 import { TOURS_DATA } from '../data/toursData';
 import { getTravelerProfile, saveLeadToCMS } from '../services/leadStorageService';
 import { COUNTRY_CODES } from '../utils/countryCodes';
@@ -114,8 +115,9 @@ Please share a detailed day-wise itinerary & quote!`;
     window.open(`https://wa.me/919203931912?text=${encodeURIComponent(message)}`, '_blank');
   };
 
-  const quickDestinations = (TOURS_DATA && TOURS_DATA.length > 0)
-    ? TOURS_DATA.slice(0, 8).map(t => t.name)
+  const liveTours = useLiveTours();
+  const quickDestinations = (liveTours && liveTours.length > 0)
+    ? liveTours.slice(0, 8).map(t => t.name)
     : ['Peace In The Pines', 'Karnataka Heritage & Hills', 'Goa Weekend Vibe', 'Phuket Paradise Getaway', 'Bali Tropical Escape', 'Dubai City & Sands'];
 
   return (
@@ -461,7 +463,20 @@ Please share a detailed day-wise itinerary & quote!`;
                       <span className="modal-consent-text">
                         I agree to the{' '}
                         <a
-                          href="#/privacy-policy"
+                          href="/terms-and-conditions/"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            if (typeof window !== 'undefined') {
+                              window.dispatchEvent(new CustomEvent('open-policy-modal', { detail: 'terms' }));
+                            }
+                          }}
+                          className="modal-consent-link"
+                        >
+                          Terms & Conditions
+                        </a>{' '}
+                        and{' '}
+                        <a
+                          href="/privacy-policy/"
                           onClick={(e) => {
                             e.preventDefault();
                             if (typeof window !== 'undefined') {
@@ -471,13 +486,13 @@ Please share a detailed day-wise itinerary & quote!`;
                           className="modal-consent-link"
                         >
                           Privacy Policy
-                        </a>{' '}
-                        and consent to being contacted via WhatsApp and Email with itineraries and offers.
+                        </a>
+                        , and consent to receive curated travel updates and offers from Comfort Journey. Your data is kept strictly private and never shared.
                       </span>
                     </label>
                     {consentError && (
                       <p className="modal-consent-err-msg">
-                        Please agree to the Privacy Policy to proceed.
+                        Please agree to the Terms & Conditions and Privacy Policy to proceed.
                       </p>
                     )}
                   </div>

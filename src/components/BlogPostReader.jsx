@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowLeft, Clock, Calendar, Share2, MessageCircle, Sparkles, MapPin, CheckCircle2, ChevronRight, Bookmark, ThumbsUp, Hotel, Car, Utensils, Ticket, ShieldCheck } from 'lucide-react';
 import { directusService } from '../services/directusClient';
+import { useLiveTours } from '../hooks/useLiveContent';
 import { TOURS_DATA } from '../data/toursData';
 import { useCurrency } from '../context/CurrencyContext';
 import { seoHeadManager } from '../utils/seoHeadManager';
@@ -71,9 +72,11 @@ export default function BlogPostReader({ slug, onNavigateHome, onNavigateMagazin
     );
   }
 
-  // Find related tour package and hybrid suggested tours (M2M or Automated Tag Fallback)
-  const relatedTour = TOURS_DATA.find(t => t.id === blog.relatedTourId) || TOURS_DATA[0];
-  const suggestedTours = directusService.getSuggestedToursForBlog(blog, TOURS_DATA);
+  // Find reactive live tour package and hybrid suggested tours
+  const allLiveTours = useLiveTours();
+  const tourCatalog = (allLiveTours && allLiveTours.length > 0) ? allLiveTours : TOURS_DATA;
+  const relatedTour = tourCatalog.find(t => t.id === blog.relatedTourId || (t.slug && t.slug === blog.relatedTourId)) || tourCatalog[0];
+  const suggestedTours = directusService.getSuggestedToursForBlog(blog, tourCatalog);
 
   const whatsappInquiryUrl = `https://wa.me/919203931912?text=${encodeURIComponent(`Hi Comfort Journey! I just read your article "${blog.title}". I would like to plan a trip like this!`)}`;
 

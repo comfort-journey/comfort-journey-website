@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useWishlistCompare } from '../context/WishlistCompareContext';
+import { useLiveTours } from '../hooks/useLiveContent';
 import { seoHeadManager } from '../utils/seoHeadManager';
 import { TOURS_DATA, GOOGLE_REVIEWS, GOOGLE_BUSINESS_PROFILE } from '../data/toursData';
 import { LANDING_PAGES_DATA } from '../data/landingPagesData';
@@ -106,11 +107,13 @@ export default function LandingPageTemplate({ pageData, onBackToHome, onSelectIt
   const theme = pageData?.theme || {};
   const accent = theme.accentColor || '#FF892F';
 
+  const allLiveTours = useLiveTours();
+
   const toursById = useMemo(() => {
     const m = {};
-    (TOURS_DATA || []).forEach((t) => { m[t.id] = t; if (t.slug) m[t.slug] = t; });
+    (allLiveTours || []).forEach((t) => { m[t.id] = t; if (t.slug) m[t.slug] = t; });
     return m;
-  }, []);
+  }, [allLiveTours]);
 
   const indiaTours = useMemo(() => (pageData?.packageIdsIndia || []).map((id) => toursById[id]).filter((t) => t && t.isVisible !== false), [pageData, toursById]);
   const intlTours = useMemo(() => (pageData?.packageIdsIntl || []).map((id) => toursById[id]).filter((t) => t && t.isVisible !== false), [pageData, toursById]);
@@ -436,7 +439,24 @@ export default function LandingPageTemplate({ pageData, onBackToHome, onSelectIt
           <div className="lp2-head" data-reveal><h2 id="lp2-more-title">Planning a different kind of trip?</h2></div>
           <div className="lp2-more-grid">
             {more.map((p) => (
-              <a key={p.slug} href={`#/${p.slug}`} className="lp2-more-card" data-reveal style={{ '--accent': p.theme.accentColor }}>
+              <a 
+                key={p.slug} 
+                href={`/${p.slug}/`} 
+                className="lp2-more-card" 
+                data-reveal 
+                style={{ '--accent': p.theme.accentColor }}
+                onClick={(e) => {
+                  if (!e.ctrlKey && !e.metaKey) {
+                    e.preventDefault();
+                    if (typeof history !== 'undefined' && history.pushState) {
+                      history.pushState(null, '', `/${p.slug}/`);
+                      window.dispatchEvent(new PopStateEvent('popstate'));
+                    } else {
+                      window.location.href = `/${p.slug}/`;
+                    }
+                  }
+                }}
+              >
                 <img src={asset(p.theme.heroImageMobile || p.theme.heroImage)} alt="" loading="lazy" decoding="async" />
                 <span className="lp2-more-label">{p.eyebrow}</span>
                 <span className="lp2-more-title">{p.heroHeadline}</span>

@@ -13,7 +13,12 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
     if (onOpenAIPlanner) {
       onOpenAIPlanner();
     } else {
-      window.location.hash = '#/ai-planner';
+      if (typeof history !== 'undefined' && history.pushState) {
+        history.pushState(null, '', '/ai-planner');
+        window.dispatchEvent(new PopStateEvent('popstate'));
+      } else {
+        window.location.href = '/ai-planner';
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };

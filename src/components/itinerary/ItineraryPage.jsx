@@ -53,33 +53,67 @@ function ensureTourItinerary(rawTour) {
   return { ...tour, itinerary: generatedItinerary };
 }
 
-export default function ItineraryPage({ initialTour, onBackToHome, onBookNow, onOpenQuote }) {
+export default function ItineraryPage({ initialTour, tourSlug, onBackToHome, onBookNow, onOpenQuote }) {
   const { formatPrice } = useCurrency();
   
-  // Get tour ID from URL hash
-  const getTourIdFromHash = () => {
+  // Extract tour slug / ID from prop, pathname, or hash
+  const extractTourSlugFromLocation = useCallback((propSlug) => {
+    if (propSlug) {
+      return String(propSlug)
+        .replace(/^\/?(#\/?)*\/?/, '')
+        .replace(/^(tour|tours|package|packages|itinerary|itineraries)\//i, '')
+        .replace(/\/+$/, '')
+        .trim();
+    }
+    if (typeof window === 'undefined') return null;
     try {
-      const hash = window.location.hash || '';
-      const match = hash.match(/#\/?itinerary\/([^?#]+)/);
-      return match ? decodeURIComponent(match[1].trim()) : null;
+      const pathname = window.location.pathname || '';
+      const rawHash = window.location.hash || '';
+
+      // 1. Check pathname: /tour/:slug, /package/:slug, /itinerary/:slug
+      const pathMatch = pathname.match(/^\/?(tour|tours|package|packages|itinerary|itineraries)\/([^?#]+)/i);
+      if (pathMatch) {
+        return decodeURIComponent(pathMatch[2]).replace(/\/+$/, '').trim();
+      }
+
+      // 2. Check hash: #/tour/:slug, #/package/:slug, #/itinerary/:slug, #itinerary/:slug
+      const hashMatch = rawHash.match(/^#\/?(tour|tours|package|packages|itinerary|itineraries)\/([^?#]+)/i);
+      if (hashMatch) {
+        return decodeURIComponent(hashMatch[2]).replace(/\/+$/, '').trim();
+      }
+
+      return null;
     } catch (e) {
-      console.error('Error parsing hash:', e);
+      console.error('Error parsing tour slug:', e);
       return null;
     }
-  };
+  }, []);
   
-  const [currentTourId, setCurrentTourId] = useState(getTourIdFromHash());
+  const [currentTourId, setCurrentTourId] = useState(() => extractTourSlugFromLocation(tourSlug));
 
+  // Sync currentTourId whenever tourSlug prop changes
   useEffect(() => {
-    const handleHash = () => {
-      const id = getTourIdFromHash();
+    const nextId = extractTourSlugFromLocation(tourSlug);
+    if (nextId && nextId !== currentTourId) {
+      setCurrentTourId(nextId);
+    }
+  }, [tourSlug, extractTourSlugFromLocation, currentTourId]);
+
+  // Listen for hash & popstate navigation
+  useEffect(() => {
+    const handleLocationChange = () => {
+      const id = extractTourSlugFromLocation(tourSlug);
       if (id !== currentTourId) {
         setCurrentTourId(id);
       }
     };
-    window.addEventListener('hashchange', handleHash);
-    return () => window.removeEventListener('hashchange', handleHash);
-  }, [currentTourId]);
+    window.addEventListener('hashchange', handleLocationChange);
+    window.addEventListener('popstate', handleLocationChange);
+    return () => {
+      window.removeEventListener('hashchange', handleLocationChange);
+      window.removeEventListener('popstate', handleLocationChange);
+    };
+  }, [currentTourId, tourSlug, extractTourSlugFromLocation]);
 
   // State
   const [tour, setTour] = useState(() => ensureTourItinerary(initialTour) || null);
@@ -109,16 +143,7 @@ export default function ItineraryPage({ initialTour, onBackToHome, onBookNow, on
   // Load tour data
   useEffect(() => {
     const loadTour = async () => {
-      const id = currentTourId || getTourIdFromHash();
-
-      // If initialTour is present and matches this tour or no ID specified, use it
-      if (initialTour && (!id || initialTour.slug === id || initialTour.id === id)) {
-        const enriched = ensureTourItinerary(initialTour);
-        setTour(enriched);
-        setActiveDay(enriched.itinerary?.[0]?.day || 1);
-        setLoading(false);
-        return;
-      }
+      const id = currentTourId || extractTourSlugFromLocation(tourSlug);
 
       setLoading(true);
       setError(null);
@@ -127,26 +152,34 @@ export default function ItineraryPage({ initialTour, onBackToHome, onBookNow, on
         let tourData = null;
 
         if (id) {
-          // 1. Instant local lookup
+          // 1. Instant local lookup in live ContentService store
           tourData = contentService.getTourBySlug(id) || contentService.getTourById(id);
 
-          // 2. Fall back to directusService if not found
+          // 2. Check initialTour if it matches
+          if (!tourData && initialTour && (initialTour.slug === id || initialTour.id === id)) {
+            tourData = initialTour;
+          }
+
+          // 3. Fall back to directusService if not found in local store
           if (!tourData) {
             tourData = await directusService.fetchTourBySlug(id);
           }
 
-          // 3. Fall back to fuzzy match in TOURS_DATA
+          // 4. Fall back to fuzzy match in live tours or TOURS_DATA
           if (!tourData) {
             const cleanKey = id.replace(/[-_]/g, ' ').toLowerCase();
-            tourData = TOURS_DATA.find(t => 
+            const allCandidates = [...contentService.getTours(), ...TOURS_DATA];
+            tourData = allCandidates.find(t => 
               (t.name && t.name.toLowerCase().includes(cleanKey)) ||
               (t.location && t.location.toLowerCase().includes(cleanKey))
             );
           }
+        } else if (initialTour) {
+          tourData = initialTour;
         }
 
-        // 4. Fallback to first available tour if nothing matched
-        if (!tourData) {
+        // 5. Fallback to first available tour ONLY if no ID was requested at all
+        if (!tourData && !id) {
           const all = contentService.getTours();
           tourData = all[0] || TOURS_DATA[0];
         }
@@ -171,7 +204,7 @@ export default function ItineraryPage({ initialTour, onBackToHome, onBookNow, on
             }
           }
         } else {
-          setError(`Tour not found: ${id}`);
+          setError(`Tour package "${id || 'requested'}" could not be found.`);
         }
       } catch (err) {
         console.error('[ItineraryPage] Failed to load tour:', err);
@@ -182,7 +215,24 @@ export default function ItineraryPage({ initialTour, onBackToHome, onBookNow, on
     };
     
     loadTour();
-  }, [currentTourId, initialTour]);
+  }, [currentTourId, tourSlug, initialTour, extractTourSlugFromLocation]);
+
+  // Subscribe to live tours updates (e.g. when published or edited in CMS)
+  useEffect(() => {
+    const handleToursUpdated = () => {
+      const activeId = currentTourId || extractTourSlugFromLocation(tourSlug);
+      if (activeId) {
+        const fresh = contentService.getTourBySlug(activeId) || contentService.getTourById(activeId);
+        if (fresh) {
+          const enriched = ensureTourItinerary(fresh);
+          setTour(enriched);
+        }
+      }
+    };
+
+    window.addEventListener('cj_tours_updated', handleToursUpdated);
+    return () => window.removeEventListener('cj_tours_updated', handleToursUpdated);
+  }, [currentTourId, tourSlug, extractTourSlugFromLocation]);
   
   // Itinerary and Map sync hooks (MUST be called unconditionally before early returns)
   const { enrichedItinerary } = useItineraryData(tour);
@@ -247,7 +297,7 @@ export default function ItineraryPage({ initialTour, onBackToHome, onBookNow, on
           <div className="error-icon">⚠️</div>
           <h2>Unable to Load Itinerary</h2>
           <p>{error}</p>
-          <button className="btn-primary" onClick={() => onBackToHome ? onBackToHome() : (window.location.hash = '')}>
+          <button className="btn-primary" onClick={() => onBackToHome ? onBackToHome() : (window.location.href = '/')}>
             Back to Tours
           </button>
         </div>

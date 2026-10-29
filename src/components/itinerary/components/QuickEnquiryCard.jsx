@@ -309,7 +309,20 @@ export default function QuickEnquiryCard({ tour, onClose }) {
             <span className="consent-text">
               I agree to the{' '}
               <a
-                href="#/privacy-policy"
+                href="/terms-and-conditions/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (typeof window !== 'undefined') {
+                    window.dispatchEvent(new CustomEvent('open-policy-modal', { detail: 'terms' }));
+                  }
+                }}
+                className="consent-link"
+              >
+                Terms & Conditions
+              </a>{' '}
+              and{' '}
+              <a
+                href="/privacy-policy/"
                 onClick={(e) => {
                   e.preventDefault();
                   if (typeof window !== 'undefined') {
@@ -319,8 +332,8 @@ export default function QuickEnquiryCard({ tour, onClose }) {
                 className="consent-link"
               >
                 Privacy Policy
-              </a>{' '}
-              and consent to being contacted via WhatsApp and Email with itineraries and offers.
+              </a>
+              , and consent to receive curated travel updates and offers from Comfort Journey. Your data is kept strictly private and never shared.
             </span>
           </label>
         </div>

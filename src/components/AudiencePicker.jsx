@@ -31,8 +31,13 @@ const MORE = [
 ];
 
 const goTo = (slug) => {
-  window.location.hash = `#/${slug}`;
-  window.scrollTo({ top: 0 });
+  if (typeof history !== 'undefined' && history.pushState) {
+    history.pushState(null, '', `/${slug}/`);
+    window.dispatchEvent(new PopStateEvent('popstate'));
+  } else {
+    window.location.href = `/${slug}/`;
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
 export default function AudiencePicker() {
