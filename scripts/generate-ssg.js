@@ -90,6 +90,12 @@ async function generateSSG() {
       output = output.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/i, schemaScript);
     }
 
+    // Ensure all script, style, and media asset tags use absolute root paths (/assets/...)
+    output = output
+      .replace(/src="\.\/assets\//g, 'src="/assets/')
+      .replace(/href="\.\/assets\//g, 'href="/assets/')
+      .replace(/src="\.\/([^"]+)"/g, 'src="/$1"');
+
     return output;
   };
 
