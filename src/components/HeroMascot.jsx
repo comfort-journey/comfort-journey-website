@@ -21,7 +21,7 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
   const reactionTimerRef = useRef(null);
 
   // Dynamic asset URLs supporting GitHub Pages subdirectories
-  const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
+  const basePrefix = '/';
   const mascotDefaultSrc = `${basePrefix}mascot-default.png`;
   const mascotReactionSrc = `${basePrefix}mascot-reaction.png`;
 
@@ -188,7 +188,7 @@ export default function HeroMascot({ heroRef, onOpenAIPlanner, onOpenQuote }) {
           className="mascot-2d-img"
           draggable="false"
           onError={(e) => {
-            e.currentTarget.src = isReacting ? './mascot-reaction.png' : './mascot-default.png';
+            e.currentTarget.src = isReacting ? '/mascot-reaction.png' : '/mascot-default.png';
           }}
         />
         {/* Soft contact shadow */}

@@ -24,8 +24,8 @@ const ICONS = {
 
 const WA_NUMBER = '919203931912';
 const SITE = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SITE_URL) || 'https://www.comfortjourney.in';
-const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
-const asset = (src) => (!src ? '' : /^(https?:|data:)/.test(src) ? src : basePrefix + src.replace(/^\.?\//, ''));
+const basePrefix = '/';
+const asset = (src) => (!src ? '' : /^(https?:|data:)/.test(src) ? src : '/' + src.replace(/^\.?\//, ''));
 
 function useReveal(dep) {
   const ref = useRef(null);
@@ -83,7 +83,7 @@ function ScrollGuide({ lines, accent, waLink, pageKey }) {
   const idx = Math.min(step, lines.length - 1);
   return (
     <aside className={`lp2-guide ${show ? 'is-on' : ''}`} style={{ '--accent': accent }} aria-live="polite" aria-label="Trip guide">
-      <img src={asset('mascot-default.png')} alt="" className="lp2-guide-face" width="52" height="46" loading="lazy" />
+      <img src={asset('mascot-default.png')} alt="Comfy Mascot" className="lp2-guide-face" width="52" height="46" loading="lazy" onError={(e) => { e.currentTarget.src = 'https://www.comfortjourney.in/mascot-default.png'; }} />
       <div className="lp2-guide-bubble">
         <p key={idx} className="lp2-guide-text">{lines[idx]}</p>
         {idx >= lines.length - 1 && (

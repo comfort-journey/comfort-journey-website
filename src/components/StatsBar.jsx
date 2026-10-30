@@ -157,60 +157,71 @@ export default function StatsBar() {
 
         @media (max-width: 768px) {
           .stats-root {
-            padding: 1.15rem 0;
-            overflow: hidden;
+            padding: 0.9rem 0;
+            overflow: visible;
           }
           .stats-grid {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            gap: 0.75rem;
-            padding: 0.25rem 0.85rem 0.5rem 0.85rem;
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-            mask-image: linear-gradient(to right, transparent, black 10px, black calc(100% - 15px), transparent);
-            -webkit-mask-image: linear-gradient(to right, transparent, black 10px, black calc(100% - 15px), transparent);
-          }
-          .stats-grid::-webkit-scrollbar {
-            display: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.55rem;
+            padding: 0;
+            width: 100%;
+            overflow: visible;
+            mask-image: none !important;
+            -webkit-mask-image: none !important;
           }
           .stat-card {
-            flex: 0 0 215px;
-            scroll-snap-align: start;
-            padding: 0.75rem 0.85rem;
-            border-radius: 16px;
-            min-height: 76px;
+            flex: none;
+            padding: 0.65rem 0.65rem;
+            border-radius: 14px;
+            min-height: 62px;
+            width: 100%;
+            box-sizing: border-box;
           }
           .stat-card-inner {
             flex-direction: row;
             text-align: left;
-            gap: 0.65rem;
+            gap: 0.5rem;
+            align-items: center;
           }
           .stat-icon-wrapper {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            flex-shrink: 0;
           }
           .stat-icon {
-            width: 18px !important;
-            height: 18px !important;
+            width: 16px !important;
+            height: 16px !important;
+          }
+          .stat-info {
+            min-width: 0;
+            flex: 1;
           }
           .stat-value {
-            font-size: 1.25rem;
-            line-height: 1.15;
+            font-size: 1.15rem;
+            line-height: 1.1;
             white-space: nowrap;
+            margin-bottom: 0.05rem;
+          }
+          .stat-value.stat-value-compact {
+            font-size: 0.95rem;
           }
           .stat-label {
             font-size: 0.72rem;
             font-weight: 800;
-            white-space: normal;
-            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.15;
             color: var(--cj-text-heading);
           }
           .stat-sub {
-            font-size: 0.66rem;
-            white-space: normal;
-            line-height: 1.15;
+            font-size: 0.62rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.1;
             color: var(--cj-text-muted);
           }
         }

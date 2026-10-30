@@ -11,7 +11,7 @@ import { useUserAuth } from '../context/UserAuthContext';
 import ThemeToggle from './ThemeToggle';
 import { siteSettingsService, EVENT_SETTINGS_UPDATED } from '../services/siteSettingsService';
 
-const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
+const basePrefix = '/';
 
 export default function Navbar({
   onOpenQuote,
@@ -667,7 +667,7 @@ export default function Navbar({
                 src={`${basePrefix}mascot-default.png`} 
                 alt="Comfy Mascot Buddy" 
                 className="mascot-bubble-img"
-                onError={(e) => { e.currentTarget.src = './mascot-default.png'; }}
+                onError={(e) => { e.currentTarget.src = 'https://www.comfortjourney.in/mascot-default.png'; }}
               />
               <div className="mascot-ping-ring" />
             </div>
@@ -1464,8 +1464,7 @@ export default function Navbar({
           bottom: 0;
           height: 100vh;
           height: 100dvh;
-          width: 440px;
-          max-width: 92vw;
+          width: 440px; max-width: 100vw; overflow-x: hidden !important;
           background: linear-gradient(180deg, #020C1F 0%, #010612 100%);
           border-left: 1px solid rgba(255, 137, 47, 0.35);
           box-shadow: -20px 0 60px rgba(0, 0, 0, 0.95);
@@ -1802,6 +1801,7 @@ export default function Navbar({
         .drawer-curr-pills-row {
           display: flex;
           gap: 0.35rem;
+          flex-wrap: wrap;
         }
 
         .drawer-curr-pill {
@@ -1880,8 +1880,8 @@ export default function Navbar({
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             background: rgba(255, 137, 47, 0.18);
             border: 1px solid rgba(255, 137, 47, 0.45);
@@ -1892,19 +1892,81 @@ export default function Navbar({
             display: none;
           }
           .title-comfort, .title-journey {
-            font-size: 1.05rem;
+            font-size: 1rem;
           }
           .sub-est-clean {
-            font-size: 0.58rem;
-            letter-spacing: 0.06em;
+            font-size: 0.55rem;
+            letter-spacing: 0.05em;
           }
           .brand-emblem-badge {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
           }
           .brand-emblem-badge svg {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
+          }
+          .nav-controls-cluster {
+            gap: 0.3rem !important;
+            flex-shrink: 0;
+          }
+          .nav-sign-in-btn {
+            padding: 0.3rem 0.58rem !important;
+            min-height: 32px !important;
+            font-size: 0.74rem !important;
+            gap: 0.25rem !important;
+          }
+          .nav-sign-in-btn .nav-sign-in-icon {
+            width: 13px !important;
+            height: 13px !important;
+          }
+          .nav-user-btn {
+            padding: 0.28rem 0.5rem !important;
+            min-height: 32px !important;
+            font-size: 0.74rem !important;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .luxury-nav-drawer {
+            width: 100vw !important;
+            max-width: 100vw !important;
+            left: 0 !important;
+            right: 0 !important;
+            border-left: none !important;
+            border-radius: 0 !important;
+            padding: 1.25rem 1rem 3.5rem 1rem !important;
+            box-sizing: border-box !important;
+          }
+          .drawer-traveler-club-card {
+            margin: 0.25rem 0 0.5rem 0 !important;
+          }
+          .drawer-currency-box {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 0.5rem !important;
+          }
+          .drawer-curr-pills-row {
+            flex-wrap: wrap !important;
+            width: 100% !important;
+          }
+        }
+
+        @media (max-width: 420px) {
+          .title-comfort, .title-journey {
+            font-size: 0.92rem !important;
+          }
+          .brand-emblem-badge {
+            width: 26px !important;
+            height: 26px !important;
+          }
+          .brand-emblem-badge svg {
+            width: 26px !important;
+            height: 26px !important;
+          }
+          .nav-sign-in-btn {
+            padding: 0.26rem 0.48rem !important;
+            font-size: 0.7rem !important;
           }
         }
 
@@ -2186,7 +2248,7 @@ export default function Navbar({
 
         /* ── Mobile Menu Drawer Traveler Club Card ── */
         .drawer-traveler-club-card {
-          margin: 0.75rem 1.25rem 1rem;
+          margin: 0.25rem 0 0.5rem 0; width: 100%; box-sizing: border-box;
           padding: 0.85rem 1rem;
           border-radius: 14px;
           display: flex;

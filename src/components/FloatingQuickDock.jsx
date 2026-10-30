@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MessageCircle, PhoneCall, Compass, ChevronUp, ChevronDown, Bot } from 'lucide-react';
 
-const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
+const basePrefix = '/';
 
 export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
   const [isMinimized, setIsMinimized] = useState(false);
@@ -46,13 +46,13 @@ export default function FloatingQuickDock({ onOpenQuote, onOpenAIPlanner }) {
               src={`${basePrefix}mascot-default.png`} 
               alt="Comfort Journey Mascot" 
               className={`mascot-dock-img default ${isMascotHovered ? 'hidden' : 'visible'}`}
-              onError={(e) => { e.currentTarget.src = './mascot-default.png'; }}
+              onError={(e) => { e.currentTarget.src = 'https://www.comfortjourney.in/mascot-default.png'; }}
             />
             <img 
               src={`${basePrefix}mascot-reaction.png`} 
               alt="Comfort Journey Mascot Reacting" 
               className={`mascot-dock-img reaction ${isMascotHovered ? 'visible' : 'hidden'}`}
-              onError={(e) => { e.currentTarget.src = './mascot-reaction.png'; }}
+              onError={(e) => { e.currentTarget.src = 'https://www.comfortjourney.in/mascot-reaction.png'; }}
             />
             <span className="mascot-online-ping" />
           </div>

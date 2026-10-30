@@ -159,7 +159,8 @@ export default function App() {
         setActiveBlogSlug(null);
         setActiveTourSlug(null);
         setSelectedItineraryTour(null);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    requestAnimationFrame(() => window.scrollTo(0, 0));
         seoHeadManager.updateMetadata({
           title: "Comfy.ai Travel Planner | Plan Your Dream Vacation with AI",
           description: "Create personalized itineraries with interactive maps, real-time routing, and AI-powered suggestions. Comfort Journey (Est. 1992).",

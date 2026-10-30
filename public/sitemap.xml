@@ -4,139 +4,149 @@
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
   <url>
     <loc>https://www.comfortjourney.in/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/about/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/blog/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/privacy-policy/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/terms-and-conditions/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/family-travel/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/couple-honeymoon/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/group-travel/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/solo-travel/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/corporate-travel/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/school-college-trips/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/weekend-getaways/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/fixed-departures/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/india-packages/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/international-packages/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/adventure-tours/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/beach-vacations/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/mountain-escapes/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/spiritual-journeys/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/summer-packages/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/monsoon-getaways/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.comfortjourney.in/winter-packages/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://www.comfortjourney.in/blog/how-make-travel-easy-with-kids/</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.comfortjourney.in/</image:loc>
+      <image:title><![CDATA[How make travel easy with kids]]></image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://www.comfortjourney.in/blog/best-solo-and-group-packages-for-march-8-2026-women-s-day-getaway/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -146,7 +156,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/blog/top-7-luxury-stays-in-kashmir-2026/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -156,7 +166,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/blog/bali-honeymoon-private-pool-villa-guide-2026/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -166,7 +176,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/blog/solo-female-travel-in-india-safe-guide-2026/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -176,7 +186,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/blog/corporate-team-offsites-without-logistics-nightmares/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -186,7 +196,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/blog/dubai-luxury-extravaganza-48-hour-itinerary/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -196,7 +206,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/whispers-of-dalhousie/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -206,7 +216,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/timeless-karnataka-coffee-coasts-culture/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -216,7 +226,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/goa-unplugged-salt-air-slow-days/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -226,7 +236,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/haridwar-mussoorie-tour-the-himalayan-soul/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -236,7 +246,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/rajasthan-royal-escape-where-history-meets-luxury/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -246,7 +256,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/gwalior-orchha-route-royal-stories-of-mp/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -256,7 +266,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/nainital-jim-corbett/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -266,7 +276,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/andaman-getaway-the-indian-maldives-edition/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -276,7 +286,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/ayodhya-varanasi-a-journey-within/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -286,7 +296,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/jaipur-heritage-the-royal-pink-chapter/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -296,7 +306,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/jaipur-ajmer-pushkar-essence-a-celebration-of-rajasthan/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -306,7 +316,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/nainital-jim-corbett-discovery-where-nature-roars/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -316,7 +326,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/assam-beyond-the-tea-gardens/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -326,7 +336,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/meghalaya-highland-holiday-3/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -336,7 +346,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/shimla-manali-kullu-the-mountain-chapter/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -346,7 +356,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/goa-weekend-vibe-3/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -356,7 +366,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/the-sacred-gujarat-journey/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -366,7 +376,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/the-madhya-pradesh-chapter-bhopal-ujjain-indore/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -376,7 +386,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/a-symphony-of-kashmir/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -386,7 +396,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/stories-from-jabalpur-marble-mist-symphony/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -396,7 +406,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/nainital-jim-corbett-3/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -406,7 +416,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/agra-mathura-vrindavan-in-one-story-taj-temples-tales/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -416,7 +426,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/leh-unveiled-the-high-altitude-stories/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -426,7 +436,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/rishikesh-mussoorie-river-rhythms-mountain-whispers/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -436,7 +446,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/pachmarhi-calling-nature-s-secret-blooming/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -446,7 +456,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/bhopal-beyond-the-ordinary-between-lakes-legacies/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -456,7 +466,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/phuket-in-full-bloom/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -466,7 +476,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/vietnam-beyond-the-ordinary-ancient-streets-azure-bays/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -476,7 +486,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/bali-tropical-retreat/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -486,7 +496,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/japan-the-cherry-blossom-dream/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -496,7 +506,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/colombo-escape-beaches-culture-the-spirit-of-sri-lanka/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -506,7 +516,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/singapore-city-from-marina-lights-to-tropical-shores/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -516,7 +526,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/asian-horizons-singapore-phuket-bangkok-kuala-lumpur/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -526,7 +536,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/rome-milan-ferrara-zurich-renaissance-streets-alpine-retreats/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -536,7 +546,7 @@
   </url>
   <url>
     <loc>https://www.comfortjourney.in/tour/dubai-arabian-odyssey/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>

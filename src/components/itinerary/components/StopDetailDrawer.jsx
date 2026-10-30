@@ -239,13 +239,19 @@ export default function StopDetailDrawer({
                 <Navigation2 size={18} className="text-amber" />
                 Location on Map
               </h3>
-              <p className="location-coords">
-                <MapPin size={14} />
-                <span>{stop.lat.toFixed(4)}, {stop.lng.toFixed(4)}</span>
-              </p>
+              <div className="location-coords-box">
+                <p className="location-place-title">
+                  <MapPin size={15} className="text-amber" />
+                  <span>{stop.title}{tour?.location ? ` · ${tour.location}` : ''}</span>
+                </p>
+                <p className="location-coords">
+                  <span>GPS: {stop.lat.toFixed(4)}° N, {stop.lng.toFixed(4)}° E</span>
+                </p>
+              </div>
               <div className="location-actions">
                 <button type="button" className="location-btn primary" onClick={() => {
-                  window.open(`https://www.google.com/maps/search/?api=1&query=${stop.lat},${stop.lng}`, '_blank');
+                  const query = encodeURIComponent(`${stop.title || ''}, ${tour?.location || tour?.name || ''}`.trim() || `${stop.lat},${stop.lng}`);
+                  window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank');
                 }}>
                   <Navigation2 size={16} />
                   <span>Open in Google Maps</span>

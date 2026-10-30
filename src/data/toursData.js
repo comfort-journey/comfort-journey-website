@@ -174,7 +174,7 @@ export const TOURS_DATA = [
       },
       {
         "day": 4,
-        "title": "Dalhousie – Khajjiar Excursion",
+        "title": "Day excursion to Khajjiar",
         "desc": "Drive to Khajjiar (Mini Switzerland of India, 1 hour). Visit Khajjiar Lake, enjoy zorbing, and explore Kalatop Wildlife Sanctuary. Return to Dalhousie. Overnight in Dalhousie.",
         "stayTier": "4-Star / 5-Star Luxury Stay",
         "transport": "Dedicated Private AC Cab & Chauffeur",

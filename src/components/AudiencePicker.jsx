@@ -3,8 +3,8 @@ import { ArrowRight, MessageCircle } from 'lucide-react';
 import { LANDING_PAGES_DATA } from '../data/landingPagesData';
 import './audience-picker.css';
 
-const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
-const asset = (src) => (!src ? '' : /^(https?:|data:)/.test(src) ? src : basePrefix + src.replace(/^\.?\//, ''));
+const basePrefix = '/';
+const asset = (src) => (!src ? '' : /^(https?:|data:)/.test(src) ? src : '/' + src.replace(/^\.?\//, ''));
 const thumb = (src) => asset(src).replace(/([?&])w=\d+/, '$1w=640').replace('-1920.webp', '-960.webp');
 
 // The six "who is travelling" pages get big photo tiles; every other page is a quick chip.
@@ -121,7 +121,7 @@ export default function AudiencePicker() {
         </div>
 
         <div ref={replyRef} className={`ap-reply ${page ? 'is-on' : ''}`} aria-live="polite" style={{ '--accent': page?.theme?.accentColor || '#FF892F' }}>
-          <img className="ap-reply-face" src={asset('mascot-default.png')} alt="" width="56" height="50" loading="lazy" />
+          <img className="ap-reply-face" src={asset('mascot-default.png')} alt="Comfy Mascot" width="56" height="50" loading="lazy" onError={(e) => { e.currentTarget.src = 'https://www.comfortjourney.in/mascot-default.png'; }} />
           <div className="ap-reply-bubble">
             {page ? (
               <>

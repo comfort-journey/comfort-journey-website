@@ -105,7 +105,8 @@
 /* Prevent horizontal scroll on mobile */
 @media (max-width: 768px) {
   .itin-page-root {
-    overscroll-behavior: none;
+    overscroll-behavior: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
 

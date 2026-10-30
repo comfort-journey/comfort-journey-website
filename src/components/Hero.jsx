@@ -342,7 +342,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               }}
             >
               <Globe size={18} className="text-amber" />
-              <span>Pick by Country</span>
+              <span className="mode-tab-label-desktop">Pick by Country</span><span className="mode-tab-label-mobile">Country</span>
             </button>
 
             <button
@@ -354,7 +354,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               }}
             >
               <Sun size={18} className="text-cyan" />
-              <span>Pick by weather <span className="font-ampersand">&</span> season</span>
+              <span className="mode-tab-label-desktop">Pick by weather <span className="font-ampersand">&</span> season</span><span className="mode-tab-label-mobile">Weather</span>
             </button>
 
             <button
@@ -366,7 +366,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
               }}
             >
               <Users size={18} className="text-emerald" />
-              <span>Pick by who is coming</span>
+              <span className="mode-tab-label-desktop">Pick by who is coming</span><span className="mode-tab-label-mobile">Who's Coming</span>
             </button>
           </div>
 
@@ -1369,6 +1369,14 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           justify-content: center;
           gap: 0.85rem;
           flex-wrap: wrap;
+        }
+
+        .mode-tab-label-mobile {
+          display: none;
+        }
+
+        .mode-tab-label-desktop {
+          display: inline;
         }
 
         .mode-tab-btn {
@@ -2773,31 +2781,40 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
             margin-bottom: 2.25rem !important;
           }
 
-          /* Master mode tabs: clean horizontal touch slider without awkward wrapping */
-          .master-mode-tabs {
-            display: flex;
-            overflow-x: auto;
-            flex-wrap: nowrap;
-            justify-content: flex-start;
-            gap: 0.5rem;
-            width: 100%;
-            padding: 0.25rem 0.25rem 0.6rem 0.25rem;
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
+          /* Master mode tabs: 3 compact buttons fitting 100% upfront on all screens with zero scroll */
+          .mode-tab-label-desktop {
+            display: none !important;
           }
-          .master-mode-tabs::-webkit-scrollbar {
-            display: none;
+          .mode-tab-label-mobile {
+            display: inline !important;
+            font-weight: 700;
+          }
+          .master-mode-tabs {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 0.35rem !important;
+            width: 100% !important;
+            padding: 0.2rem 0 0.4rem 0 !important;
+            overflow: visible !important;
           }
           .mode-tab-btn {
-            flex-shrink: 0;
-            padding: 0.55rem 0.95rem;
-            font-size: 0.82rem;
-            white-space: nowrap;
-            border-radius: 9999px;
+            width: 100% !important;
+            min-width: 0 !important;
+            flex-shrink: 1 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 0.52rem 0.25rem !important;
+            font-size: 0.74rem !important;
+            letter-spacing: -0.01em !important;
+            white-space: nowrap !important;
+            border-radius: 9999px !important;
+            gap: 0.3rem !important;
           }
           .mode-tab-btn svg {
-            width: 15px;
-            height: 15px;
+            width: 13px !important;
+            height: 13px !important;
+            flex-shrink: 0 !important;
           }
 
           .top-search-glass-shell {
