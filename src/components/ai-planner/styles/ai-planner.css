@@ -133,6 +133,9 @@
   width: 100%;
   min-height: 100vh;
   background: var(--planner-bg);
+  background-image: 
+    radial-gradient(ellipse at 12% 18%, rgba(255, 137, 47, 0.045) 0%, transparent 45%),
+    radial-gradient(ellipse at 88% 55%, rgba(2, 132, 199, 0.045) 0%, transparent 45%);
   color: var(--planner-text-body);
   font-family: 'Outfit', 'Noto Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   display: flex;
@@ -411,14 +414,34 @@
   background: var(--planner-tangerine-500);
 }
 
+.planner-workspace-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 1580px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+  box-sizing: border-box;
+}
+
+@media (max-width: 1279px) {
+  .planner-workspace-row {
+    padding: 0;
+  }
+}
+
 .planner-editorial-container {
   width: 100%;
-  max-width: 1040px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: var(--space-4) var(--space-4) 140px;
+  padding: var(--space-4) var(--space-3) 140px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  flex: 1;
+  min-width: 0;
 }
 
 /* Active Day Banner */

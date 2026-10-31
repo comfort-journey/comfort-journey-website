@@ -279,44 +279,172 @@ export function parseTravelIntent(prompt) {
     return null;
   }
 
-  // 1. Destination
-  let destination = 'Kashmir';
-  let destKey = 'kashmir';
-  if (q.includes('thailand') || q.includes('phuket') || q.includes('krabi') || q.includes('bangkok') || q.includes('pattaya') || q.includes('chiang mai') || q.includes('samui') || q.includes('phi phi')) { destination = 'Phuket & Krabi, Thailand'; destKey = 'thailand'; }
-  else if (q.includes('bali') || q.includes('indonesia') || q.includes('ubud') || q.includes('seminyak')) { destination = 'Bali, Indonesia'; destKey = 'bali'; }
-  else if (q.includes('dubai') || q.includes('uae') || q.includes('abu dhabi') || q.includes('burj')) { destination = 'Dubai, UAE'; destKey = 'dubai'; }
-  else if (q.includes('swiss') || q.includes('switzerland') || q.includes('lucerne') || q.includes('interlaken') || q.includes('alps') || q.includes('zurich')) { destination = 'Switzerland'; destKey = 'switzerland'; }
-  else if (q.includes('europe') || q.includes('paris') || q.includes('rome') || q.includes('italy') || q.includes('france') || q.includes('london')) { destination = 'Essence of Europe'; destKey = 'europe'; }
-  else if (q.includes('vietnam') || q.includes('hanoi') || q.includes('da nang') || q.includes('halong') || q.includes('saigon')) { destination = 'Vietnam'; destKey = 'vietnam'; }
-  else if (q.includes('japan') || q.includes('tokyo') || q.includes('kyoto') || q.includes('fuji') || q.includes('osaka')) { destination = 'Tokyo & Kyoto, Japan'; destKey = 'japan'; }
-  else if (q.includes('singapore') || q.includes('sentosa')) { destination = 'Singapore'; destKey = 'singapore'; }
-  else if (q.includes('kerala') || q.includes('munnar') || q.includes('alleppey') || q.includes('cochin') || q.includes('kochi')) { destination = 'Kerala Backwaters'; destKey = 'kerala'; }
-  else if (q.includes('rajasthan') || q.includes('jaipur') || q.includes('udaipur') || q.includes('jodhpur') || q.includes('jaisalmer')) { destination = 'Rajasthan Heritage'; destKey = 'rajasthan'; }
-  else if (q.includes('himachal') || q.includes('manali') || q.includes('shimla') || q.includes('solang') || q.includes('dharamshala')) { destination = 'Himachal Hills'; destKey = 'himachal'; }
-  else if (q.includes('kedarnath') || q.includes('char dham') || q.includes('rishikesh') || q.includes('uttarakhand') || q.includes('haridwar')) { destination = 'Kedarnath & Uttarakhand'; destKey = 'kedarnath'; }
-  else if (q.includes('maldives') || q.includes('male')) { destination = 'Maldives'; destKey = 'maldives'; }
-  else if (q.includes('andaman') || q.includes('havelock') || q.includes('port blair')) { destination = 'Andaman Islands'; destKey = 'andaman'; }
-  else if (q.includes('goa')) { destination = 'Goa Beaches'; destKey = 'goa'; }
-  else if (q.includes('sri lanka') || q.includes('colombo')) { destination = 'Sri Lanka Scenic Island'; destKey = 'sri_lanka'; }
-  else if (q.includes('nepal') || q.includes('kathmandu')) { destination = 'Nepal Himalayan Kingdom'; destKey = 'nepal'; }
-  else if (q.includes('mauritius')) { destination = 'Mauritius Luxury Escape'; destKey = 'mauritius'; }
-  else if (q.includes('ladakh') || q.includes('leh')) { destination = 'Leh Ladakh High Passes'; destKey = 'ladakh'; }
-  else {
-    // Check if user specified another country or city in TOURS_DATA
-    const matched = findMatchingTours(prompt, 1);
+  // 1. Destination with Comprehensive Aliases & Typo Tolerance
+  // Strip departure/origin phrases so "from India", "from Delhi" etc. are not treated as destinations
+  const cleanQ = q
+    .replace(/\b(from|departs? from|leaving from|flying from|origin)\s+(india|delhi|mumbai|bhopal|bangalore|bengaluru|chennai|kolkata|ahmedabad|hyderabad|pune|indore|jaipur|usa|uk|dubai)\b/gi, '')
+    .trim();
+
+  const DESTINATION_RULES = [
+    {
+      destination: 'Switzerland',
+      destKey: 'switzerland',
+      patterns: ['switz', 'swiss', 'swits', 'zurich', 'lucerne', 'interlaken', 'zermatt', 'geneva', 'jungfrau', 'matterhorn', 'alps', 'grindelwald', 'bern']
+    },
+    {
+      destination: 'Dubai, UAE',
+      destKey: 'dubai',
+      patterns: ['dubai', 'uae', 'abu dhabi', 'burj', 'sharjah', 'duba', 'emirates']
+    },
+    {
+      destination: 'Kashmir',
+      destKey: 'kashmir',
+      patterns: ['kashmir', 'srinagar', 'gulmarg', 'pahalgam', 'sonmarg', 'dal lake', 'kasmir', 'shikara']
+    },
+    {
+      destination: 'Bali, Indonesia',
+      destKey: 'bali',
+      patterns: ['bali', 'indonesia', 'ubud', 'seminyak', 'kuta', 'nusa penida', 'canggu', 'denpasar', 'jimbaran']
+    },
+    {
+      destination: 'Phuket & Krabi, Thailand',
+      destKey: 'thailand',
+      patterns: ['thailand', 'phuket', 'krabi', 'bangkok', 'pattaya', 'chiang mai', 'samui', 'phi phi', 'patong']
+    },
+    {
+      destination: 'Kerala Backwaters',
+      destKey: 'kerala',
+      patterns: ['kerala', 'munnar', 'alleppey', 'alappuzha', 'cochin', 'kochi', 'thekkady', 'kovalam', 'varkala', 'wayanad', 'houseboat']
+    },
+    {
+      destination: 'Essence of Europe',
+      destKey: 'europe',
+      patterns: ['europe', 'paris', 'rome', 'italy', 'france', 'london', 'amsterdam', 'spain', 'barcelona']
+    },
+    {
+      destination: 'Vietnam',
+      destKey: 'vietnam',
+      patterns: ['vietnam', 'hanoi', 'da nang', 'halong', 'saigon', 'ho chi minh', 'nha trang', 'hoi an']
+    },
+    {
+      destination: 'Tokyo & Kyoto, Japan',
+      destKey: 'japan',
+      patterns: ['japan', 'tokyo', 'kyoto', 'fuji', 'osaka', 'shibuya', 'shinjuku']
+    },
+    {
+      destination: 'Singapore',
+      destKey: 'singapore',
+      patterns: ['singapore', 'sentosa', 'marinabaysands', 'marina bay']
+    },
+    {
+      destination: 'Rajasthan Heritage',
+      destKey: 'rajasthan',
+      patterns: ['rajasthan', 'jaipur', 'udaipur', 'jodhpur', 'jaisalmer', 'pushkar', 'bikaner', 'ranthambore', 'mount abu']
+    },
+    {
+      destination: 'Himachal Hills',
+      destKey: 'himachal',
+      patterns: ['himachal', 'manali', 'shimla', 'solang', 'dharamshala', 'dalhousie', 'kullu', 'kasol', 'spiti', 'rohtang']
+    },
+    {
+      destination: 'Kedarnath & Uttarakhand',
+      destKey: 'kedarnath',
+      patterns: ['kedarnath', 'char dham', 'chardham', 'rishikesh', 'uttarakhand', 'haridwar', 'badrinath', 'mussoorie', 'nainital', 'chopta']
+    },
+    {
+      destination: 'Maldives',
+      destKey: 'maldives',
+      patterns: ['maldives', 'male', 'maldiv', 'overwater villa', 'water villa']
+    },
+    {
+      destination: 'Andaman Islands',
+      destKey: 'andaman',
+      patterns: ['andaman', 'havelock', 'port blair', 'neil island', 'radhanagar']
+    },
+    {
+      destination: 'Goa Beaches',
+      destKey: 'goa',
+      patterns: ['goa', 'panjim', 'calangute', 'anjuna', 'baga', 'candolim']
+    },
+    {
+      destination: 'Sri Lanka Scenic Island',
+      destKey: 'sri_lanka',
+      patterns: ['sri lanka', 'srilanka', 'colombo', 'kandy', 'bentota', 'galle', 'nuwara eliya', 'sigiriya']
+    },
+    {
+      destination: 'Nepal Himalayan Kingdom',
+      destKey: 'nepal',
+      patterns: ['nepal', 'kathmandu', 'pokhara', 'everest', 'annapurna', 'chitwan']
+    },
+    {
+      destination: 'Mauritius Luxury Escape',
+      destKey: 'mauritius',
+      patterns: ['mauritius', 'port louis', 'chamarel']
+    },
+    {
+      destination: 'Leh Ladakh High Passes',
+      destKey: 'ladakh',
+      patterns: ['ladakh', 'leh', 'nubra', 'pangong', 'khardungla', 'khardung la']
+    }
+  ];
+
+  let destination = null;
+  let destKey = null;
+
+  // 1. Check direct patterns and substrings
+  for (const rule of DESTINATION_RULES) {
+    if (rule.patterns.some(p => cleanQ.includes(p))) {
+      destination = rule.destination;
+      destKey = rule.destKey;
+      break;
+    }
+  }
+
+  // 2. Fuzzy match on words for typos (e.g. "switzrland" -> "switzerland")
+  if (!destination) {
+    const words = cleanQ.split(/\s+/).filter(w => w.length >= 4);
+    for (const rule of DESTINATION_RULES) {
+      for (const pattern of rule.patterns) {
+        if (pattern.length >= 4) {
+          for (const word of words) {
+            if (Math.abs(word.length - pattern.length) <= 2) {
+              let diff = 0;
+              let i = 0, j = 0;
+              while (i < word.length && j < pattern.length) {
+                if (word[i] !== pattern[j]) {
+                  diff++;
+                  if (diff > 2) break;
+                  if (word.length > pattern.length) i++;
+                  else if (pattern.length > word.length) j++;
+                  else { i++; j++; }
+                } else {
+                  i++; j++;
+                }
+              }
+              if (diff <= 2) {
+                destination = rule.destination;
+                destKey = rule.destKey;
+                break;
+              }
+            }
+          }
+        }
+        if (destination) break;
+      }
+      if (destination) break;
+    }
+  }
+
+  // 3. Fallback to tours data using cleanQ (avoiding false "from india" matches)
+  if (!destination) {
+    const matched = findMatchingTours(cleanQ, 1);
     if (matched.length > 0) {
       destination = matched[0].location || matched[0].country || matched[0].name;
       destKey = destination.toLowerCase().replace(/[^a-z0-9]/g, '_');
     } else {
-      // Clean extracted prompt as custom destination name ONLY if it's a genuine place name
-      const cleanPromptWords = prompt.replace(/\b(what|which|where|how|tell|me|about|are|the|best|hotels?|stays?|food|options?|days?|nights?|trip|tour|plan|custom|vacation|itinerary|for|with|parents|family|honeymoon|couple|in)\b/gi, '').replace(/[?!.,]/g, '').trim();
-      if (cleanPromptWords.length >= 3 && cleanPromptWords.length <= 25 && !/\s{2,}/.test(cleanPromptWords)) {
-        destination = cleanPromptWords.charAt(0).toUpperCase() + cleanPromptWords.slice(1);
-        destKey = destination.toLowerCase().replace(/[^a-z0-9]/g, '_');
-      } else {
-        destination = 'Bali, Indonesia';
-        destKey = 'bali';
-      }
+      // Default to Kashmir if completely unparseable
+      destination = 'Kashmir';
+      destKey = 'kashmir';
     }
   }
 

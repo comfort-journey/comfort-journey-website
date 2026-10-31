@@ -1,5 +1,5 @@
-import React from 'react';
-import { Car, Utensils, BedDouble, Users, X, ChevronDown, ChevronUp, Check, Settings } from 'lucide-react';
+import React, { useState } from 'react';
+import { Car, Utensils, BedDouble, Users, X, ChevronDown, ChevronUp, Check, Sliders } from 'lucide-react';
 import './styles/CustomizeSheet.css';
 
 const PACING_OPTIONS = [
@@ -25,10 +25,10 @@ const STAY_OPTIONS = [
 ];
 
 const DIETARY_OPTIONS = [
-  { id: 'pureveg', label: 'Pure Vegetarian', desc: '100% vegetarian meals, verified kitchens' },
+  { id: 'pureveg', label: 'Pure Vegetarian', desc: '100% vegetarian meals with quality kitchen assurance' },
   { id: 'jain', label: 'Jain Friendly', desc: 'Strictly no onion, garlic or root vegetables' },
-  { id: 'halal', label: 'Halal Certified', desc: 'Verified halal culinary preparation' },
-  { id: 'multicuisine', label: 'Multi-Cuisine', desc: 'North Indian, Continental & local specialties' },
+  { id: 'multicuisine', label: 'Multi-Cuisine', desc: 'North Indian, Continental & authentic local dishes' },
+  { id: 'halal', label: 'Halal Friendly', desc: 'Verified halal-friendly culinary preparation' },
 ];
 
 export default function CustomizeSheet({
@@ -40,7 +40,18 @@ export default function CustomizeSheet({
   onStayTierChange,
   onDietaryChange
 }) {
+  const [openSections, setOpenSections] = useState({
+    pacing: true,
+    vehicle: true,
+    stay: true,
+    dietary: true
+  });
+
   if (!isOpen) return null;
+
+  const toggleSection = (key) => {
+    setOpenSections(prev => ({ ...prev, [key]: !prev[key] }));
+  };
 
   const sections = [
     {
@@ -56,7 +67,7 @@ export default function CustomizeSheet({
     },
     {
       key: 'vehicle',
-      title: 'Private Vehicle',
+      title: 'Private Chauffeured Vehicle',
       icon: Car,
       color: 'cyan',
       options: VEHICLE_OPTIONS,
@@ -69,7 +80,7 @@ export default function CustomizeSheet({
     },
     {
       key: 'stay',
-      title: 'Stay Tier',
+      title: 'Hotel & Resort Class',
       icon: BedDouble,
       color: 'purple',
       options: STAY_OPTIONS,
@@ -82,7 +93,7 @@ export default function CustomizeSheet({
     },
     {
       key: 'dietary',
-      title: 'Meals & Dietary',
+      title: 'Meals & Dietary Curation',
       icon: Utensils,
       color: 'lime',
       options: DIETARY_OPTIONS,
@@ -97,18 +108,13 @@ export default function CustomizeSheet({
   return (
     <div className="customize-sheet-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="customize-title">
       <div className="customize-sheet" onClick={(e) => e.stopPropagation()}>
-        {/* Drag Handle */}
-        <div className="sheet-handle" aria-hidden="true">
-          <div className="handle-bar" />
-        </div>
-
         {/* Header */}
         <header className="sheet-header">
           <h2 id="customize-title" className="sheet-title">
             <span className="title-icon">
-              <Settings size={18} />
+              <Sliders size={18} />
             </span>
-            <span>Customize Your Trip</span>
+            <span>Customize Vacation Preferences</span>
           </h2>
           <button type="button" className="sheet-close" onClick={onClose} aria-label="Close customization">
             <X size={18} />
@@ -118,70 +124,64 @@ export default function CustomizeSheet({
         {/* Scrollable Content */}
         <div className="sheet-content">
           {sections.map((section) => (
-            <CustomizeSection
-              key={section.key}
-              {...section}
-            />
+            <section key={section.key} className="customize-section" aria-labelledby={`${section.key}-heading`}>
+              <button
+                type="button"
+                className="section-header"
+                onClick={() => toggleSection(section.key)}
+                aria-expanded={Boolean(openSections[section.key])}
+              >
+                <div className="customize-header-left">
+                  <span className={`section-icon icon-${section.color}`}>
+                    <section.icon size={15} aria-hidden="true" />
+                  </span>
+                  <h3 id={`${section.key}-heading`} className="section-title">{section.title}</h3>
+                  <span className="current-value">
+                    {section.renderValue(section.options.find(o => o.id === section.current) || section.options[0])}
+                  </span>
+                </div>
+                <span className="expand-icon">
+                  {openSections[section.key] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                </span>
+              </button>
+
+              {openSections[section.key] && (
+                <div className="section-content">
+                  <div className="options-grid">
+                    {section.options.map((option) => (
+                      <button
+                        key={option.id}
+                        type="button"
+                        className={`option-card ${section.current === option.id ? 'selected' : ''}`}
+                        onClick={() => section.onChange(option.id)}
+                        aria-pressed={section.current === option.id}
+                      >
+                        <div className="option-main">
+                          <span className="option-label">{option.label}</span>
+                          <span className="option-desc">{option.desc}</span>
+                        </div>
+                        {section.current === option.id && (
+                          <span className="option-check" aria-hidden="true">
+                            <Check size={13} strokeWidth={3} />
+                          </span>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </section>
           ))}
         </div>
 
-        {/* Pinned Footer */}
-        <div className="sheet-footer">
+        {/* Pinned Bottom CTA Footer */}
+        <footer className="sheet-footer">
           <button type="button" className="btn-apply" onClick={onClose}>
             <span>Done & Apply to Itinerary</span>
             <Check size={16} />
           </button>
-        </div>
+        </footer>
       </div>
     </div>
-  );
-}
-
-function CustomizeSection({ title, icon: Icon, color, options, current, onChange, renderValue }) {
-  const [isExpanded, setIsExpanded] = React.useState(true);
-
-  return (
-    <section className="customize-section" aria-labelledby={`${title.toLowerCase().replace(/[^a-z]/g, '')}-heading`}>
-      <button
-        type="button"
-        className="section-header"
-        onClick={() => setIsExpanded(!isExpanded)}
-        aria-expanded={isExpanded}
-        aria-controls={`${title.toLowerCase().replace(/[^a-z]/g, '')}-content`}
-      >
-        <div className="customize-header-left">
-          <span className={`section-icon icon-${color}`}>
-            <Icon size={15} aria-hidden="true" />
-          </span>
-          <h3 id={`${title.toLowerCase().replace(/[^a-z]/g, '')}-heading`} className="section-title">{title}</h3>
-          <span className="current-value">{renderValue(options.find(o => o.id === current) || options[0])}</span>
-        </div>
-        <span className="expand-icon">{isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}</span>
-      </button>
-
-      <div id={`${title.toLowerCase().replace(/[^a-z]/g, '')}-content`} className="section-content" hidden={!isExpanded} style={{ display: isExpanded ? 'block' : 'none' }}>
-        <div className="options-grid">
-          {options.map((option) => (
-            <button
-              key={option.id}
-              type="button"
-              className={`option-card ${current === option.id ? 'selected' : ''}`}
-              onClick={() => onChange(option.id)}
-              aria-pressed={current === option.id}
-            >
-              <div className="option-main">
-                <span className="option-label">{option.label}</span>
-                <span className="option-desc">{option.desc}</span>
-              </div>
-              {current === option.id && (
-                <span className="option-check" aria-hidden="true">
-                  <Check size={13} strokeWidth={3} />
-                </span>
-              )}
-            </button>
-          ))}
-        </div>
-      </div>
-    </section>
   );
 }

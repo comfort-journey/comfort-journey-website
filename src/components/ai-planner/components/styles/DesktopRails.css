@@ -1,0 +1,277 @@
+/* =========================================================================
+   DESKTOP RAILS - Executive 3-Column Studio Companion Sidebars (>1280px)
+   ========================================================================= */
+
+.planner-desktop-left-rail,
+.planner-desktop-right-rail {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .planner-desktop-left-rail {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 250px;
+    position: sticky;
+    top: calc(var(--header-height) + 16px);
+    align-self: flex-start;
+    flex-shrink: 0;
+  }
+
+  .planner-desktop-right-rail {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 260px;
+    position: sticky;
+    top: calc(var(--header-height) + 16px);
+    align-self: flex-start;
+    flex-shrink: 0;
+  }
+}
+
+.desktop-rail-card {
+  background: var(--planner-panel);
+  border: 1.5px solid var(--planner-border);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+.rail-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--planner-border);
+  margin-bottom: 10px;
+}
+
+.rail-card-header h4 {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--planner-text-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Day Navigator List */
+.day-navigator-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 280px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.nav-day-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 6px 10px;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--transition-fast);
+}
+
+.nav-day-item:hover {
+  background: var(--planner-card-subtle-bg);
+  border-color: var(--planner-border);
+}
+
+.nav-day-item.is-active {
+  background: rgba(255, 137, 47, 0.1);
+  border-color: var(--planner-tangerine-500);
+}
+
+.nav-day-num {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--planner-tangerine-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.nav-day-title {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--planner-text-body);
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+/* Specialist Card */
+.specialist-badge-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.specialist-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--planner-tangerine-500);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.specialist-title {
+  margin: 0 0 6px 0;
+  font-family: var(--font-heading, 'Baumans', cursive, sans-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--planner-text-heading);
+}
+
+.specialist-desc {
+  margin: 0 0 10px 0;
+  font-size: 0.74rem;
+  line-height: 1.45;
+  color: var(--planner-text-muted);
+}
+
+.specialist-perks {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.perk-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--planner-text-body);
+}
+
+.rail-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 8px 12px;
+  background: rgba(37, 211, 102, 0.12);
+  border: 1px solid rgba(37, 211, 102, 0.35);
+  color: #16A34A;
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.rail-whatsapp-btn:hover {
+  background: #25D366;
+  color: #FFFFFF;
+  border-color: #25D366;
+}
+
+/* Quick Lock Price Card */
+.rail-price-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 3px;
+  margin-bottom: 12px;
+}
+
+.rail-price-sub {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--planner-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.rail-price-main {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.price-val {
+  font-family: var(--font-heading, 'Baumans', cursive, sans-serif);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--planner-tangerine-500);
+}
+
+.price-unit {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--planner-text-muted);
+}
+
+.rail-price-note {
+  font-size: 0.65rem;
+  color: var(--planner-text-muted);
+  font-weight: 500;
+}
+
+.rail-primary-whatsapp-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 14px;
+  background: #25D366;
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
+  transition: all var(--transition-fast);
+}
+
+.rail-primary-whatsapp-cta:hover {
+  background: #1EBE5D;
+  transform: translateY(-1px);
+}
+
+/* Inclusions Card */
+.inclusions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inclusion-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.inclusion-item strong {
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--planner-text-heading);
+}
+
+.inclusion-item p {
+  margin: 1px 0 0 0;
+  font-size: 0.7rem;
+  line-height: 1.35;
+  color: var(--planner-text-muted);
+}

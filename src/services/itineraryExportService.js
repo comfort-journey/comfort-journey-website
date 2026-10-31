@@ -123,268 +123,98 @@ export async function generateSocialCardDataUrl(rawPlan) {
   ctx.fillStyle = '#001233';
   ctx.fillRect(0, 0, width, height);
 
-  // --- TOP MAP SECTION: Real-time route from GPS coordinates ---
-  const mapAreaHeight = 350;
+  // --- TOP HERO SECTION: Luxury Editorial Postcard Header (No Spiderwebs) ---
+  const headerHeight = 310;
 
-  // Collect all GPS coordinates from the trip
-  const allCoords = [];
-  (tripPlan.days || []).forEach(d => {
-    (d.stops || []).forEach(s => {
-      if (s.lat && s.lng) {
-        allCoords.push({
-          lat: s.lat,
-          lng: s.lng,
-          type: s.type || 'sightseeing',
-          title: s.title || '',
-          day: d.day
-        });
-      }
-    });
-  });
+  // Background gradient: Midnight Blue & Subtle Gold Accents
+  const heroGrad = ctx.createLinearGradient(0, 0, width, headerHeight);
+  heroGrad.addColorStop(0, '#06101E');
+  heroGrad.addColorStop(0.5, '#0C1B33');
+  heroGrad.addColorStop(1, '#091528');
+  ctx.fillStyle = heroGrad;
+  ctx.fillRect(0, 0, width, headerHeight);
 
-  // Map Background: Deep midnight nautical & topographic gradient
-  const mapGrad = ctx.createLinearGradient(0, 0, width, mapAreaHeight);
-  mapGrad.addColorStop(0, '#041026');
-  mapGrad.addColorStop(0.5, '#071A3D');
-  mapGrad.addColorStop(1, '#051430');
-  ctx.fillStyle = mapGrad;
-  ctx.fillRect(0, 0, width, mapAreaHeight);
-
-  // --- Topographic Landmass Relief & Coastal Contours ---
-  // Organic coastline landmass
-  ctx.fillStyle = 'rgba(14, 165, 233, 0.08)';
-  ctx.beginPath();
-  ctx.moveTo(0, mapAreaHeight);
-  ctx.bezierCurveTo(width * 0.25, mapAreaHeight * 0.55, width * 0.6, mapAreaHeight * 0.85, width, mapAreaHeight * 0.4);
-  ctx.lineTo(width, 0);
-  ctx.lineTo(0, 0);
-  ctx.closePath();
-  ctx.fill();
-
-  ctx.fillStyle = 'rgba(16, 185, 129, 0.06)';
-  ctx.beginPath();
-  ctx.moveTo(30, mapAreaHeight);
-  ctx.bezierCurveTo(width * 0.35, mapAreaHeight * 0.45, width * 0.7, mapAreaHeight * 0.65, width - 20, mapAreaHeight * 0.25);
-  ctx.lineTo(width, 0);
-  ctx.lineTo(40, 0);
-  ctx.closePath();
-  ctx.fill();
-
-  // Elevation Contour Lines (Authentic Topographic Waves)
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.07)';
+  // Decorative Golden Ambient Geometry
+  ctx.strokeStyle = 'rgba(255, 137, 47, 0.18)';
   ctx.lineWidth = 1;
-  [60, 110, 170, 230, 290].forEach((cx, idx) => {
-    ctx.beginPath();
-    ctx.ellipse(cx + 80, 160 + (idx % 2) * 20, 120 + idx * 18, 65 + idx * 10, Math.PI / 12, 0, Math.PI * 2);
-    ctx.stroke();
-  });
-
-  // Minor Arterial Road Network (Faint highway routes)
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.09)';
-  ctx.lineWidth = 1.2;
-  ctx.setLineDash([4, 4]);
   ctx.beginPath();
-  ctx.moveTo(20, mapAreaHeight * 0.7);
-  ctx.quadraticCurveTo(width * 0.4, mapAreaHeight * 0.3, width - 30, mapAreaHeight * 0.6);
-  ctx.moveTo(width * 0.2, mapAreaHeight);
-  ctx.quadraticCurveTo(width * 0.5, mapAreaHeight * 0.5, width * 0.8, 20);
-  ctx.stroke();
-  ctx.setLineDash([]);
-
-  // Precise Geographic Coordinate Grid
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
-  ctx.lineWidth = 1;
-  for (let i = 0; i < width; i += 60) {
-    ctx.beginPath();
-    ctx.moveTo(i, 0);
-    ctx.lineTo(i, mapAreaHeight);
-    ctx.stroke();
-  }
-  for (let j = 0; j < mapAreaHeight; j += 60) {
-    ctx.beginPath();
-    ctx.moveTo(0, j);
-    ctx.lineTo(width, j);
-    ctx.stroke();
-  }
-
-  // Draw Compass Rose on Top Right
-  const compassX = width - 42;
-  const compassY = 36;
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
-  ctx.beginPath();
-  ctx.arc(compassX, compassY, 18, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
-  ctx.lineWidth = 1;
+  ctx.arc(width * 0.85, 40, 160, 0, Math.PI * 2);
   ctx.stroke();
 
-  // North pointer
-  ctx.fillStyle = '#FF892F';
+  ctx.strokeStyle = 'rgba(2, 132, 199, 0.15)';
   ctx.beginPath();
-  ctx.moveTo(compassX, compassY - 14);
-  ctx.lineTo(compassX - 4, compassY);
-  ctx.lineTo(compassX + 4, compassY);
-  ctx.closePath();
-  ctx.fill();
-  ctx.fillStyle = '#FFFFFF';
-  ctx.font = 'bold 9px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('N', compassX, compassY - 16);
-  ctx.textAlign = 'start';
+  ctx.arc(width * 0.1, 260, 140, 0, Math.PI * 2);
+  ctx.stroke();
 
-  if (allCoords.length > 0) {
-    // Calculate bounds with adaptive padding
-    const lats = allCoords.map(c => c.lat);
-    const lngs = allCoords.map(c => c.lng);
-    const minLat = Math.min(...lats);
-    const maxLat = Math.max(...lats);
-    const minLng = Math.min(...lngs);
-    const maxLng = Math.max(...lngs);
-
-    const latPad = Math.max((maxLat - minLat) * 0.35, 0.03);
-    const lngPad = Math.max((maxLng - minLng) * 0.35, 0.03);
-    const padMinLat = minLat - latPad;
-    const padMaxLat = maxLat + latPad;
-    const padMinLng = minLng - lngPad;
-    const padMaxLng = maxLng + lngPad;
-
-    // Convert GPS coordinates to Canvas pixel points
-    const mapPadX = 60;
-    const mapPadY = 55;
-    const mapW = width - mapPadX * 2;
-    const mapH = mapAreaHeight - mapPadY * 2 - 25;
-
-    const toCanvasX = (lng) => mapPadX + ((lng - padMinLng) / (padMaxLng - padMinLng)) * mapW;
-    const toCanvasY = (lat) => mapPadY + (1 - (lat - padMinLat) / (padMaxLat - padMinLat)) * mapH;
-
-    // Draw route lines connecting all waypoints
-    if (allCoords.length > 1) {
-      // Wide vibrant route corridor glow
-      ctx.strokeStyle = 'rgba(255, 137, 47, 0.25)';
-      ctx.lineWidth = 14;
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-      ctx.beginPath();
-      ctx.moveTo(toCanvasX(allCoords[0].lng), toCanvasY(allCoords[0].lat));
-      for (let i = 1; i < allCoords.length; i++) {
-        ctx.lineTo(toCanvasX(allCoords[i].lng), toCanvasY(allCoords[i].lat));
-      }
-      ctx.stroke();
-
-      // Highway Underlay
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
-      ctx.lineWidth = 5;
-      ctx.beginPath();
-      ctx.moveTo(toCanvasX(allCoords[0].lng), toCanvasY(allCoords[0].lat));
-      for (let i = 1; i < allCoords.length; i++) {
-        ctx.lineTo(toCanvasX(allCoords[i].lng), toCanvasY(allCoords[i].lat));
-      }
-      ctx.stroke();
-
-      // Sharp golden-orange core dashed route
-      ctx.strokeStyle = '#FF892F';
-      ctx.lineWidth = 3.5;
-      ctx.setLineDash([8, 6]);
-      ctx.beginPath();
-      ctx.moveTo(toCanvasX(allCoords[0].lng), toCanvasY(allCoords[0].lat));
-      for (let i = 1; i < allCoords.length; i++) {
-        ctx.lineTo(toCanvasX(allCoords[i].lng), toCanvasY(allCoords[i].lat));
-      }
-      ctx.stroke();
-      ctx.setLineDash([]);
-    }
-
-    // Type colors for waypoints
-    const typeColors = {
-      transport: '#0284C7',
-      sightseeing: '#F59E0B',
-      meal: '#10B981',
-      hotel: '#8B5CF6',
-      shopping: '#F43F5E'
-    };
-
-    // Draw waypoints
-    allCoords.forEach((c, i) => {
-      const cx = toCanvasX(c.lng);
-      const cy = toCanvasY(c.lat);
-      const isStart = i === 0;
-      const isEnd = i === allCoords.length - 1;
-      const color = isStart ? '#10B981' : isEnd ? '#FF892F' : (typeColors[c.type] || '#38BDF8');
-      const radius = isStart || isEnd ? 13 : 9;
-
-      // Outer glow ring
-      ctx.fillStyle = isStart ? 'rgba(16, 185, 129, 0.25)' : isEnd ? 'rgba(255, 137, 47, 0.25)' : 'rgba(255, 255, 255, 0.12)';
-      ctx.beginPath();
-      ctx.arc(cx, cy, radius + 6, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Main pin circle
-      ctx.fillStyle = color;
-      ctx.beginPath();
-      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Crisp white outline
-      ctx.strokeStyle = '#FFFFFF';
-      ctx.lineWidth = 2.2;
-      ctx.beginPath();
-      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-      ctx.stroke();
-
-      // Center sequence number or indicator
-      ctx.fillStyle = '#FFFFFF';
-      ctx.font = 'bold 9px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(`${i + 1}`, cx, cy);
-
-      // Stop label pill for first, middle and last stop
-      if (isStart || isEnd || (i === 1 && allCoords.length > 2)) {
-        const labelText = isStart ? 'Start: ' + c.title.slice(0, 18) : isEnd ? 'Finish: ' + c.title.slice(0, 18) : c.title.slice(0, 16);
-        ctx.font = 'bold 10px sans-serif';
-        const textWidth = ctx.measureText(labelText).width;
-        const pillX = Math.max(15, Math.min(width - textWidth - 25, cx - textWidth / 2 - 8));
-        const pillY = isStart ? cy - 28 : cy + 16;
-
-        ctx.fillStyle = 'rgba(0, 18, 51, 0.88)';
-        ctx.beginPath();
-        ctx.roundRect(pillX, pillY, textWidth + 16, 20, [10]);
-        ctx.fill();
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        ctx.fillStyle = '#FFFFFF';
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'alphabetic';
-        ctx.fillText(labelText, pillX + 8, pillY + 14);
-      }
-    });
-  }
-
-  // Floating Route HUD Banner (Top Left)
-  ctx.fillStyle = 'rgba(0, 18, 51, 0.88)';
+  // Top Eyebrow Pill
+  ctx.fillStyle = 'rgba(255, 137, 47, 0.15)';
   ctx.beginPath();
-  ctx.roundRect(18, 16, 260, 32, [16]);
+  ctx.roundRect(40, 32, 280, 28, [14]);
   ctx.fill();
   ctx.strokeStyle = 'rgba(255, 137, 47, 0.4)';
   ctx.lineWidth = 1;
   ctx.stroke();
 
   ctx.fillStyle = '#FF892F';
-  ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.font = 'bold 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
   ctx.textAlign = 'left';
-  ctx.fillText(`📍 ${tripPlan.destination || 'Vacation'} · GPS Route`, 32, 36);
+  ctx.fillText('✦ COMFORT JOURNEY · PRIVATE TRAVEL EST. 1992', 54, 50);
 
-  // Bottom Route Info Pill
-  ctx.fillStyle = 'rgba(0, 18, 51, 0.85)';
+  // Destination Display Name in Bold Luxury Gold
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = '800 36px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  const destUpper = (tripPlan.destination || 'VACATION').toUpperCase();
+  ctx.fillText(destUpper.length > 20 ? destUpper.slice(0, 18) + '...' : destUpper, 40, 108);
+
+  // Subtitle
+  ctx.fillStyle = '#94A3B8';
+  ctx.font = '500 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.fillText('Customized Vacation Itinerary & Private Chauffeur Tour', 40, 134);
+
+  // Feature Pill Row
+  const pillData = [
+    { label: tripPlan.duration, color: '#38BDF8', bg: 'rgba(56, 189, 248, 0.12)' },
+    { label: tripPlan.party, color: '#A78BFA', bg: 'rgba(167, 139, 250, 0.12)' },
+    { label: tripPlan.pacing.split(' ')[0], color: '#34D399', bg: 'rgba(52, 211, 153, 0.12)' }
+  ];
+
+  let pillX = 40;
+  pillData.forEach(p => {
+    ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    const textW = ctx.measureText(p.label).width;
+    ctx.fillStyle = p.bg;
+    ctx.beginPath();
+    ctx.roundRect(pillX, 155, textW + 24, 28, [14]);
+    ctx.fill();
+    ctx.strokeStyle = p.color;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.fillStyle = p.color;
+    ctx.fillText(p.label, pillX + 12, 173);
+    pillX += textW + 34;
+  });
+
+  // Chauffeur & Vehicle Inclusions Banner
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
   ctx.beginPath();
-  ctx.roundRect(18, mapAreaHeight - 44, width - 36, 32, [10]);
+  ctx.roundRect(40, 200, width - 80, 48, [12]);
   ctx.fill();
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
-  ctx.font = '600 11.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  ctx.fillText(`🗺️ Real-time GPS Route • ${allCoords.length} Connected Waypoints • Curated by Comfy.ai`, 32, mapAreaHeight - 24);
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
 
+  ctx.fillStyle = '#FF892F';
+  ctx.font = 'bold 12.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.fillText('🚗 ' + tripPlan.vehicle, 56, 222);
+
+  ctx.fillStyle = '#CBD5E1';
+  ctx.font = '500 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.fillText('Dedicated verified driver • 100% Pure Veg / Jain meal support • Handpicked stays', 56, 239);
+
+  // Bottom Divider Ribbon
+  ctx.fillStyle = 'linear-gradient(to right, #FF892F, #0284C7)';
+  ctx.fillRect(0, 275, width, 3);
   // White Card Main Container
   ctx.fillStyle = '#F8FAFC';
   ctx.beginPath();

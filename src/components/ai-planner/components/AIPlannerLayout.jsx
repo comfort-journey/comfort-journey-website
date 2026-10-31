@@ -12,6 +12,8 @@ export default function AIPlannerLayout({
   layoutMode,
   onBackToHome,
   onOpenQuote,
+  leftRail,
+  rightRail,
   children,
   bottomActionBar,
   stickyPromptDock,
@@ -80,10 +82,14 @@ export default function AIPlannerLayout({
         </div>
       </header>
 
-      {/* Main Editorial Studio Area */}
+      {/* Main Editorial Studio Area (3-Column Workspace on >1280px Desktop) */}
       <main className="planner-main editorial-main" role="main">
-        <div className="planner-editorial-container">
-          {children}
+        <div className="planner-workspace-row">
+          {leftRail}
+          <div className="planner-editorial-container">
+            {children}
+          </div>
+          {rightRail}
         </div>
       </main>
 

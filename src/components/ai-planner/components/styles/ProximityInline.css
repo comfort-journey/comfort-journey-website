@@ -1,5 +1,146 @@
 /* =========================================================================
-   PROXIMITY INLINE STYLES (merged with TimelineStop.css)
+   PROXIMITY INLINE - Formatted Nearby Attractions & Distance Badges
    ========================================================================= */
 
-/* All styles are in TimelineStop.css to avoid duplication */
+.proximity-inline-container {
+  margin-top: 14px;
+  padding: 14px 16px;
+  background: var(--planner-card-subtle-bg);
+  border: 1px solid var(--planner-border);
+  border-radius: var(--radius-lg);
+  animation: fadeIn var(--transition-fast);
+}
+
+.proximity-section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--planner-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+
+.proximity-category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.proximity-category-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--planner-panel);
+  border: 1px solid var(--planner-border);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+}
+
+.proximity-cat-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--planner-border);
+}
+
+.proximity-cat-icon-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.badge-transport {
+  background: rgba(2, 132, 199, 0.12);
+  color: #0284C7;
+}
+
+.badge-landmarks {
+  background: rgba(255, 137, 47, 0.12);
+  color: #FF892F;
+}
+
+.badge-dining {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10B981;
+}
+
+.badge-shopping {
+  background: rgba(236, 72, 153, 0.12);
+  color: #EC4899;
+}
+
+.proximity-cat-title {
+  margin: 0;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--planner-text-heading);
+  letter-spacing: -0.01em;
+}
+
+.proximity-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.proximity-item-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.74rem;
+  line-height: 1.35;
+  color: var(--planner-text-body);
+}
+
+.item-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--planner-text-muted);
+  flex-shrink: 0;
+}
+
+.item-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.item-dist-badge {
+  padding: 2px 7px;
+  background: var(--planner-card-subtle-bg);
+  border: 1px solid var(--planner-border);
+  border-radius: var(--radius-full);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--planner-text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.proximity-more-count {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--planner-tangerine-500);
+  margin-top: 2px;
+}
+
+@media (max-width: 640px) {
+  .proximity-category-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}

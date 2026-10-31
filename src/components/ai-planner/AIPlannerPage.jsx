@@ -9,6 +9,8 @@ import TripSummaryCard from './components/TripSummaryCard';
 import DayTabs from './components/DayTabs';
 import TimelineList from './components/TimelineList';
 import StickyPromptDock from './components/StickyPromptDock';
+import DesktopLeftRail from './components/DesktopLeftRail';
+import DesktopRightRail from './components/DesktopRightRail';
 import CustomizeSheet from './components/CustomizeSheet';
 import FloatingAIButton from './components/FloatingAIButton';
 import ChatPanel from './components/ChatPanel';
@@ -45,7 +47,7 @@ export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
     {
       id: 'welcome',
       role: 'assistant',
-      content: `**Namaste! I am Comfy, your AI Travel Concierge at Comfort Journey (Est. 1992).** 🌟\n\nTell me where you are dreaming of, who is coming and roughly when. I will craft a personalized day-by-day plan with verified hotels, a private chauffeur, and meal assurances including pure veg and Jain.\n\n*Try typing: "7 days in Kashmir for parents who need relaxed pacing, pure veg meals, and a private Innova Hycross"*.`,
+      content: `**Namaste! I am Comfy, your AI Travel Concierge at Comfort Journey (Est. 1992).** 🌟\n\nTell me where you are dreaming of, who is coming and roughly when. I will craft a personalized day-by-day plan with verified hotels, a private chauffeur, and meal assurances including pure veg and Jain.\n\n*Try typing: "plan 5 day switzerland trip from india with private car and pure veg food"*.`,
       time: 'Just now'
     }
   ]);
@@ -283,6 +285,22 @@ export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
       layoutMode={layoutMode}
       onBackToHome={onBackToHome}
       onOpenQuote={onOpenQuote}
+      leftRail={
+        <DesktopLeftRail
+          tripPlan={tripPlan}
+          activeDay={activeDay}
+          onDayChange={handleDayChange}
+          onWhatsAppBooking={handleWhatsAppBooking}
+        />
+      }
+      rightRail={
+        <DesktopRightRail
+          tripPlan={tripPlan}
+          formatPrice={formatPrice}
+          onWhatsAppBooking={handleWhatsAppBooking}
+          onOpenCustomize={() => setShowCustomizeSheet(true)}
+        />
+      }
       stickyPromptDock={
         <StickyPromptDock
           isVisible={isDockVisible}
@@ -350,11 +368,12 @@ export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
         />
       }
     >
-      {/* 1. Hero Search Studio */}
+      {/* 1. Hero Search Studio with Dynamic Suggestions */}
       <ConversationalSearch 
         onSubmit={handleConversationalSubmit}
         isGenerating={isGenerating}
         hasActiveTrip={Boolean(tripPlan)}
+        currentDestination={tripPlan?.destination}
       />
       
       {tripPlan && (

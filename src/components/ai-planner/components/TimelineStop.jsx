@@ -124,7 +124,7 @@ export default function TimelineStop({ stop, onSelect, onProximityToggle }) {
                 aria-expanded={isProximityOpen}
               >
                 <MapPin size={11} />
-                <span>{isProximityOpen ? 'Hide' : 'Nearby'}</span>
+                <span>{isProximityOpen ? 'Hide Nearby' : 'Nearby'}</span>
                 {isProximityOpen ? <ChevronUp size={10} /> : <ChevronDown size={10} />}
               </button>
             )}
@@ -135,11 +135,11 @@ export default function TimelineStop({ stop, onSelect, onProximityToggle }) {
         <h3 className="stop-editorial-title">{stopData.title}</h3>
         <p className="stop-editorial-subtitle">{stopData.subtitle}</p>
 
-        {/* Meal Stop Pure Veg / Jain Reassurance */}
+        {/* Meal Stop Pure Veg / Jain Reassurance (Truthful luxury curation) */}
         {stopData.type === 'meal' && (
           <div className="stop-dietary-reassurance">
             <ShieldCheck size={13} className="text-lime" />
-            <span>Pure Vegetarian & Jain Friendly dining available. Hygiene & kitchen verified.</span>
+            <span>Handpicked Food Stop · Top-rated dining with dedicated Pure Veg & Jain Friendly options.</span>
           </div>
         )}
 

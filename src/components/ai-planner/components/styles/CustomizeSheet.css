@@ -23,7 +23,7 @@
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35), 0 0 40px rgba(255, 137, 47, 0.15);
   display: flex;
   flex-direction: column;
-  max-height: 88vh;
+  max-height: 90vh;
   overflow: hidden;
   animation: slideUp var(--transition-base);
 }
@@ -36,35 +36,18 @@
   }
 
   .customize-sheet {
-    max-width: 680px;
+    max-width: 720px;
     margin: auto;
     border-radius: var(--radius-xl);
     max-height: 85vh;
   }
 }
 
-.sheet-handle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 28px;
-  background: var(--planner-modal-bg);
-  border-bottom: 1px solid var(--planner-border);
-}
-
-.handle-bar {
-  width: 40px;
-  height: 4px;
-  background: var(--planner-text-muted);
-  border-radius: 2px;
-  opacity: 0.4;
-}
-
 .sheet-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 20px;
+  padding: 16px 20px;
   background: var(--planner-modal-bg);
   border-bottom: 1px solid var(--planner-border);
   flex-shrink: 0;
@@ -76,7 +59,7 @@
   gap: 10px;
   margin: 0;
   font-family: var(--font-heading, 'Baumans', cursive, sans-serif);
-  font-size: 1.12rem;
+  font-size: 1.18rem;
   font-weight: 700;
   color: var(--planner-text-heading) !important;
 }
@@ -99,7 +82,7 @@
   justify-content: center;
   width: 34px;
   height: 34px;
-  background: var(--planner-pill-bg);
+  background: var(--planner-card-subtle-bg);
   border: 1px solid var(--planner-border);
   color: var(--planner-text-muted);
   border-radius: var(--radius-full);
@@ -116,10 +99,11 @@
 .sheet-content {
   flex: 1;
   overflow-y: auto;
-  padding: 16px 20px;
+  padding: 16px 20px 24px;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  -webkit-overflow-scrolling: touch;
 }
 
 .customize-section {
@@ -132,7 +116,7 @@
 
 .customize-section:focus-within,
 .customize-section:hover {
-  border-color: var(--planner-border-glow);
+  border-color: var(--planner-border-strong);
 }
 
 .customize-section .section-header {
@@ -199,7 +183,6 @@
   background: rgba(255, 137, 47, 0.1);
   padding: 3px 10px;
   border-radius: var(--radius-full);
-  white-space: normal;
   border: 1px solid rgba(255, 137, 47, 0.25);
   line-height: 1.3;
 }
@@ -212,21 +195,19 @@
   height: 28px;
   color: var(--planner-text-muted);
   flex-shrink: 0;
-  transition: transform var(--transition-fast);
 }
 
 .section-content {
   padding: 0 16px 14px;
-  animation: slideDown var(--transition-fast);
 }
 
 .options-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 8px;
+  gap: 10px;
 }
 
-@media (min-width: 540px) {
+@media (min-width: 580px) {
   .options-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -239,7 +220,7 @@
   gap: 10px;
   padding: 12px 14px;
   background: var(--planner-card);
-  border: 1px solid var(--planner-border);
+  border: 1.5px solid var(--planner-border);
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -248,7 +229,7 @@
 
 .option-card:hover {
   background: var(--planner-card-subtle-bg);
-  border-color: var(--planner-border-glow);
+  border-color: var(--planner-tangerine-500);
   transform: translateY(-1px);
 }
 
@@ -261,7 +242,7 @@
 .option-main {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
   flex: 1;
   min-width: 0;
 }
@@ -279,8 +260,7 @@
   font-size: 0.74rem;
   color: var(--planner-text-muted) !important;
   white-space: normal;
-  line-height: 1.35;
-  margin-top: 2px;
+  line-height: 1.4;
   word-break: break-word;
 }
 
@@ -288,13 +268,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   background: var(--planner-tangerine-500);
   color: #FFFFFF;
   border-radius: 50%;
   flex-shrink: 0;
   box-shadow: 0 2px 6px rgba(255, 137, 47, 0.35);
+  margin-top: 2px;
 }
 
 .sheet-footer {
@@ -302,6 +283,7 @@
   background: var(--planner-modal-bg);
   border-top: 1px solid var(--planner-border);
   flex-shrink: 0;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
 }
 
 .btn-apply {
@@ -316,7 +298,7 @@
   border: none;
   border-radius: var(--radius-full);
   font-family: inherit;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 800;
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -324,7 +306,7 @@
 }
 
 .btn-apply:hover {
-  transform: translateY(-1px);
+  transform: translateY(-1.5px);
   box-shadow: 0 6px 20px rgba(255, 137, 47, 0.5);
 }
 
