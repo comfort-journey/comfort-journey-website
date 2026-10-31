@@ -275,7 +275,13 @@ export default function AmbientBackgroundOrbs() {
           }
         }
         @media (max-width: 768px) {
-          .topo-right, .topo-left { width: 78vw; }
+          .topo-right, .topo-left { width: 78vw; animation: none !important; }
+          .route-network-layer .route-route { animation: none !important; }
+          .wanderlust-path { animation: none !important; }
+          .orb-sky-aqua, .orb-amber, .orb-emerald, .orb-aqua {
+            animation: none !important;
+            will-change: auto !important;
+          }
           .route-network-layer { opacity: 0.6; }
         }
       `}</style>

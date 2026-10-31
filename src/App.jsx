@@ -183,7 +183,7 @@ export default function App() {
         setActiveBlogSlug(null);
         setActiveTourSlug(null);
         setSelectedItineraryTour(null);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
         seoHeadManager.updateMetadata({
           title: "About Us | Who We Are | Comfort Journey Since 1992",
           description: "Learn about Comfort Journey, our heritage, team, and passion for curating luxurious and unforgettable trips across India and the globe.",
@@ -206,7 +206,7 @@ export default function App() {
         setActiveBlogSlug(null);
         setActiveTourSlug(null);
         setSelectedItineraryTour(null);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
         seoHeadManager.updateMetadata({
           title: "Travel Blogs & Luxury Guides | Comfort Journey",
           description: "Explore handcrafted destination guides, luxury stay reviews, and honeymoon tips curated by Comfort Journey since 1992.",
@@ -232,7 +232,7 @@ export default function App() {
         setSelectedItineraryTour(null);
         setCurrentView('blog-reader');
         setActiveLandingPage(null);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
         return;
       }
 
@@ -246,7 +246,7 @@ export default function App() {
         setActiveBlogSlug(null);
         setActiveTourSlug(null);
         setSelectedItineraryTour(null);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
         return;
       }
 
@@ -259,7 +259,7 @@ export default function App() {
         setActiveBlogSlug(null);
         setActiveTourSlug(null);
         setSelectedItineraryTour(null);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
         return;
       }
 
@@ -292,7 +292,7 @@ export default function App() {
               const pos = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
               window.scrollTo({ top: pos, behavior: 'smooth' });
             } else {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
             }
           }
         }, 80);
@@ -311,7 +311,7 @@ export default function App() {
         setActiveBlogSlug(null);
         setActiveTourSlug(null);
         setSelectedItineraryTour(null);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
         return;
       }
 
@@ -342,7 +342,7 @@ export default function App() {
           setCurrentView('itinerary');
           setActiveLandingPage(null);
           setActiveBlogSlug(null);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
           seoHeadManager.updateMetadata({
             title: resolvedTour ? `${resolvedTour.name} | Comfort Journey` : "Detailed Tour Itinerary | Comfort Journey",
             description: resolvedTour?.tagline || resolvedTour?.description?.slice(0, 160) || "Explore handcrafted luxury travel plan curated by Comfort Journey.",
@@ -412,7 +412,7 @@ export default function App() {
       setActiveLandingPage(matched);
       setCurrentView('landing');
       setActiveBlogSlug(null);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
       trackVirtualPageView(`/${slug}/`, `${matched.metaTitle || slug} | Comfort Journey`);
     }
   };
@@ -426,7 +426,7 @@ export default function App() {
     setActiveBlogSlug(slug);
     setCurrentView('blog-reader');
     setActiveLandingPage(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     trackVirtualPageView(`/blog/${slug}/`, `${slug} | Comfort Journey Blog`);
   };
 
@@ -439,7 +439,7 @@ export default function App() {
     setCurrentView('magazine');
     setActiveLandingPage(null);
     setActiveBlogSlug(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     trackVirtualPageView('/blog/', 'Travel Blogs & Luxury Guides | Comfort Journey');
   };
 
@@ -455,7 +455,7 @@ export default function App() {
     setActiveBlogSlug(null);
     setActiveTourSlug(null);
     setSelectedItineraryTour(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     trackVirtualPageView('/', 'Comfort Journey | Tour Packages Worldwide | Since 1992');
   };
 
@@ -470,7 +470,7 @@ export default function App() {
     setActiveBlogSlug(null);
     setActiveTourSlug(null);
     setSelectedItineraryTour(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     trackVirtualPageView('/about/', 'About Us | Who We Are | Comfort Journey');
   };
 
@@ -498,7 +498,7 @@ export default function App() {
         const pos = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
         window.scrollTo({ top: pos, behavior: 'smooth' });
       } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
       }
     }, 100);
   };
@@ -512,7 +512,7 @@ export default function App() {
     setCurrentView('ai-planner');
     setActiveLandingPage(null);
     setActiveBlogSlug(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     trackVirtualPageView('/ai-planner', 'Comfy.ai Travel Planner | Comfort Journey');
   };
 
@@ -527,7 +527,7 @@ export default function App() {
     setActiveBlogSlug(null);
     setActiveTourSlug(null);
     setSelectedItineraryTour(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     trackVirtualPageView('/privacy-policy/', 'Privacy Policy | Comfort Journey');
   };
 
@@ -542,7 +542,7 @@ export default function App() {
     setActiveBlogSlug(null);
     setActiveTourSlug(null);
     setSelectedItineraryTour(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     trackVirtualPageView('/terms-and-conditions/', 'Terms & Conditions | Comfort Journey');
   };
 
@@ -560,7 +560,7 @@ export default function App() {
     setCurrentView('itinerary');
     setActiveLandingPage(null);
     setActiveBlogSlug(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     trackVirtualPageView(slug ? `/tour/${slug}/` : '/tour', `${tour?.name || 'Tour'} | Comfort Journey`);
   };
 

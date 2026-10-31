@@ -86,7 +86,7 @@ export default function SmoothScrollProvider({ children }) {
 
       <style>{`
         html {
-          scroll-behavior: smooth;
+          /* Native instantaneous page transition */
         }
 
         /* Laser Scroll Progress Bar */

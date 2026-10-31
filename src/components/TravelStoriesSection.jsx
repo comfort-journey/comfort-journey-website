@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Volume2, VolumeX, Instagram, CheckCircle2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Volume2, VolumeX, Instagram, CheckCircle2, Play } from 'lucide-react';
 
 const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
 
@@ -78,6 +78,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
   const scrollRef = useRef(null);
   const videoRefs = useRef({});
   const [activeAudioId, setActiveAudioId] = useState(null); // Only one video has audio unmuted
+  const [playingStoryId, setPlayingStoryId] = useState(null); // Strict 1-decoder memory guard (prevents iOS WebKit crash)
   const [isSectionVisible, setIsSectionVisible] = useState(false);
 
   // Performance: Only play videos when section enters viewport
@@ -99,7 +100,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
   useEffect(() => {
     Object.entries(videoRefs.current).forEach(([id, videoEl]) => {
       if (!videoEl) return;
-      if (isSectionVisible) {
+      if (isSectionVisible && id === playingStoryId) {
         if (id !== activeAudioId) {
           videoEl.muted = true;
         }
@@ -108,30 +109,43 @@ export default function TravelStoriesSection({ onOpenQuote }) {
         videoEl.pause();
       }
     });
-  }, [isSectionVisible, activeAudioId]);
+  }, [isSectionVisible, playingStoryId, activeAudioId]);
 
   // Click card to toggle audio on/off with visual highlight
   const handleCardClick = (storyId) => {
     const video = videoRefs.current[storyId];
     if (!video) return;
 
-    if (activeAudioId === storyId) {
-      // Currently unmuted -> mute it
-      video.muted = true;
-      setActiveAudioId(null);
+    if (playingStoryId === storyId) {
+      if (activeAudioId === storyId) {
+        video.muted = true;
+        setActiveAudioId(null);
+      } else {
+        video.muted = false;
+        setActiveAudioId(storyId);
+      }
     } else {
-      // Mute all other videos
-      Object.entries(videoRefs.current).forEach(([id, otherVideo]) => {
-        if (otherVideo && id !== storyId) {
-          otherVideo.muted = true;
-        }
-      });
-      // Unmute clicked video
+      if (playingStoryId && videoRefs.current[playingStoryId]) {
+        videoRefs.current[playingStoryId].pause();
+        videoRefs.current[playingStoryId].muted = true;
+      }
+      setPlayingStoryId(storyId);
+      setActiveAudioId(storyId);
       video.muted = false;
       video.play().catch(() => {});
-      setActiveAudioId(storyId);
     }
   };
+
+  const handleCardHover = (storyId) => {
+    if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(pointer: fine)').matches && !activeAudioId) {
+      if (playingStoryId !== storyId) {
+        if (playingStoryId && videoRefs.current[playingStoryId]) {
+          videoRefs.current[playingStoryId].pause();
+        }
+        setPlayingStoryId(storyId);
+      }
+    }
+};
 
   const handleToggleMute = (e, storyId) => {
     e.stopPropagation();
@@ -217,6 +231,7 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                   key={story.id} 
                   className={`cj-card-wrapper ${hasAudio ? 'has-audio' : ''}`}
                   onClick={() => handleCardClick(story.id)}
+                  onMouseEnter={() => handleCardHover(story.id)}
                   title={hasAudio ? 'Click to mute sound' : 'Click to unmute sound'}
                 >
                   <div className="cj-arched-card">
@@ -228,13 +243,20 @@ export default function TravelStoriesSection({ onOpenQuote }) {
                       className="cj-video-element"
                       playsInline
                       muted={!hasAudio}
-                      autoPlay
+
                       loop
-                      preload="auto"
+                      preload="none"
                     />
 
                     {/* Gradient Overlays for Cinematic Depth */}
                     <div className="cj-video-vignette" />
+
+                    {/* Central Play Badge when story is paused */}
+                    {playingStoryId !== story.id && (
+                      <div className="cj-play-badge" aria-hidden="true">
+                        <Play size={22} fill="white" color="white" />
+                      </div>
+                    )}
 
                     {/* Top Right Sound Toggle Pill */}
                     <button
@@ -478,6 +500,34 @@ export default function TravelStoriesSection({ onOpenQuote }) {
           object-fit: cover;
           display: block;
           background: #060A12;
+        }
+
+        /* Central Play Badge when story is paused */
+        .cj-play-badge {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          background: rgba(15, 30, 54, 0.65);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          border: 1.5px solid rgba(255, 255, 255, 0.45);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+          pointer-events: none;
+          transition: transform 0.25s ease, background 0.25s ease;
+          z-index: 3;
+        }
+
+        .cj-card-wrapper:hover .cj-play-badge {
+          transform: translate(-50%, -50%) scale(1.1);
+          background: rgba(255, 137, 47, 0.85);
+          border-color: #FFA459;
         }
 
         /* Subtle vignette mask */
