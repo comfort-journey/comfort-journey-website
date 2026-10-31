@@ -1,0 +1,205 @@
+/* =========================================================================
+   STICKY PROMPT DOCK - Sleek Hybrid Prompt Bar on Scroll
+   ========================================================================= */
+
+.sticky-prompt-dock {
+  position: fixed;
+  bottom: calc(var(--footer-height) + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 860px;
+  z-index: 1100;
+  animation: dockSlideUp 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+@keyframes dockSlideUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 18px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.dock-glass-shell {
+  pointer-events: auto;
+  background: var(--planner-panel);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1.5px solid var(--planner-border-strong);
+  border-radius: var(--radius-xl);
+  padding: 10px 16px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(255, 137, 47, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dock-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.dock-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dock-sparkle-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 137, 47, 0.15);
+  border: 1px solid rgba(255, 137, 47, 0.3);
+}
+
+.dock-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--planner-text-heading);
+  letter-spacing: -0.01em;
+}
+
+.dock-toggle-input-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--planner-card-subtle-bg);
+  border: 1px solid var(--planner-border);
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--planner-text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.dock-toggle-input-btn:hover {
+  color: var(--planner-tangerine-500);
+  border-color: var(--planner-tangerine-500);
+  background: rgba(255, 137, 47, 0.08);
+}
+
+.dock-chips-carousel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dock-chips-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.dock-chip-pill {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  background: var(--planner-card-subtle-bg);
+  border: 1px solid var(--planner-border);
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--planner-text-body);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.dock-chip-pill:hover {
+  background: rgba(255, 137, 47, 0.12);
+  border-color: var(--planner-tangerine-500);
+  color: var(--planner-tangerine-500);
+  transform: translateY(-1px);
+}
+
+.dock-input-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid var(--planner-border);
+}
+
+.dock-text-input {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 14px;
+  background: var(--planner-input-bg);
+  border: 1px solid var(--planner-input-border);
+  border-radius: var(--radius-full);
+  color: var(--planner-text-heading);
+  font-family: inherit;
+  font-size: 0.82rem;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.dock-text-input:focus {
+  border-color: var(--planner-tangerine-500);
+  box-shadow: 0 0 0 2px rgba(255, 137, 47, 0.15);
+}
+
+.dock-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--planner-tangerine-500);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.dock-submit-btn:hover:not(:disabled) {
+  background: var(--planner-tangerine-600);
+  transform: translateY(-1px);
+}
+
+.dock-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .sticky-prompt-dock {
+    bottom: calc(var(--footer-height-mobile) + 8px);
+    width: calc(100% - 16px);
+  }
+
+  .dock-glass-shell {
+    padding: 8px 12px;
+  }
+
+  .dock-header {
+    gap: 8px;
+  }
+
+  .dock-chip-pill {
+    padding: 5px 10px;
+    font-size: 0.7rem;
+  }
+}

@@ -2,13 +2,13 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useCurrency } from '../../context/CurrencyContext';
 import { parseTravelIntent, generateComfyItinerary, askAIConcierge, QUICK_PROMPTS } from '../../services/aiConciergeService';
 import { exportItineraryToExcel, printPdfBrochure, generateSocialCardDataUrl } from '../../services/itineraryExportService';
+import { Navigation, ExternalLink, Sparkles, MapPin, Car, ShieldCheck } from 'lucide-react';
 import AIPlannerLayout from './components/AIPlannerLayout';
 import ConversationalSearch from './components/ConversationalSearch';
 import TripSummaryCard from './components/TripSummaryCard';
 import DayTabs from './components/DayTabs';
 import TimelineList from './components/TimelineList';
-import MapPanel from './components/MapPanel';
-import MapBottomSheet from './components/MapBottomSheet';
+import StickyPromptDock from './components/StickyPromptDock';
 import CustomizeSheet from './components/CustomizeSheet';
 import FloatingAIButton from './components/FloatingAIButton';
 import ChatPanel from './components/ChatPanel';
@@ -17,22 +17,17 @@ import ExportMenu from './components/ExportMenu';
 import SocialCardModal from './components/SocialCardModal';
 import { useResponsiveLayout } from './hooks/useResponsiveLayout';
 import { useTripPlan } from './hooks/useTripPlan';
-import { useMapSync } from './hooks/useMapSync';
 import { useChatPlannerBridge } from './hooks/useChatPlannerBridge';
 import { useURLState } from './hooks/useURLState';
 import { serializeTripPlan, deserializeTripPlan } from './utils/tripPlanSerializer';
 import './styles/ai-planner.css';
 
-const basePrefix = (import.meta.env.BASE_URL || './').replace(/\/$/, '') + '/';
-const mascotDefaultSrc = `${basePrefix}mascot-default.png`;
-const mascotReactionSrc = `${basePrefix}mascot-reaction.png`;
-
 export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
   const { formatPrice } = useCurrency();
-  const { isMobile, isTablet, isDesktop, mapHeight, layoutMode } = useResponsiveLayout();
+  const { isMobile, isTablet, isDesktop, layoutMode } = useResponsiveLayout();
   
   // Trip plan state with URL persistence
-  const [tripPlan, setTripPlan, resetTripPlan] = useTripPlan();
+  const [tripPlan, setTripPlan] = useTripPlan();
   const [activeDay, setActiveDay] = useState(1);
   const [selectedStop, setSelectedStop] = useState(null);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -42,16 +37,15 @@ export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
   const [showChatPanel, setShowChatPanel] = useState(false);
   const [showSocialCardModal, setShowSocialCardModal] = useState(false);
   const [showExportMenu, setShowExportMenu] = useState(false);
-  const [isMapFullscreen, setIsMapFullscreen] = useState(false);
   const [proximityExpandedStop, setProximityExpandedStop] = useState(null);
-  const [mobileActiveTab, setMobileActiveTab] = useState('itinerary');
+  const [isDockVisible, setIsDockVisible] = useState(false);
   
   // Chat state
   const [messages, setMessages] = useState([
     {
       id: 'welcome',
       role: 'assistant',
-      content: `**Namaste! I am Comfy, the trip helper at Comfort Journey.** 🌟\n\nTell me where you are dreaming of, who is coming and roughly when. I will suggest a plan with hotels, a private car and food that suits you, veg and Jain included.\n\n*Type like you would text a friend. \"5 days in the hills with my parents in May\" works great.*`,
+      content: `**Namaste! I am Comfy, your AI Travel Concierge at Comfort Journey (Est. 1992).** 🌟\n\nTell me where you are dreaming of, who is coming and roughly when. I will craft a personalized day-by-day plan with verified hotels, a private chauffeur, and meal assurances including pure veg and Jain.\n\n*Try typing: "7 days in Kashmir for parents who need relaxed pacing, pure veg meals, and a private Innova Hycross"*.`,
       time: 'Just now'
     }
   ]);
@@ -60,22 +54,12 @@ export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
   const chatBottomRef = useRef(null);
 
   // URL State for shareable links
-  const { updateURL, replaceURL } = useURLState();
-
-  // Map synchronization
-  const { 
-    mapInstance, 
-    setMapInstance, 
-    flyToStop, 
-    updateMapForDay, 
-    updateMapForRouteMode 
-  } = useMapSync(tripPlan, activeDay);
+  const { updateURL } = useURLState();
 
   // Chat-Planner bridge
   const { 
     handleChatMessage, 
-    handlePlannerAction,
-    chatContext 
+    handlePlannerAction 
   } = useChatPlannerBridge({
     tripPlan,
     setTripPlan,
@@ -88,6 +72,17 @@ export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
     isTyping,
     setIsTyping
   });
+
+  // Track scroll position to show sticky prompt dock
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+      setIsDockVisible(scrollY > 280);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Initialize with default trip or from URL
   useEffect(() => {
@@ -153,42 +148,33 @@ export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
         setSelectedStop(newTrip.days[0]?.stops[0] || null);
         setIsGenerating(false);
         
-        // Close chat panel on mobile after generating
         if (isMobile) setShowChatPanel(false);
-      }, 500);
+      }, 400);
     } catch (err) {
       console.error('Error generating trip:', err);
       setIsGenerating(false);
     }
   }, [isGenerating, setTripPlan, isMobile]);
 
-  // Handle quick prompt click
-  const handleQuickPrompt = (prompt) => {
-    handleConversationalSubmit(prompt);
-  };
-
   // Handle day change
   const handleDayChange = useCallback((day) => {
     setActiveDay(day);
     const dayData = tripPlan?.days?.find(d => d.day === day);
     setSelectedStop(dayData?.stops[0] || null);
-    updateMapForDay(day);
-  }, [tripPlan, updateMapForDay]);
+  }, [tripPlan]);
 
   // Handle stop selection
   const handleStopSelect = useCallback((stop) => {
     setSelectedStop(stop);
-    flyToStop(stop);
-    // Close proximity for other stops
     setProximityExpandedStop(prev => prev?.title === stop.title ? null : stop);
-  }, [flyToStop]);
+  }, []);
 
   // Handle proximity toggle
   const handleProximityToggle = useCallback((stop) => {
     setProximityExpandedStop(prev => prev?.title === stop.title ? null : stop);
   }, []);
 
-  // Handle customize changes
+  // Live Travel DNA changes
   const handlePacingChange = (pacing) => {
     setTripPlan(prev => ({
       ...prev,
@@ -215,7 +201,7 @@ export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
     setTripPlan(prev => ({
       ...prev,
       stayTier,
-      price: stayTier.includes('5★') ? prev.price + 12000 : prev.price
+      price: stayTier.includes('5★') ? prev.price + 12000 : Math.max(34999, prev.price - 12000)
     }));
   };
 
@@ -243,7 +229,7 @@ export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
   };
 
   // Social card generation
-  const handleSocialCard = async () => {
+  const handleSocialCard = () => {
     if (!tripPlan) return;
     setShowSocialCardModal(true);
   };
@@ -277,98 +263,17 @@ export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
 
   const activeDayData = tripPlan?.days?.find(d => d.day === activeDay) || tripPlan?.days?.[0];
 
-  // Render functions for layout sections
-  const renderLeftPanel = () => (
-    <div className="planner-left-panel" role="main" aria-label="Trip itinerary">
-      <ConversationalSearch 
-        onSubmit={handleConversationalSubmit}
-        isGenerating={isGenerating}
-        quickPrompts={QUICK_PROMPTS[0]?.questions?.slice(0, 4) || []}
-        onQuickPrompt={handleQuickPrompt}
-        hasActiveTrip={Boolean(tripPlan)}
-      />
-      
-      {tripPlan && (
-        <>
-          <TripSummaryCard 
-            tripPlan={tripPlan} 
-            formatPrice={formatPrice}
-            onCustomizeClick={() => setShowCustomizeSheet(true)}
-            onViewOnMap={() => setMobileActiveTab('map')}
-            isMobile={isMobile}
-          />
-          
-          <DayTabs 
-            days={tripPlan.days} 
-            activeDay={activeDay}
-            onDayChange={handleDayChange}
-          />
-          
-          {activeDayData && (
-            <div className="active-day-header">
-              <div className="day-header-top">
-                <h3 className="active-day-title">Day {activeDayData.day}: {activeDayData.title}</h3>
-                <span className="day-travel-badge">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.5 2.8C2.1 11.2 2 11.6 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
-                  <span>{activeDayData.travelDistance}</span>
-                </span>
-              </div>
-              {activeDayData.summary && (
-                <div className="active-day-summary">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-amber"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                  <span>{activeDayData.summary}</span>
-                </div>
-              )}
-            </div>
-          )}
-          
-          <TimelineList
-            stops={activeDayData?.stops || []}
-            selectedStop={selectedStop}
-            proximityExpandedStop={proximityExpandedStop}
-            onStopSelect={(stop) => {
-              handleStopSelect(stop);
-              if (isMobile) {
-                // Keep stop selected and allow viewing map
-              }
-            }}
-            onProximityToggle={handleProximityToggle}
-          />
-
-          <div className="planner-ai-legal-disclaimer">
-            <p>
-              * AI-assisted itineraries & pricing estimates are indicative for trip planning. Final hotels, seasonal rates & room availability are verified & confirmed by Comfort Journey specialists via WhatsApp or call (+91 9203931912).
-            </p>
-          </div>
-        </>
-      )}
-    </div>
-  );
-
-  const renderRightPanel = () => (
-    <MapPanel
-      tripPlan={tripPlan}
-      activeDay={activeDay}
-      selectedStop={selectedStop}
-      onStopSelect={handleStopSelect}
-      setMapInstance={setMapInstance}
-      isMobile={isMobile}
-      onBackToItinerary={() => setMobileActiveTab('itinerary')}
-    />
-  );
-
-  const renderBottomActionBar = () => (
-    <BottomActionBar
-      tripPlan={tripPlan}
-      formatPrice={formatPrice}
-      onWhatsAppBooking={handleWhatsAppBooking}
-      onSocialCard={handleSocialCard}
-      onExcelExport={handleExcelExport}
-      onPDFExport={handlePDFExport}
-      onExportMenuToggle={() => setShowExportMenu(prev => !prev)}
-      showExportMenu={showExportMenu}
-    />
-  );
+  // Compute full-day real Google Maps road routing URL
+  const dayStopsWithCoords = (activeDayData?.stops || []).filter(s => s.lat && s.lng);
+  let dayGoogleMapsUrl = null;
+  if (dayStopsWithCoords.length > 1) {
+    const origin = `${dayStopsWithCoords[0].lat},${dayStopsWithCoords[0].lng}`;
+    const destination = `${dayStopsWithCoords[dayStopsWithCoords.length - 1].lat},${dayStopsWithCoords[dayStopsWithCoords.length - 1].lng}`;
+    const waypoints = dayStopsWithCoords.slice(1, -1).map(s => `${s.lat},${s.lng}`).join('|');
+    dayGoogleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}${waypoints ? `&waypoints=${waypoints}` : ''}&travelmode=driving`;
+  } else if (dayStopsWithCoords.length === 1) {
+    dayGoogleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${dayStopsWithCoords[0].lat},${dayStopsWithCoords[0].lng}`;
+  }
 
   return (
     <AIPlannerLayout
@@ -376,14 +281,28 @@ export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
       isTablet={isTablet}
       isDesktop={isDesktop}
       layoutMode={layoutMode}
-      mobileActiveTab={mobileActiveTab}
-      onMobileTabChange={setMobileActiveTab}
-      totalDays={tripPlan?.days?.length || 7}
       onBackToHome={onBackToHome}
       onOpenQuote={onOpenQuote}
-      leftPanel={renderLeftPanel()}
-      rightPanel={renderRightPanel()}
-      bottomActionBar={renderBottomActionBar()}
+      stickyPromptDock={
+        <StickyPromptDock
+          isVisible={isDockVisible}
+          isGenerating={isGenerating}
+          onSubmit={handleConversationalSubmit}
+          currentDestination={tripPlan?.destination}
+        />
+      }
+      bottomActionBar={
+        <BottomActionBar
+          tripPlan={tripPlan}
+          formatPrice={formatPrice}
+          onWhatsAppBooking={handleWhatsAppBooking}
+          onSocialCard={handleSocialCard}
+          onExcelExport={handleExcelExport}
+          onPDFExport={handlePDFExport}
+          onExportMenuToggle={() => setShowExportMenu(prev => !prev)}
+          showExportMenu={showExportMenu}
+        />
+      }
       floatingAIButton={
         <FloatingAIButton 
           onClick={() => setShowChatPanel(true)}
@@ -400,10 +319,7 @@ export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
           isTyping={isTyping}
           onSendMessage={handleChatMessage}
           tripPlan={tripPlan}
-          onViewInPlanner={() => {
-            setShowChatPanel(false);
-            // Scroll to planner view
-          }}
+          onViewInPlanner={() => setShowChatPanel(false)}
         />
       }
       customizeSheet={
@@ -433,6 +349,96 @@ export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
           onPDFExport={handlePDFExport}
         />
       }
-    />
+    >
+      {/* 1. Hero Search Studio */}
+      <ConversationalSearch 
+        onSubmit={handleConversationalSubmit}
+        isGenerating={isGenerating}
+        hasActiveTrip={Boolean(tripPlan)}
+      />
+      
+      {tripPlan && (
+        <>
+          {/* 2. Trip Overview & Live Travel DNA Customizer */}
+          <TripSummaryCard 
+            tripPlan={tripPlan} 
+            formatPrice={formatPrice}
+            onCustomizeClick={() => setShowCustomizeSheet(true)}
+            onWhatsAppBooking={handleWhatsAppBooking}
+            onPacingChange={handlePacingChange}
+            onVehicleChange={handleVehicleChange}
+            onStayTierChange={handleStayTierChange}
+            onDietaryChange={handleDietaryChange}
+          />
+          
+          {/* 3. Day Selector Navigation */}
+          <DayTabs 
+            days={tripPlan.days} 
+            activeDay={activeDay}
+            onDayChange={handleDayChange}
+          />
+          
+          {/* 4. Active Day Editorial Banner with Real Google Maps Route */}
+          {activeDayData && (
+            <div className="active-day-editorial-banner">
+              <div className="active-day-header-top">
+                <div className="day-title-lockup">
+                  <span className="day-number-badge">Day {activeDayData.day}</span>
+                  <h3 className="active-day-heading">{activeDayData.title}</h3>
+                </div>
+                
+                <div className="day-actions-lockup">
+                  {activeDayData.travelDistance && (
+                    <span className="day-distance-pill">
+                      <Car size={12} className="text-aqua" />
+                      <span>{activeDayData.travelDistance}</span>
+                    </span>
+                  )}
+                  
+                  {dayGoogleMapsUrl && (
+                    <a
+                      href={dayGoogleMapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="day-gmaps-route-pill"
+                      title="Open full day road navigation in Google Maps"
+                    >
+                      <Navigation size={12} />
+                      <span>Day Route in Google Maps</span>
+                      <ExternalLink size={10} />
+                    </a>
+                  )}
+                </div>
+              </div>
+
+              {activeDayData.summary && (
+                <div className="active-day-narrative">
+                  <Sparkles size={13} className="text-amber narrative-icon" />
+                  <p className="narrative-text">{activeDayData.summary}</p>
+                </div>
+              )}
+            </div>
+          )}
+          
+          {/* 5. Timeline Stops */}
+          <div className="editorial-timeline-wrapper">
+            <TimelineList
+              stops={activeDayData?.stops || []}
+              selectedStop={selectedStop}
+              proximityExpandedStop={proximityExpandedStop}
+              onStopSelect={handleStopSelect}
+              onProximityToggle={handleProximityToggle}
+            />
+          </div>
+
+          {/* 6. Legal & Quality Assurance Disclaimer */}
+          <div className="planner-ai-legal-disclaimer">
+            <p>
+              * All AI-customized itineraries & pricing estimates are curated per Comfort Journey's 34-year private travel standards. Final hotel availability, vehicle assignment & customized pricing are confirmed directly by your dedicated trip curator in Bhopal via WhatsApp or phone (+91 9203931912).
+            </p>
+          </div>
+        </>
+      )}
+    </AIPlannerLayout>
   );
 }
