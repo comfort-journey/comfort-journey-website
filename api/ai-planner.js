@@ -57,13 +57,7 @@ You MUST respond with valid JSON matching this schema:
             "subtitle": "Stop description with vehicle / dining details",
             "duration": "e.g. 1 hr",
             "lat": realistic latitude number,
-            "lng": realistic longitude number,
-            "proximity": {
-              "transport": [{"name": "Airport / Station / Taxi Stand", "dist": "150m"}],
-              "landmarks": [{"name": "Key nearby viewpoint or monument", "dist": "300m"}],
-              "dining": [{"name": "Nearby dining or cafe", "dist": "200m"}],
-              "shopping": [{"name": "Local market or craft boutique", "dist": "400m"}]
-            }
+            "lng": realistic longitude number
           }
         ]
       }
@@ -75,6 +69,67 @@ You MUST respond with valid JSON matching this schema:
 INSTRUCTIONS FOR structuredTrip:
 - Set structuredTrip to null when the user asks purely informational questions (e.g., "what is the best season to visit", "what hotels do you provide", "can you arrange jain food").
 - Generate a full, realistic structuredTrip (with real geographic coordinates for that destination) whenever the user asks for a trip, itinerary, vacation plan, or mentions visiting/traveling to a destination (e.g. "trip to el salvador country", "plan 5 days in switzerland", "7 days in kashmir", "honeymoon in bali").`;
+
+function robustParseGeminiJSON(rawText) {
+  if (!rawText) return null;
+
+  try {
+    return JSON.parse(rawText);
+  } catch (e1) {
+    const clean = rawText.replace(/```(?:json)?/g, '').trim();
+    try {
+      return JSON.parse(clean);
+    } catch (e2) {
+      console.warn('Recovering malformed Gemini JSON with regex parser:', e2.message);
+
+      let destination = null;
+      const destMatch = clean.match(/"destination"\s*:\s*"([^"]+)"/i);
+      if (destMatch) destination = destMatch[1];
+
+      let isCustomGlobal = false;
+      const customMatch = clean.match(/"isCustomGlobal"\s*:\s*(true|false)/i);
+      if (customMatch) isCustomGlobal = customMatch[1].toLowerCase() === 'true';
+
+      let reply = '';
+      const replyMatch = clean.match(/"reply"\s*:\s*"((?:[^"\\]|\\.)*)"/s);
+      if (replyMatch) {
+        try {
+          reply = JSON.parse(`"${replyMatch[1]}"`);
+        } catch (e3) {
+          reply = replyMatch[1].replace(/\\n/g, '\n').replace(/\\"/g, '"');
+        }
+      }
+
+      let suggestedCurations = [];
+      const curationsMatch = clean.match(/"suggestedCurations"\s*:\s*\[(.*?)\]/s);
+      if (curationsMatch) {
+        try {
+          suggestedCurations = JSON.parse(`[${curationsMatch[1]}]`);
+        } catch (e4) {
+          suggestedCurations = curationsMatch[1].split(',').map(s => s.replace(/["'\[\]]/g, '').trim()).filter(Boolean);
+        }
+      }
+
+      let structuredTrip = null;
+      const tripMatch = clean.match(/"structuredTrip"\s*:\s*(\{.*\})/s);
+      if (tripMatch) {
+        try {
+          structuredTrip = JSON.parse(tripMatch[1]);
+        } catch (e5) {
+          // ignore partial json
+        }
+      }
+
+      return {
+        destination,
+        isCustomGlobal,
+        reply: reply || 'Welcome to Comfort Journey! We craft personalized vacations across 2,000+ destinations worldwide.',
+        suggestedCurations,
+        structuredTrip
+      };
+    }
+  }
+}
 
 export async function executeGeminiPrompt({ prompt, conversationHistory = [], currentTrip = null, apiKey }) {
   const contents = [];
@@ -98,7 +153,6 @@ export async function executeGeminiPrompt({ prompt, conversationHistory = [], cu
     parts: [{ text: fullPrompt }]
   });
 
-  // Active production models for 2026 in priority order
   const candidateModels = [
     'gemini-3.5-flash-lite',
     'gemini-3.5-flash',
@@ -141,34 +195,16 @@ export async function executeGeminiPrompt({ prompt, conversationHistory = [], cu
       const rawText = candidate?.content?.parts?.[0]?.text;
 
       if (rawText) {
-        let parsed = null;
-        try {
-          parsed = JSON.parse(rawText);
-        } catch (jsonErr) {
-          // Clean possible markdown code fences if model enclosed in ```json
-          const clean = rawText.replace(/```(?:json)?/g, '').trim();
-          try {
-            parsed = JSON.parse(clean);
-          } catch (e2) {
-            console.warn(`JSON parse error on model ${model} output:`, e2.message);
-            parsed = {
-              destination: null,
-              isCustomGlobal: false,
-              reply: clean,
-              suggestedCurations: [],
-              structuredTrip: null
-            };
-          }
-        }
+        const parsed = robustParseGeminiJSON(rawText);
 
         return {
           success: true,
           model,
-          destination: parsed.destination || null,
-          isCustomGlobal: Boolean(parsed.isCustomGlobal),
-          reply: parsed.reply || rawText,
-          suggestedCurations: Array.isArray(parsed.suggestedCurations) ? parsed.suggestedCurations : [],
-          structuredTrip: parsed.structuredTrip || null
+          destination: parsed?.destination || null,
+          isCustomGlobal: Boolean(parsed?.isCustomGlobal),
+          reply: parsed?.reply || rawText,
+          suggestedCurations: Array.isArray(parsed?.suggestedCurations) ? parsed.suggestedCurations : [],
+          structuredTrip: parsed?.structuredTrip || null
         };
       }
     } catch (err) {
