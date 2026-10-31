@@ -435,16 +435,35 @@ export function parseTravelIntent(prompt) {
     }
   }
 
-  // 3. Fallback to tours data using cleanQ (avoiding false "from india" matches)
+  // 3. Fallback to tours data or dynamic candidate destination extraction
+  let isCustomGlobal = false;
   if (!destination) {
     const matched = findMatchingTours(cleanQ, 1);
     if (matched.length > 0) {
       destination = matched[0].location || matched[0].country || matched[0].name;
       destKey = destination.toLowerCase().replace(/[^a-z0-9]/g, '_');
     } else {
-      // Default to Kashmir if completely unparseable
-      destination = 'Kashmir';
-      destKey = 'kashmir';
+      // Extract candidate destination phrase dynamically (e.g. "trip to el salvador country" -> "El Salvador")
+      const candidateMatch = cleanQ.match(/\b(?:trip to|holiday in|vacation in|visit|travel to|tour to|package for|guide for|about|go to|plan(?:\s+a)?\s+trip\s+to|plan\s+to|explore)\s+([a-zA-Z\s]+?)(?:\s+(?:country|tour|package|trip|holiday|vacation|with|for|in|\d+\s*days?)|$)/i);
+      if (candidateMatch && candidateMatch[1] && candidateMatch[1].trim().length > 2) {
+        const rawDest = candidateMatch[1].trim();
+        destination = rawDest.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+        destKey = rawDest.toLowerCase().replace(/[^a-z0-9]/g, '_');
+        isCustomGlobal = true;
+      } else {
+        // Look for any country or place-like non-stopword tokens
+        const stopWords = new Set(['plan', 'trip', 'tour', 'holiday', 'vacation', 'days', 'day', 'nights', 'night', 'with', 'for', 'and', 'from', 'hotel', 'car', 'veg', 'pure', 'food', 'travel', 'to', 'in', 'the', 'country', 'state', 'want', 'please', 'can', 'you']);
+        const tokens = cleanQ.split(/\s+/).filter(w => !stopWords.has(w) && w.length > 2);
+        if (tokens.length > 0) {
+          const rawDest = tokens.slice(0, 3).join(' ');
+          destination = rawDest.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+          destKey = rawDest.toLowerCase().replace(/[^a-z0-9]/g, '_');
+          isCustomGlobal = true;
+        } else {
+          destination = 'Kashmir';
+          destKey = 'kashmir';
+        }
+      }
     }
   }
 
@@ -527,7 +546,8 @@ export function parseTravelIntent(prompt) {
     vehicle,
     dietary,
     stayTier,
-    isCustomRequest: true
+    isCustomRequest: true,
+    isCustomGlobal: Boolean(isCustomGlobal)
   };
 }
 
@@ -920,6 +940,25 @@ function generateLocalSmartResponse(prompt, currentTrip = null) {
 
   // 8. Conversational Itinerary Intent detected (KAYAK style planning)
   const parsed = parseTravelIntent(prompt);
+  if (parsed && parsed.isCustomGlobal) {
+    const generatedTrip = generateComfyItinerary(parsed);
+    const replyText = `**Namaste! Welcome to Comfort Journey (Est. 1992, Bhopal).** 🌟\n\nYou asked about planning a trip to **${parsed.destination}**! What an exciting choice!\n\n✨ **Comfort Journey Handcrafted Global Travel (2,000+ Destinations Worldwide):**\nWhile **${parsed.destination}** is not a fixed pre-made catalog package on our public website, **Comfort Journey has been handcrafting 100% private, bespoke vacations across 2,000+ global destinations since 1992!**\n\nOur senior international travel curators in Bhopal can seamlessly arrange:\n- **Private AC Vehicles & Verified Local Chauffeurs**\n- **Handpicked 4★ & 5★ Boutique Stays**\n- **Pure Vegetarian & Jain Dining Care**\n- **24/7 Dedicated Trip Manager on WhatsApp**\n\n💬 **Get Your Custom Quote:**\nMessage our Bhopal travel desk on WhatsApp at **[+91 9203931912](https://wa.me/919203931912)** with your dates, and we will prepare a confirmed bespoke package for **${parsed.destination}**!`;
+
+    return {
+      reply: replyText,
+      destination: parsed.destination,
+      isCustomGlobal: true,
+      suggestedCurations: [
+        `Highlights of ${parsed.destination}`,
+        `Boutique Stays in ${parsed.destination}`,
+        'Private Chauffeur Tour',
+        'Pure Veg & Jain Meals'
+      ],
+      matchedTours: findMatchingTours('luxury', 2),
+      generatedTrip
+    };
+  }
+
   const isSpecificDestination = parsed && parsed.destKey && parsed.destKey !== 'kashmir';
   if (parsed && (isSpecificDestination || q.includes('plan a trip') || q.includes('plan my trip') || q.includes('create itinerary') || (q.includes('day') && (q.includes('honeymoon') || q.includes('family') || q.includes('parents'))))) {
     const generatedTrip = generateComfyItinerary(parsed);
@@ -933,6 +972,9 @@ function generateLocalSmartResponse(prompt, currentTrip = null) {
 
     return {
       reply: replyText,
+      destination: parsed.destination,
+      isCustomGlobal: false,
+      suggestedCurations: [],
       matchedTours: findMatchingTours(parsed.destKey, 2),
       generatedTrip
     };
@@ -1000,11 +1042,14 @@ export async function askAIConcierge({ prompt, conversationHistory = [], current
         return {
           success: true,
           reply: data.reply,
+          destination: data.destination || null,
+          isCustomGlobal: Boolean(data.isCustomGlobal),
+          suggestedCurations: Array.isArray(data.suggestedCurations) ? data.suggestedCurations : [],
           matchedTours,
           matchedBlogs,
           parsedIntent,
-          generatedTrip: data.generatedTrip || null,
-          model: data.model || 'Gemini 1.5 Flash'
+          structuredTrip: data.structuredTrip || null,
+          model: data.model || 'Gemini 3.5 Flash'
         };
       }
     }
@@ -1017,10 +1062,13 @@ export async function askAIConcierge({ prompt, conversationHistory = [], current
   return {
     success: true,
     reply: localRes.reply,
+    destination: localRes.destination || parsedIntent?.destination || null,
+    isCustomGlobal: Boolean(localRes.isCustomGlobal || parsedIntent?.isCustomGlobal),
+    suggestedCurations: localRes.suggestedCurations || [],
     matchedTours: localRes.matchedTours?.length > 0 ? localRes.matchedTours : matchedTours,
     matchedBlogs,
     parsedIntent,
-    generatedTrip: localRes.generatedTrip || null, // Never replace active trip on informational Q&A
+    structuredTrip: localRes.generatedTrip || null, // Never replace active trip on informational Q&A
     model: 'Comfy.ai Intelligence (Est. 1992)'
   };
 }

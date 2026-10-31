@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useCurrency } from '../../context/CurrencyContext';
 import { parseTravelIntent, generateComfyItinerary, askAIConcierge, QUICK_PROMPTS } from '../../services/aiConciergeService';
 import { exportItineraryToExcel, printPdfBrochure, generateSocialCardDataUrl } from '../../services/itineraryExportService';
-import { Navigation, ExternalLink, Sparkles, MapPin, Car, ShieldCheck } from 'lucide-react';
+import { Navigation, ExternalLink, Sparkles, MapPin, Car, ShieldCheck, Compass, ArrowRight } from 'lucide-react';
 import AIPlannerLayout from './components/AIPlannerLayout';
 import ConversationalSearch from './components/ConversationalSearch';
 import TripSummaryCard from './components/TripSummaryCard';
@@ -41,6 +41,11 @@ export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
   const [showExportMenu, setShowExportMenu] = useState(false);
   const [proximityExpandedStop, setProximityExpandedStop] = useState(null);
   const [isDockVisible, setIsDockVisible] = useState(false);
+  
+  // Real-time AI Insight & Custom Destination states
+  const [aiInsight, setAiInsight] = useState(null);
+  const [customDestinationBanner, setCustomDestinationBanner] = useState(null);
+  const [dynamicChips, setDynamicChips] = useState(null);
   
   // Chat state
   const [messages, setMessages] = useState([
@@ -135,28 +140,75 @@ export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
     chatBottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
 
-  // Handle conversational search submission
+  // Handle conversational search submission with Real Gemini AI
   const handleConversationalSubmit = useCallback(async (query) => {
     if (!query?.trim() || isGenerating) return;
     
     setIsGenerating(true);
     try {
-      const parsed = parseTravelIntent(query);
-      const newTrip = generateComfyItinerary(parsed);
-      
-      setTimeout(() => {
-        setTripPlan(newTrip);
+      const res = await askAIConcierge({
+        prompt: query,
+        conversationHistory: messages,
+        currentTrip: tripPlan
+      });
+
+      if (res && res.reply) {
+        setAiInsight({
+          query,
+          reply: res.reply,
+          destination: res.destination,
+          isCustomGlobal: res.isCustomGlobal,
+          model: res.model
+        });
+
+        // Add to chat history
+        setMessages(prev => [
+          ...prev,
+          { id: `user-${Date.now()}`, role: 'user', content: query, time: 'Just now' },
+          { id: `assistant-${Date.now()}`, role: 'assistant', content: res.reply, time: 'Just now' }
+        ]);
+      }
+
+      if (Array.isArray(res?.suggestedCurations) && res.suggestedCurations.length > 0) {
+        setDynamicChips(res.suggestedCurations);
+      }
+
+      if (res?.isCustomGlobal && res?.destination) {
+        setCustomDestinationBanner({
+          destination: res.destination,
+          reply: res.reply
+        });
+      } else {
+        setCustomDestinationBanner(null);
+      }
+
+      if (res?.structuredTrip) {
+        setTripPlan(res.structuredTrip);
         setActiveDay(1);
-        setSelectedStop(newTrip.days[0]?.stops[0] || null);
-        setIsGenerating(false);
-        
-        if (isMobile) setShowChatPanel(false);
-      }, 400);
+        setSelectedStop(res.structuredTrip.days[0]?.stops[0] || null);
+      } else if (res?.parsedIntent) {
+        const fallbackTrip = generateComfyItinerary(res.parsedIntent);
+        if (fallbackTrip) {
+          setTripPlan(fallbackTrip);
+          setActiveDay(1);
+          setSelectedStop(fallbackTrip.days[0]?.stops[0] || null);
+        }
+      }
+
+      setIsGenerating(false);
+      if (isMobile) setShowChatPanel(false);
     } catch (err) {
-      console.error('Error generating trip:', err);
+      console.error('Error generating trip with AI:', err);
+      const parsed = parseTravelIntent(query);
+      if (parsed) {
+        const fallbackTrip = generateComfyItinerary(parsed);
+        setTripPlan(fallbackTrip);
+        setActiveDay(1);
+        setSelectedStop(fallbackTrip.days[0]?.stops[0] || null);
+      }
       setIsGenerating(false);
     }
-  }, [isGenerating, setTripPlan, isMobile]);
+  }, [isGenerating, messages, tripPlan, setTripPlan, isMobile]);
 
   // Handle day change
   const handleDayChange = useCallback((day) => {
@@ -368,13 +420,43 @@ export default function AIPlannerPage({ onBackToHome, onOpenQuote }) {
         />
       }
     >
-      {/* 1. Hero Search Studio with Dynamic Suggestions */}
+      {/* 1. Hero Search Studio with Dynamic Suggestions & AI Insight */}
       <ConversationalSearch 
         onSubmit={handleConversationalSubmit}
         isGenerating={isGenerating}
         hasActiveTrip={Boolean(tripPlan)}
         currentDestination={tripPlan?.destination}
+        aiInsight={aiInsight}
+        onDismissInsight={() => setAiInsight(null)}
+        dynamicChips={dynamicChips}
       />
+      
+      {/* Custom Global Destination Notice Banner */}
+      {customDestinationBanner && (
+        <div className="custom-destination-notice-banner">
+          <div className="custom-notice-icon-box">
+            <Compass size={22} className="text-amber" />
+          </div>
+          <div className="custom-notice-content">
+            <div className="custom-notice-headline">
+              <span className="notice-badge">🌍 Bespoke Global Travel</span>
+              <h4>Custom Private Tour for {customDestinationBanner.destination}</h4>
+            </div>
+            <p className="custom-notice-text">
+              While {customDestinationBanner.destination} is not a mass-market package in our online catalog, <strong>Comfort Journey has been handcrafting 100% personalized private holidays across 2,000+ destinations worldwide since 1992!</strong> Our Bhopal travel desk arranges verified 4★/5★ boutique hotels, private cars with courteous local drivers, and verified pure vegetarian/Jain dining.
+            </p>
+          </div>
+          <a
+            href={`https://wa.me/919203931912?text=${encodeURIComponent(`Hello Comfort Journey team! I want to plan a custom private trip to ${customDestinationBanner.destination} with private car and verified boutique stays. Please connect me with a senior curator.`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="custom-notice-whatsapp-cta"
+          >
+            <span>Chat on WhatsApp</span>
+            <ArrowRight size={14} />
+          </a>
+        </div>
+      )}
       
       {tripPlan && (
         <>

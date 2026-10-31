@@ -1,60 +1,111 @@
 /**
  * Comfort Journey - Universal Secure Serverless AI Planner Endpoint
- * Handles requests for Gemini AI while keeping GEMINI_API_KEY 100% secret.
- * Compatible with:
- *  - AWS Lambda & AWS API Gateway / Lambda Function URL
- *  - AWS Amplify Hosting
- *  - Vercel, Netlify, and standard Node.js servers
+ * Powered by Google Gemini AI with Multi-Model Fallbacks and Resilient JSON Parsing.
+ * Handles free-text requests across 2,000+ destinations worldwide.
+ * Compatible with AWS Lambda, Node.js microservice, and Docker.
  */
 
-const SYSTEM_INSTRUCTION = `You are "Comfy.ai", the friendly AI Travel Assistant for "Comfort Journey" (Est. 1992).
-Your phone/WhatsApp concierge contact is +91 9203931912.
-Website: Comfort Journey Travel.
+const SYSTEM_INSTRUCTION = `You are "Comfy.ai", the world-class, friendly AI Travel Concierge for "Comfort Journey" (Est. 1992, Bhopal, India).
+WhatsApp & Phone Concierge: +91 9203931912.
+Website: https://www.comfortjourney.in
 
-CRITICAL BRAND & OPERATIONAL RULES:
-1. EXCLUSIVE BRAND IDENTITY:
-   - You represent ONLY Comfort Journey. Comfort Journey has been handcrafting personalized, comfortable vacations across 2,000+ destinations worldwide since 1992.
-   - STRICTLY PROHIBITED: NEVER mention, compare, or promote any other travel agency, platform, or competitor (e.g., MakeMyTrip, Thomas Cook, Booking.com, Expedia, Airbnb, Viator, TripAdvisor, etc.).
-   - If a user mentions another brand or asks for comparison, politely say: "At Comfort Journey (Est. 1992), we focus on 100% personalized private trips with verified comfortable 4★ & 5★ hotels, private cars with experienced drivers, and 24/7 personal care from start to finish."
+CORE BRAND HERITAGE & RULES:
+1. EXCLUSIVE IDENTITY:
+   - Comfort Journey has been handcrafting 100% personalized, comfortable private vacations across 2,000+ destinations worldwide since 1992 from Bhopal.
+   - We arrange private AC vehicles with verified courteous chauffeurs, handpicked 4★ & 5★ boutique hotels, and special dietary care (pure vegetarian, Jain with no onion/garlic, and Halal dining).
+   - STRICTLY PROHIBITED: NEVER mention, compare, or promote any other travel agency or competitor (MakeMyTrip, Thomas Cook, Booking.com, Expedia, Viator, etc.).
 
-2. TONE & VOCABULARY (FRIENDLY, CLEAR & APPROACHABLE):
-   - Always be warm, clear, helpful, and down-to-earth.
-   - AVOID difficult, stiff, or pompous words like "bespoke", "opulent", "ultra-luxury", "sovereign", "conveyance", or "regal".
-   - INSTEAD use simple, traveler-friendly phrases: "personalized holidays", "comfortable stays", "private car & driver", "pure vegetarian & Jain meals", "smooth, hassle-free vacations", "handcrafted just for you".
+2. GLOBAL TRAVEL EXPERTISE (ANY DESTINATION ON EARTH):
+   - Travelers ask about ANY country, island, or city in the world (e.g. El Salvador, Peru, Iceland, Norway, Australia, Costa Rica, Egypt, Kenya, Brazil, Switzerland, Kashmir, Bali, Dubai, etc.).
+   - ALWAYS acknowledge and celebrate the destination they actually asked about. Highlight real sights, culture, geography, and appeal.
+   - NEVER EVER substitute their destination with an unrelated place (e.g., if the traveler asks about El Salvador, NEVER show or mention Kashmir!).
+   - Standard Online Catalog vs Bespoke Global Travel:
+     * Standard Catalog (Top Signature Packages): Switzerland, Kashmir, Bali, Dubai, Kerala, Rajasthan, Himachal (Manali, Shimla), Vietnam, Thailand, Japan, Singapore, Maldives, Goa, Kedarnath / Char Dham. For these, set isCustomGlobal: false.
+     * Custom Global Bespoke Destinations (e.g. El Salvador, Norway, Iceland, Costa Rica, New Zealand, Peru, Egypt, etc.): set isCustomGlobal: true. Clarify that while it is not a mass-market fixed catalog package on the website, Comfort Journey specializes in 100% private custom-tailored holidays to over 2,000 destinations globally since 1992. Explain that our senior tour curators in Bhopal will coordinate private cars, boutique stays, and pure veg/Jain food. Invite them to WhatsApp (+91 9203931912).
 
-3. CONVERSATIONAL FREEDOM (KAYAK STYLE):
-   - You seamlessly understand free-flowing requests like: "7 days in Kashmir for parents who need relaxed pacing, pure veg meals, and a private Innova Hycross", or "5 days Bali honeymoon with private pool villa and vegetarian cafes".
-   - When users specify pacing (e.g., relaxed for seniors), highlight late morning starts, minimal hill driving, and accessible viewpoints.
-   - When users request vehicles (e.g., Innova Hycross, Crysta, Luxury Sedan), confirm private AC cars with courteous local chauffeurs.
-   - When users mention food (Pure Veg, Jain, Halal), confirm pre-arranged dining care at verified clean restaurants.
+3. MANDATORY JSON RESPONSE SCHEMA:
+You MUST respond with valid JSON matching this schema:
+{
+  "destination": "Name of the destination queried (e.g. 'El Salvador' or 'Switzerland') or null if general question",
+  "isCustomGlobal": boolean (true if outside the 14 standard catalog destinations, false otherwise),
+  "reply": "Warm, conversational markdown response answering the traveler's question or greeting them. Include destination highlights, travel tips, and Comfort Journey's personal private chauffeur and boutique stay assurances.",
+  "suggestedCurations": ["4-5 relevant local highlight chips for this destination, e.g. 'Ruta de las Flores', 'Lake Coatepeque'"],
+  "structuredTrip": null OR {
+    "title": "Itinerary Title (e.g. 5-Day Scenic El Salvador Adventure)",
+    "destination": "Destination Name",
+    "destKey": "lowercase_dest_key",
+    "duration": "X Days / Y Nights",
+    "durationDays": number (2 to 14),
+    "party": "Couples / Family / Parents & Seniors",
+    "pacing": "Relaxed Pace / Balanced Pace",
+    "vehicle": "Private AC Toyota Innova / Private AC Sedan / Private SUV",
+    "dietary": "100% Pure Vegetarian / Jain Friendly / As requested",
+    "stayTier": "4★ Deluxe Boutique Hotel / 5★ Luxury Resort",
+    "price": estimated number in INR per person (e.g. 49999),
+    "center": [latitude, longitude],
+    "days": [
+      {
+        "day": 1,
+        "title": "Day 1 Title",
+        "travelDistance": "e.g. 25 km · ~40 mins",
+        "summary": "Short 1-2 sentence day summary",
+        "stops": [
+          {
+            "time": "10:00 AM",
+            "type": "transport" | "sightseeing" | "meal" | "hotel" | "shopping",
+            "title": "Stop Title",
+            "subtitle": "Stop description with vehicle / dining details",
+            "duration": "e.g. 1 hr",
+            "lat": realistic latitude number,
+            "lng": realistic longitude number,
+            "proximity": {
+              "transport": [{"name": "Airport / Station / Taxi Stand", "dist": "150m"}],
+              "landmarks": [{"name": "Key nearby viewpoint or monument", "dist": "300m"}],
+              "dining": [{"name": "Nearby dining or cafe", "dist": "200m"}],
+              "shopping": [{"name": "Local market or craft boutique", "dist": "400m"}]
+            }
+          }
+        ]
+      }
+    ],
+    "highlights": ["100% Private holiday with dedicated AC vehicle", "Handpicked boutique stays verified by Comfort Journey", "Paced comfortably for your group", "Carefully planned pure veg & dining care", "24/7 dedicated personal trip manager on WhatsApp & phone"]
+  }
+}
 
-4. COMFORT JOURNEY SIGNATURE DESTINATIONS & PACKAGES:
-   - Domestic Highlights: Kashmir Pine Chalets & Dal Lake Houseboats, Kedarnath Helicopter & Char Dham, Kerala Backwaters & Stays, Rajasthan Heritage Palaces (Jaipur, Udaipur), Himachal Peace (Shimla, Manali), Goa Beaches, Coorg Coffee Estates.
-   - International Highlights: Dubai & Abu Dhabi, Bali Private Pool Villas, Thailand (Phuket, Krabi), Japan Cherry Blossoms, Europe (Swiss Alps, Paris, Rome), Singapore & Malaysia, Vietnam (Hanoi, Halong Bay Cruise), Sri Lanka Scenic Hills.
-   - Every holiday package includes verified comfortable stays, private AC vehicle with friendly driver, daily breakfast & dinner, sightseeing entries, and 24/7 support.
+INSTRUCTIONS FOR structuredTrip:
+- Set structuredTrip to null when the user asks purely informational questions (e.g., "what is the best season to visit", "what hotels do you provide", "can you arrange jain food").
+- Generate a full, realistic structuredTrip (with real geographic coordinates for that destination) whenever the user asks for a trip, itinerary, vacation plan, or mentions visiting/traveling to a destination (e.g. "trip to el salvador country", "plan 5 days in switzerland", "7 days in kashmir", "honeymoon in bali").`;
 
-5. MULTILINGUAL & ACTIONABLE:
-   - Understand and reply in the EXACT language the traveler speaks (English, Hindi, Hinglish, Gujarati, Marathi, Bengali, Spanish, etc.).
-   - Always encourage travelers to connect with our friendly trip curators on WhatsApp (+91 9203931912) for quick custom quotes and confirmed reservations.`;
-
-async function executeGeminiPrompt({ prompt, conversationHistory = [], apiKey }) {
+export async function executeGeminiPrompt({ prompt, conversationHistory = [], currentTrip = null, apiKey }) {
   const contents = [];
 
   if (Array.isArray(conversationHistory)) {
-    conversationHistory.slice(-6).forEach(msg => {
+    conversationHistory.slice(-4).forEach(msg => {
       contents.push({
         role: msg.role === 'user' ? 'user' : 'model',
-        parts: [{ text: msg.content }]
+        parts: [{ text: typeof msg.content === 'string' ? msg.content : JSON.stringify(msg.content) }]
       });
     });
   }
 
+  let fullPrompt = prompt;
+  if (currentTrip && currentTrip.destination) {
+    fullPrompt += `\n[Context: Traveler currently viewing itinerary for "${currentTrip.title}" in ${currentTrip.destination}]`;
+  }
+
   contents.push({
     role: 'user',
-    parts: [{ text: prompt }]
+    parts: [{ text: fullPrompt }]
   });
 
-  const candidateModels = ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-flash-latest', 'gemini-2.5-flash', 'gemini-1.5-pro'];
+  // Active production models for 2026 in priority order
+  const candidateModels = [
+    'gemini-3.5-flash-lite',
+    'gemini-3.5-flash',
+    'gemini-flash-lite-latest',
+    'gemini-3.8-flash',
+    'gemini-pro-latest'
+  ];
   let lastError = null;
 
   for (const model of candidateModels) {
@@ -62,7 +113,7 @@ async function executeGeminiPrompt({ prompt, conversationHistory = [], apiKey })
       const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
       const response = await fetch(apiUrl, {
         method: 'POST',
-        signal: AbortSignal.timeout(6500),
+        signal: AbortSignal.timeout(12000),
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           systemInstruction: {
@@ -70,8 +121,9 @@ async function executeGeminiPrompt({ prompt, conversationHistory = [], apiKey })
           },
           contents,
           generationConfig: {
+            responseMimeType: 'application/json',
             temperature: 0.7,
-            maxOutputTokens: 900,
+            maxOutputTokens: 5000,
             topP: 0.95
           }
         })
@@ -86,13 +138,37 @@ async function executeGeminiPrompt({ prompt, conversationHistory = [], apiKey })
 
       const data = await response.json();
       const candidate = data.candidates?.[0];
-      const replyText = candidate?.content?.parts?.[0]?.text;
+      const rawText = candidate?.content?.parts?.[0]?.text;
 
-      if (replyText) {
+      if (rawText) {
+        let parsed = null;
+        try {
+          parsed = JSON.parse(rawText);
+        } catch (jsonErr) {
+          // Clean possible markdown code fences if model enclosed in ```json
+          const clean = rawText.replace(/```(?:json)?/g, '').trim();
+          try {
+            parsed = JSON.parse(clean);
+          } catch (e2) {
+            console.warn(`JSON parse error on model ${model} output:`, e2.message);
+            parsed = {
+              destination: null,
+              isCustomGlobal: false,
+              reply: clean,
+              suggestedCurations: [],
+              structuredTrip: null
+            };
+          }
+        }
+
         return {
           success: true,
-          reply: replyText,
-          model
+          model,
+          destination: parsed.destination || null,
+          isCustomGlobal: Boolean(parsed.isCustomGlobal),
+          reply: parsed.reply || rawText,
+          suggestedCurations: Array.isArray(parsed.suggestedCurations) ? parsed.suggestedCurations : [],
+          structuredTrip: parsed.structuredTrip || null
         };
       }
     } catch (err) {
@@ -110,7 +186,6 @@ async function executeGeminiPrompt({ prompt, conversationHistory = [], apiKey })
 export default async function handler(reqOrEvent, resOrContext) {
   const isLambda = !resOrContext || typeof resOrContext.status !== 'function';
 
-  // Extract HTTP method and body based on environment
   let method = 'POST';
   let body = {};
 
@@ -119,12 +194,23 @@ export default async function handler(reqOrEvent, resOrContext) {
     try {
       body = typeof reqOrEvent.body === 'string' ? JSON.parse(reqOrEvent.body) : (reqOrEvent.body || {});
     } catch (e) {
-      console.error('JSON parse error in ai-planner:', e.message, 'Raw body was:', reqOrEvent.body);
-      body = {};
+      try {
+        const sanitized = (reqOrEvent.body || '').replace(/\\([":{},[\]])/g, '$1');
+        body = JSON.parse(sanitized);
+      } catch (e2) {
+        body = { prompt: reqOrEvent.body };
+      }
     }
   } else {
     method = reqOrEvent.method || 'POST';
     body = reqOrEvent.body || {};
+    if (typeof body === 'string') {
+      try {
+        body = JSON.parse(body);
+      } catch (e) {
+        body = { prompt: body };
+      }
+    }
   }
 
   const ALLOWED_ORIGINS = [
@@ -139,7 +225,6 @@ export default async function handler(reqOrEvent, resOrContext) {
   const origin = reqOrEvent.headers?.origin || reqOrEvent.headers?.Origin || '';
   const allowOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
 
-  // Handle CORS / OPTIONS pre-flight
   if (method === 'OPTIONS') {
     if (isLambda) {
       return {
@@ -191,7 +276,9 @@ export default async function handler(reqOrEvent, resOrContext) {
   }
 
   try {
-    const { prompt, conversationHistory = [] } = body;
+    const prompt = body.prompt;
+    const conversationHistory = body.conversationHistory || [];
+    const currentTrip = body.currentTrip || null;
 
     if (!prompt || typeof prompt !== 'string') {
       const badReq = { error: 'Missing prompt in request body' };
@@ -205,7 +292,7 @@ export default async function handler(reqOrEvent, resOrContext) {
       return resOrContext.status(400).json(badReq);
     }
 
-    const result = await executeGeminiPrompt({ prompt, conversationHistory, apiKey });
+    const result = await executeGeminiPrompt({ prompt, conversationHistory, currentTrip, apiKey });
 
     if (isLambda) {
       return {
@@ -231,6 +318,4 @@ export default async function handler(reqOrEvent, resOrContext) {
   }
 }
 
-// Export named lambdaHandler for AWS Lambda Function configurations
 export const lambdaHandler = handler;
-

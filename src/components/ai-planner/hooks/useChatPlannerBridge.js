@@ -34,10 +34,11 @@ export function useChatPlannerBridge({
         currentTrip: tripPlan 
       });
 
-      if (response.generatedTrip) {
-        setTripPlan(response.generatedTrip);
+      const tripToSet = response.structuredTrip || response.generatedTrip;
+      if (tripToSet) {
+        setTripPlan(tripToSet);
         setActiveDay(1);
-        setSelectedStop(response.generatedTrip.days[0]?.stops[0] || null);
+        setSelectedStop(tripToSet.days[0]?.stops[0] || null);
       }
 
       const assistantMsg = {

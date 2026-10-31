@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, Loader2, ArrowRight, Compass, ShieldCheck, Heart } from 'lucide-react';
+import { Sparkles, Loader2, ArrowRight, Compass, ShieldCheck, Heart, X, Globe, MessageCircle } from 'lucide-react';
 import './styles/ConversationalSearch.css';
 
 // Contextual dynamic suggestions mapped by destination
@@ -52,27 +52,44 @@ export default function ConversationalSearch({
   onSubmit,
   isGenerating,
   hasActiveTrip = false,
-  currentDestination = ''
+  currentDestination = '',
+  aiInsight = null,
+  onDismissInsight = null,
+  dynamicChips = null
 }) {
   const [query, setQuery] = useState('');
 
-  // Dynamically resolve suggestions based on active trip destination
-  const destLower = (currentDestination || '').toLowerCase();
+  // Dynamically resolve suggestions
   let activeSuggestions = DEFAULT_POPULAR_CURATIONS;
+  let isContextual = false;
 
-  if (destLower.includes('swiss') || destLower.includes('switz')) {
-    activeSuggestions = DESTINATION_SUGGESTIONS.switzerland;
-  } else if (destLower.includes('dubai') || destLower.includes('uae')) {
-    activeSuggestions = DESTINATION_SUGGESTIONS.dubai;
-  } else if (destLower.includes('kashmir') || destLower.includes('srinagar')) {
-    activeSuggestions = DESTINATION_SUGGESTIONS.kashmir;
-  } else if (destLower.includes('bali')) {
-    activeSuggestions = DESTINATION_SUGGESTIONS.bali;
-  } else if (destLower.includes('kerala') || destLower.includes('munnar')) {
-    activeSuggestions = DESTINATION_SUGGESTIONS.kerala;
+  if (Array.isArray(dynamicChips) && dynamicChips.length > 0) {
+    activeSuggestions = dynamicChips.map(chip => {
+      if (typeof chip === 'string') {
+        return { icon: '✨', label: chip, detail: `Plan trip to ${chip}` };
+      }
+      return chip;
+    });
+    isContextual = true;
+  } else {
+    const destLower = (currentDestination || '').toLowerCase();
+    if (destLower.includes('swiss') || destLower.includes('switz')) {
+      activeSuggestions = DESTINATION_SUGGESTIONS.switzerland;
+      isContextual = true;
+    } else if (destLower.includes('dubai') || destLower.includes('uae')) {
+      activeSuggestions = DESTINATION_SUGGESTIONS.dubai;
+      isContextual = true;
+    } else if (destLower.includes('kashmir') || destLower.includes('srinagar')) {
+      activeSuggestions = DESTINATION_SUGGESTIONS.kashmir;
+      isContextual = true;
+    } else if (destLower.includes('bali')) {
+      activeSuggestions = DESTINATION_SUGGESTIONS.bali;
+      isContextual = true;
+    } else if (destLower.includes('kerala') || destLower.includes('munnar')) {
+      activeSuggestions = DESTINATION_SUGGESTIONS.kerala;
+      isContextual = true;
+    }
   }
-
-  const isContextual = activeSuggestions !== DEFAULT_POPULAR_CURATIONS;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -97,7 +114,7 @@ export default function ConversationalSearch({
           Where is your next <span className="text-amber">Comfort Journey</span>?
         </h2>
         <p className="hero-studio-subtitle">
-          Describe your dream trip in simple words. Comfy plans verified boutique stays, private AC cars with courteous drivers, and pure veg/Jain dining.
+          Describe your dream vacation in plain words. Comfy configures verified boutique hotels, private chauffeured cars, and pure veg/Jain dining across 2,000+ destinations worldwide.
         </p>
       </div>
 
@@ -111,7 +128,7 @@ export default function ConversationalSearch({
               type="text"
               className="hero-main-input"
               placeholder={hasActiveTrip 
-                ? 'Ask Comfy to tweak: e.g. "Add 2 days in Gulmarg with luxury resort" or "plan 5 days in Switzerland"'
+                ? 'Search any destination worldwide: e.g. "trip to el salvador country" or "plan 5 days in Switzerland"'
                 : 'e.g. "plan 5 day switzerland trip from india with private car and pure veg food"'}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -140,6 +157,85 @@ export default function ConversationalSearch({
           </div>
         </form>
 
+        {/* Live AI Concierge Insight Banner */}
+        {aiInsight && (
+          <div className="hero-ai-insight-card" role="region" aria-label="AI Concierge Response">
+            <div className="insight-card-header">
+              <div className="insight-header-left">
+                <div className="insight-avatar-glow">
+                  <span className="insight-avatar-emoji">🐺</span>
+                </div>
+                <div className="insight-header-meta">
+                  <div className="insight-header-title-row">
+                    <span className="insight-concierge-name">Comfy.ai Live Intelligence</span>
+                    <span className="insight-model-tag">{aiInsight.model || 'Gemini Flash'}</span>
+                    {aiInsight.isCustomGlobal && (
+                      <span className="insight-global-tag">
+                        <Globe size={11} />
+                        Bespoke Worldwide Tour
+                      </span>
+                    )}
+                  </div>
+                  <span className="insight-query-ref">Answering: &ldquo;{aiInsight.query}&rdquo;</span>
+                </div>
+              </div>
+              {onDismissInsight && (
+                <button
+                  type="button"
+                  onClick={onDismissInsight}
+                  className="insight-dismiss-btn"
+                  aria-label="Close insight"
+                  title="Close insight"
+                >
+                  <X size={15} />
+                </button>
+              )}
+            </div>
+
+            <div className="insight-card-body">
+              <div className="insight-markdown-content">
+                {(aiInsight.reply || '').split('\n\n').map((para, pIdx) => {
+                  const trimmed = para.trim();
+                  if (!trimmed) return null;
+                  if (trimmed.startsWith('### ') || trimmed.startsWith('## ')) {
+                    return <h4 key={pIdx} className="insight-subheading">{trimmed.replace(/^#+\s*/, '')}</h4>;
+                  }
+                  if (trimmed.startsWith('* ') || trimmed.startsWith('- ')) {
+                    const items = trimmed.split('\n').filter(Boolean);
+                    return (
+                      <ul key={pIdx} className="insight-bullet-list">
+                        {items.map((it, itIdx) => (
+                          <li key={itIdx}>{it.replace(/^[\*\-]\s*/, '').replace(/\*\*(.*?)\*\*/g, '$1')}</li>
+                        ))}
+                      </ul>
+                    );
+                  }
+                  return <p key={pIdx} className="insight-para">{trimmed.replace(/\*\*(.*?)\*\*/g, '$1')}</p>;
+                })}
+              </div>
+            </div>
+
+            {/* Direct 1-Click WhatsApp Booking Action for Custom Global Inquiries */}
+            {aiInsight.isCustomGlobal && (
+              <div className="insight-global-cta-bar">
+                <div className="global-cta-text">
+                  <strong>🌍 Bespoke Global Travel (Est. 1992 · Bhopal)</strong>
+                  <span>We coordinate private chauffeured cars, 4★ & 5★ boutique hotels, and verified pure veg/Jain meals for {aiInsight.destination || 'this destination'}.</span>
+                </div>
+                <a
+                  href={`https://wa.me/919203931912?text=${encodeURIComponent(`Hello Comfort Journey! I searched for a custom private tour to ${aiInsight.destination || 'this destination'} on your AI Travel Studio. Please share a personalized itinerary and package quote.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="insight-whatsapp-btn"
+                >
+                  <MessageCircle size={15} />
+                  <span>Lock Custom Quote on WhatsApp</span>
+                </a>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Dynamic Contextual Suggestions */}
         <div className="hero-persona-chips-wrapper">
           <div className="persona-chips-header">
@@ -147,7 +243,7 @@ export default function ConversationalSearch({
               <Sparkles size={11} className="text-amber" />
               <span>
                 {isContextual 
-                  ? `Recommended Curations for ${currentDestination}:`
+                  ? `Recommended Curations for ${currentDestination || 'Your Search'}:`
                   : 'Popular Vacation Curations:'}
               </span>
             </span>
