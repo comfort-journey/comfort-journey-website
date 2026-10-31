@@ -54,7 +54,7 @@ async function executeGeminiPrompt({ prompt, conversationHistory = [], apiKey })
     parts: [{ text: prompt }]
   });
 
-  const candidateModels = ['gemini-3.8-flash', 'gemini-flash-latest', 'gemini-3.5-flash', 'gemini-3.1-flash-lite'];
+  const candidateModels = ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-flash-latest', 'gemini-2.5-flash', 'gemini-1.5-pro'];
   let lastError = null;
 
   for (const model of candidateModels) {
@@ -62,6 +62,7 @@ async function executeGeminiPrompt({ prompt, conversationHistory = [], apiKey })
       const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
       const response = await fetch(apiUrl, {
         method: 'POST',
+        signal: AbortSignal.timeout(6500),
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           systemInstruction: {

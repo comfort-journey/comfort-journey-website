@@ -1,6 +1,7 @@
 # Dependencies & Build
 node_modules/
 dist/
+scratch/
 .vercel/
 .netlify/
 

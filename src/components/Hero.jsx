@@ -1668,7 +1668,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           display: flex;
           gap: 0.75rem;
           overflow-x: auto;
-          padding-bottom: 1rem;
+          padding: 0.5rem 0.25rem 1rem 0.25rem;
           scrollbar-width: thin;
           scrollbar-color: rgba(255, 137, 47, 0.4) transparent;
         }
@@ -2776,7 +2776,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
             font-size: 1.15rem !important;
           }
           .hero-interactive-stage {
-            padding: 0.85rem 0.65rem 3.5rem 0.65rem !important;
+            padding: 1.25rem 0.85rem 3.5rem 0.85rem !important;
             border-radius: 18px !important;
             margin-bottom: 2.25rem !important;
           }
@@ -2836,11 +2836,11 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             gap: 0.65rem;
-            padding: 0.25rem 0.25rem 0.65rem 0.25rem;
+            padding: 0.6rem 0.5rem 0.85rem 0.5rem;
             scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
-            mask-image: linear-gradient(to right, transparent, black 8px, black calc(100% - 14px), transparent);
-            -webkit-mask-image: linear-gradient(to right, transparent, black 8px, black calc(100% - 14px), transparent);
+            mask-image: none;
+            -webkit-mask-image: none;
           }
           .continents-deck-strip::-webkit-scrollbar {
             display: none;
@@ -2848,6 +2848,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
           .continent-chip-card {
             flex: 0 0 140px;
             scroll-snap-align: start;
+            margin: 3px 0;
             padding: 0.6rem 0.75rem;
           }
 
@@ -2901,6 +2902,7 @@ export default function Hero({ onSelectItinerary, onBookNow, onOpenAIPlanner, on
             flex: 0 0 68vw;
             max-width: 270px;
             scroll-snap-align: start;
+            margin: 3px 0;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
           }
           .stage-cities-grid.carousel-mode .c-card-media-pane {
